@@ -22,14 +22,16 @@ fn default_fileinfo_kind() -> FileKind {
 #[derive(Deserialize, PartialEq, Debug)]
 pub struct Segment {
     pub name: String,
-    pub fixed_vram: Option<u64>,
-    //#[serde(default="default_segment_subalign")]
-    pub subalign: Option<i64>,
     pub files: Vec<FileInfo>,
+
+    pub fixed_vram: Option<u64>,
+
+    // The default of the following come from Options
+
     // TODO: section_order (both alloc and noload)
+    pub use_subalign: Option<bool>,
+    pub subalign: Option<u64>,
+
+    pub wildcard_sections: Option<bool>,
 }
 
-//fn default_segment_subalign() -> Option<i64> {
-//    // TODO: somehow grab the value from Options?
-//    Some(-1)
-//}

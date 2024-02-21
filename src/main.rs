@@ -2,6 +2,7 @@ mod paths_configs;
 mod options;
 mod segment;
 mod linker_writer;
+mod segment_symbols_style;
 
 use std::{fs, path::Path};
 use serde_yaml::Value;
@@ -34,10 +35,13 @@ fn main() {
     println!("{:?}", path_configs);
     println!("{:?}", options);
 
-    let segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
-    //for segment in &segments_list {
-    //    println!("{:?}", segment);
-    //}
+    let mut segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
+    for segment in &mut segments_list {
+        segment.use_subalign = Some(options.use_subalign);
+        segment.subalign = Some(options.subalign);
+
+        segment.wildcard_sections = Some(options.wildcard_sections);
+    }
 
     let mut writer = LinkerWriter::new();
     writer.begin_sections();

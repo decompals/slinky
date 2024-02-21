@@ -53,8 +53,8 @@ impl LinkerWriter {
 
             line += &format!(" : AT({})", rom_start_sym);
 
-            if let Some(subalign) = segment.subalign {
-                line += &format!(" SUBALIGN({})", subalign);
+            if segment.use_subalign.unwrap() {
+                line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
             }
 
             self.writeln(&line);
@@ -79,10 +79,16 @@ impl LinkerWriter {
 
                 path.extend(&file.path);
 
+                let wildcard = if segment.wildcard_sections.unwrap() {
+                    "*"
+                } else {
+                    ""
+                };
+
                 // TODO: figure out glob support
                 match file.kind {
                     FileKind::Object => {
-                        self.writeln(&format!("{}({});", path.display(), section));
+                        self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                     },
                     FileKind::Archive => todo!(),
                 }
@@ -103,8 +109,8 @@ impl LinkerWriter {
 
             line += &format!(" (NOLOAD) :");
 
-            if let Some(subalign) = segment.subalign {
-                line += &format!(" SUBALIGN({})", subalign);
+            if segment.use_subalign.unwrap() {
+                line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
             }
 
             self.writeln(&line);
@@ -128,10 +134,16 @@ impl LinkerWriter {
 
                     path.extend(&file.path);
 
+                    let wildcard = if segment.wildcard_sections.unwrap() {
+                        "*"
+                    } else {
+                        ""
+                    };
+    
                     // TODO: figure out glob support
                     match file.kind {
                         FileKind::Object => {
-                            self.writeln(&format!("{}({});", path.display(), section));
+                            self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                         },
                         FileKind::Archive => todo!(),
                     }
