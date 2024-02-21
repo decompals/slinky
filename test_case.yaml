@@ -1,7 +1,8 @@
 paths:
-#  base_path: build/us
+  base_path: build/us
 
 options:
+  placeholder: 1
 
 segments:
 - name: header

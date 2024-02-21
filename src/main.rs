@@ -20,11 +20,11 @@ fn main() {
     let yaml_root = yaml_obj.as_mapping().expect("Invalid yaml: Expected top-level `segments` list");
 
     let path_configs = match yaml_root.get("paths") {
-        None => PathsConfigs::new(),
+        None => PathsConfigs::default(),
         Some(val) => serde_yaml::from_value(val.clone()).expect("Failed to parse top-level `paths`"),
     };
     let options = match yaml_root.get("options") {
-        None => Options::new(),
+        None => Options::default(),
         Some(val) => serde_yaml::from_value(val.clone()).expect("Failed to parse top-level `paths`"),
     };
 
@@ -32,7 +32,6 @@ fn main() {
     println!("{:?}", options);
 
     let segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
-
     for segment in &segments_list {
         println!("{:?}", segment);
     }
