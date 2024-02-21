@@ -1,14 +1,17 @@
 mod paths_configs;
 mod options;
 mod segment;
+mod linker_writer;
 
-use std::fs;
+use std::{fs, path::Path};
 use serde_yaml::Value;
 use serde::Deserialize;
 
 use paths_configs::PathsConfigs;
 use options::Options;
 use segment::Segment;
+
+use linker_writer::LinkerWriter;
 
 fn main() {
     let yaml_contents = fs::read_to_string("test_case.yaml").expect("error");
@@ -32,7 +35,16 @@ fn main() {
     println!("{:?}", options);
 
     let segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
+    //for segment in &segments_list {
+    //    println!("{:?}", segment);
+    //}
+
+    let mut writer = LinkerWriter::new();
+    writer.begin_sections();
     for segment in &segments_list {
-        println!("{:?}", segment);
+        writer.add_segment(segment, &options, &path_configs);
     }
+    writer.end_sections();
+
+    writer.save_linker_script(Path::new("test_case.ld")).expect("Error writing the linker script");
 }

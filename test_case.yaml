@@ -20,7 +20,7 @@ segments:
   - { path: src/entry/entry.o }
 
 - name: boot
-  # subalign: null
+  subalign: null
   files:
   - { path: src/boot/boot_main.o }
   - { path: src/boot/dmadata.o }
