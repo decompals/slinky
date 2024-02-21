@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
 use serde::Deserialize;
 
 use crate::segment_symbols_style::SegmentSymbolsStyle;

@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
 mod paths_configs;
 mod options;
 mod segment;

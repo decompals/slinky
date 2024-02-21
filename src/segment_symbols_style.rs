@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
 use serde::Deserialize;
 
 // TODO: figure out how to allow lowercase for these values in the yaml

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: © 2024 decompals
+# SPDX-License-Identifier: MIT
+
 [package]
 name = "linker_script_gen"
 version = "0.1.0"

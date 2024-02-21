@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
 use std::path::PathBuf;
 use serde::Deserialize;
 

@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
 use std::{collections::HashSet, fs::{self, File}, io::Write, path::{Path, PathBuf}};
 
 use crate::{paths_configs::PathsConfigs, segment::{FileKind, Segment}};
