@@ -26,6 +26,7 @@ pub struct Segment {
     //#[serde(default="default_segment_subalign")]
     pub subalign: Option<i64>,
     pub files: Vec<FileInfo>,
+    // TODO: section_order (both alloc and noload)
 }
 
 //fn default_segment_subalign() -> Option<i64> {

@@ -103,7 +103,7 @@ impl Default for Options {
     fn default() -> Self {
         Self {
             alloc_sections: vec![".text".into(), ".data".into(), ".rodata".into()],
-            noload_sections: vec![".bss".into()],
+            noload_sections: vec![".sbss".into(), ".scommon".into(), ".bss".into(), "COMMON".into()],
             subalign: Some(16),
             segment_symbols_style: SegmentSymbolsStyle::Splat,
         }

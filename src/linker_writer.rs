@@ -22,7 +22,9 @@ impl LinkerWriter {
     pub fn begin_sections(&mut self) {
         self.writeln("SECTIONS");
         self.begin_block();
-        self.writeln("__romPos = 0;")
+        self.writeln("__romPos = 0x0;");
+
+        self.writeln("");
     }
 
     pub fn end_sections(&mut self) {
@@ -46,10 +48,10 @@ impl LinkerWriter {
             let mut line = segment_name.clone();
 
             if let Some(fixed_vram) = segment.fixed_vram {
-                line += &format!(" {:08X}", fixed_vram);
+                line += &format!(" 0x{:08X}", fixed_vram);
             }
 
-            line += &format!(" AT({})", rom_start_sym);
+            line += &format!(" : AT({})", rom_start_sym);
 
             if let Some(subalign) = segment.subalign {
                 line += &format!(" SUBALIGN({})", subalign);
@@ -77,6 +79,7 @@ impl LinkerWriter {
 
                 path.extend(&file.path);
 
+                // TODO: figure out glob support
                 match file.kind {
                     FileKind::Object => {
                         self.writeln(&format!("{}({});", path.display(), section));
@@ -93,6 +96,56 @@ impl LinkerWriter {
         self.writeln(&format!("__romPos += SIZEOF({});", segment_name));
         // self.writeln(&format!("__romPos = ALIGN(__romPos, {});", ));
         self.write_symbol(&rom_end_sym, "__romPos");
+
+        // noload
+        {
+            let mut line = segment_name.clone();
+
+            line += &format!(" (NOLOAD) :");
+
+            if let Some(subalign) = segment.subalign {
+                line += &format!(" SUBALIGN({})", subalign);
+            }
+
+            self.writeln(&line);
+        }
+
+        self.begin_block();
+
+        {
+            let section_start_sym = style.segment_section_start(&segment.name, ".bss");
+            let section_end_sym = style.segment_section_end(&segment.name, ".bss");
+            let section_size_sym = style.segment_section_size(&segment.name, ".bss");
+
+            self.write_symbol(&section_start_sym, ".");
+            for section in &options.noload_sections {
+                for file in &segment.files {
+                    let mut path = PathBuf::new();
+
+                    if let Some(base_path) = &paths_configs.base_path {
+                        path.extend(base_path);
+                    }
+
+                    path.extend(&file.path);
+
+                    // TODO: figure out glob support
+                    match file.kind {
+                        FileKind::Object => {
+                            self.writeln(&format!("{}({});", path.display(), section));
+                        },
+                        FileKind::Archive => todo!(),
+                    }
+
+                }
+            }
+            self.write_symbol(&section_end_sym, ".");
+            self.write_symbol(&section_size_sym, &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym));
+        }
+        self.end_block();
+
+
+
+        self.write_symbol(&style.segment_vram_end(&segment.name), ".");
 
         self.writeln("");
     }
