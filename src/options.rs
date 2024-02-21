@@ -24,7 +24,7 @@ pub struct Options {
 impl Default for Options {
     fn default() -> Self {
         Self {
-            alloc_sections: vec![".text".into(), ".data".into(), ".rodata".into()],
+            alloc_sections: vec![".text".into(), ".data".into(), ".rodata".into(), ".sdata".into()],
             noload_sections: vec![".sbss".into(), ".scommon".into(), ".bss".into(), "COMMON".into()],
             segment_symbols_style: SegmentSymbolsStyle::Splat,
 

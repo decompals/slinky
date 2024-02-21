@@ -18,6 +18,10 @@ SECTIONS
         build/us/rom_header/rom_header.o(.rodata*);
         header_rodata_END = .;
         header_rodata_SIZE = ABSOLUTE(header_rodata_END - header_rodata_START);
+        header_sdata_START = .;
+        build/us/rom_header/rom_header.o(.sdata*);
+        header_sdata_END = .;
+        header_sdata_SIZE = ABSOLUTE(header_sdata_END - header_sdata_START);
     }
     __romPos += SIZEOF(.header);
     header_ROM_END = __romPos;
@@ -49,6 +53,10 @@ SECTIONS
         build/us/asm/data/ipl3.o(.rodata*);
         ipl3_rodata_END = .;
         ipl3_rodata_SIZE = ABSOLUTE(ipl3_rodata_END - ipl3_rodata_START);
+        ipl3_sdata_START = .;
+        build/us/asm/data/ipl3.o(.sdata*);
+        ipl3_sdata_END = .;
+        ipl3_sdata_SIZE = ABSOLUTE(ipl3_sdata_END - ipl3_sdata_START);
     }
     __romPos += SIZEOF(.ipl3);
     ipl3_ROM_END = __romPos;
@@ -80,6 +88,10 @@ SECTIONS
         build/us/src/entry/entry.o(.rodata*);
         entry_rodata_END = .;
         entry_rodata_SIZE = ABSOLUTE(entry_rodata_END - entry_rodata_START);
+        entry_sdata_START = .;
+        build/us/src/entry/entry.o(.sdata*);
+        entry_sdata_END = .;
+        entry_sdata_SIZE = ABSOLUTE(entry_sdata_END - entry_sdata_START);
     }
     __romPos += SIZEOF(.entry);
     entry_ROM_END = __romPos;
@@ -576,6 +588,165 @@ SECTIONS
         build/us/asm/boot/8001B640.o(.rodata*);
         boot_rodata_END = .;
         boot_rodata_SIZE = ABSOLUTE(boot_rodata_END - boot_rodata_START);
+        boot_sdata_START = .;
+        build/us/src/boot/boot_main.o(.sdata*);
+        build/us/src/boot/dmadata.o(.sdata*);
+        build/us/src/gzip/inflate.o(.sdata*);
+        build/us/src/gzip/unzip.o(.sdata*);
+        build/us/src/boot/util.o(.sdata*);
+        build/us/src/boot/rom_offsets.o(.sdata*);
+        build/us/lib/ultralib/src/io/conteepprobe.o(.sdata*);
+        build/us/lib/ultralib/src/io/conteeplongwrite.o(.sdata*);
+        build/us/lib/ultralib/src/io/conteeplongread.o(.sdata*);
+        build/us/lib/ultralib/src/io/pimgr.o(.sdata*);
+        build/us/lib/ultralib/src/io/epirawdma.o(.sdata*);
+        build/us/lib/ultralib/src/io/epidma.o(.sdata*);
+        build/us/lib/ultralib/src/io/cartrominit.o(.sdata*);
+        build/us/lib/ultralib/src/io/devmgr.o(.sdata*);
+        build/us/lib/ultralib/src/io/piacs.o(.sdata*);
+        build/us/lib/ultralib/src/io/pidma.o(.sdata*);
+        build/us/lib/ultralib/src/io/aigetlen.o(.sdata*);
+        build/us/lib/ultralib/src/io/aigetstat.o(.sdata*);
+        build/us/lib/ultralib/src/io/aisetfreq.o(.sdata*);
+        build/us/lib/ultralib/src/io/aisetnextbuf.o(.sdata*);
+        build/us/lib/ultralib/src/audio/env.o(.sdata*);
+        build/us/lib/ultralib/src/audio/sl.o(.sdata*);
+        build/us/lib/ultralib/src/audio/heapinit.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synthesizer.o(.sdata*);
+        build/us/lib/ultralib/src/audio/syndelete.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synaddplayer.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synallocvoice.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synstopvoice.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synstartvoice.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synsetpitch.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synsetvol.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synsetfxmix.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synsetpan.o(.sdata*);
+        build/us/lib/ultralib/src/audio/synallocfx.o(.sdata*);
+        build/us/lib/ultralib/src/os/invaldcache.o(.sdata*);
+        build/us/lib/ultralib/src/os/writebackdcacheall.o(.sdata*);
+        build/us/lib/ultralib/src/io/contquery.o(.sdata*);
+        build/us/lib/ultralib/src/io/contreaddata.o(.sdata*);
+        build/us/lib/ultralib/src/io/controller.o(.sdata*);
+        build/us/lib/ultralib/src/io/contsetch.o(.sdata*);
+        build/us/lib/ultralib/src/os/virtualtophysical.o(.sdata*);
+        build/us/lib/ultralib/src/gu/sqrtf.o(.sdata*);
+        build/us/lib/ultralib/src/gu/cosf.o(.sdata*);
+        build/us/lib/ultralib/src/gu/ortho.o(.sdata*);
+        build/us/lib/ultralib/src/gu/perspective.o(.sdata*);
+        build/us/lib/ultralib/src/gu/rotaterpy.o(.sdata*);
+        build/us/lib/ultralib/src/gu/sinf.o(.sdata*);
+        build/us/lib/ultralib/src/gu/sins.o(.sdata*);
+        build/us/lib/ultralib/src/libc/bcmp.o(.sdata*);
+        build/us/lib/ultralib/src/libc/bcopy.o(.sdata*);
+        build/us/lib/ultralib/src/libc/bzero.o(.sdata*);
+        build/us/lib/ultralib/src/libc/string.o(.sdata*);
+        build/us/lib/ultralib/src/os/createmesgqueue.o(.sdata*);
+        build/us/lib/ultralib/src/os/jammesg.o(.sdata*);
+        build/us/lib/ultralib/src/os/recvmesg.o(.sdata*);
+        build/us/lib/ultralib/src/os/sendmesg.o(.sdata*);
+        build/us/lib/ultralib/src/os/seteventmesg.o(.sdata*);
+        build/us/lib/ultralib/src/io/sptask.o(.sdata*);
+        build/us/lib/ultralib/src/io/sptaskyield.o(.sdata*);
+        build/us/lib/ultralib/src/io/sptaskyielded.o(.sdata*);
+        build/us/lib/ultralib/src/sched/sched.o(.sdata*);
+        build/us/lib/ultralib/src/io/sirawdma.o(.sdata*);
+        build/us/lib/ultralib/src/io/siacs.o(.sdata*);
+        build/us/lib/ultralib/src/os/createthread.o(.sdata*);
+        build/us/lib/ultralib/src/os/getthreadpri.o(.sdata*);
+        build/us/lib/ultralib/src/os/setthreadpri.o(.sdata*);
+        build/us/lib/ultralib/src/os/startthread.o(.sdata*);
+        build/us/lib/ultralib/src/os/stopthread.o(.sdata*);
+        build/us/lib/ultralib/src/os/thread.o(.sdata*);
+        build/us/lib/ultralib/src/os/yieldthread.o(.sdata*);
+        build/us/lib/ultralib/src/os/gettime.o(.sdata*);
+        build/us/lib/ultralib/src/os/settime.o(.sdata*);
+        build/us/lib/ultralib/src/os/settimer.o(.sdata*);
+        build/us/lib/ultralib/src/os/timerintr.o(.sdata*);
+        build/us/lib/ultralib/src/os/probetlb.o(.sdata*);
+        build/us/lib/ultralib/src/io/vigetcurrframebuf.o(.sdata*);
+        build/us/lib/ultralib/src/io/vigetnextframebuf.o(.sdata*);
+        build/us/lib/ultralib/src/io/vimgr.o(.sdata*);
+        build/us/lib/ultralib/src/io/vitbl.o(.sdata*);
+        build/us/lib/ultralib/src/io/visetevent.o(.sdata*);
+        build/us/lib/ultralib/src/io/visetmode.o(.sdata*);
+        build/us/lib/ultralib/src/io/visetspecial.o(.sdata*);
+        build/us/lib/ultralib/src/io/visetyscale.o(.sdata*);
+        build/us/lib/ultralib/src/io/viswapbuf.o(.sdata*);
+        build/us/lib/ultralib/src/io/viswapcontext.o(.sdata*);
+        build/us/lib/ultralib/src/io/viblack.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/mtxident.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/mtxidentf.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/mtxf2l.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/mtxl2f.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/mtxcatf.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/scale.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/scalef.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/translate.o(.sdata*);
+        build/us/lib/ultralib/src/mgu/translatef.o(.sdata*);
+        build/us/lib/ultralib/src/os/initialize.o(.sdata*);
+        build/us/lib/ultralib/src/io/conteepread.o(.sdata*);
+        build/us/lib/ultralib/src/io/conteepwrite.o(.sdata*);
+        build/us/lib/ultralib/src/os/exceptasm.o(.sdata*);
+        build/us/lib/ultralib/src/os/interrupt.o(.sdata*);
+        build/us/lib/ultralib/src/os/setintmask.o(.sdata*);
+        build/us/lib/ultralib/src/os/setglobalintmask.o(.sdata*);
+        build/us/lib/ultralib/src/os/resetglobalintmask.o(.sdata*);
+        build/us/lib/ultralib/src/io/pirawdma.o(.sdata*);
+        build/us/lib/ultralib/src/io/pigetcmdq.o(.sdata*);
+        build/us/lib/ultralib/src/io/epirawread.o(.sdata*);
+        build/us/lib/ultralib/src/io/epirawwrite.o(.sdata*);
+        build/us/lib/ultralib/src/io/ai.o(.sdata*);
+        build/us/lib/ultralib/src/audio/drvrnew.o(.sdata*);
+        build/us/lib/ultralib/src/audio/load.o(.sdata*);
+        build/us/lib/ultralib/src/audio/auxbus.o(.sdata*);
+        build/us/lib/ultralib/src/audio/filter.o(.sdata*);
+        build/us/lib/ultralib/src/audio/mainbus.o(.sdata*);
+        build/us/lib/ultralib/src/audio/resample.o(.sdata*);
+        build/us/lib/ultralib/src/audio/reverb.o(.sdata*);
+        build/us/lib/ultralib/src/audio/save.o(.sdata*);
+        build/us/lib/ultralib/src/audio/heapalloc.o(.sdata*);
+        build/us/lib/ultralib/src/audio/copy.o(.sdata*);
+        build/us/lib/ultralib/src/os/invalicache.o(.sdata*);
+        build/us/lib/ultralib/src/os/writebackdcache.o(.sdata*);
+        build/us/lib/ultralib/src/io/dpsetnextbuf.o(.sdata*);
+        build/us/lib/ultralib/src/os/getcause.o(.sdata*);
+        build/us/lib/ultralib/src/os/getcount.o(.sdata*);
+        build/us/lib/ultralib/src/os/getsr.o(.sdata*);
+        build/us/lib/ultralib/src/os/setcompare.o(.sdata*);
+        build/us/lib/ultralib/src/os/setfpccsr.o(.sdata*);
+        build/us/lib/ultralib/src/os/setsr.o(.sdata*);
+        build/us/lib/ultralib/src/os/setwatchlo.o(.sdata*);
+        build/us/lib/ultralib/src/io/sp.o(.sdata*);
+        build/us/lib/ultralib/src/io/spgetstat.o(.sdata*);
+        build/us/lib/ultralib/src/io/spsetstat.o(.sdata*);
+        build/us/lib/ultralib/src/io/spsetpc.o(.sdata*);
+        build/us/lib/ultralib/src/io/sprawdma.o(.sdata*);
+        build/us/lib/ultralib/src/io/sirawread.o(.sdata*);
+        build/us/lib/ultralib/src/io/sirawwrite.o(.sdata*);
+        build/us/lib/ultralib/src/os/destroythread.o(.sdata*);
+        build/us/lib/ultralib/src/os/maptlbrdb.o(.sdata*);
+        build/us/lib/ultralib/src/os/unmaptlball.o(.sdata*);
+        build/us/lib/ultralib/src/io/vi.o(.sdata*);
+        build/us/lib/ultralib/src/io/vigetcurrcontext.o(.sdata*);
+        build/us/lib/ultralib/src/vimodes/vimodentsclan1.o(.sdata*);
+        build/us/lib/ultralib/src/vimodes/vimodepallan1.o(.sdata*);
+        build/us/lib/ultralib/src/vimodes/vimodempallan1.o(.sdata*);
+        build/us/lib/ultralib/src/os/parameters.o(.sdata*);
+        build/us/lib/ultralib/src/gu/libm_vals.o(.sdata*);
+        build/us/lib/ultralib/src/io/dp.o(.sdata*);
+        build/us/lib/ultralib/src/io/si.o(.sdata*);
+        build/us/src/libkmc/fmod.o(.sdata*);
+        build/us/src/libkmc/memmove.o(.sdata*);
+        build/us/src/libkmc/memset.o(.sdata*);
+        build/us/src/libkmc/modf.o(.sdata*);
+        build/us/src/libkmc/rand.o(.sdata*);
+        build/us/src/libkmc/strcpy.o(.sdata*);
+        build/us/src/libkmc/mmuldi3.o(.sdata*);
+        build/us/src/libkmc/ctype.o(.sdata*);
+        build/us/asm/boot/8001B640.o(.sdata*);
+        boot_sdata_END = .;
+        boot_sdata_SIZE = ABSOLUTE(boot_sdata_END - boot_sdata_START);
     }
     __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
@@ -1227,6 +1398,10 @@ SECTIONS
         build/us/src/dma_table/dma_table.o(.rodata*);
         dma_table_rodata_END = .;
         dma_table_rodata_SIZE = ABSOLUTE(dma_table_rodata_END - dma_table_rodata_START);
+        dma_table_sdata_START = .;
+        build/us/src/dma_table/dma_table.o(.sdata*);
+        dma_table_sdata_END = .;
+        dma_table_sdata_SIZE = ABSOLUTE(dma_table_sdata_END - dma_table_sdata_START);
     }
     __romPos += SIZEOF(.dma_table);
     dma_table_ROM_END = __romPos;
@@ -1402,6 +1577,58 @@ SECTIONS
         build/us/asm/main_segment/800E9BB0.o(.rodata*);
         main_segment_rodata_END = .;
         main_segment_rodata_SIZE = ABSOLUTE(main_segment_rodata_END - main_segment_rodata_START);
+        main_segment_sdata_START = .;
+        build/us/src/main_segment/main.o(.sdata*);
+        build/us/src/main_segment/nnsched.o(.sdata*);
+        build/us/src/main_segment/joy.o(.sdata*);
+        build/us/src/main_segment/audio/sound.o(.sdata*);
+        build/us/src/main_segment/graphic.o(.sdata*);
+        build/us/src/main_segment/graphics/static.o(.sdata*);
+        build/us/src/main_segment/graphics/graphic_dlists.o(.sdata*);
+        build/us/src/main_segment/audio/music_driver.o(.sdata*);
+        build/us/src/main_segment/main1x.o(.sdata*);
+        build/us/src/main_segment/vr_init.o(.sdata*);
+        build/us/src/main_segment/aiset.o(.sdata*);
+        build/us/src/main_segment/record.o(.sdata*);
+        build/us/src/main_segment/unused/020D10.o(.sdata*);
+        build/us/src/main_segment/game_etc.o(.sdata*);
+        build/us/src/main_segment/screen_print/printer.o(.sdata*);
+        build/us/src/main_segment/screen_print/printf_impl.o(.sdata*);
+        build/us/src/main_segment/screen_print/debug_print.o(.sdata*);
+        build/us/src/main_segment/debug_menu.o(.sdata*);
+        build/us/src/main_segment/028820.o(.sdata*);
+        build/us/src/main_segment/tex_func.o(.sdata*);
+        build/us/src/main_segment/main_menu.o(.sdata*);
+        build/us/src/main_segment/font.o(.sdata*);
+        build/us/src/main_segment/msgwnd.o(.sdata*);
+        build/us/src/main_segment/char_anime.o(.sdata*);
+        build/us/src/main_segment/dm_virus_init.o(.sdata*);
+        build/us/src/main_segment/dm_game_main.o(.sdata*);
+        build/us/src/main_segment/dm_manual_main.o(.sdata*);
+        build/us/src/main_segment/dm_title_main.o(.sdata*);
+        build/us/src/main_segment/main_story.o(.sdata*);
+        build/us/src/main_segment/lws.o(.sdata*);
+        build/us/src/main_segment/calc.o(.sdata*);
+        build/us/src/main_segment/unused/065080.o(.sdata*);
+        build/us/src/main_segment/unused/066080.o(.sdata*);
+        build/us/src/main_segment/replay.o(.sdata*);
+        build/us/src/main_segment/066580.o(.sdata*);
+        build/us/src/main_segment/066840.o(.sdata*);
+        build/us/src/main_segment/unused/055C40.o(.sdata*);
+        build/us/lib/libmus/src/player.o(.sdata*);
+        build/us/lib/libmus/src/player_fx.o(.sdata*);
+        build/us/lib/libmus/src/aud_dma.o(.sdata*);
+        build/us/lib/libmus/src/aud_sched.o(.sdata*);
+        build/us/lib/libmus/src/aud_thread.o(.sdata*);
+        build/us/lib/libmus/src/lib_memory.o(.sdata*);
+        build/us/lib/libmus/src/aud_samples.o(.sdata*);
+        build/us/asm/rsp/rspboot.o(.sdata*);
+        build/us/asm/rsp/aspMain.o(.sdata*);
+        build/us/asm/rsp/f3dex2.o(.sdata*);
+        build/us/asm/rsp/s2dex.o(.sdata*);
+        build/us/asm/main_segment/800E9BB0.o(.sdata*);
+        main_segment_sdata_END = .;
+        main_segment_sdata_SIZE = ABSOLUTE(main_segment_sdata_END - main_segment_sdata_START);
     }
     __romPos += SIZEOF(.main_segment);
     main_segment_ROM_END = __romPos;
@@ -1625,6 +1852,10 @@ SECTIONS
         build/us/src/buffers/buffer1.o(.rodata*);
         buffer1_rodata_END = .;
         buffer1_rodata_SIZE = ABSOLUTE(buffer1_rodata_END - buffer1_rodata_START);
+        buffer1_sdata_START = .;
+        build/us/src/buffers/buffer1.o(.sdata*);
+        buffer1_sdata_END = .;
+        buffer1_sdata_SIZE = ABSOLUTE(buffer1_sdata_END - buffer1_sdata_START);
     }
     __romPos += SIZEOF(.buffer1);
     buffer1_ROM_END = __romPos;
@@ -1656,6 +1887,10 @@ SECTIONS
         build/us/src/buffers/buffer2.o(.rodata*);
         buffer2_rodata_END = .;
         buffer2_rodata_SIZE = ABSOLUTE(buffer2_rodata_END - buffer2_rodata_START);
+        buffer2_sdata_START = .;
+        build/us/src/buffers/buffer2.o(.sdata*);
+        buffer2_sdata_END = .;
+        buffer2_sdata_SIZE = ABSOLUTE(buffer2_sdata_END - buffer2_sdata_START);
     }
     __romPos += SIZEOF(.buffer2);
     buffer2_ROM_END = __romPos;
@@ -1687,6 +1922,10 @@ SECTIONS
         build/us/src/buffers/framebuffer.o(.rodata*);
         framebuffer_rodata_END = .;
         framebuffer_rodata_SIZE = ABSOLUTE(framebuffer_rodata_END - framebuffer_rodata_START);
+        framebuffer_sdata_START = .;
+        build/us/src/buffers/framebuffer.o(.sdata*);
+        framebuffer_sdata_END = .;
+        framebuffer_sdata_SIZE = ABSOLUTE(framebuffer_sdata_END - framebuffer_sdata_START);
     }
     __romPos += SIZEOF(.framebuffer);
     framebuffer_ROM_END = __romPos;
@@ -1718,6 +1957,10 @@ SECTIONS
         build/us/asm/n64_wave_tables.o(.rodata*);
         n64_wave_tables_rodata_END = .;
         n64_wave_tables_rodata_SIZE = ABSOLUTE(n64_wave_tables_rodata_END - n64_wave_tables_rodata_START);
+        n64_wave_tables_sdata_START = .;
+        build/us/asm/n64_wave_tables.o(.sdata*);
+        n64_wave_tables_sdata_END = .;
+        n64_wave_tables_sdata_SIZE = ABSOLUTE(n64_wave_tables_sdata_END - n64_wave_tables_sdata_START);
     }
     __romPos += SIZEOF(.n64_wave_tables);
     n64_wave_tables_ROM_END = __romPos;
@@ -1749,6 +1992,10 @@ SECTIONS
         build/us/asm/n64_ptr_tables_v2.o(.rodata*);
         n64_ptr_tables_v2_rodata_END = .;
         n64_ptr_tables_v2_rodata_SIZE = ABSOLUTE(n64_ptr_tables_v2_rodata_END - n64_ptr_tables_v2_rodata_START);
+        n64_ptr_tables_v2_sdata_START = .;
+        build/us/asm/n64_ptr_tables_v2.o(.sdata*);
+        n64_ptr_tables_v2_sdata_END = .;
+        n64_ptr_tables_v2_sdata_SIZE = ABSOLUTE(n64_ptr_tables_v2_sdata_END - n64_ptr_tables_v2_sdata_START);
     }
     __romPos += SIZEOF(.n64_ptr_tables_v2);
     n64_ptr_tables_v2_ROM_END = __romPos;
@@ -1780,6 +2027,10 @@ SECTIONS
         build/us/asm/segment_17213.o(.rodata*);
         segment_17213_rodata_END = .;
         segment_17213_rodata_SIZE = ABSOLUTE(segment_17213_rodata_END - segment_17213_rodata_START);
+        segment_17213_sdata_START = .;
+        build/us/asm/segment_17213.o(.sdata*);
+        segment_17213_sdata_END = .;
+        segment_17213_sdata_SIZE = ABSOLUTE(segment_17213_sdata_END - segment_17213_sdata_START);
     }
     __romPos += SIZEOF(.segment_17213);
     segment_17213_ROM_END = __romPos;
@@ -1811,6 +2062,10 @@ SECTIONS
         build/us/asm/segment_172D60.o(.rodata*);
         segment_172D60_rodata_END = .;
         segment_172D60_rodata_SIZE = ABSOLUTE(segment_172D60_rodata_END - segment_172D60_rodata_START);
+        segment_172D60_sdata_START = .;
+        build/us/asm/segment_172D60.o(.sdata*);
+        segment_172D60_sdata_END = .;
+        segment_172D60_sdata_SIZE = ABSOLUTE(segment_172D60_sdata_END - segment_172D60_sdata_START);
     }
     __romPos += SIZEOF(.segment_172D60);
     segment_172D60_ROM_END = __romPos;
@@ -1842,6 +2097,10 @@ SECTIONS
         build/us/asm/segment_1750C0.o(.rodata*);
         segment_1750C0_rodata_END = .;
         segment_1750C0_rodata_SIZE = ABSOLUTE(segment_1750C0_rodata_END - segment_1750C0_rodata_START);
+        segment_1750C0_sdata_START = .;
+        build/us/asm/segment_1750C0.o(.sdata*);
+        segment_1750C0_sdata_END = .;
+        segment_1750C0_sdata_SIZE = ABSOLUTE(segment_1750C0_sdata_END - segment_1750C0_sdata_START);
     }
     __romPos += SIZEOF(.segment_1750C0);
     segment_1750C0_ROM_END = __romPos;
@@ -1873,6 +2132,10 @@ SECTIONS
         build/us/asm/segment_177420.o(.rodata*);
         segment_177420_rodata_END = .;
         segment_177420_rodata_SIZE = ABSOLUTE(segment_177420_rodata_END - segment_177420_rodata_START);
+        segment_177420_sdata_START = .;
+        build/us/asm/segment_177420.o(.sdata*);
+        segment_177420_sdata_END = .;
+        segment_177420_sdata_SIZE = ABSOLUTE(segment_177420_sdata_END - segment_177420_sdata_START);
     }
     __romPos += SIZEOF(.segment_177420);
     segment_177420_ROM_END = __romPos;
@@ -1904,6 +2167,10 @@ SECTIONS
         build/us/asm/segment_179620.o(.rodata*);
         segment_179620_rodata_END = .;
         segment_179620_rodata_SIZE = ABSOLUTE(segment_179620_rodata_END - segment_179620_rodata_START);
+        segment_179620_sdata_START = .;
+        build/us/asm/segment_179620.o(.sdata*);
+        segment_179620_sdata_END = .;
+        segment_179620_sdata_SIZE = ABSOLUTE(segment_179620_sdata_END - segment_179620_sdata_START);
     }
     __romPos += SIZEOF(.segment_179620);
     segment_179620_ROM_END = __romPos;
@@ -1935,6 +2202,10 @@ SECTIONS
         build/us/asm/segment_17B790.o(.rodata*);
         segment_17B790_rodata_END = .;
         segment_17B790_rodata_SIZE = ABSOLUTE(segment_17B790_rodata_END - segment_17B790_rodata_START);
+        segment_17B790_sdata_START = .;
+        build/us/asm/segment_17B790.o(.sdata*);
+        segment_17B790_sdata_END = .;
+        segment_17B790_sdata_SIZE = ABSOLUTE(segment_17B790_sdata_END - segment_17B790_sdata_START);
     }
     __romPos += SIZEOF(.segment_17B790);
     segment_17B790_ROM_END = __romPos;
@@ -1966,6 +2237,10 @@ SECTIONS
         build/us/asm/segment_17C1E0.o(.rodata*);
         segment_17C1E0_rodata_END = .;
         segment_17C1E0_rodata_SIZE = ABSOLUTE(segment_17C1E0_rodata_END - segment_17C1E0_rodata_START);
+        segment_17C1E0_sdata_START = .;
+        build/us/asm/segment_17C1E0.o(.sdata*);
+        segment_17C1E0_sdata_END = .;
+        segment_17C1E0_sdata_SIZE = ABSOLUTE(segment_17C1E0_sdata_END - segment_17C1E0_sdata_START);
     }
     __romPos += SIZEOF(.segment_17C1E0);
     segment_17C1E0_ROM_END = __romPos;
@@ -1997,6 +2272,10 @@ SECTIONS
         build/us/asm/segment_17D130.o(.rodata*);
         segment_17D130_rodata_END = .;
         segment_17D130_rodata_SIZE = ABSOLUTE(segment_17D130_rodata_END - segment_17D130_rodata_START);
+        segment_17D130_sdata_START = .;
+        build/us/asm/segment_17D130.o(.sdata*);
+        segment_17D130_sdata_END = .;
+        segment_17D130_sdata_SIZE = ABSOLUTE(segment_17D130_sdata_END - segment_17D130_sdata_START);
     }
     __romPos += SIZEOF(.segment_17D130);
     segment_17D130_ROM_END = __romPos;
@@ -2028,6 +2307,10 @@ SECTIONS
         build/us/asm/segment_17E090.o(.rodata*);
         segment_17E090_rodata_END = .;
         segment_17E090_rodata_SIZE = ABSOLUTE(segment_17E090_rodata_END - segment_17E090_rodata_START);
+        segment_17E090_sdata_START = .;
+        build/us/asm/segment_17E090.o(.sdata*);
+        segment_17E090_sdata_END = .;
+        segment_17E090_sdata_SIZE = ABSOLUTE(segment_17E090_sdata_END - segment_17E090_sdata_START);
     }
     __romPos += SIZEOF(.segment_17E090);
     segment_17E090_ROM_END = __romPos;
@@ -2059,6 +2342,10 @@ SECTIONS
         build/us/asm/segment_181840.o(.rodata*);
         segment_181840_rodata_END = .;
         segment_181840_rodata_SIZE = ABSOLUTE(segment_181840_rodata_END - segment_181840_rodata_START);
+        segment_181840_sdata_START = .;
+        build/us/asm/segment_181840.o(.sdata*);
+        segment_181840_sdata_END = .;
+        segment_181840_sdata_SIZE = ABSOLUTE(segment_181840_sdata_END - segment_181840_sdata_START);
     }
     __romPos += SIZEOF(.segment_181840);
     segment_181840_ROM_END = __romPos;
@@ -2090,6 +2377,10 @@ SECTIONS
         build/us/asm/segment_184FF0.o(.rodata*);
         segment_184FF0_rodata_END = .;
         segment_184FF0_rodata_SIZE = ABSOLUTE(segment_184FF0_rodata_END - segment_184FF0_rodata_START);
+        segment_184FF0_sdata_START = .;
+        build/us/asm/segment_184FF0.o(.sdata*);
+        segment_184FF0_sdata_END = .;
+        segment_184FF0_sdata_SIZE = ABSOLUTE(segment_184FF0_sdata_END - segment_184FF0_sdata_START);
     }
     __romPos += SIZEOF(.segment_184FF0);
     segment_184FF0_ROM_END = __romPos;
@@ -2121,6 +2412,10 @@ SECTIONS
         build/us/asm/segment_186FF0.o(.rodata*);
         segment_186FF0_rodata_END = .;
         segment_186FF0_rodata_SIZE = ABSOLUTE(segment_186FF0_rodata_END - segment_186FF0_rodata_START);
+        segment_186FF0_sdata_START = .;
+        build/us/asm/segment_186FF0.o(.sdata*);
+        segment_186FF0_sdata_END = .;
+        segment_186FF0_sdata_SIZE = ABSOLUTE(segment_186FF0_sdata_END - segment_186FF0_sdata_START);
     }
     __romPos += SIZEOF(.segment_186FF0);
     segment_186FF0_ROM_END = __romPos;
@@ -2152,6 +2447,10 @@ SECTIONS
         build/us/asm/segment_188FF0.o(.rodata*);
         segment_188FF0_rodata_END = .;
         segment_188FF0_rodata_SIZE = ABSOLUTE(segment_188FF0_rodata_END - segment_188FF0_rodata_START);
+        segment_188FF0_sdata_START = .;
+        build/us/asm/segment_188FF0.o(.sdata*);
+        segment_188FF0_sdata_END = .;
+        segment_188FF0_sdata_SIZE = ABSOLUTE(segment_188FF0_sdata_END - segment_188FF0_sdata_START);
     }
     __romPos += SIZEOF(.segment_188FF0);
     segment_188FF0_ROM_END = __romPos;
@@ -2183,6 +2482,10 @@ SECTIONS
         build/us/asm/segment_189D40.o(.rodata*);
         segment_189D40_rodata_END = .;
         segment_189D40_rodata_SIZE = ABSOLUTE(segment_189D40_rodata_END - segment_189D40_rodata_START);
+        segment_189D40_sdata_START = .;
+        build/us/asm/segment_189D40.o(.sdata*);
+        segment_189D40_sdata_END = .;
+        segment_189D40_sdata_SIZE = ABSOLUTE(segment_189D40_sdata_END - segment_189D40_sdata_START);
     }
     __romPos += SIZEOF(.segment_189D40);
     segment_189D40_ROM_END = __romPos;
@@ -2214,6 +2517,10 @@ SECTIONS
         build/us/asm/segment_18CB40.o(.rodata*);
         segment_18CB40_rodata_END = .;
         segment_18CB40_rodata_SIZE = ABSOLUTE(segment_18CB40_rodata_END - segment_18CB40_rodata_START);
+        segment_18CB40_sdata_START = .;
+        build/us/asm/segment_18CB40.o(.sdata*);
+        segment_18CB40_sdata_END = .;
+        segment_18CB40_sdata_SIZE = ABSOLUTE(segment_18CB40_sdata_END - segment_18CB40_sdata_START);
     }
     __romPos += SIZEOF(.segment_18CB40);
     segment_18CB40_ROM_END = __romPos;
@@ -2245,6 +2552,10 @@ SECTIONS
         build/us/asm/segment_18DB90.o(.rodata*);
         segment_18DB90_rodata_END = .;
         segment_18DB90_rodata_SIZE = ABSOLUTE(segment_18DB90_rodata_END - segment_18DB90_rodata_START);
+        segment_18DB90_sdata_START = .;
+        build/us/asm/segment_18DB90.o(.sdata*);
+        segment_18DB90_sdata_END = .;
+        segment_18DB90_sdata_SIZE = ABSOLUTE(segment_18DB90_sdata_END - segment_18DB90_sdata_START);
     }
     __romPos += SIZEOF(.segment_18DB90);
     segment_18DB90_ROM_END = __romPos;
@@ -2276,6 +2587,10 @@ SECTIONS
         build/us/asm/segment_18F160.o(.rodata*);
         segment_18F160_rodata_END = .;
         segment_18F160_rodata_SIZE = ABSOLUTE(segment_18F160_rodata_END - segment_18F160_rodata_START);
+        segment_18F160_sdata_START = .;
+        build/us/asm/segment_18F160.o(.sdata*);
+        segment_18F160_sdata_END = .;
+        segment_18F160_sdata_SIZE = ABSOLUTE(segment_18F160_sdata_END - segment_18F160_sdata_START);
     }
     __romPos += SIZEOF(.segment_18F160);
     segment_18F160_ROM_END = __romPos;
@@ -2307,6 +2622,10 @@ SECTIONS
         build/us/asm/segment_1906E0.o(.rodata*);
         segment_1906E0_rodata_END = .;
         segment_1906E0_rodata_SIZE = ABSOLUTE(segment_1906E0_rodata_END - segment_1906E0_rodata_START);
+        segment_1906E0_sdata_START = .;
+        build/us/asm/segment_1906E0.o(.sdata*);
+        segment_1906E0_sdata_END = .;
+        segment_1906E0_sdata_SIZE = ABSOLUTE(segment_1906E0_sdata_END - segment_1906E0_sdata_START);
     }
     __romPos += SIZEOF(.segment_1906E0);
     segment_1906E0_ROM_END = __romPos;
@@ -2338,6 +2657,10 @@ SECTIONS
         build/us/asm/segment_1911D0.o(.rodata*);
         segment_1911D0_rodata_END = .;
         segment_1911D0_rodata_SIZE = ABSOLUTE(segment_1911D0_rodata_END - segment_1911D0_rodata_START);
+        segment_1911D0_sdata_START = .;
+        build/us/asm/segment_1911D0.o(.sdata*);
+        segment_1911D0_sdata_END = .;
+        segment_1911D0_sdata_SIZE = ABSOLUTE(segment_1911D0_sdata_END - segment_1911D0_sdata_START);
     }
     __romPos += SIZEOF(.segment_1911D0);
     segment_1911D0_ROM_END = __romPos;
@@ -2369,6 +2692,10 @@ SECTIONS
         build/us/asm/segment_1936C0.o(.rodata*);
         segment_1936C0_rodata_END = .;
         segment_1936C0_rodata_SIZE = ABSOLUTE(segment_1936C0_rodata_END - segment_1936C0_rodata_START);
+        segment_1936C0_sdata_START = .;
+        build/us/asm/segment_1936C0.o(.sdata*);
+        segment_1936C0_sdata_END = .;
+        segment_1936C0_sdata_SIZE = ABSOLUTE(segment_1936C0_sdata_END - segment_1936C0_sdata_START);
     }
     __romPos += SIZEOF(.segment_1936C0);
     segment_1936C0_ROM_END = __romPos;
@@ -2400,6 +2727,10 @@ SECTIONS
         build/us/asm/segment_1937F0.o(.rodata*);
         segment_1937F0_rodata_END = .;
         segment_1937F0_rodata_SIZE = ABSOLUTE(segment_1937F0_rodata_END - segment_1937F0_rodata_START);
+        segment_1937F0_sdata_START = .;
+        build/us/asm/segment_1937F0.o(.sdata*);
+        segment_1937F0_sdata_END = .;
+        segment_1937F0_sdata_SIZE = ABSOLUTE(segment_1937F0_sdata_END - segment_1937F0_sdata_START);
     }
     __romPos += SIZEOF(.segment_1937F0);
     segment_1937F0_ROM_END = __romPos;
@@ -2431,6 +2762,10 @@ SECTIONS
         build/us/asm/segment_194070.o(.rodata*);
         segment_194070_rodata_END = .;
         segment_194070_rodata_SIZE = ABSOLUTE(segment_194070_rodata_END - segment_194070_rodata_START);
+        segment_194070_sdata_START = .;
+        build/us/asm/segment_194070.o(.sdata*);
+        segment_194070_sdata_END = .;
+        segment_194070_sdata_SIZE = ABSOLUTE(segment_194070_sdata_END - segment_194070_sdata_START);
     }
     __romPos += SIZEOF(.segment_194070);
     segment_194070_ROM_END = __romPos;
@@ -2462,6 +2797,10 @@ SECTIONS
         build/us/asm/segment_194150.o(.rodata*);
         segment_194150_rodata_END = .;
         segment_194150_rodata_SIZE = ABSOLUTE(segment_194150_rodata_END - segment_194150_rodata_START);
+        segment_194150_sdata_START = .;
+        build/us/asm/segment_194150.o(.sdata*);
+        segment_194150_sdata_END = .;
+        segment_194150_sdata_SIZE = ABSOLUTE(segment_194150_sdata_END - segment_194150_sdata_START);
     }
     __romPos += SIZEOF(.segment_194150);
     segment_194150_ROM_END = __romPos;
@@ -2493,6 +2832,10 @@ SECTIONS
         build/us/asm/segment_194910.o(.rodata*);
         segment_194910_rodata_END = .;
         segment_194910_rodata_SIZE = ABSOLUTE(segment_194910_rodata_END - segment_194910_rodata_START);
+        segment_194910_sdata_START = .;
+        build/us/asm/segment_194910.o(.sdata*);
+        segment_194910_sdata_END = .;
+        segment_194910_sdata_SIZE = ABSOLUTE(segment_194910_sdata_END - segment_194910_sdata_START);
     }
     __romPos += SIZEOF(.segment_194910);
     segment_194910_ROM_END = __romPos;
@@ -2524,6 +2867,10 @@ SECTIONS
         build/us/asm/segment_195290.o(.rodata*);
         segment_195290_rodata_END = .;
         segment_195290_rodata_SIZE = ABSOLUTE(segment_195290_rodata_END - segment_195290_rodata_START);
+        segment_195290_sdata_START = .;
+        build/us/asm/segment_195290.o(.sdata*);
+        segment_195290_sdata_END = .;
+        segment_195290_sdata_SIZE = ABSOLUTE(segment_195290_sdata_END - segment_195290_sdata_START);
     }
     __romPos += SIZEOF(.segment_195290);
     segment_195290_ROM_END = __romPos;
@@ -2555,6 +2902,10 @@ SECTIONS
         build/us/asm/segment_game_etc.o(.rodata*);
         segment_game_etc_rodata_END = .;
         segment_game_etc_rodata_SIZE = ABSOLUTE(segment_game_etc_rodata_END - segment_game_etc_rodata_START);
+        segment_game_etc_sdata_START = .;
+        build/us/asm/segment_game_etc.o(.sdata*);
+        segment_game_etc_sdata_END = .;
+        segment_game_etc_sdata_SIZE = ABSOLUTE(segment_game_etc_sdata_END - segment_game_etc_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_etc);
     segment_game_etc_ROM_END = __romPos;
@@ -2586,6 +2937,10 @@ SECTIONS
         build/us/asm/segment_menu_bg.o(.rodata*);
         segment_menu_bg_rodata_END = .;
         segment_menu_bg_rodata_SIZE = ABSOLUTE(segment_menu_bg_rodata_END - segment_menu_bg_rodata_START);
+        segment_menu_bg_sdata_START = .;
+        build/us/asm/segment_menu_bg.o(.sdata*);
+        segment_menu_bg_sdata_END = .;
+        segment_menu_bg_sdata_SIZE = ABSOLUTE(segment_menu_bg_sdata_END - segment_menu_bg_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_bg);
     segment_menu_bg_ROM_END = __romPos;
@@ -2617,6 +2972,10 @@ SECTIONS
         build/us/asm/segment_menu_bg2.o(.rodata*);
         segment_menu_bg2_rodata_END = .;
         segment_menu_bg2_rodata_SIZE = ABSOLUTE(segment_menu_bg2_rodata_END - segment_menu_bg2_rodata_START);
+        segment_menu_bg2_sdata_START = .;
+        build/us/asm/segment_menu_bg2.o(.sdata*);
+        segment_menu_bg2_sdata_END = .;
+        segment_menu_bg2_sdata_SIZE = ABSOLUTE(segment_menu_bg2_sdata_END - segment_menu_bg2_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_bg2);
     segment_menu_bg2_ROM_END = __romPos;
@@ -2648,6 +3007,10 @@ SECTIONS
         build/us/asm/segment_coffee01.o(.rodata*);
         segment_coffee01_rodata_END = .;
         segment_coffee01_rodata_SIZE = ABSOLUTE(segment_coffee01_rodata_END - segment_coffee01_rodata_START);
+        segment_coffee01_sdata_START = .;
+        build/us/asm/segment_coffee01.o(.sdata*);
+        segment_coffee01_sdata_END = .;
+        segment_coffee01_sdata_SIZE = ABSOLUTE(segment_coffee01_sdata_END - segment_coffee01_sdata_START);
     }
     __romPos += SIZEOF(.segment_coffee01);
     segment_coffee01_ROM_END = __romPos;
@@ -2679,6 +3042,10 @@ SECTIONS
         build/us/asm/segment_title_all.o(.rodata*);
         segment_title_all_rodata_END = .;
         segment_title_all_rodata_SIZE = ABSOLUTE(segment_title_all_rodata_END - segment_title_all_rodata_START);
+        segment_title_all_sdata_START = .;
+        build/us/asm/segment_title_all.o(.sdata*);
+        segment_title_all_sdata_END = .;
+        segment_title_all_sdata_SIZE = ABSOLUTE(segment_title_all_sdata_END - segment_title_all_sdata_START);
     }
     __romPos += SIZEOF(.segment_title_all);
     segment_title_all_ROM_END = __romPos;
@@ -2710,6 +3077,10 @@ SECTIONS
         build/us/asm/segment_title_bmp.o(.rodata*);
         segment_title_bmp_rodata_END = .;
         segment_title_bmp_rodata_SIZE = ABSOLUTE(segment_title_bmp_rodata_END - segment_title_bmp_rodata_START);
+        segment_title_bmp_sdata_START = .;
+        build/us/asm/segment_title_bmp.o(.sdata*);
+        segment_title_bmp_sdata_END = .;
+        segment_title_bmp_sdata_SIZE = ABSOLUTE(segment_title_bmp_sdata_END - segment_title_bmp_sdata_START);
     }
     __romPos += SIZEOF(.segment_title_bmp);
     segment_title_bmp_ROM_END = __romPos;
@@ -2741,6 +3112,10 @@ SECTIONS
         build/us/asm/segment_waku.o(.rodata*);
         segment_waku_rodata_END = .;
         segment_waku_rodata_SIZE = ABSOLUTE(segment_waku_rodata_END - segment_waku_rodata_START);
+        segment_waku_sdata_START = .;
+        build/us/asm/segment_waku.o(.sdata*);
+        segment_waku_sdata_END = .;
+        segment_waku_sdata_SIZE = ABSOLUTE(segment_waku_sdata_END - segment_waku_sdata_START);
     }
     __romPos += SIZEOF(.segment_waku);
     segment_waku_ROM_END = __romPos;
@@ -2772,6 +3147,10 @@ SECTIONS
         build/us/asm/segment_waku2.o(.rodata*);
         segment_waku2_rodata_END = .;
         segment_waku2_rodata_SIZE = ABSOLUTE(segment_waku2_rodata_END - segment_waku2_rodata_START);
+        segment_waku2_sdata_START = .;
+        build/us/asm/segment_waku2.o(.sdata*);
+        segment_waku2_sdata_END = .;
+        segment_waku2_sdata_SIZE = ABSOLUTE(segment_waku2_sdata_END - segment_waku2_sdata_START);
     }
     __romPos += SIZEOF(.segment_waku2);
     segment_waku2_ROM_END = __romPos;
@@ -2803,6 +3182,10 @@ SECTIONS
         build/us/asm/segment_story_bg01.o(.rodata*);
         segment_story_bg01_rodata_END = .;
         segment_story_bg01_rodata_SIZE = ABSOLUTE(segment_story_bg01_rodata_END - segment_story_bg01_rodata_START);
+        segment_story_bg01_sdata_START = .;
+        build/us/asm/segment_story_bg01.o(.sdata*);
+        segment_story_bg01_sdata_END = .;
+        segment_story_bg01_sdata_SIZE = ABSOLUTE(segment_story_bg01_sdata_END - segment_story_bg01_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg01);
     segment_story_bg01_ROM_END = __romPos;
@@ -2834,6 +3217,10 @@ SECTIONS
         build/us/asm/segment_story_bg02.o(.rodata*);
         segment_story_bg02_rodata_END = .;
         segment_story_bg02_rodata_SIZE = ABSOLUTE(segment_story_bg02_rodata_END - segment_story_bg02_rodata_START);
+        segment_story_bg02_sdata_START = .;
+        build/us/asm/segment_story_bg02.o(.sdata*);
+        segment_story_bg02_sdata_END = .;
+        segment_story_bg02_sdata_SIZE = ABSOLUTE(segment_story_bg02_sdata_END - segment_story_bg02_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg02);
     segment_story_bg02_ROM_END = __romPos;
@@ -2865,6 +3252,10 @@ SECTIONS
         build/us/asm/segment_story_bg03.o(.rodata*);
         segment_story_bg03_rodata_END = .;
         segment_story_bg03_rodata_SIZE = ABSOLUTE(segment_story_bg03_rodata_END - segment_story_bg03_rodata_START);
+        segment_story_bg03_sdata_START = .;
+        build/us/asm/segment_story_bg03.o(.sdata*);
+        segment_story_bg03_sdata_END = .;
+        segment_story_bg03_sdata_SIZE = ABSOLUTE(segment_story_bg03_sdata_END - segment_story_bg03_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg03);
     segment_story_bg03_ROM_END = __romPos;
@@ -2896,6 +3287,10 @@ SECTIONS
         build/us/asm/segment_story_bg04.o(.rodata*);
         segment_story_bg04_rodata_END = .;
         segment_story_bg04_rodata_SIZE = ABSOLUTE(segment_story_bg04_rodata_END - segment_story_bg04_rodata_START);
+        segment_story_bg04_sdata_START = .;
+        build/us/asm/segment_story_bg04.o(.sdata*);
+        segment_story_bg04_sdata_END = .;
+        segment_story_bg04_sdata_SIZE = ABSOLUTE(segment_story_bg04_sdata_END - segment_story_bg04_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg04);
     segment_story_bg04_ROM_END = __romPos;
@@ -2927,6 +3322,10 @@ SECTIONS
         build/us/asm/segment_story_bg05.o(.rodata*);
         segment_story_bg05_rodata_END = .;
         segment_story_bg05_rodata_SIZE = ABSOLUTE(segment_story_bg05_rodata_END - segment_story_bg05_rodata_START);
+        segment_story_bg05_sdata_START = .;
+        build/us/asm/segment_story_bg05.o(.sdata*);
+        segment_story_bg05_sdata_END = .;
+        segment_story_bg05_sdata_SIZE = ABSOLUTE(segment_story_bg05_sdata_END - segment_story_bg05_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg05);
     segment_story_bg05_ROM_END = __romPos;
@@ -2958,6 +3357,10 @@ SECTIONS
         build/us/asm/segment_story_bg07.o(.rodata*);
         segment_story_bg07_rodata_END = .;
         segment_story_bg07_rodata_SIZE = ABSOLUTE(segment_story_bg07_rodata_END - segment_story_bg07_rodata_START);
+        segment_story_bg07_sdata_START = .;
+        build/us/asm/segment_story_bg07.o(.sdata*);
+        segment_story_bg07_sdata_END = .;
+        segment_story_bg07_sdata_SIZE = ABSOLUTE(segment_story_bg07_sdata_END - segment_story_bg07_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg07);
     segment_story_bg07_ROM_END = __romPos;
@@ -2989,6 +3392,10 @@ SECTIONS
         build/us/asm/segment_story_bg08.o(.rodata*);
         segment_story_bg08_rodata_END = .;
         segment_story_bg08_rodata_SIZE = ABSOLUTE(segment_story_bg08_rodata_END - segment_story_bg08_rodata_START);
+        segment_story_bg08_sdata_START = .;
+        build/us/asm/segment_story_bg08.o(.sdata*);
+        segment_story_bg08_sdata_END = .;
+        segment_story_bg08_sdata_SIZE = ABSOLUTE(segment_story_bg08_sdata_END - segment_story_bg08_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg08);
     segment_story_bg08_ROM_END = __romPos;
@@ -3020,6 +3427,10 @@ SECTIONS
         build/us/asm/segment_story_bg09.o(.rodata*);
         segment_story_bg09_rodata_END = .;
         segment_story_bg09_rodata_SIZE = ABSOLUTE(segment_story_bg09_rodata_END - segment_story_bg09_rodata_START);
+        segment_story_bg09_sdata_START = .;
+        build/us/asm/segment_story_bg09.o(.sdata*);
+        segment_story_bg09_sdata_END = .;
+        segment_story_bg09_sdata_SIZE = ABSOLUTE(segment_story_bg09_sdata_END - segment_story_bg09_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg09);
     segment_story_bg09_ROM_END = __romPos;
@@ -3051,6 +3462,10 @@ SECTIONS
         build/us/asm/segment_story_bg10.o(.rodata*);
         segment_story_bg10_rodata_END = .;
         segment_story_bg10_rodata_SIZE = ABSOLUTE(segment_story_bg10_rodata_END - segment_story_bg10_rodata_START);
+        segment_story_bg10_sdata_START = .;
+        build/us/asm/segment_story_bg10.o(.sdata*);
+        segment_story_bg10_sdata_END = .;
+        segment_story_bg10_sdata_SIZE = ABSOLUTE(segment_story_bg10_sdata_END - segment_story_bg10_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg10);
     segment_story_bg10_ROM_END = __romPos;
@@ -3082,6 +3497,10 @@ SECTIONS
         build/us/asm/segment_story_bg11.o(.rodata*);
         segment_story_bg11_rodata_END = .;
         segment_story_bg11_rodata_SIZE = ABSOLUTE(segment_story_bg11_rodata_END - segment_story_bg11_rodata_START);
+        segment_story_bg11_sdata_START = .;
+        build/us/asm/segment_story_bg11.o(.sdata*);
+        segment_story_bg11_sdata_END = .;
+        segment_story_bg11_sdata_SIZE = ABSOLUTE(segment_story_bg11_sdata_END - segment_story_bg11_sdata_START);
     }
     __romPos += SIZEOF(.segment_story_bg11);
     segment_story_bg11_ROM_END = __romPos;
@@ -3113,6 +3532,10 @@ SECTIONS
         build/us/src/assets/menu/menu_char.o(.rodata*);
         segment_menu_char_rodata_END = .;
         segment_menu_char_rodata_SIZE = ABSOLUTE(segment_menu_char_rodata_END - segment_menu_char_rodata_START);
+        segment_menu_char_sdata_START = .;
+        build/us/src/assets/menu/menu_char.o(.sdata*);
+        segment_menu_char_sdata_END = .;
+        segment_menu_char_sdata_SIZE = ABSOLUTE(segment_menu_char_sdata_END - segment_menu_char_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_char);
     segment_menu_char_ROM_END = __romPos;
@@ -3144,6 +3567,10 @@ SECTIONS
         build/us/src/assets/menu/menu_common.o(.rodata*);
         segment_menu_common_rodata_END = .;
         segment_menu_common_rodata_SIZE = ABSOLUTE(segment_menu_common_rodata_END - segment_menu_common_rodata_START);
+        segment_menu_common_sdata_START = .;
+        build/us/src/assets/menu/menu_common.o(.sdata*);
+        segment_menu_common_sdata_END = .;
+        segment_menu_common_sdata_SIZE = ABSOLUTE(segment_menu_common_sdata_END - segment_menu_common_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_common);
     segment_menu_common_ROM_END = __romPos;
@@ -3175,6 +3602,10 @@ SECTIONS
         build/us/src/assets/menu/menu_level.o(.rodata*);
         segment_menu_level_rodata_END = .;
         segment_menu_level_rodata_SIZE = ABSOLUTE(segment_menu_level_rodata_END - segment_menu_level_rodata_START);
+        segment_menu_level_sdata_START = .;
+        build/us/src/assets/menu/menu_level.o(.sdata*);
+        segment_menu_level_sdata_END = .;
+        segment_menu_level_sdata_SIZE = ABSOLUTE(segment_menu_level_sdata_END - segment_menu_level_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_level);
     segment_menu_level_ROM_END = __romPos;
@@ -3206,6 +3637,10 @@ SECTIONS
         build/us/src/assets/menu/menu_main.o(.rodata*);
         segment_menu_main_rodata_END = .;
         segment_menu_main_rodata_SIZE = ABSOLUTE(segment_menu_main_rodata_END - segment_menu_main_rodata_START);
+        segment_menu_main_sdata_START = .;
+        build/us/src/assets/menu/menu_main.o(.sdata*);
+        segment_menu_main_sdata_END = .;
+        segment_menu_main_sdata_SIZE = ABSOLUTE(segment_menu_main_sdata_END - segment_menu_main_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_main);
     segment_menu_main_ROM_END = __romPos;
@@ -3237,6 +3672,10 @@ SECTIONS
         build/us/src/assets/menu/menu_name.o(.rodata*);
         segment_menu_name_rodata_END = .;
         segment_menu_name_rodata_SIZE = ABSOLUTE(segment_menu_name_rodata_END - segment_menu_name_rodata_START);
+        segment_menu_name_sdata_START = .;
+        build/us/src/assets/menu/menu_name.o(.sdata*);
+        segment_menu_name_sdata_END = .;
+        segment_menu_name_sdata_SIZE = ABSOLUTE(segment_menu_name_sdata_END - segment_menu_name_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_name);
     segment_menu_name_ROM_END = __romPos;
@@ -3268,6 +3707,10 @@ SECTIONS
         build/us/src/assets/menu/menu_p2.o(.rodata*);
         segment_menu_p2_rodata_END = .;
         segment_menu_p2_rodata_SIZE = ABSOLUTE(segment_menu_p2_rodata_END - segment_menu_p2_rodata_START);
+        segment_menu_p2_sdata_START = .;
+        build/us/src/assets/menu/menu_p2.o(.sdata*);
+        segment_menu_p2_sdata_END = .;
+        segment_menu_p2_sdata_SIZE = ABSOLUTE(segment_menu_p2_sdata_END - segment_menu_p2_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_p2);
     segment_menu_p2_ROM_END = __romPos;
@@ -3299,6 +3742,10 @@ SECTIONS
         build/us/src/assets/menu/menu_p4.o(.rodata*);
         segment_menu_p4_rodata_END = .;
         segment_menu_p4_rodata_SIZE = ABSOLUTE(segment_menu_p4_rodata_END - segment_menu_p4_rodata_START);
+        segment_menu_p4_sdata_START = .;
+        build/us/src/assets/menu/menu_p4.o(.sdata*);
+        segment_menu_p4_sdata_END = .;
+        segment_menu_p4_sdata_SIZE = ABSOLUTE(segment_menu_p4_sdata_END - segment_menu_p4_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_p4);
     segment_menu_p4_ROM_END = __romPos;
@@ -3330,6 +3777,10 @@ SECTIONS
         build/us/src/assets/menu/menu_rank.o(.rodata*);
         segment_menu_rank_rodata_END = .;
         segment_menu_rank_rodata_SIZE = ABSOLUTE(segment_menu_rank_rodata_END - segment_menu_rank_rodata_START);
+        segment_menu_rank_sdata_START = .;
+        build/us/src/assets/menu/menu_rank.o(.sdata*);
+        segment_menu_rank_sdata_END = .;
+        segment_menu_rank_sdata_SIZE = ABSOLUTE(segment_menu_rank_sdata_END - segment_menu_rank_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_rank);
     segment_menu_rank_ROM_END = __romPos;
@@ -3361,6 +3812,10 @@ SECTIONS
         build/us/src/assets/menu/menu_setup.o(.rodata*);
         segment_menu_setup_rodata_END = .;
         segment_menu_setup_rodata_SIZE = ABSOLUTE(segment_menu_setup_rodata_END - segment_menu_setup_rodata_START);
+        segment_menu_setup_sdata_START = .;
+        build/us/src/assets/menu/menu_setup.o(.sdata*);
+        segment_menu_setup_sdata_END = .;
+        segment_menu_setup_sdata_SIZE = ABSOLUTE(segment_menu_setup_sdata_END - segment_menu_setup_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_setup);
     segment_menu_setup_ROM_END = __romPos;
@@ -3392,6 +3847,10 @@ SECTIONS
         build/us/src/assets/menu/menu_story.o(.rodata*);
         segment_menu_story_rodata_END = .;
         segment_menu_story_rodata_SIZE = ABSOLUTE(segment_menu_story_rodata_END - segment_menu_story_rodata_START);
+        segment_menu_story_sdata_START = .;
+        build/us/src/assets/menu/menu_story.o(.sdata*);
+        segment_menu_story_sdata_END = .;
+        segment_menu_story_sdata_SIZE = ABSOLUTE(segment_menu_story_sdata_END - segment_menu_story_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_story);
     segment_menu_story_ROM_END = __romPos;
@@ -3423,6 +3882,10 @@ SECTIONS
         build/us/src/assets/menu/menu_cont.o(.rodata*);
         segment_menu_cont_rodata_END = .;
         segment_menu_cont_rodata_SIZE = ABSOLUTE(segment_menu_cont_rodata_END - segment_menu_cont_rodata_START);
+        segment_menu_cont_sdata_START = .;
+        build/us/src/assets/menu/menu_cont.o(.sdata*);
+        segment_menu_cont_sdata_END = .;
+        segment_menu_cont_sdata_SIZE = ABSOLUTE(segment_menu_cont_sdata_END - segment_menu_cont_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_cont);
     segment_menu_cont_ROM_END = __romPos;
@@ -3454,6 +3917,10 @@ SECTIONS
         build/us/src/assets/menu/menu_kasa.o(.rodata*);
         segment_menu_kasa_rodata_END = .;
         segment_menu_kasa_rodata_SIZE = ABSOLUTE(segment_menu_kasa_rodata_END - segment_menu_kasa_rodata_START);
+        segment_menu_kasa_sdata_START = .;
+        build/us/src/assets/menu/menu_kasa.o(.sdata*);
+        segment_menu_kasa_sdata_END = .;
+        segment_menu_kasa_sdata_SIZE = ABSOLUTE(segment_menu_kasa_sdata_END - segment_menu_kasa_sdata_START);
     }
     __romPos += SIZEOF(.segment_menu_kasa);
     segment_menu_kasa_ROM_END = __romPos;
@@ -3485,6 +3952,10 @@ SECTIONS
         build/us/src/assets/game/game_al.o(.rodata*);
         segment_game_al_rodata_END = .;
         segment_game_al_rodata_SIZE = ABSOLUTE(segment_game_al_rodata_END - segment_game_al_rodata_START);
+        segment_game_al_sdata_START = .;
+        build/us/src/assets/game/game_al.o(.sdata*);
+        segment_game_al_sdata_END = .;
+        segment_game_al_sdata_SIZE = ABSOLUTE(segment_game_al_sdata_END - segment_game_al_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_al);
     segment_game_al_ROM_END = __romPos;
@@ -3516,6 +3987,10 @@ SECTIONS
         build/us/src/assets/game/game_p1.o(.rodata*);
         segment_game_p1_rodata_END = .;
         segment_game_p1_rodata_SIZE = ABSOLUTE(segment_game_p1_rodata_END - segment_game_p1_rodata_START);
+        segment_game_p1_sdata_START = .;
+        build/us/src/assets/game/game_p1.o(.sdata*);
+        segment_game_p1_sdata_END = .;
+        segment_game_p1_sdata_SIZE = ABSOLUTE(segment_game_p1_sdata_END - segment_game_p1_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_p1);
     segment_game_p1_ROM_END = __romPos;
@@ -3547,6 +4022,10 @@ SECTIONS
         build/us/src/assets/game/game_p2.o(.rodata*);
         segment_game_p2_rodata_END = .;
         segment_game_p2_rodata_SIZE = ABSOLUTE(segment_game_p2_rodata_END - segment_game_p2_rodata_START);
+        segment_game_p2_sdata_START = .;
+        build/us/src/assets/game/game_p2.o(.sdata*);
+        segment_game_p2_sdata_END = .;
+        segment_game_p2_sdata_SIZE = ABSOLUTE(segment_game_p2_sdata_END - segment_game_p2_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_p2);
     segment_game_p2_ROM_END = __romPos;
@@ -3578,6 +4057,10 @@ SECTIONS
         build/us/src/assets/game/game_p4.o(.rodata*);
         segment_game_p4_rodata_END = .;
         segment_game_p4_rodata_SIZE = ABSOLUTE(segment_game_p4_rodata_END - segment_game_p4_rodata_START);
+        segment_game_p4_sdata_START = .;
+        build/us/src/assets/game/game_p4.o(.sdata*);
+        segment_game_p4_sdata_END = .;
+        segment_game_p4_sdata_SIZE = ABSOLUTE(segment_game_p4_sdata_END - segment_game_p4_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_p4);
     segment_game_p4_ROM_END = __romPos;
@@ -3609,6 +4092,10 @@ SECTIONS
         build/us/src/assets/game/game_ls.o(.rodata*);
         segment_game_ls_rodata_END = .;
         segment_game_ls_rodata_SIZE = ABSOLUTE(segment_game_ls_rodata_END - segment_game_ls_rodata_START);
+        segment_game_ls_sdata_START = .;
+        build/us/src/assets/game/game_ls.o(.sdata*);
+        segment_game_ls_sdata_END = .;
+        segment_game_ls_sdata_SIZE = ABSOLUTE(segment_game_ls_sdata_END - segment_game_ls_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_ls);
     segment_game_ls_ROM_END = __romPos;
@@ -3640,6 +4127,10 @@ SECTIONS
         build/us/src/assets/game/game_item.o(.rodata*);
         segment_game_item_rodata_END = .;
         segment_game_item_rodata_SIZE = ABSOLUTE(segment_game_item_rodata_END - segment_game_item_rodata_START);
+        segment_game_item_sdata_START = .;
+        build/us/src/assets/game/game_item.o(.sdata*);
+        segment_game_item_sdata_END = .;
+        segment_game_item_sdata_SIZE = ABSOLUTE(segment_game_item_sdata_END - segment_game_item_sdata_START);
     }
     __romPos += SIZEOF(.segment_game_item);
     segment_game_item_ROM_END = __romPos;
@@ -3671,6 +4162,10 @@ SECTIONS
         build/us/src/assets/anime/anime_a.o(.rodata*);
         segment_anime_a_rodata_END = .;
         segment_anime_a_rodata_SIZE = ABSOLUTE(segment_anime_a_rodata_END - segment_anime_a_rodata_START);
+        segment_anime_a_sdata_START = .;
+        build/us/src/assets/anime/anime_a.o(.sdata*);
+        segment_anime_a_sdata_END = .;
+        segment_anime_a_sdata_SIZE = ABSOLUTE(segment_anime_a_sdata_END - segment_anime_a_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_a);
     segment_anime_a_ROM_END = __romPos;
@@ -3702,6 +4197,10 @@ SECTIONS
         build/us/src/assets/anime/anime_b.o(.rodata*);
         segment_anime_b_rodata_END = .;
         segment_anime_b_rodata_SIZE = ABSOLUTE(segment_anime_b_rodata_END - segment_anime_b_rodata_START);
+        segment_anime_b_sdata_START = .;
+        build/us/src/assets/anime/anime_b.o(.sdata*);
+        segment_anime_b_sdata_END = .;
+        segment_anime_b_sdata_SIZE = ABSOLUTE(segment_anime_b_sdata_END - segment_anime_b_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_b);
     segment_anime_b_ROM_END = __romPos;
@@ -3733,6 +4232,10 @@ SECTIONS
         build/us/src/assets/anime/anime_c.o(.rodata*);
         segment_anime_c_rodata_END = .;
         segment_anime_c_rodata_SIZE = ABSOLUTE(segment_anime_c_rodata_END - segment_anime_c_rodata_START);
+        segment_anime_c_sdata_START = .;
+        build/us/src/assets/anime/anime_c.o(.sdata*);
+        segment_anime_c_sdata_END = .;
+        segment_anime_c_sdata_SIZE = ABSOLUTE(segment_anime_c_sdata_END - segment_anime_c_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_c);
     segment_anime_c_ROM_END = __romPos;
@@ -3764,6 +4267,10 @@ SECTIONS
         build/us/src/assets/anime/anime_d.o(.rodata*);
         segment_anime_d_rodata_END = .;
         segment_anime_d_rodata_SIZE = ABSOLUTE(segment_anime_d_rodata_END - segment_anime_d_rodata_START);
+        segment_anime_d_sdata_START = .;
+        build/us/src/assets/anime/anime_d.o(.sdata*);
+        segment_anime_d_sdata_END = .;
+        segment_anime_d_sdata_SIZE = ABSOLUTE(segment_anime_d_sdata_END - segment_anime_d_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_d);
     segment_anime_d_ROM_END = __romPos;
@@ -3795,6 +4302,10 @@ SECTIONS
         build/us/src/assets/anime/anime_e.o(.rodata*);
         segment_anime_e_rodata_END = .;
         segment_anime_e_rodata_SIZE = ABSOLUTE(segment_anime_e_rodata_END - segment_anime_e_rodata_START);
+        segment_anime_e_sdata_START = .;
+        build/us/src/assets/anime/anime_e.o(.sdata*);
+        segment_anime_e_sdata_END = .;
+        segment_anime_e_sdata_SIZE = ABSOLUTE(segment_anime_e_sdata_END - segment_anime_e_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_e);
     segment_anime_e_ROM_END = __romPos;
@@ -3826,6 +4337,10 @@ SECTIONS
         build/us/src/assets/anime/anime_f.o(.rodata*);
         segment_anime_f_rodata_END = .;
         segment_anime_f_rodata_SIZE = ABSOLUTE(segment_anime_f_rodata_END - segment_anime_f_rodata_START);
+        segment_anime_f_sdata_START = .;
+        build/us/src/assets/anime/anime_f.o(.sdata*);
+        segment_anime_f_sdata_END = .;
+        segment_anime_f_sdata_SIZE = ABSOLUTE(segment_anime_f_sdata_END - segment_anime_f_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_f);
     segment_anime_f_ROM_END = __romPos;
@@ -3857,6 +4372,10 @@ SECTIONS
         build/us/src/assets/anime/anime_g.o(.rodata*);
         segment_anime_g_rodata_END = .;
         segment_anime_g_rodata_SIZE = ABSOLUTE(segment_anime_g_rodata_END - segment_anime_g_rodata_START);
+        segment_anime_g_sdata_START = .;
+        build/us/src/assets/anime/anime_g.o(.sdata*);
+        segment_anime_g_sdata_END = .;
+        segment_anime_g_sdata_SIZE = ABSOLUTE(segment_anime_g_sdata_END - segment_anime_g_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_g);
     segment_anime_g_ROM_END = __romPos;
@@ -3888,6 +4407,10 @@ SECTIONS
         build/us/src/assets/anime/anime_h.o(.rodata*);
         segment_anime_h_rodata_END = .;
         segment_anime_h_rodata_SIZE = ABSOLUTE(segment_anime_h_rodata_END - segment_anime_h_rodata_START);
+        segment_anime_h_sdata_START = .;
+        build/us/src/assets/anime/anime_h.o(.sdata*);
+        segment_anime_h_sdata_END = .;
+        segment_anime_h_sdata_SIZE = ABSOLUTE(segment_anime_h_sdata_END - segment_anime_h_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_h);
     segment_anime_h_ROM_END = __romPos;
@@ -3919,6 +4442,10 @@ SECTIONS
         build/us/src/assets/anime/anime_i.o(.rodata*);
         segment_anime_i_rodata_END = .;
         segment_anime_i_rodata_SIZE = ABSOLUTE(segment_anime_i_rodata_END - segment_anime_i_rodata_START);
+        segment_anime_i_sdata_START = .;
+        build/us/src/assets/anime/anime_i.o(.sdata*);
+        segment_anime_i_sdata_END = .;
+        segment_anime_i_sdata_SIZE = ABSOLUTE(segment_anime_i_sdata_END - segment_anime_i_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_i);
     segment_anime_i_ROM_END = __romPos;
@@ -3950,6 +4477,10 @@ SECTIONS
         build/us/src/assets/anime/anime_j.o(.rodata*);
         segment_anime_j_rodata_END = .;
         segment_anime_j_rodata_SIZE = ABSOLUTE(segment_anime_j_rodata_END - segment_anime_j_rodata_START);
+        segment_anime_j_sdata_START = .;
+        build/us/src/assets/anime/anime_j.o(.sdata*);
+        segment_anime_j_sdata_END = .;
+        segment_anime_j_sdata_SIZE = ABSOLUTE(segment_anime_j_sdata_END - segment_anime_j_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_j);
     segment_anime_j_ROM_END = __romPos;
@@ -3981,6 +4512,10 @@ SECTIONS
         build/us/src/assets/anime/anime_k.o(.rodata*);
         segment_anime_k_rodata_END = .;
         segment_anime_k_rodata_SIZE = ABSOLUTE(segment_anime_k_rodata_END - segment_anime_k_rodata_START);
+        segment_anime_k_sdata_START = .;
+        build/us/src/assets/anime/anime_k.o(.sdata*);
+        segment_anime_k_sdata_END = .;
+        segment_anime_k_sdata_SIZE = ABSOLUTE(segment_anime_k_sdata_END - segment_anime_k_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_k);
     segment_anime_k_ROM_END = __romPos;
@@ -4012,6 +4547,10 @@ SECTIONS
         build/us/src/assets/anime/anime_l.o(.rodata*);
         segment_anime_l_rodata_END = .;
         segment_anime_l_rodata_SIZE = ABSOLUTE(segment_anime_l_rodata_END - segment_anime_l_rodata_START);
+        segment_anime_l_sdata_START = .;
+        build/us/src/assets/anime/anime_l.o(.sdata*);
+        segment_anime_l_sdata_END = .;
+        segment_anime_l_sdata_SIZE = ABSOLUTE(segment_anime_l_sdata_END - segment_anime_l_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_l);
     segment_anime_l_ROM_END = __romPos;
@@ -4043,6 +4582,10 @@ SECTIONS
         build/us/src/assets/anime/anime_m.o(.rodata*);
         segment_anime_m_rodata_END = .;
         segment_anime_m_rodata_SIZE = ABSOLUTE(segment_anime_m_rodata_END - segment_anime_m_rodata_START);
+        segment_anime_m_sdata_START = .;
+        build/us/src/assets/anime/anime_m.o(.sdata*);
+        segment_anime_m_sdata_END = .;
+        segment_anime_m_sdata_SIZE = ABSOLUTE(segment_anime_m_sdata_END - segment_anime_m_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_m);
     segment_anime_m_ROM_END = __romPos;
@@ -4074,6 +4617,10 @@ SECTIONS
         build/us/src/assets/anime/anime_n.o(.rodata*);
         segment_anime_n_rodata_END = .;
         segment_anime_n_rodata_SIZE = ABSOLUTE(segment_anime_n_rodata_END - segment_anime_n_rodata_START);
+        segment_anime_n_sdata_START = .;
+        build/us/src/assets/anime/anime_n.o(.sdata*);
+        segment_anime_n_sdata_END = .;
+        segment_anime_n_sdata_SIZE = ABSOLUTE(segment_anime_n_sdata_END - segment_anime_n_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_n);
     segment_anime_n_ROM_END = __romPos;
@@ -4105,6 +4652,10 @@ SECTIONS
         build/us/src/assets/anime/anime_o.o(.rodata*);
         segment_anime_o_rodata_END = .;
         segment_anime_o_rodata_SIZE = ABSOLUTE(segment_anime_o_rodata_END - segment_anime_o_rodata_START);
+        segment_anime_o_sdata_START = .;
+        build/us/src/assets/anime/anime_o.o(.sdata*);
+        segment_anime_o_sdata_END = .;
+        segment_anime_o_sdata_SIZE = ABSOLUTE(segment_anime_o_sdata_END - segment_anime_o_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_o);
     segment_anime_o_ROM_END = __romPos;
@@ -4136,6 +4687,10 @@ SECTIONS
         build/us/src/assets/anime/anime_mario.o(.rodata*);
         segment_anime_mario_rodata_END = .;
         segment_anime_mario_rodata_SIZE = ABSOLUTE(segment_anime_mario_rodata_END - segment_anime_mario_rodata_START);
+        segment_anime_mario_sdata_START = .;
+        build/us/src/assets/anime/anime_mario.o(.sdata*);
+        segment_anime_mario_sdata_END = .;
+        segment_anime_mario_sdata_SIZE = ABSOLUTE(segment_anime_mario_sdata_END - segment_anime_mario_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_mario);
     segment_anime_mario_ROM_END = __romPos;
@@ -4167,6 +4722,10 @@ SECTIONS
         build/us/src/assets/anime/anime_virus_b.o(.rodata*);
         segment_anime_virus_b_rodata_END = .;
         segment_anime_virus_b_rodata_SIZE = ABSOLUTE(segment_anime_virus_b_rodata_END - segment_anime_virus_b_rodata_START);
+        segment_anime_virus_b_sdata_START = .;
+        build/us/src/assets/anime/anime_virus_b.o(.sdata*);
+        segment_anime_virus_b_sdata_END = .;
+        segment_anime_virus_b_sdata_SIZE = ABSOLUTE(segment_anime_virus_b_sdata_END - segment_anime_virus_b_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_virus_b);
     segment_anime_virus_b_ROM_END = __romPos;
@@ -4198,6 +4757,10 @@ SECTIONS
         build/us/src/assets/anime/anime_virus_r.o(.rodata*);
         segment_anime_virus_r_rodata_END = .;
         segment_anime_virus_r_rodata_SIZE = ABSOLUTE(segment_anime_virus_r_rodata_END - segment_anime_virus_r_rodata_START);
+        segment_anime_virus_r_sdata_START = .;
+        build/us/src/assets/anime/anime_virus_r.o(.sdata*);
+        segment_anime_virus_r_sdata_END = .;
+        segment_anime_virus_r_sdata_SIZE = ABSOLUTE(segment_anime_virus_r_sdata_END - segment_anime_virus_r_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_virus_r);
     segment_anime_virus_r_ROM_END = __romPos;
@@ -4229,6 +4792,10 @@ SECTIONS
         build/us/src/assets/anime/anime_virus_y.o(.rodata*);
         segment_anime_virus_y_rodata_END = .;
         segment_anime_virus_y_rodata_SIZE = ABSOLUTE(segment_anime_virus_y_rodata_END - segment_anime_virus_y_rodata_START);
+        segment_anime_virus_y_sdata_START = .;
+        build/us/src/assets/anime/anime_virus_y.o(.sdata*);
+        segment_anime_virus_y_sdata_END = .;
+        segment_anime_virus_y_sdata_SIZE = ABSOLUTE(segment_anime_virus_y_sdata_END - segment_anime_virus_y_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_virus_y);
     segment_anime_virus_y_ROM_END = __romPos;
@@ -4260,6 +4827,10 @@ SECTIONS
         build/us/src/assets/anime/anime_smog.o(.rodata*);
         segment_anime_smog_rodata_END = .;
         segment_anime_smog_rodata_SIZE = ABSOLUTE(segment_anime_smog_rodata_END - segment_anime_smog_rodata_START);
+        segment_anime_smog_sdata_START = .;
+        build/us/src/assets/anime/anime_smog.o(.sdata*);
+        segment_anime_smog_sdata_END = .;
+        segment_anime_smog_sdata_SIZE = ABSOLUTE(segment_anime_smog_sdata_END - segment_anime_smog_sdata_START);
     }
     __romPos += SIZEOF(.segment_anime_smog);
     segment_anime_smog_ROM_END = __romPos;
@@ -4291,6 +4862,10 @@ SECTIONS
         build/us/src/assets/tutorial/tutorial_kasa.o(.rodata*);
         segment_tutorial_data_rodata_END = .;
         segment_tutorial_data_rodata_SIZE = ABSOLUTE(segment_tutorial_data_rodata_END - segment_tutorial_data_rodata_START);
+        segment_tutorial_data_sdata_START = .;
+        build/us/src/assets/tutorial/tutorial_kasa.o(.sdata*);
+        segment_tutorial_data_sdata_END = .;
+        segment_tutorial_data_sdata_SIZE = ABSOLUTE(segment_tutorial_data_sdata_END - segment_tutorial_data_sdata_START);
     }
     __romPos += SIZEOF(.segment_tutorial_data);
     segment_tutorial_data_ROM_END = __romPos;
