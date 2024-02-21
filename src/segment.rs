@@ -1,5 +1,5 @@
-use std::{fs, path::PathBuf};
-use serde::{Deserialize};
+use std::path::PathBuf;
+use serde::Deserialize;
 
 #[derive(Deserialize, PartialEq, Debug)]
 pub struct FileInfo {
