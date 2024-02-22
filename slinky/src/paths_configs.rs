@@ -6,12 +6,8 @@ use std::path::PathBuf;
 
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(default)]
+#[derive(Default)]
 pub struct PathsConfigs {
     pub base_path: Option<PathBuf>,
 }
 
-impl Default for PathsConfigs {
-    fn default() -> Self {
-        Self { base_path: None }
-    }
-}

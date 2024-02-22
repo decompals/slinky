@@ -41,7 +41,7 @@ impl SegmentSymbolsStyle {
 
     fn convert_section_name_to_linker_format(&self, section_type: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => section_type.replace(".", "_"),
+            SegmentSymbolsStyle::Splat => section_type.replace('.', "_"),
             SegmentSymbolsStyle::Makerom => {
                 if section_type == ".rodata" {
                     "RoData".to_string()
@@ -70,7 +70,7 @@ impl SegmentSymbolsStyle {
     }
 
     pub fn segment_section_start(&self, seg_name: &str, section_type: &str) -> String {
-        let sec = self.convert_section_name_to_linker_format(&section_type);
+        let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
             SegmentSymbolsStyle::Splat => format!("{}{}_START", seg_name, sec),
@@ -79,7 +79,7 @@ impl SegmentSymbolsStyle {
     }
 
     pub fn segment_section_end(&self, seg_name: &str, section_type: &str) -> String {
-        let sec = self.convert_section_name_to_linker_format(&section_type);
+        let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
             SegmentSymbolsStyle::Splat => format!("{}{}_END", seg_name, sec),
@@ -88,7 +88,7 @@ impl SegmentSymbolsStyle {
     }
 
     pub fn segment_section_size(&self, seg_name: &str, section_type: &str) -> String {
-        let sec = self.convert_section_name_to_linker_format(&section_type);
+        let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
             SegmentSymbolsStyle::Splat => format!("{}{}_SIZE", seg_name, sec),

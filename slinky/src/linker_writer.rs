@@ -27,7 +27,7 @@ impl<'a> LinkerWriter<'a> {
             linker_symbols: HashSet::new(),
             indent_level: 0,
             buffer: Vec::new(),
-            options: options,
+            options,
         }
     }
 
@@ -111,7 +111,7 @@ impl<'a> LinkerWriter<'a> {
         let mut f = File::create(path)?;
 
         for line in &self.buffer {
-            write!(f, "{}\n", line)?;
+            writeln!(f, "{}", line)?;
         }
 
         Ok(())
@@ -121,7 +121,7 @@ impl<'a> LinkerWriter<'a> {
 // internal functions
 impl LinkerWriter<'_> {
     fn writeln(&mut self, line: &str) {
-        if line.len() == 0 {
+        if line.is_empty() {
             self.buffer.push("".to_string());
         } else {
             let mut temp = String::new();
@@ -159,7 +159,7 @@ impl LinkerWriter<'_> {
         let mut line = format!("{}{}", emitted_segment_name, name_suffix);
 
         if noload {
-            line += &format!(" (NOLOAD) :");
+            line += " (NOLOAD) :";
         } else {
             if let Some(fixed_vram) = segment.fixed_vram {
                 line += &format!(" 0x{:08X}", fixed_vram);
