@@ -112,10 +112,6 @@ jobs:
       - name: Build cli
         run: cargo build --release --target ${{ matrix.builder.target }}
 
-      - name: Print built files
-        run: |
-          dir target/${{ matrix.target }}/release
-
       - name: Move files for packaging (unix)
         if: matrix.builder.name == 'linux' || matrix.builder.name == 'mac'
         run: |
@@ -123,7 +119,6 @@ jobs:
           cp target/${{ matrix.builder.target }}/release/slinky-cli package/
           cp LICENSE package/slinky-cli.LICENSE
           cp README.md package/slinky-cli.README.md
-          dir package
 
       - name: Move files for packaging (windows)
         if: matrix.builder.name == 'windows'
@@ -132,7 +127,6 @@ jobs:
           Copy-Item target/${{ matrix.builder.target }}/release/slinky-cli.exe package/
           Copy-Item LICENSE package/slinky-cli.LICENSE
           Copy-Item README.md package/slinky-cli.README.md
-          dir package
 
       - name: Package .tar.gz
         run: |
