@@ -1,6 +1,8 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+mod error;
+
 mod paths_configs;
 mod segment_symbols_style;
 mod options;
@@ -13,6 +15,8 @@ mod document;
 
 mod linker_writer;
 
+
+pub use error::SlinkyError;
 
 pub use paths_configs::PathsConfigs;
 pub use segment_symbols_style::SegmentSymbolsStyle;

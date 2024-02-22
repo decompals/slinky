@@ -6,7 +6,8 @@ use std::path::Path;
 use slinky::{Document, LinkerWriter};
 
 fn main() {
-    let document = Document::read(Path::new("test_case.yaml"));
+    // TODO: don't use expect?
+    let document = Document::read_file(Path::new("test_case.yaml")).expect("Error while reading input file");
 
     let mut writer = LinkerWriter::new(&document.options);
     writer.begin_sections();
