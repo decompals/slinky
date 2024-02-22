@@ -3,7 +3,8 @@
 
 use std::{collections::HashSet, fs::{self, File}, io::Write, path::{Path, PathBuf}};
 
-use crate::segment::{FileKind, Segment};
+use crate::file_kind::FileKind;
+use crate::segment::Segment;
 use crate::options::Options;
 
 pub struct LinkerWriter<'a> {
