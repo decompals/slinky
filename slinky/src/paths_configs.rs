@@ -1,8 +1,8 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
 use serde::Deserialize;
+use std::path::PathBuf;
 
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(default)]
@@ -12,8 +12,6 @@ pub struct PathsConfigs {
 
 impl Default for PathsConfigs {
     fn default() -> Self {
-        Self {
-            base_path: None,
-        }
+        Self { base_path: None }
     }
 }

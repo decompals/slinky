@@ -20,4 +20,3 @@ pub struct Segment {
 
     pub wildcard_sections: Option<bool>,
 }
-

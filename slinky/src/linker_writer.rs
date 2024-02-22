@@ -1,11 +1,16 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{collections::HashSet, fs::{self, File}, io::Write, path::{Path, PathBuf}};
+use std::{
+    collections::HashSet,
+    fs::{self, File},
+    io::Write,
+    path::{Path, PathBuf},
+};
 
 use crate::file_kind::FileKind;
-use crate::segment::Segment;
 use crate::options::Options;
+use crate::segment::Segment;
 
 pub struct LinkerWriter<'a> {
     pub linker_symbols: HashSet<String>,
@@ -21,7 +26,7 @@ impl<'a> LinkerWriter<'a> {
         Self {
             linker_symbols: HashSet::new(),
             indent_level: 0,
-            buffer:Vec::new(),
+            buffer: Vec::new(),
             options: options,
         }
     }
@@ -48,7 +53,10 @@ impl<'a> LinkerWriter<'a> {
 
         let rom_start_sym = style.segment_rom_start(&segment.name);
         self.write_symbol(&rom_start_sym, "__romPos");
-        self.write_symbol(&style.segment_vram_start(&segment.name), &format!("ADDR({})", emitted_segment_name));
+        self.write_symbol(
+            &style.segment_vram_start(&segment.name),
+            &format!("ADDR({})", emitted_segment_name),
+        );
 
         self.write_segment_start(segment, &emitted_segment_name, false);
         // TODO: FILL()
@@ -63,7 +71,10 @@ impl<'a> LinkerWriter<'a> {
             self.write_files_for_section(segment, section);
 
             self.write_symbol(&section_end_sym, ".");
-            self.write_symbol(&section_size_sym, &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym));
+            self.write_symbol(
+                &section_size_sym,
+                &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym),
+            );
         }
 
         self.write_segment_end(segment, &emitted_segment_name, false);
@@ -79,7 +90,10 @@ impl<'a> LinkerWriter<'a> {
                 self.write_files_for_section(segment, section);
             }
             self.write_symbol(&section_end_sym, ".");
-            self.write_symbol(&section_size_sym, &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym));
+            self.write_symbol(
+                &section_size_sym,
+                &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym),
+            );
         }
         self.write_segment_end(segment, &emitted_segment_name, true);
 
@@ -88,10 +102,9 @@ impl<'a> LinkerWriter<'a> {
         self.writeln("");
     }
 
-
     pub fn save_linker_script(&self, path: &Path) -> Result<(), std::io::Error> {
         match path.parent() {
-            None => {},
+            None => {}
             Some(parent) => fs::create_dir_all(parent)?,
         }
 
@@ -184,13 +197,17 @@ impl LinkerWriter<'_> {
 
             path.extend(&file.path);
 
-            let wildcard = if segment.wildcard_sections.unwrap() {"*"} else {""};
+            let wildcard = if segment.wildcard_sections.unwrap() {
+                "*"
+            } else {
+                ""
+            };
 
             // TODO: figure out glob support
             match file.kind {
                 FileKind::Object => {
                     self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
-                },
+                }
                 FileKind::Archive => todo!(),
             }
         }

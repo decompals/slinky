@@ -19,11 +19,19 @@ impl Document {
     pub fn read_file(path: &Path) -> Result<Self, SlinkyError> {
         let f = match fs::File::open(path) {
             Ok(f) => f,
-            Err(e) => return Err(SlinkyError::FailedFileOpen{description: e.to_string()}),
+            Err(e) => {
+                return Err(SlinkyError::FailedFileOpen {
+                    description: e.to_string(),
+                })
+            }
         };
         let mut document: Document = match serde_yaml::from_reader(f) {
             Ok(d) => d,
-            Err(e) => return Err(SlinkyError::FailedYamlParsing{description: e.to_string()}),
+            Err(e) => {
+                return Err(SlinkyError::FailedYamlParsing {
+                    description: e.to_string(),
+                })
+            }
         };
 
         for segment in &mut document.segments {

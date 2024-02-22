@@ -25,14 +25,12 @@ impl SegmentSymbolsStyle {
         }
     }
 
-
     pub fn segment_vram_start(&self, seg_name: &str) -> String {
         match self {
             SegmentSymbolsStyle::Splat => format!("{}_VRAM", seg_name),
             SegmentSymbolsStyle::Makerom => format!("_{}SegmentStart", seg_name),
         }
     }
-
 
     pub fn segment_vram_end(&self, seg_name: &str) -> String {
         match self {
@@ -41,27 +39,35 @@ impl SegmentSymbolsStyle {
         }
     }
 
-
     fn convert_section_name_to_linker_format(&self, section_type: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => {
-                section_type.replace(".", "_")
-            },
+            SegmentSymbolsStyle::Splat => section_type.replace(".", "_"),
             SegmentSymbolsStyle::Makerom => {
                 if section_type == ".rodata" {
                     "RoData".to_string()
                 } else {
                     // TODO: there must be a better way to Capitalize a string
                     if section_type.chars().nth(0) == Some('.') {
-                        section_type.chars().nth(1).expect("").to_uppercase().to_string() + &section_type[2..]
+                        section_type
+                            .chars()
+                            .nth(1)
+                            .expect("")
+                            .to_uppercase()
+                            .to_string()
+                            + &section_type[2..]
                     } else {
-                        section_type.chars().nth(0).expect("").to_uppercase().to_string() + &section_type[1..]
+                        section_type
+                            .chars()
+                            .nth(0)
+                            .expect("")
+                            .to_uppercase()
+                            .to_string()
+                            + &section_type[1..]
                     }
                 }
-            },
+            }
         }
     }
-
 
     pub fn segment_section_start(&self, seg_name: &str, section_type: &str) -> String {
         let sec = self.convert_section_name_to_linker_format(&section_type);
@@ -89,5 +95,4 @@ impl SegmentSymbolsStyle {
             SegmentSymbolsStyle::Makerom => format!("_{}Segment{}Size", seg_name, sec),
         }
     }
-
 }

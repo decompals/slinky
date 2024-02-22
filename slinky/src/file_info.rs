@@ -1,8 +1,8 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
 use serde::Deserialize;
+use std::path::PathBuf;
 
 use crate::file_kind::FileKind;
 
@@ -10,7 +10,7 @@ use crate::file_kind::FileKind;
 pub struct FileInfo {
     pub path: PathBuf,
 
-    #[serde(default="default_fileinfo_kind")]
+    #[serde(default = "default_fileinfo_kind")]
     pub kind: FileKind,
 }
 

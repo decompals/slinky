@@ -15,7 +15,6 @@ pub struct Options {
     pub paths: PathsConfigs,
 
     // Options passed down to each segment
-
     pub use_subalign: bool,
     pub subalign: u64,
 
@@ -25,8 +24,18 @@ pub struct Options {
 impl Default for Options {
     fn default() -> Self {
         Self {
-            alloc_sections: vec![".text".into(), ".data".into(), ".rodata".into(), ".sdata".into()],
-            noload_sections: vec![".sbss".into(), ".scommon".into(), ".bss".into(), "COMMON".into()],
+            alloc_sections: vec![
+                ".text".into(),
+                ".data".into(),
+                ".rodata".into(),
+                ".sdata".into(),
+            ],
+            noload_sections: vec![
+                ".sbss".into(),
+                ".scommon".into(),
+                ".bss".into(),
+                "COMMON".into(),
+            ],
             segment_symbols_style: SegmentSymbolsStyle::Splat,
             paths: PathsConfigs::default(),
 
