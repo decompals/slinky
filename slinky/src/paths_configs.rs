@@ -10,4 +10,3 @@ use std::path::PathBuf;
 pub struct PathsConfigs {
     pub base_path: Option<PathBuf>,
 }
-
