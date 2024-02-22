@@ -3,7 +3,7 @@
 
 mod error;
 
-mod options;
+mod settings;
 mod paths_configs;
 mod segment_symbols_style;
 
@@ -17,7 +17,7 @@ mod linker_writer;
 
 pub use error::SlinkyError;
 
-pub use options::Options;
+pub use settings::Settings;
 pub use paths_configs::PathsConfigs;
 pub use segment_symbols_style::SegmentSymbolsStyle;
 

@@ -1,7 +1,6 @@
-options:
+settings:
   paths:
     base_path: build/us
-  placeholder: 1
 
 segments:
   - name: header

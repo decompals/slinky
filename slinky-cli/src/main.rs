@@ -10,7 +10,7 @@ fn main() {
     let document =
         Document::read_file(Path::new("test_case.yaml")).expect("Error while reading input file");
 
-    let mut writer = LinkerWriter::new(&document.options);
+    let mut writer = LinkerWriter::new(&document.settings);
     writer.begin_sections();
     for segment in &document.segments {
         writer.add_segment(segment);

@@ -9,7 +9,7 @@ use std::{
 };
 
 use crate::file_kind::FileKind;
-use crate::options::Options;
+use crate::settings::Settings;
 use crate::segment::Segment;
 
 pub struct LinkerWriter<'a> {
@@ -18,16 +18,16 @@ pub struct LinkerWriter<'a> {
     indent_level: i32,
     buffer: Vec<String>,
 
-    options: &'a Options,
+    settings: &'a Settings,
 }
 
 impl<'a> LinkerWriter<'a> {
-    pub fn new(options: &'a Options) -> Self {
+    pub fn new(settings: &'a Settings) -> Self {
         Self {
             linker_symbols: HashSet::new(),
             indent_level: 0,
             buffer: Vec::new(),
-            options,
+            settings,
         }
     }
 
@@ -46,7 +46,7 @@ impl<'a> LinkerWriter<'a> {
 
     // TODO: figure out a better way to handle Options
     pub fn add_segment(&mut self, segment: &Segment) {
-        let style = &self.options.segment_symbols_style;
+        let style = &self.settings.segment_symbols_style;
         let emitted_segment_name = format!(".{}", segment.name);
 
         // println!("Adding segment {}", emitted_segment_name);
@@ -61,7 +61,7 @@ impl<'a> LinkerWriter<'a> {
         self.write_segment_start(segment, &emitted_segment_name, false);
         // TODO: FILL()
 
-        for section in &self.options.alloc_sections {
+        for section in &self.settings.alloc_sections {
             let section_start_sym = style.segment_section_start(&segment.name, section);
             let section_end_sym = style.segment_section_end(&segment.name, section);
             let section_size_sym = style.segment_section_size(&segment.name, section);
@@ -86,7 +86,7 @@ impl<'a> LinkerWriter<'a> {
             let section_size_sym = style.segment_section_size(&segment.name, ".bss");
 
             self.write_symbol(&section_start_sym, ".");
-            for section in &self.options.noload_sections {
+            for section in &self.settings.noload_sections {
                 self.write_files_for_section(segment, section);
             }
             self.write_symbol(&section_end_sym, ".");
@@ -153,7 +153,7 @@ impl LinkerWriter<'_> {
     }
 
     fn write_segment_start(&mut self, segment: &Segment, emitted_segment_name: &str, noload: bool) {
-        let style = &self.options.segment_symbols_style;
+        let style = &self.settings.segment_symbols_style;
 
         let name_suffix = if noload { "_bss" } else { "" };
         let mut line = format!("{}{}", emitted_segment_name, name_suffix);
@@ -177,7 +177,7 @@ impl LinkerWriter<'_> {
     }
 
     fn write_segment_end(&mut self, segment: &Segment, emitted_segment_name: &str, noload: bool) {
-        let style = &self.options.segment_symbols_style;
+        let style = &self.settings.segment_symbols_style;
 
         self.end_block();
         if !noload {
@@ -191,7 +191,7 @@ impl LinkerWriter<'_> {
         for file in &segment.files {
             let mut path = PathBuf::new();
 
-            if let Some(base_path) = &self.options.paths.base_path {
+            if let Some(base_path) = &self.settings.paths.base_path {
                 path.extend(base_path);
             }
 

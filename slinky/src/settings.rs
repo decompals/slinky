@@ -7,7 +7,7 @@ use crate::{paths_configs::PathsConfigs, segment_symbols_style::SegmentSymbolsSt
 
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(default)]
-pub struct Options {
+pub struct Settings {
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
 
@@ -21,7 +21,7 @@ pub struct Options {
     pub wildcard_sections: bool,
 }
 
-impl Default for Options {
+impl Default for Settings {
     fn default() -> Self {
         Self {
             alloc_sections: vec![
