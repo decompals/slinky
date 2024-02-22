@@ -136,21 +136,21 @@ jobs:
 
       - name: Package .tar.gz
         run: |
-          cd package && tar -czf ../slinky-cli-${{ matrix.crate-type }}-${{ matrix.builder.target }}.tar.gz *
+          cd package && tar -czf ../slinky-cli-${{ matrix.builder.target }}.tar.gz *
 
       - name: Upload .tar.gz artifact
         uses: actions/upload-artifact@v3
         with:
-          name: slinky-cli-${{ matrix.crate-type }}-${{ matrix.builder.target }}
+          name: slinky-cli-${{ matrix.builder.target }}
           path: |
-            slinky-cli-${{ matrix.crate-type }}-${{ matrix.builder.target }}.tar.gz
+            slinky-cli-${{ matrix.builder.target }}.tar.gz
           if-no-files-found: error
 
       - name: Publish .tar.gz release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/') && matrix.archive == 'tar.gz'
         with:
-          files: slinky-cli-${{ matrix.crate-type }}-${{ matrix.builder.target }}.tar.gz
+          files: slinky-cli-${{ matrix.builder.target }}.tar.gz
 
   publish:
     name: Publish
