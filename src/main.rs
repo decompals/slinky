@@ -11,7 +11,6 @@ use std::{fs, path::Path};
 use serde_yaml::Value;
 use serde::Deserialize;
 
-use paths_configs::PathsConfigs;
 use options::Options;
 use segment::Segment;
 
@@ -26,16 +25,11 @@ fn main() {
 
     let yaml_root = yaml_obj.as_mapping().expect("Invalid yaml: Expected top-level `segments` list");
 
-    let path_configs = match yaml_root.get("paths") {
-        None => PathsConfigs::default(),
-        Some(val) => serde_yaml::from_value(val.clone()).expect("Failed to parse top-level `paths`"),
-    };
     let options = match yaml_root.get("options") {
         None => Options::default(),
         Some(val) => serde_yaml::from_value(val.clone()).expect("Failed to parse top-level `paths`"),
     };
 
-    println!("{:?}", path_configs);
     println!("{:?}", options);
 
     let mut segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
@@ -46,10 +40,10 @@ fn main() {
         segment.wildcard_sections = Some(options.wildcard_sections);
     }
 
-    let mut writer = LinkerWriter::new();
+    let mut writer = LinkerWriter::new(&options);
     writer.begin_sections();
     for segment in &segments_list {
-        writer.add_segment(segment, &options, &path_configs);
+        writer.add_segment(segment);
     }
     writer.end_sections();
 

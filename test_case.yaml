@@ -1,7 +1,6 @@
-paths:
-  base_path: build/us
-
 options:
+  paths:
+    base_path: build/us
   placeholder: 1
 
 segments:
