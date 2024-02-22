@@ -117,7 +117,7 @@ jobs:
           dir target/${{ matrix.target }}/release
 
       - name: Move files for packaging (unix)
-        if: matrix.builder.archive == 'linux' || matrix.builder.archive == 'mac'
+        if: matrix.builder.name == 'linux' || matrix.builder.name == 'mac'
         run: |
           mkdir -p package/
           cp target/${{ matrix.builder.target }}/release/slinky-cli package/
@@ -126,7 +126,7 @@ jobs:
           dir package
 
       - name: Move files for packaging (windows)
-        if: matrix.builder.archive == 'windows'
+        if: matrix.builder.name == 'windows'
         run: |
           mkdir -p package/
           Copy-Item target/${{ matrix.builder.target }}/release/slinky-cli.exe package/
