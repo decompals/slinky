@@ -38,33 +38,15 @@ impl LinkerWriter {
     // TODO: figure out a better way to handle Options
     pub fn add_segment(&mut self, segment: &Segment, options: &Options, paths_configs: &PathsConfigs) {
         let style = &options.segment_symbols_style;
-        let segment_name = format!(".{}", segment.name);
+        let emitted_segment_name = format!(".{}", segment.name);
 
-        // println!("Adding segment {}", segment_name);
+        // println!("Adding segment {}", emitted_segment_name);
 
         let rom_start_sym = style.segment_rom_start(&segment.name);
-        let rom_end_sym = style.segment_rom_end(&segment.name);
         self.write_symbol(&rom_start_sym, "__romPos");
-        self.write_symbol(&style.segment_vram_start(&segment.name), &format!("ADDR({})", segment_name));
+        self.write_symbol(&style.segment_vram_start(&segment.name), &format!("ADDR({})", emitted_segment_name));
 
-        {
-            let mut line = segment_name.clone();
-
-            if let Some(fixed_vram) = segment.fixed_vram {
-                line += &format!(" 0x{:08X}", fixed_vram);
-            }
-
-            line += &format!(" : AT({})", rom_start_sym);
-
-            if segment.use_subalign.unwrap() {
-                line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
-            }
-
-            self.writeln(&line);
-        }
-
-        self.begin_block();
-
+        self.write_segment_start(segment, &emitted_segment_name, false, options);
         // TODO: FILL()
 
         for section in &options.alloc_sections {
@@ -73,54 +55,16 @@ impl LinkerWriter {
             let section_size_sym = style.segment_section_size(&segment.name, section);
 
             self.write_symbol(&section_start_sym, ".");
-            for file in &segment.files {
-                let mut path = PathBuf::new();
 
-                if let Some(base_path) = &paths_configs.base_path {
-                    path.extend(base_path);
-                }
+            self.write_files_for_section(segment, section, options, paths_configs);
 
-                path.extend(&file.path);
-
-                let wildcard = if segment.wildcard_sections.unwrap() {
-                    "*"
-                } else {
-                    ""
-                };
-
-                // TODO: figure out glob support
-                match file.kind {
-                    FileKind::Object => {
-                        self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
-                    },
-                    FileKind::Archive => todo!(),
-                }
-
-            }
             self.write_symbol(&section_end_sym, ".");
             self.write_symbol(&section_size_sym, &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym));
         }
-        self.end_block();
 
-        self.writeln(&format!("__romPos += SIZEOF({});", segment_name));
-        // self.writeln(&format!("__romPos = ALIGN(__romPos, {});", ));
-        self.write_symbol(&rom_end_sym, "__romPos");
+        self.write_segment_end(segment, &emitted_segment_name, false, options);
 
-        // noload
-        {
-            let mut line = segment_name.clone();
-
-            line += &format!(" (NOLOAD) :");
-
-            if segment.use_subalign.unwrap() {
-                line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
-            }
-
-            self.writeln(&line);
-        }
-
-        self.begin_block();
-
+        self.write_segment_start(segment, &emitted_segment_name, true, options);
         {
             let section_start_sym = style.segment_section_start(&segment.name, ".bss");
             let section_end_sym = style.segment_section_end(&segment.name, ".bss");
@@ -128,37 +72,12 @@ impl LinkerWriter {
 
             self.write_symbol(&section_start_sym, ".");
             for section in &options.noload_sections {
-                for file in &segment.files {
-                    let mut path = PathBuf::new();
-
-                    if let Some(base_path) = &paths_configs.base_path {
-                        path.extend(base_path);
-                    }
-
-                    path.extend(&file.path);
-
-                    let wildcard = if segment.wildcard_sections.unwrap() {
-                        "*"
-                    } else {
-                        ""
-                    };
-    
-                    // TODO: figure out glob support
-                    match file.kind {
-                        FileKind::Object => {
-                            self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
-                        },
-                        FileKind::Archive => todo!(),
-                    }
-
-                }
+                self.write_files_for_section(segment, section, options, paths_configs);
             }
             self.write_symbol(&section_end_sym, ".");
             self.write_symbol(&section_size_sym, &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym));
         }
-        self.end_block();
-
-
+        self.write_segment_end(segment, &emitted_segment_name, true, options);
 
         self.write_symbol(&style.segment_vram_end(&segment.name), ".");
 
@@ -214,5 +133,62 @@ impl LinkerWriter {
         self.writeln(&format!("{} = {};", symbol, value));
 
         self.linker_symbols.insert(value.to_string());
+    }
+
+    fn write_segment_start(&mut self, segment: &Segment, emitted_segment_name: &str, noload: bool, options: &Options) {
+        let style = &options.segment_symbols_style;
+
+        let name_suffix = if noload { "_bss" } else { "" };
+        let mut line = format!("{}{}", emitted_segment_name, name_suffix);
+
+        if noload {
+            line += &format!(" (NOLOAD) :");
+        } else {
+            if let Some(fixed_vram) = segment.fixed_vram {
+                line += &format!(" 0x{:08X}", fixed_vram);
+            }
+
+            line += &format!(" : AT({})", style.segment_rom_start(&segment.name));
+        }
+
+        if segment.use_subalign.unwrap() {
+            line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
+        }
+
+        self.writeln(&line);
+        self.begin_block();
+    }
+
+    fn write_segment_end(&mut self, segment: &Segment, emitted_segment_name: &str, noload: bool, options: &Options) {
+        let style = &options.segment_symbols_style;
+
+        self.end_block();
+        if !noload {
+            self.writeln(&format!("__romPos += SIZEOF({});", emitted_segment_name));
+            // self.writeln(&format!("__romPos = ALIGN(__romPos, {});", ));
+            self.write_symbol(&style.segment_rom_end(&segment.name), "__romPos");
+        }
+    }
+
+    fn write_files_for_section(&mut self, segment: &Segment, section: &str, _options: &Options, paths_configs: &PathsConfigs) {
+        for file in &segment.files {
+            let mut path = PathBuf::new();
+
+            if let Some(base_path) = &paths_configs.base_path {
+                path.extend(base_path);
+            }
+
+            path.extend(&file.path);
+
+            let wildcard = if segment.wildcard_sections.unwrap() {"*"} else {""};
+
+            // TODO: figure out glob support
+            match file.kind {
+                FileKind::Object => {
+                    self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
+                },
+                FileKind::Archive => todo!(),
+            }
+        }
     }
 }
