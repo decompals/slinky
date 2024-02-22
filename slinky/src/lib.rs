@@ -9,6 +9,8 @@ mod file_kind;
 mod file_info;
 mod segment;
 
+mod document;
+
 mod linker_writer;
 
 
@@ -19,5 +21,7 @@ pub use options::Options;
 pub use file_kind::FileKind;
 pub use file_info::FileInfo;
 pub use segment::Segment;
+
+pub use document::Document;
 
 pub use linker_writer::LinkerWriter;

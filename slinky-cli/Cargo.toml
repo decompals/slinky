@@ -10,7 +10,3 @@ edition = "2021"
 
 [dependencies]
 slinky = { path = "../slinky", version = "0.1.0" }
-
-# TODO: change this so the cli doesn't depend on serde
-serde = {version="1.0.197", features = ["derive"]}
-serde_yaml = "0.9.32"
