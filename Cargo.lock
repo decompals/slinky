@@ -31,14 +31,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1a46d1a171d865aa5f83f92695765caa047a9b4cbae2cbf37dbd613a793fd4c"
 
 [[package]]
-name = "linker_script_gen"
-version = "0.1.0"
-dependencies = [
- "serde",
- "serde_yaml",
-]
-
-[[package]]
 name = "proc-macro2"
 version = "1.0.78"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -93,6 +85,23 @@ dependencies = [
  "ryu",
  "serde",
  "unsafe-libyaml",
+]
+
+[[package]]
+name = "slinky"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_yaml",
+]
+
+[[package]]
+name = "slinky-cli"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_yaml",
+ "slinky",
 ]
 
 [[package]]

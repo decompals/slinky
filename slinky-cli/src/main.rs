@@ -1,0 +1,42 @@
+/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-License-Identifier: MIT */
+
+use std::{fs, path::Path};
+use serde_yaml::Value;
+use serde::Deserialize;
+
+use slinky::{Options, Segment, LinkerWriter};
+
+fn main() {
+    let yaml_contents = fs::read_to_string("test_case.yaml").expect("error");
+
+    //println!("Hello, world!");
+
+    let yaml_obj: Value = Value::deserialize(serde_yaml::Deserializer::from_str(&yaml_contents)).expect("invalid yaml");
+
+    let yaml_root = yaml_obj.as_mapping().expect("Invalid yaml: Expected top-level `segments` list");
+
+    let options = match yaml_root.get("options") {
+        None => Options::default(),
+        Some(val) => serde_yaml::from_value(val.clone()).expect("Failed to parse top-level `paths`"),
+    };
+
+    println!("{:?}", options);
+
+    let mut segments_list: Vec<Segment> = serde_yaml::from_value(yaml_root.get("segments").expect("Invalid yaml: Expected top-level `segments` list").clone()).expect("");
+    for segment in &mut segments_list {
+        segment.use_subalign = Some(options.use_subalign);
+        segment.subalign = Some(options.subalign);
+
+        segment.wildcard_sections = Some(options.wildcard_sections);
+    }
+
+    let mut writer = LinkerWriter::new(&options);
+    writer.begin_sections();
+    for segment in &segments_list {
+        writer.add_segment(segment);
+    }
+    writer.end_sections();
+
+    writer.save_linker_script(Path::new("test_case.ld")).expect("Error writing the linker script");
+}
