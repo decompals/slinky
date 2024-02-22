@@ -69,26 +69,32 @@ jobs:
       matrix:
         builder: [
           {
+            name: windows,
             target: x86_64-pc-windows-gnu,
             runner: windows-2019
           },
           {
+            name: windows,
             target: x86_64-pc-windows-msvc,
             runner: windows-2019
           },
           {
+            name: mac,
             target: x86_64-apple-darwin,
             runner: macos-12
           },
           {
+            name: mac,
             target: aarch64-apple-darwin,
             runner: macos-13-xlarge
           },
           {
+            name: linux,
             target: x86_64-unknown-linux-musl,
             runner: ubuntu-20.04
           },
           {
+            name: linux,
             target: x86_64-unknown-linux-gnu,
             runner: ubuntu-20.04
           }
@@ -106,13 +112,27 @@ jobs:
       - name: Build cli
         run: cargo build --release --target ${{ matrix.builder.target }}
 
-      - name: Move files for packaging
+      - name: Print built files
+        run: |
+          dir target/${{ matrix.target }}/release
+
+      - name: Move files for packaging (unix)
+        if: matrix.builder.archive == 'linux' || matrix.builder.archive == 'mac'
         run: |
           mkdir -p package/
-          cp target/${{ matrix.builder.target }}/release/slinky-cli package/ || cp target/${{ matrix.builder.target }}/release/slinky-cli.exe package/
+          cp target/${{ matrix.builder.target }}/release/slinky-cli package/
           cp LICENSE package/slinky-cli.LICENSE
           cp README.md package/slinky-cli.README.md
-          tree package
+          dir package
+
+      - name: Move files for packaging (windows)
+        if: matrix.builder.archive == 'windows'
+        run: |
+          mkdir -p package/
+          Copy-Item target/${{ matrix.builder.target }}/release/slinky-cli.exe package/
+          Copy-Item LICENSE package/slinky-cli.LICENSE
+          Copy-Item README.md package/slinky-cli.README.md
+          dir package
 
       - name: Package .tar.gz
         run: |
@@ -157,10 +177,6 @@ jobs:
       - name: Upload slinky crate
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: cargo publish --package slinky --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish slinky-cli dry run
-        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
-        run: cargo publish --package slinky-cli --dry-run
 
       - name: Upload slinky-cli crate
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
