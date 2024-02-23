@@ -40,7 +40,7 @@ jobs:
       - name: Run clippy
         run: cargo clippy --all-targets -- -D warnings
 
-    run_tests:
+  run_tests:
     name: Run tests
     runs-on: ubuntu-latest
 
