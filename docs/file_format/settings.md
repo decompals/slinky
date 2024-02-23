@@ -4,12 +4,14 @@ The top-level `settings` attribute specifies many options to customize the
 generated linker script. Note that many of these options can be customized per
 segment too.
 
+All the settings are optional. Unspecified options will use the default value
+for it. Note that using certain settings may require specifying other options
+as well.
+
 ## `base_path`
 
 All the emitted paths are relative to this path. Useful when all the files are
 relative to the same path, like a `build` folder.
-
-Optional.
 
 ### Example
 

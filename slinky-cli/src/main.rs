@@ -8,7 +8,7 @@ use slinky::{Document, LinkerWriter};
 fn main() {
     // TODO: don't use expect?
     let document =
-        Document::read_file(Path::new("test_case.yaml")).expect("Error while reading input file");
+        Document::read_file(Path::new("test_case.yaml")).expect("Error while parsing input file");
 
     let mut writer = LinkerWriter::new(&document.settings);
     writer.begin_sections();
