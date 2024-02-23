@@ -176,8 +176,8 @@ impl LinkerWriter<'_> {
             line += &format!(" : AT({})", style.segment_rom_start(&segment.name));
         }
 
-        if segment.use_subalign.unwrap() {
-            line += &format!(" SUBALIGN({})", segment.subalign.unwrap());
+        if let Some(subalign) = segment.subalign {
+            line += &format!(" SUBALIGN({})", subalign);
         }
 
         self.writeln(&line);
@@ -201,14 +201,10 @@ impl LinkerWriter<'_> {
 
             path.extend(&file.path);
 
-            let wildcard = if segment.wildcard_sections.unwrap() {
-                "*"
-            } else {
-                ""
-            };
+            let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
             // TODO: figure out glob support
-            match file.kind.as_ref().unwrap() {
+            match file.kind {
                 FileKind::Object => {
                     self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 }

@@ -5,11 +5,13 @@ use std::{fs, path::Path};
 
 use serde::Deserialize;
 
-use crate::{FileKind, Segment, Settings, SlinkyError};
+use crate::{
+    absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial, Segment,
+    Settings, SlinkyError,
+};
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(PartialEq, Debug, Default)]
 pub struct Document {
-    #[serde(default)]
     pub settings: Settings,
 
     pub segments: Vec<Segment>,
@@ -25,7 +27,7 @@ impl Document {
                 })
             }
         };
-        let mut document: Document = match serde_yaml::from_reader(f) {
+        let document_serial: DocumentSerial = match serde_yaml::from_reader(f) {
             Ok(d) => d,
             Err(e) => {
                 return Err(SlinkyError::FailedYamlParsing {
@@ -34,22 +36,32 @@ impl Document {
             }
         };
 
-        for segment in &mut document.segments {
-            segment
-                .use_subalign
-                .get_or_insert(document.settings.use_subalign);
-            segment.subalign.get_or_insert(document.settings.subalign);
+        Ok(document_serial.unserialize()?)
+    }
+}
 
-            segment
-                .wildcard_sections
-                .get_or_insert(document.settings.wildcard_sections);
+#[derive(Deserialize, PartialEq, Debug)]
+pub(crate) struct DocumentSerial {
+    #[serde(default)]
+    pub settings: AbsentNullable<SettingsSerial>,
 
-            for file in &mut segment.files {
-                // TODO: guess based on file extension
-                file.kind.get_or_insert(FileKind::Object);
-            }
+    pub segments: Vec<SegmentSerial>,
+}
+
+impl DocumentSerial {
+    pub fn unserialize(self) -> Result<Document, SlinkyError> {
+        let mut ret = Document::default();
+
+        ret.settings = match self.settings.get_non_null_no_default("settings")? {
+            None => ret.settings,
+            Some(v) => v.unserialize()?,
+        };
+
+        ret.segments.reserve(self.segments.len());
+        for seg in self.segments {
+            ret.segments.push(seg.unserialize(&ret.settings)?);
         }
 
-        Ok(document)
+        Ok(ret)
     }
 }

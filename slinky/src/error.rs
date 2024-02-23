@@ -7,4 +7,8 @@ pub enum SlinkyError {
     FailedFileOpen { description: String },
     #[error("Unable parse yaml: {description}")]
     FailedYamlParsing { description: String },
+    #[error("Non-nullable attribute '{name}' was null")]
+    NullValueOnNonNull { name: String },
+    #[error("The attribute '{name}' should not be empty")]
+    EmptyValue { name: String },
 }

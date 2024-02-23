@@ -10,6 +10,8 @@ fn main() {
     let document =
         Document::read_file(Path::new("test_case.yaml")).expect("Error while parsing input file");
 
+    // println!("settings {:#?}", document.settings);
+
     let mut writer = LinkerWriter::new(&document.settings);
     writer.begin_sections();
     for segment in &document.segments {

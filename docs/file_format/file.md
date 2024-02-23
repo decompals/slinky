@@ -24,7 +24,7 @@ segments:
 
 ### Valid values
 
-Any valid path.
+Any valid non-empty path.
 
 ## `kind`
 

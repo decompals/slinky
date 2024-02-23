@@ -9,7 +9,6 @@ attribute. Check their specific documents for in-deep explanations.
 ```yaml
 settings:
   base_path: build
-  use_subalign: True
   subalign: 32
 
 segments:
@@ -27,7 +26,7 @@ segments:
       - { path: asm/entry.o }
 
   - name: boot
-    use_subalign: False
+    subalign: null
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/dmadata.o }
@@ -47,9 +46,9 @@ This will force this segment to be put at this specific address.
 Since the `boot` segment does not specify a fixed `vram` address then its
 address will be the end vram address of the previous segment (`entry`).
 
-The `boot` segment specified `use_subalign` to be `False`, so a`SUBALIGN`
-directive should not be used for this segment. This means sections from every
-file will be aligned using the alignment from the elf files.
+The `boot` segment specified `subalign` to be `null`, so a `SUBALIGN` directive
+should not be used for this segment. This means sections from every file will
+be aligned using the alignment from the elf files.
 
 The same sections of each file are put together in the order specified by the
 `settings`. Since no order was specified in this example then the default order

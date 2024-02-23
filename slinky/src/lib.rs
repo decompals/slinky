@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+mod absent_nullable;
 mod error;
 
 mod linker_symbols_style;

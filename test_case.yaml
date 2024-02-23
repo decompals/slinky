@@ -1,6 +1,5 @@
 settings:
   base_path: build/us
-  #linker_symbols_style: makerom
 
 segments:
   - name: header
@@ -18,7 +17,7 @@ segments:
       - { path: src/entry/entry.o }
 
   - name: boot
-    use_subalign: False
+    subalign: null
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/dmadata.o }

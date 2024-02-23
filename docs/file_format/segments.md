@@ -24,7 +24,7 @@ segments:
 
 ### Valid values
 
-String.
+Non empty string.
 
 TODO: Impose rules for valid names?
 
@@ -70,35 +70,14 @@ Any unsigned integer.
 
 `null`
 
-## `use_subalign`
-
-Toggle using the `SUBALIGN` directive on this segment.
-
-This option overrides the global setting, see
-[settings.md#use_subalign](settings.md#use_subalign) for more info.
-
-### Example
-
-```yaml
-segments:
-  - name: boot
-    use_subalign: False
-```
-
-### Valid values
-
-Boolean
-
-### Default value
-
-The value specified for [settings.md#use_subalign](settings.md#use_subalign)
-
 ## `subalign`
 
 The value to use in the `SUBALIGN` directive for this segment.
 
-The [`use_subalign`](#use_subalign) option controls if this directive is
-emitted or not.
+If `null` is specified then no `SUBALIGN` directive is used for this segment.
+
+If an integer is used then the `SUBALIGN` will be emitted for this segment,
+regarding the global setting.
 
 This option overrides the global setting, see
 [settings.md#subalign](settings.md#subalign) for more info.
@@ -108,12 +87,12 @@ This option overrides the global setting, see
 ```yaml
 segments:
   - name: main
-    subalign: 4
+    subalign: null
 ```
 
 ### Valid values
 
-Positive integers
+Positive integers or `null`.
 
 ### Default value
 

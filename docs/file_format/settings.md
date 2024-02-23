@@ -120,34 +120,11 @@ List of strings.
 
 `[.sbss, .scommon, .bss, COMMON]`
 
-## `use_subalign`
-
-Toggle using `SUBALIGN` directives on the segments.
-
-This option can be overriden per segment, see
-[segments.md#use_subalign](segments.md#use_subalign) for more info.
-
-### Example
-
-```yaml
-settings:
-  use_subalign: False
-```
-
-### Valid values
-
-Boolean
-
-### Default value
-
-`True`
-
 ## `subalign`
 
 The value to use in the `SUBALIGN` directives.
 
-The [`use_subalign`](#use_subalign) option controls if this directive is
-emitted or not.
+If the value is `null` then disables using `SUBALIGN` directives.
 
 This option can be overriden per segment, see
 [segments.md#subalign](segments.md#subalign) for more info.
@@ -161,7 +138,7 @@ settings:
 
 ### Valid values
 
-Positive integers
+Positive integers or `null`.
 
 ### Default value
 
