@@ -37,14 +37,14 @@ impl Document {
         for segment in &mut document.segments {
             segment
                 .use_subalign
-                .get_or_insert_with(|| document.settings.use_subalign);
+                .get_or_insert(document.settings.use_subalign);
             segment
                 .subalign
-                .get_or_insert_with(|| document.settings.subalign);
+                .get_or_insert(document.settings.subalign);
 
             segment
                 .wildcard_sections
-                .get_or_insert_with(|| document.settings.wildcard_sections);
+                .get_or_insert(document.settings.wildcard_sections);
         }
 
         Ok(document)
