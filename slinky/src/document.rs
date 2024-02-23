@@ -36,7 +36,7 @@ impl Document {
             }
         };
 
-        Ok(document_serial.unserialize()?)
+        document_serial.unserialize()
     }
 }
 
