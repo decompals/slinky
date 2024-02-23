@@ -9,8 +9,8 @@ use std::{
 };
 
 use crate::file_kind::FileKind;
-use crate::settings::Settings;
 use crate::segment::Segment;
+use crate::settings::Settings;
 
 pub struct LinkerWriter<'a> {
     pub linker_symbols: HashSet<String>,
@@ -155,7 +155,7 @@ impl LinkerWriter<'_> {
     fn write_segment_start(&mut self, segment: &Segment, emitted_segment_name: &str, noload: bool) {
         let style = &self.settings.segment_symbols_style;
 
-        let name_suffix = if noload { "_bss" } else { "" };
+        let name_suffix = if noload { ".noload" } else { "" };
         let mut line = format!("{}{}", emitted_segment_name, name_suffix);
 
         if noload {

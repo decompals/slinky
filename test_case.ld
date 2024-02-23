@@ -25,7 +25,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.header);
     header_ROM_END = __romPos;
-    .header_bss (NOLOAD) : SUBALIGN(16)
+    .header.noload (NOLOAD) : SUBALIGN(16)
     {
         header_bss_START = .;
         build/us/rom_header/rom_header.o(.sbss*);
@@ -60,7 +60,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.ipl3);
     ipl3_ROM_END = __romPos;
-    .ipl3_bss (NOLOAD) : SUBALIGN(16)
+    .ipl3.noload (NOLOAD) : SUBALIGN(16)
     {
         ipl3_bss_START = .;
         build/us/asm/data/ipl3.o(.sbss*);
@@ -95,7 +95,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.entry);
     entry_ROM_END = __romPos;
-    .entry_bss (NOLOAD) : SUBALIGN(16)
+    .entry.noload (NOLOAD) : SUBALIGN(16)
     {
         entry_bss_START = .;
         build/us/src/entry/entry.o(.sbss*);
@@ -109,7 +109,7 @@ SECTIONS
 
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);
-    .boot : AT(boot_ROM_START) SUBALIGN(16)
+    .boot : AT(boot_ROM_START)
     {
         boot_text_START = .;
         build/us/src/boot/boot_main.o(.text*);
@@ -750,7 +750,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
-    .boot_bss (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         boot_bss_START = .;
         build/us/src/boot/boot_main.o(.sbss*);
@@ -1405,7 +1405,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.dma_table);
     dma_table_ROM_END = __romPos;
-    .dma_table_bss (NOLOAD) : SUBALIGN(16)
+    .dma_table.noload (NOLOAD) : SUBALIGN(16)
     {
         dma_table_bss_START = .;
         build/us/src/dma_table/dma_table.o(.sbss*);
@@ -1632,7 +1632,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.main_segment);
     main_segment_ROM_END = __romPos;
-    .main_segment_bss (NOLOAD) : SUBALIGN(16)
+    .main_segment.noload (NOLOAD) : SUBALIGN(16)
     {
         main_segment_bss_START = .;
         build/us/src/main_segment/main.o(.sbss*);
@@ -1859,7 +1859,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.buffer1);
     buffer1_ROM_END = __romPos;
-    .buffer1_bss (NOLOAD) : SUBALIGN(16)
+    .buffer1.noload (NOLOAD) : SUBALIGN(16)
     {
         buffer1_bss_START = .;
         build/us/src/buffers/buffer1.o(.sbss*);
@@ -1894,7 +1894,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.buffer2);
     buffer2_ROM_END = __romPos;
-    .buffer2_bss (NOLOAD) : SUBALIGN(16)
+    .buffer2.noload (NOLOAD) : SUBALIGN(16)
     {
         buffer2_bss_START = .;
         build/us/src/buffers/buffer2.o(.sbss*);
@@ -1929,7 +1929,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.framebuffer);
     framebuffer_ROM_END = __romPos;
-    .framebuffer_bss (NOLOAD) : SUBALIGN(16)
+    .framebuffer.noload (NOLOAD) : SUBALIGN(16)
     {
         framebuffer_bss_START = .;
         build/us/src/buffers/framebuffer.o(.sbss*);
@@ -1964,7 +1964,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.n64_wave_tables);
     n64_wave_tables_ROM_END = __romPos;
-    .n64_wave_tables_bss (NOLOAD) : SUBALIGN(16)
+    .n64_wave_tables.noload (NOLOAD) : SUBALIGN(16)
     {
         n64_wave_tables_bss_START = .;
         build/us/asm/n64_wave_tables.o(.sbss*);
@@ -1999,7 +1999,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.n64_ptr_tables_v2);
     n64_ptr_tables_v2_ROM_END = __romPos;
-    .n64_ptr_tables_v2_bss (NOLOAD) : SUBALIGN(16)
+    .n64_ptr_tables_v2.noload (NOLOAD) : SUBALIGN(16)
     {
         n64_ptr_tables_v2_bss_START = .;
         build/us/asm/n64_ptr_tables_v2.o(.sbss*);
@@ -2034,7 +2034,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_17213);
     segment_17213_ROM_END = __romPos;
-    .segment_17213_bss (NOLOAD) : SUBALIGN(16)
+    .segment_17213.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_17213_bss_START = .;
         build/us/asm/segment_17213.o(.sbss*);
@@ -2069,7 +2069,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_172D60);
     segment_172D60_ROM_END = __romPos;
-    .segment_172D60_bss (NOLOAD) : SUBALIGN(16)
+    .segment_172D60.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_172D60_bss_START = .;
         build/us/asm/segment_172D60.o(.sbss*);
@@ -2104,7 +2104,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_1750C0);
     segment_1750C0_ROM_END = __romPos;
-    .segment_1750C0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_1750C0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_1750C0_bss_START = .;
         build/us/asm/segment_1750C0.o(.sbss*);
@@ -2139,7 +2139,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_177420);
     segment_177420_ROM_END = __romPos;
-    .segment_177420_bss (NOLOAD) : SUBALIGN(16)
+    .segment_177420.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_177420_bss_START = .;
         build/us/asm/segment_177420.o(.sbss*);
@@ -2174,7 +2174,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_179620);
     segment_179620_ROM_END = __romPos;
-    .segment_179620_bss (NOLOAD) : SUBALIGN(16)
+    .segment_179620.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_179620_bss_START = .;
         build/us/asm/segment_179620.o(.sbss*);
@@ -2209,7 +2209,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_17B790);
     segment_17B790_ROM_END = __romPos;
-    .segment_17B790_bss (NOLOAD) : SUBALIGN(16)
+    .segment_17B790.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_17B790_bss_START = .;
         build/us/asm/segment_17B790.o(.sbss*);
@@ -2244,7 +2244,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_17C1E0);
     segment_17C1E0_ROM_END = __romPos;
-    .segment_17C1E0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_17C1E0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_17C1E0_bss_START = .;
         build/us/asm/segment_17C1E0.o(.sbss*);
@@ -2279,7 +2279,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_17D130);
     segment_17D130_ROM_END = __romPos;
-    .segment_17D130_bss (NOLOAD) : SUBALIGN(16)
+    .segment_17D130.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_17D130_bss_START = .;
         build/us/asm/segment_17D130.o(.sbss*);
@@ -2314,7 +2314,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_17E090);
     segment_17E090_ROM_END = __romPos;
-    .segment_17E090_bss (NOLOAD) : SUBALIGN(16)
+    .segment_17E090.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_17E090_bss_START = .;
         build/us/asm/segment_17E090.o(.sbss*);
@@ -2349,7 +2349,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_181840);
     segment_181840_ROM_END = __romPos;
-    .segment_181840_bss (NOLOAD) : SUBALIGN(16)
+    .segment_181840.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_181840_bss_START = .;
         build/us/asm/segment_181840.o(.sbss*);
@@ -2384,7 +2384,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_184FF0);
     segment_184FF0_ROM_END = __romPos;
-    .segment_184FF0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_184FF0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_184FF0_bss_START = .;
         build/us/asm/segment_184FF0.o(.sbss*);
@@ -2419,7 +2419,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_186FF0);
     segment_186FF0_ROM_END = __romPos;
-    .segment_186FF0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_186FF0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_186FF0_bss_START = .;
         build/us/asm/segment_186FF0.o(.sbss*);
@@ -2454,7 +2454,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_188FF0);
     segment_188FF0_ROM_END = __romPos;
-    .segment_188FF0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_188FF0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_188FF0_bss_START = .;
         build/us/asm/segment_188FF0.o(.sbss*);
@@ -2489,7 +2489,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_189D40);
     segment_189D40_ROM_END = __romPos;
-    .segment_189D40_bss (NOLOAD) : SUBALIGN(16)
+    .segment_189D40.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_189D40_bss_START = .;
         build/us/asm/segment_189D40.o(.sbss*);
@@ -2524,7 +2524,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_18CB40);
     segment_18CB40_ROM_END = __romPos;
-    .segment_18CB40_bss (NOLOAD) : SUBALIGN(16)
+    .segment_18CB40.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_18CB40_bss_START = .;
         build/us/asm/segment_18CB40.o(.sbss*);
@@ -2559,7 +2559,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_18DB90);
     segment_18DB90_ROM_END = __romPos;
-    .segment_18DB90_bss (NOLOAD) : SUBALIGN(16)
+    .segment_18DB90.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_18DB90_bss_START = .;
         build/us/asm/segment_18DB90.o(.sbss*);
@@ -2594,7 +2594,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_18F160);
     segment_18F160_ROM_END = __romPos;
-    .segment_18F160_bss (NOLOAD) : SUBALIGN(16)
+    .segment_18F160.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_18F160_bss_START = .;
         build/us/asm/segment_18F160.o(.sbss*);
@@ -2629,7 +2629,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_1906E0);
     segment_1906E0_ROM_END = __romPos;
-    .segment_1906E0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_1906E0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_1906E0_bss_START = .;
         build/us/asm/segment_1906E0.o(.sbss*);
@@ -2664,7 +2664,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_1911D0);
     segment_1911D0_ROM_END = __romPos;
-    .segment_1911D0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_1911D0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_1911D0_bss_START = .;
         build/us/asm/segment_1911D0.o(.sbss*);
@@ -2699,7 +2699,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_1936C0);
     segment_1936C0_ROM_END = __romPos;
-    .segment_1936C0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_1936C0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_1936C0_bss_START = .;
         build/us/asm/segment_1936C0.o(.sbss*);
@@ -2734,7 +2734,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_1937F0);
     segment_1937F0_ROM_END = __romPos;
-    .segment_1937F0_bss (NOLOAD) : SUBALIGN(16)
+    .segment_1937F0.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_1937F0_bss_START = .;
         build/us/asm/segment_1937F0.o(.sbss*);
@@ -2769,7 +2769,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_194070);
     segment_194070_ROM_END = __romPos;
-    .segment_194070_bss (NOLOAD) : SUBALIGN(16)
+    .segment_194070.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_194070_bss_START = .;
         build/us/asm/segment_194070.o(.sbss*);
@@ -2804,7 +2804,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_194150);
     segment_194150_ROM_END = __romPos;
-    .segment_194150_bss (NOLOAD) : SUBALIGN(16)
+    .segment_194150.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_194150_bss_START = .;
         build/us/asm/segment_194150.o(.sbss*);
@@ -2839,7 +2839,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_194910);
     segment_194910_ROM_END = __romPos;
-    .segment_194910_bss (NOLOAD) : SUBALIGN(16)
+    .segment_194910.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_194910_bss_START = .;
         build/us/asm/segment_194910.o(.sbss*);
@@ -2874,7 +2874,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_195290);
     segment_195290_ROM_END = __romPos;
-    .segment_195290_bss (NOLOAD) : SUBALIGN(16)
+    .segment_195290.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_195290_bss_START = .;
         build/us/asm/segment_195290.o(.sbss*);
@@ -2909,7 +2909,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_etc);
     segment_game_etc_ROM_END = __romPos;
-    .segment_game_etc_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_etc.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_etc_bss_START = .;
         build/us/asm/segment_game_etc.o(.sbss*);
@@ -2944,7 +2944,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_bg);
     segment_menu_bg_ROM_END = __romPos;
-    .segment_menu_bg_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_bg.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_bg_bss_START = .;
         build/us/asm/segment_menu_bg.o(.sbss*);
@@ -2979,7 +2979,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_bg2);
     segment_menu_bg2_ROM_END = __romPos;
-    .segment_menu_bg2_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_bg2.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_bg2_bss_START = .;
         build/us/asm/segment_menu_bg2.o(.sbss*);
@@ -3014,7 +3014,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_coffee01);
     segment_coffee01_ROM_END = __romPos;
-    .segment_coffee01_bss (NOLOAD) : SUBALIGN(16)
+    .segment_coffee01.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_coffee01_bss_START = .;
         build/us/asm/segment_coffee01.o(.sbss*);
@@ -3049,7 +3049,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_title_all);
     segment_title_all_ROM_END = __romPos;
-    .segment_title_all_bss (NOLOAD) : SUBALIGN(16)
+    .segment_title_all.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_title_all_bss_START = .;
         build/us/asm/segment_title_all.o(.sbss*);
@@ -3084,7 +3084,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_title_bmp);
     segment_title_bmp_ROM_END = __romPos;
-    .segment_title_bmp_bss (NOLOAD) : SUBALIGN(16)
+    .segment_title_bmp.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_title_bmp_bss_START = .;
         build/us/asm/segment_title_bmp.o(.sbss*);
@@ -3119,7 +3119,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_waku);
     segment_waku_ROM_END = __romPos;
-    .segment_waku_bss (NOLOAD) : SUBALIGN(16)
+    .segment_waku.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_waku_bss_START = .;
         build/us/asm/segment_waku.o(.sbss*);
@@ -3154,7 +3154,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_waku2);
     segment_waku2_ROM_END = __romPos;
-    .segment_waku2_bss (NOLOAD) : SUBALIGN(16)
+    .segment_waku2.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_waku2_bss_START = .;
         build/us/asm/segment_waku2.o(.sbss*);
@@ -3189,7 +3189,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg01);
     segment_story_bg01_ROM_END = __romPos;
-    .segment_story_bg01_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg01.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg01_bss_START = .;
         build/us/asm/segment_story_bg01.o(.sbss*);
@@ -3224,7 +3224,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg02);
     segment_story_bg02_ROM_END = __romPos;
-    .segment_story_bg02_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg02.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg02_bss_START = .;
         build/us/asm/segment_story_bg02.o(.sbss*);
@@ -3259,7 +3259,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg03);
     segment_story_bg03_ROM_END = __romPos;
-    .segment_story_bg03_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg03.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg03_bss_START = .;
         build/us/asm/segment_story_bg03.o(.sbss*);
@@ -3294,7 +3294,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg04);
     segment_story_bg04_ROM_END = __romPos;
-    .segment_story_bg04_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg04.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg04_bss_START = .;
         build/us/asm/segment_story_bg04.o(.sbss*);
@@ -3329,7 +3329,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg05);
     segment_story_bg05_ROM_END = __romPos;
-    .segment_story_bg05_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg05.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg05_bss_START = .;
         build/us/asm/segment_story_bg05.o(.sbss*);
@@ -3364,7 +3364,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg07);
     segment_story_bg07_ROM_END = __romPos;
-    .segment_story_bg07_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg07.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg07_bss_START = .;
         build/us/asm/segment_story_bg07.o(.sbss*);
@@ -3399,7 +3399,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg08);
     segment_story_bg08_ROM_END = __romPos;
-    .segment_story_bg08_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg08.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg08_bss_START = .;
         build/us/asm/segment_story_bg08.o(.sbss*);
@@ -3434,7 +3434,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg09);
     segment_story_bg09_ROM_END = __romPos;
-    .segment_story_bg09_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg09.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg09_bss_START = .;
         build/us/asm/segment_story_bg09.o(.sbss*);
@@ -3469,7 +3469,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg10);
     segment_story_bg10_ROM_END = __romPos;
-    .segment_story_bg10_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg10.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg10_bss_START = .;
         build/us/asm/segment_story_bg10.o(.sbss*);
@@ -3504,7 +3504,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_story_bg11);
     segment_story_bg11_ROM_END = __romPos;
-    .segment_story_bg11_bss (NOLOAD) : SUBALIGN(16)
+    .segment_story_bg11.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_story_bg11_bss_START = .;
         build/us/asm/segment_story_bg11.o(.sbss*);
@@ -3539,7 +3539,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_char);
     segment_menu_char_ROM_END = __romPos;
-    .segment_menu_char_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_char.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_char_bss_START = .;
         build/us/src/assets/menu/menu_char.o(.sbss*);
@@ -3574,7 +3574,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_common);
     segment_menu_common_ROM_END = __romPos;
-    .segment_menu_common_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_common.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_common_bss_START = .;
         build/us/src/assets/menu/menu_common.o(.sbss*);
@@ -3609,7 +3609,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_level);
     segment_menu_level_ROM_END = __romPos;
-    .segment_menu_level_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_level.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_level_bss_START = .;
         build/us/src/assets/menu/menu_level.o(.sbss*);
@@ -3644,7 +3644,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_main);
     segment_menu_main_ROM_END = __romPos;
-    .segment_menu_main_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_main.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_main_bss_START = .;
         build/us/src/assets/menu/menu_main.o(.sbss*);
@@ -3679,7 +3679,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_name);
     segment_menu_name_ROM_END = __romPos;
-    .segment_menu_name_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_name.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_name_bss_START = .;
         build/us/src/assets/menu/menu_name.o(.sbss*);
@@ -3714,7 +3714,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_p2);
     segment_menu_p2_ROM_END = __romPos;
-    .segment_menu_p2_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_p2.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_p2_bss_START = .;
         build/us/src/assets/menu/menu_p2.o(.sbss*);
@@ -3749,7 +3749,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_p4);
     segment_menu_p4_ROM_END = __romPos;
-    .segment_menu_p4_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_p4.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_p4_bss_START = .;
         build/us/src/assets/menu/menu_p4.o(.sbss*);
@@ -3784,7 +3784,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_rank);
     segment_menu_rank_ROM_END = __romPos;
-    .segment_menu_rank_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_rank.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_rank_bss_START = .;
         build/us/src/assets/menu/menu_rank.o(.sbss*);
@@ -3819,7 +3819,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_setup);
     segment_menu_setup_ROM_END = __romPos;
-    .segment_menu_setup_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_setup.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_setup_bss_START = .;
         build/us/src/assets/menu/menu_setup.o(.sbss*);
@@ -3854,7 +3854,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_story);
     segment_menu_story_ROM_END = __romPos;
-    .segment_menu_story_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_story.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_story_bss_START = .;
         build/us/src/assets/menu/menu_story.o(.sbss*);
@@ -3889,7 +3889,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_cont);
     segment_menu_cont_ROM_END = __romPos;
-    .segment_menu_cont_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_cont.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_cont_bss_START = .;
         build/us/src/assets/menu/menu_cont.o(.sbss*);
@@ -3924,7 +3924,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_menu_kasa);
     segment_menu_kasa_ROM_END = __romPos;
-    .segment_menu_kasa_bss (NOLOAD) : SUBALIGN(16)
+    .segment_menu_kasa.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_menu_kasa_bss_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sbss*);
@@ -3959,7 +3959,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_al);
     segment_game_al_ROM_END = __romPos;
-    .segment_game_al_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_al.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_al_bss_START = .;
         build/us/src/assets/game/game_al.o(.sbss*);
@@ -3994,7 +3994,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_p1);
     segment_game_p1_ROM_END = __romPos;
-    .segment_game_p1_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_p1.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_p1_bss_START = .;
         build/us/src/assets/game/game_p1.o(.sbss*);
@@ -4029,7 +4029,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_p2);
     segment_game_p2_ROM_END = __romPos;
-    .segment_game_p2_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_p2.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_p2_bss_START = .;
         build/us/src/assets/game/game_p2.o(.sbss*);
@@ -4064,7 +4064,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_p4);
     segment_game_p4_ROM_END = __romPos;
-    .segment_game_p4_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_p4.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_p4_bss_START = .;
         build/us/src/assets/game/game_p4.o(.sbss*);
@@ -4099,7 +4099,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_ls);
     segment_game_ls_ROM_END = __romPos;
-    .segment_game_ls_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_ls.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_ls_bss_START = .;
         build/us/src/assets/game/game_ls.o(.sbss*);
@@ -4134,7 +4134,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_game_item);
     segment_game_item_ROM_END = __romPos;
-    .segment_game_item_bss (NOLOAD) : SUBALIGN(16)
+    .segment_game_item.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_game_item_bss_START = .;
         build/us/src/assets/game/game_item.o(.sbss*);
@@ -4169,7 +4169,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_a);
     segment_anime_a_ROM_END = __romPos;
-    .segment_anime_a_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_a.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_a_bss_START = .;
         build/us/src/assets/anime/anime_a.o(.sbss*);
@@ -4204,7 +4204,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_b);
     segment_anime_b_ROM_END = __romPos;
-    .segment_anime_b_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_b.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_b_bss_START = .;
         build/us/src/assets/anime/anime_b.o(.sbss*);
@@ -4239,7 +4239,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_c);
     segment_anime_c_ROM_END = __romPos;
-    .segment_anime_c_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_c.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_c_bss_START = .;
         build/us/src/assets/anime/anime_c.o(.sbss*);
@@ -4274,7 +4274,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_d);
     segment_anime_d_ROM_END = __romPos;
-    .segment_anime_d_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_d.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_d_bss_START = .;
         build/us/src/assets/anime/anime_d.o(.sbss*);
@@ -4309,7 +4309,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_e);
     segment_anime_e_ROM_END = __romPos;
-    .segment_anime_e_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_e.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_e_bss_START = .;
         build/us/src/assets/anime/anime_e.o(.sbss*);
@@ -4344,7 +4344,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_f);
     segment_anime_f_ROM_END = __romPos;
-    .segment_anime_f_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_f.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_f_bss_START = .;
         build/us/src/assets/anime/anime_f.o(.sbss*);
@@ -4379,7 +4379,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_g);
     segment_anime_g_ROM_END = __romPos;
-    .segment_anime_g_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_g.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_g_bss_START = .;
         build/us/src/assets/anime/anime_g.o(.sbss*);
@@ -4414,7 +4414,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_h);
     segment_anime_h_ROM_END = __romPos;
-    .segment_anime_h_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_h.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_h_bss_START = .;
         build/us/src/assets/anime/anime_h.o(.sbss*);
@@ -4449,7 +4449,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_i);
     segment_anime_i_ROM_END = __romPos;
-    .segment_anime_i_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_i.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_i_bss_START = .;
         build/us/src/assets/anime/anime_i.o(.sbss*);
@@ -4484,7 +4484,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_j);
     segment_anime_j_ROM_END = __romPos;
-    .segment_anime_j_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_j.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_j_bss_START = .;
         build/us/src/assets/anime/anime_j.o(.sbss*);
@@ -4519,7 +4519,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_k);
     segment_anime_k_ROM_END = __romPos;
-    .segment_anime_k_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_k.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_k_bss_START = .;
         build/us/src/assets/anime/anime_k.o(.sbss*);
@@ -4554,7 +4554,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_l);
     segment_anime_l_ROM_END = __romPos;
-    .segment_anime_l_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_l.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_l_bss_START = .;
         build/us/src/assets/anime/anime_l.o(.sbss*);
@@ -4589,7 +4589,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_m);
     segment_anime_m_ROM_END = __romPos;
-    .segment_anime_m_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_m.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_m_bss_START = .;
         build/us/src/assets/anime/anime_m.o(.sbss*);
@@ -4624,7 +4624,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_n);
     segment_anime_n_ROM_END = __romPos;
-    .segment_anime_n_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_n.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_n_bss_START = .;
         build/us/src/assets/anime/anime_n.o(.sbss*);
@@ -4659,7 +4659,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_o);
     segment_anime_o_ROM_END = __romPos;
-    .segment_anime_o_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_o.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_o_bss_START = .;
         build/us/src/assets/anime/anime_o.o(.sbss*);
@@ -4694,7 +4694,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_mario);
     segment_anime_mario_ROM_END = __romPos;
-    .segment_anime_mario_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_mario.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_mario_bss_START = .;
         build/us/src/assets/anime/anime_mario.o(.sbss*);
@@ -4729,7 +4729,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_virus_b);
     segment_anime_virus_b_ROM_END = __romPos;
-    .segment_anime_virus_b_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_virus_b.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_virus_b_bss_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sbss*);
@@ -4764,7 +4764,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_virus_r);
     segment_anime_virus_r_ROM_END = __romPos;
-    .segment_anime_virus_r_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_virus_r.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_virus_r_bss_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sbss*);
@@ -4799,7 +4799,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_virus_y);
     segment_anime_virus_y_ROM_END = __romPos;
-    .segment_anime_virus_y_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_virus_y.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_virus_y_bss_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sbss*);
@@ -4834,7 +4834,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_anime_smog);
     segment_anime_smog_ROM_END = __romPos;
-    .segment_anime_smog_bss (NOLOAD) : SUBALIGN(16)
+    .segment_anime_smog.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_anime_smog_bss_START = .;
         build/us/src/assets/anime/anime_smog.o(.sbss*);
@@ -4869,7 +4869,7 @@ SECTIONS
     }
     __romPos += SIZEOF(.segment_tutorial_data);
     segment_tutorial_data_ROM_END = __romPos;
-    .segment_tutorial_data_bss (NOLOAD) : SUBALIGN(16)
+    .segment_tutorial_data.noload (NOLOAD) : SUBALIGN(16)
     {
         segment_tutorial_data_bss_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sbss*);

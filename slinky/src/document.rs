@@ -5,7 +5,7 @@ use std::{fs, path::Path};
 
 use serde::Deserialize;
 
-use crate::{Settings, Segment, SlinkyError};
+use crate::{Segment, Settings, SlinkyError};
 
 #[derive(Deserialize, PartialEq, Debug)]
 pub struct Document {
@@ -35,10 +35,16 @@ impl Document {
         };
 
         for segment in &mut document.segments {
-            segment.use_subalign = Some(document.settings.use_subalign);
-            segment.subalign = Some(document.settings.subalign);
+            segment
+                .use_subalign
+                .get_or_insert_with(|| document.settings.use_subalign);
+            segment
+                .subalign
+                .get_or_insert_with(|| document.settings.subalign);
 
-            segment.wildcard_sections = Some(document.settings.wildcard_sections);
+            segment
+                .wildcard_sections
+                .get_or_insert_with(|| document.settings.wildcard_sections);
         }
 
         Ok(document)
