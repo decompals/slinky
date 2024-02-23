@@ -10,10 +10,5 @@ use crate::file_kind::FileKind;
 pub struct FileInfo {
     pub path: PathBuf,
 
-    #[serde(default = "default_fileinfo_kind")]
-    pub kind: FileKind,
-}
-
-fn default_fileinfo_kind() -> FileKind {
-    FileKind::Object
+    pub kind: Option<FileKind>,
 }

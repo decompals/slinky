@@ -208,7 +208,7 @@ impl LinkerWriter<'_> {
             };
 
             // TODO: figure out glob support
-            match file.kind {
+            match file.kind.as_ref().unwrap() {
                 FileKind::Object => {
                     self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 }

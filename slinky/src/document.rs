@@ -5,7 +5,7 @@ use std::{fs, path::Path};
 
 use serde::Deserialize;
 
-use crate::{Segment, Settings, SlinkyError};
+use crate::{FileKind, Segment, Settings, SlinkyError};
 
 #[derive(Deserialize, PartialEq, Debug)]
 pub struct Document {
@@ -43,6 +43,11 @@ impl Document {
             segment
                 .wildcard_sections
                 .get_or_insert(document.settings.wildcard_sections);
+
+            for file in &mut segment.files {
+                // TODO: guess based on file extension
+                file.kind.get_or_insert(FileKind::Object);
+            }
         }
 
         Ok(document)

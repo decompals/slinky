@@ -36,7 +36,7 @@ List of files belonging to this segment.
 
 The order of the list implies the order on which the files will be emitted.
 
-To see customization options for each file check the [files.md](files.md)
+To see customization options for each file check the [file.md](file.md)
 document.
 
 ### Example
