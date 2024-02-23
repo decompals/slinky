@@ -16,7 +16,7 @@ pub struct Segment {
 
     // TODO: section_order (both alloc and noload)
     pub use_subalign: Option<bool>,
-    pub subalign: Option<u64>,
+    pub subalign: Option<u32>,
 
     pub wildcard_sections: Option<bool>,
 }

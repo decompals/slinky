@@ -38,9 +38,7 @@ impl Document {
             segment
                 .use_subalign
                 .get_or_insert(document.settings.use_subalign);
-            segment
-                .subalign
-                .get_or_insert(document.settings.subalign);
+            segment.subalign.get_or_insert(document.settings.subalign);
 
             segment
                 .wildcard_sections

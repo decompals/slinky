@@ -3,46 +3,47 @@
 
 use serde::Deserialize;
 
-// TODO: figure out how to allow lowercase for these values in the yaml
 #[derive(Deserialize, PartialEq, Debug)]
-pub enum SegmentSymbolsStyle {
+#[serde(rename_all = "snake_case")]
+pub enum LinkerSymbolsStyle {
     Splat,
     Makerom,
 }
 
-impl SegmentSymbolsStyle {
+impl LinkerSymbolsStyle {
     pub fn segment_rom_start(&self, seg_name: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}_ROM_START", seg_name),
-            SegmentSymbolsStyle::Makerom => format!("_{}SegmentRomStart", seg_name),
+            LinkerSymbolsStyle::Splat => format!("{}_ROM_START", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentRomStart", seg_name),
         }
     }
 
     pub fn segment_rom_end(&self, seg_name: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}_ROM_END", seg_name),
-            SegmentSymbolsStyle::Makerom => format!("_{}SegmentRomEnd", seg_name),
+            LinkerSymbolsStyle::Splat => format!("{}_ROM_END", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentRomEnd", seg_name),
         }
     }
 
     pub fn segment_vram_start(&self, seg_name: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}_VRAM", seg_name),
-            SegmentSymbolsStyle::Makerom => format!("_{}SegmentStart", seg_name),
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentStart", seg_name),
         }
     }
 
     pub fn segment_vram_end(&self, seg_name: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}_VRAM_END", seg_name),
-            SegmentSymbolsStyle::Makerom => format!("_{}SegmentEnd", seg_name),
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM_END", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentEnd", seg_name),
         }
     }
 
     fn convert_section_name_to_linker_format(&self, section_type: &str) -> String {
         match self {
-            SegmentSymbolsStyle::Splat => section_type.replace('.', "_"),
-            SegmentSymbolsStyle::Makerom => {
+            LinkerSymbolsStyle::Splat => section_type.replace('.', "_"),
+            LinkerSymbolsStyle::Makerom => {
+                // TODO: yeet RoData?
                 if section_type == ".rodata" {
                     "RoData".to_string()
                 } else {
@@ -73,8 +74,8 @@ impl SegmentSymbolsStyle {
         let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}{}_START", seg_name, sec),
-            SegmentSymbolsStyle::Makerom => format!("_{}Segment{}Start", seg_name, sec),
+            LinkerSymbolsStyle::Splat => format!("{}{}_START", seg_name, sec),
+            LinkerSymbolsStyle::Makerom => format!("_{}Segment{}Start", seg_name, sec),
         }
     }
 
@@ -82,8 +83,8 @@ impl SegmentSymbolsStyle {
         let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}{}_END", seg_name, sec),
-            SegmentSymbolsStyle::Makerom => format!("_{}Segment{}End", seg_name, sec),
+            LinkerSymbolsStyle::Splat => format!("{}{}_END", seg_name, sec),
+            LinkerSymbolsStyle::Makerom => format!("_{}Segment{}End", seg_name, sec),
         }
     }
 
@@ -91,8 +92,8 @@ impl SegmentSymbolsStyle {
         let sec = self.convert_section_name_to_linker_format(section_type);
 
         match self {
-            SegmentSymbolsStyle::Splat => format!("{}{}_SIZE", seg_name, sec),
-            SegmentSymbolsStyle::Makerom => format!("_{}Segment{}Size", seg_name, sec),
+            LinkerSymbolsStyle::Splat => format!("{}{}_SIZE", seg_name, sec),
+            LinkerSymbolsStyle::Makerom => format!("_{}Segment{}Size", seg_name, sec),
         }
     }
 }

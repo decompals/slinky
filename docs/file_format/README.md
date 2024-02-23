@@ -1,14 +1,15 @@
 # File format
 
 The input file format is composed by two top-level attributes, the
-[`settings`](settings.md) and the [`segments`](segments.md).
+[`settings`](settings.md) attribute and the [`segments`](segments.md)
+attribute. Check their specific documents for in-deep explanations.
 
 ## Example
 
 ```yaml
 settings:
-  paths:
-    base_path: build
+  base_path: build
+  use_subalign: True
   subalign: 32
 
 segments:

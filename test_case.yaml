@@ -1,6 +1,6 @@
 settings:
-  paths:
-    base_path: build/us
+  base_path: build/us
+  #linker_symbols_style: makerom
 
 segments:
   - name: header
