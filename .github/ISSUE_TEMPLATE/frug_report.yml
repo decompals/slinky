@@ -2,6 +2,7 @@ name: Frug Report
 description: File a frug report
 title: "[Frug]: "
 labels: ["frug"]
+projects: ["decompals/1"]
 body:
   - type: markdown
     attributes:
