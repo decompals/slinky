@@ -1,8 +1,6 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use slinky;
-
 use std::fs;
 use std::path::{Path, PathBuf};
 

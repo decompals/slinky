@@ -23,6 +23,7 @@ impl Document {
             Ok(f) => f,
             Err(e) => {
                 return Err(SlinkyError::FailedFileOpen {
+                    path: path.to_path_buf(),
                     description: e.to_string(),
                 })
             }

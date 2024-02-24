@@ -8,9 +8,9 @@ use std::{
     path::Path,
 };
 
-use crate::file_kind::FileKind;
 use crate::segment::Segment;
 use crate::settings::Settings;
+use crate::{file_kind::FileKind, SlinkyError};
 
 pub struct LinkerWriter<'a> {
     pub linker_symbols: HashSet<String>,
@@ -110,16 +110,41 @@ impl<'a> LinkerWriter<'a> {
         self.writeln("");
     }
 
-    pub fn save_linker_script(&self, path: &Path) -> Result<(), std::io::Error> {
+    pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
         match path.parent() {
-            None => {}
-            Some(parent) => fs::create_dir_all(parent)?,
+            None => (),
+            Some(parent) => match fs::create_dir_all(parent) {
+                Ok(_) => (),
+                Err(e) => {
+                    return Err(SlinkyError::FailedDirCreate {
+                        path: parent.to_path_buf(),
+                        description: e.to_string(),
+                    })
+                }
+            },
         }
 
-        let mut f = File::create(path)?;
+        let mut f = match File::create(path) {
+            Ok(f) => f,
+            Err(e) => {
+                return Err(SlinkyError::FailedFileOpen {
+                    path: path.to_path_buf(),
+                    description: e.to_string(),
+                })
+            }
+        };
 
         for line in &self.buffer {
-            writeln!(f, "{}", line)?;
+            match writeln!(f, "{}", line) {
+                Ok(_) => (),
+                Err(e) => {
+                    return Err(SlinkyError::FailedFileWrite {
+                        path: path.to_path_buf(),
+                        description: e.to_string(),
+                        contents: line.into(),
+                    })
+                }
+            }
         }
 
         Ok(())
