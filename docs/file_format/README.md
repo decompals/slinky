@@ -6,6 +6,12 @@ attribute. Check their specific documents for in-deep explanations.
 
 ## Example
 
+The following example corresponds to the
+[`basic_example.yaml`](../../tests/input_files/basic_example.yaml) from the
+test cases, while
+[`basic_example.ld`](../../tests/linker_scripts/basic_example.ld) is how the
+output linker script looks like.
+
 ```yaml
 settings:
   base_path: build

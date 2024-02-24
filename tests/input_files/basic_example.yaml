@@ -1,0 +1,24 @@
+settings:
+  base_path: build
+  subalign: 32
+
+segments:
+  - name: header
+    files:
+      - { path: asm/data/rom_header.o }
+
+  - name: ipl3
+    files:
+      - { path: asm/data/ipl3.o }
+
+  - name: entry
+    fixed_vram: 0x80000400
+    files:
+      - { path: asm/entry.o }
+
+  - name: boot
+    subalign: null
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/dmadata.o }
+      - { path: asm/util.o }
