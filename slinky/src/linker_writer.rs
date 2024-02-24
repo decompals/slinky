@@ -124,6 +124,17 @@ impl<'a> LinkerWriter<'a> {
 
         Ok(())
     }
+
+    #[must_use]
+    pub fn export_as_string(&self) -> String {
+        let mut ret = String::new();
+
+        for line in &self.buffer {
+            ret += &format!("{}\n", line);
+        }
+
+        ret
+    }
 }
 
 // internal functions

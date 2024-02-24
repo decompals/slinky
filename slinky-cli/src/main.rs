@@ -7,8 +7,8 @@ use slinky::{Document, LinkerWriter};
 
 fn main() {
     // TODO: don't use expect?
-    let document =
-        Document::read_file(Path::new("test_case.yaml")).expect("Error while parsing input file");
+    let document = Document::read_file(Path::new("tests/input_files/test_case.yaml"))
+        .expect("Error while parsing input file");
 
     // println!("settings {:#?}", document.settings);
 
@@ -20,6 +20,6 @@ fn main() {
     writer.end_sections();
 
     writer
-        .save_linker_script(Path::new("test_case.ld"))
+        .save_linker_script(Path::new("tests/linker_scripts/test_case.ld"))
         .expect("Error writing the linker script");
 }
