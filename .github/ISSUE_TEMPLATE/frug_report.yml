@@ -26,7 +26,7 @@ body:
         Use the following file (attach it please) and run `slinky-cli` with parameters ABC.
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: slinky-flavour
     attributes:
       label: slinky flavour
