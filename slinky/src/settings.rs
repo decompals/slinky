@@ -13,10 +13,10 @@ pub struct Settings {
     pub base_path: PathBuf,
     pub linker_symbols_style: LinkerSymbolsStyle,
 
+    // Options passed down to each segment
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
 
-    // Options passed down to each segment
     pub subalign: Option<u32>,
 
     pub wildcard_sections: bool,

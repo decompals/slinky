@@ -18,7 +18,9 @@ pub struct Segment {
 
     // The default of the following come from Options
 
-    // TODO: section_order (both alloc and noload)
+    pub alloc_sections: Vec<String>,
+    pub noload_sections: Vec<String>,
+
     pub subalign: Option<u32>,
 
     pub wildcard_sections: bool,
@@ -31,6 +33,9 @@ impl Default for Segment {
             files: Vec::new(),
 
             fixed_vram: None,
+
+            alloc_sections: Vec::new(),
+            noload_sections: Vec::new(),
 
             subalign: None,
 
@@ -48,7 +53,11 @@ pub(crate) struct SegmentSerial {
 
     // The default of the following come from Options
 
-    // TODO: section_order (both alloc and noload)
+    #[serde(default)]
+    pub alloc_sections: AbsentNullable<Vec<String>>,
+    #[serde(default)]
+    pub noload_sections: AbsentNullable<Vec<String>>,
+
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
 
@@ -71,6 +80,9 @@ impl SegmentSerial {
         for file in self.files {
             ret.files.push(file.unserialize(settings)?);
         }
+
+        ret.alloc_sections = self.alloc_sections.get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
+        ret.noload_sections = self.noload_sections.get_non_null("noload_sections", || settings.noload_sections.clone())?;
 
         ret.fixed_vram = self.fixed_vram;
 

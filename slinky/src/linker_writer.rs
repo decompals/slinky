@@ -61,7 +61,7 @@ impl<'a> LinkerWriter<'a> {
         self.write_segment_start(segment, &emitted_segment_name, false);
         // TODO: FILL()
 
-        for (i, section) in self.settings.alloc_sections.iter().enumerate() {
+        for (i, section) in segment.alloc_sections.iter().enumerate() {
             let section_start_sym = style.segment_section_start(&segment.name, section);
             let section_end_sym = style.segment_section_end(&segment.name, section);
             let section_size_sym = style.segment_section_size(&segment.name, section);
@@ -76,7 +76,7 @@ impl<'a> LinkerWriter<'a> {
                 &format!("ABSOLUTE({} - {})", section_end_sym, section_start_sym),
             );
 
-            if i + 1 < self.settings.alloc_sections.len() {
+            if i + 1 < segment.alloc_sections.len() {
                 self.writeln("");
             }
         }
@@ -90,10 +90,10 @@ impl<'a> LinkerWriter<'a> {
             let section_size_sym = style.segment_section_size(&segment.name, ".bss");
 
             self.write_symbol(&section_start_sym, ".");
-            for (i, section) in self.settings.noload_sections.iter().enumerate() {
+            for (i, section) in segment.noload_sections.iter().enumerate() {
                 self.write_files_for_section(segment, section);
 
-                if i + 1 < self.settings.noload_sections.len() {
+                if i + 1 < segment.noload_sections.len() {
                     self.writeln("");
                 }
             }

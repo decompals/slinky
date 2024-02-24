@@ -109,7 +109,7 @@ This option can be overriden per segment, see
 
 ```yaml
 settings:
-  alloc_sections: `[.bss]`
+  noload_sections: `[.bss]`
 ```
 
 ### Valid values

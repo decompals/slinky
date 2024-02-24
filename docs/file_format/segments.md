@@ -70,6 +70,60 @@ Any unsigned integer.
 
 `null`
 
+## `alloc_sections`
+
+List of allocatable sections (the ones that take ROM space) for this specific
+segment.
+
+The sections from this list will be emitted for each file in the specified
+order.
+
+This allows to override the global settings in case a specific segment has
+an order different than the global one. See
+[settings.md#alloc_sections](settings.md#alloc_sections) for more info.
+
+### Example
+
+```yaml
+settings:
+  alloc_sections: `[.text, .data, .rodata]`
+```
+
+### Valid values
+
+List of strings.
+
+### Default value
+
+The value specified for [settings.md#alloc_sections](settings.md#alloc_sections)
+
+## `noload_sections`
+
+List of noload sections (the ones that don't take ROM space) for this specific
+segment.
+
+The sections from this list will be emitted for each file in the specified
+order.
+
+This allows to override the global settings in case a specific segment has
+an order different than the global one. See
+[settings.md#noload_sections](settings.md#noload_sections) for more info.
+
+### Example
+
+```yaml
+settings:
+  noload_sections: `[.bss]`
+```
+
+### Valid values
+
+List of strings.
+
+### Default value
+
+The value specified for [settings.md#noload_sections](settings.md#noload_sections)
+
 ## `subalign`
 
 The value to use in the `SUBALIGN` directive for this segment.

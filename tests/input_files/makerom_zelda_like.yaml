@@ -1,0 +1,17 @@
+settings:
+  base_path: build
+  subalign: null
+  linker_symbols_style: makerom
+
+segments:
+  - name: makerom
+    alloc_sections: [".data", ".text", ".rodata"]
+    fixed_vram: 0x80024C00
+    files:
+      - { path: makerom/header }
+      - { path: makerom/ipl3 }
+      - { path: makerom/entry }
+
+  - name: boot
+    files:
+      - { path: boot/boot_main }
