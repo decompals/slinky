@@ -1,0 +1,58 @@
+name: Frug Report
+description: File a frug report
+title: "[Frug]: "
+labels: ["frug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for filing a frug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Explain the problem.
+      description: What happened? What did you expect to happen?
+      placeholder: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Reproducer
+      description: Please provide instructions to reproduce the problem.
+      placeholder: |
+        Clone the repo github.com/example/example and do XYZ
+        Use the following file (attach it please) and run `slinky-cli` with parameters ABC.
+    validations:
+      required: true
+  - type: input
+    id: slinky-flavour
+    attributes:
+      label: slinky flavour
+      description: Which flavour of slinky were you using?
+      placeholder: |
+        - The cli from github releases?
+        - The cli from crates.io?
+        - As a library?
+        - Etc
+    validations:
+      required: true
+  - type: input
+    id: slinky-version
+    attributes:
+      label: slinky version
+      description: What version of slinky are you running?
+    validations:
+      required: true
+  - type: textarea
+    id: other-version
+    attributes:
+      label: "Optional: Version of other stuff"
+      description: Here you can put the version of whatever other software you think may be relevant, like Rust, rabbitizer, binutils, OS, etc.
+      placeholder: |
+        - Rust: 72.½
+        - binutils: 2.π
+        - Wine on WSL2 on Windows 11 on VirtualBox on OpenBSD on Minecraft command blocks.
+        - Etc
+    validations:
+      required: false
