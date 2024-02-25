@@ -52,6 +52,7 @@ impl Default for Settings {
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct SettingsSerial {
     #[serde(default)]
     pub base_path: AbsentNullable<PathBuf>,

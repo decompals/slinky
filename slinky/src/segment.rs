@@ -17,7 +17,6 @@ pub struct Segment {
     pub fixed_vram: Option<u64>,
 
     // The default of the following come from Options
-
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
 
@@ -45,6 +44,7 @@ impl Default for Segment {
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct SegmentSerial {
     pub name: String,
     pub files: Vec<FileInfoSerial>,
@@ -52,7 +52,6 @@ pub(crate) struct SegmentSerial {
     pub fixed_vram: Option<u64>,
 
     // The default of the following come from Options
-
     #[serde(default)]
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
@@ -76,13 +75,23 @@ impl SegmentSerial {
         }
         ret.name = self.name;
 
+        if self.files.is_empty() {
+            return Err(SlinkyError::EmptyValue {
+                name: "files".to_string(),
+            });
+        }
+
         ret.files.reserve(self.files.len());
         for file in self.files {
             ret.files.push(file.unserialize(settings)?);
         }
 
-        ret.alloc_sections = self.alloc_sections.get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
-        ret.noload_sections = self.noload_sections.get_non_null("noload_sections", || settings.noload_sections.clone())?;
+        ret.alloc_sections = self
+            .alloc_sections
+            .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
+        ret.noload_sections = self
+            .noload_sections
+            .get_non_null("noload_sections", || settings.noload_sections.clone())?;
 
         ret.fixed_vram = self.fixed_vram;
 

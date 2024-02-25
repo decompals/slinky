@@ -7,23 +7,23 @@ SECTIONS
     .makerom 0x80024C00 : AT(_makeromSegmentRomStart)
     {
         _makeromSegmentDataStart = .;
-        build/makerom/header(.data*);
-        build/makerom/ipl3(.data*);
-        build/makerom/entry(.data*);
+        build/makerom/header.o(.data*);
+        build/makerom/ipl3.o(.data*);
+        build/makerom/entry.o(.data*);
         _makeromSegmentDataEnd = .;
         _makeromSegmentDataSize = ABSOLUTE(_makeromSegmentDataEnd - _makeromSegmentDataStart);
 
         _makeromSegmentTextStart = .;
-        build/makerom/header(.text*);
-        build/makerom/ipl3(.text*);
-        build/makerom/entry(.text*);
+        build/makerom/header.o(.text*);
+        build/makerom/ipl3.o(.text*);
+        build/makerom/entry.o(.text*);
         _makeromSegmentTextEnd = .;
         _makeromSegmentTextSize = ABSOLUTE(_makeromSegmentTextEnd - _makeromSegmentTextStart);
 
         _makeromSegmentRoDataStart = .;
-        build/makerom/header(.rodata*);
-        build/makerom/ipl3(.rodata*);
-        build/makerom/entry(.rodata*);
+        build/makerom/header.o(.rodata*);
+        build/makerom/ipl3.o(.rodata*);
+        build/makerom/entry.o(.rodata*);
         _makeromSegmentRoDataEnd = .;
         _makeromSegmentRoDataSize = ABSOLUTE(_makeromSegmentRoDataEnd - _makeromSegmentRoDataStart);
     }
@@ -32,21 +32,21 @@ SECTIONS
     .makerom.noload (NOLOAD) :
     {
         _makeromSegmentBssStart = .;
-        build/makerom/header(.sbss*);
-        build/makerom/ipl3(.sbss*);
-        build/makerom/entry(.sbss*);
+        build/makerom/header.o(.sbss*);
+        build/makerom/ipl3.o(.sbss*);
+        build/makerom/entry.o(.sbss*);
 
-        build/makerom/header(.scommon*);
-        build/makerom/ipl3(.scommon*);
-        build/makerom/entry(.scommon*);
+        build/makerom/header.o(.scommon*);
+        build/makerom/ipl3.o(.scommon*);
+        build/makerom/entry.o(.scommon*);
 
-        build/makerom/header(.bss*);
-        build/makerom/ipl3(.bss*);
-        build/makerom/entry(.bss*);
+        build/makerom/header.o(.bss*);
+        build/makerom/ipl3.o(.bss*);
+        build/makerom/entry.o(.bss*);
 
-        build/makerom/header(COMMON*);
-        build/makerom/ipl3(COMMON*);
-        build/makerom/entry(COMMON*);
+        build/makerom/header.o(COMMON*);
+        build/makerom/ipl3.o(COMMON*);
+        build/makerom/entry.o(COMMON*);
         _makeromSegmentBssEnd = .;
         _makeromSegmentBssSize = ABSOLUTE(_makeromSegmentBssEnd - _makeromSegmentBssStart);
     }
@@ -57,22 +57,22 @@ SECTIONS
     .boot : AT(_bootSegmentRomStart)
     {
         _bootSegmentTextStart = .;
-        build/boot/boot_main(.text*);
+        build/boot/boot_main.o(.text*);
         _bootSegmentTextEnd = .;
         _bootSegmentTextSize = ABSOLUTE(_bootSegmentTextEnd - _bootSegmentTextStart);
 
         _bootSegmentDataStart = .;
-        build/boot/boot_main(.data*);
+        build/boot/boot_main.o(.data*);
         _bootSegmentDataEnd = .;
         _bootSegmentDataSize = ABSOLUTE(_bootSegmentDataEnd - _bootSegmentDataStart);
 
         _bootSegmentRoDataStart = .;
-        build/boot/boot_main(.rodata*);
+        build/boot/boot_main.o(.rodata*);
         _bootSegmentRoDataEnd = .;
         _bootSegmentRoDataSize = ABSOLUTE(_bootSegmentRoDataEnd - _bootSegmentRoDataStart);
 
         _bootSegmentSdataStart = .;
-        build/boot/boot_main(.sdata*);
+        build/boot/boot_main.o(.sdata*);
         _bootSegmentSdataEnd = .;
         _bootSegmentSdataSize = ABSOLUTE(_bootSegmentSdataEnd - _bootSegmentSdataStart);
     }
@@ -81,13 +81,13 @@ SECTIONS
     .boot.noload (NOLOAD) :
     {
         _bootSegmentBssStart = .;
-        build/boot/boot_main(.sbss*);
+        build/boot/boot_main.o(.sbss*);
 
-        build/boot/boot_main(.scommon*);
+        build/boot/boot_main.o(.scommon*);
 
-        build/boot/boot_main(.bss*);
+        build/boot/boot_main.o(.bss*);
 
-        build/boot/boot_main(COMMON*);
+        build/boot/boot_main.o(COMMON*);
         _bootSegmentBssEnd = .;
         _bootSegmentBssSize = ABSOLUTE(_bootSegmentBssEnd - _bootSegmentBssStart);
     }

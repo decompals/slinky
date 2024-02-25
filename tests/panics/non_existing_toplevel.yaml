@@ -1,0 +1,12 @@
+settings:
+  base_path: build
+
+segments:
+  - name: main
+    files:
+      - { path: main.o }
+
+# TODO: This can actually be a good idea tho, we may want to consider it in the future
+undefined_syms:
+  osTvType: 0x80000300
+  osMemSize: 0x80000318

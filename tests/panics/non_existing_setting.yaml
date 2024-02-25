@@ -1,0 +1,8 @@
+settings:
+  base_path: build
+  non_existing_settting: i don't exist, yey
+
+segments:
+  - name: main
+    files:
+      - { path: main.o }

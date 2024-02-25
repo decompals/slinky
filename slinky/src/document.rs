@@ -42,6 +42,7 @@ impl Document {
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct DocumentSerial {
     #[serde(default)]
     pub settings: AbsentNullable<SettingsSerial>,
@@ -57,6 +58,12 @@ impl DocumentSerial {
             None => ret.settings,
             Some(v) => v.unserialize()?,
         };
+
+        if self.segments.is_empty() {
+            return Err(SlinkyError::EmptyValue {
+                name: "segments".to_string(),
+            });
+        }
 
         ret.segments.reserve(self.segments.len());
         for seg in self.segments {

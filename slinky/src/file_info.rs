@@ -14,6 +14,7 @@ pub struct FileInfo {
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct FileInfoSerial {
     pub path: PathBuf,
 

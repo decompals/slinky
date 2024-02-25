@@ -8,10 +8,10 @@ segments:
     alloc_sections: [".data", ".text", ".rodata"]
     fixed_vram: 0x80024C00
     files:
-      - { path: makerom/header }
-      - { path: makerom/ipl3 }
-      - { path: makerom/entry }
+      - { path: makerom/header.o }
+      - { path: makerom/ipl3.o }
+      - { path: makerom/entry.o }
 
   - name: boot
     files:
-      - { path: boot/boot_main }
+      - { path: boot/boot_main.o }

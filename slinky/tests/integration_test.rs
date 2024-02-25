@@ -44,3 +44,9 @@ fn test_simple_linker_script_generation(#[files("../tests/input_files/*.yaml")] 
 
     assert_eq!(expected_ld_contents, writer.export_as_string());
 }
+
+#[rstest]
+#[should_panic]
+fn test_panic_invalid_yamls(#[files("../tests/panics/*.yaml")] path: PathBuf) {
+    slinky::Document::read_file(&path).unwrap();
+}

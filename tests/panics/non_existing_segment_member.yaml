@@ -1,0 +1,5 @@
+segments:
+  - name: main
+    subalin: 0x20 # typo of subalign
+    files:
+      - { path: main.o }
