@@ -4,6 +4,7 @@ SECTIONS
 
     header_ROM_START = __romPos;
     header_VRAM = ADDR(.header);
+    header_alloc_VRAM = .;
     .header 0x8F000000 : AT(header_ROM_START) SUBALIGN(16)
     {
         header_text_START = .;
@@ -26,25 +27,43 @@ SECTIONS
         header_sdata_END = .;
         header_sdata_SIZE = ABSOLUTE(header_sdata_END - header_sdata_START);
     }
-    __romPos += SIZEOF(.header);
-    header_ROM_END = __romPos;
+    header_alloc_VRAM_END = .;
+    header_alloc_VRAM_SIZE = ABSOLUTE(header_alloc_VRAM_END - header_alloc_VRAM);
+
+    header_noload_VRAM = .;
     .header.noload (NOLOAD) : SUBALIGN(16)
     {
-        header_bss_START = .;
+        header_sbss_START = .;
         build/us/rom_header/rom_header.o(.sbss*);
+        header_sbss_END = .;
+        header_sbss_SIZE = ABSOLUTE(header_sbss_END - header_sbss_START);
 
+        header_scommon_START = .;
         build/us/rom_header/rom_header.o(.scommon*);
+        header_scommon_END = .;
+        header_scommon_SIZE = ABSOLUTE(header_scommon_END - header_scommon_START);
 
+        header_bss_START = .;
         build/us/rom_header/rom_header.o(.bss*);
-
-        build/us/rom_header/rom_header.o(COMMON*);
         header_bss_END = .;
         header_bss_SIZE = ABSOLUTE(header_bss_END - header_bss_START);
+
+        headerCOMMON_START = .;
+        build/us/rom_header/rom_header.o(COMMON*);
+        headerCOMMON_END = .;
+        headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
+    header_noload_VRAM_END = .;
+    header_noload_VRAM_SIZE = ABSOLUTE(header_noload_VRAM_END - header_noload_VRAM);
     header_VRAM_END = .;
+    header_VRAM_SIZE = ABSOLUTE(header_VRAM_END - header_VRAM);
+    __romPos += SIZEOF(.header);
+    header_ROM_END = __romPos;
+    header_ROM_SIZE = ABSOLUTE(header_ROM_END - header_ROM_START);
 
     ipl3_ROM_START = __romPos;
     ipl3_VRAM = ADDR(.ipl3);
+    ipl3_alloc_VRAM = .;
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(16)
     {
         ipl3_text_START = .;
@@ -67,25 +86,43 @@ SECTIONS
         ipl3_sdata_END = .;
         ipl3_sdata_SIZE = ABSOLUTE(ipl3_sdata_END - ipl3_sdata_START);
     }
-    __romPos += SIZEOF(.ipl3);
-    ipl3_ROM_END = __romPos;
+    ipl3_alloc_VRAM_END = .;
+    ipl3_alloc_VRAM_SIZE = ABSOLUTE(ipl3_alloc_VRAM_END - ipl3_alloc_VRAM);
+
+    ipl3_noload_VRAM = .;
     .ipl3.noload (NOLOAD) : SUBALIGN(16)
     {
-        ipl3_bss_START = .;
+        ipl3_sbss_START = .;
         build/us/asm/data/ipl3.o(.sbss*);
+        ipl3_sbss_END = .;
+        ipl3_sbss_SIZE = ABSOLUTE(ipl3_sbss_END - ipl3_sbss_START);
 
+        ipl3_scommon_START = .;
         build/us/asm/data/ipl3.o(.scommon*);
+        ipl3_scommon_END = .;
+        ipl3_scommon_SIZE = ABSOLUTE(ipl3_scommon_END - ipl3_scommon_START);
 
+        ipl3_bss_START = .;
         build/us/asm/data/ipl3.o(.bss*);
-
-        build/us/asm/data/ipl3.o(COMMON*);
         ipl3_bss_END = .;
         ipl3_bss_SIZE = ABSOLUTE(ipl3_bss_END - ipl3_bss_START);
+
+        ipl3COMMON_START = .;
+        build/us/asm/data/ipl3.o(COMMON*);
+        ipl3COMMON_END = .;
+        ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
+    ipl3_noload_VRAM_END = .;
+    ipl3_noload_VRAM_SIZE = ABSOLUTE(ipl3_noload_VRAM_END - ipl3_noload_VRAM);
     ipl3_VRAM_END = .;
+    ipl3_VRAM_SIZE = ABSOLUTE(ipl3_VRAM_END - ipl3_VRAM);
+    __romPos += SIZEOF(.ipl3);
+    ipl3_ROM_END = __romPos;
+    ipl3_ROM_SIZE = ABSOLUTE(ipl3_ROM_END - ipl3_ROM_START);
 
     entry_ROM_START = __romPos;
     entry_VRAM = ADDR(.entry);
+    entry_alloc_VRAM = .;
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(16)
     {
         entry_text_START = .;
@@ -108,25 +145,43 @@ SECTIONS
         entry_sdata_END = .;
         entry_sdata_SIZE = ABSOLUTE(entry_sdata_END - entry_sdata_START);
     }
-    __romPos += SIZEOF(.entry);
-    entry_ROM_END = __romPos;
+    entry_alloc_VRAM_END = .;
+    entry_alloc_VRAM_SIZE = ABSOLUTE(entry_alloc_VRAM_END - entry_alloc_VRAM);
+
+    entry_noload_VRAM = .;
     .entry.noload (NOLOAD) : SUBALIGN(16)
     {
-        entry_bss_START = .;
+        entry_sbss_START = .;
         build/us/src/entry/entry.o(.sbss*);
+        entry_sbss_END = .;
+        entry_sbss_SIZE = ABSOLUTE(entry_sbss_END - entry_sbss_START);
 
+        entry_scommon_START = .;
         build/us/src/entry/entry.o(.scommon*);
+        entry_scommon_END = .;
+        entry_scommon_SIZE = ABSOLUTE(entry_scommon_END - entry_scommon_START);
 
+        entry_bss_START = .;
         build/us/src/entry/entry.o(.bss*);
-
-        build/us/src/entry/entry.o(COMMON*);
         entry_bss_END = .;
         entry_bss_SIZE = ABSOLUTE(entry_bss_END - entry_bss_START);
+
+        entryCOMMON_START = .;
+        build/us/src/entry/entry.o(COMMON*);
+        entryCOMMON_END = .;
+        entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
+    entry_noload_VRAM_END = .;
+    entry_noload_VRAM_SIZE = ABSOLUTE(entry_noload_VRAM_END - entry_noload_VRAM);
     entry_VRAM_END = .;
+    entry_VRAM_SIZE = ABSOLUTE(entry_VRAM_END - entry_VRAM);
+    __romPos += SIZEOF(.entry);
+    entry_ROM_END = __romPos;
+    entry_ROM_SIZE = ABSOLUTE(entry_ROM_END - entry_ROM_START);
 
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);
+    boot_alloc_VRAM = .;
     .boot : AT(boot_ROM_START)
     {
         boot_text_START = .;
@@ -769,11 +824,13 @@ SECTIONS
         boot_sdata_END = .;
         boot_sdata_SIZE = ABSOLUTE(boot_sdata_END - boot_sdata_START);
     }
-    __romPos += SIZEOF(.boot);
-    boot_ROM_END = __romPos;
+    boot_alloc_VRAM_END = .;
+    boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
+
+    boot_noload_VRAM = .;
     .boot.noload (NOLOAD) :
     {
-        boot_bss_START = .;
+        boot_sbss_START = .;
         build/us/src/boot/boot_main.o(.sbss*);
         build/us/src/boot/dmadata.o(.sbss*);
         build/us/src/gzip/inflate.o(.sbss*);
@@ -930,7 +987,10 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.sbss*);
         build/us/src/libkmc/ctype.o(.sbss*);
         build/us/asm/boot/8001B640.o(.sbss*);
+        boot_sbss_END = .;
+        boot_sbss_SIZE = ABSOLUTE(boot_sbss_END - boot_sbss_START);
 
+        boot_scommon_START = .;
         build/us/src/boot/boot_main.o(.scommon*);
         build/us/src/boot/dmadata.o(.scommon*);
         build/us/src/gzip/inflate.o(.scommon*);
@@ -1087,7 +1147,10 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.scommon*);
         build/us/src/libkmc/ctype.o(.scommon*);
         build/us/asm/boot/8001B640.o(.scommon*);
+        boot_scommon_END = .;
+        boot_scommon_SIZE = ABSOLUTE(boot_scommon_END - boot_scommon_START);
 
+        boot_bss_START = .;
         build/us/src/boot/boot_main.o(.bss*);
         build/us/src/boot/dmadata.o(.bss*);
         build/us/src/gzip/inflate.o(.bss*);
@@ -1244,7 +1307,10 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.bss*);
         build/us/src/libkmc/ctype.o(.bss*);
         build/us/asm/boot/8001B640.o(.bss*);
+        boot_bss_END = .;
+        boot_bss_SIZE = ABSOLUTE(boot_bss_END - boot_bss_START);
 
+        bootCOMMON_START = .;
         build/us/src/boot/boot_main.o(COMMON*);
         build/us/src/boot/dmadata.o(COMMON*);
         build/us/src/gzip/inflate.o(COMMON*);
@@ -1401,13 +1467,20 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(COMMON*);
         build/us/src/libkmc/ctype.o(COMMON*);
         build/us/asm/boot/8001B640.o(COMMON*);
-        boot_bss_END = .;
-        boot_bss_SIZE = ABSOLUTE(boot_bss_END - boot_bss_START);
+        bootCOMMON_END = .;
+        bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
+    boot_noload_VRAM_END = .;
+    boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
     boot_VRAM_END = .;
+    boot_VRAM_SIZE = ABSOLUTE(boot_VRAM_END - boot_VRAM);
+    __romPos += SIZEOF(.boot);
+    boot_ROM_END = __romPos;
+    boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
     dma_table_ROM_START = __romPos;
     dma_table_VRAM = ADDR(.dma_table);
+    dma_table_alloc_VRAM = .;
     .dma_table : AT(dma_table_ROM_START) SUBALIGN(16)
     {
         dma_table_text_START = .;
@@ -1430,25 +1503,43 @@ SECTIONS
         dma_table_sdata_END = .;
         dma_table_sdata_SIZE = ABSOLUTE(dma_table_sdata_END - dma_table_sdata_START);
     }
-    __romPos += SIZEOF(.dma_table);
-    dma_table_ROM_END = __romPos;
+    dma_table_alloc_VRAM_END = .;
+    dma_table_alloc_VRAM_SIZE = ABSOLUTE(dma_table_alloc_VRAM_END - dma_table_alloc_VRAM);
+
+    dma_table_noload_VRAM = .;
     .dma_table.noload (NOLOAD) : SUBALIGN(16)
     {
-        dma_table_bss_START = .;
+        dma_table_sbss_START = .;
         build/us/src/dma_table/dma_table.o(.sbss*);
+        dma_table_sbss_END = .;
+        dma_table_sbss_SIZE = ABSOLUTE(dma_table_sbss_END - dma_table_sbss_START);
 
+        dma_table_scommon_START = .;
         build/us/src/dma_table/dma_table.o(.scommon*);
+        dma_table_scommon_END = .;
+        dma_table_scommon_SIZE = ABSOLUTE(dma_table_scommon_END - dma_table_scommon_START);
 
+        dma_table_bss_START = .;
         build/us/src/dma_table/dma_table.o(.bss*);
-
-        build/us/src/dma_table/dma_table.o(COMMON*);
         dma_table_bss_END = .;
         dma_table_bss_SIZE = ABSOLUTE(dma_table_bss_END - dma_table_bss_START);
+
+        dma_tableCOMMON_START = .;
+        build/us/src/dma_table/dma_table.o(COMMON*);
+        dma_tableCOMMON_END = .;
+        dma_tableCOMMON_SIZE = ABSOLUTE(dma_tableCOMMON_END - dma_tableCOMMON_START);
     }
+    dma_table_noload_VRAM_END = .;
+    dma_table_noload_VRAM_SIZE = ABSOLUTE(dma_table_noload_VRAM_END - dma_table_noload_VRAM);
     dma_table_VRAM_END = .;
+    dma_table_VRAM_SIZE = ABSOLUTE(dma_table_VRAM_END - dma_table_VRAM);
+    __romPos += SIZEOF(.dma_table);
+    dma_table_ROM_END = __romPos;
+    dma_table_ROM_SIZE = ABSOLUTE(dma_table_ROM_END - dma_table_ROM_START);
 
     main_segment_ROM_START = __romPos;
     main_segment_VRAM = ADDR(.main_segment);
+    main_segment_alloc_VRAM = .;
     .main_segment : AT(main_segment_ROM_START) SUBALIGN(16)
     {
         main_segment_text_START = .;
@@ -1663,11 +1754,13 @@ SECTIONS
         main_segment_sdata_END = .;
         main_segment_sdata_SIZE = ABSOLUTE(main_segment_sdata_END - main_segment_sdata_START);
     }
-    __romPos += SIZEOF(.main_segment);
-    main_segment_ROM_END = __romPos;
+    main_segment_alloc_VRAM_END = .;
+    main_segment_alloc_VRAM_SIZE = ABSOLUTE(main_segment_alloc_VRAM_END - main_segment_alloc_VRAM);
+
+    main_segment_noload_VRAM = .;
     .main_segment.noload (NOLOAD) : SUBALIGN(16)
     {
-        main_segment_bss_START = .;
+        main_segment_sbss_START = .;
         build/us/src/main_segment/main.o(.sbss*);
         build/us/src/main_segment/nnsched.o(.sbss*);
         build/us/src/main_segment/joy.o(.sbss*);
@@ -1717,7 +1810,10 @@ SECTIONS
         build/us/asm/rsp/f3dex2.o(.sbss*);
         build/us/asm/rsp/s2dex.o(.sbss*);
         build/us/asm/main_segment/800E9BB0.o(.sbss*);
+        main_segment_sbss_END = .;
+        main_segment_sbss_SIZE = ABSOLUTE(main_segment_sbss_END - main_segment_sbss_START);
 
+        main_segment_scommon_START = .;
         build/us/src/main_segment/main.o(.scommon*);
         build/us/src/main_segment/nnsched.o(.scommon*);
         build/us/src/main_segment/joy.o(.scommon*);
@@ -1767,7 +1863,10 @@ SECTIONS
         build/us/asm/rsp/f3dex2.o(.scommon*);
         build/us/asm/rsp/s2dex.o(.scommon*);
         build/us/asm/main_segment/800E9BB0.o(.scommon*);
+        main_segment_scommon_END = .;
+        main_segment_scommon_SIZE = ABSOLUTE(main_segment_scommon_END - main_segment_scommon_START);
 
+        main_segment_bss_START = .;
         build/us/src/main_segment/main.o(.bss*);
         build/us/src/main_segment/nnsched.o(.bss*);
         build/us/src/main_segment/joy.o(.bss*);
@@ -1817,7 +1916,10 @@ SECTIONS
         build/us/asm/rsp/f3dex2.o(.bss*);
         build/us/asm/rsp/s2dex.o(.bss*);
         build/us/asm/main_segment/800E9BB0.o(.bss*);
+        main_segment_bss_END = .;
+        main_segment_bss_SIZE = ABSOLUTE(main_segment_bss_END - main_segment_bss_START);
 
+        main_segmentCOMMON_START = .;
         build/us/src/main_segment/main.o(COMMON*);
         build/us/src/main_segment/nnsched.o(COMMON*);
         build/us/src/main_segment/joy.o(COMMON*);
@@ -1867,13 +1969,20 @@ SECTIONS
         build/us/asm/rsp/f3dex2.o(COMMON*);
         build/us/asm/rsp/s2dex.o(COMMON*);
         build/us/asm/main_segment/800E9BB0.o(COMMON*);
-        main_segment_bss_END = .;
-        main_segment_bss_SIZE = ABSOLUTE(main_segment_bss_END - main_segment_bss_START);
+        main_segmentCOMMON_END = .;
+        main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
+    main_segment_noload_VRAM_END = .;
+    main_segment_noload_VRAM_SIZE = ABSOLUTE(main_segment_noload_VRAM_END - main_segment_noload_VRAM);
     main_segment_VRAM_END = .;
+    main_segment_VRAM_SIZE = ABSOLUTE(main_segment_VRAM_END - main_segment_VRAM);
+    __romPos += SIZEOF(.main_segment);
+    main_segment_ROM_END = __romPos;
+    main_segment_ROM_SIZE = ABSOLUTE(main_segment_ROM_END - main_segment_ROM_START);
 
     buffer1_ROM_START = __romPos;
     buffer1_VRAM = ADDR(.buffer1);
+    buffer1_alloc_VRAM = .;
     .buffer1 : AT(buffer1_ROM_START) SUBALIGN(16)
     {
         buffer1_text_START = .;
@@ -1896,25 +2005,43 @@ SECTIONS
         buffer1_sdata_END = .;
         buffer1_sdata_SIZE = ABSOLUTE(buffer1_sdata_END - buffer1_sdata_START);
     }
-    __romPos += SIZEOF(.buffer1);
-    buffer1_ROM_END = __romPos;
+    buffer1_alloc_VRAM_END = .;
+    buffer1_alloc_VRAM_SIZE = ABSOLUTE(buffer1_alloc_VRAM_END - buffer1_alloc_VRAM);
+
+    buffer1_noload_VRAM = .;
     .buffer1.noload (NOLOAD) : SUBALIGN(16)
     {
-        buffer1_bss_START = .;
+        buffer1_sbss_START = .;
         build/us/src/buffers/buffer1.o(.sbss*);
+        buffer1_sbss_END = .;
+        buffer1_sbss_SIZE = ABSOLUTE(buffer1_sbss_END - buffer1_sbss_START);
 
+        buffer1_scommon_START = .;
         build/us/src/buffers/buffer1.o(.scommon*);
+        buffer1_scommon_END = .;
+        buffer1_scommon_SIZE = ABSOLUTE(buffer1_scommon_END - buffer1_scommon_START);
 
+        buffer1_bss_START = .;
         build/us/src/buffers/buffer1.o(.bss*);
-
-        build/us/src/buffers/buffer1.o(COMMON*);
         buffer1_bss_END = .;
         buffer1_bss_SIZE = ABSOLUTE(buffer1_bss_END - buffer1_bss_START);
+
+        buffer1COMMON_START = .;
+        build/us/src/buffers/buffer1.o(COMMON*);
+        buffer1COMMON_END = .;
+        buffer1COMMON_SIZE = ABSOLUTE(buffer1COMMON_END - buffer1COMMON_START);
     }
+    buffer1_noload_VRAM_END = .;
+    buffer1_noload_VRAM_SIZE = ABSOLUTE(buffer1_noload_VRAM_END - buffer1_noload_VRAM);
     buffer1_VRAM_END = .;
+    buffer1_VRAM_SIZE = ABSOLUTE(buffer1_VRAM_END - buffer1_VRAM);
+    __romPos += SIZEOF(.buffer1);
+    buffer1_ROM_END = __romPos;
+    buffer1_ROM_SIZE = ABSOLUTE(buffer1_ROM_END - buffer1_ROM_START);
 
     buffer2_ROM_START = __romPos;
     buffer2_VRAM = ADDR(.buffer2);
+    buffer2_alloc_VRAM = .;
     .buffer2 0x80205000 : AT(buffer2_ROM_START) SUBALIGN(16)
     {
         buffer2_text_START = .;
@@ -1937,25 +2064,43 @@ SECTIONS
         buffer2_sdata_END = .;
         buffer2_sdata_SIZE = ABSOLUTE(buffer2_sdata_END - buffer2_sdata_START);
     }
-    __romPos += SIZEOF(.buffer2);
-    buffer2_ROM_END = __romPos;
+    buffer2_alloc_VRAM_END = .;
+    buffer2_alloc_VRAM_SIZE = ABSOLUTE(buffer2_alloc_VRAM_END - buffer2_alloc_VRAM);
+
+    buffer2_noload_VRAM = .;
     .buffer2.noload (NOLOAD) : SUBALIGN(16)
     {
-        buffer2_bss_START = .;
+        buffer2_sbss_START = .;
         build/us/src/buffers/buffer2.o(.sbss*);
+        buffer2_sbss_END = .;
+        buffer2_sbss_SIZE = ABSOLUTE(buffer2_sbss_END - buffer2_sbss_START);
 
+        buffer2_scommon_START = .;
         build/us/src/buffers/buffer2.o(.scommon*);
+        buffer2_scommon_END = .;
+        buffer2_scommon_SIZE = ABSOLUTE(buffer2_scommon_END - buffer2_scommon_START);
 
+        buffer2_bss_START = .;
         build/us/src/buffers/buffer2.o(.bss*);
-
-        build/us/src/buffers/buffer2.o(COMMON*);
         buffer2_bss_END = .;
         buffer2_bss_SIZE = ABSOLUTE(buffer2_bss_END - buffer2_bss_START);
+
+        buffer2COMMON_START = .;
+        build/us/src/buffers/buffer2.o(COMMON*);
+        buffer2COMMON_END = .;
+        buffer2COMMON_SIZE = ABSOLUTE(buffer2COMMON_END - buffer2COMMON_START);
     }
+    buffer2_noload_VRAM_END = .;
+    buffer2_noload_VRAM_SIZE = ABSOLUTE(buffer2_noload_VRAM_END - buffer2_noload_VRAM);
     buffer2_VRAM_END = .;
+    buffer2_VRAM_SIZE = ABSOLUTE(buffer2_VRAM_END - buffer2_VRAM);
+    __romPos += SIZEOF(.buffer2);
+    buffer2_ROM_END = __romPos;
+    buffer2_ROM_SIZE = ABSOLUTE(buffer2_ROM_END - buffer2_ROM_START);
 
     framebuffer_ROM_START = __romPos;
     framebuffer_VRAM = ADDR(.framebuffer);
+    framebuffer_alloc_VRAM = .;
     .framebuffer 0x803B5000 : AT(framebuffer_ROM_START) SUBALIGN(16)
     {
         framebuffer_text_START = .;
@@ -1978,25 +2123,43 @@ SECTIONS
         framebuffer_sdata_END = .;
         framebuffer_sdata_SIZE = ABSOLUTE(framebuffer_sdata_END - framebuffer_sdata_START);
     }
-    __romPos += SIZEOF(.framebuffer);
-    framebuffer_ROM_END = __romPos;
+    framebuffer_alloc_VRAM_END = .;
+    framebuffer_alloc_VRAM_SIZE = ABSOLUTE(framebuffer_alloc_VRAM_END - framebuffer_alloc_VRAM);
+
+    framebuffer_noload_VRAM = .;
     .framebuffer.noload (NOLOAD) : SUBALIGN(16)
     {
-        framebuffer_bss_START = .;
+        framebuffer_sbss_START = .;
         build/us/src/buffers/framebuffer.o(.sbss*);
+        framebuffer_sbss_END = .;
+        framebuffer_sbss_SIZE = ABSOLUTE(framebuffer_sbss_END - framebuffer_sbss_START);
 
+        framebuffer_scommon_START = .;
         build/us/src/buffers/framebuffer.o(.scommon*);
+        framebuffer_scommon_END = .;
+        framebuffer_scommon_SIZE = ABSOLUTE(framebuffer_scommon_END - framebuffer_scommon_START);
 
+        framebuffer_bss_START = .;
         build/us/src/buffers/framebuffer.o(.bss*);
-
-        build/us/src/buffers/framebuffer.o(COMMON*);
         framebuffer_bss_END = .;
         framebuffer_bss_SIZE = ABSOLUTE(framebuffer_bss_END - framebuffer_bss_START);
+
+        framebufferCOMMON_START = .;
+        build/us/src/buffers/framebuffer.o(COMMON*);
+        framebufferCOMMON_END = .;
+        framebufferCOMMON_SIZE = ABSOLUTE(framebufferCOMMON_END - framebufferCOMMON_START);
     }
+    framebuffer_noload_VRAM_END = .;
+    framebuffer_noload_VRAM_SIZE = ABSOLUTE(framebuffer_noload_VRAM_END - framebuffer_noload_VRAM);
     framebuffer_VRAM_END = .;
+    framebuffer_VRAM_SIZE = ABSOLUTE(framebuffer_VRAM_END - framebuffer_VRAM);
+    __romPos += SIZEOF(.framebuffer);
+    framebuffer_ROM_END = __romPos;
+    framebuffer_ROM_SIZE = ABSOLUTE(framebuffer_ROM_END - framebuffer_ROM_START);
 
     n64_wave_tables_ROM_START = __romPos;
     n64_wave_tables_VRAM = ADDR(.n64_wave_tables);
+    n64_wave_tables_alloc_VRAM = .;
     .n64_wave_tables : AT(n64_wave_tables_ROM_START) SUBALIGN(16)
     {
         n64_wave_tables_text_START = .;
@@ -2019,25 +2182,43 @@ SECTIONS
         n64_wave_tables_sdata_END = .;
         n64_wave_tables_sdata_SIZE = ABSOLUTE(n64_wave_tables_sdata_END - n64_wave_tables_sdata_START);
     }
-    __romPos += SIZEOF(.n64_wave_tables);
-    n64_wave_tables_ROM_END = __romPos;
+    n64_wave_tables_alloc_VRAM_END = .;
+    n64_wave_tables_alloc_VRAM_SIZE = ABSOLUTE(n64_wave_tables_alloc_VRAM_END - n64_wave_tables_alloc_VRAM);
+
+    n64_wave_tables_noload_VRAM = .;
     .n64_wave_tables.noload (NOLOAD) : SUBALIGN(16)
     {
-        n64_wave_tables_bss_START = .;
+        n64_wave_tables_sbss_START = .;
         build/us/asm/n64_wave_tables.o(.sbss*);
+        n64_wave_tables_sbss_END = .;
+        n64_wave_tables_sbss_SIZE = ABSOLUTE(n64_wave_tables_sbss_END - n64_wave_tables_sbss_START);
 
+        n64_wave_tables_scommon_START = .;
         build/us/asm/n64_wave_tables.o(.scommon*);
+        n64_wave_tables_scommon_END = .;
+        n64_wave_tables_scommon_SIZE = ABSOLUTE(n64_wave_tables_scommon_END - n64_wave_tables_scommon_START);
 
+        n64_wave_tables_bss_START = .;
         build/us/asm/n64_wave_tables.o(.bss*);
-
-        build/us/asm/n64_wave_tables.o(COMMON*);
         n64_wave_tables_bss_END = .;
         n64_wave_tables_bss_SIZE = ABSOLUTE(n64_wave_tables_bss_END - n64_wave_tables_bss_START);
+
+        n64_wave_tablesCOMMON_START = .;
+        build/us/asm/n64_wave_tables.o(COMMON*);
+        n64_wave_tablesCOMMON_END = .;
+        n64_wave_tablesCOMMON_SIZE = ABSOLUTE(n64_wave_tablesCOMMON_END - n64_wave_tablesCOMMON_START);
     }
+    n64_wave_tables_noload_VRAM_END = .;
+    n64_wave_tables_noload_VRAM_SIZE = ABSOLUTE(n64_wave_tables_noload_VRAM_END - n64_wave_tables_noload_VRAM);
     n64_wave_tables_VRAM_END = .;
+    n64_wave_tables_VRAM_SIZE = ABSOLUTE(n64_wave_tables_VRAM_END - n64_wave_tables_VRAM);
+    __romPos += SIZEOF(.n64_wave_tables);
+    n64_wave_tables_ROM_END = __romPos;
+    n64_wave_tables_ROM_SIZE = ABSOLUTE(n64_wave_tables_ROM_END - n64_wave_tables_ROM_START);
 
     n64_ptr_tables_v2_ROM_START = __romPos;
     n64_ptr_tables_v2_VRAM = ADDR(.n64_ptr_tables_v2);
+    n64_ptr_tables_v2_alloc_VRAM = .;
     .n64_ptr_tables_v2 : AT(n64_ptr_tables_v2_ROM_START) SUBALIGN(16)
     {
         n64_ptr_tables_v2_text_START = .;
@@ -2060,25 +2241,43 @@ SECTIONS
         n64_ptr_tables_v2_sdata_END = .;
         n64_ptr_tables_v2_sdata_SIZE = ABSOLUTE(n64_ptr_tables_v2_sdata_END - n64_ptr_tables_v2_sdata_START);
     }
-    __romPos += SIZEOF(.n64_ptr_tables_v2);
-    n64_ptr_tables_v2_ROM_END = __romPos;
+    n64_ptr_tables_v2_alloc_VRAM_END = .;
+    n64_ptr_tables_v2_alloc_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_alloc_VRAM_END - n64_ptr_tables_v2_alloc_VRAM);
+
+    n64_ptr_tables_v2_noload_VRAM = .;
     .n64_ptr_tables_v2.noload (NOLOAD) : SUBALIGN(16)
     {
-        n64_ptr_tables_v2_bss_START = .;
+        n64_ptr_tables_v2_sbss_START = .;
         build/us/asm/n64_ptr_tables_v2.o(.sbss*);
+        n64_ptr_tables_v2_sbss_END = .;
+        n64_ptr_tables_v2_sbss_SIZE = ABSOLUTE(n64_ptr_tables_v2_sbss_END - n64_ptr_tables_v2_sbss_START);
 
+        n64_ptr_tables_v2_scommon_START = .;
         build/us/asm/n64_ptr_tables_v2.o(.scommon*);
+        n64_ptr_tables_v2_scommon_END = .;
+        n64_ptr_tables_v2_scommon_SIZE = ABSOLUTE(n64_ptr_tables_v2_scommon_END - n64_ptr_tables_v2_scommon_START);
 
+        n64_ptr_tables_v2_bss_START = .;
         build/us/asm/n64_ptr_tables_v2.o(.bss*);
-
-        build/us/asm/n64_ptr_tables_v2.o(COMMON*);
         n64_ptr_tables_v2_bss_END = .;
         n64_ptr_tables_v2_bss_SIZE = ABSOLUTE(n64_ptr_tables_v2_bss_END - n64_ptr_tables_v2_bss_START);
+
+        n64_ptr_tables_v2COMMON_START = .;
+        build/us/asm/n64_ptr_tables_v2.o(COMMON*);
+        n64_ptr_tables_v2COMMON_END = .;
+        n64_ptr_tables_v2COMMON_SIZE = ABSOLUTE(n64_ptr_tables_v2COMMON_END - n64_ptr_tables_v2COMMON_START);
     }
+    n64_ptr_tables_v2_noload_VRAM_END = .;
+    n64_ptr_tables_v2_noload_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_noload_VRAM_END - n64_ptr_tables_v2_noload_VRAM);
     n64_ptr_tables_v2_VRAM_END = .;
+    n64_ptr_tables_v2_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_VRAM_END - n64_ptr_tables_v2_VRAM);
+    __romPos += SIZEOF(.n64_ptr_tables_v2);
+    n64_ptr_tables_v2_ROM_END = __romPos;
+    n64_ptr_tables_v2_ROM_SIZE = ABSOLUTE(n64_ptr_tables_v2_ROM_END - n64_ptr_tables_v2_ROM_START);
 
     segment_17213_ROM_START = __romPos;
     segment_17213_VRAM = ADDR(.segment_17213);
+    segment_17213_alloc_VRAM = .;
     .segment_17213 : AT(segment_17213_ROM_START) SUBALIGN(16)
     {
         segment_17213_text_START = .;
@@ -2101,25 +2300,43 @@ SECTIONS
         segment_17213_sdata_END = .;
         segment_17213_sdata_SIZE = ABSOLUTE(segment_17213_sdata_END - segment_17213_sdata_START);
     }
-    __romPos += SIZEOF(.segment_17213);
-    segment_17213_ROM_END = __romPos;
+    segment_17213_alloc_VRAM_END = .;
+    segment_17213_alloc_VRAM_SIZE = ABSOLUTE(segment_17213_alloc_VRAM_END - segment_17213_alloc_VRAM);
+
+    segment_17213_noload_VRAM = .;
     .segment_17213.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17213_bss_START = .;
+        segment_17213_sbss_START = .;
         build/us/asm/segment_17213.o(.sbss*);
+        segment_17213_sbss_END = .;
+        segment_17213_sbss_SIZE = ABSOLUTE(segment_17213_sbss_END - segment_17213_sbss_START);
 
+        segment_17213_scommon_START = .;
         build/us/asm/segment_17213.o(.scommon*);
+        segment_17213_scommon_END = .;
+        segment_17213_scommon_SIZE = ABSOLUTE(segment_17213_scommon_END - segment_17213_scommon_START);
 
+        segment_17213_bss_START = .;
         build/us/asm/segment_17213.o(.bss*);
-
-        build/us/asm/segment_17213.o(COMMON*);
         segment_17213_bss_END = .;
         segment_17213_bss_SIZE = ABSOLUTE(segment_17213_bss_END - segment_17213_bss_START);
+
+        segment_17213COMMON_START = .;
+        build/us/asm/segment_17213.o(COMMON*);
+        segment_17213COMMON_END = .;
+        segment_17213COMMON_SIZE = ABSOLUTE(segment_17213COMMON_END - segment_17213COMMON_START);
     }
+    segment_17213_noload_VRAM_END = .;
+    segment_17213_noload_VRAM_SIZE = ABSOLUTE(segment_17213_noload_VRAM_END - segment_17213_noload_VRAM);
     segment_17213_VRAM_END = .;
+    segment_17213_VRAM_SIZE = ABSOLUTE(segment_17213_VRAM_END - segment_17213_VRAM);
+    __romPos += SIZEOF(.segment_17213);
+    segment_17213_ROM_END = __romPos;
+    segment_17213_ROM_SIZE = ABSOLUTE(segment_17213_ROM_END - segment_17213_ROM_START);
 
     segment_172D60_ROM_START = __romPos;
     segment_172D60_VRAM = ADDR(.segment_172D60);
+    segment_172D60_alloc_VRAM = .;
     .segment_172D60 : AT(segment_172D60_ROM_START) SUBALIGN(16)
     {
         segment_172D60_text_START = .;
@@ -2142,25 +2359,43 @@ SECTIONS
         segment_172D60_sdata_END = .;
         segment_172D60_sdata_SIZE = ABSOLUTE(segment_172D60_sdata_END - segment_172D60_sdata_START);
     }
-    __romPos += SIZEOF(.segment_172D60);
-    segment_172D60_ROM_END = __romPos;
+    segment_172D60_alloc_VRAM_END = .;
+    segment_172D60_alloc_VRAM_SIZE = ABSOLUTE(segment_172D60_alloc_VRAM_END - segment_172D60_alloc_VRAM);
+
+    segment_172D60_noload_VRAM = .;
     .segment_172D60.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_172D60_bss_START = .;
+        segment_172D60_sbss_START = .;
         build/us/asm/segment_172D60.o(.sbss*);
+        segment_172D60_sbss_END = .;
+        segment_172D60_sbss_SIZE = ABSOLUTE(segment_172D60_sbss_END - segment_172D60_sbss_START);
 
+        segment_172D60_scommon_START = .;
         build/us/asm/segment_172D60.o(.scommon*);
+        segment_172D60_scommon_END = .;
+        segment_172D60_scommon_SIZE = ABSOLUTE(segment_172D60_scommon_END - segment_172D60_scommon_START);
 
+        segment_172D60_bss_START = .;
         build/us/asm/segment_172D60.o(.bss*);
-
-        build/us/asm/segment_172D60.o(COMMON*);
         segment_172D60_bss_END = .;
         segment_172D60_bss_SIZE = ABSOLUTE(segment_172D60_bss_END - segment_172D60_bss_START);
+
+        segment_172D60COMMON_START = .;
+        build/us/asm/segment_172D60.o(COMMON*);
+        segment_172D60COMMON_END = .;
+        segment_172D60COMMON_SIZE = ABSOLUTE(segment_172D60COMMON_END - segment_172D60COMMON_START);
     }
+    segment_172D60_noload_VRAM_END = .;
+    segment_172D60_noload_VRAM_SIZE = ABSOLUTE(segment_172D60_noload_VRAM_END - segment_172D60_noload_VRAM);
     segment_172D60_VRAM_END = .;
+    segment_172D60_VRAM_SIZE = ABSOLUTE(segment_172D60_VRAM_END - segment_172D60_VRAM);
+    __romPos += SIZEOF(.segment_172D60);
+    segment_172D60_ROM_END = __romPos;
+    segment_172D60_ROM_SIZE = ABSOLUTE(segment_172D60_ROM_END - segment_172D60_ROM_START);
 
     segment_1750C0_ROM_START = __romPos;
     segment_1750C0_VRAM = ADDR(.segment_1750C0);
+    segment_1750C0_alloc_VRAM = .;
     .segment_1750C0 : AT(segment_1750C0_ROM_START) SUBALIGN(16)
     {
         segment_1750C0_text_START = .;
@@ -2183,25 +2418,43 @@ SECTIONS
         segment_1750C0_sdata_END = .;
         segment_1750C0_sdata_SIZE = ABSOLUTE(segment_1750C0_sdata_END - segment_1750C0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_1750C0);
-    segment_1750C0_ROM_END = __romPos;
+    segment_1750C0_alloc_VRAM_END = .;
+    segment_1750C0_alloc_VRAM_SIZE = ABSOLUTE(segment_1750C0_alloc_VRAM_END - segment_1750C0_alloc_VRAM);
+
+    segment_1750C0_noload_VRAM = .;
     .segment_1750C0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1750C0_bss_START = .;
+        segment_1750C0_sbss_START = .;
         build/us/asm/segment_1750C0.o(.sbss*);
+        segment_1750C0_sbss_END = .;
+        segment_1750C0_sbss_SIZE = ABSOLUTE(segment_1750C0_sbss_END - segment_1750C0_sbss_START);
 
+        segment_1750C0_scommon_START = .;
         build/us/asm/segment_1750C0.o(.scommon*);
+        segment_1750C0_scommon_END = .;
+        segment_1750C0_scommon_SIZE = ABSOLUTE(segment_1750C0_scommon_END - segment_1750C0_scommon_START);
 
+        segment_1750C0_bss_START = .;
         build/us/asm/segment_1750C0.o(.bss*);
-
-        build/us/asm/segment_1750C0.o(COMMON*);
         segment_1750C0_bss_END = .;
         segment_1750C0_bss_SIZE = ABSOLUTE(segment_1750C0_bss_END - segment_1750C0_bss_START);
+
+        segment_1750C0COMMON_START = .;
+        build/us/asm/segment_1750C0.o(COMMON*);
+        segment_1750C0COMMON_END = .;
+        segment_1750C0COMMON_SIZE = ABSOLUTE(segment_1750C0COMMON_END - segment_1750C0COMMON_START);
     }
+    segment_1750C0_noload_VRAM_END = .;
+    segment_1750C0_noload_VRAM_SIZE = ABSOLUTE(segment_1750C0_noload_VRAM_END - segment_1750C0_noload_VRAM);
     segment_1750C0_VRAM_END = .;
+    segment_1750C0_VRAM_SIZE = ABSOLUTE(segment_1750C0_VRAM_END - segment_1750C0_VRAM);
+    __romPos += SIZEOF(.segment_1750C0);
+    segment_1750C0_ROM_END = __romPos;
+    segment_1750C0_ROM_SIZE = ABSOLUTE(segment_1750C0_ROM_END - segment_1750C0_ROM_START);
 
     segment_177420_ROM_START = __romPos;
     segment_177420_VRAM = ADDR(.segment_177420);
+    segment_177420_alloc_VRAM = .;
     .segment_177420 : AT(segment_177420_ROM_START) SUBALIGN(16)
     {
         segment_177420_text_START = .;
@@ -2224,25 +2477,43 @@ SECTIONS
         segment_177420_sdata_END = .;
         segment_177420_sdata_SIZE = ABSOLUTE(segment_177420_sdata_END - segment_177420_sdata_START);
     }
-    __romPos += SIZEOF(.segment_177420);
-    segment_177420_ROM_END = __romPos;
+    segment_177420_alloc_VRAM_END = .;
+    segment_177420_alloc_VRAM_SIZE = ABSOLUTE(segment_177420_alloc_VRAM_END - segment_177420_alloc_VRAM);
+
+    segment_177420_noload_VRAM = .;
     .segment_177420.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_177420_bss_START = .;
+        segment_177420_sbss_START = .;
         build/us/asm/segment_177420.o(.sbss*);
+        segment_177420_sbss_END = .;
+        segment_177420_sbss_SIZE = ABSOLUTE(segment_177420_sbss_END - segment_177420_sbss_START);
 
+        segment_177420_scommon_START = .;
         build/us/asm/segment_177420.o(.scommon*);
+        segment_177420_scommon_END = .;
+        segment_177420_scommon_SIZE = ABSOLUTE(segment_177420_scommon_END - segment_177420_scommon_START);
 
+        segment_177420_bss_START = .;
         build/us/asm/segment_177420.o(.bss*);
-
-        build/us/asm/segment_177420.o(COMMON*);
         segment_177420_bss_END = .;
         segment_177420_bss_SIZE = ABSOLUTE(segment_177420_bss_END - segment_177420_bss_START);
+
+        segment_177420COMMON_START = .;
+        build/us/asm/segment_177420.o(COMMON*);
+        segment_177420COMMON_END = .;
+        segment_177420COMMON_SIZE = ABSOLUTE(segment_177420COMMON_END - segment_177420COMMON_START);
     }
+    segment_177420_noload_VRAM_END = .;
+    segment_177420_noload_VRAM_SIZE = ABSOLUTE(segment_177420_noload_VRAM_END - segment_177420_noload_VRAM);
     segment_177420_VRAM_END = .;
+    segment_177420_VRAM_SIZE = ABSOLUTE(segment_177420_VRAM_END - segment_177420_VRAM);
+    __romPos += SIZEOF(.segment_177420);
+    segment_177420_ROM_END = __romPos;
+    segment_177420_ROM_SIZE = ABSOLUTE(segment_177420_ROM_END - segment_177420_ROM_START);
 
     segment_179620_ROM_START = __romPos;
     segment_179620_VRAM = ADDR(.segment_179620);
+    segment_179620_alloc_VRAM = .;
     .segment_179620 : AT(segment_179620_ROM_START) SUBALIGN(16)
     {
         segment_179620_text_START = .;
@@ -2265,25 +2536,43 @@ SECTIONS
         segment_179620_sdata_END = .;
         segment_179620_sdata_SIZE = ABSOLUTE(segment_179620_sdata_END - segment_179620_sdata_START);
     }
-    __romPos += SIZEOF(.segment_179620);
-    segment_179620_ROM_END = __romPos;
+    segment_179620_alloc_VRAM_END = .;
+    segment_179620_alloc_VRAM_SIZE = ABSOLUTE(segment_179620_alloc_VRAM_END - segment_179620_alloc_VRAM);
+
+    segment_179620_noload_VRAM = .;
     .segment_179620.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_179620_bss_START = .;
+        segment_179620_sbss_START = .;
         build/us/asm/segment_179620.o(.sbss*);
+        segment_179620_sbss_END = .;
+        segment_179620_sbss_SIZE = ABSOLUTE(segment_179620_sbss_END - segment_179620_sbss_START);
 
+        segment_179620_scommon_START = .;
         build/us/asm/segment_179620.o(.scommon*);
+        segment_179620_scommon_END = .;
+        segment_179620_scommon_SIZE = ABSOLUTE(segment_179620_scommon_END - segment_179620_scommon_START);
 
+        segment_179620_bss_START = .;
         build/us/asm/segment_179620.o(.bss*);
-
-        build/us/asm/segment_179620.o(COMMON*);
         segment_179620_bss_END = .;
         segment_179620_bss_SIZE = ABSOLUTE(segment_179620_bss_END - segment_179620_bss_START);
+
+        segment_179620COMMON_START = .;
+        build/us/asm/segment_179620.o(COMMON*);
+        segment_179620COMMON_END = .;
+        segment_179620COMMON_SIZE = ABSOLUTE(segment_179620COMMON_END - segment_179620COMMON_START);
     }
+    segment_179620_noload_VRAM_END = .;
+    segment_179620_noload_VRAM_SIZE = ABSOLUTE(segment_179620_noload_VRAM_END - segment_179620_noload_VRAM);
     segment_179620_VRAM_END = .;
+    segment_179620_VRAM_SIZE = ABSOLUTE(segment_179620_VRAM_END - segment_179620_VRAM);
+    __romPos += SIZEOF(.segment_179620);
+    segment_179620_ROM_END = __romPos;
+    segment_179620_ROM_SIZE = ABSOLUTE(segment_179620_ROM_END - segment_179620_ROM_START);
 
     segment_17B790_ROM_START = __romPos;
     segment_17B790_VRAM = ADDR(.segment_17B790);
+    segment_17B790_alloc_VRAM = .;
     .segment_17B790 : AT(segment_17B790_ROM_START) SUBALIGN(16)
     {
         segment_17B790_text_START = .;
@@ -2306,25 +2595,43 @@ SECTIONS
         segment_17B790_sdata_END = .;
         segment_17B790_sdata_SIZE = ABSOLUTE(segment_17B790_sdata_END - segment_17B790_sdata_START);
     }
-    __romPos += SIZEOF(.segment_17B790);
-    segment_17B790_ROM_END = __romPos;
+    segment_17B790_alloc_VRAM_END = .;
+    segment_17B790_alloc_VRAM_SIZE = ABSOLUTE(segment_17B790_alloc_VRAM_END - segment_17B790_alloc_VRAM);
+
+    segment_17B790_noload_VRAM = .;
     .segment_17B790.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17B790_bss_START = .;
+        segment_17B790_sbss_START = .;
         build/us/asm/segment_17B790.o(.sbss*);
+        segment_17B790_sbss_END = .;
+        segment_17B790_sbss_SIZE = ABSOLUTE(segment_17B790_sbss_END - segment_17B790_sbss_START);
 
+        segment_17B790_scommon_START = .;
         build/us/asm/segment_17B790.o(.scommon*);
+        segment_17B790_scommon_END = .;
+        segment_17B790_scommon_SIZE = ABSOLUTE(segment_17B790_scommon_END - segment_17B790_scommon_START);
 
+        segment_17B790_bss_START = .;
         build/us/asm/segment_17B790.o(.bss*);
-
-        build/us/asm/segment_17B790.o(COMMON*);
         segment_17B790_bss_END = .;
         segment_17B790_bss_SIZE = ABSOLUTE(segment_17B790_bss_END - segment_17B790_bss_START);
+
+        segment_17B790COMMON_START = .;
+        build/us/asm/segment_17B790.o(COMMON*);
+        segment_17B790COMMON_END = .;
+        segment_17B790COMMON_SIZE = ABSOLUTE(segment_17B790COMMON_END - segment_17B790COMMON_START);
     }
+    segment_17B790_noload_VRAM_END = .;
+    segment_17B790_noload_VRAM_SIZE = ABSOLUTE(segment_17B790_noload_VRAM_END - segment_17B790_noload_VRAM);
     segment_17B790_VRAM_END = .;
+    segment_17B790_VRAM_SIZE = ABSOLUTE(segment_17B790_VRAM_END - segment_17B790_VRAM);
+    __romPos += SIZEOF(.segment_17B790);
+    segment_17B790_ROM_END = __romPos;
+    segment_17B790_ROM_SIZE = ABSOLUTE(segment_17B790_ROM_END - segment_17B790_ROM_START);
 
     segment_17C1E0_ROM_START = __romPos;
     segment_17C1E0_VRAM = ADDR(.segment_17C1E0);
+    segment_17C1E0_alloc_VRAM = .;
     .segment_17C1E0 : AT(segment_17C1E0_ROM_START) SUBALIGN(16)
     {
         segment_17C1E0_text_START = .;
@@ -2347,25 +2654,43 @@ SECTIONS
         segment_17C1E0_sdata_END = .;
         segment_17C1E0_sdata_SIZE = ABSOLUTE(segment_17C1E0_sdata_END - segment_17C1E0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_17C1E0);
-    segment_17C1E0_ROM_END = __romPos;
+    segment_17C1E0_alloc_VRAM_END = .;
+    segment_17C1E0_alloc_VRAM_SIZE = ABSOLUTE(segment_17C1E0_alloc_VRAM_END - segment_17C1E0_alloc_VRAM);
+
+    segment_17C1E0_noload_VRAM = .;
     .segment_17C1E0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17C1E0_bss_START = .;
+        segment_17C1E0_sbss_START = .;
         build/us/asm/segment_17C1E0.o(.sbss*);
+        segment_17C1E0_sbss_END = .;
+        segment_17C1E0_sbss_SIZE = ABSOLUTE(segment_17C1E0_sbss_END - segment_17C1E0_sbss_START);
 
+        segment_17C1E0_scommon_START = .;
         build/us/asm/segment_17C1E0.o(.scommon*);
+        segment_17C1E0_scommon_END = .;
+        segment_17C1E0_scommon_SIZE = ABSOLUTE(segment_17C1E0_scommon_END - segment_17C1E0_scommon_START);
 
+        segment_17C1E0_bss_START = .;
         build/us/asm/segment_17C1E0.o(.bss*);
-
-        build/us/asm/segment_17C1E0.o(COMMON*);
         segment_17C1E0_bss_END = .;
         segment_17C1E0_bss_SIZE = ABSOLUTE(segment_17C1E0_bss_END - segment_17C1E0_bss_START);
+
+        segment_17C1E0COMMON_START = .;
+        build/us/asm/segment_17C1E0.o(COMMON*);
+        segment_17C1E0COMMON_END = .;
+        segment_17C1E0COMMON_SIZE = ABSOLUTE(segment_17C1E0COMMON_END - segment_17C1E0COMMON_START);
     }
+    segment_17C1E0_noload_VRAM_END = .;
+    segment_17C1E0_noload_VRAM_SIZE = ABSOLUTE(segment_17C1E0_noload_VRAM_END - segment_17C1E0_noload_VRAM);
     segment_17C1E0_VRAM_END = .;
+    segment_17C1E0_VRAM_SIZE = ABSOLUTE(segment_17C1E0_VRAM_END - segment_17C1E0_VRAM);
+    __romPos += SIZEOF(.segment_17C1E0);
+    segment_17C1E0_ROM_END = __romPos;
+    segment_17C1E0_ROM_SIZE = ABSOLUTE(segment_17C1E0_ROM_END - segment_17C1E0_ROM_START);
 
     segment_17D130_ROM_START = __romPos;
     segment_17D130_VRAM = ADDR(.segment_17D130);
+    segment_17D130_alloc_VRAM = .;
     .segment_17D130 : AT(segment_17D130_ROM_START) SUBALIGN(16)
     {
         segment_17D130_text_START = .;
@@ -2388,25 +2713,43 @@ SECTIONS
         segment_17D130_sdata_END = .;
         segment_17D130_sdata_SIZE = ABSOLUTE(segment_17D130_sdata_END - segment_17D130_sdata_START);
     }
-    __romPos += SIZEOF(.segment_17D130);
-    segment_17D130_ROM_END = __romPos;
+    segment_17D130_alloc_VRAM_END = .;
+    segment_17D130_alloc_VRAM_SIZE = ABSOLUTE(segment_17D130_alloc_VRAM_END - segment_17D130_alloc_VRAM);
+
+    segment_17D130_noload_VRAM = .;
     .segment_17D130.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17D130_bss_START = .;
+        segment_17D130_sbss_START = .;
         build/us/asm/segment_17D130.o(.sbss*);
+        segment_17D130_sbss_END = .;
+        segment_17D130_sbss_SIZE = ABSOLUTE(segment_17D130_sbss_END - segment_17D130_sbss_START);
 
+        segment_17D130_scommon_START = .;
         build/us/asm/segment_17D130.o(.scommon*);
+        segment_17D130_scommon_END = .;
+        segment_17D130_scommon_SIZE = ABSOLUTE(segment_17D130_scommon_END - segment_17D130_scommon_START);
 
+        segment_17D130_bss_START = .;
         build/us/asm/segment_17D130.o(.bss*);
-
-        build/us/asm/segment_17D130.o(COMMON*);
         segment_17D130_bss_END = .;
         segment_17D130_bss_SIZE = ABSOLUTE(segment_17D130_bss_END - segment_17D130_bss_START);
+
+        segment_17D130COMMON_START = .;
+        build/us/asm/segment_17D130.o(COMMON*);
+        segment_17D130COMMON_END = .;
+        segment_17D130COMMON_SIZE = ABSOLUTE(segment_17D130COMMON_END - segment_17D130COMMON_START);
     }
+    segment_17D130_noload_VRAM_END = .;
+    segment_17D130_noload_VRAM_SIZE = ABSOLUTE(segment_17D130_noload_VRAM_END - segment_17D130_noload_VRAM);
     segment_17D130_VRAM_END = .;
+    segment_17D130_VRAM_SIZE = ABSOLUTE(segment_17D130_VRAM_END - segment_17D130_VRAM);
+    __romPos += SIZEOF(.segment_17D130);
+    segment_17D130_ROM_END = __romPos;
+    segment_17D130_ROM_SIZE = ABSOLUTE(segment_17D130_ROM_END - segment_17D130_ROM_START);
 
     segment_17E090_ROM_START = __romPos;
     segment_17E090_VRAM = ADDR(.segment_17E090);
+    segment_17E090_alloc_VRAM = .;
     .segment_17E090 : AT(segment_17E090_ROM_START) SUBALIGN(16)
     {
         segment_17E090_text_START = .;
@@ -2429,25 +2772,43 @@ SECTIONS
         segment_17E090_sdata_END = .;
         segment_17E090_sdata_SIZE = ABSOLUTE(segment_17E090_sdata_END - segment_17E090_sdata_START);
     }
-    __romPos += SIZEOF(.segment_17E090);
-    segment_17E090_ROM_END = __romPos;
+    segment_17E090_alloc_VRAM_END = .;
+    segment_17E090_alloc_VRAM_SIZE = ABSOLUTE(segment_17E090_alloc_VRAM_END - segment_17E090_alloc_VRAM);
+
+    segment_17E090_noload_VRAM = .;
     .segment_17E090.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17E090_bss_START = .;
+        segment_17E090_sbss_START = .;
         build/us/asm/segment_17E090.o(.sbss*);
+        segment_17E090_sbss_END = .;
+        segment_17E090_sbss_SIZE = ABSOLUTE(segment_17E090_sbss_END - segment_17E090_sbss_START);
 
+        segment_17E090_scommon_START = .;
         build/us/asm/segment_17E090.o(.scommon*);
+        segment_17E090_scommon_END = .;
+        segment_17E090_scommon_SIZE = ABSOLUTE(segment_17E090_scommon_END - segment_17E090_scommon_START);
 
+        segment_17E090_bss_START = .;
         build/us/asm/segment_17E090.o(.bss*);
-
-        build/us/asm/segment_17E090.o(COMMON*);
         segment_17E090_bss_END = .;
         segment_17E090_bss_SIZE = ABSOLUTE(segment_17E090_bss_END - segment_17E090_bss_START);
+
+        segment_17E090COMMON_START = .;
+        build/us/asm/segment_17E090.o(COMMON*);
+        segment_17E090COMMON_END = .;
+        segment_17E090COMMON_SIZE = ABSOLUTE(segment_17E090COMMON_END - segment_17E090COMMON_START);
     }
+    segment_17E090_noload_VRAM_END = .;
+    segment_17E090_noload_VRAM_SIZE = ABSOLUTE(segment_17E090_noload_VRAM_END - segment_17E090_noload_VRAM);
     segment_17E090_VRAM_END = .;
+    segment_17E090_VRAM_SIZE = ABSOLUTE(segment_17E090_VRAM_END - segment_17E090_VRAM);
+    __romPos += SIZEOF(.segment_17E090);
+    segment_17E090_ROM_END = __romPos;
+    segment_17E090_ROM_SIZE = ABSOLUTE(segment_17E090_ROM_END - segment_17E090_ROM_START);
 
     segment_181840_ROM_START = __romPos;
     segment_181840_VRAM = ADDR(.segment_181840);
+    segment_181840_alloc_VRAM = .;
     .segment_181840 : AT(segment_181840_ROM_START) SUBALIGN(16)
     {
         segment_181840_text_START = .;
@@ -2470,25 +2831,43 @@ SECTIONS
         segment_181840_sdata_END = .;
         segment_181840_sdata_SIZE = ABSOLUTE(segment_181840_sdata_END - segment_181840_sdata_START);
     }
-    __romPos += SIZEOF(.segment_181840);
-    segment_181840_ROM_END = __romPos;
+    segment_181840_alloc_VRAM_END = .;
+    segment_181840_alloc_VRAM_SIZE = ABSOLUTE(segment_181840_alloc_VRAM_END - segment_181840_alloc_VRAM);
+
+    segment_181840_noload_VRAM = .;
     .segment_181840.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_181840_bss_START = .;
+        segment_181840_sbss_START = .;
         build/us/asm/segment_181840.o(.sbss*);
+        segment_181840_sbss_END = .;
+        segment_181840_sbss_SIZE = ABSOLUTE(segment_181840_sbss_END - segment_181840_sbss_START);
 
+        segment_181840_scommon_START = .;
         build/us/asm/segment_181840.o(.scommon*);
+        segment_181840_scommon_END = .;
+        segment_181840_scommon_SIZE = ABSOLUTE(segment_181840_scommon_END - segment_181840_scommon_START);
 
+        segment_181840_bss_START = .;
         build/us/asm/segment_181840.o(.bss*);
-
-        build/us/asm/segment_181840.o(COMMON*);
         segment_181840_bss_END = .;
         segment_181840_bss_SIZE = ABSOLUTE(segment_181840_bss_END - segment_181840_bss_START);
+
+        segment_181840COMMON_START = .;
+        build/us/asm/segment_181840.o(COMMON*);
+        segment_181840COMMON_END = .;
+        segment_181840COMMON_SIZE = ABSOLUTE(segment_181840COMMON_END - segment_181840COMMON_START);
     }
+    segment_181840_noload_VRAM_END = .;
+    segment_181840_noload_VRAM_SIZE = ABSOLUTE(segment_181840_noload_VRAM_END - segment_181840_noload_VRAM);
     segment_181840_VRAM_END = .;
+    segment_181840_VRAM_SIZE = ABSOLUTE(segment_181840_VRAM_END - segment_181840_VRAM);
+    __romPos += SIZEOF(.segment_181840);
+    segment_181840_ROM_END = __romPos;
+    segment_181840_ROM_SIZE = ABSOLUTE(segment_181840_ROM_END - segment_181840_ROM_START);
 
     segment_184FF0_ROM_START = __romPos;
     segment_184FF0_VRAM = ADDR(.segment_184FF0);
+    segment_184FF0_alloc_VRAM = .;
     .segment_184FF0 : AT(segment_184FF0_ROM_START) SUBALIGN(16)
     {
         segment_184FF0_text_START = .;
@@ -2511,25 +2890,43 @@ SECTIONS
         segment_184FF0_sdata_END = .;
         segment_184FF0_sdata_SIZE = ABSOLUTE(segment_184FF0_sdata_END - segment_184FF0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_184FF0);
-    segment_184FF0_ROM_END = __romPos;
+    segment_184FF0_alloc_VRAM_END = .;
+    segment_184FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_184FF0_alloc_VRAM_END - segment_184FF0_alloc_VRAM);
+
+    segment_184FF0_noload_VRAM = .;
     .segment_184FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_184FF0_bss_START = .;
+        segment_184FF0_sbss_START = .;
         build/us/asm/segment_184FF0.o(.sbss*);
+        segment_184FF0_sbss_END = .;
+        segment_184FF0_sbss_SIZE = ABSOLUTE(segment_184FF0_sbss_END - segment_184FF0_sbss_START);
 
+        segment_184FF0_scommon_START = .;
         build/us/asm/segment_184FF0.o(.scommon*);
+        segment_184FF0_scommon_END = .;
+        segment_184FF0_scommon_SIZE = ABSOLUTE(segment_184FF0_scommon_END - segment_184FF0_scommon_START);
 
+        segment_184FF0_bss_START = .;
         build/us/asm/segment_184FF0.o(.bss*);
-
-        build/us/asm/segment_184FF0.o(COMMON*);
         segment_184FF0_bss_END = .;
         segment_184FF0_bss_SIZE = ABSOLUTE(segment_184FF0_bss_END - segment_184FF0_bss_START);
+
+        segment_184FF0COMMON_START = .;
+        build/us/asm/segment_184FF0.o(COMMON*);
+        segment_184FF0COMMON_END = .;
+        segment_184FF0COMMON_SIZE = ABSOLUTE(segment_184FF0COMMON_END - segment_184FF0COMMON_START);
     }
+    segment_184FF0_noload_VRAM_END = .;
+    segment_184FF0_noload_VRAM_SIZE = ABSOLUTE(segment_184FF0_noload_VRAM_END - segment_184FF0_noload_VRAM);
     segment_184FF0_VRAM_END = .;
+    segment_184FF0_VRAM_SIZE = ABSOLUTE(segment_184FF0_VRAM_END - segment_184FF0_VRAM);
+    __romPos += SIZEOF(.segment_184FF0);
+    segment_184FF0_ROM_END = __romPos;
+    segment_184FF0_ROM_SIZE = ABSOLUTE(segment_184FF0_ROM_END - segment_184FF0_ROM_START);
 
     segment_186FF0_ROM_START = __romPos;
     segment_186FF0_VRAM = ADDR(.segment_186FF0);
+    segment_186FF0_alloc_VRAM = .;
     .segment_186FF0 : AT(segment_186FF0_ROM_START) SUBALIGN(16)
     {
         segment_186FF0_text_START = .;
@@ -2552,25 +2949,43 @@ SECTIONS
         segment_186FF0_sdata_END = .;
         segment_186FF0_sdata_SIZE = ABSOLUTE(segment_186FF0_sdata_END - segment_186FF0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_186FF0);
-    segment_186FF0_ROM_END = __romPos;
+    segment_186FF0_alloc_VRAM_END = .;
+    segment_186FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_186FF0_alloc_VRAM_END - segment_186FF0_alloc_VRAM);
+
+    segment_186FF0_noload_VRAM = .;
     .segment_186FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_186FF0_bss_START = .;
+        segment_186FF0_sbss_START = .;
         build/us/asm/segment_186FF0.o(.sbss*);
+        segment_186FF0_sbss_END = .;
+        segment_186FF0_sbss_SIZE = ABSOLUTE(segment_186FF0_sbss_END - segment_186FF0_sbss_START);
 
+        segment_186FF0_scommon_START = .;
         build/us/asm/segment_186FF0.o(.scommon*);
+        segment_186FF0_scommon_END = .;
+        segment_186FF0_scommon_SIZE = ABSOLUTE(segment_186FF0_scommon_END - segment_186FF0_scommon_START);
 
+        segment_186FF0_bss_START = .;
         build/us/asm/segment_186FF0.o(.bss*);
-
-        build/us/asm/segment_186FF0.o(COMMON*);
         segment_186FF0_bss_END = .;
         segment_186FF0_bss_SIZE = ABSOLUTE(segment_186FF0_bss_END - segment_186FF0_bss_START);
+
+        segment_186FF0COMMON_START = .;
+        build/us/asm/segment_186FF0.o(COMMON*);
+        segment_186FF0COMMON_END = .;
+        segment_186FF0COMMON_SIZE = ABSOLUTE(segment_186FF0COMMON_END - segment_186FF0COMMON_START);
     }
+    segment_186FF0_noload_VRAM_END = .;
+    segment_186FF0_noload_VRAM_SIZE = ABSOLUTE(segment_186FF0_noload_VRAM_END - segment_186FF0_noload_VRAM);
     segment_186FF0_VRAM_END = .;
+    segment_186FF0_VRAM_SIZE = ABSOLUTE(segment_186FF0_VRAM_END - segment_186FF0_VRAM);
+    __romPos += SIZEOF(.segment_186FF0);
+    segment_186FF0_ROM_END = __romPos;
+    segment_186FF0_ROM_SIZE = ABSOLUTE(segment_186FF0_ROM_END - segment_186FF0_ROM_START);
 
     segment_188FF0_ROM_START = __romPos;
     segment_188FF0_VRAM = ADDR(.segment_188FF0);
+    segment_188FF0_alloc_VRAM = .;
     .segment_188FF0 : AT(segment_188FF0_ROM_START) SUBALIGN(16)
     {
         segment_188FF0_text_START = .;
@@ -2593,25 +3008,43 @@ SECTIONS
         segment_188FF0_sdata_END = .;
         segment_188FF0_sdata_SIZE = ABSOLUTE(segment_188FF0_sdata_END - segment_188FF0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_188FF0);
-    segment_188FF0_ROM_END = __romPos;
+    segment_188FF0_alloc_VRAM_END = .;
+    segment_188FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_188FF0_alloc_VRAM_END - segment_188FF0_alloc_VRAM);
+
+    segment_188FF0_noload_VRAM = .;
     .segment_188FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_188FF0_bss_START = .;
+        segment_188FF0_sbss_START = .;
         build/us/asm/segment_188FF0.o(.sbss*);
+        segment_188FF0_sbss_END = .;
+        segment_188FF0_sbss_SIZE = ABSOLUTE(segment_188FF0_sbss_END - segment_188FF0_sbss_START);
 
+        segment_188FF0_scommon_START = .;
         build/us/asm/segment_188FF0.o(.scommon*);
+        segment_188FF0_scommon_END = .;
+        segment_188FF0_scommon_SIZE = ABSOLUTE(segment_188FF0_scommon_END - segment_188FF0_scommon_START);
 
+        segment_188FF0_bss_START = .;
         build/us/asm/segment_188FF0.o(.bss*);
-
-        build/us/asm/segment_188FF0.o(COMMON*);
         segment_188FF0_bss_END = .;
         segment_188FF0_bss_SIZE = ABSOLUTE(segment_188FF0_bss_END - segment_188FF0_bss_START);
+
+        segment_188FF0COMMON_START = .;
+        build/us/asm/segment_188FF0.o(COMMON*);
+        segment_188FF0COMMON_END = .;
+        segment_188FF0COMMON_SIZE = ABSOLUTE(segment_188FF0COMMON_END - segment_188FF0COMMON_START);
     }
+    segment_188FF0_noload_VRAM_END = .;
+    segment_188FF0_noload_VRAM_SIZE = ABSOLUTE(segment_188FF0_noload_VRAM_END - segment_188FF0_noload_VRAM);
     segment_188FF0_VRAM_END = .;
+    segment_188FF0_VRAM_SIZE = ABSOLUTE(segment_188FF0_VRAM_END - segment_188FF0_VRAM);
+    __romPos += SIZEOF(.segment_188FF0);
+    segment_188FF0_ROM_END = __romPos;
+    segment_188FF0_ROM_SIZE = ABSOLUTE(segment_188FF0_ROM_END - segment_188FF0_ROM_START);
 
     segment_189D40_ROM_START = __romPos;
     segment_189D40_VRAM = ADDR(.segment_189D40);
+    segment_189D40_alloc_VRAM = .;
     .segment_189D40 : AT(segment_189D40_ROM_START) SUBALIGN(16)
     {
         segment_189D40_text_START = .;
@@ -2634,25 +3067,43 @@ SECTIONS
         segment_189D40_sdata_END = .;
         segment_189D40_sdata_SIZE = ABSOLUTE(segment_189D40_sdata_END - segment_189D40_sdata_START);
     }
-    __romPos += SIZEOF(.segment_189D40);
-    segment_189D40_ROM_END = __romPos;
+    segment_189D40_alloc_VRAM_END = .;
+    segment_189D40_alloc_VRAM_SIZE = ABSOLUTE(segment_189D40_alloc_VRAM_END - segment_189D40_alloc_VRAM);
+
+    segment_189D40_noload_VRAM = .;
     .segment_189D40.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_189D40_bss_START = .;
+        segment_189D40_sbss_START = .;
         build/us/asm/segment_189D40.o(.sbss*);
+        segment_189D40_sbss_END = .;
+        segment_189D40_sbss_SIZE = ABSOLUTE(segment_189D40_sbss_END - segment_189D40_sbss_START);
 
+        segment_189D40_scommon_START = .;
         build/us/asm/segment_189D40.o(.scommon*);
+        segment_189D40_scommon_END = .;
+        segment_189D40_scommon_SIZE = ABSOLUTE(segment_189D40_scommon_END - segment_189D40_scommon_START);
 
+        segment_189D40_bss_START = .;
         build/us/asm/segment_189D40.o(.bss*);
-
-        build/us/asm/segment_189D40.o(COMMON*);
         segment_189D40_bss_END = .;
         segment_189D40_bss_SIZE = ABSOLUTE(segment_189D40_bss_END - segment_189D40_bss_START);
+
+        segment_189D40COMMON_START = .;
+        build/us/asm/segment_189D40.o(COMMON*);
+        segment_189D40COMMON_END = .;
+        segment_189D40COMMON_SIZE = ABSOLUTE(segment_189D40COMMON_END - segment_189D40COMMON_START);
     }
+    segment_189D40_noload_VRAM_END = .;
+    segment_189D40_noload_VRAM_SIZE = ABSOLUTE(segment_189D40_noload_VRAM_END - segment_189D40_noload_VRAM);
     segment_189D40_VRAM_END = .;
+    segment_189D40_VRAM_SIZE = ABSOLUTE(segment_189D40_VRAM_END - segment_189D40_VRAM);
+    __romPos += SIZEOF(.segment_189D40);
+    segment_189D40_ROM_END = __romPos;
+    segment_189D40_ROM_SIZE = ABSOLUTE(segment_189D40_ROM_END - segment_189D40_ROM_START);
 
     segment_18CB40_ROM_START = __romPos;
     segment_18CB40_VRAM = ADDR(.segment_18CB40);
+    segment_18CB40_alloc_VRAM = .;
     .segment_18CB40 : AT(segment_18CB40_ROM_START) SUBALIGN(16)
     {
         segment_18CB40_text_START = .;
@@ -2675,25 +3126,43 @@ SECTIONS
         segment_18CB40_sdata_END = .;
         segment_18CB40_sdata_SIZE = ABSOLUTE(segment_18CB40_sdata_END - segment_18CB40_sdata_START);
     }
-    __romPos += SIZEOF(.segment_18CB40);
-    segment_18CB40_ROM_END = __romPos;
+    segment_18CB40_alloc_VRAM_END = .;
+    segment_18CB40_alloc_VRAM_SIZE = ABSOLUTE(segment_18CB40_alloc_VRAM_END - segment_18CB40_alloc_VRAM);
+
+    segment_18CB40_noload_VRAM = .;
     .segment_18CB40.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18CB40_bss_START = .;
+        segment_18CB40_sbss_START = .;
         build/us/asm/segment_18CB40.o(.sbss*);
+        segment_18CB40_sbss_END = .;
+        segment_18CB40_sbss_SIZE = ABSOLUTE(segment_18CB40_sbss_END - segment_18CB40_sbss_START);
 
+        segment_18CB40_scommon_START = .;
         build/us/asm/segment_18CB40.o(.scommon*);
+        segment_18CB40_scommon_END = .;
+        segment_18CB40_scommon_SIZE = ABSOLUTE(segment_18CB40_scommon_END - segment_18CB40_scommon_START);
 
+        segment_18CB40_bss_START = .;
         build/us/asm/segment_18CB40.o(.bss*);
-
-        build/us/asm/segment_18CB40.o(COMMON*);
         segment_18CB40_bss_END = .;
         segment_18CB40_bss_SIZE = ABSOLUTE(segment_18CB40_bss_END - segment_18CB40_bss_START);
+
+        segment_18CB40COMMON_START = .;
+        build/us/asm/segment_18CB40.o(COMMON*);
+        segment_18CB40COMMON_END = .;
+        segment_18CB40COMMON_SIZE = ABSOLUTE(segment_18CB40COMMON_END - segment_18CB40COMMON_START);
     }
+    segment_18CB40_noload_VRAM_END = .;
+    segment_18CB40_noload_VRAM_SIZE = ABSOLUTE(segment_18CB40_noload_VRAM_END - segment_18CB40_noload_VRAM);
     segment_18CB40_VRAM_END = .;
+    segment_18CB40_VRAM_SIZE = ABSOLUTE(segment_18CB40_VRAM_END - segment_18CB40_VRAM);
+    __romPos += SIZEOF(.segment_18CB40);
+    segment_18CB40_ROM_END = __romPos;
+    segment_18CB40_ROM_SIZE = ABSOLUTE(segment_18CB40_ROM_END - segment_18CB40_ROM_START);
 
     segment_18DB90_ROM_START = __romPos;
     segment_18DB90_VRAM = ADDR(.segment_18DB90);
+    segment_18DB90_alloc_VRAM = .;
     .segment_18DB90 : AT(segment_18DB90_ROM_START) SUBALIGN(16)
     {
         segment_18DB90_text_START = .;
@@ -2716,25 +3185,43 @@ SECTIONS
         segment_18DB90_sdata_END = .;
         segment_18DB90_sdata_SIZE = ABSOLUTE(segment_18DB90_sdata_END - segment_18DB90_sdata_START);
     }
-    __romPos += SIZEOF(.segment_18DB90);
-    segment_18DB90_ROM_END = __romPos;
+    segment_18DB90_alloc_VRAM_END = .;
+    segment_18DB90_alloc_VRAM_SIZE = ABSOLUTE(segment_18DB90_alloc_VRAM_END - segment_18DB90_alloc_VRAM);
+
+    segment_18DB90_noload_VRAM = .;
     .segment_18DB90.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18DB90_bss_START = .;
+        segment_18DB90_sbss_START = .;
         build/us/asm/segment_18DB90.o(.sbss*);
+        segment_18DB90_sbss_END = .;
+        segment_18DB90_sbss_SIZE = ABSOLUTE(segment_18DB90_sbss_END - segment_18DB90_sbss_START);
 
+        segment_18DB90_scommon_START = .;
         build/us/asm/segment_18DB90.o(.scommon*);
+        segment_18DB90_scommon_END = .;
+        segment_18DB90_scommon_SIZE = ABSOLUTE(segment_18DB90_scommon_END - segment_18DB90_scommon_START);
 
+        segment_18DB90_bss_START = .;
         build/us/asm/segment_18DB90.o(.bss*);
-
-        build/us/asm/segment_18DB90.o(COMMON*);
         segment_18DB90_bss_END = .;
         segment_18DB90_bss_SIZE = ABSOLUTE(segment_18DB90_bss_END - segment_18DB90_bss_START);
+
+        segment_18DB90COMMON_START = .;
+        build/us/asm/segment_18DB90.o(COMMON*);
+        segment_18DB90COMMON_END = .;
+        segment_18DB90COMMON_SIZE = ABSOLUTE(segment_18DB90COMMON_END - segment_18DB90COMMON_START);
     }
+    segment_18DB90_noload_VRAM_END = .;
+    segment_18DB90_noload_VRAM_SIZE = ABSOLUTE(segment_18DB90_noload_VRAM_END - segment_18DB90_noload_VRAM);
     segment_18DB90_VRAM_END = .;
+    segment_18DB90_VRAM_SIZE = ABSOLUTE(segment_18DB90_VRAM_END - segment_18DB90_VRAM);
+    __romPos += SIZEOF(.segment_18DB90);
+    segment_18DB90_ROM_END = __romPos;
+    segment_18DB90_ROM_SIZE = ABSOLUTE(segment_18DB90_ROM_END - segment_18DB90_ROM_START);
 
     segment_18F160_ROM_START = __romPos;
     segment_18F160_VRAM = ADDR(.segment_18F160);
+    segment_18F160_alloc_VRAM = .;
     .segment_18F160 : AT(segment_18F160_ROM_START) SUBALIGN(16)
     {
         segment_18F160_text_START = .;
@@ -2757,25 +3244,43 @@ SECTIONS
         segment_18F160_sdata_END = .;
         segment_18F160_sdata_SIZE = ABSOLUTE(segment_18F160_sdata_END - segment_18F160_sdata_START);
     }
-    __romPos += SIZEOF(.segment_18F160);
-    segment_18F160_ROM_END = __romPos;
+    segment_18F160_alloc_VRAM_END = .;
+    segment_18F160_alloc_VRAM_SIZE = ABSOLUTE(segment_18F160_alloc_VRAM_END - segment_18F160_alloc_VRAM);
+
+    segment_18F160_noload_VRAM = .;
     .segment_18F160.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18F160_bss_START = .;
+        segment_18F160_sbss_START = .;
         build/us/asm/segment_18F160.o(.sbss*);
+        segment_18F160_sbss_END = .;
+        segment_18F160_sbss_SIZE = ABSOLUTE(segment_18F160_sbss_END - segment_18F160_sbss_START);
 
+        segment_18F160_scommon_START = .;
         build/us/asm/segment_18F160.o(.scommon*);
+        segment_18F160_scommon_END = .;
+        segment_18F160_scommon_SIZE = ABSOLUTE(segment_18F160_scommon_END - segment_18F160_scommon_START);
 
+        segment_18F160_bss_START = .;
         build/us/asm/segment_18F160.o(.bss*);
-
-        build/us/asm/segment_18F160.o(COMMON*);
         segment_18F160_bss_END = .;
         segment_18F160_bss_SIZE = ABSOLUTE(segment_18F160_bss_END - segment_18F160_bss_START);
+
+        segment_18F160COMMON_START = .;
+        build/us/asm/segment_18F160.o(COMMON*);
+        segment_18F160COMMON_END = .;
+        segment_18F160COMMON_SIZE = ABSOLUTE(segment_18F160COMMON_END - segment_18F160COMMON_START);
     }
+    segment_18F160_noload_VRAM_END = .;
+    segment_18F160_noload_VRAM_SIZE = ABSOLUTE(segment_18F160_noload_VRAM_END - segment_18F160_noload_VRAM);
     segment_18F160_VRAM_END = .;
+    segment_18F160_VRAM_SIZE = ABSOLUTE(segment_18F160_VRAM_END - segment_18F160_VRAM);
+    __romPos += SIZEOF(.segment_18F160);
+    segment_18F160_ROM_END = __romPos;
+    segment_18F160_ROM_SIZE = ABSOLUTE(segment_18F160_ROM_END - segment_18F160_ROM_START);
 
     segment_1906E0_ROM_START = __romPos;
     segment_1906E0_VRAM = ADDR(.segment_1906E0);
+    segment_1906E0_alloc_VRAM = .;
     .segment_1906E0 : AT(segment_1906E0_ROM_START) SUBALIGN(16)
     {
         segment_1906E0_text_START = .;
@@ -2798,25 +3303,43 @@ SECTIONS
         segment_1906E0_sdata_END = .;
         segment_1906E0_sdata_SIZE = ABSOLUTE(segment_1906E0_sdata_END - segment_1906E0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_1906E0);
-    segment_1906E0_ROM_END = __romPos;
+    segment_1906E0_alloc_VRAM_END = .;
+    segment_1906E0_alloc_VRAM_SIZE = ABSOLUTE(segment_1906E0_alloc_VRAM_END - segment_1906E0_alloc_VRAM);
+
+    segment_1906E0_noload_VRAM = .;
     .segment_1906E0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1906E0_bss_START = .;
+        segment_1906E0_sbss_START = .;
         build/us/asm/segment_1906E0.o(.sbss*);
+        segment_1906E0_sbss_END = .;
+        segment_1906E0_sbss_SIZE = ABSOLUTE(segment_1906E0_sbss_END - segment_1906E0_sbss_START);
 
+        segment_1906E0_scommon_START = .;
         build/us/asm/segment_1906E0.o(.scommon*);
+        segment_1906E0_scommon_END = .;
+        segment_1906E0_scommon_SIZE = ABSOLUTE(segment_1906E0_scommon_END - segment_1906E0_scommon_START);
 
+        segment_1906E0_bss_START = .;
         build/us/asm/segment_1906E0.o(.bss*);
-
-        build/us/asm/segment_1906E0.o(COMMON*);
         segment_1906E0_bss_END = .;
         segment_1906E0_bss_SIZE = ABSOLUTE(segment_1906E0_bss_END - segment_1906E0_bss_START);
+
+        segment_1906E0COMMON_START = .;
+        build/us/asm/segment_1906E0.o(COMMON*);
+        segment_1906E0COMMON_END = .;
+        segment_1906E0COMMON_SIZE = ABSOLUTE(segment_1906E0COMMON_END - segment_1906E0COMMON_START);
     }
+    segment_1906E0_noload_VRAM_END = .;
+    segment_1906E0_noload_VRAM_SIZE = ABSOLUTE(segment_1906E0_noload_VRAM_END - segment_1906E0_noload_VRAM);
     segment_1906E0_VRAM_END = .;
+    segment_1906E0_VRAM_SIZE = ABSOLUTE(segment_1906E0_VRAM_END - segment_1906E0_VRAM);
+    __romPos += SIZEOF(.segment_1906E0);
+    segment_1906E0_ROM_END = __romPos;
+    segment_1906E0_ROM_SIZE = ABSOLUTE(segment_1906E0_ROM_END - segment_1906E0_ROM_START);
 
     segment_1911D0_ROM_START = __romPos;
     segment_1911D0_VRAM = ADDR(.segment_1911D0);
+    segment_1911D0_alloc_VRAM = .;
     .segment_1911D0 : AT(segment_1911D0_ROM_START) SUBALIGN(16)
     {
         segment_1911D0_text_START = .;
@@ -2839,25 +3362,43 @@ SECTIONS
         segment_1911D0_sdata_END = .;
         segment_1911D0_sdata_SIZE = ABSOLUTE(segment_1911D0_sdata_END - segment_1911D0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_1911D0);
-    segment_1911D0_ROM_END = __romPos;
+    segment_1911D0_alloc_VRAM_END = .;
+    segment_1911D0_alloc_VRAM_SIZE = ABSOLUTE(segment_1911D0_alloc_VRAM_END - segment_1911D0_alloc_VRAM);
+
+    segment_1911D0_noload_VRAM = .;
     .segment_1911D0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1911D0_bss_START = .;
+        segment_1911D0_sbss_START = .;
         build/us/asm/segment_1911D0.o(.sbss*);
+        segment_1911D0_sbss_END = .;
+        segment_1911D0_sbss_SIZE = ABSOLUTE(segment_1911D0_sbss_END - segment_1911D0_sbss_START);
 
+        segment_1911D0_scommon_START = .;
         build/us/asm/segment_1911D0.o(.scommon*);
+        segment_1911D0_scommon_END = .;
+        segment_1911D0_scommon_SIZE = ABSOLUTE(segment_1911D0_scommon_END - segment_1911D0_scommon_START);
 
+        segment_1911D0_bss_START = .;
         build/us/asm/segment_1911D0.o(.bss*);
-
-        build/us/asm/segment_1911D0.o(COMMON*);
         segment_1911D0_bss_END = .;
         segment_1911D0_bss_SIZE = ABSOLUTE(segment_1911D0_bss_END - segment_1911D0_bss_START);
+
+        segment_1911D0COMMON_START = .;
+        build/us/asm/segment_1911D0.o(COMMON*);
+        segment_1911D0COMMON_END = .;
+        segment_1911D0COMMON_SIZE = ABSOLUTE(segment_1911D0COMMON_END - segment_1911D0COMMON_START);
     }
+    segment_1911D0_noload_VRAM_END = .;
+    segment_1911D0_noload_VRAM_SIZE = ABSOLUTE(segment_1911D0_noload_VRAM_END - segment_1911D0_noload_VRAM);
     segment_1911D0_VRAM_END = .;
+    segment_1911D0_VRAM_SIZE = ABSOLUTE(segment_1911D0_VRAM_END - segment_1911D0_VRAM);
+    __romPos += SIZEOF(.segment_1911D0);
+    segment_1911D0_ROM_END = __romPos;
+    segment_1911D0_ROM_SIZE = ABSOLUTE(segment_1911D0_ROM_END - segment_1911D0_ROM_START);
 
     segment_1936C0_ROM_START = __romPos;
     segment_1936C0_VRAM = ADDR(.segment_1936C0);
+    segment_1936C0_alloc_VRAM = .;
     .segment_1936C0 : AT(segment_1936C0_ROM_START) SUBALIGN(16)
     {
         segment_1936C0_text_START = .;
@@ -2880,25 +3421,43 @@ SECTIONS
         segment_1936C0_sdata_END = .;
         segment_1936C0_sdata_SIZE = ABSOLUTE(segment_1936C0_sdata_END - segment_1936C0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_1936C0);
-    segment_1936C0_ROM_END = __romPos;
+    segment_1936C0_alloc_VRAM_END = .;
+    segment_1936C0_alloc_VRAM_SIZE = ABSOLUTE(segment_1936C0_alloc_VRAM_END - segment_1936C0_alloc_VRAM);
+
+    segment_1936C0_noload_VRAM = .;
     .segment_1936C0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1936C0_bss_START = .;
+        segment_1936C0_sbss_START = .;
         build/us/asm/segment_1936C0.o(.sbss*);
+        segment_1936C0_sbss_END = .;
+        segment_1936C0_sbss_SIZE = ABSOLUTE(segment_1936C0_sbss_END - segment_1936C0_sbss_START);
 
+        segment_1936C0_scommon_START = .;
         build/us/asm/segment_1936C0.o(.scommon*);
+        segment_1936C0_scommon_END = .;
+        segment_1936C0_scommon_SIZE = ABSOLUTE(segment_1936C0_scommon_END - segment_1936C0_scommon_START);
 
+        segment_1936C0_bss_START = .;
         build/us/asm/segment_1936C0.o(.bss*);
-
-        build/us/asm/segment_1936C0.o(COMMON*);
         segment_1936C0_bss_END = .;
         segment_1936C0_bss_SIZE = ABSOLUTE(segment_1936C0_bss_END - segment_1936C0_bss_START);
+
+        segment_1936C0COMMON_START = .;
+        build/us/asm/segment_1936C0.o(COMMON*);
+        segment_1936C0COMMON_END = .;
+        segment_1936C0COMMON_SIZE = ABSOLUTE(segment_1936C0COMMON_END - segment_1936C0COMMON_START);
     }
+    segment_1936C0_noload_VRAM_END = .;
+    segment_1936C0_noload_VRAM_SIZE = ABSOLUTE(segment_1936C0_noload_VRAM_END - segment_1936C0_noload_VRAM);
     segment_1936C0_VRAM_END = .;
+    segment_1936C0_VRAM_SIZE = ABSOLUTE(segment_1936C0_VRAM_END - segment_1936C0_VRAM);
+    __romPos += SIZEOF(.segment_1936C0);
+    segment_1936C0_ROM_END = __romPos;
+    segment_1936C0_ROM_SIZE = ABSOLUTE(segment_1936C0_ROM_END - segment_1936C0_ROM_START);
 
     segment_1937F0_ROM_START = __romPos;
     segment_1937F0_VRAM = ADDR(.segment_1937F0);
+    segment_1937F0_alloc_VRAM = .;
     .segment_1937F0 : AT(segment_1937F0_ROM_START) SUBALIGN(16)
     {
         segment_1937F0_text_START = .;
@@ -2921,25 +3480,43 @@ SECTIONS
         segment_1937F0_sdata_END = .;
         segment_1937F0_sdata_SIZE = ABSOLUTE(segment_1937F0_sdata_END - segment_1937F0_sdata_START);
     }
-    __romPos += SIZEOF(.segment_1937F0);
-    segment_1937F0_ROM_END = __romPos;
+    segment_1937F0_alloc_VRAM_END = .;
+    segment_1937F0_alloc_VRAM_SIZE = ABSOLUTE(segment_1937F0_alloc_VRAM_END - segment_1937F0_alloc_VRAM);
+
+    segment_1937F0_noload_VRAM = .;
     .segment_1937F0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1937F0_bss_START = .;
+        segment_1937F0_sbss_START = .;
         build/us/asm/segment_1937F0.o(.sbss*);
+        segment_1937F0_sbss_END = .;
+        segment_1937F0_sbss_SIZE = ABSOLUTE(segment_1937F0_sbss_END - segment_1937F0_sbss_START);
 
+        segment_1937F0_scommon_START = .;
         build/us/asm/segment_1937F0.o(.scommon*);
+        segment_1937F0_scommon_END = .;
+        segment_1937F0_scommon_SIZE = ABSOLUTE(segment_1937F0_scommon_END - segment_1937F0_scommon_START);
 
+        segment_1937F0_bss_START = .;
         build/us/asm/segment_1937F0.o(.bss*);
-
-        build/us/asm/segment_1937F0.o(COMMON*);
         segment_1937F0_bss_END = .;
         segment_1937F0_bss_SIZE = ABSOLUTE(segment_1937F0_bss_END - segment_1937F0_bss_START);
+
+        segment_1937F0COMMON_START = .;
+        build/us/asm/segment_1937F0.o(COMMON*);
+        segment_1937F0COMMON_END = .;
+        segment_1937F0COMMON_SIZE = ABSOLUTE(segment_1937F0COMMON_END - segment_1937F0COMMON_START);
     }
+    segment_1937F0_noload_VRAM_END = .;
+    segment_1937F0_noload_VRAM_SIZE = ABSOLUTE(segment_1937F0_noload_VRAM_END - segment_1937F0_noload_VRAM);
     segment_1937F0_VRAM_END = .;
+    segment_1937F0_VRAM_SIZE = ABSOLUTE(segment_1937F0_VRAM_END - segment_1937F0_VRAM);
+    __romPos += SIZEOF(.segment_1937F0);
+    segment_1937F0_ROM_END = __romPos;
+    segment_1937F0_ROM_SIZE = ABSOLUTE(segment_1937F0_ROM_END - segment_1937F0_ROM_START);
 
     segment_194070_ROM_START = __romPos;
     segment_194070_VRAM = ADDR(.segment_194070);
+    segment_194070_alloc_VRAM = .;
     .segment_194070 : AT(segment_194070_ROM_START) SUBALIGN(16)
     {
         segment_194070_text_START = .;
@@ -2962,25 +3539,43 @@ SECTIONS
         segment_194070_sdata_END = .;
         segment_194070_sdata_SIZE = ABSOLUTE(segment_194070_sdata_END - segment_194070_sdata_START);
     }
-    __romPos += SIZEOF(.segment_194070);
-    segment_194070_ROM_END = __romPos;
+    segment_194070_alloc_VRAM_END = .;
+    segment_194070_alloc_VRAM_SIZE = ABSOLUTE(segment_194070_alloc_VRAM_END - segment_194070_alloc_VRAM);
+
+    segment_194070_noload_VRAM = .;
     .segment_194070.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194070_bss_START = .;
+        segment_194070_sbss_START = .;
         build/us/asm/segment_194070.o(.sbss*);
+        segment_194070_sbss_END = .;
+        segment_194070_sbss_SIZE = ABSOLUTE(segment_194070_sbss_END - segment_194070_sbss_START);
 
+        segment_194070_scommon_START = .;
         build/us/asm/segment_194070.o(.scommon*);
+        segment_194070_scommon_END = .;
+        segment_194070_scommon_SIZE = ABSOLUTE(segment_194070_scommon_END - segment_194070_scommon_START);
 
+        segment_194070_bss_START = .;
         build/us/asm/segment_194070.o(.bss*);
-
-        build/us/asm/segment_194070.o(COMMON*);
         segment_194070_bss_END = .;
         segment_194070_bss_SIZE = ABSOLUTE(segment_194070_bss_END - segment_194070_bss_START);
+
+        segment_194070COMMON_START = .;
+        build/us/asm/segment_194070.o(COMMON*);
+        segment_194070COMMON_END = .;
+        segment_194070COMMON_SIZE = ABSOLUTE(segment_194070COMMON_END - segment_194070COMMON_START);
     }
+    segment_194070_noload_VRAM_END = .;
+    segment_194070_noload_VRAM_SIZE = ABSOLUTE(segment_194070_noload_VRAM_END - segment_194070_noload_VRAM);
     segment_194070_VRAM_END = .;
+    segment_194070_VRAM_SIZE = ABSOLUTE(segment_194070_VRAM_END - segment_194070_VRAM);
+    __romPos += SIZEOF(.segment_194070);
+    segment_194070_ROM_END = __romPos;
+    segment_194070_ROM_SIZE = ABSOLUTE(segment_194070_ROM_END - segment_194070_ROM_START);
 
     segment_194150_ROM_START = __romPos;
     segment_194150_VRAM = ADDR(.segment_194150);
+    segment_194150_alloc_VRAM = .;
     .segment_194150 : AT(segment_194150_ROM_START) SUBALIGN(16)
     {
         segment_194150_text_START = .;
@@ -3003,25 +3598,43 @@ SECTIONS
         segment_194150_sdata_END = .;
         segment_194150_sdata_SIZE = ABSOLUTE(segment_194150_sdata_END - segment_194150_sdata_START);
     }
-    __romPos += SIZEOF(.segment_194150);
-    segment_194150_ROM_END = __romPos;
+    segment_194150_alloc_VRAM_END = .;
+    segment_194150_alloc_VRAM_SIZE = ABSOLUTE(segment_194150_alloc_VRAM_END - segment_194150_alloc_VRAM);
+
+    segment_194150_noload_VRAM = .;
     .segment_194150.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194150_bss_START = .;
+        segment_194150_sbss_START = .;
         build/us/asm/segment_194150.o(.sbss*);
+        segment_194150_sbss_END = .;
+        segment_194150_sbss_SIZE = ABSOLUTE(segment_194150_sbss_END - segment_194150_sbss_START);
 
+        segment_194150_scommon_START = .;
         build/us/asm/segment_194150.o(.scommon*);
+        segment_194150_scommon_END = .;
+        segment_194150_scommon_SIZE = ABSOLUTE(segment_194150_scommon_END - segment_194150_scommon_START);
 
+        segment_194150_bss_START = .;
         build/us/asm/segment_194150.o(.bss*);
-
-        build/us/asm/segment_194150.o(COMMON*);
         segment_194150_bss_END = .;
         segment_194150_bss_SIZE = ABSOLUTE(segment_194150_bss_END - segment_194150_bss_START);
+
+        segment_194150COMMON_START = .;
+        build/us/asm/segment_194150.o(COMMON*);
+        segment_194150COMMON_END = .;
+        segment_194150COMMON_SIZE = ABSOLUTE(segment_194150COMMON_END - segment_194150COMMON_START);
     }
+    segment_194150_noload_VRAM_END = .;
+    segment_194150_noload_VRAM_SIZE = ABSOLUTE(segment_194150_noload_VRAM_END - segment_194150_noload_VRAM);
     segment_194150_VRAM_END = .;
+    segment_194150_VRAM_SIZE = ABSOLUTE(segment_194150_VRAM_END - segment_194150_VRAM);
+    __romPos += SIZEOF(.segment_194150);
+    segment_194150_ROM_END = __romPos;
+    segment_194150_ROM_SIZE = ABSOLUTE(segment_194150_ROM_END - segment_194150_ROM_START);
 
     segment_194910_ROM_START = __romPos;
     segment_194910_VRAM = ADDR(.segment_194910);
+    segment_194910_alloc_VRAM = .;
     .segment_194910 : AT(segment_194910_ROM_START) SUBALIGN(16)
     {
         segment_194910_text_START = .;
@@ -3044,25 +3657,43 @@ SECTIONS
         segment_194910_sdata_END = .;
         segment_194910_sdata_SIZE = ABSOLUTE(segment_194910_sdata_END - segment_194910_sdata_START);
     }
-    __romPos += SIZEOF(.segment_194910);
-    segment_194910_ROM_END = __romPos;
+    segment_194910_alloc_VRAM_END = .;
+    segment_194910_alloc_VRAM_SIZE = ABSOLUTE(segment_194910_alloc_VRAM_END - segment_194910_alloc_VRAM);
+
+    segment_194910_noload_VRAM = .;
     .segment_194910.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194910_bss_START = .;
+        segment_194910_sbss_START = .;
         build/us/asm/segment_194910.o(.sbss*);
+        segment_194910_sbss_END = .;
+        segment_194910_sbss_SIZE = ABSOLUTE(segment_194910_sbss_END - segment_194910_sbss_START);
 
+        segment_194910_scommon_START = .;
         build/us/asm/segment_194910.o(.scommon*);
+        segment_194910_scommon_END = .;
+        segment_194910_scommon_SIZE = ABSOLUTE(segment_194910_scommon_END - segment_194910_scommon_START);
 
+        segment_194910_bss_START = .;
         build/us/asm/segment_194910.o(.bss*);
-
-        build/us/asm/segment_194910.o(COMMON*);
         segment_194910_bss_END = .;
         segment_194910_bss_SIZE = ABSOLUTE(segment_194910_bss_END - segment_194910_bss_START);
+
+        segment_194910COMMON_START = .;
+        build/us/asm/segment_194910.o(COMMON*);
+        segment_194910COMMON_END = .;
+        segment_194910COMMON_SIZE = ABSOLUTE(segment_194910COMMON_END - segment_194910COMMON_START);
     }
+    segment_194910_noload_VRAM_END = .;
+    segment_194910_noload_VRAM_SIZE = ABSOLUTE(segment_194910_noload_VRAM_END - segment_194910_noload_VRAM);
     segment_194910_VRAM_END = .;
+    segment_194910_VRAM_SIZE = ABSOLUTE(segment_194910_VRAM_END - segment_194910_VRAM);
+    __romPos += SIZEOF(.segment_194910);
+    segment_194910_ROM_END = __romPos;
+    segment_194910_ROM_SIZE = ABSOLUTE(segment_194910_ROM_END - segment_194910_ROM_START);
 
     segment_195290_ROM_START = __romPos;
     segment_195290_VRAM = ADDR(.segment_195290);
+    segment_195290_alloc_VRAM = .;
     .segment_195290 : AT(segment_195290_ROM_START) SUBALIGN(16)
     {
         segment_195290_text_START = .;
@@ -3085,25 +3716,43 @@ SECTIONS
         segment_195290_sdata_END = .;
         segment_195290_sdata_SIZE = ABSOLUTE(segment_195290_sdata_END - segment_195290_sdata_START);
     }
-    __romPos += SIZEOF(.segment_195290);
-    segment_195290_ROM_END = __romPos;
+    segment_195290_alloc_VRAM_END = .;
+    segment_195290_alloc_VRAM_SIZE = ABSOLUTE(segment_195290_alloc_VRAM_END - segment_195290_alloc_VRAM);
+
+    segment_195290_noload_VRAM = .;
     .segment_195290.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_195290_bss_START = .;
+        segment_195290_sbss_START = .;
         build/us/asm/segment_195290.o(.sbss*);
+        segment_195290_sbss_END = .;
+        segment_195290_sbss_SIZE = ABSOLUTE(segment_195290_sbss_END - segment_195290_sbss_START);
 
+        segment_195290_scommon_START = .;
         build/us/asm/segment_195290.o(.scommon*);
+        segment_195290_scommon_END = .;
+        segment_195290_scommon_SIZE = ABSOLUTE(segment_195290_scommon_END - segment_195290_scommon_START);
 
+        segment_195290_bss_START = .;
         build/us/asm/segment_195290.o(.bss*);
-
-        build/us/asm/segment_195290.o(COMMON*);
         segment_195290_bss_END = .;
         segment_195290_bss_SIZE = ABSOLUTE(segment_195290_bss_END - segment_195290_bss_START);
+
+        segment_195290COMMON_START = .;
+        build/us/asm/segment_195290.o(COMMON*);
+        segment_195290COMMON_END = .;
+        segment_195290COMMON_SIZE = ABSOLUTE(segment_195290COMMON_END - segment_195290COMMON_START);
     }
+    segment_195290_noload_VRAM_END = .;
+    segment_195290_noload_VRAM_SIZE = ABSOLUTE(segment_195290_noload_VRAM_END - segment_195290_noload_VRAM);
     segment_195290_VRAM_END = .;
+    segment_195290_VRAM_SIZE = ABSOLUTE(segment_195290_VRAM_END - segment_195290_VRAM);
+    __romPos += SIZEOF(.segment_195290);
+    segment_195290_ROM_END = __romPos;
+    segment_195290_ROM_SIZE = ABSOLUTE(segment_195290_ROM_END - segment_195290_ROM_START);
 
     segment_game_etc_ROM_START = __romPos;
     segment_game_etc_VRAM = ADDR(.segment_game_etc);
+    segment_game_etc_alloc_VRAM = .;
     .segment_game_etc : AT(segment_game_etc_ROM_START) SUBALIGN(16)
     {
         segment_game_etc_text_START = .;
@@ -3126,25 +3775,43 @@ SECTIONS
         segment_game_etc_sdata_END = .;
         segment_game_etc_sdata_SIZE = ABSOLUTE(segment_game_etc_sdata_END - segment_game_etc_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_etc);
-    segment_game_etc_ROM_END = __romPos;
+    segment_game_etc_alloc_VRAM_END = .;
+    segment_game_etc_alloc_VRAM_SIZE = ABSOLUTE(segment_game_etc_alloc_VRAM_END - segment_game_etc_alloc_VRAM);
+
+    segment_game_etc_noload_VRAM = .;
     .segment_game_etc.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_etc_bss_START = .;
+        segment_game_etc_sbss_START = .;
         build/us/asm/segment_game_etc.o(.sbss*);
+        segment_game_etc_sbss_END = .;
+        segment_game_etc_sbss_SIZE = ABSOLUTE(segment_game_etc_sbss_END - segment_game_etc_sbss_START);
 
+        segment_game_etc_scommon_START = .;
         build/us/asm/segment_game_etc.o(.scommon*);
+        segment_game_etc_scommon_END = .;
+        segment_game_etc_scommon_SIZE = ABSOLUTE(segment_game_etc_scommon_END - segment_game_etc_scommon_START);
 
+        segment_game_etc_bss_START = .;
         build/us/asm/segment_game_etc.o(.bss*);
-
-        build/us/asm/segment_game_etc.o(COMMON*);
         segment_game_etc_bss_END = .;
         segment_game_etc_bss_SIZE = ABSOLUTE(segment_game_etc_bss_END - segment_game_etc_bss_START);
+
+        segment_game_etcCOMMON_START = .;
+        build/us/asm/segment_game_etc.o(COMMON*);
+        segment_game_etcCOMMON_END = .;
+        segment_game_etcCOMMON_SIZE = ABSOLUTE(segment_game_etcCOMMON_END - segment_game_etcCOMMON_START);
     }
+    segment_game_etc_noload_VRAM_END = .;
+    segment_game_etc_noload_VRAM_SIZE = ABSOLUTE(segment_game_etc_noload_VRAM_END - segment_game_etc_noload_VRAM);
     segment_game_etc_VRAM_END = .;
+    segment_game_etc_VRAM_SIZE = ABSOLUTE(segment_game_etc_VRAM_END - segment_game_etc_VRAM);
+    __romPos += SIZEOF(.segment_game_etc);
+    segment_game_etc_ROM_END = __romPos;
+    segment_game_etc_ROM_SIZE = ABSOLUTE(segment_game_etc_ROM_END - segment_game_etc_ROM_START);
 
     segment_menu_bg_ROM_START = __romPos;
     segment_menu_bg_VRAM = ADDR(.segment_menu_bg);
+    segment_menu_bg_alloc_VRAM = .;
     .segment_menu_bg : AT(segment_menu_bg_ROM_START) SUBALIGN(16)
     {
         segment_menu_bg_text_START = .;
@@ -3167,25 +3834,43 @@ SECTIONS
         segment_menu_bg_sdata_END = .;
         segment_menu_bg_sdata_SIZE = ABSOLUTE(segment_menu_bg_sdata_END - segment_menu_bg_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_bg);
-    segment_menu_bg_ROM_END = __romPos;
+    segment_menu_bg_alloc_VRAM_END = .;
+    segment_menu_bg_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_bg_alloc_VRAM_END - segment_menu_bg_alloc_VRAM);
+
+    segment_menu_bg_noload_VRAM = .;
     .segment_menu_bg.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_bg_bss_START = .;
+        segment_menu_bg_sbss_START = .;
         build/us/asm/segment_menu_bg.o(.sbss*);
+        segment_menu_bg_sbss_END = .;
+        segment_menu_bg_sbss_SIZE = ABSOLUTE(segment_menu_bg_sbss_END - segment_menu_bg_sbss_START);
 
+        segment_menu_bg_scommon_START = .;
         build/us/asm/segment_menu_bg.o(.scommon*);
+        segment_menu_bg_scommon_END = .;
+        segment_menu_bg_scommon_SIZE = ABSOLUTE(segment_menu_bg_scommon_END - segment_menu_bg_scommon_START);
 
+        segment_menu_bg_bss_START = .;
         build/us/asm/segment_menu_bg.o(.bss*);
-
-        build/us/asm/segment_menu_bg.o(COMMON*);
         segment_menu_bg_bss_END = .;
         segment_menu_bg_bss_SIZE = ABSOLUTE(segment_menu_bg_bss_END - segment_menu_bg_bss_START);
+
+        segment_menu_bgCOMMON_START = .;
+        build/us/asm/segment_menu_bg.o(COMMON*);
+        segment_menu_bgCOMMON_END = .;
+        segment_menu_bgCOMMON_SIZE = ABSOLUTE(segment_menu_bgCOMMON_END - segment_menu_bgCOMMON_START);
     }
+    segment_menu_bg_noload_VRAM_END = .;
+    segment_menu_bg_noload_VRAM_SIZE = ABSOLUTE(segment_menu_bg_noload_VRAM_END - segment_menu_bg_noload_VRAM);
     segment_menu_bg_VRAM_END = .;
+    segment_menu_bg_VRAM_SIZE = ABSOLUTE(segment_menu_bg_VRAM_END - segment_menu_bg_VRAM);
+    __romPos += SIZEOF(.segment_menu_bg);
+    segment_menu_bg_ROM_END = __romPos;
+    segment_menu_bg_ROM_SIZE = ABSOLUTE(segment_menu_bg_ROM_END - segment_menu_bg_ROM_START);
 
     segment_menu_bg2_ROM_START = __romPos;
     segment_menu_bg2_VRAM = ADDR(.segment_menu_bg2);
+    segment_menu_bg2_alloc_VRAM = .;
     .segment_menu_bg2 : AT(segment_menu_bg2_ROM_START) SUBALIGN(16)
     {
         segment_menu_bg2_text_START = .;
@@ -3208,25 +3893,43 @@ SECTIONS
         segment_menu_bg2_sdata_END = .;
         segment_menu_bg2_sdata_SIZE = ABSOLUTE(segment_menu_bg2_sdata_END - segment_menu_bg2_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_bg2);
-    segment_menu_bg2_ROM_END = __romPos;
+    segment_menu_bg2_alloc_VRAM_END = .;
+    segment_menu_bg2_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_alloc_VRAM_END - segment_menu_bg2_alloc_VRAM);
+
+    segment_menu_bg2_noload_VRAM = .;
     .segment_menu_bg2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_bg2_bss_START = .;
+        segment_menu_bg2_sbss_START = .;
         build/us/asm/segment_menu_bg2.o(.sbss*);
+        segment_menu_bg2_sbss_END = .;
+        segment_menu_bg2_sbss_SIZE = ABSOLUTE(segment_menu_bg2_sbss_END - segment_menu_bg2_sbss_START);
 
+        segment_menu_bg2_scommon_START = .;
         build/us/asm/segment_menu_bg2.o(.scommon*);
+        segment_menu_bg2_scommon_END = .;
+        segment_menu_bg2_scommon_SIZE = ABSOLUTE(segment_menu_bg2_scommon_END - segment_menu_bg2_scommon_START);
 
+        segment_menu_bg2_bss_START = .;
         build/us/asm/segment_menu_bg2.o(.bss*);
-
-        build/us/asm/segment_menu_bg2.o(COMMON*);
         segment_menu_bg2_bss_END = .;
         segment_menu_bg2_bss_SIZE = ABSOLUTE(segment_menu_bg2_bss_END - segment_menu_bg2_bss_START);
+
+        segment_menu_bg2COMMON_START = .;
+        build/us/asm/segment_menu_bg2.o(COMMON*);
+        segment_menu_bg2COMMON_END = .;
+        segment_menu_bg2COMMON_SIZE = ABSOLUTE(segment_menu_bg2COMMON_END - segment_menu_bg2COMMON_START);
     }
+    segment_menu_bg2_noload_VRAM_END = .;
+    segment_menu_bg2_noload_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_noload_VRAM_END - segment_menu_bg2_noload_VRAM);
     segment_menu_bg2_VRAM_END = .;
+    segment_menu_bg2_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_VRAM_END - segment_menu_bg2_VRAM);
+    __romPos += SIZEOF(.segment_menu_bg2);
+    segment_menu_bg2_ROM_END = __romPos;
+    segment_menu_bg2_ROM_SIZE = ABSOLUTE(segment_menu_bg2_ROM_END - segment_menu_bg2_ROM_START);
 
     segment_coffee01_ROM_START = __romPos;
     segment_coffee01_VRAM = ADDR(.segment_coffee01);
+    segment_coffee01_alloc_VRAM = .;
     .segment_coffee01 : AT(segment_coffee01_ROM_START) SUBALIGN(16)
     {
         segment_coffee01_text_START = .;
@@ -3249,25 +3952,43 @@ SECTIONS
         segment_coffee01_sdata_END = .;
         segment_coffee01_sdata_SIZE = ABSOLUTE(segment_coffee01_sdata_END - segment_coffee01_sdata_START);
     }
-    __romPos += SIZEOF(.segment_coffee01);
-    segment_coffee01_ROM_END = __romPos;
+    segment_coffee01_alloc_VRAM_END = .;
+    segment_coffee01_alloc_VRAM_SIZE = ABSOLUTE(segment_coffee01_alloc_VRAM_END - segment_coffee01_alloc_VRAM);
+
+    segment_coffee01_noload_VRAM = .;
     .segment_coffee01.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_coffee01_bss_START = .;
+        segment_coffee01_sbss_START = .;
         build/us/asm/segment_coffee01.o(.sbss*);
+        segment_coffee01_sbss_END = .;
+        segment_coffee01_sbss_SIZE = ABSOLUTE(segment_coffee01_sbss_END - segment_coffee01_sbss_START);
 
+        segment_coffee01_scommon_START = .;
         build/us/asm/segment_coffee01.o(.scommon*);
+        segment_coffee01_scommon_END = .;
+        segment_coffee01_scommon_SIZE = ABSOLUTE(segment_coffee01_scommon_END - segment_coffee01_scommon_START);
 
+        segment_coffee01_bss_START = .;
         build/us/asm/segment_coffee01.o(.bss*);
-
-        build/us/asm/segment_coffee01.o(COMMON*);
         segment_coffee01_bss_END = .;
         segment_coffee01_bss_SIZE = ABSOLUTE(segment_coffee01_bss_END - segment_coffee01_bss_START);
+
+        segment_coffee01COMMON_START = .;
+        build/us/asm/segment_coffee01.o(COMMON*);
+        segment_coffee01COMMON_END = .;
+        segment_coffee01COMMON_SIZE = ABSOLUTE(segment_coffee01COMMON_END - segment_coffee01COMMON_START);
     }
+    segment_coffee01_noload_VRAM_END = .;
+    segment_coffee01_noload_VRAM_SIZE = ABSOLUTE(segment_coffee01_noload_VRAM_END - segment_coffee01_noload_VRAM);
     segment_coffee01_VRAM_END = .;
+    segment_coffee01_VRAM_SIZE = ABSOLUTE(segment_coffee01_VRAM_END - segment_coffee01_VRAM);
+    __romPos += SIZEOF(.segment_coffee01);
+    segment_coffee01_ROM_END = __romPos;
+    segment_coffee01_ROM_SIZE = ABSOLUTE(segment_coffee01_ROM_END - segment_coffee01_ROM_START);
 
     segment_title_all_ROM_START = __romPos;
     segment_title_all_VRAM = ADDR(.segment_title_all);
+    segment_title_all_alloc_VRAM = .;
     .segment_title_all : AT(segment_title_all_ROM_START) SUBALIGN(16)
     {
         segment_title_all_text_START = .;
@@ -3290,25 +4011,43 @@ SECTIONS
         segment_title_all_sdata_END = .;
         segment_title_all_sdata_SIZE = ABSOLUTE(segment_title_all_sdata_END - segment_title_all_sdata_START);
     }
-    __romPos += SIZEOF(.segment_title_all);
-    segment_title_all_ROM_END = __romPos;
+    segment_title_all_alloc_VRAM_END = .;
+    segment_title_all_alloc_VRAM_SIZE = ABSOLUTE(segment_title_all_alloc_VRAM_END - segment_title_all_alloc_VRAM);
+
+    segment_title_all_noload_VRAM = .;
     .segment_title_all.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_title_all_bss_START = .;
+        segment_title_all_sbss_START = .;
         build/us/asm/segment_title_all.o(.sbss*);
+        segment_title_all_sbss_END = .;
+        segment_title_all_sbss_SIZE = ABSOLUTE(segment_title_all_sbss_END - segment_title_all_sbss_START);
 
+        segment_title_all_scommon_START = .;
         build/us/asm/segment_title_all.o(.scommon*);
+        segment_title_all_scommon_END = .;
+        segment_title_all_scommon_SIZE = ABSOLUTE(segment_title_all_scommon_END - segment_title_all_scommon_START);
 
+        segment_title_all_bss_START = .;
         build/us/asm/segment_title_all.o(.bss*);
-
-        build/us/asm/segment_title_all.o(COMMON*);
         segment_title_all_bss_END = .;
         segment_title_all_bss_SIZE = ABSOLUTE(segment_title_all_bss_END - segment_title_all_bss_START);
+
+        segment_title_allCOMMON_START = .;
+        build/us/asm/segment_title_all.o(COMMON*);
+        segment_title_allCOMMON_END = .;
+        segment_title_allCOMMON_SIZE = ABSOLUTE(segment_title_allCOMMON_END - segment_title_allCOMMON_START);
     }
+    segment_title_all_noload_VRAM_END = .;
+    segment_title_all_noload_VRAM_SIZE = ABSOLUTE(segment_title_all_noload_VRAM_END - segment_title_all_noload_VRAM);
     segment_title_all_VRAM_END = .;
+    segment_title_all_VRAM_SIZE = ABSOLUTE(segment_title_all_VRAM_END - segment_title_all_VRAM);
+    __romPos += SIZEOF(.segment_title_all);
+    segment_title_all_ROM_END = __romPos;
+    segment_title_all_ROM_SIZE = ABSOLUTE(segment_title_all_ROM_END - segment_title_all_ROM_START);
 
     segment_title_bmp_ROM_START = __romPos;
     segment_title_bmp_VRAM = ADDR(.segment_title_bmp);
+    segment_title_bmp_alloc_VRAM = .;
     .segment_title_bmp : AT(segment_title_bmp_ROM_START) SUBALIGN(16)
     {
         segment_title_bmp_text_START = .;
@@ -3331,25 +4070,43 @@ SECTIONS
         segment_title_bmp_sdata_END = .;
         segment_title_bmp_sdata_SIZE = ABSOLUTE(segment_title_bmp_sdata_END - segment_title_bmp_sdata_START);
     }
-    __romPos += SIZEOF(.segment_title_bmp);
-    segment_title_bmp_ROM_END = __romPos;
+    segment_title_bmp_alloc_VRAM_END = .;
+    segment_title_bmp_alloc_VRAM_SIZE = ABSOLUTE(segment_title_bmp_alloc_VRAM_END - segment_title_bmp_alloc_VRAM);
+
+    segment_title_bmp_noload_VRAM = .;
     .segment_title_bmp.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_title_bmp_bss_START = .;
+        segment_title_bmp_sbss_START = .;
         build/us/asm/segment_title_bmp.o(.sbss*);
+        segment_title_bmp_sbss_END = .;
+        segment_title_bmp_sbss_SIZE = ABSOLUTE(segment_title_bmp_sbss_END - segment_title_bmp_sbss_START);
 
+        segment_title_bmp_scommon_START = .;
         build/us/asm/segment_title_bmp.o(.scommon*);
+        segment_title_bmp_scommon_END = .;
+        segment_title_bmp_scommon_SIZE = ABSOLUTE(segment_title_bmp_scommon_END - segment_title_bmp_scommon_START);
 
+        segment_title_bmp_bss_START = .;
         build/us/asm/segment_title_bmp.o(.bss*);
-
-        build/us/asm/segment_title_bmp.o(COMMON*);
         segment_title_bmp_bss_END = .;
         segment_title_bmp_bss_SIZE = ABSOLUTE(segment_title_bmp_bss_END - segment_title_bmp_bss_START);
+
+        segment_title_bmpCOMMON_START = .;
+        build/us/asm/segment_title_bmp.o(COMMON*);
+        segment_title_bmpCOMMON_END = .;
+        segment_title_bmpCOMMON_SIZE = ABSOLUTE(segment_title_bmpCOMMON_END - segment_title_bmpCOMMON_START);
     }
+    segment_title_bmp_noload_VRAM_END = .;
+    segment_title_bmp_noload_VRAM_SIZE = ABSOLUTE(segment_title_bmp_noload_VRAM_END - segment_title_bmp_noload_VRAM);
     segment_title_bmp_VRAM_END = .;
+    segment_title_bmp_VRAM_SIZE = ABSOLUTE(segment_title_bmp_VRAM_END - segment_title_bmp_VRAM);
+    __romPos += SIZEOF(.segment_title_bmp);
+    segment_title_bmp_ROM_END = __romPos;
+    segment_title_bmp_ROM_SIZE = ABSOLUTE(segment_title_bmp_ROM_END - segment_title_bmp_ROM_START);
 
     segment_waku_ROM_START = __romPos;
     segment_waku_VRAM = ADDR(.segment_waku);
+    segment_waku_alloc_VRAM = .;
     .segment_waku : AT(segment_waku_ROM_START) SUBALIGN(16)
     {
         segment_waku_text_START = .;
@@ -3372,25 +4129,43 @@ SECTIONS
         segment_waku_sdata_END = .;
         segment_waku_sdata_SIZE = ABSOLUTE(segment_waku_sdata_END - segment_waku_sdata_START);
     }
-    __romPos += SIZEOF(.segment_waku);
-    segment_waku_ROM_END = __romPos;
+    segment_waku_alloc_VRAM_END = .;
+    segment_waku_alloc_VRAM_SIZE = ABSOLUTE(segment_waku_alloc_VRAM_END - segment_waku_alloc_VRAM);
+
+    segment_waku_noload_VRAM = .;
     .segment_waku.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_waku_bss_START = .;
+        segment_waku_sbss_START = .;
         build/us/asm/segment_waku.o(.sbss*);
+        segment_waku_sbss_END = .;
+        segment_waku_sbss_SIZE = ABSOLUTE(segment_waku_sbss_END - segment_waku_sbss_START);
 
+        segment_waku_scommon_START = .;
         build/us/asm/segment_waku.o(.scommon*);
+        segment_waku_scommon_END = .;
+        segment_waku_scommon_SIZE = ABSOLUTE(segment_waku_scommon_END - segment_waku_scommon_START);
 
+        segment_waku_bss_START = .;
         build/us/asm/segment_waku.o(.bss*);
-
-        build/us/asm/segment_waku.o(COMMON*);
         segment_waku_bss_END = .;
         segment_waku_bss_SIZE = ABSOLUTE(segment_waku_bss_END - segment_waku_bss_START);
+
+        segment_wakuCOMMON_START = .;
+        build/us/asm/segment_waku.o(COMMON*);
+        segment_wakuCOMMON_END = .;
+        segment_wakuCOMMON_SIZE = ABSOLUTE(segment_wakuCOMMON_END - segment_wakuCOMMON_START);
     }
+    segment_waku_noload_VRAM_END = .;
+    segment_waku_noload_VRAM_SIZE = ABSOLUTE(segment_waku_noload_VRAM_END - segment_waku_noload_VRAM);
     segment_waku_VRAM_END = .;
+    segment_waku_VRAM_SIZE = ABSOLUTE(segment_waku_VRAM_END - segment_waku_VRAM);
+    __romPos += SIZEOF(.segment_waku);
+    segment_waku_ROM_END = __romPos;
+    segment_waku_ROM_SIZE = ABSOLUTE(segment_waku_ROM_END - segment_waku_ROM_START);
 
     segment_waku2_ROM_START = __romPos;
     segment_waku2_VRAM = ADDR(.segment_waku2);
+    segment_waku2_alloc_VRAM = .;
     .segment_waku2 : AT(segment_waku2_ROM_START) SUBALIGN(16)
     {
         segment_waku2_text_START = .;
@@ -3413,25 +4188,43 @@ SECTIONS
         segment_waku2_sdata_END = .;
         segment_waku2_sdata_SIZE = ABSOLUTE(segment_waku2_sdata_END - segment_waku2_sdata_START);
     }
-    __romPos += SIZEOF(.segment_waku2);
-    segment_waku2_ROM_END = __romPos;
+    segment_waku2_alloc_VRAM_END = .;
+    segment_waku2_alloc_VRAM_SIZE = ABSOLUTE(segment_waku2_alloc_VRAM_END - segment_waku2_alloc_VRAM);
+
+    segment_waku2_noload_VRAM = .;
     .segment_waku2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_waku2_bss_START = .;
+        segment_waku2_sbss_START = .;
         build/us/asm/segment_waku2.o(.sbss*);
+        segment_waku2_sbss_END = .;
+        segment_waku2_sbss_SIZE = ABSOLUTE(segment_waku2_sbss_END - segment_waku2_sbss_START);
 
+        segment_waku2_scommon_START = .;
         build/us/asm/segment_waku2.o(.scommon*);
+        segment_waku2_scommon_END = .;
+        segment_waku2_scommon_SIZE = ABSOLUTE(segment_waku2_scommon_END - segment_waku2_scommon_START);
 
+        segment_waku2_bss_START = .;
         build/us/asm/segment_waku2.o(.bss*);
-
-        build/us/asm/segment_waku2.o(COMMON*);
         segment_waku2_bss_END = .;
         segment_waku2_bss_SIZE = ABSOLUTE(segment_waku2_bss_END - segment_waku2_bss_START);
+
+        segment_waku2COMMON_START = .;
+        build/us/asm/segment_waku2.o(COMMON*);
+        segment_waku2COMMON_END = .;
+        segment_waku2COMMON_SIZE = ABSOLUTE(segment_waku2COMMON_END - segment_waku2COMMON_START);
     }
+    segment_waku2_noload_VRAM_END = .;
+    segment_waku2_noload_VRAM_SIZE = ABSOLUTE(segment_waku2_noload_VRAM_END - segment_waku2_noload_VRAM);
     segment_waku2_VRAM_END = .;
+    segment_waku2_VRAM_SIZE = ABSOLUTE(segment_waku2_VRAM_END - segment_waku2_VRAM);
+    __romPos += SIZEOF(.segment_waku2);
+    segment_waku2_ROM_END = __romPos;
+    segment_waku2_ROM_SIZE = ABSOLUTE(segment_waku2_ROM_END - segment_waku2_ROM_START);
 
     segment_story_bg01_ROM_START = __romPos;
     segment_story_bg01_VRAM = ADDR(.segment_story_bg01);
+    segment_story_bg01_alloc_VRAM = .;
     .segment_story_bg01 : AT(segment_story_bg01_ROM_START) SUBALIGN(16)
     {
         segment_story_bg01_text_START = .;
@@ -3454,25 +4247,43 @@ SECTIONS
         segment_story_bg01_sdata_END = .;
         segment_story_bg01_sdata_SIZE = ABSOLUTE(segment_story_bg01_sdata_END - segment_story_bg01_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg01);
-    segment_story_bg01_ROM_END = __romPos;
+    segment_story_bg01_alloc_VRAM_END = .;
+    segment_story_bg01_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg01_alloc_VRAM_END - segment_story_bg01_alloc_VRAM);
+
+    segment_story_bg01_noload_VRAM = .;
     .segment_story_bg01.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg01_bss_START = .;
+        segment_story_bg01_sbss_START = .;
         build/us/asm/segment_story_bg01.o(.sbss*);
+        segment_story_bg01_sbss_END = .;
+        segment_story_bg01_sbss_SIZE = ABSOLUTE(segment_story_bg01_sbss_END - segment_story_bg01_sbss_START);
 
+        segment_story_bg01_scommon_START = .;
         build/us/asm/segment_story_bg01.o(.scommon*);
+        segment_story_bg01_scommon_END = .;
+        segment_story_bg01_scommon_SIZE = ABSOLUTE(segment_story_bg01_scommon_END - segment_story_bg01_scommon_START);
 
+        segment_story_bg01_bss_START = .;
         build/us/asm/segment_story_bg01.o(.bss*);
-
-        build/us/asm/segment_story_bg01.o(COMMON*);
         segment_story_bg01_bss_END = .;
         segment_story_bg01_bss_SIZE = ABSOLUTE(segment_story_bg01_bss_END - segment_story_bg01_bss_START);
+
+        segment_story_bg01COMMON_START = .;
+        build/us/asm/segment_story_bg01.o(COMMON*);
+        segment_story_bg01COMMON_END = .;
+        segment_story_bg01COMMON_SIZE = ABSOLUTE(segment_story_bg01COMMON_END - segment_story_bg01COMMON_START);
     }
+    segment_story_bg01_noload_VRAM_END = .;
+    segment_story_bg01_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg01_noload_VRAM_END - segment_story_bg01_noload_VRAM);
     segment_story_bg01_VRAM_END = .;
+    segment_story_bg01_VRAM_SIZE = ABSOLUTE(segment_story_bg01_VRAM_END - segment_story_bg01_VRAM);
+    __romPos += SIZEOF(.segment_story_bg01);
+    segment_story_bg01_ROM_END = __romPos;
+    segment_story_bg01_ROM_SIZE = ABSOLUTE(segment_story_bg01_ROM_END - segment_story_bg01_ROM_START);
 
     segment_story_bg02_ROM_START = __romPos;
     segment_story_bg02_VRAM = ADDR(.segment_story_bg02);
+    segment_story_bg02_alloc_VRAM = .;
     .segment_story_bg02 : AT(segment_story_bg02_ROM_START) SUBALIGN(16)
     {
         segment_story_bg02_text_START = .;
@@ -3495,25 +4306,43 @@ SECTIONS
         segment_story_bg02_sdata_END = .;
         segment_story_bg02_sdata_SIZE = ABSOLUTE(segment_story_bg02_sdata_END - segment_story_bg02_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg02);
-    segment_story_bg02_ROM_END = __romPos;
+    segment_story_bg02_alloc_VRAM_END = .;
+    segment_story_bg02_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg02_alloc_VRAM_END - segment_story_bg02_alloc_VRAM);
+
+    segment_story_bg02_noload_VRAM = .;
     .segment_story_bg02.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg02_bss_START = .;
+        segment_story_bg02_sbss_START = .;
         build/us/asm/segment_story_bg02.o(.sbss*);
+        segment_story_bg02_sbss_END = .;
+        segment_story_bg02_sbss_SIZE = ABSOLUTE(segment_story_bg02_sbss_END - segment_story_bg02_sbss_START);
 
+        segment_story_bg02_scommon_START = .;
         build/us/asm/segment_story_bg02.o(.scommon*);
+        segment_story_bg02_scommon_END = .;
+        segment_story_bg02_scommon_SIZE = ABSOLUTE(segment_story_bg02_scommon_END - segment_story_bg02_scommon_START);
 
+        segment_story_bg02_bss_START = .;
         build/us/asm/segment_story_bg02.o(.bss*);
-
-        build/us/asm/segment_story_bg02.o(COMMON*);
         segment_story_bg02_bss_END = .;
         segment_story_bg02_bss_SIZE = ABSOLUTE(segment_story_bg02_bss_END - segment_story_bg02_bss_START);
+
+        segment_story_bg02COMMON_START = .;
+        build/us/asm/segment_story_bg02.o(COMMON*);
+        segment_story_bg02COMMON_END = .;
+        segment_story_bg02COMMON_SIZE = ABSOLUTE(segment_story_bg02COMMON_END - segment_story_bg02COMMON_START);
     }
+    segment_story_bg02_noload_VRAM_END = .;
+    segment_story_bg02_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg02_noload_VRAM_END - segment_story_bg02_noload_VRAM);
     segment_story_bg02_VRAM_END = .;
+    segment_story_bg02_VRAM_SIZE = ABSOLUTE(segment_story_bg02_VRAM_END - segment_story_bg02_VRAM);
+    __romPos += SIZEOF(.segment_story_bg02);
+    segment_story_bg02_ROM_END = __romPos;
+    segment_story_bg02_ROM_SIZE = ABSOLUTE(segment_story_bg02_ROM_END - segment_story_bg02_ROM_START);
 
     segment_story_bg03_ROM_START = __romPos;
     segment_story_bg03_VRAM = ADDR(.segment_story_bg03);
+    segment_story_bg03_alloc_VRAM = .;
     .segment_story_bg03 : AT(segment_story_bg03_ROM_START) SUBALIGN(16)
     {
         segment_story_bg03_text_START = .;
@@ -3536,25 +4365,43 @@ SECTIONS
         segment_story_bg03_sdata_END = .;
         segment_story_bg03_sdata_SIZE = ABSOLUTE(segment_story_bg03_sdata_END - segment_story_bg03_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg03);
-    segment_story_bg03_ROM_END = __romPos;
+    segment_story_bg03_alloc_VRAM_END = .;
+    segment_story_bg03_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg03_alloc_VRAM_END - segment_story_bg03_alloc_VRAM);
+
+    segment_story_bg03_noload_VRAM = .;
     .segment_story_bg03.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg03_bss_START = .;
+        segment_story_bg03_sbss_START = .;
         build/us/asm/segment_story_bg03.o(.sbss*);
+        segment_story_bg03_sbss_END = .;
+        segment_story_bg03_sbss_SIZE = ABSOLUTE(segment_story_bg03_sbss_END - segment_story_bg03_sbss_START);
 
+        segment_story_bg03_scommon_START = .;
         build/us/asm/segment_story_bg03.o(.scommon*);
+        segment_story_bg03_scommon_END = .;
+        segment_story_bg03_scommon_SIZE = ABSOLUTE(segment_story_bg03_scommon_END - segment_story_bg03_scommon_START);
 
+        segment_story_bg03_bss_START = .;
         build/us/asm/segment_story_bg03.o(.bss*);
-
-        build/us/asm/segment_story_bg03.o(COMMON*);
         segment_story_bg03_bss_END = .;
         segment_story_bg03_bss_SIZE = ABSOLUTE(segment_story_bg03_bss_END - segment_story_bg03_bss_START);
+
+        segment_story_bg03COMMON_START = .;
+        build/us/asm/segment_story_bg03.o(COMMON*);
+        segment_story_bg03COMMON_END = .;
+        segment_story_bg03COMMON_SIZE = ABSOLUTE(segment_story_bg03COMMON_END - segment_story_bg03COMMON_START);
     }
+    segment_story_bg03_noload_VRAM_END = .;
+    segment_story_bg03_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg03_noload_VRAM_END - segment_story_bg03_noload_VRAM);
     segment_story_bg03_VRAM_END = .;
+    segment_story_bg03_VRAM_SIZE = ABSOLUTE(segment_story_bg03_VRAM_END - segment_story_bg03_VRAM);
+    __romPos += SIZEOF(.segment_story_bg03);
+    segment_story_bg03_ROM_END = __romPos;
+    segment_story_bg03_ROM_SIZE = ABSOLUTE(segment_story_bg03_ROM_END - segment_story_bg03_ROM_START);
 
     segment_story_bg04_ROM_START = __romPos;
     segment_story_bg04_VRAM = ADDR(.segment_story_bg04);
+    segment_story_bg04_alloc_VRAM = .;
     .segment_story_bg04 : AT(segment_story_bg04_ROM_START) SUBALIGN(16)
     {
         segment_story_bg04_text_START = .;
@@ -3577,25 +4424,43 @@ SECTIONS
         segment_story_bg04_sdata_END = .;
         segment_story_bg04_sdata_SIZE = ABSOLUTE(segment_story_bg04_sdata_END - segment_story_bg04_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg04);
-    segment_story_bg04_ROM_END = __romPos;
+    segment_story_bg04_alloc_VRAM_END = .;
+    segment_story_bg04_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg04_alloc_VRAM_END - segment_story_bg04_alloc_VRAM);
+
+    segment_story_bg04_noload_VRAM = .;
     .segment_story_bg04.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg04_bss_START = .;
+        segment_story_bg04_sbss_START = .;
         build/us/asm/segment_story_bg04.o(.sbss*);
+        segment_story_bg04_sbss_END = .;
+        segment_story_bg04_sbss_SIZE = ABSOLUTE(segment_story_bg04_sbss_END - segment_story_bg04_sbss_START);
 
+        segment_story_bg04_scommon_START = .;
         build/us/asm/segment_story_bg04.o(.scommon*);
+        segment_story_bg04_scommon_END = .;
+        segment_story_bg04_scommon_SIZE = ABSOLUTE(segment_story_bg04_scommon_END - segment_story_bg04_scommon_START);
 
+        segment_story_bg04_bss_START = .;
         build/us/asm/segment_story_bg04.o(.bss*);
-
-        build/us/asm/segment_story_bg04.o(COMMON*);
         segment_story_bg04_bss_END = .;
         segment_story_bg04_bss_SIZE = ABSOLUTE(segment_story_bg04_bss_END - segment_story_bg04_bss_START);
+
+        segment_story_bg04COMMON_START = .;
+        build/us/asm/segment_story_bg04.o(COMMON*);
+        segment_story_bg04COMMON_END = .;
+        segment_story_bg04COMMON_SIZE = ABSOLUTE(segment_story_bg04COMMON_END - segment_story_bg04COMMON_START);
     }
+    segment_story_bg04_noload_VRAM_END = .;
+    segment_story_bg04_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg04_noload_VRAM_END - segment_story_bg04_noload_VRAM);
     segment_story_bg04_VRAM_END = .;
+    segment_story_bg04_VRAM_SIZE = ABSOLUTE(segment_story_bg04_VRAM_END - segment_story_bg04_VRAM);
+    __romPos += SIZEOF(.segment_story_bg04);
+    segment_story_bg04_ROM_END = __romPos;
+    segment_story_bg04_ROM_SIZE = ABSOLUTE(segment_story_bg04_ROM_END - segment_story_bg04_ROM_START);
 
     segment_story_bg05_ROM_START = __romPos;
     segment_story_bg05_VRAM = ADDR(.segment_story_bg05);
+    segment_story_bg05_alloc_VRAM = .;
     .segment_story_bg05 : AT(segment_story_bg05_ROM_START) SUBALIGN(16)
     {
         segment_story_bg05_text_START = .;
@@ -3618,25 +4483,43 @@ SECTIONS
         segment_story_bg05_sdata_END = .;
         segment_story_bg05_sdata_SIZE = ABSOLUTE(segment_story_bg05_sdata_END - segment_story_bg05_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg05);
-    segment_story_bg05_ROM_END = __romPos;
+    segment_story_bg05_alloc_VRAM_END = .;
+    segment_story_bg05_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg05_alloc_VRAM_END - segment_story_bg05_alloc_VRAM);
+
+    segment_story_bg05_noload_VRAM = .;
     .segment_story_bg05.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg05_bss_START = .;
+        segment_story_bg05_sbss_START = .;
         build/us/asm/segment_story_bg05.o(.sbss*);
+        segment_story_bg05_sbss_END = .;
+        segment_story_bg05_sbss_SIZE = ABSOLUTE(segment_story_bg05_sbss_END - segment_story_bg05_sbss_START);
 
+        segment_story_bg05_scommon_START = .;
         build/us/asm/segment_story_bg05.o(.scommon*);
+        segment_story_bg05_scommon_END = .;
+        segment_story_bg05_scommon_SIZE = ABSOLUTE(segment_story_bg05_scommon_END - segment_story_bg05_scommon_START);
 
+        segment_story_bg05_bss_START = .;
         build/us/asm/segment_story_bg05.o(.bss*);
-
-        build/us/asm/segment_story_bg05.o(COMMON*);
         segment_story_bg05_bss_END = .;
         segment_story_bg05_bss_SIZE = ABSOLUTE(segment_story_bg05_bss_END - segment_story_bg05_bss_START);
+
+        segment_story_bg05COMMON_START = .;
+        build/us/asm/segment_story_bg05.o(COMMON*);
+        segment_story_bg05COMMON_END = .;
+        segment_story_bg05COMMON_SIZE = ABSOLUTE(segment_story_bg05COMMON_END - segment_story_bg05COMMON_START);
     }
+    segment_story_bg05_noload_VRAM_END = .;
+    segment_story_bg05_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg05_noload_VRAM_END - segment_story_bg05_noload_VRAM);
     segment_story_bg05_VRAM_END = .;
+    segment_story_bg05_VRAM_SIZE = ABSOLUTE(segment_story_bg05_VRAM_END - segment_story_bg05_VRAM);
+    __romPos += SIZEOF(.segment_story_bg05);
+    segment_story_bg05_ROM_END = __romPos;
+    segment_story_bg05_ROM_SIZE = ABSOLUTE(segment_story_bg05_ROM_END - segment_story_bg05_ROM_START);
 
     segment_story_bg07_ROM_START = __romPos;
     segment_story_bg07_VRAM = ADDR(.segment_story_bg07);
+    segment_story_bg07_alloc_VRAM = .;
     .segment_story_bg07 : AT(segment_story_bg07_ROM_START) SUBALIGN(16)
     {
         segment_story_bg07_text_START = .;
@@ -3659,25 +4542,43 @@ SECTIONS
         segment_story_bg07_sdata_END = .;
         segment_story_bg07_sdata_SIZE = ABSOLUTE(segment_story_bg07_sdata_END - segment_story_bg07_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg07);
-    segment_story_bg07_ROM_END = __romPos;
+    segment_story_bg07_alloc_VRAM_END = .;
+    segment_story_bg07_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg07_alloc_VRAM_END - segment_story_bg07_alloc_VRAM);
+
+    segment_story_bg07_noload_VRAM = .;
     .segment_story_bg07.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg07_bss_START = .;
+        segment_story_bg07_sbss_START = .;
         build/us/asm/segment_story_bg07.o(.sbss*);
+        segment_story_bg07_sbss_END = .;
+        segment_story_bg07_sbss_SIZE = ABSOLUTE(segment_story_bg07_sbss_END - segment_story_bg07_sbss_START);
 
+        segment_story_bg07_scommon_START = .;
         build/us/asm/segment_story_bg07.o(.scommon*);
+        segment_story_bg07_scommon_END = .;
+        segment_story_bg07_scommon_SIZE = ABSOLUTE(segment_story_bg07_scommon_END - segment_story_bg07_scommon_START);
 
+        segment_story_bg07_bss_START = .;
         build/us/asm/segment_story_bg07.o(.bss*);
-
-        build/us/asm/segment_story_bg07.o(COMMON*);
         segment_story_bg07_bss_END = .;
         segment_story_bg07_bss_SIZE = ABSOLUTE(segment_story_bg07_bss_END - segment_story_bg07_bss_START);
+
+        segment_story_bg07COMMON_START = .;
+        build/us/asm/segment_story_bg07.o(COMMON*);
+        segment_story_bg07COMMON_END = .;
+        segment_story_bg07COMMON_SIZE = ABSOLUTE(segment_story_bg07COMMON_END - segment_story_bg07COMMON_START);
     }
+    segment_story_bg07_noload_VRAM_END = .;
+    segment_story_bg07_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg07_noload_VRAM_END - segment_story_bg07_noload_VRAM);
     segment_story_bg07_VRAM_END = .;
+    segment_story_bg07_VRAM_SIZE = ABSOLUTE(segment_story_bg07_VRAM_END - segment_story_bg07_VRAM);
+    __romPos += SIZEOF(.segment_story_bg07);
+    segment_story_bg07_ROM_END = __romPos;
+    segment_story_bg07_ROM_SIZE = ABSOLUTE(segment_story_bg07_ROM_END - segment_story_bg07_ROM_START);
 
     segment_story_bg08_ROM_START = __romPos;
     segment_story_bg08_VRAM = ADDR(.segment_story_bg08);
+    segment_story_bg08_alloc_VRAM = .;
     .segment_story_bg08 : AT(segment_story_bg08_ROM_START) SUBALIGN(16)
     {
         segment_story_bg08_text_START = .;
@@ -3700,25 +4601,43 @@ SECTIONS
         segment_story_bg08_sdata_END = .;
         segment_story_bg08_sdata_SIZE = ABSOLUTE(segment_story_bg08_sdata_END - segment_story_bg08_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg08);
-    segment_story_bg08_ROM_END = __romPos;
+    segment_story_bg08_alloc_VRAM_END = .;
+    segment_story_bg08_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg08_alloc_VRAM_END - segment_story_bg08_alloc_VRAM);
+
+    segment_story_bg08_noload_VRAM = .;
     .segment_story_bg08.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg08_bss_START = .;
+        segment_story_bg08_sbss_START = .;
         build/us/asm/segment_story_bg08.o(.sbss*);
+        segment_story_bg08_sbss_END = .;
+        segment_story_bg08_sbss_SIZE = ABSOLUTE(segment_story_bg08_sbss_END - segment_story_bg08_sbss_START);
 
+        segment_story_bg08_scommon_START = .;
         build/us/asm/segment_story_bg08.o(.scommon*);
+        segment_story_bg08_scommon_END = .;
+        segment_story_bg08_scommon_SIZE = ABSOLUTE(segment_story_bg08_scommon_END - segment_story_bg08_scommon_START);
 
+        segment_story_bg08_bss_START = .;
         build/us/asm/segment_story_bg08.o(.bss*);
-
-        build/us/asm/segment_story_bg08.o(COMMON*);
         segment_story_bg08_bss_END = .;
         segment_story_bg08_bss_SIZE = ABSOLUTE(segment_story_bg08_bss_END - segment_story_bg08_bss_START);
+
+        segment_story_bg08COMMON_START = .;
+        build/us/asm/segment_story_bg08.o(COMMON*);
+        segment_story_bg08COMMON_END = .;
+        segment_story_bg08COMMON_SIZE = ABSOLUTE(segment_story_bg08COMMON_END - segment_story_bg08COMMON_START);
     }
+    segment_story_bg08_noload_VRAM_END = .;
+    segment_story_bg08_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg08_noload_VRAM_END - segment_story_bg08_noload_VRAM);
     segment_story_bg08_VRAM_END = .;
+    segment_story_bg08_VRAM_SIZE = ABSOLUTE(segment_story_bg08_VRAM_END - segment_story_bg08_VRAM);
+    __romPos += SIZEOF(.segment_story_bg08);
+    segment_story_bg08_ROM_END = __romPos;
+    segment_story_bg08_ROM_SIZE = ABSOLUTE(segment_story_bg08_ROM_END - segment_story_bg08_ROM_START);
 
     segment_story_bg09_ROM_START = __romPos;
     segment_story_bg09_VRAM = ADDR(.segment_story_bg09);
+    segment_story_bg09_alloc_VRAM = .;
     .segment_story_bg09 : AT(segment_story_bg09_ROM_START) SUBALIGN(16)
     {
         segment_story_bg09_text_START = .;
@@ -3741,25 +4660,43 @@ SECTIONS
         segment_story_bg09_sdata_END = .;
         segment_story_bg09_sdata_SIZE = ABSOLUTE(segment_story_bg09_sdata_END - segment_story_bg09_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg09);
-    segment_story_bg09_ROM_END = __romPos;
+    segment_story_bg09_alloc_VRAM_END = .;
+    segment_story_bg09_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg09_alloc_VRAM_END - segment_story_bg09_alloc_VRAM);
+
+    segment_story_bg09_noload_VRAM = .;
     .segment_story_bg09.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg09_bss_START = .;
+        segment_story_bg09_sbss_START = .;
         build/us/asm/segment_story_bg09.o(.sbss*);
+        segment_story_bg09_sbss_END = .;
+        segment_story_bg09_sbss_SIZE = ABSOLUTE(segment_story_bg09_sbss_END - segment_story_bg09_sbss_START);
 
+        segment_story_bg09_scommon_START = .;
         build/us/asm/segment_story_bg09.o(.scommon*);
+        segment_story_bg09_scommon_END = .;
+        segment_story_bg09_scommon_SIZE = ABSOLUTE(segment_story_bg09_scommon_END - segment_story_bg09_scommon_START);
 
+        segment_story_bg09_bss_START = .;
         build/us/asm/segment_story_bg09.o(.bss*);
-
-        build/us/asm/segment_story_bg09.o(COMMON*);
         segment_story_bg09_bss_END = .;
         segment_story_bg09_bss_SIZE = ABSOLUTE(segment_story_bg09_bss_END - segment_story_bg09_bss_START);
+
+        segment_story_bg09COMMON_START = .;
+        build/us/asm/segment_story_bg09.o(COMMON*);
+        segment_story_bg09COMMON_END = .;
+        segment_story_bg09COMMON_SIZE = ABSOLUTE(segment_story_bg09COMMON_END - segment_story_bg09COMMON_START);
     }
+    segment_story_bg09_noload_VRAM_END = .;
+    segment_story_bg09_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg09_noload_VRAM_END - segment_story_bg09_noload_VRAM);
     segment_story_bg09_VRAM_END = .;
+    segment_story_bg09_VRAM_SIZE = ABSOLUTE(segment_story_bg09_VRAM_END - segment_story_bg09_VRAM);
+    __romPos += SIZEOF(.segment_story_bg09);
+    segment_story_bg09_ROM_END = __romPos;
+    segment_story_bg09_ROM_SIZE = ABSOLUTE(segment_story_bg09_ROM_END - segment_story_bg09_ROM_START);
 
     segment_story_bg10_ROM_START = __romPos;
     segment_story_bg10_VRAM = ADDR(.segment_story_bg10);
+    segment_story_bg10_alloc_VRAM = .;
     .segment_story_bg10 : AT(segment_story_bg10_ROM_START) SUBALIGN(16)
     {
         segment_story_bg10_text_START = .;
@@ -3782,25 +4719,43 @@ SECTIONS
         segment_story_bg10_sdata_END = .;
         segment_story_bg10_sdata_SIZE = ABSOLUTE(segment_story_bg10_sdata_END - segment_story_bg10_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg10);
-    segment_story_bg10_ROM_END = __romPos;
+    segment_story_bg10_alloc_VRAM_END = .;
+    segment_story_bg10_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg10_alloc_VRAM_END - segment_story_bg10_alloc_VRAM);
+
+    segment_story_bg10_noload_VRAM = .;
     .segment_story_bg10.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg10_bss_START = .;
+        segment_story_bg10_sbss_START = .;
         build/us/asm/segment_story_bg10.o(.sbss*);
+        segment_story_bg10_sbss_END = .;
+        segment_story_bg10_sbss_SIZE = ABSOLUTE(segment_story_bg10_sbss_END - segment_story_bg10_sbss_START);
 
+        segment_story_bg10_scommon_START = .;
         build/us/asm/segment_story_bg10.o(.scommon*);
+        segment_story_bg10_scommon_END = .;
+        segment_story_bg10_scommon_SIZE = ABSOLUTE(segment_story_bg10_scommon_END - segment_story_bg10_scommon_START);
 
+        segment_story_bg10_bss_START = .;
         build/us/asm/segment_story_bg10.o(.bss*);
-
-        build/us/asm/segment_story_bg10.o(COMMON*);
         segment_story_bg10_bss_END = .;
         segment_story_bg10_bss_SIZE = ABSOLUTE(segment_story_bg10_bss_END - segment_story_bg10_bss_START);
+
+        segment_story_bg10COMMON_START = .;
+        build/us/asm/segment_story_bg10.o(COMMON*);
+        segment_story_bg10COMMON_END = .;
+        segment_story_bg10COMMON_SIZE = ABSOLUTE(segment_story_bg10COMMON_END - segment_story_bg10COMMON_START);
     }
+    segment_story_bg10_noload_VRAM_END = .;
+    segment_story_bg10_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg10_noload_VRAM_END - segment_story_bg10_noload_VRAM);
     segment_story_bg10_VRAM_END = .;
+    segment_story_bg10_VRAM_SIZE = ABSOLUTE(segment_story_bg10_VRAM_END - segment_story_bg10_VRAM);
+    __romPos += SIZEOF(.segment_story_bg10);
+    segment_story_bg10_ROM_END = __romPos;
+    segment_story_bg10_ROM_SIZE = ABSOLUTE(segment_story_bg10_ROM_END - segment_story_bg10_ROM_START);
 
     segment_story_bg11_ROM_START = __romPos;
     segment_story_bg11_VRAM = ADDR(.segment_story_bg11);
+    segment_story_bg11_alloc_VRAM = .;
     .segment_story_bg11 : AT(segment_story_bg11_ROM_START) SUBALIGN(16)
     {
         segment_story_bg11_text_START = .;
@@ -3823,25 +4778,43 @@ SECTIONS
         segment_story_bg11_sdata_END = .;
         segment_story_bg11_sdata_SIZE = ABSOLUTE(segment_story_bg11_sdata_END - segment_story_bg11_sdata_START);
     }
-    __romPos += SIZEOF(.segment_story_bg11);
-    segment_story_bg11_ROM_END = __romPos;
+    segment_story_bg11_alloc_VRAM_END = .;
+    segment_story_bg11_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg11_alloc_VRAM_END - segment_story_bg11_alloc_VRAM);
+
+    segment_story_bg11_noload_VRAM = .;
     .segment_story_bg11.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg11_bss_START = .;
+        segment_story_bg11_sbss_START = .;
         build/us/asm/segment_story_bg11.o(.sbss*);
+        segment_story_bg11_sbss_END = .;
+        segment_story_bg11_sbss_SIZE = ABSOLUTE(segment_story_bg11_sbss_END - segment_story_bg11_sbss_START);
 
+        segment_story_bg11_scommon_START = .;
         build/us/asm/segment_story_bg11.o(.scommon*);
+        segment_story_bg11_scommon_END = .;
+        segment_story_bg11_scommon_SIZE = ABSOLUTE(segment_story_bg11_scommon_END - segment_story_bg11_scommon_START);
 
+        segment_story_bg11_bss_START = .;
         build/us/asm/segment_story_bg11.o(.bss*);
-
-        build/us/asm/segment_story_bg11.o(COMMON*);
         segment_story_bg11_bss_END = .;
         segment_story_bg11_bss_SIZE = ABSOLUTE(segment_story_bg11_bss_END - segment_story_bg11_bss_START);
+
+        segment_story_bg11COMMON_START = .;
+        build/us/asm/segment_story_bg11.o(COMMON*);
+        segment_story_bg11COMMON_END = .;
+        segment_story_bg11COMMON_SIZE = ABSOLUTE(segment_story_bg11COMMON_END - segment_story_bg11COMMON_START);
     }
+    segment_story_bg11_noload_VRAM_END = .;
+    segment_story_bg11_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg11_noload_VRAM_END - segment_story_bg11_noload_VRAM);
     segment_story_bg11_VRAM_END = .;
+    segment_story_bg11_VRAM_SIZE = ABSOLUTE(segment_story_bg11_VRAM_END - segment_story_bg11_VRAM);
+    __romPos += SIZEOF(.segment_story_bg11);
+    segment_story_bg11_ROM_END = __romPos;
+    segment_story_bg11_ROM_SIZE = ABSOLUTE(segment_story_bg11_ROM_END - segment_story_bg11_ROM_START);
 
     segment_menu_char_ROM_START = __romPos;
     segment_menu_char_VRAM = ADDR(.segment_menu_char);
+    segment_menu_char_alloc_VRAM = .;
     .segment_menu_char 0x00000000 : AT(segment_menu_char_ROM_START) SUBALIGN(16)
     {
         segment_menu_char_text_START = .;
@@ -3864,25 +4837,43 @@ SECTIONS
         segment_menu_char_sdata_END = .;
         segment_menu_char_sdata_SIZE = ABSOLUTE(segment_menu_char_sdata_END - segment_menu_char_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_char);
-    segment_menu_char_ROM_END = __romPos;
+    segment_menu_char_alloc_VRAM_END = .;
+    segment_menu_char_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_char_alloc_VRAM_END - segment_menu_char_alloc_VRAM);
+
+    segment_menu_char_noload_VRAM = .;
     .segment_menu_char.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_char_bss_START = .;
+        segment_menu_char_sbss_START = .;
         build/us/src/assets/menu/menu_char.o(.sbss*);
+        segment_menu_char_sbss_END = .;
+        segment_menu_char_sbss_SIZE = ABSOLUTE(segment_menu_char_sbss_END - segment_menu_char_sbss_START);
 
+        segment_menu_char_scommon_START = .;
         build/us/src/assets/menu/menu_char.o(.scommon*);
+        segment_menu_char_scommon_END = .;
+        segment_menu_char_scommon_SIZE = ABSOLUTE(segment_menu_char_scommon_END - segment_menu_char_scommon_START);
 
+        segment_menu_char_bss_START = .;
         build/us/src/assets/menu/menu_char.o(.bss*);
-
-        build/us/src/assets/menu/menu_char.o(COMMON*);
         segment_menu_char_bss_END = .;
         segment_menu_char_bss_SIZE = ABSOLUTE(segment_menu_char_bss_END - segment_menu_char_bss_START);
+
+        segment_menu_charCOMMON_START = .;
+        build/us/src/assets/menu/menu_char.o(COMMON*);
+        segment_menu_charCOMMON_END = .;
+        segment_menu_charCOMMON_SIZE = ABSOLUTE(segment_menu_charCOMMON_END - segment_menu_charCOMMON_START);
     }
+    segment_menu_char_noload_VRAM_END = .;
+    segment_menu_char_noload_VRAM_SIZE = ABSOLUTE(segment_menu_char_noload_VRAM_END - segment_menu_char_noload_VRAM);
     segment_menu_char_VRAM_END = .;
+    segment_menu_char_VRAM_SIZE = ABSOLUTE(segment_menu_char_VRAM_END - segment_menu_char_VRAM);
+    __romPos += SIZEOF(.segment_menu_char);
+    segment_menu_char_ROM_END = __romPos;
+    segment_menu_char_ROM_SIZE = ABSOLUTE(segment_menu_char_ROM_END - segment_menu_char_ROM_START);
 
     segment_menu_common_ROM_START = __romPos;
     segment_menu_common_VRAM = ADDR(.segment_menu_common);
+    segment_menu_common_alloc_VRAM = .;
     .segment_menu_common 0x00000000 : AT(segment_menu_common_ROM_START) SUBALIGN(16)
     {
         segment_menu_common_text_START = .;
@@ -3905,25 +4896,43 @@ SECTIONS
         segment_menu_common_sdata_END = .;
         segment_menu_common_sdata_SIZE = ABSOLUTE(segment_menu_common_sdata_END - segment_menu_common_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_common);
-    segment_menu_common_ROM_END = __romPos;
+    segment_menu_common_alloc_VRAM_END = .;
+    segment_menu_common_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_common_alloc_VRAM_END - segment_menu_common_alloc_VRAM);
+
+    segment_menu_common_noload_VRAM = .;
     .segment_menu_common.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_common_bss_START = .;
+        segment_menu_common_sbss_START = .;
         build/us/src/assets/menu/menu_common.o(.sbss*);
+        segment_menu_common_sbss_END = .;
+        segment_menu_common_sbss_SIZE = ABSOLUTE(segment_menu_common_sbss_END - segment_menu_common_sbss_START);
 
+        segment_menu_common_scommon_START = .;
         build/us/src/assets/menu/menu_common.o(.scommon*);
+        segment_menu_common_scommon_END = .;
+        segment_menu_common_scommon_SIZE = ABSOLUTE(segment_menu_common_scommon_END - segment_menu_common_scommon_START);
 
+        segment_menu_common_bss_START = .;
         build/us/src/assets/menu/menu_common.o(.bss*);
-
-        build/us/src/assets/menu/menu_common.o(COMMON*);
         segment_menu_common_bss_END = .;
         segment_menu_common_bss_SIZE = ABSOLUTE(segment_menu_common_bss_END - segment_menu_common_bss_START);
+
+        segment_menu_commonCOMMON_START = .;
+        build/us/src/assets/menu/menu_common.o(COMMON*);
+        segment_menu_commonCOMMON_END = .;
+        segment_menu_commonCOMMON_SIZE = ABSOLUTE(segment_menu_commonCOMMON_END - segment_menu_commonCOMMON_START);
     }
+    segment_menu_common_noload_VRAM_END = .;
+    segment_menu_common_noload_VRAM_SIZE = ABSOLUTE(segment_menu_common_noload_VRAM_END - segment_menu_common_noload_VRAM);
     segment_menu_common_VRAM_END = .;
+    segment_menu_common_VRAM_SIZE = ABSOLUTE(segment_menu_common_VRAM_END - segment_menu_common_VRAM);
+    __romPos += SIZEOF(.segment_menu_common);
+    segment_menu_common_ROM_END = __romPos;
+    segment_menu_common_ROM_SIZE = ABSOLUTE(segment_menu_common_ROM_END - segment_menu_common_ROM_START);
 
     segment_menu_level_ROM_START = __romPos;
     segment_menu_level_VRAM = ADDR(.segment_menu_level);
+    segment_menu_level_alloc_VRAM = .;
     .segment_menu_level 0x00000000 : AT(segment_menu_level_ROM_START) SUBALIGN(16)
     {
         segment_menu_level_text_START = .;
@@ -3946,25 +4955,43 @@ SECTIONS
         segment_menu_level_sdata_END = .;
         segment_menu_level_sdata_SIZE = ABSOLUTE(segment_menu_level_sdata_END - segment_menu_level_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_level);
-    segment_menu_level_ROM_END = __romPos;
+    segment_menu_level_alloc_VRAM_END = .;
+    segment_menu_level_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_level_alloc_VRAM_END - segment_menu_level_alloc_VRAM);
+
+    segment_menu_level_noload_VRAM = .;
     .segment_menu_level.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_level_bss_START = .;
+        segment_menu_level_sbss_START = .;
         build/us/src/assets/menu/menu_level.o(.sbss*);
+        segment_menu_level_sbss_END = .;
+        segment_menu_level_sbss_SIZE = ABSOLUTE(segment_menu_level_sbss_END - segment_menu_level_sbss_START);
 
+        segment_menu_level_scommon_START = .;
         build/us/src/assets/menu/menu_level.o(.scommon*);
+        segment_menu_level_scommon_END = .;
+        segment_menu_level_scommon_SIZE = ABSOLUTE(segment_menu_level_scommon_END - segment_menu_level_scommon_START);
 
+        segment_menu_level_bss_START = .;
         build/us/src/assets/menu/menu_level.o(.bss*);
-
-        build/us/src/assets/menu/menu_level.o(COMMON*);
         segment_menu_level_bss_END = .;
         segment_menu_level_bss_SIZE = ABSOLUTE(segment_menu_level_bss_END - segment_menu_level_bss_START);
+
+        segment_menu_levelCOMMON_START = .;
+        build/us/src/assets/menu/menu_level.o(COMMON*);
+        segment_menu_levelCOMMON_END = .;
+        segment_menu_levelCOMMON_SIZE = ABSOLUTE(segment_menu_levelCOMMON_END - segment_menu_levelCOMMON_START);
     }
+    segment_menu_level_noload_VRAM_END = .;
+    segment_menu_level_noload_VRAM_SIZE = ABSOLUTE(segment_menu_level_noload_VRAM_END - segment_menu_level_noload_VRAM);
     segment_menu_level_VRAM_END = .;
+    segment_menu_level_VRAM_SIZE = ABSOLUTE(segment_menu_level_VRAM_END - segment_menu_level_VRAM);
+    __romPos += SIZEOF(.segment_menu_level);
+    segment_menu_level_ROM_END = __romPos;
+    segment_menu_level_ROM_SIZE = ABSOLUTE(segment_menu_level_ROM_END - segment_menu_level_ROM_START);
 
     segment_menu_main_ROM_START = __romPos;
     segment_menu_main_VRAM = ADDR(.segment_menu_main);
+    segment_menu_main_alloc_VRAM = .;
     .segment_menu_main 0x00000000 : AT(segment_menu_main_ROM_START) SUBALIGN(16)
     {
         segment_menu_main_text_START = .;
@@ -3987,25 +5014,43 @@ SECTIONS
         segment_menu_main_sdata_END = .;
         segment_menu_main_sdata_SIZE = ABSOLUTE(segment_menu_main_sdata_END - segment_menu_main_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_main);
-    segment_menu_main_ROM_END = __romPos;
+    segment_menu_main_alloc_VRAM_END = .;
+    segment_menu_main_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_main_alloc_VRAM_END - segment_menu_main_alloc_VRAM);
+
+    segment_menu_main_noload_VRAM = .;
     .segment_menu_main.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_main_bss_START = .;
+        segment_menu_main_sbss_START = .;
         build/us/src/assets/menu/menu_main.o(.sbss*);
+        segment_menu_main_sbss_END = .;
+        segment_menu_main_sbss_SIZE = ABSOLUTE(segment_menu_main_sbss_END - segment_menu_main_sbss_START);
 
+        segment_menu_main_scommon_START = .;
         build/us/src/assets/menu/menu_main.o(.scommon*);
+        segment_menu_main_scommon_END = .;
+        segment_menu_main_scommon_SIZE = ABSOLUTE(segment_menu_main_scommon_END - segment_menu_main_scommon_START);
 
+        segment_menu_main_bss_START = .;
         build/us/src/assets/menu/menu_main.o(.bss*);
-
-        build/us/src/assets/menu/menu_main.o(COMMON*);
         segment_menu_main_bss_END = .;
         segment_menu_main_bss_SIZE = ABSOLUTE(segment_menu_main_bss_END - segment_menu_main_bss_START);
+
+        segment_menu_mainCOMMON_START = .;
+        build/us/src/assets/menu/menu_main.o(COMMON*);
+        segment_menu_mainCOMMON_END = .;
+        segment_menu_mainCOMMON_SIZE = ABSOLUTE(segment_menu_mainCOMMON_END - segment_menu_mainCOMMON_START);
     }
+    segment_menu_main_noload_VRAM_END = .;
+    segment_menu_main_noload_VRAM_SIZE = ABSOLUTE(segment_menu_main_noload_VRAM_END - segment_menu_main_noload_VRAM);
     segment_menu_main_VRAM_END = .;
+    segment_menu_main_VRAM_SIZE = ABSOLUTE(segment_menu_main_VRAM_END - segment_menu_main_VRAM);
+    __romPos += SIZEOF(.segment_menu_main);
+    segment_menu_main_ROM_END = __romPos;
+    segment_menu_main_ROM_SIZE = ABSOLUTE(segment_menu_main_ROM_END - segment_menu_main_ROM_START);
 
     segment_menu_name_ROM_START = __romPos;
     segment_menu_name_VRAM = ADDR(.segment_menu_name);
+    segment_menu_name_alloc_VRAM = .;
     .segment_menu_name 0x00000000 : AT(segment_menu_name_ROM_START) SUBALIGN(16)
     {
         segment_menu_name_text_START = .;
@@ -4028,25 +5073,43 @@ SECTIONS
         segment_menu_name_sdata_END = .;
         segment_menu_name_sdata_SIZE = ABSOLUTE(segment_menu_name_sdata_END - segment_menu_name_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_name);
-    segment_menu_name_ROM_END = __romPos;
+    segment_menu_name_alloc_VRAM_END = .;
+    segment_menu_name_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_name_alloc_VRAM_END - segment_menu_name_alloc_VRAM);
+
+    segment_menu_name_noload_VRAM = .;
     .segment_menu_name.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_name_bss_START = .;
+        segment_menu_name_sbss_START = .;
         build/us/src/assets/menu/menu_name.o(.sbss*);
+        segment_menu_name_sbss_END = .;
+        segment_menu_name_sbss_SIZE = ABSOLUTE(segment_menu_name_sbss_END - segment_menu_name_sbss_START);
 
+        segment_menu_name_scommon_START = .;
         build/us/src/assets/menu/menu_name.o(.scommon*);
+        segment_menu_name_scommon_END = .;
+        segment_menu_name_scommon_SIZE = ABSOLUTE(segment_menu_name_scommon_END - segment_menu_name_scommon_START);
 
+        segment_menu_name_bss_START = .;
         build/us/src/assets/menu/menu_name.o(.bss*);
-
-        build/us/src/assets/menu/menu_name.o(COMMON*);
         segment_menu_name_bss_END = .;
         segment_menu_name_bss_SIZE = ABSOLUTE(segment_menu_name_bss_END - segment_menu_name_bss_START);
+
+        segment_menu_nameCOMMON_START = .;
+        build/us/src/assets/menu/menu_name.o(COMMON*);
+        segment_menu_nameCOMMON_END = .;
+        segment_menu_nameCOMMON_SIZE = ABSOLUTE(segment_menu_nameCOMMON_END - segment_menu_nameCOMMON_START);
     }
+    segment_menu_name_noload_VRAM_END = .;
+    segment_menu_name_noload_VRAM_SIZE = ABSOLUTE(segment_menu_name_noload_VRAM_END - segment_menu_name_noload_VRAM);
     segment_menu_name_VRAM_END = .;
+    segment_menu_name_VRAM_SIZE = ABSOLUTE(segment_menu_name_VRAM_END - segment_menu_name_VRAM);
+    __romPos += SIZEOF(.segment_menu_name);
+    segment_menu_name_ROM_END = __romPos;
+    segment_menu_name_ROM_SIZE = ABSOLUTE(segment_menu_name_ROM_END - segment_menu_name_ROM_START);
 
     segment_menu_p2_ROM_START = __romPos;
     segment_menu_p2_VRAM = ADDR(.segment_menu_p2);
+    segment_menu_p2_alloc_VRAM = .;
     .segment_menu_p2 0x00000000 : AT(segment_menu_p2_ROM_START) SUBALIGN(16)
     {
         segment_menu_p2_text_START = .;
@@ -4069,25 +5132,43 @@ SECTIONS
         segment_menu_p2_sdata_END = .;
         segment_menu_p2_sdata_SIZE = ABSOLUTE(segment_menu_p2_sdata_END - segment_menu_p2_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_p2);
-    segment_menu_p2_ROM_END = __romPos;
+    segment_menu_p2_alloc_VRAM_END = .;
+    segment_menu_p2_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_p2_alloc_VRAM_END - segment_menu_p2_alloc_VRAM);
+
+    segment_menu_p2_noload_VRAM = .;
     .segment_menu_p2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_p2_bss_START = .;
+        segment_menu_p2_sbss_START = .;
         build/us/src/assets/menu/menu_p2.o(.sbss*);
+        segment_menu_p2_sbss_END = .;
+        segment_menu_p2_sbss_SIZE = ABSOLUTE(segment_menu_p2_sbss_END - segment_menu_p2_sbss_START);
 
+        segment_menu_p2_scommon_START = .;
         build/us/src/assets/menu/menu_p2.o(.scommon*);
+        segment_menu_p2_scommon_END = .;
+        segment_menu_p2_scommon_SIZE = ABSOLUTE(segment_menu_p2_scommon_END - segment_menu_p2_scommon_START);
 
+        segment_menu_p2_bss_START = .;
         build/us/src/assets/menu/menu_p2.o(.bss*);
-
-        build/us/src/assets/menu/menu_p2.o(COMMON*);
         segment_menu_p2_bss_END = .;
         segment_menu_p2_bss_SIZE = ABSOLUTE(segment_menu_p2_bss_END - segment_menu_p2_bss_START);
+
+        segment_menu_p2COMMON_START = .;
+        build/us/src/assets/menu/menu_p2.o(COMMON*);
+        segment_menu_p2COMMON_END = .;
+        segment_menu_p2COMMON_SIZE = ABSOLUTE(segment_menu_p2COMMON_END - segment_menu_p2COMMON_START);
     }
+    segment_menu_p2_noload_VRAM_END = .;
+    segment_menu_p2_noload_VRAM_SIZE = ABSOLUTE(segment_menu_p2_noload_VRAM_END - segment_menu_p2_noload_VRAM);
     segment_menu_p2_VRAM_END = .;
+    segment_menu_p2_VRAM_SIZE = ABSOLUTE(segment_menu_p2_VRAM_END - segment_menu_p2_VRAM);
+    __romPos += SIZEOF(.segment_menu_p2);
+    segment_menu_p2_ROM_END = __romPos;
+    segment_menu_p2_ROM_SIZE = ABSOLUTE(segment_menu_p2_ROM_END - segment_menu_p2_ROM_START);
 
     segment_menu_p4_ROM_START = __romPos;
     segment_menu_p4_VRAM = ADDR(.segment_menu_p4);
+    segment_menu_p4_alloc_VRAM = .;
     .segment_menu_p4 0x00000000 : AT(segment_menu_p4_ROM_START) SUBALIGN(16)
     {
         segment_menu_p4_text_START = .;
@@ -4110,25 +5191,43 @@ SECTIONS
         segment_menu_p4_sdata_END = .;
         segment_menu_p4_sdata_SIZE = ABSOLUTE(segment_menu_p4_sdata_END - segment_menu_p4_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_p4);
-    segment_menu_p4_ROM_END = __romPos;
+    segment_menu_p4_alloc_VRAM_END = .;
+    segment_menu_p4_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_p4_alloc_VRAM_END - segment_menu_p4_alloc_VRAM);
+
+    segment_menu_p4_noload_VRAM = .;
     .segment_menu_p4.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_p4_bss_START = .;
+        segment_menu_p4_sbss_START = .;
         build/us/src/assets/menu/menu_p4.o(.sbss*);
+        segment_menu_p4_sbss_END = .;
+        segment_menu_p4_sbss_SIZE = ABSOLUTE(segment_menu_p4_sbss_END - segment_menu_p4_sbss_START);
 
+        segment_menu_p4_scommon_START = .;
         build/us/src/assets/menu/menu_p4.o(.scommon*);
+        segment_menu_p4_scommon_END = .;
+        segment_menu_p4_scommon_SIZE = ABSOLUTE(segment_menu_p4_scommon_END - segment_menu_p4_scommon_START);
 
+        segment_menu_p4_bss_START = .;
         build/us/src/assets/menu/menu_p4.o(.bss*);
-
-        build/us/src/assets/menu/menu_p4.o(COMMON*);
         segment_menu_p4_bss_END = .;
         segment_menu_p4_bss_SIZE = ABSOLUTE(segment_menu_p4_bss_END - segment_menu_p4_bss_START);
+
+        segment_menu_p4COMMON_START = .;
+        build/us/src/assets/menu/menu_p4.o(COMMON*);
+        segment_menu_p4COMMON_END = .;
+        segment_menu_p4COMMON_SIZE = ABSOLUTE(segment_menu_p4COMMON_END - segment_menu_p4COMMON_START);
     }
+    segment_menu_p4_noload_VRAM_END = .;
+    segment_menu_p4_noload_VRAM_SIZE = ABSOLUTE(segment_menu_p4_noload_VRAM_END - segment_menu_p4_noload_VRAM);
     segment_menu_p4_VRAM_END = .;
+    segment_menu_p4_VRAM_SIZE = ABSOLUTE(segment_menu_p4_VRAM_END - segment_menu_p4_VRAM);
+    __romPos += SIZEOF(.segment_menu_p4);
+    segment_menu_p4_ROM_END = __romPos;
+    segment_menu_p4_ROM_SIZE = ABSOLUTE(segment_menu_p4_ROM_END - segment_menu_p4_ROM_START);
 
     segment_menu_rank_ROM_START = __romPos;
     segment_menu_rank_VRAM = ADDR(.segment_menu_rank);
+    segment_menu_rank_alloc_VRAM = .;
     .segment_menu_rank 0x00000000 : AT(segment_menu_rank_ROM_START) SUBALIGN(16)
     {
         segment_menu_rank_text_START = .;
@@ -4151,25 +5250,43 @@ SECTIONS
         segment_menu_rank_sdata_END = .;
         segment_menu_rank_sdata_SIZE = ABSOLUTE(segment_menu_rank_sdata_END - segment_menu_rank_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_rank);
-    segment_menu_rank_ROM_END = __romPos;
+    segment_menu_rank_alloc_VRAM_END = .;
+    segment_menu_rank_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_rank_alloc_VRAM_END - segment_menu_rank_alloc_VRAM);
+
+    segment_menu_rank_noload_VRAM = .;
     .segment_menu_rank.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_rank_bss_START = .;
+        segment_menu_rank_sbss_START = .;
         build/us/src/assets/menu/menu_rank.o(.sbss*);
+        segment_menu_rank_sbss_END = .;
+        segment_menu_rank_sbss_SIZE = ABSOLUTE(segment_menu_rank_sbss_END - segment_menu_rank_sbss_START);
 
+        segment_menu_rank_scommon_START = .;
         build/us/src/assets/menu/menu_rank.o(.scommon*);
+        segment_menu_rank_scommon_END = .;
+        segment_menu_rank_scommon_SIZE = ABSOLUTE(segment_menu_rank_scommon_END - segment_menu_rank_scommon_START);
 
+        segment_menu_rank_bss_START = .;
         build/us/src/assets/menu/menu_rank.o(.bss*);
-
-        build/us/src/assets/menu/menu_rank.o(COMMON*);
         segment_menu_rank_bss_END = .;
         segment_menu_rank_bss_SIZE = ABSOLUTE(segment_menu_rank_bss_END - segment_menu_rank_bss_START);
+
+        segment_menu_rankCOMMON_START = .;
+        build/us/src/assets/menu/menu_rank.o(COMMON*);
+        segment_menu_rankCOMMON_END = .;
+        segment_menu_rankCOMMON_SIZE = ABSOLUTE(segment_menu_rankCOMMON_END - segment_menu_rankCOMMON_START);
     }
+    segment_menu_rank_noload_VRAM_END = .;
+    segment_menu_rank_noload_VRAM_SIZE = ABSOLUTE(segment_menu_rank_noload_VRAM_END - segment_menu_rank_noload_VRAM);
     segment_menu_rank_VRAM_END = .;
+    segment_menu_rank_VRAM_SIZE = ABSOLUTE(segment_menu_rank_VRAM_END - segment_menu_rank_VRAM);
+    __romPos += SIZEOF(.segment_menu_rank);
+    segment_menu_rank_ROM_END = __romPos;
+    segment_menu_rank_ROM_SIZE = ABSOLUTE(segment_menu_rank_ROM_END - segment_menu_rank_ROM_START);
 
     segment_menu_setup_ROM_START = __romPos;
     segment_menu_setup_VRAM = ADDR(.segment_menu_setup);
+    segment_menu_setup_alloc_VRAM = .;
     .segment_menu_setup 0x00000000 : AT(segment_menu_setup_ROM_START) SUBALIGN(16)
     {
         segment_menu_setup_text_START = .;
@@ -4192,25 +5309,43 @@ SECTIONS
         segment_menu_setup_sdata_END = .;
         segment_menu_setup_sdata_SIZE = ABSOLUTE(segment_menu_setup_sdata_END - segment_menu_setup_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_setup);
-    segment_menu_setup_ROM_END = __romPos;
+    segment_menu_setup_alloc_VRAM_END = .;
+    segment_menu_setup_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_setup_alloc_VRAM_END - segment_menu_setup_alloc_VRAM);
+
+    segment_menu_setup_noload_VRAM = .;
     .segment_menu_setup.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_setup_bss_START = .;
+        segment_menu_setup_sbss_START = .;
         build/us/src/assets/menu/menu_setup.o(.sbss*);
+        segment_menu_setup_sbss_END = .;
+        segment_menu_setup_sbss_SIZE = ABSOLUTE(segment_menu_setup_sbss_END - segment_menu_setup_sbss_START);
 
+        segment_menu_setup_scommon_START = .;
         build/us/src/assets/menu/menu_setup.o(.scommon*);
+        segment_menu_setup_scommon_END = .;
+        segment_menu_setup_scommon_SIZE = ABSOLUTE(segment_menu_setup_scommon_END - segment_menu_setup_scommon_START);
 
+        segment_menu_setup_bss_START = .;
         build/us/src/assets/menu/menu_setup.o(.bss*);
-
-        build/us/src/assets/menu/menu_setup.o(COMMON*);
         segment_menu_setup_bss_END = .;
         segment_menu_setup_bss_SIZE = ABSOLUTE(segment_menu_setup_bss_END - segment_menu_setup_bss_START);
+
+        segment_menu_setupCOMMON_START = .;
+        build/us/src/assets/menu/menu_setup.o(COMMON*);
+        segment_menu_setupCOMMON_END = .;
+        segment_menu_setupCOMMON_SIZE = ABSOLUTE(segment_menu_setupCOMMON_END - segment_menu_setupCOMMON_START);
     }
+    segment_menu_setup_noload_VRAM_END = .;
+    segment_menu_setup_noload_VRAM_SIZE = ABSOLUTE(segment_menu_setup_noload_VRAM_END - segment_menu_setup_noload_VRAM);
     segment_menu_setup_VRAM_END = .;
+    segment_menu_setup_VRAM_SIZE = ABSOLUTE(segment_menu_setup_VRAM_END - segment_menu_setup_VRAM);
+    __romPos += SIZEOF(.segment_menu_setup);
+    segment_menu_setup_ROM_END = __romPos;
+    segment_menu_setup_ROM_SIZE = ABSOLUTE(segment_menu_setup_ROM_END - segment_menu_setup_ROM_START);
 
     segment_menu_story_ROM_START = __romPos;
     segment_menu_story_VRAM = ADDR(.segment_menu_story);
+    segment_menu_story_alloc_VRAM = .;
     .segment_menu_story 0x00000000 : AT(segment_menu_story_ROM_START) SUBALIGN(16)
     {
         segment_menu_story_text_START = .;
@@ -4233,25 +5368,43 @@ SECTIONS
         segment_menu_story_sdata_END = .;
         segment_menu_story_sdata_SIZE = ABSOLUTE(segment_menu_story_sdata_END - segment_menu_story_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_story);
-    segment_menu_story_ROM_END = __romPos;
+    segment_menu_story_alloc_VRAM_END = .;
+    segment_menu_story_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_story_alloc_VRAM_END - segment_menu_story_alloc_VRAM);
+
+    segment_menu_story_noload_VRAM = .;
     .segment_menu_story.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_story_bss_START = .;
+        segment_menu_story_sbss_START = .;
         build/us/src/assets/menu/menu_story.o(.sbss*);
+        segment_menu_story_sbss_END = .;
+        segment_menu_story_sbss_SIZE = ABSOLUTE(segment_menu_story_sbss_END - segment_menu_story_sbss_START);
 
+        segment_menu_story_scommon_START = .;
         build/us/src/assets/menu/menu_story.o(.scommon*);
+        segment_menu_story_scommon_END = .;
+        segment_menu_story_scommon_SIZE = ABSOLUTE(segment_menu_story_scommon_END - segment_menu_story_scommon_START);
 
+        segment_menu_story_bss_START = .;
         build/us/src/assets/menu/menu_story.o(.bss*);
-
-        build/us/src/assets/menu/menu_story.o(COMMON*);
         segment_menu_story_bss_END = .;
         segment_menu_story_bss_SIZE = ABSOLUTE(segment_menu_story_bss_END - segment_menu_story_bss_START);
+
+        segment_menu_storyCOMMON_START = .;
+        build/us/src/assets/menu/menu_story.o(COMMON*);
+        segment_menu_storyCOMMON_END = .;
+        segment_menu_storyCOMMON_SIZE = ABSOLUTE(segment_menu_storyCOMMON_END - segment_menu_storyCOMMON_START);
     }
+    segment_menu_story_noload_VRAM_END = .;
+    segment_menu_story_noload_VRAM_SIZE = ABSOLUTE(segment_menu_story_noload_VRAM_END - segment_menu_story_noload_VRAM);
     segment_menu_story_VRAM_END = .;
+    segment_menu_story_VRAM_SIZE = ABSOLUTE(segment_menu_story_VRAM_END - segment_menu_story_VRAM);
+    __romPos += SIZEOF(.segment_menu_story);
+    segment_menu_story_ROM_END = __romPos;
+    segment_menu_story_ROM_SIZE = ABSOLUTE(segment_menu_story_ROM_END - segment_menu_story_ROM_START);
 
     segment_menu_cont_ROM_START = __romPos;
     segment_menu_cont_VRAM = ADDR(.segment_menu_cont);
+    segment_menu_cont_alloc_VRAM = .;
     .segment_menu_cont 0x00000000 : AT(segment_menu_cont_ROM_START) SUBALIGN(16)
     {
         segment_menu_cont_text_START = .;
@@ -4274,25 +5427,43 @@ SECTIONS
         segment_menu_cont_sdata_END = .;
         segment_menu_cont_sdata_SIZE = ABSOLUTE(segment_menu_cont_sdata_END - segment_menu_cont_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_cont);
-    segment_menu_cont_ROM_END = __romPos;
+    segment_menu_cont_alloc_VRAM_END = .;
+    segment_menu_cont_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_cont_alloc_VRAM_END - segment_menu_cont_alloc_VRAM);
+
+    segment_menu_cont_noload_VRAM = .;
     .segment_menu_cont.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_cont_bss_START = .;
+        segment_menu_cont_sbss_START = .;
         build/us/src/assets/menu/menu_cont.o(.sbss*);
+        segment_menu_cont_sbss_END = .;
+        segment_menu_cont_sbss_SIZE = ABSOLUTE(segment_menu_cont_sbss_END - segment_menu_cont_sbss_START);
 
+        segment_menu_cont_scommon_START = .;
         build/us/src/assets/menu/menu_cont.o(.scommon*);
+        segment_menu_cont_scommon_END = .;
+        segment_menu_cont_scommon_SIZE = ABSOLUTE(segment_menu_cont_scommon_END - segment_menu_cont_scommon_START);
 
+        segment_menu_cont_bss_START = .;
         build/us/src/assets/menu/menu_cont.o(.bss*);
-
-        build/us/src/assets/menu/menu_cont.o(COMMON*);
         segment_menu_cont_bss_END = .;
         segment_menu_cont_bss_SIZE = ABSOLUTE(segment_menu_cont_bss_END - segment_menu_cont_bss_START);
+
+        segment_menu_contCOMMON_START = .;
+        build/us/src/assets/menu/menu_cont.o(COMMON*);
+        segment_menu_contCOMMON_END = .;
+        segment_menu_contCOMMON_SIZE = ABSOLUTE(segment_menu_contCOMMON_END - segment_menu_contCOMMON_START);
     }
+    segment_menu_cont_noload_VRAM_END = .;
+    segment_menu_cont_noload_VRAM_SIZE = ABSOLUTE(segment_menu_cont_noload_VRAM_END - segment_menu_cont_noload_VRAM);
     segment_menu_cont_VRAM_END = .;
+    segment_menu_cont_VRAM_SIZE = ABSOLUTE(segment_menu_cont_VRAM_END - segment_menu_cont_VRAM);
+    __romPos += SIZEOF(.segment_menu_cont);
+    segment_menu_cont_ROM_END = __romPos;
+    segment_menu_cont_ROM_SIZE = ABSOLUTE(segment_menu_cont_ROM_END - segment_menu_cont_ROM_START);
 
     segment_menu_kasa_ROM_START = __romPos;
     segment_menu_kasa_VRAM = ADDR(.segment_menu_kasa);
+    segment_menu_kasa_alloc_VRAM = .;
     .segment_menu_kasa 0x00000000 : AT(segment_menu_kasa_ROM_START) SUBALIGN(16)
     {
         segment_menu_kasa_text_START = .;
@@ -4315,25 +5486,43 @@ SECTIONS
         segment_menu_kasa_sdata_END = .;
         segment_menu_kasa_sdata_SIZE = ABSOLUTE(segment_menu_kasa_sdata_END - segment_menu_kasa_sdata_START);
     }
-    __romPos += SIZEOF(.segment_menu_kasa);
-    segment_menu_kasa_ROM_END = __romPos;
+    segment_menu_kasa_alloc_VRAM_END = .;
+    segment_menu_kasa_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_alloc_VRAM_END - segment_menu_kasa_alloc_VRAM);
+
+    segment_menu_kasa_noload_VRAM = .;
     .segment_menu_kasa.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_kasa_bss_START = .;
+        segment_menu_kasa_sbss_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sbss*);
+        segment_menu_kasa_sbss_END = .;
+        segment_menu_kasa_sbss_SIZE = ABSOLUTE(segment_menu_kasa_sbss_END - segment_menu_kasa_sbss_START);
 
+        segment_menu_kasa_scommon_START = .;
         build/us/src/assets/menu/menu_kasa.o(.scommon*);
+        segment_menu_kasa_scommon_END = .;
+        segment_menu_kasa_scommon_SIZE = ABSOLUTE(segment_menu_kasa_scommon_END - segment_menu_kasa_scommon_START);
 
+        segment_menu_kasa_bss_START = .;
         build/us/src/assets/menu/menu_kasa.o(.bss*);
-
-        build/us/src/assets/menu/menu_kasa.o(COMMON*);
         segment_menu_kasa_bss_END = .;
         segment_menu_kasa_bss_SIZE = ABSOLUTE(segment_menu_kasa_bss_END - segment_menu_kasa_bss_START);
+
+        segment_menu_kasaCOMMON_START = .;
+        build/us/src/assets/menu/menu_kasa.o(COMMON*);
+        segment_menu_kasaCOMMON_END = .;
+        segment_menu_kasaCOMMON_SIZE = ABSOLUTE(segment_menu_kasaCOMMON_END - segment_menu_kasaCOMMON_START);
     }
+    segment_menu_kasa_noload_VRAM_END = .;
+    segment_menu_kasa_noload_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_noload_VRAM_END - segment_menu_kasa_noload_VRAM);
     segment_menu_kasa_VRAM_END = .;
+    segment_menu_kasa_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_VRAM_END - segment_menu_kasa_VRAM);
+    __romPos += SIZEOF(.segment_menu_kasa);
+    segment_menu_kasa_ROM_END = __romPos;
+    segment_menu_kasa_ROM_SIZE = ABSOLUTE(segment_menu_kasa_ROM_END - segment_menu_kasa_ROM_START);
 
     segment_game_al_ROM_START = __romPos;
     segment_game_al_VRAM = ADDR(.segment_game_al);
+    segment_game_al_alloc_VRAM = .;
     .segment_game_al 0x00000000 : AT(segment_game_al_ROM_START) SUBALIGN(16)
     {
         segment_game_al_text_START = .;
@@ -4356,25 +5545,43 @@ SECTIONS
         segment_game_al_sdata_END = .;
         segment_game_al_sdata_SIZE = ABSOLUTE(segment_game_al_sdata_END - segment_game_al_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_al);
-    segment_game_al_ROM_END = __romPos;
+    segment_game_al_alloc_VRAM_END = .;
+    segment_game_al_alloc_VRAM_SIZE = ABSOLUTE(segment_game_al_alloc_VRAM_END - segment_game_al_alloc_VRAM);
+
+    segment_game_al_noload_VRAM = .;
     .segment_game_al.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_al_bss_START = .;
+        segment_game_al_sbss_START = .;
         build/us/src/assets/game/game_al.o(.sbss*);
+        segment_game_al_sbss_END = .;
+        segment_game_al_sbss_SIZE = ABSOLUTE(segment_game_al_sbss_END - segment_game_al_sbss_START);
 
+        segment_game_al_scommon_START = .;
         build/us/src/assets/game/game_al.o(.scommon*);
+        segment_game_al_scommon_END = .;
+        segment_game_al_scommon_SIZE = ABSOLUTE(segment_game_al_scommon_END - segment_game_al_scommon_START);
 
+        segment_game_al_bss_START = .;
         build/us/src/assets/game/game_al.o(.bss*);
-
-        build/us/src/assets/game/game_al.o(COMMON*);
         segment_game_al_bss_END = .;
         segment_game_al_bss_SIZE = ABSOLUTE(segment_game_al_bss_END - segment_game_al_bss_START);
+
+        segment_game_alCOMMON_START = .;
+        build/us/src/assets/game/game_al.o(COMMON*);
+        segment_game_alCOMMON_END = .;
+        segment_game_alCOMMON_SIZE = ABSOLUTE(segment_game_alCOMMON_END - segment_game_alCOMMON_START);
     }
+    segment_game_al_noload_VRAM_END = .;
+    segment_game_al_noload_VRAM_SIZE = ABSOLUTE(segment_game_al_noload_VRAM_END - segment_game_al_noload_VRAM);
     segment_game_al_VRAM_END = .;
+    segment_game_al_VRAM_SIZE = ABSOLUTE(segment_game_al_VRAM_END - segment_game_al_VRAM);
+    __romPos += SIZEOF(.segment_game_al);
+    segment_game_al_ROM_END = __romPos;
+    segment_game_al_ROM_SIZE = ABSOLUTE(segment_game_al_ROM_END - segment_game_al_ROM_START);
 
     segment_game_p1_ROM_START = __romPos;
     segment_game_p1_VRAM = ADDR(.segment_game_p1);
+    segment_game_p1_alloc_VRAM = .;
     .segment_game_p1 0x00000000 : AT(segment_game_p1_ROM_START) SUBALIGN(16)
     {
         segment_game_p1_text_START = .;
@@ -4397,25 +5604,43 @@ SECTIONS
         segment_game_p1_sdata_END = .;
         segment_game_p1_sdata_SIZE = ABSOLUTE(segment_game_p1_sdata_END - segment_game_p1_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_p1);
-    segment_game_p1_ROM_END = __romPos;
+    segment_game_p1_alloc_VRAM_END = .;
+    segment_game_p1_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p1_alloc_VRAM_END - segment_game_p1_alloc_VRAM);
+
+    segment_game_p1_noload_VRAM = .;
     .segment_game_p1.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p1_bss_START = .;
+        segment_game_p1_sbss_START = .;
         build/us/src/assets/game/game_p1.o(.sbss*);
+        segment_game_p1_sbss_END = .;
+        segment_game_p1_sbss_SIZE = ABSOLUTE(segment_game_p1_sbss_END - segment_game_p1_sbss_START);
 
+        segment_game_p1_scommon_START = .;
         build/us/src/assets/game/game_p1.o(.scommon*);
+        segment_game_p1_scommon_END = .;
+        segment_game_p1_scommon_SIZE = ABSOLUTE(segment_game_p1_scommon_END - segment_game_p1_scommon_START);
 
+        segment_game_p1_bss_START = .;
         build/us/src/assets/game/game_p1.o(.bss*);
-
-        build/us/src/assets/game/game_p1.o(COMMON*);
         segment_game_p1_bss_END = .;
         segment_game_p1_bss_SIZE = ABSOLUTE(segment_game_p1_bss_END - segment_game_p1_bss_START);
+
+        segment_game_p1COMMON_START = .;
+        build/us/src/assets/game/game_p1.o(COMMON*);
+        segment_game_p1COMMON_END = .;
+        segment_game_p1COMMON_SIZE = ABSOLUTE(segment_game_p1COMMON_END - segment_game_p1COMMON_START);
     }
+    segment_game_p1_noload_VRAM_END = .;
+    segment_game_p1_noload_VRAM_SIZE = ABSOLUTE(segment_game_p1_noload_VRAM_END - segment_game_p1_noload_VRAM);
     segment_game_p1_VRAM_END = .;
+    segment_game_p1_VRAM_SIZE = ABSOLUTE(segment_game_p1_VRAM_END - segment_game_p1_VRAM);
+    __romPos += SIZEOF(.segment_game_p1);
+    segment_game_p1_ROM_END = __romPos;
+    segment_game_p1_ROM_SIZE = ABSOLUTE(segment_game_p1_ROM_END - segment_game_p1_ROM_START);
 
     segment_game_p2_ROM_START = __romPos;
     segment_game_p2_VRAM = ADDR(.segment_game_p2);
+    segment_game_p2_alloc_VRAM = .;
     .segment_game_p2 0x00000000 : AT(segment_game_p2_ROM_START) SUBALIGN(16)
     {
         segment_game_p2_text_START = .;
@@ -4438,25 +5663,43 @@ SECTIONS
         segment_game_p2_sdata_END = .;
         segment_game_p2_sdata_SIZE = ABSOLUTE(segment_game_p2_sdata_END - segment_game_p2_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_p2);
-    segment_game_p2_ROM_END = __romPos;
+    segment_game_p2_alloc_VRAM_END = .;
+    segment_game_p2_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p2_alloc_VRAM_END - segment_game_p2_alloc_VRAM);
+
+    segment_game_p2_noload_VRAM = .;
     .segment_game_p2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p2_bss_START = .;
+        segment_game_p2_sbss_START = .;
         build/us/src/assets/game/game_p2.o(.sbss*);
+        segment_game_p2_sbss_END = .;
+        segment_game_p2_sbss_SIZE = ABSOLUTE(segment_game_p2_sbss_END - segment_game_p2_sbss_START);
 
+        segment_game_p2_scommon_START = .;
         build/us/src/assets/game/game_p2.o(.scommon*);
+        segment_game_p2_scommon_END = .;
+        segment_game_p2_scommon_SIZE = ABSOLUTE(segment_game_p2_scommon_END - segment_game_p2_scommon_START);
 
+        segment_game_p2_bss_START = .;
         build/us/src/assets/game/game_p2.o(.bss*);
-
-        build/us/src/assets/game/game_p2.o(COMMON*);
         segment_game_p2_bss_END = .;
         segment_game_p2_bss_SIZE = ABSOLUTE(segment_game_p2_bss_END - segment_game_p2_bss_START);
+
+        segment_game_p2COMMON_START = .;
+        build/us/src/assets/game/game_p2.o(COMMON*);
+        segment_game_p2COMMON_END = .;
+        segment_game_p2COMMON_SIZE = ABSOLUTE(segment_game_p2COMMON_END - segment_game_p2COMMON_START);
     }
+    segment_game_p2_noload_VRAM_END = .;
+    segment_game_p2_noload_VRAM_SIZE = ABSOLUTE(segment_game_p2_noload_VRAM_END - segment_game_p2_noload_VRAM);
     segment_game_p2_VRAM_END = .;
+    segment_game_p2_VRAM_SIZE = ABSOLUTE(segment_game_p2_VRAM_END - segment_game_p2_VRAM);
+    __romPos += SIZEOF(.segment_game_p2);
+    segment_game_p2_ROM_END = __romPos;
+    segment_game_p2_ROM_SIZE = ABSOLUTE(segment_game_p2_ROM_END - segment_game_p2_ROM_START);
 
     segment_game_p4_ROM_START = __romPos;
     segment_game_p4_VRAM = ADDR(.segment_game_p4);
+    segment_game_p4_alloc_VRAM = .;
     .segment_game_p4 0x00000000 : AT(segment_game_p4_ROM_START) SUBALIGN(16)
     {
         segment_game_p4_text_START = .;
@@ -4479,25 +5722,43 @@ SECTIONS
         segment_game_p4_sdata_END = .;
         segment_game_p4_sdata_SIZE = ABSOLUTE(segment_game_p4_sdata_END - segment_game_p4_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_p4);
-    segment_game_p4_ROM_END = __romPos;
+    segment_game_p4_alloc_VRAM_END = .;
+    segment_game_p4_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p4_alloc_VRAM_END - segment_game_p4_alloc_VRAM);
+
+    segment_game_p4_noload_VRAM = .;
     .segment_game_p4.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p4_bss_START = .;
+        segment_game_p4_sbss_START = .;
         build/us/src/assets/game/game_p4.o(.sbss*);
+        segment_game_p4_sbss_END = .;
+        segment_game_p4_sbss_SIZE = ABSOLUTE(segment_game_p4_sbss_END - segment_game_p4_sbss_START);
 
+        segment_game_p4_scommon_START = .;
         build/us/src/assets/game/game_p4.o(.scommon*);
+        segment_game_p4_scommon_END = .;
+        segment_game_p4_scommon_SIZE = ABSOLUTE(segment_game_p4_scommon_END - segment_game_p4_scommon_START);
 
+        segment_game_p4_bss_START = .;
         build/us/src/assets/game/game_p4.o(.bss*);
-
-        build/us/src/assets/game/game_p4.o(COMMON*);
         segment_game_p4_bss_END = .;
         segment_game_p4_bss_SIZE = ABSOLUTE(segment_game_p4_bss_END - segment_game_p4_bss_START);
+
+        segment_game_p4COMMON_START = .;
+        build/us/src/assets/game/game_p4.o(COMMON*);
+        segment_game_p4COMMON_END = .;
+        segment_game_p4COMMON_SIZE = ABSOLUTE(segment_game_p4COMMON_END - segment_game_p4COMMON_START);
     }
+    segment_game_p4_noload_VRAM_END = .;
+    segment_game_p4_noload_VRAM_SIZE = ABSOLUTE(segment_game_p4_noload_VRAM_END - segment_game_p4_noload_VRAM);
     segment_game_p4_VRAM_END = .;
+    segment_game_p4_VRAM_SIZE = ABSOLUTE(segment_game_p4_VRAM_END - segment_game_p4_VRAM);
+    __romPos += SIZEOF(.segment_game_p4);
+    segment_game_p4_ROM_END = __romPos;
+    segment_game_p4_ROM_SIZE = ABSOLUTE(segment_game_p4_ROM_END - segment_game_p4_ROM_START);
 
     segment_game_ls_ROM_START = __romPos;
     segment_game_ls_VRAM = ADDR(.segment_game_ls);
+    segment_game_ls_alloc_VRAM = .;
     .segment_game_ls 0x00000000 : AT(segment_game_ls_ROM_START) SUBALIGN(16)
     {
         segment_game_ls_text_START = .;
@@ -4520,25 +5781,43 @@ SECTIONS
         segment_game_ls_sdata_END = .;
         segment_game_ls_sdata_SIZE = ABSOLUTE(segment_game_ls_sdata_END - segment_game_ls_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_ls);
-    segment_game_ls_ROM_END = __romPos;
+    segment_game_ls_alloc_VRAM_END = .;
+    segment_game_ls_alloc_VRAM_SIZE = ABSOLUTE(segment_game_ls_alloc_VRAM_END - segment_game_ls_alloc_VRAM);
+
+    segment_game_ls_noload_VRAM = .;
     .segment_game_ls.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_ls_bss_START = .;
+        segment_game_ls_sbss_START = .;
         build/us/src/assets/game/game_ls.o(.sbss*);
+        segment_game_ls_sbss_END = .;
+        segment_game_ls_sbss_SIZE = ABSOLUTE(segment_game_ls_sbss_END - segment_game_ls_sbss_START);
 
+        segment_game_ls_scommon_START = .;
         build/us/src/assets/game/game_ls.o(.scommon*);
+        segment_game_ls_scommon_END = .;
+        segment_game_ls_scommon_SIZE = ABSOLUTE(segment_game_ls_scommon_END - segment_game_ls_scommon_START);
 
+        segment_game_ls_bss_START = .;
         build/us/src/assets/game/game_ls.o(.bss*);
-
-        build/us/src/assets/game/game_ls.o(COMMON*);
         segment_game_ls_bss_END = .;
         segment_game_ls_bss_SIZE = ABSOLUTE(segment_game_ls_bss_END - segment_game_ls_bss_START);
+
+        segment_game_lsCOMMON_START = .;
+        build/us/src/assets/game/game_ls.o(COMMON*);
+        segment_game_lsCOMMON_END = .;
+        segment_game_lsCOMMON_SIZE = ABSOLUTE(segment_game_lsCOMMON_END - segment_game_lsCOMMON_START);
     }
+    segment_game_ls_noload_VRAM_END = .;
+    segment_game_ls_noload_VRAM_SIZE = ABSOLUTE(segment_game_ls_noload_VRAM_END - segment_game_ls_noload_VRAM);
     segment_game_ls_VRAM_END = .;
+    segment_game_ls_VRAM_SIZE = ABSOLUTE(segment_game_ls_VRAM_END - segment_game_ls_VRAM);
+    __romPos += SIZEOF(.segment_game_ls);
+    segment_game_ls_ROM_END = __romPos;
+    segment_game_ls_ROM_SIZE = ABSOLUTE(segment_game_ls_ROM_END - segment_game_ls_ROM_START);
 
     segment_game_item_ROM_START = __romPos;
     segment_game_item_VRAM = ADDR(.segment_game_item);
+    segment_game_item_alloc_VRAM = .;
     .segment_game_item 0x00000000 : AT(segment_game_item_ROM_START) SUBALIGN(16)
     {
         segment_game_item_text_START = .;
@@ -4561,25 +5840,43 @@ SECTIONS
         segment_game_item_sdata_END = .;
         segment_game_item_sdata_SIZE = ABSOLUTE(segment_game_item_sdata_END - segment_game_item_sdata_START);
     }
-    __romPos += SIZEOF(.segment_game_item);
-    segment_game_item_ROM_END = __romPos;
+    segment_game_item_alloc_VRAM_END = .;
+    segment_game_item_alloc_VRAM_SIZE = ABSOLUTE(segment_game_item_alloc_VRAM_END - segment_game_item_alloc_VRAM);
+
+    segment_game_item_noload_VRAM = .;
     .segment_game_item.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_item_bss_START = .;
+        segment_game_item_sbss_START = .;
         build/us/src/assets/game/game_item.o(.sbss*);
+        segment_game_item_sbss_END = .;
+        segment_game_item_sbss_SIZE = ABSOLUTE(segment_game_item_sbss_END - segment_game_item_sbss_START);
 
+        segment_game_item_scommon_START = .;
         build/us/src/assets/game/game_item.o(.scommon*);
+        segment_game_item_scommon_END = .;
+        segment_game_item_scommon_SIZE = ABSOLUTE(segment_game_item_scommon_END - segment_game_item_scommon_START);
 
+        segment_game_item_bss_START = .;
         build/us/src/assets/game/game_item.o(.bss*);
-
-        build/us/src/assets/game/game_item.o(COMMON*);
         segment_game_item_bss_END = .;
         segment_game_item_bss_SIZE = ABSOLUTE(segment_game_item_bss_END - segment_game_item_bss_START);
+
+        segment_game_itemCOMMON_START = .;
+        build/us/src/assets/game/game_item.o(COMMON*);
+        segment_game_itemCOMMON_END = .;
+        segment_game_itemCOMMON_SIZE = ABSOLUTE(segment_game_itemCOMMON_END - segment_game_itemCOMMON_START);
     }
+    segment_game_item_noload_VRAM_END = .;
+    segment_game_item_noload_VRAM_SIZE = ABSOLUTE(segment_game_item_noload_VRAM_END - segment_game_item_noload_VRAM);
     segment_game_item_VRAM_END = .;
+    segment_game_item_VRAM_SIZE = ABSOLUTE(segment_game_item_VRAM_END - segment_game_item_VRAM);
+    __romPos += SIZEOF(.segment_game_item);
+    segment_game_item_ROM_END = __romPos;
+    segment_game_item_ROM_SIZE = ABSOLUTE(segment_game_item_ROM_END - segment_game_item_ROM_START);
 
     segment_anime_a_ROM_START = __romPos;
     segment_anime_a_VRAM = ADDR(.segment_anime_a);
+    segment_anime_a_alloc_VRAM = .;
     .segment_anime_a 0x00000000 : AT(segment_anime_a_ROM_START) SUBALIGN(16)
     {
         segment_anime_a_text_START = .;
@@ -4602,25 +5899,43 @@ SECTIONS
         segment_anime_a_sdata_END = .;
         segment_anime_a_sdata_SIZE = ABSOLUTE(segment_anime_a_sdata_END - segment_anime_a_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_a);
-    segment_anime_a_ROM_END = __romPos;
+    segment_anime_a_alloc_VRAM_END = .;
+    segment_anime_a_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_a_alloc_VRAM_END - segment_anime_a_alloc_VRAM);
+
+    segment_anime_a_noload_VRAM = .;
     .segment_anime_a.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_a_bss_START = .;
+        segment_anime_a_sbss_START = .;
         build/us/src/assets/anime/anime_a.o(.sbss*);
+        segment_anime_a_sbss_END = .;
+        segment_anime_a_sbss_SIZE = ABSOLUTE(segment_anime_a_sbss_END - segment_anime_a_sbss_START);
 
+        segment_anime_a_scommon_START = .;
         build/us/src/assets/anime/anime_a.o(.scommon*);
+        segment_anime_a_scommon_END = .;
+        segment_anime_a_scommon_SIZE = ABSOLUTE(segment_anime_a_scommon_END - segment_anime_a_scommon_START);
 
+        segment_anime_a_bss_START = .;
         build/us/src/assets/anime/anime_a.o(.bss*);
-
-        build/us/src/assets/anime/anime_a.o(COMMON*);
         segment_anime_a_bss_END = .;
         segment_anime_a_bss_SIZE = ABSOLUTE(segment_anime_a_bss_END - segment_anime_a_bss_START);
+
+        segment_anime_aCOMMON_START = .;
+        build/us/src/assets/anime/anime_a.o(COMMON*);
+        segment_anime_aCOMMON_END = .;
+        segment_anime_aCOMMON_SIZE = ABSOLUTE(segment_anime_aCOMMON_END - segment_anime_aCOMMON_START);
     }
+    segment_anime_a_noload_VRAM_END = .;
+    segment_anime_a_noload_VRAM_SIZE = ABSOLUTE(segment_anime_a_noload_VRAM_END - segment_anime_a_noload_VRAM);
     segment_anime_a_VRAM_END = .;
+    segment_anime_a_VRAM_SIZE = ABSOLUTE(segment_anime_a_VRAM_END - segment_anime_a_VRAM);
+    __romPos += SIZEOF(.segment_anime_a);
+    segment_anime_a_ROM_END = __romPos;
+    segment_anime_a_ROM_SIZE = ABSOLUTE(segment_anime_a_ROM_END - segment_anime_a_ROM_START);
 
     segment_anime_b_ROM_START = __romPos;
     segment_anime_b_VRAM = ADDR(.segment_anime_b);
+    segment_anime_b_alloc_VRAM = .;
     .segment_anime_b 0x00000000 : AT(segment_anime_b_ROM_START) SUBALIGN(16)
     {
         segment_anime_b_text_START = .;
@@ -4643,25 +5958,43 @@ SECTIONS
         segment_anime_b_sdata_END = .;
         segment_anime_b_sdata_SIZE = ABSOLUTE(segment_anime_b_sdata_END - segment_anime_b_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_b);
-    segment_anime_b_ROM_END = __romPos;
+    segment_anime_b_alloc_VRAM_END = .;
+    segment_anime_b_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_b_alloc_VRAM_END - segment_anime_b_alloc_VRAM);
+
+    segment_anime_b_noload_VRAM = .;
     .segment_anime_b.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_b_bss_START = .;
+        segment_anime_b_sbss_START = .;
         build/us/src/assets/anime/anime_b.o(.sbss*);
+        segment_anime_b_sbss_END = .;
+        segment_anime_b_sbss_SIZE = ABSOLUTE(segment_anime_b_sbss_END - segment_anime_b_sbss_START);
 
+        segment_anime_b_scommon_START = .;
         build/us/src/assets/anime/anime_b.o(.scommon*);
+        segment_anime_b_scommon_END = .;
+        segment_anime_b_scommon_SIZE = ABSOLUTE(segment_anime_b_scommon_END - segment_anime_b_scommon_START);
 
+        segment_anime_b_bss_START = .;
         build/us/src/assets/anime/anime_b.o(.bss*);
-
-        build/us/src/assets/anime/anime_b.o(COMMON*);
         segment_anime_b_bss_END = .;
         segment_anime_b_bss_SIZE = ABSOLUTE(segment_anime_b_bss_END - segment_anime_b_bss_START);
+
+        segment_anime_bCOMMON_START = .;
+        build/us/src/assets/anime/anime_b.o(COMMON*);
+        segment_anime_bCOMMON_END = .;
+        segment_anime_bCOMMON_SIZE = ABSOLUTE(segment_anime_bCOMMON_END - segment_anime_bCOMMON_START);
     }
+    segment_anime_b_noload_VRAM_END = .;
+    segment_anime_b_noload_VRAM_SIZE = ABSOLUTE(segment_anime_b_noload_VRAM_END - segment_anime_b_noload_VRAM);
     segment_anime_b_VRAM_END = .;
+    segment_anime_b_VRAM_SIZE = ABSOLUTE(segment_anime_b_VRAM_END - segment_anime_b_VRAM);
+    __romPos += SIZEOF(.segment_anime_b);
+    segment_anime_b_ROM_END = __romPos;
+    segment_anime_b_ROM_SIZE = ABSOLUTE(segment_anime_b_ROM_END - segment_anime_b_ROM_START);
 
     segment_anime_c_ROM_START = __romPos;
     segment_anime_c_VRAM = ADDR(.segment_anime_c);
+    segment_anime_c_alloc_VRAM = .;
     .segment_anime_c 0x00000000 : AT(segment_anime_c_ROM_START) SUBALIGN(16)
     {
         segment_anime_c_text_START = .;
@@ -4684,25 +6017,43 @@ SECTIONS
         segment_anime_c_sdata_END = .;
         segment_anime_c_sdata_SIZE = ABSOLUTE(segment_anime_c_sdata_END - segment_anime_c_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_c);
-    segment_anime_c_ROM_END = __romPos;
+    segment_anime_c_alloc_VRAM_END = .;
+    segment_anime_c_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_c_alloc_VRAM_END - segment_anime_c_alloc_VRAM);
+
+    segment_anime_c_noload_VRAM = .;
     .segment_anime_c.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_c_bss_START = .;
+        segment_anime_c_sbss_START = .;
         build/us/src/assets/anime/anime_c.o(.sbss*);
+        segment_anime_c_sbss_END = .;
+        segment_anime_c_sbss_SIZE = ABSOLUTE(segment_anime_c_sbss_END - segment_anime_c_sbss_START);
 
+        segment_anime_c_scommon_START = .;
         build/us/src/assets/anime/anime_c.o(.scommon*);
+        segment_anime_c_scommon_END = .;
+        segment_anime_c_scommon_SIZE = ABSOLUTE(segment_anime_c_scommon_END - segment_anime_c_scommon_START);
 
+        segment_anime_c_bss_START = .;
         build/us/src/assets/anime/anime_c.o(.bss*);
-
-        build/us/src/assets/anime/anime_c.o(COMMON*);
         segment_anime_c_bss_END = .;
         segment_anime_c_bss_SIZE = ABSOLUTE(segment_anime_c_bss_END - segment_anime_c_bss_START);
+
+        segment_anime_cCOMMON_START = .;
+        build/us/src/assets/anime/anime_c.o(COMMON*);
+        segment_anime_cCOMMON_END = .;
+        segment_anime_cCOMMON_SIZE = ABSOLUTE(segment_anime_cCOMMON_END - segment_anime_cCOMMON_START);
     }
+    segment_anime_c_noload_VRAM_END = .;
+    segment_anime_c_noload_VRAM_SIZE = ABSOLUTE(segment_anime_c_noload_VRAM_END - segment_anime_c_noload_VRAM);
     segment_anime_c_VRAM_END = .;
+    segment_anime_c_VRAM_SIZE = ABSOLUTE(segment_anime_c_VRAM_END - segment_anime_c_VRAM);
+    __romPos += SIZEOF(.segment_anime_c);
+    segment_anime_c_ROM_END = __romPos;
+    segment_anime_c_ROM_SIZE = ABSOLUTE(segment_anime_c_ROM_END - segment_anime_c_ROM_START);
 
     segment_anime_d_ROM_START = __romPos;
     segment_anime_d_VRAM = ADDR(.segment_anime_d);
+    segment_anime_d_alloc_VRAM = .;
     .segment_anime_d 0x00000000 : AT(segment_anime_d_ROM_START) SUBALIGN(16)
     {
         segment_anime_d_text_START = .;
@@ -4725,25 +6076,43 @@ SECTIONS
         segment_anime_d_sdata_END = .;
         segment_anime_d_sdata_SIZE = ABSOLUTE(segment_anime_d_sdata_END - segment_anime_d_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_d);
-    segment_anime_d_ROM_END = __romPos;
+    segment_anime_d_alloc_VRAM_END = .;
+    segment_anime_d_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_d_alloc_VRAM_END - segment_anime_d_alloc_VRAM);
+
+    segment_anime_d_noload_VRAM = .;
     .segment_anime_d.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_d_bss_START = .;
+        segment_anime_d_sbss_START = .;
         build/us/src/assets/anime/anime_d.o(.sbss*);
+        segment_anime_d_sbss_END = .;
+        segment_anime_d_sbss_SIZE = ABSOLUTE(segment_anime_d_sbss_END - segment_anime_d_sbss_START);
 
+        segment_anime_d_scommon_START = .;
         build/us/src/assets/anime/anime_d.o(.scommon*);
+        segment_anime_d_scommon_END = .;
+        segment_anime_d_scommon_SIZE = ABSOLUTE(segment_anime_d_scommon_END - segment_anime_d_scommon_START);
 
+        segment_anime_d_bss_START = .;
         build/us/src/assets/anime/anime_d.o(.bss*);
-
-        build/us/src/assets/anime/anime_d.o(COMMON*);
         segment_anime_d_bss_END = .;
         segment_anime_d_bss_SIZE = ABSOLUTE(segment_anime_d_bss_END - segment_anime_d_bss_START);
+
+        segment_anime_dCOMMON_START = .;
+        build/us/src/assets/anime/anime_d.o(COMMON*);
+        segment_anime_dCOMMON_END = .;
+        segment_anime_dCOMMON_SIZE = ABSOLUTE(segment_anime_dCOMMON_END - segment_anime_dCOMMON_START);
     }
+    segment_anime_d_noload_VRAM_END = .;
+    segment_anime_d_noload_VRAM_SIZE = ABSOLUTE(segment_anime_d_noload_VRAM_END - segment_anime_d_noload_VRAM);
     segment_anime_d_VRAM_END = .;
+    segment_anime_d_VRAM_SIZE = ABSOLUTE(segment_anime_d_VRAM_END - segment_anime_d_VRAM);
+    __romPos += SIZEOF(.segment_anime_d);
+    segment_anime_d_ROM_END = __romPos;
+    segment_anime_d_ROM_SIZE = ABSOLUTE(segment_anime_d_ROM_END - segment_anime_d_ROM_START);
 
     segment_anime_e_ROM_START = __romPos;
     segment_anime_e_VRAM = ADDR(.segment_anime_e);
+    segment_anime_e_alloc_VRAM = .;
     .segment_anime_e 0x00000000 : AT(segment_anime_e_ROM_START) SUBALIGN(16)
     {
         segment_anime_e_text_START = .;
@@ -4766,25 +6135,43 @@ SECTIONS
         segment_anime_e_sdata_END = .;
         segment_anime_e_sdata_SIZE = ABSOLUTE(segment_anime_e_sdata_END - segment_anime_e_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_e);
-    segment_anime_e_ROM_END = __romPos;
+    segment_anime_e_alloc_VRAM_END = .;
+    segment_anime_e_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_e_alloc_VRAM_END - segment_anime_e_alloc_VRAM);
+
+    segment_anime_e_noload_VRAM = .;
     .segment_anime_e.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_e_bss_START = .;
+        segment_anime_e_sbss_START = .;
         build/us/src/assets/anime/anime_e.o(.sbss*);
+        segment_anime_e_sbss_END = .;
+        segment_anime_e_sbss_SIZE = ABSOLUTE(segment_anime_e_sbss_END - segment_anime_e_sbss_START);
 
+        segment_anime_e_scommon_START = .;
         build/us/src/assets/anime/anime_e.o(.scommon*);
+        segment_anime_e_scommon_END = .;
+        segment_anime_e_scommon_SIZE = ABSOLUTE(segment_anime_e_scommon_END - segment_anime_e_scommon_START);
 
+        segment_anime_e_bss_START = .;
         build/us/src/assets/anime/anime_e.o(.bss*);
-
-        build/us/src/assets/anime/anime_e.o(COMMON*);
         segment_anime_e_bss_END = .;
         segment_anime_e_bss_SIZE = ABSOLUTE(segment_anime_e_bss_END - segment_anime_e_bss_START);
+
+        segment_anime_eCOMMON_START = .;
+        build/us/src/assets/anime/anime_e.o(COMMON*);
+        segment_anime_eCOMMON_END = .;
+        segment_anime_eCOMMON_SIZE = ABSOLUTE(segment_anime_eCOMMON_END - segment_anime_eCOMMON_START);
     }
+    segment_anime_e_noload_VRAM_END = .;
+    segment_anime_e_noload_VRAM_SIZE = ABSOLUTE(segment_anime_e_noload_VRAM_END - segment_anime_e_noload_VRAM);
     segment_anime_e_VRAM_END = .;
+    segment_anime_e_VRAM_SIZE = ABSOLUTE(segment_anime_e_VRAM_END - segment_anime_e_VRAM);
+    __romPos += SIZEOF(.segment_anime_e);
+    segment_anime_e_ROM_END = __romPos;
+    segment_anime_e_ROM_SIZE = ABSOLUTE(segment_anime_e_ROM_END - segment_anime_e_ROM_START);
 
     segment_anime_f_ROM_START = __romPos;
     segment_anime_f_VRAM = ADDR(.segment_anime_f);
+    segment_anime_f_alloc_VRAM = .;
     .segment_anime_f 0x00000000 : AT(segment_anime_f_ROM_START) SUBALIGN(16)
     {
         segment_anime_f_text_START = .;
@@ -4807,25 +6194,43 @@ SECTIONS
         segment_anime_f_sdata_END = .;
         segment_anime_f_sdata_SIZE = ABSOLUTE(segment_anime_f_sdata_END - segment_anime_f_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_f);
-    segment_anime_f_ROM_END = __romPos;
+    segment_anime_f_alloc_VRAM_END = .;
+    segment_anime_f_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_f_alloc_VRAM_END - segment_anime_f_alloc_VRAM);
+
+    segment_anime_f_noload_VRAM = .;
     .segment_anime_f.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_f_bss_START = .;
+        segment_anime_f_sbss_START = .;
         build/us/src/assets/anime/anime_f.o(.sbss*);
+        segment_anime_f_sbss_END = .;
+        segment_anime_f_sbss_SIZE = ABSOLUTE(segment_anime_f_sbss_END - segment_anime_f_sbss_START);
 
+        segment_anime_f_scommon_START = .;
         build/us/src/assets/anime/anime_f.o(.scommon*);
+        segment_anime_f_scommon_END = .;
+        segment_anime_f_scommon_SIZE = ABSOLUTE(segment_anime_f_scommon_END - segment_anime_f_scommon_START);
 
+        segment_anime_f_bss_START = .;
         build/us/src/assets/anime/anime_f.o(.bss*);
-
-        build/us/src/assets/anime/anime_f.o(COMMON*);
         segment_anime_f_bss_END = .;
         segment_anime_f_bss_SIZE = ABSOLUTE(segment_anime_f_bss_END - segment_anime_f_bss_START);
+
+        segment_anime_fCOMMON_START = .;
+        build/us/src/assets/anime/anime_f.o(COMMON*);
+        segment_anime_fCOMMON_END = .;
+        segment_anime_fCOMMON_SIZE = ABSOLUTE(segment_anime_fCOMMON_END - segment_anime_fCOMMON_START);
     }
+    segment_anime_f_noload_VRAM_END = .;
+    segment_anime_f_noload_VRAM_SIZE = ABSOLUTE(segment_anime_f_noload_VRAM_END - segment_anime_f_noload_VRAM);
     segment_anime_f_VRAM_END = .;
+    segment_anime_f_VRAM_SIZE = ABSOLUTE(segment_anime_f_VRAM_END - segment_anime_f_VRAM);
+    __romPos += SIZEOF(.segment_anime_f);
+    segment_anime_f_ROM_END = __romPos;
+    segment_anime_f_ROM_SIZE = ABSOLUTE(segment_anime_f_ROM_END - segment_anime_f_ROM_START);
 
     segment_anime_g_ROM_START = __romPos;
     segment_anime_g_VRAM = ADDR(.segment_anime_g);
+    segment_anime_g_alloc_VRAM = .;
     .segment_anime_g 0x00000000 : AT(segment_anime_g_ROM_START) SUBALIGN(16)
     {
         segment_anime_g_text_START = .;
@@ -4848,25 +6253,43 @@ SECTIONS
         segment_anime_g_sdata_END = .;
         segment_anime_g_sdata_SIZE = ABSOLUTE(segment_anime_g_sdata_END - segment_anime_g_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_g);
-    segment_anime_g_ROM_END = __romPos;
+    segment_anime_g_alloc_VRAM_END = .;
+    segment_anime_g_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_g_alloc_VRAM_END - segment_anime_g_alloc_VRAM);
+
+    segment_anime_g_noload_VRAM = .;
     .segment_anime_g.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_g_bss_START = .;
+        segment_anime_g_sbss_START = .;
         build/us/src/assets/anime/anime_g.o(.sbss*);
+        segment_anime_g_sbss_END = .;
+        segment_anime_g_sbss_SIZE = ABSOLUTE(segment_anime_g_sbss_END - segment_anime_g_sbss_START);
 
+        segment_anime_g_scommon_START = .;
         build/us/src/assets/anime/anime_g.o(.scommon*);
+        segment_anime_g_scommon_END = .;
+        segment_anime_g_scommon_SIZE = ABSOLUTE(segment_anime_g_scommon_END - segment_anime_g_scommon_START);
 
+        segment_anime_g_bss_START = .;
         build/us/src/assets/anime/anime_g.o(.bss*);
-
-        build/us/src/assets/anime/anime_g.o(COMMON*);
         segment_anime_g_bss_END = .;
         segment_anime_g_bss_SIZE = ABSOLUTE(segment_anime_g_bss_END - segment_anime_g_bss_START);
+
+        segment_anime_gCOMMON_START = .;
+        build/us/src/assets/anime/anime_g.o(COMMON*);
+        segment_anime_gCOMMON_END = .;
+        segment_anime_gCOMMON_SIZE = ABSOLUTE(segment_anime_gCOMMON_END - segment_anime_gCOMMON_START);
     }
+    segment_anime_g_noload_VRAM_END = .;
+    segment_anime_g_noload_VRAM_SIZE = ABSOLUTE(segment_anime_g_noload_VRAM_END - segment_anime_g_noload_VRAM);
     segment_anime_g_VRAM_END = .;
+    segment_anime_g_VRAM_SIZE = ABSOLUTE(segment_anime_g_VRAM_END - segment_anime_g_VRAM);
+    __romPos += SIZEOF(.segment_anime_g);
+    segment_anime_g_ROM_END = __romPos;
+    segment_anime_g_ROM_SIZE = ABSOLUTE(segment_anime_g_ROM_END - segment_anime_g_ROM_START);
 
     segment_anime_h_ROM_START = __romPos;
     segment_anime_h_VRAM = ADDR(.segment_anime_h);
+    segment_anime_h_alloc_VRAM = .;
     .segment_anime_h 0x00000000 : AT(segment_anime_h_ROM_START) SUBALIGN(16)
     {
         segment_anime_h_text_START = .;
@@ -4889,25 +6312,43 @@ SECTIONS
         segment_anime_h_sdata_END = .;
         segment_anime_h_sdata_SIZE = ABSOLUTE(segment_anime_h_sdata_END - segment_anime_h_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_h);
-    segment_anime_h_ROM_END = __romPos;
+    segment_anime_h_alloc_VRAM_END = .;
+    segment_anime_h_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_h_alloc_VRAM_END - segment_anime_h_alloc_VRAM);
+
+    segment_anime_h_noload_VRAM = .;
     .segment_anime_h.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_h_bss_START = .;
+        segment_anime_h_sbss_START = .;
         build/us/src/assets/anime/anime_h.o(.sbss*);
+        segment_anime_h_sbss_END = .;
+        segment_anime_h_sbss_SIZE = ABSOLUTE(segment_anime_h_sbss_END - segment_anime_h_sbss_START);
 
+        segment_anime_h_scommon_START = .;
         build/us/src/assets/anime/anime_h.o(.scommon*);
+        segment_anime_h_scommon_END = .;
+        segment_anime_h_scommon_SIZE = ABSOLUTE(segment_anime_h_scommon_END - segment_anime_h_scommon_START);
 
+        segment_anime_h_bss_START = .;
         build/us/src/assets/anime/anime_h.o(.bss*);
-
-        build/us/src/assets/anime/anime_h.o(COMMON*);
         segment_anime_h_bss_END = .;
         segment_anime_h_bss_SIZE = ABSOLUTE(segment_anime_h_bss_END - segment_anime_h_bss_START);
+
+        segment_anime_hCOMMON_START = .;
+        build/us/src/assets/anime/anime_h.o(COMMON*);
+        segment_anime_hCOMMON_END = .;
+        segment_anime_hCOMMON_SIZE = ABSOLUTE(segment_anime_hCOMMON_END - segment_anime_hCOMMON_START);
     }
+    segment_anime_h_noload_VRAM_END = .;
+    segment_anime_h_noload_VRAM_SIZE = ABSOLUTE(segment_anime_h_noload_VRAM_END - segment_anime_h_noload_VRAM);
     segment_anime_h_VRAM_END = .;
+    segment_anime_h_VRAM_SIZE = ABSOLUTE(segment_anime_h_VRAM_END - segment_anime_h_VRAM);
+    __romPos += SIZEOF(.segment_anime_h);
+    segment_anime_h_ROM_END = __romPos;
+    segment_anime_h_ROM_SIZE = ABSOLUTE(segment_anime_h_ROM_END - segment_anime_h_ROM_START);
 
     segment_anime_i_ROM_START = __romPos;
     segment_anime_i_VRAM = ADDR(.segment_anime_i);
+    segment_anime_i_alloc_VRAM = .;
     .segment_anime_i 0x00000000 : AT(segment_anime_i_ROM_START) SUBALIGN(16)
     {
         segment_anime_i_text_START = .;
@@ -4930,25 +6371,43 @@ SECTIONS
         segment_anime_i_sdata_END = .;
         segment_anime_i_sdata_SIZE = ABSOLUTE(segment_anime_i_sdata_END - segment_anime_i_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_i);
-    segment_anime_i_ROM_END = __romPos;
+    segment_anime_i_alloc_VRAM_END = .;
+    segment_anime_i_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_i_alloc_VRAM_END - segment_anime_i_alloc_VRAM);
+
+    segment_anime_i_noload_VRAM = .;
     .segment_anime_i.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_i_bss_START = .;
+        segment_anime_i_sbss_START = .;
         build/us/src/assets/anime/anime_i.o(.sbss*);
+        segment_anime_i_sbss_END = .;
+        segment_anime_i_sbss_SIZE = ABSOLUTE(segment_anime_i_sbss_END - segment_anime_i_sbss_START);
 
+        segment_anime_i_scommon_START = .;
         build/us/src/assets/anime/anime_i.o(.scommon*);
+        segment_anime_i_scommon_END = .;
+        segment_anime_i_scommon_SIZE = ABSOLUTE(segment_anime_i_scommon_END - segment_anime_i_scommon_START);
 
+        segment_anime_i_bss_START = .;
         build/us/src/assets/anime/anime_i.o(.bss*);
-
-        build/us/src/assets/anime/anime_i.o(COMMON*);
         segment_anime_i_bss_END = .;
         segment_anime_i_bss_SIZE = ABSOLUTE(segment_anime_i_bss_END - segment_anime_i_bss_START);
+
+        segment_anime_iCOMMON_START = .;
+        build/us/src/assets/anime/anime_i.o(COMMON*);
+        segment_anime_iCOMMON_END = .;
+        segment_anime_iCOMMON_SIZE = ABSOLUTE(segment_anime_iCOMMON_END - segment_anime_iCOMMON_START);
     }
+    segment_anime_i_noload_VRAM_END = .;
+    segment_anime_i_noload_VRAM_SIZE = ABSOLUTE(segment_anime_i_noload_VRAM_END - segment_anime_i_noload_VRAM);
     segment_anime_i_VRAM_END = .;
+    segment_anime_i_VRAM_SIZE = ABSOLUTE(segment_anime_i_VRAM_END - segment_anime_i_VRAM);
+    __romPos += SIZEOF(.segment_anime_i);
+    segment_anime_i_ROM_END = __romPos;
+    segment_anime_i_ROM_SIZE = ABSOLUTE(segment_anime_i_ROM_END - segment_anime_i_ROM_START);
 
     segment_anime_j_ROM_START = __romPos;
     segment_anime_j_VRAM = ADDR(.segment_anime_j);
+    segment_anime_j_alloc_VRAM = .;
     .segment_anime_j 0x00000000 : AT(segment_anime_j_ROM_START) SUBALIGN(16)
     {
         segment_anime_j_text_START = .;
@@ -4971,25 +6430,43 @@ SECTIONS
         segment_anime_j_sdata_END = .;
         segment_anime_j_sdata_SIZE = ABSOLUTE(segment_anime_j_sdata_END - segment_anime_j_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_j);
-    segment_anime_j_ROM_END = __romPos;
+    segment_anime_j_alloc_VRAM_END = .;
+    segment_anime_j_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_j_alloc_VRAM_END - segment_anime_j_alloc_VRAM);
+
+    segment_anime_j_noload_VRAM = .;
     .segment_anime_j.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_j_bss_START = .;
+        segment_anime_j_sbss_START = .;
         build/us/src/assets/anime/anime_j.o(.sbss*);
+        segment_anime_j_sbss_END = .;
+        segment_anime_j_sbss_SIZE = ABSOLUTE(segment_anime_j_sbss_END - segment_anime_j_sbss_START);
 
+        segment_anime_j_scommon_START = .;
         build/us/src/assets/anime/anime_j.o(.scommon*);
+        segment_anime_j_scommon_END = .;
+        segment_anime_j_scommon_SIZE = ABSOLUTE(segment_anime_j_scommon_END - segment_anime_j_scommon_START);
 
+        segment_anime_j_bss_START = .;
         build/us/src/assets/anime/anime_j.o(.bss*);
-
-        build/us/src/assets/anime/anime_j.o(COMMON*);
         segment_anime_j_bss_END = .;
         segment_anime_j_bss_SIZE = ABSOLUTE(segment_anime_j_bss_END - segment_anime_j_bss_START);
+
+        segment_anime_jCOMMON_START = .;
+        build/us/src/assets/anime/anime_j.o(COMMON*);
+        segment_anime_jCOMMON_END = .;
+        segment_anime_jCOMMON_SIZE = ABSOLUTE(segment_anime_jCOMMON_END - segment_anime_jCOMMON_START);
     }
+    segment_anime_j_noload_VRAM_END = .;
+    segment_anime_j_noload_VRAM_SIZE = ABSOLUTE(segment_anime_j_noload_VRAM_END - segment_anime_j_noload_VRAM);
     segment_anime_j_VRAM_END = .;
+    segment_anime_j_VRAM_SIZE = ABSOLUTE(segment_anime_j_VRAM_END - segment_anime_j_VRAM);
+    __romPos += SIZEOF(.segment_anime_j);
+    segment_anime_j_ROM_END = __romPos;
+    segment_anime_j_ROM_SIZE = ABSOLUTE(segment_anime_j_ROM_END - segment_anime_j_ROM_START);
 
     segment_anime_k_ROM_START = __romPos;
     segment_anime_k_VRAM = ADDR(.segment_anime_k);
+    segment_anime_k_alloc_VRAM = .;
     .segment_anime_k 0x00000000 : AT(segment_anime_k_ROM_START) SUBALIGN(16)
     {
         segment_anime_k_text_START = .;
@@ -5012,25 +6489,43 @@ SECTIONS
         segment_anime_k_sdata_END = .;
         segment_anime_k_sdata_SIZE = ABSOLUTE(segment_anime_k_sdata_END - segment_anime_k_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_k);
-    segment_anime_k_ROM_END = __romPos;
+    segment_anime_k_alloc_VRAM_END = .;
+    segment_anime_k_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_k_alloc_VRAM_END - segment_anime_k_alloc_VRAM);
+
+    segment_anime_k_noload_VRAM = .;
     .segment_anime_k.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_k_bss_START = .;
+        segment_anime_k_sbss_START = .;
         build/us/src/assets/anime/anime_k.o(.sbss*);
+        segment_anime_k_sbss_END = .;
+        segment_anime_k_sbss_SIZE = ABSOLUTE(segment_anime_k_sbss_END - segment_anime_k_sbss_START);
 
+        segment_anime_k_scommon_START = .;
         build/us/src/assets/anime/anime_k.o(.scommon*);
+        segment_anime_k_scommon_END = .;
+        segment_anime_k_scommon_SIZE = ABSOLUTE(segment_anime_k_scommon_END - segment_anime_k_scommon_START);
 
+        segment_anime_k_bss_START = .;
         build/us/src/assets/anime/anime_k.o(.bss*);
-
-        build/us/src/assets/anime/anime_k.o(COMMON*);
         segment_anime_k_bss_END = .;
         segment_anime_k_bss_SIZE = ABSOLUTE(segment_anime_k_bss_END - segment_anime_k_bss_START);
+
+        segment_anime_kCOMMON_START = .;
+        build/us/src/assets/anime/anime_k.o(COMMON*);
+        segment_anime_kCOMMON_END = .;
+        segment_anime_kCOMMON_SIZE = ABSOLUTE(segment_anime_kCOMMON_END - segment_anime_kCOMMON_START);
     }
+    segment_anime_k_noload_VRAM_END = .;
+    segment_anime_k_noload_VRAM_SIZE = ABSOLUTE(segment_anime_k_noload_VRAM_END - segment_anime_k_noload_VRAM);
     segment_anime_k_VRAM_END = .;
+    segment_anime_k_VRAM_SIZE = ABSOLUTE(segment_anime_k_VRAM_END - segment_anime_k_VRAM);
+    __romPos += SIZEOF(.segment_anime_k);
+    segment_anime_k_ROM_END = __romPos;
+    segment_anime_k_ROM_SIZE = ABSOLUTE(segment_anime_k_ROM_END - segment_anime_k_ROM_START);
 
     segment_anime_l_ROM_START = __romPos;
     segment_anime_l_VRAM = ADDR(.segment_anime_l);
+    segment_anime_l_alloc_VRAM = .;
     .segment_anime_l 0x00000000 : AT(segment_anime_l_ROM_START) SUBALIGN(16)
     {
         segment_anime_l_text_START = .;
@@ -5053,25 +6548,43 @@ SECTIONS
         segment_anime_l_sdata_END = .;
         segment_anime_l_sdata_SIZE = ABSOLUTE(segment_anime_l_sdata_END - segment_anime_l_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_l);
-    segment_anime_l_ROM_END = __romPos;
+    segment_anime_l_alloc_VRAM_END = .;
+    segment_anime_l_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_l_alloc_VRAM_END - segment_anime_l_alloc_VRAM);
+
+    segment_anime_l_noload_VRAM = .;
     .segment_anime_l.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_l_bss_START = .;
+        segment_anime_l_sbss_START = .;
         build/us/src/assets/anime/anime_l.o(.sbss*);
+        segment_anime_l_sbss_END = .;
+        segment_anime_l_sbss_SIZE = ABSOLUTE(segment_anime_l_sbss_END - segment_anime_l_sbss_START);
 
+        segment_anime_l_scommon_START = .;
         build/us/src/assets/anime/anime_l.o(.scommon*);
+        segment_anime_l_scommon_END = .;
+        segment_anime_l_scommon_SIZE = ABSOLUTE(segment_anime_l_scommon_END - segment_anime_l_scommon_START);
 
+        segment_anime_l_bss_START = .;
         build/us/src/assets/anime/anime_l.o(.bss*);
-
-        build/us/src/assets/anime/anime_l.o(COMMON*);
         segment_anime_l_bss_END = .;
         segment_anime_l_bss_SIZE = ABSOLUTE(segment_anime_l_bss_END - segment_anime_l_bss_START);
+
+        segment_anime_lCOMMON_START = .;
+        build/us/src/assets/anime/anime_l.o(COMMON*);
+        segment_anime_lCOMMON_END = .;
+        segment_anime_lCOMMON_SIZE = ABSOLUTE(segment_anime_lCOMMON_END - segment_anime_lCOMMON_START);
     }
+    segment_anime_l_noload_VRAM_END = .;
+    segment_anime_l_noload_VRAM_SIZE = ABSOLUTE(segment_anime_l_noload_VRAM_END - segment_anime_l_noload_VRAM);
     segment_anime_l_VRAM_END = .;
+    segment_anime_l_VRAM_SIZE = ABSOLUTE(segment_anime_l_VRAM_END - segment_anime_l_VRAM);
+    __romPos += SIZEOF(.segment_anime_l);
+    segment_anime_l_ROM_END = __romPos;
+    segment_anime_l_ROM_SIZE = ABSOLUTE(segment_anime_l_ROM_END - segment_anime_l_ROM_START);
 
     segment_anime_m_ROM_START = __romPos;
     segment_anime_m_VRAM = ADDR(.segment_anime_m);
+    segment_anime_m_alloc_VRAM = .;
     .segment_anime_m 0x00000000 : AT(segment_anime_m_ROM_START) SUBALIGN(16)
     {
         segment_anime_m_text_START = .;
@@ -5094,25 +6607,43 @@ SECTIONS
         segment_anime_m_sdata_END = .;
         segment_anime_m_sdata_SIZE = ABSOLUTE(segment_anime_m_sdata_END - segment_anime_m_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_m);
-    segment_anime_m_ROM_END = __romPos;
+    segment_anime_m_alloc_VRAM_END = .;
+    segment_anime_m_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_m_alloc_VRAM_END - segment_anime_m_alloc_VRAM);
+
+    segment_anime_m_noload_VRAM = .;
     .segment_anime_m.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_m_bss_START = .;
+        segment_anime_m_sbss_START = .;
         build/us/src/assets/anime/anime_m.o(.sbss*);
+        segment_anime_m_sbss_END = .;
+        segment_anime_m_sbss_SIZE = ABSOLUTE(segment_anime_m_sbss_END - segment_anime_m_sbss_START);
 
+        segment_anime_m_scommon_START = .;
         build/us/src/assets/anime/anime_m.o(.scommon*);
+        segment_anime_m_scommon_END = .;
+        segment_anime_m_scommon_SIZE = ABSOLUTE(segment_anime_m_scommon_END - segment_anime_m_scommon_START);
 
+        segment_anime_m_bss_START = .;
         build/us/src/assets/anime/anime_m.o(.bss*);
-
-        build/us/src/assets/anime/anime_m.o(COMMON*);
         segment_anime_m_bss_END = .;
         segment_anime_m_bss_SIZE = ABSOLUTE(segment_anime_m_bss_END - segment_anime_m_bss_START);
+
+        segment_anime_mCOMMON_START = .;
+        build/us/src/assets/anime/anime_m.o(COMMON*);
+        segment_anime_mCOMMON_END = .;
+        segment_anime_mCOMMON_SIZE = ABSOLUTE(segment_anime_mCOMMON_END - segment_anime_mCOMMON_START);
     }
+    segment_anime_m_noload_VRAM_END = .;
+    segment_anime_m_noload_VRAM_SIZE = ABSOLUTE(segment_anime_m_noload_VRAM_END - segment_anime_m_noload_VRAM);
     segment_anime_m_VRAM_END = .;
+    segment_anime_m_VRAM_SIZE = ABSOLUTE(segment_anime_m_VRAM_END - segment_anime_m_VRAM);
+    __romPos += SIZEOF(.segment_anime_m);
+    segment_anime_m_ROM_END = __romPos;
+    segment_anime_m_ROM_SIZE = ABSOLUTE(segment_anime_m_ROM_END - segment_anime_m_ROM_START);
 
     segment_anime_n_ROM_START = __romPos;
     segment_anime_n_VRAM = ADDR(.segment_anime_n);
+    segment_anime_n_alloc_VRAM = .;
     .segment_anime_n 0x00000000 : AT(segment_anime_n_ROM_START) SUBALIGN(16)
     {
         segment_anime_n_text_START = .;
@@ -5135,25 +6666,43 @@ SECTIONS
         segment_anime_n_sdata_END = .;
         segment_anime_n_sdata_SIZE = ABSOLUTE(segment_anime_n_sdata_END - segment_anime_n_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_n);
-    segment_anime_n_ROM_END = __romPos;
+    segment_anime_n_alloc_VRAM_END = .;
+    segment_anime_n_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_n_alloc_VRAM_END - segment_anime_n_alloc_VRAM);
+
+    segment_anime_n_noload_VRAM = .;
     .segment_anime_n.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_n_bss_START = .;
+        segment_anime_n_sbss_START = .;
         build/us/src/assets/anime/anime_n.o(.sbss*);
+        segment_anime_n_sbss_END = .;
+        segment_anime_n_sbss_SIZE = ABSOLUTE(segment_anime_n_sbss_END - segment_anime_n_sbss_START);
 
+        segment_anime_n_scommon_START = .;
         build/us/src/assets/anime/anime_n.o(.scommon*);
+        segment_anime_n_scommon_END = .;
+        segment_anime_n_scommon_SIZE = ABSOLUTE(segment_anime_n_scommon_END - segment_anime_n_scommon_START);
 
+        segment_anime_n_bss_START = .;
         build/us/src/assets/anime/anime_n.o(.bss*);
-
-        build/us/src/assets/anime/anime_n.o(COMMON*);
         segment_anime_n_bss_END = .;
         segment_anime_n_bss_SIZE = ABSOLUTE(segment_anime_n_bss_END - segment_anime_n_bss_START);
+
+        segment_anime_nCOMMON_START = .;
+        build/us/src/assets/anime/anime_n.o(COMMON*);
+        segment_anime_nCOMMON_END = .;
+        segment_anime_nCOMMON_SIZE = ABSOLUTE(segment_anime_nCOMMON_END - segment_anime_nCOMMON_START);
     }
+    segment_anime_n_noload_VRAM_END = .;
+    segment_anime_n_noload_VRAM_SIZE = ABSOLUTE(segment_anime_n_noload_VRAM_END - segment_anime_n_noload_VRAM);
     segment_anime_n_VRAM_END = .;
+    segment_anime_n_VRAM_SIZE = ABSOLUTE(segment_anime_n_VRAM_END - segment_anime_n_VRAM);
+    __romPos += SIZEOF(.segment_anime_n);
+    segment_anime_n_ROM_END = __romPos;
+    segment_anime_n_ROM_SIZE = ABSOLUTE(segment_anime_n_ROM_END - segment_anime_n_ROM_START);
 
     segment_anime_o_ROM_START = __romPos;
     segment_anime_o_VRAM = ADDR(.segment_anime_o);
+    segment_anime_o_alloc_VRAM = .;
     .segment_anime_o 0x00000000 : AT(segment_anime_o_ROM_START) SUBALIGN(16)
     {
         segment_anime_o_text_START = .;
@@ -5176,25 +6725,43 @@ SECTIONS
         segment_anime_o_sdata_END = .;
         segment_anime_o_sdata_SIZE = ABSOLUTE(segment_anime_o_sdata_END - segment_anime_o_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_o);
-    segment_anime_o_ROM_END = __romPos;
+    segment_anime_o_alloc_VRAM_END = .;
+    segment_anime_o_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_o_alloc_VRAM_END - segment_anime_o_alloc_VRAM);
+
+    segment_anime_o_noload_VRAM = .;
     .segment_anime_o.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_o_bss_START = .;
+        segment_anime_o_sbss_START = .;
         build/us/src/assets/anime/anime_o.o(.sbss*);
+        segment_anime_o_sbss_END = .;
+        segment_anime_o_sbss_SIZE = ABSOLUTE(segment_anime_o_sbss_END - segment_anime_o_sbss_START);
 
+        segment_anime_o_scommon_START = .;
         build/us/src/assets/anime/anime_o.o(.scommon*);
+        segment_anime_o_scommon_END = .;
+        segment_anime_o_scommon_SIZE = ABSOLUTE(segment_anime_o_scommon_END - segment_anime_o_scommon_START);
 
+        segment_anime_o_bss_START = .;
         build/us/src/assets/anime/anime_o.o(.bss*);
-
-        build/us/src/assets/anime/anime_o.o(COMMON*);
         segment_anime_o_bss_END = .;
         segment_anime_o_bss_SIZE = ABSOLUTE(segment_anime_o_bss_END - segment_anime_o_bss_START);
+
+        segment_anime_oCOMMON_START = .;
+        build/us/src/assets/anime/anime_o.o(COMMON*);
+        segment_anime_oCOMMON_END = .;
+        segment_anime_oCOMMON_SIZE = ABSOLUTE(segment_anime_oCOMMON_END - segment_anime_oCOMMON_START);
     }
+    segment_anime_o_noload_VRAM_END = .;
+    segment_anime_o_noload_VRAM_SIZE = ABSOLUTE(segment_anime_o_noload_VRAM_END - segment_anime_o_noload_VRAM);
     segment_anime_o_VRAM_END = .;
+    segment_anime_o_VRAM_SIZE = ABSOLUTE(segment_anime_o_VRAM_END - segment_anime_o_VRAM);
+    __romPos += SIZEOF(.segment_anime_o);
+    segment_anime_o_ROM_END = __romPos;
+    segment_anime_o_ROM_SIZE = ABSOLUTE(segment_anime_o_ROM_END - segment_anime_o_ROM_START);
 
     segment_anime_mario_ROM_START = __romPos;
     segment_anime_mario_VRAM = ADDR(.segment_anime_mario);
+    segment_anime_mario_alloc_VRAM = .;
     .segment_anime_mario 0x00000000 : AT(segment_anime_mario_ROM_START) SUBALIGN(16)
     {
         segment_anime_mario_text_START = .;
@@ -5217,25 +6784,43 @@ SECTIONS
         segment_anime_mario_sdata_END = .;
         segment_anime_mario_sdata_SIZE = ABSOLUTE(segment_anime_mario_sdata_END - segment_anime_mario_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_mario);
-    segment_anime_mario_ROM_END = __romPos;
+    segment_anime_mario_alloc_VRAM_END = .;
+    segment_anime_mario_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_mario_alloc_VRAM_END - segment_anime_mario_alloc_VRAM);
+
+    segment_anime_mario_noload_VRAM = .;
     .segment_anime_mario.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_mario_bss_START = .;
+        segment_anime_mario_sbss_START = .;
         build/us/src/assets/anime/anime_mario.o(.sbss*);
+        segment_anime_mario_sbss_END = .;
+        segment_anime_mario_sbss_SIZE = ABSOLUTE(segment_anime_mario_sbss_END - segment_anime_mario_sbss_START);
 
+        segment_anime_mario_scommon_START = .;
         build/us/src/assets/anime/anime_mario.o(.scommon*);
+        segment_anime_mario_scommon_END = .;
+        segment_anime_mario_scommon_SIZE = ABSOLUTE(segment_anime_mario_scommon_END - segment_anime_mario_scommon_START);
 
+        segment_anime_mario_bss_START = .;
         build/us/src/assets/anime/anime_mario.o(.bss*);
-
-        build/us/src/assets/anime/anime_mario.o(COMMON*);
         segment_anime_mario_bss_END = .;
         segment_anime_mario_bss_SIZE = ABSOLUTE(segment_anime_mario_bss_END - segment_anime_mario_bss_START);
+
+        segment_anime_marioCOMMON_START = .;
+        build/us/src/assets/anime/anime_mario.o(COMMON*);
+        segment_anime_marioCOMMON_END = .;
+        segment_anime_marioCOMMON_SIZE = ABSOLUTE(segment_anime_marioCOMMON_END - segment_anime_marioCOMMON_START);
     }
+    segment_anime_mario_noload_VRAM_END = .;
+    segment_anime_mario_noload_VRAM_SIZE = ABSOLUTE(segment_anime_mario_noload_VRAM_END - segment_anime_mario_noload_VRAM);
     segment_anime_mario_VRAM_END = .;
+    segment_anime_mario_VRAM_SIZE = ABSOLUTE(segment_anime_mario_VRAM_END - segment_anime_mario_VRAM);
+    __romPos += SIZEOF(.segment_anime_mario);
+    segment_anime_mario_ROM_END = __romPos;
+    segment_anime_mario_ROM_SIZE = ABSOLUTE(segment_anime_mario_ROM_END - segment_anime_mario_ROM_START);
 
     segment_anime_virus_b_ROM_START = __romPos;
     segment_anime_virus_b_VRAM = ADDR(.segment_anime_virus_b);
+    segment_anime_virus_b_alloc_VRAM = .;
     .segment_anime_virus_b 0x00000000 : AT(segment_anime_virus_b_ROM_START) SUBALIGN(16)
     {
         segment_anime_virus_b_text_START = .;
@@ -5258,25 +6843,43 @@ SECTIONS
         segment_anime_virus_b_sdata_END = .;
         segment_anime_virus_b_sdata_SIZE = ABSOLUTE(segment_anime_virus_b_sdata_END - segment_anime_virus_b_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_virus_b);
-    segment_anime_virus_b_ROM_END = __romPos;
+    segment_anime_virus_b_alloc_VRAM_END = .;
+    segment_anime_virus_b_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_alloc_VRAM_END - segment_anime_virus_b_alloc_VRAM);
+
+    segment_anime_virus_b_noload_VRAM = .;
     .segment_anime_virus_b.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_b_bss_START = .;
+        segment_anime_virus_b_sbss_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sbss*);
+        segment_anime_virus_b_sbss_END = .;
+        segment_anime_virus_b_sbss_SIZE = ABSOLUTE(segment_anime_virus_b_sbss_END - segment_anime_virus_b_sbss_START);
 
+        segment_anime_virus_b_scommon_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.scommon*);
+        segment_anime_virus_b_scommon_END = .;
+        segment_anime_virus_b_scommon_SIZE = ABSOLUTE(segment_anime_virus_b_scommon_END - segment_anime_virus_b_scommon_START);
 
+        segment_anime_virus_b_bss_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.bss*);
-
-        build/us/src/assets/anime/anime_virus_b.o(COMMON*);
         segment_anime_virus_b_bss_END = .;
         segment_anime_virus_b_bss_SIZE = ABSOLUTE(segment_anime_virus_b_bss_END - segment_anime_virus_b_bss_START);
+
+        segment_anime_virus_bCOMMON_START = .;
+        build/us/src/assets/anime/anime_virus_b.o(COMMON*);
+        segment_anime_virus_bCOMMON_END = .;
+        segment_anime_virus_bCOMMON_SIZE = ABSOLUTE(segment_anime_virus_bCOMMON_END - segment_anime_virus_bCOMMON_START);
     }
+    segment_anime_virus_b_noload_VRAM_END = .;
+    segment_anime_virus_b_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_noload_VRAM_END - segment_anime_virus_b_noload_VRAM);
     segment_anime_virus_b_VRAM_END = .;
+    segment_anime_virus_b_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_VRAM_END - segment_anime_virus_b_VRAM);
+    __romPos += SIZEOF(.segment_anime_virus_b);
+    segment_anime_virus_b_ROM_END = __romPos;
+    segment_anime_virus_b_ROM_SIZE = ABSOLUTE(segment_anime_virus_b_ROM_END - segment_anime_virus_b_ROM_START);
 
     segment_anime_virus_r_ROM_START = __romPos;
     segment_anime_virus_r_VRAM = ADDR(.segment_anime_virus_r);
+    segment_anime_virus_r_alloc_VRAM = .;
     .segment_anime_virus_r 0x00000000 : AT(segment_anime_virus_r_ROM_START) SUBALIGN(16)
     {
         segment_anime_virus_r_text_START = .;
@@ -5299,25 +6902,43 @@ SECTIONS
         segment_anime_virus_r_sdata_END = .;
         segment_anime_virus_r_sdata_SIZE = ABSOLUTE(segment_anime_virus_r_sdata_END - segment_anime_virus_r_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_virus_r);
-    segment_anime_virus_r_ROM_END = __romPos;
+    segment_anime_virus_r_alloc_VRAM_END = .;
+    segment_anime_virus_r_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_alloc_VRAM_END - segment_anime_virus_r_alloc_VRAM);
+
+    segment_anime_virus_r_noload_VRAM = .;
     .segment_anime_virus_r.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_r_bss_START = .;
+        segment_anime_virus_r_sbss_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sbss*);
+        segment_anime_virus_r_sbss_END = .;
+        segment_anime_virus_r_sbss_SIZE = ABSOLUTE(segment_anime_virus_r_sbss_END - segment_anime_virus_r_sbss_START);
 
+        segment_anime_virus_r_scommon_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.scommon*);
+        segment_anime_virus_r_scommon_END = .;
+        segment_anime_virus_r_scommon_SIZE = ABSOLUTE(segment_anime_virus_r_scommon_END - segment_anime_virus_r_scommon_START);
 
+        segment_anime_virus_r_bss_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.bss*);
-
-        build/us/src/assets/anime/anime_virus_r.o(COMMON*);
         segment_anime_virus_r_bss_END = .;
         segment_anime_virus_r_bss_SIZE = ABSOLUTE(segment_anime_virus_r_bss_END - segment_anime_virus_r_bss_START);
+
+        segment_anime_virus_rCOMMON_START = .;
+        build/us/src/assets/anime/anime_virus_r.o(COMMON*);
+        segment_anime_virus_rCOMMON_END = .;
+        segment_anime_virus_rCOMMON_SIZE = ABSOLUTE(segment_anime_virus_rCOMMON_END - segment_anime_virus_rCOMMON_START);
     }
+    segment_anime_virus_r_noload_VRAM_END = .;
+    segment_anime_virus_r_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_noload_VRAM_END - segment_anime_virus_r_noload_VRAM);
     segment_anime_virus_r_VRAM_END = .;
+    segment_anime_virus_r_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_VRAM_END - segment_anime_virus_r_VRAM);
+    __romPos += SIZEOF(.segment_anime_virus_r);
+    segment_anime_virus_r_ROM_END = __romPos;
+    segment_anime_virus_r_ROM_SIZE = ABSOLUTE(segment_anime_virus_r_ROM_END - segment_anime_virus_r_ROM_START);
 
     segment_anime_virus_y_ROM_START = __romPos;
     segment_anime_virus_y_VRAM = ADDR(.segment_anime_virus_y);
+    segment_anime_virus_y_alloc_VRAM = .;
     .segment_anime_virus_y 0x00000000 : AT(segment_anime_virus_y_ROM_START) SUBALIGN(16)
     {
         segment_anime_virus_y_text_START = .;
@@ -5340,25 +6961,43 @@ SECTIONS
         segment_anime_virus_y_sdata_END = .;
         segment_anime_virus_y_sdata_SIZE = ABSOLUTE(segment_anime_virus_y_sdata_END - segment_anime_virus_y_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_virus_y);
-    segment_anime_virus_y_ROM_END = __romPos;
+    segment_anime_virus_y_alloc_VRAM_END = .;
+    segment_anime_virus_y_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_alloc_VRAM_END - segment_anime_virus_y_alloc_VRAM);
+
+    segment_anime_virus_y_noload_VRAM = .;
     .segment_anime_virus_y.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_y_bss_START = .;
+        segment_anime_virus_y_sbss_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sbss*);
+        segment_anime_virus_y_sbss_END = .;
+        segment_anime_virus_y_sbss_SIZE = ABSOLUTE(segment_anime_virus_y_sbss_END - segment_anime_virus_y_sbss_START);
 
+        segment_anime_virus_y_scommon_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.scommon*);
+        segment_anime_virus_y_scommon_END = .;
+        segment_anime_virus_y_scommon_SIZE = ABSOLUTE(segment_anime_virus_y_scommon_END - segment_anime_virus_y_scommon_START);
 
+        segment_anime_virus_y_bss_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.bss*);
-
-        build/us/src/assets/anime/anime_virus_y.o(COMMON*);
         segment_anime_virus_y_bss_END = .;
         segment_anime_virus_y_bss_SIZE = ABSOLUTE(segment_anime_virus_y_bss_END - segment_anime_virus_y_bss_START);
+
+        segment_anime_virus_yCOMMON_START = .;
+        build/us/src/assets/anime/anime_virus_y.o(COMMON*);
+        segment_anime_virus_yCOMMON_END = .;
+        segment_anime_virus_yCOMMON_SIZE = ABSOLUTE(segment_anime_virus_yCOMMON_END - segment_anime_virus_yCOMMON_START);
     }
+    segment_anime_virus_y_noload_VRAM_END = .;
+    segment_anime_virus_y_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_noload_VRAM_END - segment_anime_virus_y_noload_VRAM);
     segment_anime_virus_y_VRAM_END = .;
+    segment_anime_virus_y_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_VRAM_END - segment_anime_virus_y_VRAM);
+    __romPos += SIZEOF(.segment_anime_virus_y);
+    segment_anime_virus_y_ROM_END = __romPos;
+    segment_anime_virus_y_ROM_SIZE = ABSOLUTE(segment_anime_virus_y_ROM_END - segment_anime_virus_y_ROM_START);
 
     segment_anime_smog_ROM_START = __romPos;
     segment_anime_smog_VRAM = ADDR(.segment_anime_smog);
+    segment_anime_smog_alloc_VRAM = .;
     .segment_anime_smog 0x00000000 : AT(segment_anime_smog_ROM_START) SUBALIGN(16)
     {
         segment_anime_smog_text_START = .;
@@ -5381,25 +7020,43 @@ SECTIONS
         segment_anime_smog_sdata_END = .;
         segment_anime_smog_sdata_SIZE = ABSOLUTE(segment_anime_smog_sdata_END - segment_anime_smog_sdata_START);
     }
-    __romPos += SIZEOF(.segment_anime_smog);
-    segment_anime_smog_ROM_END = __romPos;
+    segment_anime_smog_alloc_VRAM_END = .;
+    segment_anime_smog_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_smog_alloc_VRAM_END - segment_anime_smog_alloc_VRAM);
+
+    segment_anime_smog_noload_VRAM = .;
     .segment_anime_smog.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_smog_bss_START = .;
+        segment_anime_smog_sbss_START = .;
         build/us/src/assets/anime/anime_smog.o(.sbss*);
+        segment_anime_smog_sbss_END = .;
+        segment_anime_smog_sbss_SIZE = ABSOLUTE(segment_anime_smog_sbss_END - segment_anime_smog_sbss_START);
 
+        segment_anime_smog_scommon_START = .;
         build/us/src/assets/anime/anime_smog.o(.scommon*);
+        segment_anime_smog_scommon_END = .;
+        segment_anime_smog_scommon_SIZE = ABSOLUTE(segment_anime_smog_scommon_END - segment_anime_smog_scommon_START);
 
+        segment_anime_smog_bss_START = .;
         build/us/src/assets/anime/anime_smog.o(.bss*);
-
-        build/us/src/assets/anime/anime_smog.o(COMMON*);
         segment_anime_smog_bss_END = .;
         segment_anime_smog_bss_SIZE = ABSOLUTE(segment_anime_smog_bss_END - segment_anime_smog_bss_START);
+
+        segment_anime_smogCOMMON_START = .;
+        build/us/src/assets/anime/anime_smog.o(COMMON*);
+        segment_anime_smogCOMMON_END = .;
+        segment_anime_smogCOMMON_SIZE = ABSOLUTE(segment_anime_smogCOMMON_END - segment_anime_smogCOMMON_START);
     }
+    segment_anime_smog_noload_VRAM_END = .;
+    segment_anime_smog_noload_VRAM_SIZE = ABSOLUTE(segment_anime_smog_noload_VRAM_END - segment_anime_smog_noload_VRAM);
     segment_anime_smog_VRAM_END = .;
+    segment_anime_smog_VRAM_SIZE = ABSOLUTE(segment_anime_smog_VRAM_END - segment_anime_smog_VRAM);
+    __romPos += SIZEOF(.segment_anime_smog);
+    segment_anime_smog_ROM_END = __romPos;
+    segment_anime_smog_ROM_SIZE = ABSOLUTE(segment_anime_smog_ROM_END - segment_anime_smog_ROM_START);
 
     segment_tutorial_data_ROM_START = __romPos;
     segment_tutorial_data_VRAM = ADDR(.segment_tutorial_data);
+    segment_tutorial_data_alloc_VRAM = .;
     .segment_tutorial_data 0x00000000 : AT(segment_tutorial_data_ROM_START) SUBALIGN(16)
     {
         segment_tutorial_data_text_START = .;
@@ -5422,21 +7079,38 @@ SECTIONS
         segment_tutorial_data_sdata_END = .;
         segment_tutorial_data_sdata_SIZE = ABSOLUTE(segment_tutorial_data_sdata_END - segment_tutorial_data_sdata_START);
     }
-    __romPos += SIZEOF(.segment_tutorial_data);
-    segment_tutorial_data_ROM_END = __romPos;
+    segment_tutorial_data_alloc_VRAM_END = .;
+    segment_tutorial_data_alloc_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_alloc_VRAM_END - segment_tutorial_data_alloc_VRAM);
+
+    segment_tutorial_data_noload_VRAM = .;
     .segment_tutorial_data.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_tutorial_data_bss_START = .;
+        segment_tutorial_data_sbss_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sbss*);
+        segment_tutorial_data_sbss_END = .;
+        segment_tutorial_data_sbss_SIZE = ABSOLUTE(segment_tutorial_data_sbss_END - segment_tutorial_data_sbss_START);
 
+        segment_tutorial_data_scommon_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.scommon*);
+        segment_tutorial_data_scommon_END = .;
+        segment_tutorial_data_scommon_SIZE = ABSOLUTE(segment_tutorial_data_scommon_END - segment_tutorial_data_scommon_START);
 
+        segment_tutorial_data_bss_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.bss*);
-
-        build/us/src/assets/tutorial/tutorial_kasa.o(COMMON*);
         segment_tutorial_data_bss_END = .;
         segment_tutorial_data_bss_SIZE = ABSOLUTE(segment_tutorial_data_bss_END - segment_tutorial_data_bss_START);
+
+        segment_tutorial_dataCOMMON_START = .;
+        build/us/src/assets/tutorial/tutorial_kasa.o(COMMON*);
+        segment_tutorial_dataCOMMON_END = .;
+        segment_tutorial_dataCOMMON_SIZE = ABSOLUTE(segment_tutorial_dataCOMMON_END - segment_tutorial_dataCOMMON_START);
     }
+    segment_tutorial_data_noload_VRAM_END = .;
+    segment_tutorial_data_noload_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_noload_VRAM_END - segment_tutorial_data_noload_VRAM);
     segment_tutorial_data_VRAM_END = .;
+    segment_tutorial_data_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_VRAM_END - segment_tutorial_data_VRAM);
+    __romPos += SIZEOF(.segment_tutorial_data);
+    segment_tutorial_data_ROM_END = __romPos;
+    segment_tutorial_data_ROM_SIZE = ABSOLUTE(segment_tutorial_data_ROM_END - segment_tutorial_data_ROM_START);
 
 }

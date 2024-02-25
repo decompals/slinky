@@ -37,8 +37,10 @@ vram address of the sections of the corresponding segment.
 
 To be precise, symbols are generated for the following:
 
-- Segment's rom start and end.
-- Segment's vram start and end.
+- Segment's rom start, end and size.
+- Segment's vram start, end and size.
+- Segment's allocatable vram start, end and size.
+- Segment's noload vram start, end and size.
 - Section's vram start, end and size.
 
 ### Example
@@ -51,16 +53,18 @@ settings:
 ### Valid values
 
 - `splat`: Produces SCREAMING_CASE symbols. Given a segment named `boot`:
-  - Segment rom: `boot_ROM_START` and `boot_ROM_END`.
-  - Segment vram: `boot_VRAM` and `boot_VRAM_END`.
+  - Segment rom: `boot_ROM_START`, `boot_ROM_END` and `boot_ROM_SIZE`.
+  - Segment vram: `boot_VRAM`, `boot_VRAM_END` and `boot_VRAM_SIZE`.
+  - Segment allocatable: `boot_alloc_VRAM`, `boot_alloc_VRAM_END` and `boot_alloc_VRAM_SIZE`.
+  - Segment noload: `boot_noload_VRAM`, `boot_noload_VRAM_END` and `boot_noload_VRAM_SIZE`.
   - Section vram (not limited to the foloowing examples):
     - `.text`: `boot_text_START`, `boot_text_END` and `boot_text_SIZE`.
     - `.data`: `boot_data_START`, `boot_data_END` and `boot_data_SIZE`.
     - `.bss`: `boot_bss_START`, `boot_bss_END` and `boot_bss_SIZE`.
 
 - `makerom`: Produces _camelCase symbols. Given a segment named `boot`:
-  - Segment rom: `_bootSegmentRomStart` and `_bootSegmentRomEnd`.
-  - Segment vram: `_bootSegmentStart` and `_bootSegmentEnd`.
+  - Segment rom: `_bootSegmentRomStart`, `_bootSegmentRomEnd` and `_bootSegmentRomSize`.
+  - Segment vram: `_bootSegmentStart`, `_bootSegmentEnd` and `_bootSegmentSize`.
   - Section vram (not limited to the foloowing examples):
     - `.text`: `_bootSegmentTextStart`, `_bootSegmentTextEnd` and `_bootSegmentTextSize`.
     - `.data`: `_bootSegmentDataStart`, `_bootSegmentDataEnd` and `_bootSegmentDataSize`.

@@ -25,6 +25,13 @@ impl LinkerSymbolsStyle {
         }
     }
 
+    pub fn segment_rom_size(&self, seg_name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_ROM_SIZE", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentRomSize", seg_name),
+        }
+    }
+
     pub fn segment_vram_start(&self, seg_name: &str) -> String {
         match self {
             LinkerSymbolsStyle::Splat => format!("{}_VRAM", seg_name),
@@ -36,6 +43,13 @@ impl LinkerSymbolsStyle {
         match self {
             LinkerSymbolsStyle::Splat => format!("{}_VRAM_END", seg_name),
             LinkerSymbolsStyle::Makerom => format!("_{}SegmentEnd", seg_name),
+        }
+    }
+
+    pub fn segment_vram_size(&self, seg_name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM_SIZE", seg_name),
+            LinkerSymbolsStyle::Makerom => format!("_{}SegmentSize", seg_name),
         }
     }
 
