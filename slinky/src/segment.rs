@@ -25,24 +25,6 @@ pub struct Segment {
     pub wildcard_sections: bool,
 }
 
-impl Default for Segment {
-    fn default() -> Self {
-        Self {
-            name: "".to_string(),
-            files: Vec::new(),
-
-            fixed_vram: None,
-
-            alloc_sections: Vec::new(),
-            noload_sections: Vec::new(),
-
-            subalign: None,
-
-            wildcard_sections: false,
-        }
-    }
-}
-
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct SegmentSerial {
@@ -66,14 +48,12 @@ pub(crate) struct SegmentSerial {
 
 impl SegmentSerial {
     pub fn unserialize(self, settings: &Settings) -> Result<Segment, SlinkyError> {
-        let mut ret = Segment::default();
-
         if self.name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
             });
         }
-        ret.name = self.name;
+        let name = self.name;
 
         if self.files.is_empty() {
             return Err(SlinkyError::EmptyValue {
@@ -81,28 +61,36 @@ impl SegmentSerial {
             });
         }
 
-        ret.files.reserve(self.files.len());
+        let mut files = Vec::with_capacity(self.files.len());
         for file in self.files {
-            ret.files.push(file.unserialize(settings)?);
+            files.push(file.unserialize(settings)?);
         }
 
-        ret.alloc_sections = self
+        let fixed_vram = self.fixed_vram;
+
+        let alloc_sections = self
             .alloc_sections
             .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
-        ret.noload_sections = self
+        let noload_sections = self
             .noload_sections
             .get_non_null("noload_sections", || settings.noload_sections.clone())?;
 
-        ret.fixed_vram = self.fixed_vram;
-
-        ret.subalign = self
+        let subalign = self
             .subalign
             .get_optional_nullable("subalign", || settings.subalign)?;
 
-        ret.wildcard_sections = self
+        let wildcard_sections = self
             .wildcard_sections
             .get_non_null("wildcard_sections", || settings.wildcard_sections)?;
 
-        Ok(ret)
+        Ok(Segment {
+            name,
+            files,
+            alloc_sections,
+            noload_sections,
+            fixed_vram,
+            subalign,
+            wildcard_sections,
+        })
     }
 }

@@ -90,17 +90,13 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
-        match path.parent() {
-            None => (),
-            Some(parent) => match fs::create_dir_all(parent) {
-                Ok(_) => (),
-                Err(e) => {
-                    return Err(SlinkyError::FailedDirCreate {
-                        path: parent.to_path_buf(),
-                        description: e.to_string(),
-                    })
-                }
-            },
+        if let Some(parent) = path.parent() {
+            if let Err(e) = fs::create_dir_all(parent) {
+                return Err(SlinkyError::FailedDirCreate {
+                    path: parent.to_path_buf(),
+                    description: e.to_string(),
+                });
+            }
         }
 
         let mut f = match File::create(path) {
@@ -114,15 +110,12 @@ impl<'a> LinkerWriter<'a> {
         };
 
         for line in &self.buffer {
-            match writeln!(f, "{}", line) {
-                Ok(_) => (),
-                Err(e) => {
-                    return Err(SlinkyError::FailedFileWrite {
-                        path: path.to_path_buf(),
-                        description: e.to_string(),
-                        contents: line.into(),
-                    })
-                }
+            if let Err(e) = writeln!(f, "{}", line) {
+                return Err(SlinkyError::FailedFileWrite {
+                    path: path.to_path_buf(),
+                    description: e.to_string(),
+                    contents: line.into(),
+                });
             }
         }
 

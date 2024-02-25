@@ -10,7 +10,7 @@ use crate::{
     Settings, SlinkyError,
 };
 
-#[derive(PartialEq, Debug, Default)]
+#[derive(PartialEq, Debug)]
 pub struct Document {
     pub settings: Settings,
 
@@ -52,10 +52,8 @@ pub(crate) struct DocumentSerial {
 
 impl DocumentSerial {
     pub fn unserialize(self) -> Result<Document, SlinkyError> {
-        let mut ret = Document::default();
-
-        ret.settings = match self.settings.get_non_null_no_default("settings")? {
-            None => ret.settings,
+        let settings = match self.settings.get_non_null_no_default("settings")? {
+            None => Settings::default(),
             Some(v) => v.unserialize()?,
         };
 
@@ -65,11 +63,11 @@ impl DocumentSerial {
             });
         }
 
-        ret.segments.reserve(self.segments.len());
+        let mut segments = Vec::with_capacity(self.segments.len());
         for seg in self.segments {
-            ret.segments.push(seg.unserialize(&ret.settings)?);
+            segments.push(seg.unserialize(&settings)?);
         }
 
-        Ok(ret)
+        Ok(Document { settings, segments })
     }
 }

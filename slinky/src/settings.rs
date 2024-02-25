@@ -24,28 +24,53 @@ pub struct Settings {
 }
 
 // TODO: consider changing the defaults before 1.0.0
+
+fn settings_base_path_default() -> PathBuf {
+    PathBuf::new()
+}
+
+fn settings_linker_symbols_style_default() -> LinkerSymbolsStyle {
+    LinkerSymbolsStyle::Splat
+}
+
+fn settings_alloc_sections_default() -> Vec<String> {
+    vec![
+        ".text".into(),
+        ".data".into(),
+        ".rodata".into(),
+        ".sdata".into(),
+    ]
+}
+
+fn settings_noload_sections_default() -> Vec<String> {
+    vec![
+        ".sbss".into(),
+        ".scommon".into(),
+        ".bss".into(),
+        "COMMON".into(),
+    ]
+}
+
+fn settings_subalign_default() -> Option<u32> {
+    Some(16)
+}
+
+fn settings_wildcard_sections_default() -> bool {
+    true
+}
+
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            base_path: PathBuf::new(),
-            linker_symbols_style: LinkerSymbolsStyle::Splat,
+            base_path: settings_base_path_default(),
+            linker_symbols_style: settings_linker_symbols_style_default(),
 
-            alloc_sections: vec![
-                ".text".into(),
-                ".data".into(),
-                ".rodata".into(),
-                ".sdata".into(),
-            ],
-            noload_sections: vec![
-                ".sbss".into(),
-                ".scommon".into(),
-                ".bss".into(),
-                "COMMON".into(),
-            ],
+            alloc_sections: settings_alloc_sections_default(),
+            noload_sections: settings_noload_sections_default(),
 
-            subalign: Some(16),
+            subalign: settings_subalign_default(),
 
-            wildcard_sections: true,
+            wildcard_sections: settings_wildcard_sections_default(),
             // fill_value: Some(Some(0)),
         }
     }
@@ -76,28 +101,36 @@ pub(crate) struct SettingsSerial {
 
 impl SettingsSerial {
     pub fn unserialize(self) -> Result<Settings, SlinkyError> {
-        let mut ret = Settings::default();
+        let base_path = self
+            .base_path
+            .get_non_null("base_path", settings_base_path_default)?;
+        let linker_symbols_style = self.linker_symbols_style.get_non_null(
+            "linker_symbols_style",
+            settings_linker_symbols_style_default,
+        )?;
 
-        ret.base_path = self.base_path.get_non_null("base_path", || ret.base_path)?;
-        ret.linker_symbols_style = self
-            .linker_symbols_style
-            .get_non_null("linker_symbols_style", || ret.linker_symbols_style)?;
-
-        ret.alloc_sections = self
+        let alloc_sections = self
             .alloc_sections
-            .get_non_null("alloc_sections", || ret.alloc_sections)?;
-        ret.noload_sections = self
+            .get_non_null("alloc_sections", settings_alloc_sections_default)?;
+        let noload_sections = self
             .noload_sections
-            .get_non_null("noload_sections", || ret.noload_sections)?;
+            .get_non_null("noload_sections", settings_noload_sections_default)?;
 
-        ret.subalign = self
+        let subalign = self
             .subalign
-            .get_optional_nullable("subalign", || ret.subalign)?;
+            .get_optional_nullable("subalign", settings_subalign_default)?;
 
-        ret.wildcard_sections = self
+        let wildcard_sections = self
             .wildcard_sections
-            .get_non_null("wildcard_sections", || ret.wildcard_sections)?;
+            .get_non_null("wildcard_sections", settings_wildcard_sections_default)?;
 
-        Ok(ret)
+        Ok(Settings {
+            base_path,
+            linker_symbols_style,
+            alloc_sections,
+            noload_sections,
+            subalign,
+            wildcard_sections,
+        })
     }
 }
