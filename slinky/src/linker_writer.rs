@@ -244,7 +244,7 @@ impl LinkerWriter<'_> {
         &mut self,
         segment: &Segment,
         dotted_seg_name: &str,
-        sections: &Vec<String>,
+        sections: &[String],
         noload: bool,
     ) {
         let style = &self.settings.linker_symbols_style;
