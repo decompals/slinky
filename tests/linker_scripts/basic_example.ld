@@ -7,25 +7,25 @@ SECTIONS
     header_alloc_VRAM = .;
     .header : AT(header_ROM_START) SUBALIGN(32)
     {
-        header_text_START = .;
+        header_TEXT_START = .;
         build/asm/data/rom_header.o(.text*);
-        header_text_END = .;
-        header_text_SIZE = ABSOLUTE(header_text_END - header_text_START);
+        header_TEXT_END = .;
+        header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
-        header_data_START = .;
+        header_DATA_START = .;
         build/asm/data/rom_header.o(.data*);
-        header_data_END = .;
-        header_data_SIZE = ABSOLUTE(header_data_END - header_data_START);
+        header_DATA_END = .;
+        header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
-        header_rodata_START = .;
+        header_RODATA_START = .;
         build/asm/data/rom_header.o(.rodata*);
-        header_rodata_END = .;
-        header_rodata_SIZE = ABSOLUTE(header_rodata_END - header_rodata_START);
+        header_RODATA_END = .;
+        header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
-        header_sdata_START = .;
+        header_SDATA_START = .;
         build/asm/data/rom_header.o(.sdata*);
-        header_sdata_END = .;
-        header_sdata_SIZE = ABSOLUTE(header_sdata_END - header_sdata_START);
+        header_SDATA_END = .;
+        header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
     header_alloc_VRAM_END = .;
     header_alloc_VRAM_SIZE = ABSOLUTE(header_alloc_VRAM_END - header_alloc_VRAM);
@@ -33,20 +33,20 @@ SECTIONS
     header_noload_VRAM = .;
     .header.noload (NOLOAD) : SUBALIGN(32)
     {
-        header_sbss_START = .;
+        header_SBSS_START = .;
         build/asm/data/rom_header.o(.sbss*);
-        header_sbss_END = .;
-        header_sbss_SIZE = ABSOLUTE(header_sbss_END - header_sbss_START);
+        header_SBSS_END = .;
+        header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
-        header_scommon_START = .;
+        header_SCOMMON_START = .;
         build/asm/data/rom_header.o(.scommon*);
-        header_scommon_END = .;
-        header_scommon_SIZE = ABSOLUTE(header_scommon_END - header_scommon_START);
+        header_SCOMMON_END = .;
+        header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
-        header_bss_START = .;
+        header_BSS_START = .;
         build/asm/data/rom_header.o(.bss*);
-        header_bss_END = .;
-        header_bss_SIZE = ABSOLUTE(header_bss_END - header_bss_START);
+        header_BSS_END = .;
+        header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
         build/asm/data/rom_header.o(COMMON*);
@@ -66,25 +66,25 @@ SECTIONS
     ipl3_alloc_VRAM = .;
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(32)
     {
-        ipl3_text_START = .;
+        ipl3_TEXT_START = .;
         build/asm/data/ipl3.o(.text*);
-        ipl3_text_END = .;
-        ipl3_text_SIZE = ABSOLUTE(ipl3_text_END - ipl3_text_START);
+        ipl3_TEXT_END = .;
+        ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
-        ipl3_data_START = .;
+        ipl3_DATA_START = .;
         build/asm/data/ipl3.o(.data*);
-        ipl3_data_END = .;
-        ipl3_data_SIZE = ABSOLUTE(ipl3_data_END - ipl3_data_START);
+        ipl3_DATA_END = .;
+        ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
-        ipl3_rodata_START = .;
+        ipl3_RODATA_START = .;
         build/asm/data/ipl3.o(.rodata*);
-        ipl3_rodata_END = .;
-        ipl3_rodata_SIZE = ABSOLUTE(ipl3_rodata_END - ipl3_rodata_START);
+        ipl3_RODATA_END = .;
+        ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
-        ipl3_sdata_START = .;
+        ipl3_SDATA_START = .;
         build/asm/data/ipl3.o(.sdata*);
-        ipl3_sdata_END = .;
-        ipl3_sdata_SIZE = ABSOLUTE(ipl3_sdata_END - ipl3_sdata_START);
+        ipl3_SDATA_END = .;
+        ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
     ipl3_alloc_VRAM_END = .;
     ipl3_alloc_VRAM_SIZE = ABSOLUTE(ipl3_alloc_VRAM_END - ipl3_alloc_VRAM);
@@ -92,20 +92,20 @@ SECTIONS
     ipl3_noload_VRAM = .;
     .ipl3.noload (NOLOAD) : SUBALIGN(32)
     {
-        ipl3_sbss_START = .;
+        ipl3_SBSS_START = .;
         build/asm/data/ipl3.o(.sbss*);
-        ipl3_sbss_END = .;
-        ipl3_sbss_SIZE = ABSOLUTE(ipl3_sbss_END - ipl3_sbss_START);
+        ipl3_SBSS_END = .;
+        ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
-        ipl3_scommon_START = .;
+        ipl3_SCOMMON_START = .;
         build/asm/data/ipl3.o(.scommon*);
-        ipl3_scommon_END = .;
-        ipl3_scommon_SIZE = ABSOLUTE(ipl3_scommon_END - ipl3_scommon_START);
+        ipl3_SCOMMON_END = .;
+        ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
-        ipl3_bss_START = .;
+        ipl3_BSS_START = .;
         build/asm/data/ipl3.o(.bss*);
-        ipl3_bss_END = .;
-        ipl3_bss_SIZE = ABSOLUTE(ipl3_bss_END - ipl3_bss_START);
+        ipl3_BSS_END = .;
+        ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
         build/asm/data/ipl3.o(COMMON*);
@@ -125,25 +125,25 @@ SECTIONS
     entry_alloc_VRAM = .;
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(32)
     {
-        entry_text_START = .;
+        entry_TEXT_START = .;
         build/asm/entry.o(.text*);
-        entry_text_END = .;
-        entry_text_SIZE = ABSOLUTE(entry_text_END - entry_text_START);
+        entry_TEXT_END = .;
+        entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
-        entry_data_START = .;
+        entry_DATA_START = .;
         build/asm/entry.o(.data*);
-        entry_data_END = .;
-        entry_data_SIZE = ABSOLUTE(entry_data_END - entry_data_START);
+        entry_DATA_END = .;
+        entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
-        entry_rodata_START = .;
+        entry_RODATA_START = .;
         build/asm/entry.o(.rodata*);
-        entry_rodata_END = .;
-        entry_rodata_SIZE = ABSOLUTE(entry_rodata_END - entry_rodata_START);
+        entry_RODATA_END = .;
+        entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
-        entry_sdata_START = .;
+        entry_SDATA_START = .;
         build/asm/entry.o(.sdata*);
-        entry_sdata_END = .;
-        entry_sdata_SIZE = ABSOLUTE(entry_sdata_END - entry_sdata_START);
+        entry_SDATA_END = .;
+        entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
     entry_alloc_VRAM_END = .;
     entry_alloc_VRAM_SIZE = ABSOLUTE(entry_alloc_VRAM_END - entry_alloc_VRAM);
@@ -151,20 +151,20 @@ SECTIONS
     entry_noload_VRAM = .;
     .entry.noload (NOLOAD) : SUBALIGN(32)
     {
-        entry_sbss_START = .;
+        entry_SBSS_START = .;
         build/asm/entry.o(.sbss*);
-        entry_sbss_END = .;
-        entry_sbss_SIZE = ABSOLUTE(entry_sbss_END - entry_sbss_START);
+        entry_SBSS_END = .;
+        entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
-        entry_scommon_START = .;
+        entry_SCOMMON_START = .;
         build/asm/entry.o(.scommon*);
-        entry_scommon_END = .;
-        entry_scommon_SIZE = ABSOLUTE(entry_scommon_END - entry_scommon_START);
+        entry_SCOMMON_END = .;
+        entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
-        entry_bss_START = .;
+        entry_BSS_START = .;
         build/asm/entry.o(.bss*);
-        entry_bss_END = .;
-        entry_bss_SIZE = ABSOLUTE(entry_bss_END - entry_bss_START);
+        entry_BSS_END = .;
+        entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
         build/asm/entry.o(COMMON*);
@@ -184,33 +184,33 @@ SECTIONS
     boot_alloc_VRAM = .;
     .boot : AT(boot_ROM_START)
     {
-        boot_text_START = .;
+        boot_TEXT_START = .;
         build/src/boot/boot_main.o(.text*);
         build/src/boot/dmadata.o(.text*);
         build/asm/util.o(.text*);
-        boot_text_END = .;
-        boot_text_SIZE = ABSOLUTE(boot_text_END - boot_text_START);
+        boot_TEXT_END = .;
+        boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
-        boot_data_START = .;
+        boot_DATA_START = .;
         build/src/boot/boot_main.o(.data*);
         build/src/boot/dmadata.o(.data*);
         build/asm/util.o(.data*);
-        boot_data_END = .;
-        boot_data_SIZE = ABSOLUTE(boot_data_END - boot_data_START);
+        boot_DATA_END = .;
+        boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
-        boot_rodata_START = .;
+        boot_RODATA_START = .;
         build/src/boot/boot_main.o(.rodata*);
         build/src/boot/dmadata.o(.rodata*);
         build/asm/util.o(.rodata*);
-        boot_rodata_END = .;
-        boot_rodata_SIZE = ABSOLUTE(boot_rodata_END - boot_rodata_START);
+        boot_RODATA_END = .;
+        boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
-        boot_sdata_START = .;
+        boot_SDATA_START = .;
         build/src/boot/boot_main.o(.sdata*);
         build/src/boot/dmadata.o(.sdata*);
         build/asm/util.o(.sdata*);
-        boot_sdata_END = .;
-        boot_sdata_SIZE = ABSOLUTE(boot_sdata_END - boot_sdata_START);
+        boot_SDATA_END = .;
+        boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
     boot_alloc_VRAM_END = .;
     boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
@@ -218,26 +218,26 @@ SECTIONS
     boot_noload_VRAM = .;
     .boot.noload (NOLOAD) :
     {
-        boot_sbss_START = .;
+        boot_SBSS_START = .;
         build/src/boot/boot_main.o(.sbss*);
         build/src/boot/dmadata.o(.sbss*);
         build/asm/util.o(.sbss*);
-        boot_sbss_END = .;
-        boot_sbss_SIZE = ABSOLUTE(boot_sbss_END - boot_sbss_START);
+        boot_SBSS_END = .;
+        boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
-        boot_scommon_START = .;
+        boot_SCOMMON_START = .;
         build/src/boot/boot_main.o(.scommon*);
         build/src/boot/dmadata.o(.scommon*);
         build/asm/util.o(.scommon*);
-        boot_scommon_END = .;
-        boot_scommon_SIZE = ABSOLUTE(boot_scommon_END - boot_scommon_START);
+        boot_SCOMMON_END = .;
+        boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
-        boot_bss_START = .;
+        boot_BSS_START = .;
         build/src/boot/boot_main.o(.bss*);
         build/src/boot/dmadata.o(.bss*);
         build/asm/util.o(.bss*);
-        boot_bss_END = .;
-        boot_bss_SIZE = ABSOLUTE(boot_bss_END - boot_bss_START);
+        boot_BSS_END = .;
+        boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
         build/src/boot/boot_main.o(COMMON*);

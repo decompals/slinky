@@ -55,7 +55,7 @@ impl LinkerSymbolsStyle {
 
     fn convert_section_name_to_linker_format(&self, section_type: &str) -> String {
         match self {
-            LinkerSymbolsStyle::Splat => section_type.replace('.', "_"),
+            LinkerSymbolsStyle::Splat => section_type.replace('.', "_").to_uppercase(),
             LinkerSymbolsStyle::Makerom => {
                 // TODO: yeet RoData?
                 if section_type == ".rodata" {

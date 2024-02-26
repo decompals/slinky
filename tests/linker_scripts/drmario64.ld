@@ -7,25 +7,25 @@ SECTIONS
     header_alloc_VRAM = .;
     .header 0x8F000000 : AT(header_ROM_START) SUBALIGN(16)
     {
-        header_text_START = .;
-        build/us/rom_header/rom_header.o(.text*);
-        header_text_END = .;
-        header_text_SIZE = ABSOLUTE(header_text_END - header_text_START);
+        header_TEXT_START = .;
+        build/us/src/rom_header/rom_header.o(.text*);
+        header_TEXT_END = .;
+        header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
-        header_data_START = .;
-        build/us/rom_header/rom_header.o(.data*);
-        header_data_END = .;
-        header_data_SIZE = ABSOLUTE(header_data_END - header_data_START);
+        header_DATA_START = .;
+        build/us/src/rom_header/rom_header.o(.data*);
+        header_DATA_END = .;
+        header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
-        header_rodata_START = .;
-        build/us/rom_header/rom_header.o(.rodata*);
-        header_rodata_END = .;
-        header_rodata_SIZE = ABSOLUTE(header_rodata_END - header_rodata_START);
+        header_RODATA_START = .;
+        build/us/src/rom_header/rom_header.o(.rodata*);
+        header_RODATA_END = .;
+        header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
-        header_sdata_START = .;
-        build/us/rom_header/rom_header.o(.sdata*);
-        header_sdata_END = .;
-        header_sdata_SIZE = ABSOLUTE(header_sdata_END - header_sdata_START);
+        header_SDATA_START = .;
+        build/us/src/rom_header/rom_header.o(.sdata*);
+        header_SDATA_END = .;
+        header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
     header_alloc_VRAM_END = .;
     header_alloc_VRAM_SIZE = ABSOLUTE(header_alloc_VRAM_END - header_alloc_VRAM);
@@ -33,23 +33,23 @@ SECTIONS
     header_noload_VRAM = .;
     .header.noload (NOLOAD) : SUBALIGN(16)
     {
-        header_sbss_START = .;
-        build/us/rom_header/rom_header.o(.sbss*);
-        header_sbss_END = .;
-        header_sbss_SIZE = ABSOLUTE(header_sbss_END - header_sbss_START);
+        header_SBSS_START = .;
+        build/us/src/rom_header/rom_header.o(.sbss*);
+        header_SBSS_END = .;
+        header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
-        header_scommon_START = .;
-        build/us/rom_header/rom_header.o(.scommon*);
-        header_scommon_END = .;
-        header_scommon_SIZE = ABSOLUTE(header_scommon_END - header_scommon_START);
+        header_SCOMMON_START = .;
+        build/us/src/rom_header/rom_header.o(.scommon*);
+        header_SCOMMON_END = .;
+        header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
-        header_bss_START = .;
-        build/us/rom_header/rom_header.o(.bss*);
-        header_bss_END = .;
-        header_bss_SIZE = ABSOLUTE(header_bss_END - header_bss_START);
+        header_BSS_START = .;
+        build/us/src/rom_header/rom_header.o(.bss*);
+        header_BSS_END = .;
+        header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
-        build/us/rom_header/rom_header.o(COMMON*);
+        build/us/src/rom_header/rom_header.o(COMMON*);
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
@@ -66,25 +66,25 @@ SECTIONS
     ipl3_alloc_VRAM = .;
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(16)
     {
-        ipl3_text_START = .;
-        build/us/asm/data/ipl3.o(.text*);
-        ipl3_text_END = .;
-        ipl3_text_SIZE = ABSOLUTE(ipl3_text_END - ipl3_text_START);
+        ipl3_TEXT_START = .;
+        build/us/asm/us/data/ipl3.o(.text*);
+        ipl3_TEXT_END = .;
+        ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
-        ipl3_data_START = .;
-        build/us/asm/data/ipl3.o(.data*);
-        ipl3_data_END = .;
-        ipl3_data_SIZE = ABSOLUTE(ipl3_data_END - ipl3_data_START);
+        ipl3_DATA_START = .;
+        build/us/asm/us/data/ipl3.o(.data*);
+        ipl3_DATA_END = .;
+        ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
-        ipl3_rodata_START = .;
-        build/us/asm/data/ipl3.o(.rodata*);
-        ipl3_rodata_END = .;
-        ipl3_rodata_SIZE = ABSOLUTE(ipl3_rodata_END - ipl3_rodata_START);
+        ipl3_RODATA_START = .;
+        build/us/asm/us/data/ipl3.o(.rodata*);
+        ipl3_RODATA_END = .;
+        ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
-        ipl3_sdata_START = .;
-        build/us/asm/data/ipl3.o(.sdata*);
-        ipl3_sdata_END = .;
-        ipl3_sdata_SIZE = ABSOLUTE(ipl3_sdata_END - ipl3_sdata_START);
+        ipl3_SDATA_START = .;
+        build/us/asm/us/data/ipl3.o(.sdata*);
+        ipl3_SDATA_END = .;
+        ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
     ipl3_alloc_VRAM_END = .;
     ipl3_alloc_VRAM_SIZE = ABSOLUTE(ipl3_alloc_VRAM_END - ipl3_alloc_VRAM);
@@ -92,23 +92,23 @@ SECTIONS
     ipl3_noload_VRAM = .;
     .ipl3.noload (NOLOAD) : SUBALIGN(16)
     {
-        ipl3_sbss_START = .;
-        build/us/asm/data/ipl3.o(.sbss*);
-        ipl3_sbss_END = .;
-        ipl3_sbss_SIZE = ABSOLUTE(ipl3_sbss_END - ipl3_sbss_START);
+        ipl3_SBSS_START = .;
+        build/us/asm/us/data/ipl3.o(.sbss*);
+        ipl3_SBSS_END = .;
+        ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
-        ipl3_scommon_START = .;
-        build/us/asm/data/ipl3.o(.scommon*);
-        ipl3_scommon_END = .;
-        ipl3_scommon_SIZE = ABSOLUTE(ipl3_scommon_END - ipl3_scommon_START);
+        ipl3_SCOMMON_START = .;
+        build/us/asm/us/data/ipl3.o(.scommon*);
+        ipl3_SCOMMON_END = .;
+        ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
-        ipl3_bss_START = .;
-        build/us/asm/data/ipl3.o(.bss*);
-        ipl3_bss_END = .;
-        ipl3_bss_SIZE = ABSOLUTE(ipl3_bss_END - ipl3_bss_START);
+        ipl3_BSS_START = .;
+        build/us/asm/us/data/ipl3.o(.bss*);
+        ipl3_BSS_END = .;
+        ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
-        build/us/asm/data/ipl3.o(COMMON*);
+        build/us/asm/us/data/ipl3.o(COMMON*);
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
@@ -125,25 +125,25 @@ SECTIONS
     entry_alloc_VRAM = .;
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(16)
     {
-        entry_text_START = .;
+        entry_TEXT_START = .;
         build/us/src/entry/entry.o(.text*);
-        entry_text_END = .;
-        entry_text_SIZE = ABSOLUTE(entry_text_END - entry_text_START);
+        entry_TEXT_END = .;
+        entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
-        entry_data_START = .;
+        entry_DATA_START = .;
         build/us/src/entry/entry.o(.data*);
-        entry_data_END = .;
-        entry_data_SIZE = ABSOLUTE(entry_data_END - entry_data_START);
+        entry_DATA_END = .;
+        entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
-        entry_rodata_START = .;
+        entry_RODATA_START = .;
         build/us/src/entry/entry.o(.rodata*);
-        entry_rodata_END = .;
-        entry_rodata_SIZE = ABSOLUTE(entry_rodata_END - entry_rodata_START);
+        entry_RODATA_END = .;
+        entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
-        entry_sdata_START = .;
+        entry_SDATA_START = .;
         build/us/src/entry/entry.o(.sdata*);
-        entry_sdata_END = .;
-        entry_sdata_SIZE = ABSOLUTE(entry_sdata_END - entry_sdata_START);
+        entry_SDATA_END = .;
+        entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
     entry_alloc_VRAM_END = .;
     entry_alloc_VRAM_SIZE = ABSOLUTE(entry_alloc_VRAM_END - entry_alloc_VRAM);
@@ -151,20 +151,20 @@ SECTIONS
     entry_noload_VRAM = .;
     .entry.noload (NOLOAD) : SUBALIGN(16)
     {
-        entry_sbss_START = .;
+        entry_SBSS_START = .;
         build/us/src/entry/entry.o(.sbss*);
-        entry_sbss_END = .;
-        entry_sbss_SIZE = ABSOLUTE(entry_sbss_END - entry_sbss_START);
+        entry_SBSS_END = .;
+        entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
-        entry_scommon_START = .;
+        entry_SCOMMON_START = .;
         build/us/src/entry/entry.o(.scommon*);
-        entry_scommon_END = .;
-        entry_scommon_SIZE = ABSOLUTE(entry_scommon_END - entry_scommon_START);
+        entry_SCOMMON_END = .;
+        entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
-        entry_bss_START = .;
+        entry_BSS_START = .;
         build/us/src/entry/entry.o(.bss*);
-        entry_bss_END = .;
-        entry_bss_SIZE = ABSOLUTE(entry_bss_END - entry_bss_START);
+        entry_BSS_END = .;
+        entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
         build/us/src/entry/entry.o(COMMON*);
@@ -184,7 +184,7 @@ SECTIONS
     boot_alloc_VRAM = .;
     .boot : AT(boot_ROM_START)
     {
-        boot_text_START = .;
+        boot_TEXT_START = .;
         build/us/src/boot/boot_main.o(.text*);
         build/us/src/boot/dmadata.o(.text*);
         build/us/src/gzip/inflate.o(.text*);
@@ -340,11 +340,11 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.text*);
         build/us/src/libkmc/mmuldi3.o(.text*);
         build/us/src/libkmc/ctype.o(.text*);
-        build/us/asm/boot/8001B640.o(.text*);
-        boot_text_END = .;
-        boot_text_SIZE = ABSOLUTE(boot_text_END - boot_text_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.text*);
+        boot_TEXT_END = .;
+        boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
-        boot_data_START = .;
+        boot_DATA_START = .;
         build/us/src/boot/boot_main.o(.data*);
         build/us/src/boot/dmadata.o(.data*);
         build/us/src/gzip/inflate.o(.data*);
@@ -500,11 +500,11 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.data*);
         build/us/src/libkmc/mmuldi3.o(.data*);
         build/us/src/libkmc/ctype.o(.data*);
-        build/us/asm/boot/8001B640.o(.data*);
-        boot_data_END = .;
-        boot_data_SIZE = ABSOLUTE(boot_data_END - boot_data_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.data*);
+        boot_DATA_END = .;
+        boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
-        boot_rodata_START = .;
+        boot_RODATA_START = .;
         build/us/src/boot/boot_main.o(.rodata*);
         build/us/src/boot/dmadata.o(.rodata*);
         build/us/src/gzip/inflate.o(.rodata*);
@@ -660,11 +660,11 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.rodata*);
         build/us/src/libkmc/mmuldi3.o(.rodata*);
         build/us/src/libkmc/ctype.o(.rodata*);
-        build/us/asm/boot/8001B640.o(.rodata*);
-        boot_rodata_END = .;
-        boot_rodata_SIZE = ABSOLUTE(boot_rodata_END - boot_rodata_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.rodata*);
+        boot_RODATA_END = .;
+        boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
-        boot_sdata_START = .;
+        boot_SDATA_START = .;
         build/us/src/boot/boot_main.o(.sdata*);
         build/us/src/boot/dmadata.o(.sdata*);
         build/us/src/gzip/inflate.o(.sdata*);
@@ -820,9 +820,9 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.sdata*);
         build/us/src/libkmc/mmuldi3.o(.sdata*);
         build/us/src/libkmc/ctype.o(.sdata*);
-        build/us/asm/boot/8001B640.o(.sdata*);
-        boot_sdata_END = .;
-        boot_sdata_SIZE = ABSOLUTE(boot_sdata_END - boot_sdata_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.sdata*);
+        boot_SDATA_END = .;
+        boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
     boot_alloc_VRAM_END = .;
     boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
@@ -830,7 +830,7 @@ SECTIONS
     boot_noload_VRAM = .;
     .boot.noload (NOLOAD) :
     {
-        boot_sbss_START = .;
+        boot_SBSS_START = .;
         build/us/src/boot/boot_main.o(.sbss*);
         build/us/src/boot/dmadata.o(.sbss*);
         build/us/src/gzip/inflate.o(.sbss*);
@@ -986,11 +986,11 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.sbss*);
         build/us/src/libkmc/mmuldi3.o(.sbss*);
         build/us/src/libkmc/ctype.o(.sbss*);
-        build/us/asm/boot/8001B640.o(.sbss*);
-        boot_sbss_END = .;
-        boot_sbss_SIZE = ABSOLUTE(boot_sbss_END - boot_sbss_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.sbss*);
+        boot_SBSS_END = .;
+        boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
-        boot_scommon_START = .;
+        boot_SCOMMON_START = .;
         build/us/src/boot/boot_main.o(.scommon*);
         build/us/src/boot/dmadata.o(.scommon*);
         build/us/src/gzip/inflate.o(.scommon*);
@@ -1146,11 +1146,11 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.scommon*);
         build/us/src/libkmc/mmuldi3.o(.scommon*);
         build/us/src/libkmc/ctype.o(.scommon*);
-        build/us/asm/boot/8001B640.o(.scommon*);
-        boot_scommon_END = .;
-        boot_scommon_SIZE = ABSOLUTE(boot_scommon_END - boot_scommon_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.scommon*);
+        boot_SCOMMON_END = .;
+        boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
-        boot_bss_START = .;
+        boot_BSS_START = .;
         build/us/src/boot/boot_main.o(.bss*);
         build/us/src/boot/dmadata.o(.bss*);
         build/us/src/gzip/inflate.o(.bss*);
@@ -1306,9 +1306,9 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(.bss*);
         build/us/src/libkmc/mmuldi3.o(.bss*);
         build/us/src/libkmc/ctype.o(.bss*);
-        build/us/asm/boot/8001B640.o(.bss*);
-        boot_bss_END = .;
-        boot_bss_SIZE = ABSOLUTE(boot_bss_END - boot_bss_START);
+        build/us/asm/us/data/boot/8001B640.bss.o(.bss*);
+        boot_BSS_END = .;
+        boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
         build/us/src/boot/boot_main.o(COMMON*);
@@ -1466,7 +1466,7 @@ SECTIONS
         build/us/src/libkmc/strcpy.o(COMMON*);
         build/us/src/libkmc/mmuldi3.o(COMMON*);
         build/us/src/libkmc/ctype.o(COMMON*);
-        build/us/asm/boot/8001B640.o(COMMON*);
+        build/us/asm/us/data/boot/8001B640.bss.o(COMMON*);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -1483,25 +1483,25 @@ SECTIONS
     dma_table_alloc_VRAM = .;
     .dma_table : AT(dma_table_ROM_START) SUBALIGN(16)
     {
-        dma_table_text_START = .;
+        dma_table_TEXT_START = .;
         build/us/src/dma_table/dma_table.o(.text*);
-        dma_table_text_END = .;
-        dma_table_text_SIZE = ABSOLUTE(dma_table_text_END - dma_table_text_START);
+        dma_table_TEXT_END = .;
+        dma_table_TEXT_SIZE = ABSOLUTE(dma_table_TEXT_END - dma_table_TEXT_START);
 
-        dma_table_data_START = .;
+        dma_table_DATA_START = .;
         build/us/src/dma_table/dma_table.o(.data*);
-        dma_table_data_END = .;
-        dma_table_data_SIZE = ABSOLUTE(dma_table_data_END - dma_table_data_START);
+        dma_table_DATA_END = .;
+        dma_table_DATA_SIZE = ABSOLUTE(dma_table_DATA_END - dma_table_DATA_START);
 
-        dma_table_rodata_START = .;
+        dma_table_RODATA_START = .;
         build/us/src/dma_table/dma_table.o(.rodata*);
-        dma_table_rodata_END = .;
-        dma_table_rodata_SIZE = ABSOLUTE(dma_table_rodata_END - dma_table_rodata_START);
+        dma_table_RODATA_END = .;
+        dma_table_RODATA_SIZE = ABSOLUTE(dma_table_RODATA_END - dma_table_RODATA_START);
 
-        dma_table_sdata_START = .;
+        dma_table_SDATA_START = .;
         build/us/src/dma_table/dma_table.o(.sdata*);
-        dma_table_sdata_END = .;
-        dma_table_sdata_SIZE = ABSOLUTE(dma_table_sdata_END - dma_table_sdata_START);
+        dma_table_SDATA_END = .;
+        dma_table_SDATA_SIZE = ABSOLUTE(dma_table_SDATA_END - dma_table_SDATA_START);
     }
     dma_table_alloc_VRAM_END = .;
     dma_table_alloc_VRAM_SIZE = ABSOLUTE(dma_table_alloc_VRAM_END - dma_table_alloc_VRAM);
@@ -1509,20 +1509,20 @@ SECTIONS
     dma_table_noload_VRAM = .;
     .dma_table.noload (NOLOAD) : SUBALIGN(16)
     {
-        dma_table_sbss_START = .;
+        dma_table_SBSS_START = .;
         build/us/src/dma_table/dma_table.o(.sbss*);
-        dma_table_sbss_END = .;
-        dma_table_sbss_SIZE = ABSOLUTE(dma_table_sbss_END - dma_table_sbss_START);
+        dma_table_SBSS_END = .;
+        dma_table_SBSS_SIZE = ABSOLUTE(dma_table_SBSS_END - dma_table_SBSS_START);
 
-        dma_table_scommon_START = .;
+        dma_table_SCOMMON_START = .;
         build/us/src/dma_table/dma_table.o(.scommon*);
-        dma_table_scommon_END = .;
-        dma_table_scommon_SIZE = ABSOLUTE(dma_table_scommon_END - dma_table_scommon_START);
+        dma_table_SCOMMON_END = .;
+        dma_table_SCOMMON_SIZE = ABSOLUTE(dma_table_SCOMMON_END - dma_table_SCOMMON_START);
 
-        dma_table_bss_START = .;
+        dma_table_BSS_START = .;
         build/us/src/dma_table/dma_table.o(.bss*);
-        dma_table_bss_END = .;
-        dma_table_bss_SIZE = ABSOLUTE(dma_table_bss_END - dma_table_bss_START);
+        dma_table_BSS_END = .;
+        dma_table_BSS_SIZE = ABSOLUTE(dma_table_BSS_END - dma_table_BSS_START);
 
         dma_tableCOMMON_START = .;
         build/us/src/dma_table/dma_table.o(COMMON*);
@@ -1542,25 +1542,37 @@ SECTIONS
     main_segment_alloc_VRAM = .;
     .main_segment : AT(main_segment_ROM_START) SUBALIGN(16)
     {
-        main_segment_text_START = .;
+        main_segment_TEXT_START = .;
         build/us/src/main_segment/main.o(.text*);
         build/us/src/main_segment/nnsched.o(.text*);
         build/us/src/main_segment/joy.o(.text*);
         build/us/src/main_segment/audio/sound.o(.text*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.text*);
         build/us/src/main_segment/graphic.o(.text*);
         build/us/src/main_segment/graphics/static.o(.text*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.text*);
         build/us/src/main_segment/audio/music_driver.o(.text*);
         build/us/src/main_segment/main1x.o(.text*);
         build/us/src/main_segment/vr_init.o(.text*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.text*);
         build/us/src/main_segment/aiset.o(.text*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.text*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.text*);
         build/us/src/main_segment/record.o(.text*);
+        build/us/asm/us/data/main_segment/record.bss.o(.text*);
         build/us/src/main_segment/unused/020D10.o(.text*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.text*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.text*);
         build/us/src/main_segment/game_etc.o(.text*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.text*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.text*);
         build/us/src/main_segment/screen_print/printer.o(.text*);
         build/us/src/main_segment/screen_print/printf_impl.o(.text*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.text*);
         build/us/src/main_segment/screen_print/debug_print.o(.text*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.text*);
         build/us/src/main_segment/debug_menu.o(.text*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.text*);
         build/us/src/main_segment/028820.o(.text*);
         build/us/src/main_segment/tex_func.o(.text*);
         build/us/src/main_segment/main_menu.o(.text*);
@@ -1569,14 +1581,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.text*);
         build/us/src/main_segment/dm_virus_init.o(.text*);
         build/us/src/main_segment/dm_game_main.o(.text*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.text*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.text*);
         build/us/src/main_segment/dm_manual_main.o(.text*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.text*);
         build/us/src/main_segment/dm_title_main.o(.text*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.text*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.text*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.text*);
         build/us/src/main_segment/main_story.o(.text*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.text*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.text*);
         build/us/src/main_segment/lws.o(.text*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.text*);
         build/us/src/main_segment/calc.o(.text*);
         build/us/src/main_segment/unused/065080.o(.text*);
         build/us/src/main_segment/unused/066080.o(.text*);
         build/us/src/main_segment/replay.o(.text*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.text*);
         build/us/src/main_segment/066580.o(.text*);
         build/us/src/main_segment/066840.o(.text*);
         build/us/src/main_segment/unused/055C40.o(.text*);
@@ -1587,33 +1609,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.text*);
         build/us/lib/libmus/src/lib_memory.o(.text*);
         build/us/lib/libmus/src/aud_samples.o(.text*);
-        build/us/asm/rsp/rspboot.o(.text*);
-        build/us/asm/rsp/aspMain.o(.text*);
-        build/us/asm/rsp/f3dex2.o(.text*);
-        build/us/asm/rsp/s2dex.o(.text*);
-        build/us/asm/main_segment/800E9BB0.o(.text*);
-        main_segment_text_END = .;
-        main_segment_text_SIZE = ABSOLUTE(main_segment_text_END - main_segment_text_START);
+        build/us/asm/us/data/rsp/rspboot.o(.text*);
+        build/us/asm/us/data/rsp/aspMain.o(.text*);
+        build/us/asm/us/data/rsp/f3dex2.o(.text*);
+        build/us/asm/us/data/rsp/s2dex.o(.text*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.text*);
+        main_segment_TEXT_END = .;
+        main_segment_TEXT_SIZE = ABSOLUTE(main_segment_TEXT_END - main_segment_TEXT_START);
 
-        main_segment_data_START = .;
+        main_segment_DATA_START = .;
         build/us/src/main_segment/main.o(.data*);
         build/us/src/main_segment/nnsched.o(.data*);
         build/us/src/main_segment/joy.o(.data*);
         build/us/src/main_segment/audio/sound.o(.data*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.data*);
         build/us/src/main_segment/graphic.o(.data*);
         build/us/src/main_segment/graphics/static.o(.data*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.data*);
         build/us/src/main_segment/audio/music_driver.o(.data*);
         build/us/src/main_segment/main1x.o(.data*);
         build/us/src/main_segment/vr_init.o(.data*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.data*);
         build/us/src/main_segment/aiset.o(.data*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.data*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.data*);
         build/us/src/main_segment/record.o(.data*);
+        build/us/asm/us/data/main_segment/record.bss.o(.data*);
         build/us/src/main_segment/unused/020D10.o(.data*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.data*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.data*);
         build/us/src/main_segment/game_etc.o(.data*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.data*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.data*);
         build/us/src/main_segment/screen_print/printer.o(.data*);
         build/us/src/main_segment/screen_print/printf_impl.o(.data*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.data*);
         build/us/src/main_segment/screen_print/debug_print.o(.data*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.data*);
         build/us/src/main_segment/debug_menu.o(.data*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.data*);
         build/us/src/main_segment/028820.o(.data*);
         build/us/src/main_segment/tex_func.o(.data*);
         build/us/src/main_segment/main_menu.o(.data*);
@@ -1622,14 +1656,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.data*);
         build/us/src/main_segment/dm_virus_init.o(.data*);
         build/us/src/main_segment/dm_game_main.o(.data*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.data*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.data*);
         build/us/src/main_segment/dm_manual_main.o(.data*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.data*);
         build/us/src/main_segment/dm_title_main.o(.data*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.data*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.data*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.data*);
         build/us/src/main_segment/main_story.o(.data*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.data*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.data*);
         build/us/src/main_segment/lws.o(.data*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.data*);
         build/us/src/main_segment/calc.o(.data*);
         build/us/src/main_segment/unused/065080.o(.data*);
         build/us/src/main_segment/unused/066080.o(.data*);
         build/us/src/main_segment/replay.o(.data*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.data*);
         build/us/src/main_segment/066580.o(.data*);
         build/us/src/main_segment/066840.o(.data*);
         build/us/src/main_segment/unused/055C40.o(.data*);
@@ -1640,33 +1684,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.data*);
         build/us/lib/libmus/src/lib_memory.o(.data*);
         build/us/lib/libmus/src/aud_samples.o(.data*);
-        build/us/asm/rsp/rspboot.o(.data*);
-        build/us/asm/rsp/aspMain.o(.data*);
-        build/us/asm/rsp/f3dex2.o(.data*);
-        build/us/asm/rsp/s2dex.o(.data*);
-        build/us/asm/main_segment/800E9BB0.o(.data*);
-        main_segment_data_END = .;
-        main_segment_data_SIZE = ABSOLUTE(main_segment_data_END - main_segment_data_START);
+        build/us/asm/us/data/rsp/rspboot.o(.data*);
+        build/us/asm/us/data/rsp/aspMain.o(.data*);
+        build/us/asm/us/data/rsp/f3dex2.o(.data*);
+        build/us/asm/us/data/rsp/s2dex.o(.data*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.data*);
+        main_segment_DATA_END = .;
+        main_segment_DATA_SIZE = ABSOLUTE(main_segment_DATA_END - main_segment_DATA_START);
 
-        main_segment_rodata_START = .;
+        main_segment_RODATA_START = .;
         build/us/src/main_segment/main.o(.rodata*);
         build/us/src/main_segment/nnsched.o(.rodata*);
         build/us/src/main_segment/joy.o(.rodata*);
         build/us/src/main_segment/audio/sound.o(.rodata*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.rodata*);
         build/us/src/main_segment/graphic.o(.rodata*);
         build/us/src/main_segment/graphics/static.o(.rodata*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.rodata*);
         build/us/src/main_segment/audio/music_driver.o(.rodata*);
         build/us/src/main_segment/main1x.o(.rodata*);
         build/us/src/main_segment/vr_init.o(.rodata*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.rodata*);
         build/us/src/main_segment/aiset.o(.rodata*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.rodata*);
         build/us/src/main_segment/record.o(.rodata*);
+        build/us/asm/us/data/main_segment/record.bss.o(.rodata*);
         build/us/src/main_segment/unused/020D10.o(.rodata*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.rodata*);
         build/us/src/main_segment/game_etc.o(.rodata*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.rodata*);
         build/us/src/main_segment/screen_print/printer.o(.rodata*);
         build/us/src/main_segment/screen_print/printf_impl.o(.rodata*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.rodata*);
         build/us/src/main_segment/screen_print/debug_print.o(.rodata*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.rodata*);
         build/us/src/main_segment/debug_menu.o(.rodata*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.rodata*);
         build/us/src/main_segment/028820.o(.rodata*);
         build/us/src/main_segment/tex_func.o(.rodata*);
         build/us/src/main_segment/main_menu.o(.rodata*);
@@ -1675,14 +1731,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.rodata*);
         build/us/src/main_segment/dm_virus_init.o(.rodata*);
         build/us/src/main_segment/dm_game_main.o(.rodata*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.rodata*);
         build/us/src/main_segment/dm_manual_main.o(.rodata*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.rodata*);
         build/us/src/main_segment/dm_title_main.o(.rodata*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.rodata*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.rodata*);
         build/us/src/main_segment/main_story.o(.rodata*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.rodata*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.rodata*);
         build/us/src/main_segment/lws.o(.rodata*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.rodata*);
         build/us/src/main_segment/calc.o(.rodata*);
         build/us/src/main_segment/unused/065080.o(.rodata*);
         build/us/src/main_segment/unused/066080.o(.rodata*);
         build/us/src/main_segment/replay.o(.rodata*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.rodata*);
         build/us/src/main_segment/066580.o(.rodata*);
         build/us/src/main_segment/066840.o(.rodata*);
         build/us/src/main_segment/unused/055C40.o(.rodata*);
@@ -1693,33 +1759,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.rodata*);
         build/us/lib/libmus/src/lib_memory.o(.rodata*);
         build/us/lib/libmus/src/aud_samples.o(.rodata*);
-        build/us/asm/rsp/rspboot.o(.rodata*);
-        build/us/asm/rsp/aspMain.o(.rodata*);
-        build/us/asm/rsp/f3dex2.o(.rodata*);
-        build/us/asm/rsp/s2dex.o(.rodata*);
-        build/us/asm/main_segment/800E9BB0.o(.rodata*);
-        main_segment_rodata_END = .;
-        main_segment_rodata_SIZE = ABSOLUTE(main_segment_rodata_END - main_segment_rodata_START);
+        build/us/asm/us/data/rsp/rspboot.o(.rodata*);
+        build/us/asm/us/data/rsp/aspMain.o(.rodata*);
+        build/us/asm/us/data/rsp/f3dex2.o(.rodata*);
+        build/us/asm/us/data/rsp/s2dex.o(.rodata*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.rodata*);
+        main_segment_RODATA_END = .;
+        main_segment_RODATA_SIZE = ABSOLUTE(main_segment_RODATA_END - main_segment_RODATA_START);
 
-        main_segment_sdata_START = .;
+        main_segment_SDATA_START = .;
         build/us/src/main_segment/main.o(.sdata*);
         build/us/src/main_segment/nnsched.o(.sdata*);
         build/us/src/main_segment/joy.o(.sdata*);
         build/us/src/main_segment/audio/sound.o(.sdata*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.sdata*);
         build/us/src/main_segment/graphic.o(.sdata*);
         build/us/src/main_segment/graphics/static.o(.sdata*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.sdata*);
         build/us/src/main_segment/audio/music_driver.o(.sdata*);
         build/us/src/main_segment/main1x.o(.sdata*);
         build/us/src/main_segment/vr_init.o(.sdata*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.sdata*);
         build/us/src/main_segment/aiset.o(.sdata*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.sdata*);
         build/us/src/main_segment/record.o(.sdata*);
+        build/us/asm/us/data/main_segment/record.bss.o(.sdata*);
         build/us/src/main_segment/unused/020D10.o(.sdata*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.sdata*);
         build/us/src/main_segment/game_etc.o(.sdata*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.sdata*);
         build/us/src/main_segment/screen_print/printer.o(.sdata*);
         build/us/src/main_segment/screen_print/printf_impl.o(.sdata*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.sdata*);
         build/us/src/main_segment/screen_print/debug_print.o(.sdata*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.sdata*);
         build/us/src/main_segment/debug_menu.o(.sdata*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.sdata*);
         build/us/src/main_segment/028820.o(.sdata*);
         build/us/src/main_segment/tex_func.o(.sdata*);
         build/us/src/main_segment/main_menu.o(.sdata*);
@@ -1728,14 +1806,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.sdata*);
         build/us/src/main_segment/dm_virus_init.o(.sdata*);
         build/us/src/main_segment/dm_game_main.o(.sdata*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.sdata*);
         build/us/src/main_segment/dm_manual_main.o(.sdata*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.sdata*);
         build/us/src/main_segment/dm_title_main.o(.sdata*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.sdata*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.sdata*);
         build/us/src/main_segment/main_story.o(.sdata*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.sdata*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.sdata*);
         build/us/src/main_segment/lws.o(.sdata*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.sdata*);
         build/us/src/main_segment/calc.o(.sdata*);
         build/us/src/main_segment/unused/065080.o(.sdata*);
         build/us/src/main_segment/unused/066080.o(.sdata*);
         build/us/src/main_segment/replay.o(.sdata*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.sdata*);
         build/us/src/main_segment/066580.o(.sdata*);
         build/us/src/main_segment/066840.o(.sdata*);
         build/us/src/main_segment/unused/055C40.o(.sdata*);
@@ -1746,13 +1834,13 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.sdata*);
         build/us/lib/libmus/src/lib_memory.o(.sdata*);
         build/us/lib/libmus/src/aud_samples.o(.sdata*);
-        build/us/asm/rsp/rspboot.o(.sdata*);
-        build/us/asm/rsp/aspMain.o(.sdata*);
-        build/us/asm/rsp/f3dex2.o(.sdata*);
-        build/us/asm/rsp/s2dex.o(.sdata*);
-        build/us/asm/main_segment/800E9BB0.o(.sdata*);
-        main_segment_sdata_END = .;
-        main_segment_sdata_SIZE = ABSOLUTE(main_segment_sdata_END - main_segment_sdata_START);
+        build/us/asm/us/data/rsp/rspboot.o(.sdata*);
+        build/us/asm/us/data/rsp/aspMain.o(.sdata*);
+        build/us/asm/us/data/rsp/f3dex2.o(.sdata*);
+        build/us/asm/us/data/rsp/s2dex.o(.sdata*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.sdata*);
+        main_segment_SDATA_END = .;
+        main_segment_SDATA_SIZE = ABSOLUTE(main_segment_SDATA_END - main_segment_SDATA_START);
     }
     main_segment_alloc_VRAM_END = .;
     main_segment_alloc_VRAM_SIZE = ABSOLUTE(main_segment_alloc_VRAM_END - main_segment_alloc_VRAM);
@@ -1760,25 +1848,37 @@ SECTIONS
     main_segment_noload_VRAM = .;
     .main_segment.noload (NOLOAD) : SUBALIGN(16)
     {
-        main_segment_sbss_START = .;
+        main_segment_SBSS_START = .;
         build/us/src/main_segment/main.o(.sbss*);
         build/us/src/main_segment/nnsched.o(.sbss*);
         build/us/src/main_segment/joy.o(.sbss*);
         build/us/src/main_segment/audio/sound.o(.sbss*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.sbss*);
         build/us/src/main_segment/graphic.o(.sbss*);
         build/us/src/main_segment/graphics/static.o(.sbss*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.sbss*);
         build/us/src/main_segment/audio/music_driver.o(.sbss*);
         build/us/src/main_segment/main1x.o(.sbss*);
         build/us/src/main_segment/vr_init.o(.sbss*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.sbss*);
         build/us/src/main_segment/aiset.o(.sbss*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.sbss*);
         build/us/src/main_segment/record.o(.sbss*);
+        build/us/asm/us/data/main_segment/record.bss.o(.sbss*);
         build/us/src/main_segment/unused/020D10.o(.sbss*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.sbss*);
         build/us/src/main_segment/game_etc.o(.sbss*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.sbss*);
         build/us/src/main_segment/screen_print/printer.o(.sbss*);
         build/us/src/main_segment/screen_print/printf_impl.o(.sbss*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.sbss*);
         build/us/src/main_segment/screen_print/debug_print.o(.sbss*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.sbss*);
         build/us/src/main_segment/debug_menu.o(.sbss*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.sbss*);
         build/us/src/main_segment/028820.o(.sbss*);
         build/us/src/main_segment/tex_func.o(.sbss*);
         build/us/src/main_segment/main_menu.o(.sbss*);
@@ -1787,14 +1887,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.sbss*);
         build/us/src/main_segment/dm_virus_init.o(.sbss*);
         build/us/src/main_segment/dm_game_main.o(.sbss*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.sbss*);
         build/us/src/main_segment/dm_manual_main.o(.sbss*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.sbss*);
         build/us/src/main_segment/dm_title_main.o(.sbss*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.sbss*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.sbss*);
         build/us/src/main_segment/main_story.o(.sbss*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.sbss*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.sbss*);
         build/us/src/main_segment/lws.o(.sbss*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.sbss*);
         build/us/src/main_segment/calc.o(.sbss*);
         build/us/src/main_segment/unused/065080.o(.sbss*);
         build/us/src/main_segment/unused/066080.o(.sbss*);
         build/us/src/main_segment/replay.o(.sbss*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.sbss*);
         build/us/src/main_segment/066580.o(.sbss*);
         build/us/src/main_segment/066840.o(.sbss*);
         build/us/src/main_segment/unused/055C40.o(.sbss*);
@@ -1805,33 +1915,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.sbss*);
         build/us/lib/libmus/src/lib_memory.o(.sbss*);
         build/us/lib/libmus/src/aud_samples.o(.sbss*);
-        build/us/asm/rsp/rspboot.o(.sbss*);
-        build/us/asm/rsp/aspMain.o(.sbss*);
-        build/us/asm/rsp/f3dex2.o(.sbss*);
-        build/us/asm/rsp/s2dex.o(.sbss*);
-        build/us/asm/main_segment/800E9BB0.o(.sbss*);
-        main_segment_sbss_END = .;
-        main_segment_sbss_SIZE = ABSOLUTE(main_segment_sbss_END - main_segment_sbss_START);
+        build/us/asm/us/data/rsp/rspboot.o(.sbss*);
+        build/us/asm/us/data/rsp/aspMain.o(.sbss*);
+        build/us/asm/us/data/rsp/f3dex2.o(.sbss*);
+        build/us/asm/us/data/rsp/s2dex.o(.sbss*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.sbss*);
+        main_segment_SBSS_END = .;
+        main_segment_SBSS_SIZE = ABSOLUTE(main_segment_SBSS_END - main_segment_SBSS_START);
 
-        main_segment_scommon_START = .;
+        main_segment_SCOMMON_START = .;
         build/us/src/main_segment/main.o(.scommon*);
         build/us/src/main_segment/nnsched.o(.scommon*);
         build/us/src/main_segment/joy.o(.scommon*);
         build/us/src/main_segment/audio/sound.o(.scommon*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.scommon*);
         build/us/src/main_segment/graphic.o(.scommon*);
         build/us/src/main_segment/graphics/static.o(.scommon*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.scommon*);
         build/us/src/main_segment/audio/music_driver.o(.scommon*);
         build/us/src/main_segment/main1x.o(.scommon*);
         build/us/src/main_segment/vr_init.o(.scommon*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.scommon*);
         build/us/src/main_segment/aiset.o(.scommon*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.scommon*);
         build/us/src/main_segment/record.o(.scommon*);
+        build/us/asm/us/data/main_segment/record.bss.o(.scommon*);
         build/us/src/main_segment/unused/020D10.o(.scommon*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.scommon*);
         build/us/src/main_segment/game_etc.o(.scommon*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.scommon*);
         build/us/src/main_segment/screen_print/printer.o(.scommon*);
         build/us/src/main_segment/screen_print/printf_impl.o(.scommon*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.scommon*);
         build/us/src/main_segment/screen_print/debug_print.o(.scommon*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.scommon*);
         build/us/src/main_segment/debug_menu.o(.scommon*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.scommon*);
         build/us/src/main_segment/028820.o(.scommon*);
         build/us/src/main_segment/tex_func.o(.scommon*);
         build/us/src/main_segment/main_menu.o(.scommon*);
@@ -1840,14 +1962,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.scommon*);
         build/us/src/main_segment/dm_virus_init.o(.scommon*);
         build/us/src/main_segment/dm_game_main.o(.scommon*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.scommon*);
         build/us/src/main_segment/dm_manual_main.o(.scommon*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.scommon*);
         build/us/src/main_segment/dm_title_main.o(.scommon*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.scommon*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.scommon*);
         build/us/src/main_segment/main_story.o(.scommon*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.scommon*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.scommon*);
         build/us/src/main_segment/lws.o(.scommon*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.scommon*);
         build/us/src/main_segment/calc.o(.scommon*);
         build/us/src/main_segment/unused/065080.o(.scommon*);
         build/us/src/main_segment/unused/066080.o(.scommon*);
         build/us/src/main_segment/replay.o(.scommon*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.scommon*);
         build/us/src/main_segment/066580.o(.scommon*);
         build/us/src/main_segment/066840.o(.scommon*);
         build/us/src/main_segment/unused/055C40.o(.scommon*);
@@ -1858,33 +1990,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.scommon*);
         build/us/lib/libmus/src/lib_memory.o(.scommon*);
         build/us/lib/libmus/src/aud_samples.o(.scommon*);
-        build/us/asm/rsp/rspboot.o(.scommon*);
-        build/us/asm/rsp/aspMain.o(.scommon*);
-        build/us/asm/rsp/f3dex2.o(.scommon*);
-        build/us/asm/rsp/s2dex.o(.scommon*);
-        build/us/asm/main_segment/800E9BB0.o(.scommon*);
-        main_segment_scommon_END = .;
-        main_segment_scommon_SIZE = ABSOLUTE(main_segment_scommon_END - main_segment_scommon_START);
+        build/us/asm/us/data/rsp/rspboot.o(.scommon*);
+        build/us/asm/us/data/rsp/aspMain.o(.scommon*);
+        build/us/asm/us/data/rsp/f3dex2.o(.scommon*);
+        build/us/asm/us/data/rsp/s2dex.o(.scommon*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.scommon*);
+        main_segment_SCOMMON_END = .;
+        main_segment_SCOMMON_SIZE = ABSOLUTE(main_segment_SCOMMON_END - main_segment_SCOMMON_START);
 
-        main_segment_bss_START = .;
+        main_segment_BSS_START = .;
         build/us/src/main_segment/main.o(.bss*);
         build/us/src/main_segment/nnsched.o(.bss*);
         build/us/src/main_segment/joy.o(.bss*);
         build/us/src/main_segment/audio/sound.o(.bss*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(.bss*);
         build/us/src/main_segment/graphic.o(.bss*);
         build/us/src/main_segment/graphics/static.o(.bss*);
         build/us/src/main_segment/graphics/graphic_dlists.o(.bss*);
         build/us/src/main_segment/audio/music_driver.o(.bss*);
         build/us/src/main_segment/main1x.o(.bss*);
         build/us/src/main_segment/vr_init.o(.bss*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(.bss*);
         build/us/src/main_segment/aiset.o(.bss*);
+        build/us/asm/us/data/main_segment/aiset.data.o(.bss*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(.bss*);
         build/us/src/main_segment/record.o(.bss*);
+        build/us/asm/us/data/main_segment/record.bss.o(.bss*);
         build/us/src/main_segment/unused/020D10.o(.bss*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(.bss*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(.bss*);
         build/us/src/main_segment/game_etc.o(.bss*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(.bss*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(.bss*);
         build/us/src/main_segment/screen_print/printer.o(.bss*);
         build/us/src/main_segment/screen_print/printf_impl.o(.bss*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(.bss*);
         build/us/src/main_segment/screen_print/debug_print.o(.bss*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(.bss*);
         build/us/src/main_segment/debug_menu.o(.bss*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(.bss*);
         build/us/src/main_segment/028820.o(.bss*);
         build/us/src/main_segment/tex_func.o(.bss*);
         build/us/src/main_segment/main_menu.o(.bss*);
@@ -1893,14 +2037,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(.bss*);
         build/us/src/main_segment/dm_virus_init.o(.bss*);
         build/us/src/main_segment/dm_game_main.o(.bss*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(.bss*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(.bss*);
         build/us/src/main_segment/dm_manual_main.o(.bss*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(.bss*);
         build/us/src/main_segment/dm_title_main.o(.bss*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(.bss*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(.bss*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(.bss*);
         build/us/src/main_segment/main_story.o(.bss*);
+        build/us/asm/us/data/main_segment/main_story.data.o(.bss*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(.bss*);
         build/us/src/main_segment/lws.o(.bss*);
+        build/us/asm/us/data/main_segment/lws.bss.o(.bss*);
         build/us/src/main_segment/calc.o(.bss*);
         build/us/src/main_segment/unused/065080.o(.bss*);
         build/us/src/main_segment/unused/066080.o(.bss*);
         build/us/src/main_segment/replay.o(.bss*);
+        build/us/asm/us/data/main_segment/replay.bss.o(.bss*);
         build/us/src/main_segment/066580.o(.bss*);
         build/us/src/main_segment/066840.o(.bss*);
         build/us/src/main_segment/unused/055C40.o(.bss*);
@@ -1911,33 +2065,45 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(.bss*);
         build/us/lib/libmus/src/lib_memory.o(.bss*);
         build/us/lib/libmus/src/aud_samples.o(.bss*);
-        build/us/asm/rsp/rspboot.o(.bss*);
-        build/us/asm/rsp/aspMain.o(.bss*);
-        build/us/asm/rsp/f3dex2.o(.bss*);
-        build/us/asm/rsp/s2dex.o(.bss*);
-        build/us/asm/main_segment/800E9BB0.o(.bss*);
-        main_segment_bss_END = .;
-        main_segment_bss_SIZE = ABSOLUTE(main_segment_bss_END - main_segment_bss_START);
+        build/us/asm/us/data/rsp/rspboot.o(.bss*);
+        build/us/asm/us/data/rsp/aspMain.o(.bss*);
+        build/us/asm/us/data/rsp/f3dex2.o(.bss*);
+        build/us/asm/us/data/rsp/s2dex.o(.bss*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(.bss*);
+        main_segment_BSS_END = .;
+        main_segment_BSS_SIZE = ABSOLUTE(main_segment_BSS_END - main_segment_BSS_START);
 
         main_segmentCOMMON_START = .;
         build/us/src/main_segment/main.o(COMMON*);
         build/us/src/main_segment/nnsched.o(COMMON*);
         build/us/src/main_segment/joy.o(COMMON*);
         build/us/src/main_segment/audio/sound.o(COMMON*);
+        build/us/asm/us/data/main_segment/audio/sound.bss.o(COMMON*);
         build/us/src/main_segment/graphic.o(COMMON*);
         build/us/src/main_segment/graphics/static.o(COMMON*);
         build/us/src/main_segment/graphics/graphic_dlists.o(COMMON*);
         build/us/src/main_segment/audio/music_driver.o(COMMON*);
         build/us/src/main_segment/main1x.o(COMMON*);
         build/us/src/main_segment/vr_init.o(COMMON*);
+        build/us/asm/us/data/main_segment/vr_init.bss.o(COMMON*);
         build/us/src/main_segment/aiset.o(COMMON*);
+        build/us/asm/us/data/main_segment/aiset.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/aiset.bss.o(COMMON*);
         build/us/src/main_segment/record.o(COMMON*);
+        build/us/asm/us/data/main_segment/record.bss.o(COMMON*);
         build/us/src/main_segment/unused/020D10.o(COMMON*);
+        build/us/asm/us/data/main_segment/unused/020D10.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/unused/020D10.bss.o(COMMON*);
         build/us/src/main_segment/game_etc.o(COMMON*);
+        build/us/asm/us/data/main_segment/game_etc.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/game_etc.bss.o(COMMON*);
         build/us/src/main_segment/screen_print/printer.o(COMMON*);
         build/us/src/main_segment/screen_print/printf_impl.o(COMMON*);
+        build/us/asm/us/data/main_segment/0750C0.data.o(COMMON*);
         build/us/src/main_segment/screen_print/debug_print.o(COMMON*);
+        build/us/asm/us/data/main_segment/screen_print/debug_print.bss.o(COMMON*);
         build/us/src/main_segment/debug_menu.o(COMMON*);
+        build/us/asm/us/data/main_segment/debug_menu.bss.o(COMMON*);
         build/us/src/main_segment/028820.o(COMMON*);
         build/us/src/main_segment/tex_func.o(COMMON*);
         build/us/src/main_segment/main_menu.o(COMMON*);
@@ -1946,14 +2112,24 @@ SECTIONS
         build/us/src/main_segment/char_anime.o(COMMON*);
         build/us/src/main_segment/dm_virus_init.o(COMMON*);
         build/us/src/main_segment/dm_game_main.o(COMMON*);
+        build/us/asm/us/data/main_segment/dm_game_main.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/dm_game_main.bss.o(COMMON*);
         build/us/src/main_segment/dm_manual_main.o(COMMON*);
+        build/us/asm/us/data/main_segment/dm_manual_main.bss.o(COMMON*);
         build/us/src/main_segment/dm_title_main.o(COMMON*);
+        build/us/asm/us/data/main_segment/dm_title_main.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/dm_title_main.bss.o(COMMON*);
+        build/us/asm/us/data/main_segment/08F1C0.data.o(COMMON*);
         build/us/src/main_segment/main_story.o(COMMON*);
+        build/us/asm/us/data/main_segment/main_story.data.o(COMMON*);
+        build/us/asm/us/data/main_segment/main_story.bss.o(COMMON*);
         build/us/src/main_segment/lws.o(COMMON*);
+        build/us/asm/us/data/main_segment/lws.bss.o(COMMON*);
         build/us/src/main_segment/calc.o(COMMON*);
         build/us/src/main_segment/unused/065080.o(COMMON*);
         build/us/src/main_segment/unused/066080.o(COMMON*);
         build/us/src/main_segment/replay.o(COMMON*);
+        build/us/asm/us/data/main_segment/replay.bss.o(COMMON*);
         build/us/src/main_segment/066580.o(COMMON*);
         build/us/src/main_segment/066840.o(COMMON*);
         build/us/src/main_segment/unused/055C40.o(COMMON*);
@@ -1964,11 +2140,11 @@ SECTIONS
         build/us/lib/libmus/src/aud_thread.o(COMMON*);
         build/us/lib/libmus/src/lib_memory.o(COMMON*);
         build/us/lib/libmus/src/aud_samples.o(COMMON*);
-        build/us/asm/rsp/rspboot.o(COMMON*);
-        build/us/asm/rsp/aspMain.o(COMMON*);
-        build/us/asm/rsp/f3dex2.o(COMMON*);
-        build/us/asm/rsp/s2dex.o(COMMON*);
-        build/us/asm/main_segment/800E9BB0.o(COMMON*);
+        build/us/asm/us/data/rsp/rspboot.o(COMMON*);
+        build/us/asm/us/data/rsp/aspMain.o(COMMON*);
+        build/us/asm/us/data/rsp/f3dex2.o(COMMON*);
+        build/us/asm/us/data/rsp/s2dex.o(COMMON*);
+        build/us/asm/us/data/main_segment/800E9BB0.bss.o(COMMON*);
         main_segmentCOMMON_END = .;
         main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
@@ -1985,25 +2161,25 @@ SECTIONS
     buffer1_alloc_VRAM = .;
     .buffer1 : AT(buffer1_ROM_START) SUBALIGN(16)
     {
-        buffer1_text_START = .;
+        buffer1_TEXT_START = .;
         build/us/src/buffers/buffer1.o(.text*);
-        buffer1_text_END = .;
-        buffer1_text_SIZE = ABSOLUTE(buffer1_text_END - buffer1_text_START);
+        buffer1_TEXT_END = .;
+        buffer1_TEXT_SIZE = ABSOLUTE(buffer1_TEXT_END - buffer1_TEXT_START);
 
-        buffer1_data_START = .;
+        buffer1_DATA_START = .;
         build/us/src/buffers/buffer1.o(.data*);
-        buffer1_data_END = .;
-        buffer1_data_SIZE = ABSOLUTE(buffer1_data_END - buffer1_data_START);
+        buffer1_DATA_END = .;
+        buffer1_DATA_SIZE = ABSOLUTE(buffer1_DATA_END - buffer1_DATA_START);
 
-        buffer1_rodata_START = .;
+        buffer1_RODATA_START = .;
         build/us/src/buffers/buffer1.o(.rodata*);
-        buffer1_rodata_END = .;
-        buffer1_rodata_SIZE = ABSOLUTE(buffer1_rodata_END - buffer1_rodata_START);
+        buffer1_RODATA_END = .;
+        buffer1_RODATA_SIZE = ABSOLUTE(buffer1_RODATA_END - buffer1_RODATA_START);
 
-        buffer1_sdata_START = .;
+        buffer1_SDATA_START = .;
         build/us/src/buffers/buffer1.o(.sdata*);
-        buffer1_sdata_END = .;
-        buffer1_sdata_SIZE = ABSOLUTE(buffer1_sdata_END - buffer1_sdata_START);
+        buffer1_SDATA_END = .;
+        buffer1_SDATA_SIZE = ABSOLUTE(buffer1_SDATA_END - buffer1_SDATA_START);
     }
     buffer1_alloc_VRAM_END = .;
     buffer1_alloc_VRAM_SIZE = ABSOLUTE(buffer1_alloc_VRAM_END - buffer1_alloc_VRAM);
@@ -2011,20 +2187,20 @@ SECTIONS
     buffer1_noload_VRAM = .;
     .buffer1.noload (NOLOAD) : SUBALIGN(16)
     {
-        buffer1_sbss_START = .;
+        buffer1_SBSS_START = .;
         build/us/src/buffers/buffer1.o(.sbss*);
-        buffer1_sbss_END = .;
-        buffer1_sbss_SIZE = ABSOLUTE(buffer1_sbss_END - buffer1_sbss_START);
+        buffer1_SBSS_END = .;
+        buffer1_SBSS_SIZE = ABSOLUTE(buffer1_SBSS_END - buffer1_SBSS_START);
 
-        buffer1_scommon_START = .;
+        buffer1_SCOMMON_START = .;
         build/us/src/buffers/buffer1.o(.scommon*);
-        buffer1_scommon_END = .;
-        buffer1_scommon_SIZE = ABSOLUTE(buffer1_scommon_END - buffer1_scommon_START);
+        buffer1_SCOMMON_END = .;
+        buffer1_SCOMMON_SIZE = ABSOLUTE(buffer1_SCOMMON_END - buffer1_SCOMMON_START);
 
-        buffer1_bss_START = .;
+        buffer1_BSS_START = .;
         build/us/src/buffers/buffer1.o(.bss*);
-        buffer1_bss_END = .;
-        buffer1_bss_SIZE = ABSOLUTE(buffer1_bss_END - buffer1_bss_START);
+        buffer1_BSS_END = .;
+        buffer1_BSS_SIZE = ABSOLUTE(buffer1_BSS_END - buffer1_BSS_START);
 
         buffer1COMMON_START = .;
         build/us/src/buffers/buffer1.o(COMMON*);
@@ -2044,25 +2220,25 @@ SECTIONS
     buffer2_alloc_VRAM = .;
     .buffer2 0x80205000 : AT(buffer2_ROM_START) SUBALIGN(16)
     {
-        buffer2_text_START = .;
+        buffer2_TEXT_START = .;
         build/us/src/buffers/buffer2.o(.text*);
-        buffer2_text_END = .;
-        buffer2_text_SIZE = ABSOLUTE(buffer2_text_END - buffer2_text_START);
+        buffer2_TEXT_END = .;
+        buffer2_TEXT_SIZE = ABSOLUTE(buffer2_TEXT_END - buffer2_TEXT_START);
 
-        buffer2_data_START = .;
+        buffer2_DATA_START = .;
         build/us/src/buffers/buffer2.o(.data*);
-        buffer2_data_END = .;
-        buffer2_data_SIZE = ABSOLUTE(buffer2_data_END - buffer2_data_START);
+        buffer2_DATA_END = .;
+        buffer2_DATA_SIZE = ABSOLUTE(buffer2_DATA_END - buffer2_DATA_START);
 
-        buffer2_rodata_START = .;
+        buffer2_RODATA_START = .;
         build/us/src/buffers/buffer2.o(.rodata*);
-        buffer2_rodata_END = .;
-        buffer2_rodata_SIZE = ABSOLUTE(buffer2_rodata_END - buffer2_rodata_START);
+        buffer2_RODATA_END = .;
+        buffer2_RODATA_SIZE = ABSOLUTE(buffer2_RODATA_END - buffer2_RODATA_START);
 
-        buffer2_sdata_START = .;
+        buffer2_SDATA_START = .;
         build/us/src/buffers/buffer2.o(.sdata*);
-        buffer2_sdata_END = .;
-        buffer2_sdata_SIZE = ABSOLUTE(buffer2_sdata_END - buffer2_sdata_START);
+        buffer2_SDATA_END = .;
+        buffer2_SDATA_SIZE = ABSOLUTE(buffer2_SDATA_END - buffer2_SDATA_START);
     }
     buffer2_alloc_VRAM_END = .;
     buffer2_alloc_VRAM_SIZE = ABSOLUTE(buffer2_alloc_VRAM_END - buffer2_alloc_VRAM);
@@ -2070,20 +2246,20 @@ SECTIONS
     buffer2_noload_VRAM = .;
     .buffer2.noload (NOLOAD) : SUBALIGN(16)
     {
-        buffer2_sbss_START = .;
+        buffer2_SBSS_START = .;
         build/us/src/buffers/buffer2.o(.sbss*);
-        buffer2_sbss_END = .;
-        buffer2_sbss_SIZE = ABSOLUTE(buffer2_sbss_END - buffer2_sbss_START);
+        buffer2_SBSS_END = .;
+        buffer2_SBSS_SIZE = ABSOLUTE(buffer2_SBSS_END - buffer2_SBSS_START);
 
-        buffer2_scommon_START = .;
+        buffer2_SCOMMON_START = .;
         build/us/src/buffers/buffer2.o(.scommon*);
-        buffer2_scommon_END = .;
-        buffer2_scommon_SIZE = ABSOLUTE(buffer2_scommon_END - buffer2_scommon_START);
+        buffer2_SCOMMON_END = .;
+        buffer2_SCOMMON_SIZE = ABSOLUTE(buffer2_SCOMMON_END - buffer2_SCOMMON_START);
 
-        buffer2_bss_START = .;
+        buffer2_BSS_START = .;
         build/us/src/buffers/buffer2.o(.bss*);
-        buffer2_bss_END = .;
-        buffer2_bss_SIZE = ABSOLUTE(buffer2_bss_END - buffer2_bss_START);
+        buffer2_BSS_END = .;
+        buffer2_BSS_SIZE = ABSOLUTE(buffer2_BSS_END - buffer2_BSS_START);
 
         buffer2COMMON_START = .;
         build/us/src/buffers/buffer2.o(COMMON*);
@@ -2103,25 +2279,25 @@ SECTIONS
     framebuffer_alloc_VRAM = .;
     .framebuffer 0x803B5000 : AT(framebuffer_ROM_START) SUBALIGN(16)
     {
-        framebuffer_text_START = .;
+        framebuffer_TEXT_START = .;
         build/us/src/buffers/framebuffer.o(.text*);
-        framebuffer_text_END = .;
-        framebuffer_text_SIZE = ABSOLUTE(framebuffer_text_END - framebuffer_text_START);
+        framebuffer_TEXT_END = .;
+        framebuffer_TEXT_SIZE = ABSOLUTE(framebuffer_TEXT_END - framebuffer_TEXT_START);
 
-        framebuffer_data_START = .;
+        framebuffer_DATA_START = .;
         build/us/src/buffers/framebuffer.o(.data*);
-        framebuffer_data_END = .;
-        framebuffer_data_SIZE = ABSOLUTE(framebuffer_data_END - framebuffer_data_START);
+        framebuffer_DATA_END = .;
+        framebuffer_DATA_SIZE = ABSOLUTE(framebuffer_DATA_END - framebuffer_DATA_START);
 
-        framebuffer_rodata_START = .;
+        framebuffer_RODATA_START = .;
         build/us/src/buffers/framebuffer.o(.rodata*);
-        framebuffer_rodata_END = .;
-        framebuffer_rodata_SIZE = ABSOLUTE(framebuffer_rodata_END - framebuffer_rodata_START);
+        framebuffer_RODATA_END = .;
+        framebuffer_RODATA_SIZE = ABSOLUTE(framebuffer_RODATA_END - framebuffer_RODATA_START);
 
-        framebuffer_sdata_START = .;
+        framebuffer_SDATA_START = .;
         build/us/src/buffers/framebuffer.o(.sdata*);
-        framebuffer_sdata_END = .;
-        framebuffer_sdata_SIZE = ABSOLUTE(framebuffer_sdata_END - framebuffer_sdata_START);
+        framebuffer_SDATA_END = .;
+        framebuffer_SDATA_SIZE = ABSOLUTE(framebuffer_SDATA_END - framebuffer_SDATA_START);
     }
     framebuffer_alloc_VRAM_END = .;
     framebuffer_alloc_VRAM_SIZE = ABSOLUTE(framebuffer_alloc_VRAM_END - framebuffer_alloc_VRAM);
@@ -2129,20 +2305,20 @@ SECTIONS
     framebuffer_noload_VRAM = .;
     .framebuffer.noload (NOLOAD) : SUBALIGN(16)
     {
-        framebuffer_sbss_START = .;
+        framebuffer_SBSS_START = .;
         build/us/src/buffers/framebuffer.o(.sbss*);
-        framebuffer_sbss_END = .;
-        framebuffer_sbss_SIZE = ABSOLUTE(framebuffer_sbss_END - framebuffer_sbss_START);
+        framebuffer_SBSS_END = .;
+        framebuffer_SBSS_SIZE = ABSOLUTE(framebuffer_SBSS_END - framebuffer_SBSS_START);
 
-        framebuffer_scommon_START = .;
+        framebuffer_SCOMMON_START = .;
         build/us/src/buffers/framebuffer.o(.scommon*);
-        framebuffer_scommon_END = .;
-        framebuffer_scommon_SIZE = ABSOLUTE(framebuffer_scommon_END - framebuffer_scommon_START);
+        framebuffer_SCOMMON_END = .;
+        framebuffer_SCOMMON_SIZE = ABSOLUTE(framebuffer_SCOMMON_END - framebuffer_SCOMMON_START);
 
-        framebuffer_bss_START = .;
+        framebuffer_BSS_START = .;
         build/us/src/buffers/framebuffer.o(.bss*);
-        framebuffer_bss_END = .;
-        framebuffer_bss_SIZE = ABSOLUTE(framebuffer_bss_END - framebuffer_bss_START);
+        framebuffer_BSS_END = .;
+        framebuffer_BSS_SIZE = ABSOLUTE(framebuffer_BSS_END - framebuffer_BSS_START);
 
         framebufferCOMMON_START = .;
         build/us/src/buffers/framebuffer.o(COMMON*);
@@ -2162,25 +2338,25 @@ SECTIONS
     n64_wave_tables_alloc_VRAM = .;
     .n64_wave_tables : AT(n64_wave_tables_ROM_START) SUBALIGN(16)
     {
-        n64_wave_tables_text_START = .;
-        build/us/asm/n64_wave_tables.o(.text*);
-        n64_wave_tables_text_END = .;
-        n64_wave_tables_text_SIZE = ABSOLUTE(n64_wave_tables_text_END - n64_wave_tables_text_START);
+        n64_wave_tables_TEXT_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.text*);
+        n64_wave_tables_TEXT_END = .;
+        n64_wave_tables_TEXT_SIZE = ABSOLUTE(n64_wave_tables_TEXT_END - n64_wave_tables_TEXT_START);
 
-        n64_wave_tables_data_START = .;
-        build/us/asm/n64_wave_tables.o(.data*);
-        n64_wave_tables_data_END = .;
-        n64_wave_tables_data_SIZE = ABSOLUTE(n64_wave_tables_data_END - n64_wave_tables_data_START);
+        n64_wave_tables_DATA_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.data*);
+        n64_wave_tables_DATA_END = .;
+        n64_wave_tables_DATA_SIZE = ABSOLUTE(n64_wave_tables_DATA_END - n64_wave_tables_DATA_START);
 
-        n64_wave_tables_rodata_START = .;
-        build/us/asm/n64_wave_tables.o(.rodata*);
-        n64_wave_tables_rodata_END = .;
-        n64_wave_tables_rodata_SIZE = ABSOLUTE(n64_wave_tables_rodata_END - n64_wave_tables_rodata_START);
+        n64_wave_tables_RODATA_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.rodata*);
+        n64_wave_tables_RODATA_END = .;
+        n64_wave_tables_RODATA_SIZE = ABSOLUTE(n64_wave_tables_RODATA_END - n64_wave_tables_RODATA_START);
 
-        n64_wave_tables_sdata_START = .;
-        build/us/asm/n64_wave_tables.o(.sdata*);
-        n64_wave_tables_sdata_END = .;
-        n64_wave_tables_sdata_SIZE = ABSOLUTE(n64_wave_tables_sdata_END - n64_wave_tables_sdata_START);
+        n64_wave_tables_SDATA_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.sdata*);
+        n64_wave_tables_SDATA_END = .;
+        n64_wave_tables_SDATA_SIZE = ABSOLUTE(n64_wave_tables_SDATA_END - n64_wave_tables_SDATA_START);
     }
     n64_wave_tables_alloc_VRAM_END = .;
     n64_wave_tables_alloc_VRAM_SIZE = ABSOLUTE(n64_wave_tables_alloc_VRAM_END - n64_wave_tables_alloc_VRAM);
@@ -2188,23 +2364,23 @@ SECTIONS
     n64_wave_tables_noload_VRAM = .;
     .n64_wave_tables.noload (NOLOAD) : SUBALIGN(16)
     {
-        n64_wave_tables_sbss_START = .;
-        build/us/asm/n64_wave_tables.o(.sbss*);
-        n64_wave_tables_sbss_END = .;
-        n64_wave_tables_sbss_SIZE = ABSOLUTE(n64_wave_tables_sbss_END - n64_wave_tables_sbss_START);
+        n64_wave_tables_SBSS_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.sbss*);
+        n64_wave_tables_SBSS_END = .;
+        n64_wave_tables_SBSS_SIZE = ABSOLUTE(n64_wave_tables_SBSS_END - n64_wave_tables_SBSS_START);
 
-        n64_wave_tables_scommon_START = .;
-        build/us/asm/n64_wave_tables.o(.scommon*);
-        n64_wave_tables_scommon_END = .;
-        n64_wave_tables_scommon_SIZE = ABSOLUTE(n64_wave_tables_scommon_END - n64_wave_tables_scommon_START);
+        n64_wave_tables_SCOMMON_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.scommon*);
+        n64_wave_tables_SCOMMON_END = .;
+        n64_wave_tables_SCOMMON_SIZE = ABSOLUTE(n64_wave_tables_SCOMMON_END - n64_wave_tables_SCOMMON_START);
 
-        n64_wave_tables_bss_START = .;
-        build/us/asm/n64_wave_tables.o(.bss*);
-        n64_wave_tables_bss_END = .;
-        n64_wave_tables_bss_SIZE = ABSOLUTE(n64_wave_tables_bss_END - n64_wave_tables_bss_START);
+        n64_wave_tables_BSS_START = .;
+        build/us/asm/us/data/n64_wave_tables.o(.bss*);
+        n64_wave_tables_BSS_END = .;
+        n64_wave_tables_BSS_SIZE = ABSOLUTE(n64_wave_tables_BSS_END - n64_wave_tables_BSS_START);
 
         n64_wave_tablesCOMMON_START = .;
-        build/us/asm/n64_wave_tables.o(COMMON*);
+        build/us/asm/us/data/n64_wave_tables.o(COMMON*);
         n64_wave_tablesCOMMON_END = .;
         n64_wave_tablesCOMMON_SIZE = ABSOLUTE(n64_wave_tablesCOMMON_END - n64_wave_tablesCOMMON_START);
     }
@@ -2221,25 +2397,25 @@ SECTIONS
     n64_ptr_tables_v2_alloc_VRAM = .;
     .n64_ptr_tables_v2 : AT(n64_ptr_tables_v2_ROM_START) SUBALIGN(16)
     {
-        n64_ptr_tables_v2_text_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.text*);
-        n64_ptr_tables_v2_text_END = .;
-        n64_ptr_tables_v2_text_SIZE = ABSOLUTE(n64_ptr_tables_v2_text_END - n64_ptr_tables_v2_text_START);
+        n64_ptr_tables_v2_TEXT_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.text*);
+        n64_ptr_tables_v2_TEXT_END = .;
+        n64_ptr_tables_v2_TEXT_SIZE = ABSOLUTE(n64_ptr_tables_v2_TEXT_END - n64_ptr_tables_v2_TEXT_START);
 
-        n64_ptr_tables_v2_data_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.data*);
-        n64_ptr_tables_v2_data_END = .;
-        n64_ptr_tables_v2_data_SIZE = ABSOLUTE(n64_ptr_tables_v2_data_END - n64_ptr_tables_v2_data_START);
+        n64_ptr_tables_v2_DATA_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.data*);
+        n64_ptr_tables_v2_DATA_END = .;
+        n64_ptr_tables_v2_DATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_DATA_END - n64_ptr_tables_v2_DATA_START);
 
-        n64_ptr_tables_v2_rodata_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.rodata*);
-        n64_ptr_tables_v2_rodata_END = .;
-        n64_ptr_tables_v2_rodata_SIZE = ABSOLUTE(n64_ptr_tables_v2_rodata_END - n64_ptr_tables_v2_rodata_START);
+        n64_ptr_tables_v2_RODATA_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.rodata*);
+        n64_ptr_tables_v2_RODATA_END = .;
+        n64_ptr_tables_v2_RODATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_RODATA_END - n64_ptr_tables_v2_RODATA_START);
 
-        n64_ptr_tables_v2_sdata_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.sdata*);
-        n64_ptr_tables_v2_sdata_END = .;
-        n64_ptr_tables_v2_sdata_SIZE = ABSOLUTE(n64_ptr_tables_v2_sdata_END - n64_ptr_tables_v2_sdata_START);
+        n64_ptr_tables_v2_SDATA_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.sdata*);
+        n64_ptr_tables_v2_SDATA_END = .;
+        n64_ptr_tables_v2_SDATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_SDATA_END - n64_ptr_tables_v2_SDATA_START);
     }
     n64_ptr_tables_v2_alloc_VRAM_END = .;
     n64_ptr_tables_v2_alloc_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_alloc_VRAM_END - n64_ptr_tables_v2_alloc_VRAM);
@@ -2247,23 +2423,23 @@ SECTIONS
     n64_ptr_tables_v2_noload_VRAM = .;
     .n64_ptr_tables_v2.noload (NOLOAD) : SUBALIGN(16)
     {
-        n64_ptr_tables_v2_sbss_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.sbss*);
-        n64_ptr_tables_v2_sbss_END = .;
-        n64_ptr_tables_v2_sbss_SIZE = ABSOLUTE(n64_ptr_tables_v2_sbss_END - n64_ptr_tables_v2_sbss_START);
+        n64_ptr_tables_v2_SBSS_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.sbss*);
+        n64_ptr_tables_v2_SBSS_END = .;
+        n64_ptr_tables_v2_SBSS_SIZE = ABSOLUTE(n64_ptr_tables_v2_SBSS_END - n64_ptr_tables_v2_SBSS_START);
 
-        n64_ptr_tables_v2_scommon_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.scommon*);
-        n64_ptr_tables_v2_scommon_END = .;
-        n64_ptr_tables_v2_scommon_SIZE = ABSOLUTE(n64_ptr_tables_v2_scommon_END - n64_ptr_tables_v2_scommon_START);
+        n64_ptr_tables_v2_SCOMMON_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.scommon*);
+        n64_ptr_tables_v2_SCOMMON_END = .;
+        n64_ptr_tables_v2_SCOMMON_SIZE = ABSOLUTE(n64_ptr_tables_v2_SCOMMON_END - n64_ptr_tables_v2_SCOMMON_START);
 
-        n64_ptr_tables_v2_bss_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(.bss*);
-        n64_ptr_tables_v2_bss_END = .;
-        n64_ptr_tables_v2_bss_SIZE = ABSOLUTE(n64_ptr_tables_v2_bss_END - n64_ptr_tables_v2_bss_START);
+        n64_ptr_tables_v2_BSS_START = .;
+        build/us/asm/us/data/n64_ptr_tables_v2.o(.bss*);
+        n64_ptr_tables_v2_BSS_END = .;
+        n64_ptr_tables_v2_BSS_SIZE = ABSOLUTE(n64_ptr_tables_v2_BSS_END - n64_ptr_tables_v2_BSS_START);
 
         n64_ptr_tables_v2COMMON_START = .;
-        build/us/asm/n64_ptr_tables_v2.o(COMMON*);
+        build/us/asm/us/data/n64_ptr_tables_v2.o(COMMON*);
         n64_ptr_tables_v2COMMON_END = .;
         n64_ptr_tables_v2COMMON_SIZE = ABSOLUTE(n64_ptr_tables_v2COMMON_END - n64_ptr_tables_v2COMMON_START);
     }
@@ -2275,89 +2451,89 @@ SECTIONS
     n64_ptr_tables_v2_ROM_END = __romPos;
     n64_ptr_tables_v2_ROM_SIZE = ABSOLUTE(n64_ptr_tables_v2_ROM_END - n64_ptr_tables_v2_ROM_START);
 
-    segment_17213_ROM_START = __romPos;
-    segment_17213_VRAM = ADDR(.segment_17213);
-    segment_17213_alloc_VRAM = .;
-    .segment_17213 : AT(segment_17213_ROM_START) SUBALIGN(16)
+    segment_172130_ROM_START = __romPos;
+    segment_172130_VRAM = ADDR(.segment_172130);
+    segment_172130_alloc_VRAM = .;
+    .segment_172130 : AT(segment_172130_ROM_START) SUBALIGN(16)
     {
-        segment_17213_text_START = .;
-        build/us/asm/segment_17213.o(.text*);
-        segment_17213_text_END = .;
-        segment_17213_text_SIZE = ABSOLUTE(segment_17213_text_END - segment_17213_text_START);
+        segment_172130_TEXT_START = .;
+        build/us/asm/us/data/segment_172130.o(.text*);
+        segment_172130_TEXT_END = .;
+        segment_172130_TEXT_SIZE = ABSOLUTE(segment_172130_TEXT_END - segment_172130_TEXT_START);
 
-        segment_17213_data_START = .;
-        build/us/asm/segment_17213.o(.data*);
-        segment_17213_data_END = .;
-        segment_17213_data_SIZE = ABSOLUTE(segment_17213_data_END - segment_17213_data_START);
+        segment_172130_DATA_START = .;
+        build/us/asm/us/data/segment_172130.o(.data*);
+        segment_172130_DATA_END = .;
+        segment_172130_DATA_SIZE = ABSOLUTE(segment_172130_DATA_END - segment_172130_DATA_START);
 
-        segment_17213_rodata_START = .;
-        build/us/asm/segment_17213.o(.rodata*);
-        segment_17213_rodata_END = .;
-        segment_17213_rodata_SIZE = ABSOLUTE(segment_17213_rodata_END - segment_17213_rodata_START);
+        segment_172130_RODATA_START = .;
+        build/us/asm/us/data/segment_172130.o(.rodata*);
+        segment_172130_RODATA_END = .;
+        segment_172130_RODATA_SIZE = ABSOLUTE(segment_172130_RODATA_END - segment_172130_RODATA_START);
 
-        segment_17213_sdata_START = .;
-        build/us/asm/segment_17213.o(.sdata*);
-        segment_17213_sdata_END = .;
-        segment_17213_sdata_SIZE = ABSOLUTE(segment_17213_sdata_END - segment_17213_sdata_START);
+        segment_172130_SDATA_START = .;
+        build/us/asm/us/data/segment_172130.o(.sdata*);
+        segment_172130_SDATA_END = .;
+        segment_172130_SDATA_SIZE = ABSOLUTE(segment_172130_SDATA_END - segment_172130_SDATA_START);
     }
-    segment_17213_alloc_VRAM_END = .;
-    segment_17213_alloc_VRAM_SIZE = ABSOLUTE(segment_17213_alloc_VRAM_END - segment_17213_alloc_VRAM);
+    segment_172130_alloc_VRAM_END = .;
+    segment_172130_alloc_VRAM_SIZE = ABSOLUTE(segment_172130_alloc_VRAM_END - segment_172130_alloc_VRAM);
 
-    segment_17213_noload_VRAM = .;
-    .segment_17213.noload (NOLOAD) : SUBALIGN(16)
+    segment_172130_noload_VRAM = .;
+    .segment_172130.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17213_sbss_START = .;
-        build/us/asm/segment_17213.o(.sbss*);
-        segment_17213_sbss_END = .;
-        segment_17213_sbss_SIZE = ABSOLUTE(segment_17213_sbss_END - segment_17213_sbss_START);
+        segment_172130_SBSS_START = .;
+        build/us/asm/us/data/segment_172130.o(.sbss*);
+        segment_172130_SBSS_END = .;
+        segment_172130_SBSS_SIZE = ABSOLUTE(segment_172130_SBSS_END - segment_172130_SBSS_START);
 
-        segment_17213_scommon_START = .;
-        build/us/asm/segment_17213.o(.scommon*);
-        segment_17213_scommon_END = .;
-        segment_17213_scommon_SIZE = ABSOLUTE(segment_17213_scommon_END - segment_17213_scommon_START);
+        segment_172130_SCOMMON_START = .;
+        build/us/asm/us/data/segment_172130.o(.scommon*);
+        segment_172130_SCOMMON_END = .;
+        segment_172130_SCOMMON_SIZE = ABSOLUTE(segment_172130_SCOMMON_END - segment_172130_SCOMMON_START);
 
-        segment_17213_bss_START = .;
-        build/us/asm/segment_17213.o(.bss*);
-        segment_17213_bss_END = .;
-        segment_17213_bss_SIZE = ABSOLUTE(segment_17213_bss_END - segment_17213_bss_START);
+        segment_172130_BSS_START = .;
+        build/us/asm/us/data/segment_172130.o(.bss*);
+        segment_172130_BSS_END = .;
+        segment_172130_BSS_SIZE = ABSOLUTE(segment_172130_BSS_END - segment_172130_BSS_START);
 
-        segment_17213COMMON_START = .;
-        build/us/asm/segment_17213.o(COMMON*);
-        segment_17213COMMON_END = .;
-        segment_17213COMMON_SIZE = ABSOLUTE(segment_17213COMMON_END - segment_17213COMMON_START);
+        segment_172130COMMON_START = .;
+        build/us/asm/us/data/segment_172130.o(COMMON*);
+        segment_172130COMMON_END = .;
+        segment_172130COMMON_SIZE = ABSOLUTE(segment_172130COMMON_END - segment_172130COMMON_START);
     }
-    segment_17213_noload_VRAM_END = .;
-    segment_17213_noload_VRAM_SIZE = ABSOLUTE(segment_17213_noload_VRAM_END - segment_17213_noload_VRAM);
-    segment_17213_VRAM_END = .;
-    segment_17213_VRAM_SIZE = ABSOLUTE(segment_17213_VRAM_END - segment_17213_VRAM);
-    __romPos += SIZEOF(.segment_17213);
-    segment_17213_ROM_END = __romPos;
-    segment_17213_ROM_SIZE = ABSOLUTE(segment_17213_ROM_END - segment_17213_ROM_START);
+    segment_172130_noload_VRAM_END = .;
+    segment_172130_noload_VRAM_SIZE = ABSOLUTE(segment_172130_noload_VRAM_END - segment_172130_noload_VRAM);
+    segment_172130_VRAM_END = .;
+    segment_172130_VRAM_SIZE = ABSOLUTE(segment_172130_VRAM_END - segment_172130_VRAM);
+    __romPos += SIZEOF(.segment_172130);
+    segment_172130_ROM_END = __romPos;
+    segment_172130_ROM_SIZE = ABSOLUTE(segment_172130_ROM_END - segment_172130_ROM_START);
 
     segment_172D60_ROM_START = __romPos;
     segment_172D60_VRAM = ADDR(.segment_172D60);
     segment_172D60_alloc_VRAM = .;
     .segment_172D60 : AT(segment_172D60_ROM_START) SUBALIGN(16)
     {
-        segment_172D60_text_START = .;
-        build/us/asm/segment_172D60.o(.text*);
-        segment_172D60_text_END = .;
-        segment_172D60_text_SIZE = ABSOLUTE(segment_172D60_text_END - segment_172D60_text_START);
+        segment_172D60_TEXT_START = .;
+        build/us/asm/us/data/segment_172D60.o(.text*);
+        segment_172D60_TEXT_END = .;
+        segment_172D60_TEXT_SIZE = ABSOLUTE(segment_172D60_TEXT_END - segment_172D60_TEXT_START);
 
-        segment_172D60_data_START = .;
-        build/us/asm/segment_172D60.o(.data*);
-        segment_172D60_data_END = .;
-        segment_172D60_data_SIZE = ABSOLUTE(segment_172D60_data_END - segment_172D60_data_START);
+        segment_172D60_DATA_START = .;
+        build/us/asm/us/data/segment_172D60.o(.data*);
+        segment_172D60_DATA_END = .;
+        segment_172D60_DATA_SIZE = ABSOLUTE(segment_172D60_DATA_END - segment_172D60_DATA_START);
 
-        segment_172D60_rodata_START = .;
-        build/us/asm/segment_172D60.o(.rodata*);
-        segment_172D60_rodata_END = .;
-        segment_172D60_rodata_SIZE = ABSOLUTE(segment_172D60_rodata_END - segment_172D60_rodata_START);
+        segment_172D60_RODATA_START = .;
+        build/us/asm/us/data/segment_172D60.o(.rodata*);
+        segment_172D60_RODATA_END = .;
+        segment_172D60_RODATA_SIZE = ABSOLUTE(segment_172D60_RODATA_END - segment_172D60_RODATA_START);
 
-        segment_172D60_sdata_START = .;
-        build/us/asm/segment_172D60.o(.sdata*);
-        segment_172D60_sdata_END = .;
-        segment_172D60_sdata_SIZE = ABSOLUTE(segment_172D60_sdata_END - segment_172D60_sdata_START);
+        segment_172D60_SDATA_START = .;
+        build/us/asm/us/data/segment_172D60.o(.sdata*);
+        segment_172D60_SDATA_END = .;
+        segment_172D60_SDATA_SIZE = ABSOLUTE(segment_172D60_SDATA_END - segment_172D60_SDATA_START);
     }
     segment_172D60_alloc_VRAM_END = .;
     segment_172D60_alloc_VRAM_SIZE = ABSOLUTE(segment_172D60_alloc_VRAM_END - segment_172D60_alloc_VRAM);
@@ -2365,23 +2541,23 @@ SECTIONS
     segment_172D60_noload_VRAM = .;
     .segment_172D60.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_172D60_sbss_START = .;
-        build/us/asm/segment_172D60.o(.sbss*);
-        segment_172D60_sbss_END = .;
-        segment_172D60_sbss_SIZE = ABSOLUTE(segment_172D60_sbss_END - segment_172D60_sbss_START);
+        segment_172D60_SBSS_START = .;
+        build/us/asm/us/data/segment_172D60.o(.sbss*);
+        segment_172D60_SBSS_END = .;
+        segment_172D60_SBSS_SIZE = ABSOLUTE(segment_172D60_SBSS_END - segment_172D60_SBSS_START);
 
-        segment_172D60_scommon_START = .;
-        build/us/asm/segment_172D60.o(.scommon*);
-        segment_172D60_scommon_END = .;
-        segment_172D60_scommon_SIZE = ABSOLUTE(segment_172D60_scommon_END - segment_172D60_scommon_START);
+        segment_172D60_SCOMMON_START = .;
+        build/us/asm/us/data/segment_172D60.o(.scommon*);
+        segment_172D60_SCOMMON_END = .;
+        segment_172D60_SCOMMON_SIZE = ABSOLUTE(segment_172D60_SCOMMON_END - segment_172D60_SCOMMON_START);
 
-        segment_172D60_bss_START = .;
-        build/us/asm/segment_172D60.o(.bss*);
-        segment_172D60_bss_END = .;
-        segment_172D60_bss_SIZE = ABSOLUTE(segment_172D60_bss_END - segment_172D60_bss_START);
+        segment_172D60_BSS_START = .;
+        build/us/asm/us/data/segment_172D60.o(.bss*);
+        segment_172D60_BSS_END = .;
+        segment_172D60_BSS_SIZE = ABSOLUTE(segment_172D60_BSS_END - segment_172D60_BSS_START);
 
         segment_172D60COMMON_START = .;
-        build/us/asm/segment_172D60.o(COMMON*);
+        build/us/asm/us/data/segment_172D60.o(COMMON*);
         segment_172D60COMMON_END = .;
         segment_172D60COMMON_SIZE = ABSOLUTE(segment_172D60COMMON_END - segment_172D60COMMON_START);
     }
@@ -2398,25 +2574,25 @@ SECTIONS
     segment_1750C0_alloc_VRAM = .;
     .segment_1750C0 : AT(segment_1750C0_ROM_START) SUBALIGN(16)
     {
-        segment_1750C0_text_START = .;
-        build/us/asm/segment_1750C0.o(.text*);
-        segment_1750C0_text_END = .;
-        segment_1750C0_text_SIZE = ABSOLUTE(segment_1750C0_text_END - segment_1750C0_text_START);
+        segment_1750C0_TEXT_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.text*);
+        segment_1750C0_TEXT_END = .;
+        segment_1750C0_TEXT_SIZE = ABSOLUTE(segment_1750C0_TEXT_END - segment_1750C0_TEXT_START);
 
-        segment_1750C0_data_START = .;
-        build/us/asm/segment_1750C0.o(.data*);
-        segment_1750C0_data_END = .;
-        segment_1750C0_data_SIZE = ABSOLUTE(segment_1750C0_data_END - segment_1750C0_data_START);
+        segment_1750C0_DATA_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.data*);
+        segment_1750C0_DATA_END = .;
+        segment_1750C0_DATA_SIZE = ABSOLUTE(segment_1750C0_DATA_END - segment_1750C0_DATA_START);
 
-        segment_1750C0_rodata_START = .;
-        build/us/asm/segment_1750C0.o(.rodata*);
-        segment_1750C0_rodata_END = .;
-        segment_1750C0_rodata_SIZE = ABSOLUTE(segment_1750C0_rodata_END - segment_1750C0_rodata_START);
+        segment_1750C0_RODATA_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.rodata*);
+        segment_1750C0_RODATA_END = .;
+        segment_1750C0_RODATA_SIZE = ABSOLUTE(segment_1750C0_RODATA_END - segment_1750C0_RODATA_START);
 
-        segment_1750C0_sdata_START = .;
-        build/us/asm/segment_1750C0.o(.sdata*);
-        segment_1750C0_sdata_END = .;
-        segment_1750C0_sdata_SIZE = ABSOLUTE(segment_1750C0_sdata_END - segment_1750C0_sdata_START);
+        segment_1750C0_SDATA_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.sdata*);
+        segment_1750C0_SDATA_END = .;
+        segment_1750C0_SDATA_SIZE = ABSOLUTE(segment_1750C0_SDATA_END - segment_1750C0_SDATA_START);
     }
     segment_1750C0_alloc_VRAM_END = .;
     segment_1750C0_alloc_VRAM_SIZE = ABSOLUTE(segment_1750C0_alloc_VRAM_END - segment_1750C0_alloc_VRAM);
@@ -2424,23 +2600,23 @@ SECTIONS
     segment_1750C0_noload_VRAM = .;
     .segment_1750C0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1750C0_sbss_START = .;
-        build/us/asm/segment_1750C0.o(.sbss*);
-        segment_1750C0_sbss_END = .;
-        segment_1750C0_sbss_SIZE = ABSOLUTE(segment_1750C0_sbss_END - segment_1750C0_sbss_START);
+        segment_1750C0_SBSS_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.sbss*);
+        segment_1750C0_SBSS_END = .;
+        segment_1750C0_SBSS_SIZE = ABSOLUTE(segment_1750C0_SBSS_END - segment_1750C0_SBSS_START);
 
-        segment_1750C0_scommon_START = .;
-        build/us/asm/segment_1750C0.o(.scommon*);
-        segment_1750C0_scommon_END = .;
-        segment_1750C0_scommon_SIZE = ABSOLUTE(segment_1750C0_scommon_END - segment_1750C0_scommon_START);
+        segment_1750C0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.scommon*);
+        segment_1750C0_SCOMMON_END = .;
+        segment_1750C0_SCOMMON_SIZE = ABSOLUTE(segment_1750C0_SCOMMON_END - segment_1750C0_SCOMMON_START);
 
-        segment_1750C0_bss_START = .;
-        build/us/asm/segment_1750C0.o(.bss*);
-        segment_1750C0_bss_END = .;
-        segment_1750C0_bss_SIZE = ABSOLUTE(segment_1750C0_bss_END - segment_1750C0_bss_START);
+        segment_1750C0_BSS_START = .;
+        build/us/asm/us/data/segment_1750C0.o(.bss*);
+        segment_1750C0_BSS_END = .;
+        segment_1750C0_BSS_SIZE = ABSOLUTE(segment_1750C0_BSS_END - segment_1750C0_BSS_START);
 
         segment_1750C0COMMON_START = .;
-        build/us/asm/segment_1750C0.o(COMMON*);
+        build/us/asm/us/data/segment_1750C0.o(COMMON*);
         segment_1750C0COMMON_END = .;
         segment_1750C0COMMON_SIZE = ABSOLUTE(segment_1750C0COMMON_END - segment_1750C0COMMON_START);
     }
@@ -2457,25 +2633,25 @@ SECTIONS
     segment_177420_alloc_VRAM = .;
     .segment_177420 : AT(segment_177420_ROM_START) SUBALIGN(16)
     {
-        segment_177420_text_START = .;
-        build/us/asm/segment_177420.o(.text*);
-        segment_177420_text_END = .;
-        segment_177420_text_SIZE = ABSOLUTE(segment_177420_text_END - segment_177420_text_START);
+        segment_177420_TEXT_START = .;
+        build/us/asm/us/data/segment_177420.o(.text*);
+        segment_177420_TEXT_END = .;
+        segment_177420_TEXT_SIZE = ABSOLUTE(segment_177420_TEXT_END - segment_177420_TEXT_START);
 
-        segment_177420_data_START = .;
-        build/us/asm/segment_177420.o(.data*);
-        segment_177420_data_END = .;
-        segment_177420_data_SIZE = ABSOLUTE(segment_177420_data_END - segment_177420_data_START);
+        segment_177420_DATA_START = .;
+        build/us/asm/us/data/segment_177420.o(.data*);
+        segment_177420_DATA_END = .;
+        segment_177420_DATA_SIZE = ABSOLUTE(segment_177420_DATA_END - segment_177420_DATA_START);
 
-        segment_177420_rodata_START = .;
-        build/us/asm/segment_177420.o(.rodata*);
-        segment_177420_rodata_END = .;
-        segment_177420_rodata_SIZE = ABSOLUTE(segment_177420_rodata_END - segment_177420_rodata_START);
+        segment_177420_RODATA_START = .;
+        build/us/asm/us/data/segment_177420.o(.rodata*);
+        segment_177420_RODATA_END = .;
+        segment_177420_RODATA_SIZE = ABSOLUTE(segment_177420_RODATA_END - segment_177420_RODATA_START);
 
-        segment_177420_sdata_START = .;
-        build/us/asm/segment_177420.o(.sdata*);
-        segment_177420_sdata_END = .;
-        segment_177420_sdata_SIZE = ABSOLUTE(segment_177420_sdata_END - segment_177420_sdata_START);
+        segment_177420_SDATA_START = .;
+        build/us/asm/us/data/segment_177420.o(.sdata*);
+        segment_177420_SDATA_END = .;
+        segment_177420_SDATA_SIZE = ABSOLUTE(segment_177420_SDATA_END - segment_177420_SDATA_START);
     }
     segment_177420_alloc_VRAM_END = .;
     segment_177420_alloc_VRAM_SIZE = ABSOLUTE(segment_177420_alloc_VRAM_END - segment_177420_alloc_VRAM);
@@ -2483,23 +2659,23 @@ SECTIONS
     segment_177420_noload_VRAM = .;
     .segment_177420.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_177420_sbss_START = .;
-        build/us/asm/segment_177420.o(.sbss*);
-        segment_177420_sbss_END = .;
-        segment_177420_sbss_SIZE = ABSOLUTE(segment_177420_sbss_END - segment_177420_sbss_START);
+        segment_177420_SBSS_START = .;
+        build/us/asm/us/data/segment_177420.o(.sbss*);
+        segment_177420_SBSS_END = .;
+        segment_177420_SBSS_SIZE = ABSOLUTE(segment_177420_SBSS_END - segment_177420_SBSS_START);
 
-        segment_177420_scommon_START = .;
-        build/us/asm/segment_177420.o(.scommon*);
-        segment_177420_scommon_END = .;
-        segment_177420_scommon_SIZE = ABSOLUTE(segment_177420_scommon_END - segment_177420_scommon_START);
+        segment_177420_SCOMMON_START = .;
+        build/us/asm/us/data/segment_177420.o(.scommon*);
+        segment_177420_SCOMMON_END = .;
+        segment_177420_SCOMMON_SIZE = ABSOLUTE(segment_177420_SCOMMON_END - segment_177420_SCOMMON_START);
 
-        segment_177420_bss_START = .;
-        build/us/asm/segment_177420.o(.bss*);
-        segment_177420_bss_END = .;
-        segment_177420_bss_SIZE = ABSOLUTE(segment_177420_bss_END - segment_177420_bss_START);
+        segment_177420_BSS_START = .;
+        build/us/asm/us/data/segment_177420.o(.bss*);
+        segment_177420_BSS_END = .;
+        segment_177420_BSS_SIZE = ABSOLUTE(segment_177420_BSS_END - segment_177420_BSS_START);
 
         segment_177420COMMON_START = .;
-        build/us/asm/segment_177420.o(COMMON*);
+        build/us/asm/us/data/segment_177420.o(COMMON*);
         segment_177420COMMON_END = .;
         segment_177420COMMON_SIZE = ABSOLUTE(segment_177420COMMON_END - segment_177420COMMON_START);
     }
@@ -2516,25 +2692,25 @@ SECTIONS
     segment_179620_alloc_VRAM = .;
     .segment_179620 : AT(segment_179620_ROM_START) SUBALIGN(16)
     {
-        segment_179620_text_START = .;
-        build/us/asm/segment_179620.o(.text*);
-        segment_179620_text_END = .;
-        segment_179620_text_SIZE = ABSOLUTE(segment_179620_text_END - segment_179620_text_START);
+        segment_179620_TEXT_START = .;
+        build/us/asm/us/data/segment_179620.o(.text*);
+        segment_179620_TEXT_END = .;
+        segment_179620_TEXT_SIZE = ABSOLUTE(segment_179620_TEXT_END - segment_179620_TEXT_START);
 
-        segment_179620_data_START = .;
-        build/us/asm/segment_179620.o(.data*);
-        segment_179620_data_END = .;
-        segment_179620_data_SIZE = ABSOLUTE(segment_179620_data_END - segment_179620_data_START);
+        segment_179620_DATA_START = .;
+        build/us/asm/us/data/segment_179620.o(.data*);
+        segment_179620_DATA_END = .;
+        segment_179620_DATA_SIZE = ABSOLUTE(segment_179620_DATA_END - segment_179620_DATA_START);
 
-        segment_179620_rodata_START = .;
-        build/us/asm/segment_179620.o(.rodata*);
-        segment_179620_rodata_END = .;
-        segment_179620_rodata_SIZE = ABSOLUTE(segment_179620_rodata_END - segment_179620_rodata_START);
+        segment_179620_RODATA_START = .;
+        build/us/asm/us/data/segment_179620.o(.rodata*);
+        segment_179620_RODATA_END = .;
+        segment_179620_RODATA_SIZE = ABSOLUTE(segment_179620_RODATA_END - segment_179620_RODATA_START);
 
-        segment_179620_sdata_START = .;
-        build/us/asm/segment_179620.o(.sdata*);
-        segment_179620_sdata_END = .;
-        segment_179620_sdata_SIZE = ABSOLUTE(segment_179620_sdata_END - segment_179620_sdata_START);
+        segment_179620_SDATA_START = .;
+        build/us/asm/us/data/segment_179620.o(.sdata*);
+        segment_179620_SDATA_END = .;
+        segment_179620_SDATA_SIZE = ABSOLUTE(segment_179620_SDATA_END - segment_179620_SDATA_START);
     }
     segment_179620_alloc_VRAM_END = .;
     segment_179620_alloc_VRAM_SIZE = ABSOLUTE(segment_179620_alloc_VRAM_END - segment_179620_alloc_VRAM);
@@ -2542,23 +2718,23 @@ SECTIONS
     segment_179620_noload_VRAM = .;
     .segment_179620.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_179620_sbss_START = .;
-        build/us/asm/segment_179620.o(.sbss*);
-        segment_179620_sbss_END = .;
-        segment_179620_sbss_SIZE = ABSOLUTE(segment_179620_sbss_END - segment_179620_sbss_START);
+        segment_179620_SBSS_START = .;
+        build/us/asm/us/data/segment_179620.o(.sbss*);
+        segment_179620_SBSS_END = .;
+        segment_179620_SBSS_SIZE = ABSOLUTE(segment_179620_SBSS_END - segment_179620_SBSS_START);
 
-        segment_179620_scommon_START = .;
-        build/us/asm/segment_179620.o(.scommon*);
-        segment_179620_scommon_END = .;
-        segment_179620_scommon_SIZE = ABSOLUTE(segment_179620_scommon_END - segment_179620_scommon_START);
+        segment_179620_SCOMMON_START = .;
+        build/us/asm/us/data/segment_179620.o(.scommon*);
+        segment_179620_SCOMMON_END = .;
+        segment_179620_SCOMMON_SIZE = ABSOLUTE(segment_179620_SCOMMON_END - segment_179620_SCOMMON_START);
 
-        segment_179620_bss_START = .;
-        build/us/asm/segment_179620.o(.bss*);
-        segment_179620_bss_END = .;
-        segment_179620_bss_SIZE = ABSOLUTE(segment_179620_bss_END - segment_179620_bss_START);
+        segment_179620_BSS_START = .;
+        build/us/asm/us/data/segment_179620.o(.bss*);
+        segment_179620_BSS_END = .;
+        segment_179620_BSS_SIZE = ABSOLUTE(segment_179620_BSS_END - segment_179620_BSS_START);
 
         segment_179620COMMON_START = .;
-        build/us/asm/segment_179620.o(COMMON*);
+        build/us/asm/us/data/segment_179620.o(COMMON*);
         segment_179620COMMON_END = .;
         segment_179620COMMON_SIZE = ABSOLUTE(segment_179620COMMON_END - segment_179620COMMON_START);
     }
@@ -2575,25 +2751,25 @@ SECTIONS
     segment_17B790_alloc_VRAM = .;
     .segment_17B790 : AT(segment_17B790_ROM_START) SUBALIGN(16)
     {
-        segment_17B790_text_START = .;
-        build/us/asm/segment_17B790.o(.text*);
-        segment_17B790_text_END = .;
-        segment_17B790_text_SIZE = ABSOLUTE(segment_17B790_text_END - segment_17B790_text_START);
+        segment_17B790_TEXT_START = .;
+        build/us/asm/us/data/segment_17B790.o(.text*);
+        segment_17B790_TEXT_END = .;
+        segment_17B790_TEXT_SIZE = ABSOLUTE(segment_17B790_TEXT_END - segment_17B790_TEXT_START);
 
-        segment_17B790_data_START = .;
-        build/us/asm/segment_17B790.o(.data*);
-        segment_17B790_data_END = .;
-        segment_17B790_data_SIZE = ABSOLUTE(segment_17B790_data_END - segment_17B790_data_START);
+        segment_17B790_DATA_START = .;
+        build/us/asm/us/data/segment_17B790.o(.data*);
+        segment_17B790_DATA_END = .;
+        segment_17B790_DATA_SIZE = ABSOLUTE(segment_17B790_DATA_END - segment_17B790_DATA_START);
 
-        segment_17B790_rodata_START = .;
-        build/us/asm/segment_17B790.o(.rodata*);
-        segment_17B790_rodata_END = .;
-        segment_17B790_rodata_SIZE = ABSOLUTE(segment_17B790_rodata_END - segment_17B790_rodata_START);
+        segment_17B790_RODATA_START = .;
+        build/us/asm/us/data/segment_17B790.o(.rodata*);
+        segment_17B790_RODATA_END = .;
+        segment_17B790_RODATA_SIZE = ABSOLUTE(segment_17B790_RODATA_END - segment_17B790_RODATA_START);
 
-        segment_17B790_sdata_START = .;
-        build/us/asm/segment_17B790.o(.sdata*);
-        segment_17B790_sdata_END = .;
-        segment_17B790_sdata_SIZE = ABSOLUTE(segment_17B790_sdata_END - segment_17B790_sdata_START);
+        segment_17B790_SDATA_START = .;
+        build/us/asm/us/data/segment_17B790.o(.sdata*);
+        segment_17B790_SDATA_END = .;
+        segment_17B790_SDATA_SIZE = ABSOLUTE(segment_17B790_SDATA_END - segment_17B790_SDATA_START);
     }
     segment_17B790_alloc_VRAM_END = .;
     segment_17B790_alloc_VRAM_SIZE = ABSOLUTE(segment_17B790_alloc_VRAM_END - segment_17B790_alloc_VRAM);
@@ -2601,23 +2777,23 @@ SECTIONS
     segment_17B790_noload_VRAM = .;
     .segment_17B790.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17B790_sbss_START = .;
-        build/us/asm/segment_17B790.o(.sbss*);
-        segment_17B790_sbss_END = .;
-        segment_17B790_sbss_SIZE = ABSOLUTE(segment_17B790_sbss_END - segment_17B790_sbss_START);
+        segment_17B790_SBSS_START = .;
+        build/us/asm/us/data/segment_17B790.o(.sbss*);
+        segment_17B790_SBSS_END = .;
+        segment_17B790_SBSS_SIZE = ABSOLUTE(segment_17B790_SBSS_END - segment_17B790_SBSS_START);
 
-        segment_17B790_scommon_START = .;
-        build/us/asm/segment_17B790.o(.scommon*);
-        segment_17B790_scommon_END = .;
-        segment_17B790_scommon_SIZE = ABSOLUTE(segment_17B790_scommon_END - segment_17B790_scommon_START);
+        segment_17B790_SCOMMON_START = .;
+        build/us/asm/us/data/segment_17B790.o(.scommon*);
+        segment_17B790_SCOMMON_END = .;
+        segment_17B790_SCOMMON_SIZE = ABSOLUTE(segment_17B790_SCOMMON_END - segment_17B790_SCOMMON_START);
 
-        segment_17B790_bss_START = .;
-        build/us/asm/segment_17B790.o(.bss*);
-        segment_17B790_bss_END = .;
-        segment_17B790_bss_SIZE = ABSOLUTE(segment_17B790_bss_END - segment_17B790_bss_START);
+        segment_17B790_BSS_START = .;
+        build/us/asm/us/data/segment_17B790.o(.bss*);
+        segment_17B790_BSS_END = .;
+        segment_17B790_BSS_SIZE = ABSOLUTE(segment_17B790_BSS_END - segment_17B790_BSS_START);
 
         segment_17B790COMMON_START = .;
-        build/us/asm/segment_17B790.o(COMMON*);
+        build/us/asm/us/data/segment_17B790.o(COMMON*);
         segment_17B790COMMON_END = .;
         segment_17B790COMMON_SIZE = ABSOLUTE(segment_17B790COMMON_END - segment_17B790COMMON_START);
     }
@@ -2634,25 +2810,25 @@ SECTIONS
     segment_17C1E0_alloc_VRAM = .;
     .segment_17C1E0 : AT(segment_17C1E0_ROM_START) SUBALIGN(16)
     {
-        segment_17C1E0_text_START = .;
-        build/us/asm/segment_17C1E0.o(.text*);
-        segment_17C1E0_text_END = .;
-        segment_17C1E0_text_SIZE = ABSOLUTE(segment_17C1E0_text_END - segment_17C1E0_text_START);
+        segment_17C1E0_TEXT_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.text*);
+        segment_17C1E0_TEXT_END = .;
+        segment_17C1E0_TEXT_SIZE = ABSOLUTE(segment_17C1E0_TEXT_END - segment_17C1E0_TEXT_START);
 
-        segment_17C1E0_data_START = .;
-        build/us/asm/segment_17C1E0.o(.data*);
-        segment_17C1E0_data_END = .;
-        segment_17C1E0_data_SIZE = ABSOLUTE(segment_17C1E0_data_END - segment_17C1E0_data_START);
+        segment_17C1E0_DATA_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.data*);
+        segment_17C1E0_DATA_END = .;
+        segment_17C1E0_DATA_SIZE = ABSOLUTE(segment_17C1E0_DATA_END - segment_17C1E0_DATA_START);
 
-        segment_17C1E0_rodata_START = .;
-        build/us/asm/segment_17C1E0.o(.rodata*);
-        segment_17C1E0_rodata_END = .;
-        segment_17C1E0_rodata_SIZE = ABSOLUTE(segment_17C1E0_rodata_END - segment_17C1E0_rodata_START);
+        segment_17C1E0_RODATA_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.rodata*);
+        segment_17C1E0_RODATA_END = .;
+        segment_17C1E0_RODATA_SIZE = ABSOLUTE(segment_17C1E0_RODATA_END - segment_17C1E0_RODATA_START);
 
-        segment_17C1E0_sdata_START = .;
-        build/us/asm/segment_17C1E0.o(.sdata*);
-        segment_17C1E0_sdata_END = .;
-        segment_17C1E0_sdata_SIZE = ABSOLUTE(segment_17C1E0_sdata_END - segment_17C1E0_sdata_START);
+        segment_17C1E0_SDATA_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.sdata*);
+        segment_17C1E0_SDATA_END = .;
+        segment_17C1E0_SDATA_SIZE = ABSOLUTE(segment_17C1E0_SDATA_END - segment_17C1E0_SDATA_START);
     }
     segment_17C1E0_alloc_VRAM_END = .;
     segment_17C1E0_alloc_VRAM_SIZE = ABSOLUTE(segment_17C1E0_alloc_VRAM_END - segment_17C1E0_alloc_VRAM);
@@ -2660,23 +2836,23 @@ SECTIONS
     segment_17C1E0_noload_VRAM = .;
     .segment_17C1E0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17C1E0_sbss_START = .;
-        build/us/asm/segment_17C1E0.o(.sbss*);
-        segment_17C1E0_sbss_END = .;
-        segment_17C1E0_sbss_SIZE = ABSOLUTE(segment_17C1E0_sbss_END - segment_17C1E0_sbss_START);
+        segment_17C1E0_SBSS_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.sbss*);
+        segment_17C1E0_SBSS_END = .;
+        segment_17C1E0_SBSS_SIZE = ABSOLUTE(segment_17C1E0_SBSS_END - segment_17C1E0_SBSS_START);
 
-        segment_17C1E0_scommon_START = .;
-        build/us/asm/segment_17C1E0.o(.scommon*);
-        segment_17C1E0_scommon_END = .;
-        segment_17C1E0_scommon_SIZE = ABSOLUTE(segment_17C1E0_scommon_END - segment_17C1E0_scommon_START);
+        segment_17C1E0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.scommon*);
+        segment_17C1E0_SCOMMON_END = .;
+        segment_17C1E0_SCOMMON_SIZE = ABSOLUTE(segment_17C1E0_SCOMMON_END - segment_17C1E0_SCOMMON_START);
 
-        segment_17C1E0_bss_START = .;
-        build/us/asm/segment_17C1E0.o(.bss*);
-        segment_17C1E0_bss_END = .;
-        segment_17C1E0_bss_SIZE = ABSOLUTE(segment_17C1E0_bss_END - segment_17C1E0_bss_START);
+        segment_17C1E0_BSS_START = .;
+        build/us/asm/us/data/segment_17C1E0.o(.bss*);
+        segment_17C1E0_BSS_END = .;
+        segment_17C1E0_BSS_SIZE = ABSOLUTE(segment_17C1E0_BSS_END - segment_17C1E0_BSS_START);
 
         segment_17C1E0COMMON_START = .;
-        build/us/asm/segment_17C1E0.o(COMMON*);
+        build/us/asm/us/data/segment_17C1E0.o(COMMON*);
         segment_17C1E0COMMON_END = .;
         segment_17C1E0COMMON_SIZE = ABSOLUTE(segment_17C1E0COMMON_END - segment_17C1E0COMMON_START);
     }
@@ -2693,25 +2869,25 @@ SECTIONS
     segment_17D130_alloc_VRAM = .;
     .segment_17D130 : AT(segment_17D130_ROM_START) SUBALIGN(16)
     {
-        segment_17D130_text_START = .;
-        build/us/asm/segment_17D130.o(.text*);
-        segment_17D130_text_END = .;
-        segment_17D130_text_SIZE = ABSOLUTE(segment_17D130_text_END - segment_17D130_text_START);
+        segment_17D130_TEXT_START = .;
+        build/us/asm/us/data/segment_17D130.o(.text*);
+        segment_17D130_TEXT_END = .;
+        segment_17D130_TEXT_SIZE = ABSOLUTE(segment_17D130_TEXT_END - segment_17D130_TEXT_START);
 
-        segment_17D130_data_START = .;
-        build/us/asm/segment_17D130.o(.data*);
-        segment_17D130_data_END = .;
-        segment_17D130_data_SIZE = ABSOLUTE(segment_17D130_data_END - segment_17D130_data_START);
+        segment_17D130_DATA_START = .;
+        build/us/asm/us/data/segment_17D130.o(.data*);
+        segment_17D130_DATA_END = .;
+        segment_17D130_DATA_SIZE = ABSOLUTE(segment_17D130_DATA_END - segment_17D130_DATA_START);
 
-        segment_17D130_rodata_START = .;
-        build/us/asm/segment_17D130.o(.rodata*);
-        segment_17D130_rodata_END = .;
-        segment_17D130_rodata_SIZE = ABSOLUTE(segment_17D130_rodata_END - segment_17D130_rodata_START);
+        segment_17D130_RODATA_START = .;
+        build/us/asm/us/data/segment_17D130.o(.rodata*);
+        segment_17D130_RODATA_END = .;
+        segment_17D130_RODATA_SIZE = ABSOLUTE(segment_17D130_RODATA_END - segment_17D130_RODATA_START);
 
-        segment_17D130_sdata_START = .;
-        build/us/asm/segment_17D130.o(.sdata*);
-        segment_17D130_sdata_END = .;
-        segment_17D130_sdata_SIZE = ABSOLUTE(segment_17D130_sdata_END - segment_17D130_sdata_START);
+        segment_17D130_SDATA_START = .;
+        build/us/asm/us/data/segment_17D130.o(.sdata*);
+        segment_17D130_SDATA_END = .;
+        segment_17D130_SDATA_SIZE = ABSOLUTE(segment_17D130_SDATA_END - segment_17D130_SDATA_START);
     }
     segment_17D130_alloc_VRAM_END = .;
     segment_17D130_alloc_VRAM_SIZE = ABSOLUTE(segment_17D130_alloc_VRAM_END - segment_17D130_alloc_VRAM);
@@ -2719,23 +2895,23 @@ SECTIONS
     segment_17D130_noload_VRAM = .;
     .segment_17D130.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17D130_sbss_START = .;
-        build/us/asm/segment_17D130.o(.sbss*);
-        segment_17D130_sbss_END = .;
-        segment_17D130_sbss_SIZE = ABSOLUTE(segment_17D130_sbss_END - segment_17D130_sbss_START);
+        segment_17D130_SBSS_START = .;
+        build/us/asm/us/data/segment_17D130.o(.sbss*);
+        segment_17D130_SBSS_END = .;
+        segment_17D130_SBSS_SIZE = ABSOLUTE(segment_17D130_SBSS_END - segment_17D130_SBSS_START);
 
-        segment_17D130_scommon_START = .;
-        build/us/asm/segment_17D130.o(.scommon*);
-        segment_17D130_scommon_END = .;
-        segment_17D130_scommon_SIZE = ABSOLUTE(segment_17D130_scommon_END - segment_17D130_scommon_START);
+        segment_17D130_SCOMMON_START = .;
+        build/us/asm/us/data/segment_17D130.o(.scommon*);
+        segment_17D130_SCOMMON_END = .;
+        segment_17D130_SCOMMON_SIZE = ABSOLUTE(segment_17D130_SCOMMON_END - segment_17D130_SCOMMON_START);
 
-        segment_17D130_bss_START = .;
-        build/us/asm/segment_17D130.o(.bss*);
-        segment_17D130_bss_END = .;
-        segment_17D130_bss_SIZE = ABSOLUTE(segment_17D130_bss_END - segment_17D130_bss_START);
+        segment_17D130_BSS_START = .;
+        build/us/asm/us/data/segment_17D130.o(.bss*);
+        segment_17D130_BSS_END = .;
+        segment_17D130_BSS_SIZE = ABSOLUTE(segment_17D130_BSS_END - segment_17D130_BSS_START);
 
         segment_17D130COMMON_START = .;
-        build/us/asm/segment_17D130.o(COMMON*);
+        build/us/asm/us/data/segment_17D130.o(COMMON*);
         segment_17D130COMMON_END = .;
         segment_17D130COMMON_SIZE = ABSOLUTE(segment_17D130COMMON_END - segment_17D130COMMON_START);
     }
@@ -2752,25 +2928,25 @@ SECTIONS
     segment_17E090_alloc_VRAM = .;
     .segment_17E090 : AT(segment_17E090_ROM_START) SUBALIGN(16)
     {
-        segment_17E090_text_START = .;
-        build/us/asm/segment_17E090.o(.text*);
-        segment_17E090_text_END = .;
-        segment_17E090_text_SIZE = ABSOLUTE(segment_17E090_text_END - segment_17E090_text_START);
+        segment_17E090_TEXT_START = .;
+        build/us/asm/us/data/segment_17E090.o(.text*);
+        segment_17E090_TEXT_END = .;
+        segment_17E090_TEXT_SIZE = ABSOLUTE(segment_17E090_TEXT_END - segment_17E090_TEXT_START);
 
-        segment_17E090_data_START = .;
-        build/us/asm/segment_17E090.o(.data*);
-        segment_17E090_data_END = .;
-        segment_17E090_data_SIZE = ABSOLUTE(segment_17E090_data_END - segment_17E090_data_START);
+        segment_17E090_DATA_START = .;
+        build/us/asm/us/data/segment_17E090.o(.data*);
+        segment_17E090_DATA_END = .;
+        segment_17E090_DATA_SIZE = ABSOLUTE(segment_17E090_DATA_END - segment_17E090_DATA_START);
 
-        segment_17E090_rodata_START = .;
-        build/us/asm/segment_17E090.o(.rodata*);
-        segment_17E090_rodata_END = .;
-        segment_17E090_rodata_SIZE = ABSOLUTE(segment_17E090_rodata_END - segment_17E090_rodata_START);
+        segment_17E090_RODATA_START = .;
+        build/us/asm/us/data/segment_17E090.o(.rodata*);
+        segment_17E090_RODATA_END = .;
+        segment_17E090_RODATA_SIZE = ABSOLUTE(segment_17E090_RODATA_END - segment_17E090_RODATA_START);
 
-        segment_17E090_sdata_START = .;
-        build/us/asm/segment_17E090.o(.sdata*);
-        segment_17E090_sdata_END = .;
-        segment_17E090_sdata_SIZE = ABSOLUTE(segment_17E090_sdata_END - segment_17E090_sdata_START);
+        segment_17E090_SDATA_START = .;
+        build/us/asm/us/data/segment_17E090.o(.sdata*);
+        segment_17E090_SDATA_END = .;
+        segment_17E090_SDATA_SIZE = ABSOLUTE(segment_17E090_SDATA_END - segment_17E090_SDATA_START);
     }
     segment_17E090_alloc_VRAM_END = .;
     segment_17E090_alloc_VRAM_SIZE = ABSOLUTE(segment_17E090_alloc_VRAM_END - segment_17E090_alloc_VRAM);
@@ -2778,23 +2954,23 @@ SECTIONS
     segment_17E090_noload_VRAM = .;
     .segment_17E090.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_17E090_sbss_START = .;
-        build/us/asm/segment_17E090.o(.sbss*);
-        segment_17E090_sbss_END = .;
-        segment_17E090_sbss_SIZE = ABSOLUTE(segment_17E090_sbss_END - segment_17E090_sbss_START);
+        segment_17E090_SBSS_START = .;
+        build/us/asm/us/data/segment_17E090.o(.sbss*);
+        segment_17E090_SBSS_END = .;
+        segment_17E090_SBSS_SIZE = ABSOLUTE(segment_17E090_SBSS_END - segment_17E090_SBSS_START);
 
-        segment_17E090_scommon_START = .;
-        build/us/asm/segment_17E090.o(.scommon*);
-        segment_17E090_scommon_END = .;
-        segment_17E090_scommon_SIZE = ABSOLUTE(segment_17E090_scommon_END - segment_17E090_scommon_START);
+        segment_17E090_SCOMMON_START = .;
+        build/us/asm/us/data/segment_17E090.o(.scommon*);
+        segment_17E090_SCOMMON_END = .;
+        segment_17E090_SCOMMON_SIZE = ABSOLUTE(segment_17E090_SCOMMON_END - segment_17E090_SCOMMON_START);
 
-        segment_17E090_bss_START = .;
-        build/us/asm/segment_17E090.o(.bss*);
-        segment_17E090_bss_END = .;
-        segment_17E090_bss_SIZE = ABSOLUTE(segment_17E090_bss_END - segment_17E090_bss_START);
+        segment_17E090_BSS_START = .;
+        build/us/asm/us/data/segment_17E090.o(.bss*);
+        segment_17E090_BSS_END = .;
+        segment_17E090_BSS_SIZE = ABSOLUTE(segment_17E090_BSS_END - segment_17E090_BSS_START);
 
         segment_17E090COMMON_START = .;
-        build/us/asm/segment_17E090.o(COMMON*);
+        build/us/asm/us/data/segment_17E090.o(COMMON*);
         segment_17E090COMMON_END = .;
         segment_17E090COMMON_SIZE = ABSOLUTE(segment_17E090COMMON_END - segment_17E090COMMON_START);
     }
@@ -2811,25 +2987,25 @@ SECTIONS
     segment_181840_alloc_VRAM = .;
     .segment_181840 : AT(segment_181840_ROM_START) SUBALIGN(16)
     {
-        segment_181840_text_START = .;
-        build/us/asm/segment_181840.o(.text*);
-        segment_181840_text_END = .;
-        segment_181840_text_SIZE = ABSOLUTE(segment_181840_text_END - segment_181840_text_START);
+        segment_181840_TEXT_START = .;
+        build/us/asm/us/data/segment_181840.o(.text*);
+        segment_181840_TEXT_END = .;
+        segment_181840_TEXT_SIZE = ABSOLUTE(segment_181840_TEXT_END - segment_181840_TEXT_START);
 
-        segment_181840_data_START = .;
-        build/us/asm/segment_181840.o(.data*);
-        segment_181840_data_END = .;
-        segment_181840_data_SIZE = ABSOLUTE(segment_181840_data_END - segment_181840_data_START);
+        segment_181840_DATA_START = .;
+        build/us/asm/us/data/segment_181840.o(.data*);
+        segment_181840_DATA_END = .;
+        segment_181840_DATA_SIZE = ABSOLUTE(segment_181840_DATA_END - segment_181840_DATA_START);
 
-        segment_181840_rodata_START = .;
-        build/us/asm/segment_181840.o(.rodata*);
-        segment_181840_rodata_END = .;
-        segment_181840_rodata_SIZE = ABSOLUTE(segment_181840_rodata_END - segment_181840_rodata_START);
+        segment_181840_RODATA_START = .;
+        build/us/asm/us/data/segment_181840.o(.rodata*);
+        segment_181840_RODATA_END = .;
+        segment_181840_RODATA_SIZE = ABSOLUTE(segment_181840_RODATA_END - segment_181840_RODATA_START);
 
-        segment_181840_sdata_START = .;
-        build/us/asm/segment_181840.o(.sdata*);
-        segment_181840_sdata_END = .;
-        segment_181840_sdata_SIZE = ABSOLUTE(segment_181840_sdata_END - segment_181840_sdata_START);
+        segment_181840_SDATA_START = .;
+        build/us/asm/us/data/segment_181840.o(.sdata*);
+        segment_181840_SDATA_END = .;
+        segment_181840_SDATA_SIZE = ABSOLUTE(segment_181840_SDATA_END - segment_181840_SDATA_START);
     }
     segment_181840_alloc_VRAM_END = .;
     segment_181840_alloc_VRAM_SIZE = ABSOLUTE(segment_181840_alloc_VRAM_END - segment_181840_alloc_VRAM);
@@ -2837,23 +3013,23 @@ SECTIONS
     segment_181840_noload_VRAM = .;
     .segment_181840.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_181840_sbss_START = .;
-        build/us/asm/segment_181840.o(.sbss*);
-        segment_181840_sbss_END = .;
-        segment_181840_sbss_SIZE = ABSOLUTE(segment_181840_sbss_END - segment_181840_sbss_START);
+        segment_181840_SBSS_START = .;
+        build/us/asm/us/data/segment_181840.o(.sbss*);
+        segment_181840_SBSS_END = .;
+        segment_181840_SBSS_SIZE = ABSOLUTE(segment_181840_SBSS_END - segment_181840_SBSS_START);
 
-        segment_181840_scommon_START = .;
-        build/us/asm/segment_181840.o(.scommon*);
-        segment_181840_scommon_END = .;
-        segment_181840_scommon_SIZE = ABSOLUTE(segment_181840_scommon_END - segment_181840_scommon_START);
+        segment_181840_SCOMMON_START = .;
+        build/us/asm/us/data/segment_181840.o(.scommon*);
+        segment_181840_SCOMMON_END = .;
+        segment_181840_SCOMMON_SIZE = ABSOLUTE(segment_181840_SCOMMON_END - segment_181840_SCOMMON_START);
 
-        segment_181840_bss_START = .;
-        build/us/asm/segment_181840.o(.bss*);
-        segment_181840_bss_END = .;
-        segment_181840_bss_SIZE = ABSOLUTE(segment_181840_bss_END - segment_181840_bss_START);
+        segment_181840_BSS_START = .;
+        build/us/asm/us/data/segment_181840.o(.bss*);
+        segment_181840_BSS_END = .;
+        segment_181840_BSS_SIZE = ABSOLUTE(segment_181840_BSS_END - segment_181840_BSS_START);
 
         segment_181840COMMON_START = .;
-        build/us/asm/segment_181840.o(COMMON*);
+        build/us/asm/us/data/segment_181840.o(COMMON*);
         segment_181840COMMON_END = .;
         segment_181840COMMON_SIZE = ABSOLUTE(segment_181840COMMON_END - segment_181840COMMON_START);
     }
@@ -2870,25 +3046,25 @@ SECTIONS
     segment_184FF0_alloc_VRAM = .;
     .segment_184FF0 : AT(segment_184FF0_ROM_START) SUBALIGN(16)
     {
-        segment_184FF0_text_START = .;
-        build/us/asm/segment_184FF0.o(.text*);
-        segment_184FF0_text_END = .;
-        segment_184FF0_text_SIZE = ABSOLUTE(segment_184FF0_text_END - segment_184FF0_text_START);
+        segment_184FF0_TEXT_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.text*);
+        segment_184FF0_TEXT_END = .;
+        segment_184FF0_TEXT_SIZE = ABSOLUTE(segment_184FF0_TEXT_END - segment_184FF0_TEXT_START);
 
-        segment_184FF0_data_START = .;
-        build/us/asm/segment_184FF0.o(.data*);
-        segment_184FF0_data_END = .;
-        segment_184FF0_data_SIZE = ABSOLUTE(segment_184FF0_data_END - segment_184FF0_data_START);
+        segment_184FF0_DATA_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.data*);
+        segment_184FF0_DATA_END = .;
+        segment_184FF0_DATA_SIZE = ABSOLUTE(segment_184FF0_DATA_END - segment_184FF0_DATA_START);
 
-        segment_184FF0_rodata_START = .;
-        build/us/asm/segment_184FF0.o(.rodata*);
-        segment_184FF0_rodata_END = .;
-        segment_184FF0_rodata_SIZE = ABSOLUTE(segment_184FF0_rodata_END - segment_184FF0_rodata_START);
+        segment_184FF0_RODATA_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.rodata*);
+        segment_184FF0_RODATA_END = .;
+        segment_184FF0_RODATA_SIZE = ABSOLUTE(segment_184FF0_RODATA_END - segment_184FF0_RODATA_START);
 
-        segment_184FF0_sdata_START = .;
-        build/us/asm/segment_184FF0.o(.sdata*);
-        segment_184FF0_sdata_END = .;
-        segment_184FF0_sdata_SIZE = ABSOLUTE(segment_184FF0_sdata_END - segment_184FF0_sdata_START);
+        segment_184FF0_SDATA_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.sdata*);
+        segment_184FF0_SDATA_END = .;
+        segment_184FF0_SDATA_SIZE = ABSOLUTE(segment_184FF0_SDATA_END - segment_184FF0_SDATA_START);
     }
     segment_184FF0_alloc_VRAM_END = .;
     segment_184FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_184FF0_alloc_VRAM_END - segment_184FF0_alloc_VRAM);
@@ -2896,23 +3072,23 @@ SECTIONS
     segment_184FF0_noload_VRAM = .;
     .segment_184FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_184FF0_sbss_START = .;
-        build/us/asm/segment_184FF0.o(.sbss*);
-        segment_184FF0_sbss_END = .;
-        segment_184FF0_sbss_SIZE = ABSOLUTE(segment_184FF0_sbss_END - segment_184FF0_sbss_START);
+        segment_184FF0_SBSS_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.sbss*);
+        segment_184FF0_SBSS_END = .;
+        segment_184FF0_SBSS_SIZE = ABSOLUTE(segment_184FF0_SBSS_END - segment_184FF0_SBSS_START);
 
-        segment_184FF0_scommon_START = .;
-        build/us/asm/segment_184FF0.o(.scommon*);
-        segment_184FF0_scommon_END = .;
-        segment_184FF0_scommon_SIZE = ABSOLUTE(segment_184FF0_scommon_END - segment_184FF0_scommon_START);
+        segment_184FF0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.scommon*);
+        segment_184FF0_SCOMMON_END = .;
+        segment_184FF0_SCOMMON_SIZE = ABSOLUTE(segment_184FF0_SCOMMON_END - segment_184FF0_SCOMMON_START);
 
-        segment_184FF0_bss_START = .;
-        build/us/asm/segment_184FF0.o(.bss*);
-        segment_184FF0_bss_END = .;
-        segment_184FF0_bss_SIZE = ABSOLUTE(segment_184FF0_bss_END - segment_184FF0_bss_START);
+        segment_184FF0_BSS_START = .;
+        build/us/asm/us/data/segment_184FF0.o(.bss*);
+        segment_184FF0_BSS_END = .;
+        segment_184FF0_BSS_SIZE = ABSOLUTE(segment_184FF0_BSS_END - segment_184FF0_BSS_START);
 
         segment_184FF0COMMON_START = .;
-        build/us/asm/segment_184FF0.o(COMMON*);
+        build/us/asm/us/data/segment_184FF0.o(COMMON*);
         segment_184FF0COMMON_END = .;
         segment_184FF0COMMON_SIZE = ABSOLUTE(segment_184FF0COMMON_END - segment_184FF0COMMON_START);
     }
@@ -2929,25 +3105,25 @@ SECTIONS
     segment_186FF0_alloc_VRAM = .;
     .segment_186FF0 : AT(segment_186FF0_ROM_START) SUBALIGN(16)
     {
-        segment_186FF0_text_START = .;
-        build/us/asm/segment_186FF0.o(.text*);
-        segment_186FF0_text_END = .;
-        segment_186FF0_text_SIZE = ABSOLUTE(segment_186FF0_text_END - segment_186FF0_text_START);
+        segment_186FF0_TEXT_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.text*);
+        segment_186FF0_TEXT_END = .;
+        segment_186FF0_TEXT_SIZE = ABSOLUTE(segment_186FF0_TEXT_END - segment_186FF0_TEXT_START);
 
-        segment_186FF0_data_START = .;
-        build/us/asm/segment_186FF0.o(.data*);
-        segment_186FF0_data_END = .;
-        segment_186FF0_data_SIZE = ABSOLUTE(segment_186FF0_data_END - segment_186FF0_data_START);
+        segment_186FF0_DATA_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.data*);
+        segment_186FF0_DATA_END = .;
+        segment_186FF0_DATA_SIZE = ABSOLUTE(segment_186FF0_DATA_END - segment_186FF0_DATA_START);
 
-        segment_186FF0_rodata_START = .;
-        build/us/asm/segment_186FF0.o(.rodata*);
-        segment_186FF0_rodata_END = .;
-        segment_186FF0_rodata_SIZE = ABSOLUTE(segment_186FF0_rodata_END - segment_186FF0_rodata_START);
+        segment_186FF0_RODATA_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.rodata*);
+        segment_186FF0_RODATA_END = .;
+        segment_186FF0_RODATA_SIZE = ABSOLUTE(segment_186FF0_RODATA_END - segment_186FF0_RODATA_START);
 
-        segment_186FF0_sdata_START = .;
-        build/us/asm/segment_186FF0.o(.sdata*);
-        segment_186FF0_sdata_END = .;
-        segment_186FF0_sdata_SIZE = ABSOLUTE(segment_186FF0_sdata_END - segment_186FF0_sdata_START);
+        segment_186FF0_SDATA_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.sdata*);
+        segment_186FF0_SDATA_END = .;
+        segment_186FF0_SDATA_SIZE = ABSOLUTE(segment_186FF0_SDATA_END - segment_186FF0_SDATA_START);
     }
     segment_186FF0_alloc_VRAM_END = .;
     segment_186FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_186FF0_alloc_VRAM_END - segment_186FF0_alloc_VRAM);
@@ -2955,23 +3131,23 @@ SECTIONS
     segment_186FF0_noload_VRAM = .;
     .segment_186FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_186FF0_sbss_START = .;
-        build/us/asm/segment_186FF0.o(.sbss*);
-        segment_186FF0_sbss_END = .;
-        segment_186FF0_sbss_SIZE = ABSOLUTE(segment_186FF0_sbss_END - segment_186FF0_sbss_START);
+        segment_186FF0_SBSS_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.sbss*);
+        segment_186FF0_SBSS_END = .;
+        segment_186FF0_SBSS_SIZE = ABSOLUTE(segment_186FF0_SBSS_END - segment_186FF0_SBSS_START);
 
-        segment_186FF0_scommon_START = .;
-        build/us/asm/segment_186FF0.o(.scommon*);
-        segment_186FF0_scommon_END = .;
-        segment_186FF0_scommon_SIZE = ABSOLUTE(segment_186FF0_scommon_END - segment_186FF0_scommon_START);
+        segment_186FF0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.scommon*);
+        segment_186FF0_SCOMMON_END = .;
+        segment_186FF0_SCOMMON_SIZE = ABSOLUTE(segment_186FF0_SCOMMON_END - segment_186FF0_SCOMMON_START);
 
-        segment_186FF0_bss_START = .;
-        build/us/asm/segment_186FF0.o(.bss*);
-        segment_186FF0_bss_END = .;
-        segment_186FF0_bss_SIZE = ABSOLUTE(segment_186FF0_bss_END - segment_186FF0_bss_START);
+        segment_186FF0_BSS_START = .;
+        build/us/asm/us/data/segment_186FF0.o(.bss*);
+        segment_186FF0_BSS_END = .;
+        segment_186FF0_BSS_SIZE = ABSOLUTE(segment_186FF0_BSS_END - segment_186FF0_BSS_START);
 
         segment_186FF0COMMON_START = .;
-        build/us/asm/segment_186FF0.o(COMMON*);
+        build/us/asm/us/data/segment_186FF0.o(COMMON*);
         segment_186FF0COMMON_END = .;
         segment_186FF0COMMON_SIZE = ABSOLUTE(segment_186FF0COMMON_END - segment_186FF0COMMON_START);
     }
@@ -2988,25 +3164,25 @@ SECTIONS
     segment_188FF0_alloc_VRAM = .;
     .segment_188FF0 : AT(segment_188FF0_ROM_START) SUBALIGN(16)
     {
-        segment_188FF0_text_START = .;
-        build/us/asm/segment_188FF0.o(.text*);
-        segment_188FF0_text_END = .;
-        segment_188FF0_text_SIZE = ABSOLUTE(segment_188FF0_text_END - segment_188FF0_text_START);
+        segment_188FF0_TEXT_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.text*);
+        segment_188FF0_TEXT_END = .;
+        segment_188FF0_TEXT_SIZE = ABSOLUTE(segment_188FF0_TEXT_END - segment_188FF0_TEXT_START);
 
-        segment_188FF0_data_START = .;
-        build/us/asm/segment_188FF0.o(.data*);
-        segment_188FF0_data_END = .;
-        segment_188FF0_data_SIZE = ABSOLUTE(segment_188FF0_data_END - segment_188FF0_data_START);
+        segment_188FF0_DATA_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.data*);
+        segment_188FF0_DATA_END = .;
+        segment_188FF0_DATA_SIZE = ABSOLUTE(segment_188FF0_DATA_END - segment_188FF0_DATA_START);
 
-        segment_188FF0_rodata_START = .;
-        build/us/asm/segment_188FF0.o(.rodata*);
-        segment_188FF0_rodata_END = .;
-        segment_188FF0_rodata_SIZE = ABSOLUTE(segment_188FF0_rodata_END - segment_188FF0_rodata_START);
+        segment_188FF0_RODATA_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.rodata*);
+        segment_188FF0_RODATA_END = .;
+        segment_188FF0_RODATA_SIZE = ABSOLUTE(segment_188FF0_RODATA_END - segment_188FF0_RODATA_START);
 
-        segment_188FF0_sdata_START = .;
-        build/us/asm/segment_188FF0.o(.sdata*);
-        segment_188FF0_sdata_END = .;
-        segment_188FF0_sdata_SIZE = ABSOLUTE(segment_188FF0_sdata_END - segment_188FF0_sdata_START);
+        segment_188FF0_SDATA_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.sdata*);
+        segment_188FF0_SDATA_END = .;
+        segment_188FF0_SDATA_SIZE = ABSOLUTE(segment_188FF0_SDATA_END - segment_188FF0_SDATA_START);
     }
     segment_188FF0_alloc_VRAM_END = .;
     segment_188FF0_alloc_VRAM_SIZE = ABSOLUTE(segment_188FF0_alloc_VRAM_END - segment_188FF0_alloc_VRAM);
@@ -3014,23 +3190,23 @@ SECTIONS
     segment_188FF0_noload_VRAM = .;
     .segment_188FF0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_188FF0_sbss_START = .;
-        build/us/asm/segment_188FF0.o(.sbss*);
-        segment_188FF0_sbss_END = .;
-        segment_188FF0_sbss_SIZE = ABSOLUTE(segment_188FF0_sbss_END - segment_188FF0_sbss_START);
+        segment_188FF0_SBSS_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.sbss*);
+        segment_188FF0_SBSS_END = .;
+        segment_188FF0_SBSS_SIZE = ABSOLUTE(segment_188FF0_SBSS_END - segment_188FF0_SBSS_START);
 
-        segment_188FF0_scommon_START = .;
-        build/us/asm/segment_188FF0.o(.scommon*);
-        segment_188FF0_scommon_END = .;
-        segment_188FF0_scommon_SIZE = ABSOLUTE(segment_188FF0_scommon_END - segment_188FF0_scommon_START);
+        segment_188FF0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.scommon*);
+        segment_188FF0_SCOMMON_END = .;
+        segment_188FF0_SCOMMON_SIZE = ABSOLUTE(segment_188FF0_SCOMMON_END - segment_188FF0_SCOMMON_START);
 
-        segment_188FF0_bss_START = .;
-        build/us/asm/segment_188FF0.o(.bss*);
-        segment_188FF0_bss_END = .;
-        segment_188FF0_bss_SIZE = ABSOLUTE(segment_188FF0_bss_END - segment_188FF0_bss_START);
+        segment_188FF0_BSS_START = .;
+        build/us/asm/us/data/segment_188FF0.o(.bss*);
+        segment_188FF0_BSS_END = .;
+        segment_188FF0_BSS_SIZE = ABSOLUTE(segment_188FF0_BSS_END - segment_188FF0_BSS_START);
 
         segment_188FF0COMMON_START = .;
-        build/us/asm/segment_188FF0.o(COMMON*);
+        build/us/asm/us/data/segment_188FF0.o(COMMON*);
         segment_188FF0COMMON_END = .;
         segment_188FF0COMMON_SIZE = ABSOLUTE(segment_188FF0COMMON_END - segment_188FF0COMMON_START);
     }
@@ -3047,25 +3223,25 @@ SECTIONS
     segment_189D40_alloc_VRAM = .;
     .segment_189D40 : AT(segment_189D40_ROM_START) SUBALIGN(16)
     {
-        segment_189D40_text_START = .;
-        build/us/asm/segment_189D40.o(.text*);
-        segment_189D40_text_END = .;
-        segment_189D40_text_SIZE = ABSOLUTE(segment_189D40_text_END - segment_189D40_text_START);
+        segment_189D40_TEXT_START = .;
+        build/us/asm/us/data/segment_189D40.o(.text*);
+        segment_189D40_TEXT_END = .;
+        segment_189D40_TEXT_SIZE = ABSOLUTE(segment_189D40_TEXT_END - segment_189D40_TEXT_START);
 
-        segment_189D40_data_START = .;
-        build/us/asm/segment_189D40.o(.data*);
-        segment_189D40_data_END = .;
-        segment_189D40_data_SIZE = ABSOLUTE(segment_189D40_data_END - segment_189D40_data_START);
+        segment_189D40_DATA_START = .;
+        build/us/asm/us/data/segment_189D40.o(.data*);
+        segment_189D40_DATA_END = .;
+        segment_189D40_DATA_SIZE = ABSOLUTE(segment_189D40_DATA_END - segment_189D40_DATA_START);
 
-        segment_189D40_rodata_START = .;
-        build/us/asm/segment_189D40.o(.rodata*);
-        segment_189D40_rodata_END = .;
-        segment_189D40_rodata_SIZE = ABSOLUTE(segment_189D40_rodata_END - segment_189D40_rodata_START);
+        segment_189D40_RODATA_START = .;
+        build/us/asm/us/data/segment_189D40.o(.rodata*);
+        segment_189D40_RODATA_END = .;
+        segment_189D40_RODATA_SIZE = ABSOLUTE(segment_189D40_RODATA_END - segment_189D40_RODATA_START);
 
-        segment_189D40_sdata_START = .;
-        build/us/asm/segment_189D40.o(.sdata*);
-        segment_189D40_sdata_END = .;
-        segment_189D40_sdata_SIZE = ABSOLUTE(segment_189D40_sdata_END - segment_189D40_sdata_START);
+        segment_189D40_SDATA_START = .;
+        build/us/asm/us/data/segment_189D40.o(.sdata*);
+        segment_189D40_SDATA_END = .;
+        segment_189D40_SDATA_SIZE = ABSOLUTE(segment_189D40_SDATA_END - segment_189D40_SDATA_START);
     }
     segment_189D40_alloc_VRAM_END = .;
     segment_189D40_alloc_VRAM_SIZE = ABSOLUTE(segment_189D40_alloc_VRAM_END - segment_189D40_alloc_VRAM);
@@ -3073,23 +3249,23 @@ SECTIONS
     segment_189D40_noload_VRAM = .;
     .segment_189D40.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_189D40_sbss_START = .;
-        build/us/asm/segment_189D40.o(.sbss*);
-        segment_189D40_sbss_END = .;
-        segment_189D40_sbss_SIZE = ABSOLUTE(segment_189D40_sbss_END - segment_189D40_sbss_START);
+        segment_189D40_SBSS_START = .;
+        build/us/asm/us/data/segment_189D40.o(.sbss*);
+        segment_189D40_SBSS_END = .;
+        segment_189D40_SBSS_SIZE = ABSOLUTE(segment_189D40_SBSS_END - segment_189D40_SBSS_START);
 
-        segment_189D40_scommon_START = .;
-        build/us/asm/segment_189D40.o(.scommon*);
-        segment_189D40_scommon_END = .;
-        segment_189D40_scommon_SIZE = ABSOLUTE(segment_189D40_scommon_END - segment_189D40_scommon_START);
+        segment_189D40_SCOMMON_START = .;
+        build/us/asm/us/data/segment_189D40.o(.scommon*);
+        segment_189D40_SCOMMON_END = .;
+        segment_189D40_SCOMMON_SIZE = ABSOLUTE(segment_189D40_SCOMMON_END - segment_189D40_SCOMMON_START);
 
-        segment_189D40_bss_START = .;
-        build/us/asm/segment_189D40.o(.bss*);
-        segment_189D40_bss_END = .;
-        segment_189D40_bss_SIZE = ABSOLUTE(segment_189D40_bss_END - segment_189D40_bss_START);
+        segment_189D40_BSS_START = .;
+        build/us/asm/us/data/segment_189D40.o(.bss*);
+        segment_189D40_BSS_END = .;
+        segment_189D40_BSS_SIZE = ABSOLUTE(segment_189D40_BSS_END - segment_189D40_BSS_START);
 
         segment_189D40COMMON_START = .;
-        build/us/asm/segment_189D40.o(COMMON*);
+        build/us/asm/us/data/segment_189D40.o(COMMON*);
         segment_189D40COMMON_END = .;
         segment_189D40COMMON_SIZE = ABSOLUTE(segment_189D40COMMON_END - segment_189D40COMMON_START);
     }
@@ -3106,25 +3282,25 @@ SECTIONS
     segment_18CB40_alloc_VRAM = .;
     .segment_18CB40 : AT(segment_18CB40_ROM_START) SUBALIGN(16)
     {
-        segment_18CB40_text_START = .;
-        build/us/asm/segment_18CB40.o(.text*);
-        segment_18CB40_text_END = .;
-        segment_18CB40_text_SIZE = ABSOLUTE(segment_18CB40_text_END - segment_18CB40_text_START);
+        segment_18CB40_TEXT_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.text*);
+        segment_18CB40_TEXT_END = .;
+        segment_18CB40_TEXT_SIZE = ABSOLUTE(segment_18CB40_TEXT_END - segment_18CB40_TEXT_START);
 
-        segment_18CB40_data_START = .;
-        build/us/asm/segment_18CB40.o(.data*);
-        segment_18CB40_data_END = .;
-        segment_18CB40_data_SIZE = ABSOLUTE(segment_18CB40_data_END - segment_18CB40_data_START);
+        segment_18CB40_DATA_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.data*);
+        segment_18CB40_DATA_END = .;
+        segment_18CB40_DATA_SIZE = ABSOLUTE(segment_18CB40_DATA_END - segment_18CB40_DATA_START);
 
-        segment_18CB40_rodata_START = .;
-        build/us/asm/segment_18CB40.o(.rodata*);
-        segment_18CB40_rodata_END = .;
-        segment_18CB40_rodata_SIZE = ABSOLUTE(segment_18CB40_rodata_END - segment_18CB40_rodata_START);
+        segment_18CB40_RODATA_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.rodata*);
+        segment_18CB40_RODATA_END = .;
+        segment_18CB40_RODATA_SIZE = ABSOLUTE(segment_18CB40_RODATA_END - segment_18CB40_RODATA_START);
 
-        segment_18CB40_sdata_START = .;
-        build/us/asm/segment_18CB40.o(.sdata*);
-        segment_18CB40_sdata_END = .;
-        segment_18CB40_sdata_SIZE = ABSOLUTE(segment_18CB40_sdata_END - segment_18CB40_sdata_START);
+        segment_18CB40_SDATA_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.sdata*);
+        segment_18CB40_SDATA_END = .;
+        segment_18CB40_SDATA_SIZE = ABSOLUTE(segment_18CB40_SDATA_END - segment_18CB40_SDATA_START);
     }
     segment_18CB40_alloc_VRAM_END = .;
     segment_18CB40_alloc_VRAM_SIZE = ABSOLUTE(segment_18CB40_alloc_VRAM_END - segment_18CB40_alloc_VRAM);
@@ -3132,23 +3308,23 @@ SECTIONS
     segment_18CB40_noload_VRAM = .;
     .segment_18CB40.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18CB40_sbss_START = .;
-        build/us/asm/segment_18CB40.o(.sbss*);
-        segment_18CB40_sbss_END = .;
-        segment_18CB40_sbss_SIZE = ABSOLUTE(segment_18CB40_sbss_END - segment_18CB40_sbss_START);
+        segment_18CB40_SBSS_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.sbss*);
+        segment_18CB40_SBSS_END = .;
+        segment_18CB40_SBSS_SIZE = ABSOLUTE(segment_18CB40_SBSS_END - segment_18CB40_SBSS_START);
 
-        segment_18CB40_scommon_START = .;
-        build/us/asm/segment_18CB40.o(.scommon*);
-        segment_18CB40_scommon_END = .;
-        segment_18CB40_scommon_SIZE = ABSOLUTE(segment_18CB40_scommon_END - segment_18CB40_scommon_START);
+        segment_18CB40_SCOMMON_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.scommon*);
+        segment_18CB40_SCOMMON_END = .;
+        segment_18CB40_SCOMMON_SIZE = ABSOLUTE(segment_18CB40_SCOMMON_END - segment_18CB40_SCOMMON_START);
 
-        segment_18CB40_bss_START = .;
-        build/us/asm/segment_18CB40.o(.bss*);
-        segment_18CB40_bss_END = .;
-        segment_18CB40_bss_SIZE = ABSOLUTE(segment_18CB40_bss_END - segment_18CB40_bss_START);
+        segment_18CB40_BSS_START = .;
+        build/us/asm/us/data/segment_18CB40.o(.bss*);
+        segment_18CB40_BSS_END = .;
+        segment_18CB40_BSS_SIZE = ABSOLUTE(segment_18CB40_BSS_END - segment_18CB40_BSS_START);
 
         segment_18CB40COMMON_START = .;
-        build/us/asm/segment_18CB40.o(COMMON*);
+        build/us/asm/us/data/segment_18CB40.o(COMMON*);
         segment_18CB40COMMON_END = .;
         segment_18CB40COMMON_SIZE = ABSOLUTE(segment_18CB40COMMON_END - segment_18CB40COMMON_START);
     }
@@ -3165,25 +3341,25 @@ SECTIONS
     segment_18DB90_alloc_VRAM = .;
     .segment_18DB90 : AT(segment_18DB90_ROM_START) SUBALIGN(16)
     {
-        segment_18DB90_text_START = .;
-        build/us/asm/segment_18DB90.o(.text*);
-        segment_18DB90_text_END = .;
-        segment_18DB90_text_SIZE = ABSOLUTE(segment_18DB90_text_END - segment_18DB90_text_START);
+        segment_18DB90_TEXT_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.text*);
+        segment_18DB90_TEXT_END = .;
+        segment_18DB90_TEXT_SIZE = ABSOLUTE(segment_18DB90_TEXT_END - segment_18DB90_TEXT_START);
 
-        segment_18DB90_data_START = .;
-        build/us/asm/segment_18DB90.o(.data*);
-        segment_18DB90_data_END = .;
-        segment_18DB90_data_SIZE = ABSOLUTE(segment_18DB90_data_END - segment_18DB90_data_START);
+        segment_18DB90_DATA_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.data*);
+        segment_18DB90_DATA_END = .;
+        segment_18DB90_DATA_SIZE = ABSOLUTE(segment_18DB90_DATA_END - segment_18DB90_DATA_START);
 
-        segment_18DB90_rodata_START = .;
-        build/us/asm/segment_18DB90.o(.rodata*);
-        segment_18DB90_rodata_END = .;
-        segment_18DB90_rodata_SIZE = ABSOLUTE(segment_18DB90_rodata_END - segment_18DB90_rodata_START);
+        segment_18DB90_RODATA_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.rodata*);
+        segment_18DB90_RODATA_END = .;
+        segment_18DB90_RODATA_SIZE = ABSOLUTE(segment_18DB90_RODATA_END - segment_18DB90_RODATA_START);
 
-        segment_18DB90_sdata_START = .;
-        build/us/asm/segment_18DB90.o(.sdata*);
-        segment_18DB90_sdata_END = .;
-        segment_18DB90_sdata_SIZE = ABSOLUTE(segment_18DB90_sdata_END - segment_18DB90_sdata_START);
+        segment_18DB90_SDATA_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.sdata*);
+        segment_18DB90_SDATA_END = .;
+        segment_18DB90_SDATA_SIZE = ABSOLUTE(segment_18DB90_SDATA_END - segment_18DB90_SDATA_START);
     }
     segment_18DB90_alloc_VRAM_END = .;
     segment_18DB90_alloc_VRAM_SIZE = ABSOLUTE(segment_18DB90_alloc_VRAM_END - segment_18DB90_alloc_VRAM);
@@ -3191,23 +3367,23 @@ SECTIONS
     segment_18DB90_noload_VRAM = .;
     .segment_18DB90.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18DB90_sbss_START = .;
-        build/us/asm/segment_18DB90.o(.sbss*);
-        segment_18DB90_sbss_END = .;
-        segment_18DB90_sbss_SIZE = ABSOLUTE(segment_18DB90_sbss_END - segment_18DB90_sbss_START);
+        segment_18DB90_SBSS_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.sbss*);
+        segment_18DB90_SBSS_END = .;
+        segment_18DB90_SBSS_SIZE = ABSOLUTE(segment_18DB90_SBSS_END - segment_18DB90_SBSS_START);
 
-        segment_18DB90_scommon_START = .;
-        build/us/asm/segment_18DB90.o(.scommon*);
-        segment_18DB90_scommon_END = .;
-        segment_18DB90_scommon_SIZE = ABSOLUTE(segment_18DB90_scommon_END - segment_18DB90_scommon_START);
+        segment_18DB90_SCOMMON_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.scommon*);
+        segment_18DB90_SCOMMON_END = .;
+        segment_18DB90_SCOMMON_SIZE = ABSOLUTE(segment_18DB90_SCOMMON_END - segment_18DB90_SCOMMON_START);
 
-        segment_18DB90_bss_START = .;
-        build/us/asm/segment_18DB90.o(.bss*);
-        segment_18DB90_bss_END = .;
-        segment_18DB90_bss_SIZE = ABSOLUTE(segment_18DB90_bss_END - segment_18DB90_bss_START);
+        segment_18DB90_BSS_START = .;
+        build/us/asm/us/data/segment_18DB90.o(.bss*);
+        segment_18DB90_BSS_END = .;
+        segment_18DB90_BSS_SIZE = ABSOLUTE(segment_18DB90_BSS_END - segment_18DB90_BSS_START);
 
         segment_18DB90COMMON_START = .;
-        build/us/asm/segment_18DB90.o(COMMON*);
+        build/us/asm/us/data/segment_18DB90.o(COMMON*);
         segment_18DB90COMMON_END = .;
         segment_18DB90COMMON_SIZE = ABSOLUTE(segment_18DB90COMMON_END - segment_18DB90COMMON_START);
     }
@@ -3224,25 +3400,25 @@ SECTIONS
     segment_18F160_alloc_VRAM = .;
     .segment_18F160 : AT(segment_18F160_ROM_START) SUBALIGN(16)
     {
-        segment_18F160_text_START = .;
-        build/us/asm/segment_18F160.o(.text*);
-        segment_18F160_text_END = .;
-        segment_18F160_text_SIZE = ABSOLUTE(segment_18F160_text_END - segment_18F160_text_START);
+        segment_18F160_TEXT_START = .;
+        build/us/asm/us/data/segment_18F160.o(.text*);
+        segment_18F160_TEXT_END = .;
+        segment_18F160_TEXT_SIZE = ABSOLUTE(segment_18F160_TEXT_END - segment_18F160_TEXT_START);
 
-        segment_18F160_data_START = .;
-        build/us/asm/segment_18F160.o(.data*);
-        segment_18F160_data_END = .;
-        segment_18F160_data_SIZE = ABSOLUTE(segment_18F160_data_END - segment_18F160_data_START);
+        segment_18F160_DATA_START = .;
+        build/us/asm/us/data/segment_18F160.o(.data*);
+        segment_18F160_DATA_END = .;
+        segment_18F160_DATA_SIZE = ABSOLUTE(segment_18F160_DATA_END - segment_18F160_DATA_START);
 
-        segment_18F160_rodata_START = .;
-        build/us/asm/segment_18F160.o(.rodata*);
-        segment_18F160_rodata_END = .;
-        segment_18F160_rodata_SIZE = ABSOLUTE(segment_18F160_rodata_END - segment_18F160_rodata_START);
+        segment_18F160_RODATA_START = .;
+        build/us/asm/us/data/segment_18F160.o(.rodata*);
+        segment_18F160_RODATA_END = .;
+        segment_18F160_RODATA_SIZE = ABSOLUTE(segment_18F160_RODATA_END - segment_18F160_RODATA_START);
 
-        segment_18F160_sdata_START = .;
-        build/us/asm/segment_18F160.o(.sdata*);
-        segment_18F160_sdata_END = .;
-        segment_18F160_sdata_SIZE = ABSOLUTE(segment_18F160_sdata_END - segment_18F160_sdata_START);
+        segment_18F160_SDATA_START = .;
+        build/us/asm/us/data/segment_18F160.o(.sdata*);
+        segment_18F160_SDATA_END = .;
+        segment_18F160_SDATA_SIZE = ABSOLUTE(segment_18F160_SDATA_END - segment_18F160_SDATA_START);
     }
     segment_18F160_alloc_VRAM_END = .;
     segment_18F160_alloc_VRAM_SIZE = ABSOLUTE(segment_18F160_alloc_VRAM_END - segment_18F160_alloc_VRAM);
@@ -3250,23 +3426,23 @@ SECTIONS
     segment_18F160_noload_VRAM = .;
     .segment_18F160.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_18F160_sbss_START = .;
-        build/us/asm/segment_18F160.o(.sbss*);
-        segment_18F160_sbss_END = .;
-        segment_18F160_sbss_SIZE = ABSOLUTE(segment_18F160_sbss_END - segment_18F160_sbss_START);
+        segment_18F160_SBSS_START = .;
+        build/us/asm/us/data/segment_18F160.o(.sbss*);
+        segment_18F160_SBSS_END = .;
+        segment_18F160_SBSS_SIZE = ABSOLUTE(segment_18F160_SBSS_END - segment_18F160_SBSS_START);
 
-        segment_18F160_scommon_START = .;
-        build/us/asm/segment_18F160.o(.scommon*);
-        segment_18F160_scommon_END = .;
-        segment_18F160_scommon_SIZE = ABSOLUTE(segment_18F160_scommon_END - segment_18F160_scommon_START);
+        segment_18F160_SCOMMON_START = .;
+        build/us/asm/us/data/segment_18F160.o(.scommon*);
+        segment_18F160_SCOMMON_END = .;
+        segment_18F160_SCOMMON_SIZE = ABSOLUTE(segment_18F160_SCOMMON_END - segment_18F160_SCOMMON_START);
 
-        segment_18F160_bss_START = .;
-        build/us/asm/segment_18F160.o(.bss*);
-        segment_18F160_bss_END = .;
-        segment_18F160_bss_SIZE = ABSOLUTE(segment_18F160_bss_END - segment_18F160_bss_START);
+        segment_18F160_BSS_START = .;
+        build/us/asm/us/data/segment_18F160.o(.bss*);
+        segment_18F160_BSS_END = .;
+        segment_18F160_BSS_SIZE = ABSOLUTE(segment_18F160_BSS_END - segment_18F160_BSS_START);
 
         segment_18F160COMMON_START = .;
-        build/us/asm/segment_18F160.o(COMMON*);
+        build/us/asm/us/data/segment_18F160.o(COMMON*);
         segment_18F160COMMON_END = .;
         segment_18F160COMMON_SIZE = ABSOLUTE(segment_18F160COMMON_END - segment_18F160COMMON_START);
     }
@@ -3283,25 +3459,25 @@ SECTIONS
     segment_1906E0_alloc_VRAM = .;
     .segment_1906E0 : AT(segment_1906E0_ROM_START) SUBALIGN(16)
     {
-        segment_1906E0_text_START = .;
-        build/us/asm/segment_1906E0.o(.text*);
-        segment_1906E0_text_END = .;
-        segment_1906E0_text_SIZE = ABSOLUTE(segment_1906E0_text_END - segment_1906E0_text_START);
+        segment_1906E0_TEXT_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.text*);
+        segment_1906E0_TEXT_END = .;
+        segment_1906E0_TEXT_SIZE = ABSOLUTE(segment_1906E0_TEXT_END - segment_1906E0_TEXT_START);
 
-        segment_1906E0_data_START = .;
-        build/us/asm/segment_1906E0.o(.data*);
-        segment_1906E0_data_END = .;
-        segment_1906E0_data_SIZE = ABSOLUTE(segment_1906E0_data_END - segment_1906E0_data_START);
+        segment_1906E0_DATA_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.data*);
+        segment_1906E0_DATA_END = .;
+        segment_1906E0_DATA_SIZE = ABSOLUTE(segment_1906E0_DATA_END - segment_1906E0_DATA_START);
 
-        segment_1906E0_rodata_START = .;
-        build/us/asm/segment_1906E0.o(.rodata*);
-        segment_1906E0_rodata_END = .;
-        segment_1906E0_rodata_SIZE = ABSOLUTE(segment_1906E0_rodata_END - segment_1906E0_rodata_START);
+        segment_1906E0_RODATA_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.rodata*);
+        segment_1906E0_RODATA_END = .;
+        segment_1906E0_RODATA_SIZE = ABSOLUTE(segment_1906E0_RODATA_END - segment_1906E0_RODATA_START);
 
-        segment_1906E0_sdata_START = .;
-        build/us/asm/segment_1906E0.o(.sdata*);
-        segment_1906E0_sdata_END = .;
-        segment_1906E0_sdata_SIZE = ABSOLUTE(segment_1906E0_sdata_END - segment_1906E0_sdata_START);
+        segment_1906E0_SDATA_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.sdata*);
+        segment_1906E0_SDATA_END = .;
+        segment_1906E0_SDATA_SIZE = ABSOLUTE(segment_1906E0_SDATA_END - segment_1906E0_SDATA_START);
     }
     segment_1906E0_alloc_VRAM_END = .;
     segment_1906E0_alloc_VRAM_SIZE = ABSOLUTE(segment_1906E0_alloc_VRAM_END - segment_1906E0_alloc_VRAM);
@@ -3309,23 +3485,23 @@ SECTIONS
     segment_1906E0_noload_VRAM = .;
     .segment_1906E0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1906E0_sbss_START = .;
-        build/us/asm/segment_1906E0.o(.sbss*);
-        segment_1906E0_sbss_END = .;
-        segment_1906E0_sbss_SIZE = ABSOLUTE(segment_1906E0_sbss_END - segment_1906E0_sbss_START);
+        segment_1906E0_SBSS_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.sbss*);
+        segment_1906E0_SBSS_END = .;
+        segment_1906E0_SBSS_SIZE = ABSOLUTE(segment_1906E0_SBSS_END - segment_1906E0_SBSS_START);
 
-        segment_1906E0_scommon_START = .;
-        build/us/asm/segment_1906E0.o(.scommon*);
-        segment_1906E0_scommon_END = .;
-        segment_1906E0_scommon_SIZE = ABSOLUTE(segment_1906E0_scommon_END - segment_1906E0_scommon_START);
+        segment_1906E0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.scommon*);
+        segment_1906E0_SCOMMON_END = .;
+        segment_1906E0_SCOMMON_SIZE = ABSOLUTE(segment_1906E0_SCOMMON_END - segment_1906E0_SCOMMON_START);
 
-        segment_1906E0_bss_START = .;
-        build/us/asm/segment_1906E0.o(.bss*);
-        segment_1906E0_bss_END = .;
-        segment_1906E0_bss_SIZE = ABSOLUTE(segment_1906E0_bss_END - segment_1906E0_bss_START);
+        segment_1906E0_BSS_START = .;
+        build/us/asm/us/data/segment_1906E0.o(.bss*);
+        segment_1906E0_BSS_END = .;
+        segment_1906E0_BSS_SIZE = ABSOLUTE(segment_1906E0_BSS_END - segment_1906E0_BSS_START);
 
         segment_1906E0COMMON_START = .;
-        build/us/asm/segment_1906E0.o(COMMON*);
+        build/us/asm/us/data/segment_1906E0.o(COMMON*);
         segment_1906E0COMMON_END = .;
         segment_1906E0COMMON_SIZE = ABSOLUTE(segment_1906E0COMMON_END - segment_1906E0COMMON_START);
     }
@@ -3342,25 +3518,25 @@ SECTIONS
     segment_1911D0_alloc_VRAM = .;
     .segment_1911D0 : AT(segment_1911D0_ROM_START) SUBALIGN(16)
     {
-        segment_1911D0_text_START = .;
-        build/us/asm/segment_1911D0.o(.text*);
-        segment_1911D0_text_END = .;
-        segment_1911D0_text_SIZE = ABSOLUTE(segment_1911D0_text_END - segment_1911D0_text_START);
+        segment_1911D0_TEXT_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.text*);
+        segment_1911D0_TEXT_END = .;
+        segment_1911D0_TEXT_SIZE = ABSOLUTE(segment_1911D0_TEXT_END - segment_1911D0_TEXT_START);
 
-        segment_1911D0_data_START = .;
-        build/us/asm/segment_1911D0.o(.data*);
-        segment_1911D0_data_END = .;
-        segment_1911D0_data_SIZE = ABSOLUTE(segment_1911D0_data_END - segment_1911D0_data_START);
+        segment_1911D0_DATA_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.data*);
+        segment_1911D0_DATA_END = .;
+        segment_1911D0_DATA_SIZE = ABSOLUTE(segment_1911D0_DATA_END - segment_1911D0_DATA_START);
 
-        segment_1911D0_rodata_START = .;
-        build/us/asm/segment_1911D0.o(.rodata*);
-        segment_1911D0_rodata_END = .;
-        segment_1911D0_rodata_SIZE = ABSOLUTE(segment_1911D0_rodata_END - segment_1911D0_rodata_START);
+        segment_1911D0_RODATA_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.rodata*);
+        segment_1911D0_RODATA_END = .;
+        segment_1911D0_RODATA_SIZE = ABSOLUTE(segment_1911D0_RODATA_END - segment_1911D0_RODATA_START);
 
-        segment_1911D0_sdata_START = .;
-        build/us/asm/segment_1911D0.o(.sdata*);
-        segment_1911D0_sdata_END = .;
-        segment_1911D0_sdata_SIZE = ABSOLUTE(segment_1911D0_sdata_END - segment_1911D0_sdata_START);
+        segment_1911D0_SDATA_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.sdata*);
+        segment_1911D0_SDATA_END = .;
+        segment_1911D0_SDATA_SIZE = ABSOLUTE(segment_1911D0_SDATA_END - segment_1911D0_SDATA_START);
     }
     segment_1911D0_alloc_VRAM_END = .;
     segment_1911D0_alloc_VRAM_SIZE = ABSOLUTE(segment_1911D0_alloc_VRAM_END - segment_1911D0_alloc_VRAM);
@@ -3368,23 +3544,23 @@ SECTIONS
     segment_1911D0_noload_VRAM = .;
     .segment_1911D0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1911D0_sbss_START = .;
-        build/us/asm/segment_1911D0.o(.sbss*);
-        segment_1911D0_sbss_END = .;
-        segment_1911D0_sbss_SIZE = ABSOLUTE(segment_1911D0_sbss_END - segment_1911D0_sbss_START);
+        segment_1911D0_SBSS_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.sbss*);
+        segment_1911D0_SBSS_END = .;
+        segment_1911D0_SBSS_SIZE = ABSOLUTE(segment_1911D0_SBSS_END - segment_1911D0_SBSS_START);
 
-        segment_1911D0_scommon_START = .;
-        build/us/asm/segment_1911D0.o(.scommon*);
-        segment_1911D0_scommon_END = .;
-        segment_1911D0_scommon_SIZE = ABSOLUTE(segment_1911D0_scommon_END - segment_1911D0_scommon_START);
+        segment_1911D0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.scommon*);
+        segment_1911D0_SCOMMON_END = .;
+        segment_1911D0_SCOMMON_SIZE = ABSOLUTE(segment_1911D0_SCOMMON_END - segment_1911D0_SCOMMON_START);
 
-        segment_1911D0_bss_START = .;
-        build/us/asm/segment_1911D0.o(.bss*);
-        segment_1911D0_bss_END = .;
-        segment_1911D0_bss_SIZE = ABSOLUTE(segment_1911D0_bss_END - segment_1911D0_bss_START);
+        segment_1911D0_BSS_START = .;
+        build/us/asm/us/data/segment_1911D0.o(.bss*);
+        segment_1911D0_BSS_END = .;
+        segment_1911D0_BSS_SIZE = ABSOLUTE(segment_1911D0_BSS_END - segment_1911D0_BSS_START);
 
         segment_1911D0COMMON_START = .;
-        build/us/asm/segment_1911D0.o(COMMON*);
+        build/us/asm/us/data/segment_1911D0.o(COMMON*);
         segment_1911D0COMMON_END = .;
         segment_1911D0COMMON_SIZE = ABSOLUTE(segment_1911D0COMMON_END - segment_1911D0COMMON_START);
     }
@@ -3401,25 +3577,25 @@ SECTIONS
     segment_1936C0_alloc_VRAM = .;
     .segment_1936C0 : AT(segment_1936C0_ROM_START) SUBALIGN(16)
     {
-        segment_1936C0_text_START = .;
-        build/us/asm/segment_1936C0.o(.text*);
-        segment_1936C0_text_END = .;
-        segment_1936C0_text_SIZE = ABSOLUTE(segment_1936C0_text_END - segment_1936C0_text_START);
+        segment_1936C0_TEXT_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.text*);
+        segment_1936C0_TEXT_END = .;
+        segment_1936C0_TEXT_SIZE = ABSOLUTE(segment_1936C0_TEXT_END - segment_1936C0_TEXT_START);
 
-        segment_1936C0_data_START = .;
-        build/us/asm/segment_1936C0.o(.data*);
-        segment_1936C0_data_END = .;
-        segment_1936C0_data_SIZE = ABSOLUTE(segment_1936C0_data_END - segment_1936C0_data_START);
+        segment_1936C0_DATA_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.data*);
+        segment_1936C0_DATA_END = .;
+        segment_1936C0_DATA_SIZE = ABSOLUTE(segment_1936C0_DATA_END - segment_1936C0_DATA_START);
 
-        segment_1936C0_rodata_START = .;
-        build/us/asm/segment_1936C0.o(.rodata*);
-        segment_1936C0_rodata_END = .;
-        segment_1936C0_rodata_SIZE = ABSOLUTE(segment_1936C0_rodata_END - segment_1936C0_rodata_START);
+        segment_1936C0_RODATA_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.rodata*);
+        segment_1936C0_RODATA_END = .;
+        segment_1936C0_RODATA_SIZE = ABSOLUTE(segment_1936C0_RODATA_END - segment_1936C0_RODATA_START);
 
-        segment_1936C0_sdata_START = .;
-        build/us/asm/segment_1936C0.o(.sdata*);
-        segment_1936C0_sdata_END = .;
-        segment_1936C0_sdata_SIZE = ABSOLUTE(segment_1936C0_sdata_END - segment_1936C0_sdata_START);
+        segment_1936C0_SDATA_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.sdata*);
+        segment_1936C0_SDATA_END = .;
+        segment_1936C0_SDATA_SIZE = ABSOLUTE(segment_1936C0_SDATA_END - segment_1936C0_SDATA_START);
     }
     segment_1936C0_alloc_VRAM_END = .;
     segment_1936C0_alloc_VRAM_SIZE = ABSOLUTE(segment_1936C0_alloc_VRAM_END - segment_1936C0_alloc_VRAM);
@@ -3427,23 +3603,23 @@ SECTIONS
     segment_1936C0_noload_VRAM = .;
     .segment_1936C0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1936C0_sbss_START = .;
-        build/us/asm/segment_1936C0.o(.sbss*);
-        segment_1936C0_sbss_END = .;
-        segment_1936C0_sbss_SIZE = ABSOLUTE(segment_1936C0_sbss_END - segment_1936C0_sbss_START);
+        segment_1936C0_SBSS_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.sbss*);
+        segment_1936C0_SBSS_END = .;
+        segment_1936C0_SBSS_SIZE = ABSOLUTE(segment_1936C0_SBSS_END - segment_1936C0_SBSS_START);
 
-        segment_1936C0_scommon_START = .;
-        build/us/asm/segment_1936C0.o(.scommon*);
-        segment_1936C0_scommon_END = .;
-        segment_1936C0_scommon_SIZE = ABSOLUTE(segment_1936C0_scommon_END - segment_1936C0_scommon_START);
+        segment_1936C0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.scommon*);
+        segment_1936C0_SCOMMON_END = .;
+        segment_1936C0_SCOMMON_SIZE = ABSOLUTE(segment_1936C0_SCOMMON_END - segment_1936C0_SCOMMON_START);
 
-        segment_1936C0_bss_START = .;
-        build/us/asm/segment_1936C0.o(.bss*);
-        segment_1936C0_bss_END = .;
-        segment_1936C0_bss_SIZE = ABSOLUTE(segment_1936C0_bss_END - segment_1936C0_bss_START);
+        segment_1936C0_BSS_START = .;
+        build/us/asm/us/data/segment_1936C0.o(.bss*);
+        segment_1936C0_BSS_END = .;
+        segment_1936C0_BSS_SIZE = ABSOLUTE(segment_1936C0_BSS_END - segment_1936C0_BSS_START);
 
         segment_1936C0COMMON_START = .;
-        build/us/asm/segment_1936C0.o(COMMON*);
+        build/us/asm/us/data/segment_1936C0.o(COMMON*);
         segment_1936C0COMMON_END = .;
         segment_1936C0COMMON_SIZE = ABSOLUTE(segment_1936C0COMMON_END - segment_1936C0COMMON_START);
     }
@@ -3460,25 +3636,25 @@ SECTIONS
     segment_1937F0_alloc_VRAM = .;
     .segment_1937F0 : AT(segment_1937F0_ROM_START) SUBALIGN(16)
     {
-        segment_1937F0_text_START = .;
-        build/us/asm/segment_1937F0.o(.text*);
-        segment_1937F0_text_END = .;
-        segment_1937F0_text_SIZE = ABSOLUTE(segment_1937F0_text_END - segment_1937F0_text_START);
+        segment_1937F0_TEXT_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.text*);
+        segment_1937F0_TEXT_END = .;
+        segment_1937F0_TEXT_SIZE = ABSOLUTE(segment_1937F0_TEXT_END - segment_1937F0_TEXT_START);
 
-        segment_1937F0_data_START = .;
-        build/us/asm/segment_1937F0.o(.data*);
-        segment_1937F0_data_END = .;
-        segment_1937F0_data_SIZE = ABSOLUTE(segment_1937F0_data_END - segment_1937F0_data_START);
+        segment_1937F0_DATA_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.data*);
+        segment_1937F0_DATA_END = .;
+        segment_1937F0_DATA_SIZE = ABSOLUTE(segment_1937F0_DATA_END - segment_1937F0_DATA_START);
 
-        segment_1937F0_rodata_START = .;
-        build/us/asm/segment_1937F0.o(.rodata*);
-        segment_1937F0_rodata_END = .;
-        segment_1937F0_rodata_SIZE = ABSOLUTE(segment_1937F0_rodata_END - segment_1937F0_rodata_START);
+        segment_1937F0_RODATA_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.rodata*);
+        segment_1937F0_RODATA_END = .;
+        segment_1937F0_RODATA_SIZE = ABSOLUTE(segment_1937F0_RODATA_END - segment_1937F0_RODATA_START);
 
-        segment_1937F0_sdata_START = .;
-        build/us/asm/segment_1937F0.o(.sdata*);
-        segment_1937F0_sdata_END = .;
-        segment_1937F0_sdata_SIZE = ABSOLUTE(segment_1937F0_sdata_END - segment_1937F0_sdata_START);
+        segment_1937F0_SDATA_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.sdata*);
+        segment_1937F0_SDATA_END = .;
+        segment_1937F0_SDATA_SIZE = ABSOLUTE(segment_1937F0_SDATA_END - segment_1937F0_SDATA_START);
     }
     segment_1937F0_alloc_VRAM_END = .;
     segment_1937F0_alloc_VRAM_SIZE = ABSOLUTE(segment_1937F0_alloc_VRAM_END - segment_1937F0_alloc_VRAM);
@@ -3486,23 +3662,23 @@ SECTIONS
     segment_1937F0_noload_VRAM = .;
     .segment_1937F0.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_1937F0_sbss_START = .;
-        build/us/asm/segment_1937F0.o(.sbss*);
-        segment_1937F0_sbss_END = .;
-        segment_1937F0_sbss_SIZE = ABSOLUTE(segment_1937F0_sbss_END - segment_1937F0_sbss_START);
+        segment_1937F0_SBSS_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.sbss*);
+        segment_1937F0_SBSS_END = .;
+        segment_1937F0_SBSS_SIZE = ABSOLUTE(segment_1937F0_SBSS_END - segment_1937F0_SBSS_START);
 
-        segment_1937F0_scommon_START = .;
-        build/us/asm/segment_1937F0.o(.scommon*);
-        segment_1937F0_scommon_END = .;
-        segment_1937F0_scommon_SIZE = ABSOLUTE(segment_1937F0_scommon_END - segment_1937F0_scommon_START);
+        segment_1937F0_SCOMMON_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.scommon*);
+        segment_1937F0_SCOMMON_END = .;
+        segment_1937F0_SCOMMON_SIZE = ABSOLUTE(segment_1937F0_SCOMMON_END - segment_1937F0_SCOMMON_START);
 
-        segment_1937F0_bss_START = .;
-        build/us/asm/segment_1937F0.o(.bss*);
-        segment_1937F0_bss_END = .;
-        segment_1937F0_bss_SIZE = ABSOLUTE(segment_1937F0_bss_END - segment_1937F0_bss_START);
+        segment_1937F0_BSS_START = .;
+        build/us/asm/us/data/segment_1937F0.o(.bss*);
+        segment_1937F0_BSS_END = .;
+        segment_1937F0_BSS_SIZE = ABSOLUTE(segment_1937F0_BSS_END - segment_1937F0_BSS_START);
 
         segment_1937F0COMMON_START = .;
-        build/us/asm/segment_1937F0.o(COMMON*);
+        build/us/asm/us/data/segment_1937F0.o(COMMON*);
         segment_1937F0COMMON_END = .;
         segment_1937F0COMMON_SIZE = ABSOLUTE(segment_1937F0COMMON_END - segment_1937F0COMMON_START);
     }
@@ -3519,25 +3695,25 @@ SECTIONS
     segment_194070_alloc_VRAM = .;
     .segment_194070 : AT(segment_194070_ROM_START) SUBALIGN(16)
     {
-        segment_194070_text_START = .;
-        build/us/asm/segment_194070.o(.text*);
-        segment_194070_text_END = .;
-        segment_194070_text_SIZE = ABSOLUTE(segment_194070_text_END - segment_194070_text_START);
+        segment_194070_TEXT_START = .;
+        build/us/asm/us/data/segment_194070.o(.text*);
+        segment_194070_TEXT_END = .;
+        segment_194070_TEXT_SIZE = ABSOLUTE(segment_194070_TEXT_END - segment_194070_TEXT_START);
 
-        segment_194070_data_START = .;
-        build/us/asm/segment_194070.o(.data*);
-        segment_194070_data_END = .;
-        segment_194070_data_SIZE = ABSOLUTE(segment_194070_data_END - segment_194070_data_START);
+        segment_194070_DATA_START = .;
+        build/us/asm/us/data/segment_194070.o(.data*);
+        segment_194070_DATA_END = .;
+        segment_194070_DATA_SIZE = ABSOLUTE(segment_194070_DATA_END - segment_194070_DATA_START);
 
-        segment_194070_rodata_START = .;
-        build/us/asm/segment_194070.o(.rodata*);
-        segment_194070_rodata_END = .;
-        segment_194070_rodata_SIZE = ABSOLUTE(segment_194070_rodata_END - segment_194070_rodata_START);
+        segment_194070_RODATA_START = .;
+        build/us/asm/us/data/segment_194070.o(.rodata*);
+        segment_194070_RODATA_END = .;
+        segment_194070_RODATA_SIZE = ABSOLUTE(segment_194070_RODATA_END - segment_194070_RODATA_START);
 
-        segment_194070_sdata_START = .;
-        build/us/asm/segment_194070.o(.sdata*);
-        segment_194070_sdata_END = .;
-        segment_194070_sdata_SIZE = ABSOLUTE(segment_194070_sdata_END - segment_194070_sdata_START);
+        segment_194070_SDATA_START = .;
+        build/us/asm/us/data/segment_194070.o(.sdata*);
+        segment_194070_SDATA_END = .;
+        segment_194070_SDATA_SIZE = ABSOLUTE(segment_194070_SDATA_END - segment_194070_SDATA_START);
     }
     segment_194070_alloc_VRAM_END = .;
     segment_194070_alloc_VRAM_SIZE = ABSOLUTE(segment_194070_alloc_VRAM_END - segment_194070_alloc_VRAM);
@@ -3545,23 +3721,23 @@ SECTIONS
     segment_194070_noload_VRAM = .;
     .segment_194070.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194070_sbss_START = .;
-        build/us/asm/segment_194070.o(.sbss*);
-        segment_194070_sbss_END = .;
-        segment_194070_sbss_SIZE = ABSOLUTE(segment_194070_sbss_END - segment_194070_sbss_START);
+        segment_194070_SBSS_START = .;
+        build/us/asm/us/data/segment_194070.o(.sbss*);
+        segment_194070_SBSS_END = .;
+        segment_194070_SBSS_SIZE = ABSOLUTE(segment_194070_SBSS_END - segment_194070_SBSS_START);
 
-        segment_194070_scommon_START = .;
-        build/us/asm/segment_194070.o(.scommon*);
-        segment_194070_scommon_END = .;
-        segment_194070_scommon_SIZE = ABSOLUTE(segment_194070_scommon_END - segment_194070_scommon_START);
+        segment_194070_SCOMMON_START = .;
+        build/us/asm/us/data/segment_194070.o(.scommon*);
+        segment_194070_SCOMMON_END = .;
+        segment_194070_SCOMMON_SIZE = ABSOLUTE(segment_194070_SCOMMON_END - segment_194070_SCOMMON_START);
 
-        segment_194070_bss_START = .;
-        build/us/asm/segment_194070.o(.bss*);
-        segment_194070_bss_END = .;
-        segment_194070_bss_SIZE = ABSOLUTE(segment_194070_bss_END - segment_194070_bss_START);
+        segment_194070_BSS_START = .;
+        build/us/asm/us/data/segment_194070.o(.bss*);
+        segment_194070_BSS_END = .;
+        segment_194070_BSS_SIZE = ABSOLUTE(segment_194070_BSS_END - segment_194070_BSS_START);
 
         segment_194070COMMON_START = .;
-        build/us/asm/segment_194070.o(COMMON*);
+        build/us/asm/us/data/segment_194070.o(COMMON*);
         segment_194070COMMON_END = .;
         segment_194070COMMON_SIZE = ABSOLUTE(segment_194070COMMON_END - segment_194070COMMON_START);
     }
@@ -3578,25 +3754,25 @@ SECTIONS
     segment_194150_alloc_VRAM = .;
     .segment_194150 : AT(segment_194150_ROM_START) SUBALIGN(16)
     {
-        segment_194150_text_START = .;
-        build/us/asm/segment_194150.o(.text*);
-        segment_194150_text_END = .;
-        segment_194150_text_SIZE = ABSOLUTE(segment_194150_text_END - segment_194150_text_START);
+        segment_194150_TEXT_START = .;
+        build/us/asm/us/data/segment_194150.o(.text*);
+        segment_194150_TEXT_END = .;
+        segment_194150_TEXT_SIZE = ABSOLUTE(segment_194150_TEXT_END - segment_194150_TEXT_START);
 
-        segment_194150_data_START = .;
-        build/us/asm/segment_194150.o(.data*);
-        segment_194150_data_END = .;
-        segment_194150_data_SIZE = ABSOLUTE(segment_194150_data_END - segment_194150_data_START);
+        segment_194150_DATA_START = .;
+        build/us/asm/us/data/segment_194150.o(.data*);
+        segment_194150_DATA_END = .;
+        segment_194150_DATA_SIZE = ABSOLUTE(segment_194150_DATA_END - segment_194150_DATA_START);
 
-        segment_194150_rodata_START = .;
-        build/us/asm/segment_194150.o(.rodata*);
-        segment_194150_rodata_END = .;
-        segment_194150_rodata_SIZE = ABSOLUTE(segment_194150_rodata_END - segment_194150_rodata_START);
+        segment_194150_RODATA_START = .;
+        build/us/asm/us/data/segment_194150.o(.rodata*);
+        segment_194150_RODATA_END = .;
+        segment_194150_RODATA_SIZE = ABSOLUTE(segment_194150_RODATA_END - segment_194150_RODATA_START);
 
-        segment_194150_sdata_START = .;
-        build/us/asm/segment_194150.o(.sdata*);
-        segment_194150_sdata_END = .;
-        segment_194150_sdata_SIZE = ABSOLUTE(segment_194150_sdata_END - segment_194150_sdata_START);
+        segment_194150_SDATA_START = .;
+        build/us/asm/us/data/segment_194150.o(.sdata*);
+        segment_194150_SDATA_END = .;
+        segment_194150_SDATA_SIZE = ABSOLUTE(segment_194150_SDATA_END - segment_194150_SDATA_START);
     }
     segment_194150_alloc_VRAM_END = .;
     segment_194150_alloc_VRAM_SIZE = ABSOLUTE(segment_194150_alloc_VRAM_END - segment_194150_alloc_VRAM);
@@ -3604,23 +3780,23 @@ SECTIONS
     segment_194150_noload_VRAM = .;
     .segment_194150.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194150_sbss_START = .;
-        build/us/asm/segment_194150.o(.sbss*);
-        segment_194150_sbss_END = .;
-        segment_194150_sbss_SIZE = ABSOLUTE(segment_194150_sbss_END - segment_194150_sbss_START);
+        segment_194150_SBSS_START = .;
+        build/us/asm/us/data/segment_194150.o(.sbss*);
+        segment_194150_SBSS_END = .;
+        segment_194150_SBSS_SIZE = ABSOLUTE(segment_194150_SBSS_END - segment_194150_SBSS_START);
 
-        segment_194150_scommon_START = .;
-        build/us/asm/segment_194150.o(.scommon*);
-        segment_194150_scommon_END = .;
-        segment_194150_scommon_SIZE = ABSOLUTE(segment_194150_scommon_END - segment_194150_scommon_START);
+        segment_194150_SCOMMON_START = .;
+        build/us/asm/us/data/segment_194150.o(.scommon*);
+        segment_194150_SCOMMON_END = .;
+        segment_194150_SCOMMON_SIZE = ABSOLUTE(segment_194150_SCOMMON_END - segment_194150_SCOMMON_START);
 
-        segment_194150_bss_START = .;
-        build/us/asm/segment_194150.o(.bss*);
-        segment_194150_bss_END = .;
-        segment_194150_bss_SIZE = ABSOLUTE(segment_194150_bss_END - segment_194150_bss_START);
+        segment_194150_BSS_START = .;
+        build/us/asm/us/data/segment_194150.o(.bss*);
+        segment_194150_BSS_END = .;
+        segment_194150_BSS_SIZE = ABSOLUTE(segment_194150_BSS_END - segment_194150_BSS_START);
 
         segment_194150COMMON_START = .;
-        build/us/asm/segment_194150.o(COMMON*);
+        build/us/asm/us/data/segment_194150.o(COMMON*);
         segment_194150COMMON_END = .;
         segment_194150COMMON_SIZE = ABSOLUTE(segment_194150COMMON_END - segment_194150COMMON_START);
     }
@@ -3637,25 +3813,25 @@ SECTIONS
     segment_194910_alloc_VRAM = .;
     .segment_194910 : AT(segment_194910_ROM_START) SUBALIGN(16)
     {
-        segment_194910_text_START = .;
-        build/us/asm/segment_194910.o(.text*);
-        segment_194910_text_END = .;
-        segment_194910_text_SIZE = ABSOLUTE(segment_194910_text_END - segment_194910_text_START);
+        segment_194910_TEXT_START = .;
+        build/us/asm/us/data/segment_194910.o(.text*);
+        segment_194910_TEXT_END = .;
+        segment_194910_TEXT_SIZE = ABSOLUTE(segment_194910_TEXT_END - segment_194910_TEXT_START);
 
-        segment_194910_data_START = .;
-        build/us/asm/segment_194910.o(.data*);
-        segment_194910_data_END = .;
-        segment_194910_data_SIZE = ABSOLUTE(segment_194910_data_END - segment_194910_data_START);
+        segment_194910_DATA_START = .;
+        build/us/asm/us/data/segment_194910.o(.data*);
+        segment_194910_DATA_END = .;
+        segment_194910_DATA_SIZE = ABSOLUTE(segment_194910_DATA_END - segment_194910_DATA_START);
 
-        segment_194910_rodata_START = .;
-        build/us/asm/segment_194910.o(.rodata*);
-        segment_194910_rodata_END = .;
-        segment_194910_rodata_SIZE = ABSOLUTE(segment_194910_rodata_END - segment_194910_rodata_START);
+        segment_194910_RODATA_START = .;
+        build/us/asm/us/data/segment_194910.o(.rodata*);
+        segment_194910_RODATA_END = .;
+        segment_194910_RODATA_SIZE = ABSOLUTE(segment_194910_RODATA_END - segment_194910_RODATA_START);
 
-        segment_194910_sdata_START = .;
-        build/us/asm/segment_194910.o(.sdata*);
-        segment_194910_sdata_END = .;
-        segment_194910_sdata_SIZE = ABSOLUTE(segment_194910_sdata_END - segment_194910_sdata_START);
+        segment_194910_SDATA_START = .;
+        build/us/asm/us/data/segment_194910.o(.sdata*);
+        segment_194910_SDATA_END = .;
+        segment_194910_SDATA_SIZE = ABSOLUTE(segment_194910_SDATA_END - segment_194910_SDATA_START);
     }
     segment_194910_alloc_VRAM_END = .;
     segment_194910_alloc_VRAM_SIZE = ABSOLUTE(segment_194910_alloc_VRAM_END - segment_194910_alloc_VRAM);
@@ -3663,23 +3839,23 @@ SECTIONS
     segment_194910_noload_VRAM = .;
     .segment_194910.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_194910_sbss_START = .;
-        build/us/asm/segment_194910.o(.sbss*);
-        segment_194910_sbss_END = .;
-        segment_194910_sbss_SIZE = ABSOLUTE(segment_194910_sbss_END - segment_194910_sbss_START);
+        segment_194910_SBSS_START = .;
+        build/us/asm/us/data/segment_194910.o(.sbss*);
+        segment_194910_SBSS_END = .;
+        segment_194910_SBSS_SIZE = ABSOLUTE(segment_194910_SBSS_END - segment_194910_SBSS_START);
 
-        segment_194910_scommon_START = .;
-        build/us/asm/segment_194910.o(.scommon*);
-        segment_194910_scommon_END = .;
-        segment_194910_scommon_SIZE = ABSOLUTE(segment_194910_scommon_END - segment_194910_scommon_START);
+        segment_194910_SCOMMON_START = .;
+        build/us/asm/us/data/segment_194910.o(.scommon*);
+        segment_194910_SCOMMON_END = .;
+        segment_194910_SCOMMON_SIZE = ABSOLUTE(segment_194910_SCOMMON_END - segment_194910_SCOMMON_START);
 
-        segment_194910_bss_START = .;
-        build/us/asm/segment_194910.o(.bss*);
-        segment_194910_bss_END = .;
-        segment_194910_bss_SIZE = ABSOLUTE(segment_194910_bss_END - segment_194910_bss_START);
+        segment_194910_BSS_START = .;
+        build/us/asm/us/data/segment_194910.o(.bss*);
+        segment_194910_BSS_END = .;
+        segment_194910_BSS_SIZE = ABSOLUTE(segment_194910_BSS_END - segment_194910_BSS_START);
 
         segment_194910COMMON_START = .;
-        build/us/asm/segment_194910.o(COMMON*);
+        build/us/asm/us/data/segment_194910.o(COMMON*);
         segment_194910COMMON_END = .;
         segment_194910COMMON_SIZE = ABSOLUTE(segment_194910COMMON_END - segment_194910COMMON_START);
     }
@@ -3696,25 +3872,25 @@ SECTIONS
     segment_195290_alloc_VRAM = .;
     .segment_195290 : AT(segment_195290_ROM_START) SUBALIGN(16)
     {
-        segment_195290_text_START = .;
-        build/us/asm/segment_195290.o(.text*);
-        segment_195290_text_END = .;
-        segment_195290_text_SIZE = ABSOLUTE(segment_195290_text_END - segment_195290_text_START);
+        segment_195290_TEXT_START = .;
+        build/us/asm/us/data/segment_195290.o(.text*);
+        segment_195290_TEXT_END = .;
+        segment_195290_TEXT_SIZE = ABSOLUTE(segment_195290_TEXT_END - segment_195290_TEXT_START);
 
-        segment_195290_data_START = .;
-        build/us/asm/segment_195290.o(.data*);
-        segment_195290_data_END = .;
-        segment_195290_data_SIZE = ABSOLUTE(segment_195290_data_END - segment_195290_data_START);
+        segment_195290_DATA_START = .;
+        build/us/asm/us/data/segment_195290.o(.data*);
+        segment_195290_DATA_END = .;
+        segment_195290_DATA_SIZE = ABSOLUTE(segment_195290_DATA_END - segment_195290_DATA_START);
 
-        segment_195290_rodata_START = .;
-        build/us/asm/segment_195290.o(.rodata*);
-        segment_195290_rodata_END = .;
-        segment_195290_rodata_SIZE = ABSOLUTE(segment_195290_rodata_END - segment_195290_rodata_START);
+        segment_195290_RODATA_START = .;
+        build/us/asm/us/data/segment_195290.o(.rodata*);
+        segment_195290_RODATA_END = .;
+        segment_195290_RODATA_SIZE = ABSOLUTE(segment_195290_RODATA_END - segment_195290_RODATA_START);
 
-        segment_195290_sdata_START = .;
-        build/us/asm/segment_195290.o(.sdata*);
-        segment_195290_sdata_END = .;
-        segment_195290_sdata_SIZE = ABSOLUTE(segment_195290_sdata_END - segment_195290_sdata_START);
+        segment_195290_SDATA_START = .;
+        build/us/asm/us/data/segment_195290.o(.sdata*);
+        segment_195290_SDATA_END = .;
+        segment_195290_SDATA_SIZE = ABSOLUTE(segment_195290_SDATA_END - segment_195290_SDATA_START);
     }
     segment_195290_alloc_VRAM_END = .;
     segment_195290_alloc_VRAM_SIZE = ABSOLUTE(segment_195290_alloc_VRAM_END - segment_195290_alloc_VRAM);
@@ -3722,23 +3898,23 @@ SECTIONS
     segment_195290_noload_VRAM = .;
     .segment_195290.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_195290_sbss_START = .;
-        build/us/asm/segment_195290.o(.sbss*);
-        segment_195290_sbss_END = .;
-        segment_195290_sbss_SIZE = ABSOLUTE(segment_195290_sbss_END - segment_195290_sbss_START);
+        segment_195290_SBSS_START = .;
+        build/us/asm/us/data/segment_195290.o(.sbss*);
+        segment_195290_SBSS_END = .;
+        segment_195290_SBSS_SIZE = ABSOLUTE(segment_195290_SBSS_END - segment_195290_SBSS_START);
 
-        segment_195290_scommon_START = .;
-        build/us/asm/segment_195290.o(.scommon*);
-        segment_195290_scommon_END = .;
-        segment_195290_scommon_SIZE = ABSOLUTE(segment_195290_scommon_END - segment_195290_scommon_START);
+        segment_195290_SCOMMON_START = .;
+        build/us/asm/us/data/segment_195290.o(.scommon*);
+        segment_195290_SCOMMON_END = .;
+        segment_195290_SCOMMON_SIZE = ABSOLUTE(segment_195290_SCOMMON_END - segment_195290_SCOMMON_START);
 
-        segment_195290_bss_START = .;
-        build/us/asm/segment_195290.o(.bss*);
-        segment_195290_bss_END = .;
-        segment_195290_bss_SIZE = ABSOLUTE(segment_195290_bss_END - segment_195290_bss_START);
+        segment_195290_BSS_START = .;
+        build/us/asm/us/data/segment_195290.o(.bss*);
+        segment_195290_BSS_END = .;
+        segment_195290_BSS_SIZE = ABSOLUTE(segment_195290_BSS_END - segment_195290_BSS_START);
 
         segment_195290COMMON_START = .;
-        build/us/asm/segment_195290.o(COMMON*);
+        build/us/asm/us/data/segment_195290.o(COMMON*);
         segment_195290COMMON_END = .;
         segment_195290COMMON_SIZE = ABSOLUTE(segment_195290COMMON_END - segment_195290COMMON_START);
     }
@@ -3755,25 +3931,25 @@ SECTIONS
     segment_game_etc_alloc_VRAM = .;
     .segment_game_etc : AT(segment_game_etc_ROM_START) SUBALIGN(16)
     {
-        segment_game_etc_text_START = .;
-        build/us/asm/segment_game_etc.o(.text*);
-        segment_game_etc_text_END = .;
-        segment_game_etc_text_SIZE = ABSOLUTE(segment_game_etc_text_END - segment_game_etc_text_START);
+        segment_game_etc_TEXT_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.text*);
+        segment_game_etc_TEXT_END = .;
+        segment_game_etc_TEXT_SIZE = ABSOLUTE(segment_game_etc_TEXT_END - segment_game_etc_TEXT_START);
 
-        segment_game_etc_data_START = .;
-        build/us/asm/segment_game_etc.o(.data*);
-        segment_game_etc_data_END = .;
-        segment_game_etc_data_SIZE = ABSOLUTE(segment_game_etc_data_END - segment_game_etc_data_START);
+        segment_game_etc_DATA_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.data*);
+        segment_game_etc_DATA_END = .;
+        segment_game_etc_DATA_SIZE = ABSOLUTE(segment_game_etc_DATA_END - segment_game_etc_DATA_START);
 
-        segment_game_etc_rodata_START = .;
-        build/us/asm/segment_game_etc.o(.rodata*);
-        segment_game_etc_rodata_END = .;
-        segment_game_etc_rodata_SIZE = ABSOLUTE(segment_game_etc_rodata_END - segment_game_etc_rodata_START);
+        segment_game_etc_RODATA_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.rodata*);
+        segment_game_etc_RODATA_END = .;
+        segment_game_etc_RODATA_SIZE = ABSOLUTE(segment_game_etc_RODATA_END - segment_game_etc_RODATA_START);
 
-        segment_game_etc_sdata_START = .;
-        build/us/asm/segment_game_etc.o(.sdata*);
-        segment_game_etc_sdata_END = .;
-        segment_game_etc_sdata_SIZE = ABSOLUTE(segment_game_etc_sdata_END - segment_game_etc_sdata_START);
+        segment_game_etc_SDATA_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.sdata*);
+        segment_game_etc_SDATA_END = .;
+        segment_game_etc_SDATA_SIZE = ABSOLUTE(segment_game_etc_SDATA_END - segment_game_etc_SDATA_START);
     }
     segment_game_etc_alloc_VRAM_END = .;
     segment_game_etc_alloc_VRAM_SIZE = ABSOLUTE(segment_game_etc_alloc_VRAM_END - segment_game_etc_alloc_VRAM);
@@ -3781,23 +3957,23 @@ SECTIONS
     segment_game_etc_noload_VRAM = .;
     .segment_game_etc.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_etc_sbss_START = .;
-        build/us/asm/segment_game_etc.o(.sbss*);
-        segment_game_etc_sbss_END = .;
-        segment_game_etc_sbss_SIZE = ABSOLUTE(segment_game_etc_sbss_END - segment_game_etc_sbss_START);
+        segment_game_etc_SBSS_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.sbss*);
+        segment_game_etc_SBSS_END = .;
+        segment_game_etc_SBSS_SIZE = ABSOLUTE(segment_game_etc_SBSS_END - segment_game_etc_SBSS_START);
 
-        segment_game_etc_scommon_START = .;
-        build/us/asm/segment_game_etc.o(.scommon*);
-        segment_game_etc_scommon_END = .;
-        segment_game_etc_scommon_SIZE = ABSOLUTE(segment_game_etc_scommon_END - segment_game_etc_scommon_START);
+        segment_game_etc_SCOMMON_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.scommon*);
+        segment_game_etc_SCOMMON_END = .;
+        segment_game_etc_SCOMMON_SIZE = ABSOLUTE(segment_game_etc_SCOMMON_END - segment_game_etc_SCOMMON_START);
 
-        segment_game_etc_bss_START = .;
-        build/us/asm/segment_game_etc.o(.bss*);
-        segment_game_etc_bss_END = .;
-        segment_game_etc_bss_SIZE = ABSOLUTE(segment_game_etc_bss_END - segment_game_etc_bss_START);
+        segment_game_etc_BSS_START = .;
+        build/us/asm/us/data/segment_game_etc.o(.bss*);
+        segment_game_etc_BSS_END = .;
+        segment_game_etc_BSS_SIZE = ABSOLUTE(segment_game_etc_BSS_END - segment_game_etc_BSS_START);
 
         segment_game_etcCOMMON_START = .;
-        build/us/asm/segment_game_etc.o(COMMON*);
+        build/us/asm/us/data/segment_game_etc.o(COMMON*);
         segment_game_etcCOMMON_END = .;
         segment_game_etcCOMMON_SIZE = ABSOLUTE(segment_game_etcCOMMON_END - segment_game_etcCOMMON_START);
     }
@@ -3814,25 +3990,25 @@ SECTIONS
     segment_menu_bg_alloc_VRAM = .;
     .segment_menu_bg : AT(segment_menu_bg_ROM_START) SUBALIGN(16)
     {
-        segment_menu_bg_text_START = .;
-        build/us/asm/segment_menu_bg.o(.text*);
-        segment_menu_bg_text_END = .;
-        segment_menu_bg_text_SIZE = ABSOLUTE(segment_menu_bg_text_END - segment_menu_bg_text_START);
+        segment_menu_bg_TEXT_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.text*);
+        segment_menu_bg_TEXT_END = .;
+        segment_menu_bg_TEXT_SIZE = ABSOLUTE(segment_menu_bg_TEXT_END - segment_menu_bg_TEXT_START);
 
-        segment_menu_bg_data_START = .;
-        build/us/asm/segment_menu_bg.o(.data*);
-        segment_menu_bg_data_END = .;
-        segment_menu_bg_data_SIZE = ABSOLUTE(segment_menu_bg_data_END - segment_menu_bg_data_START);
+        segment_menu_bg_DATA_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.data*);
+        segment_menu_bg_DATA_END = .;
+        segment_menu_bg_DATA_SIZE = ABSOLUTE(segment_menu_bg_DATA_END - segment_menu_bg_DATA_START);
 
-        segment_menu_bg_rodata_START = .;
-        build/us/asm/segment_menu_bg.o(.rodata*);
-        segment_menu_bg_rodata_END = .;
-        segment_menu_bg_rodata_SIZE = ABSOLUTE(segment_menu_bg_rodata_END - segment_menu_bg_rodata_START);
+        segment_menu_bg_RODATA_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.rodata*);
+        segment_menu_bg_RODATA_END = .;
+        segment_menu_bg_RODATA_SIZE = ABSOLUTE(segment_menu_bg_RODATA_END - segment_menu_bg_RODATA_START);
 
-        segment_menu_bg_sdata_START = .;
-        build/us/asm/segment_menu_bg.o(.sdata*);
-        segment_menu_bg_sdata_END = .;
-        segment_menu_bg_sdata_SIZE = ABSOLUTE(segment_menu_bg_sdata_END - segment_menu_bg_sdata_START);
+        segment_menu_bg_SDATA_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.sdata*);
+        segment_menu_bg_SDATA_END = .;
+        segment_menu_bg_SDATA_SIZE = ABSOLUTE(segment_menu_bg_SDATA_END - segment_menu_bg_SDATA_START);
     }
     segment_menu_bg_alloc_VRAM_END = .;
     segment_menu_bg_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_bg_alloc_VRAM_END - segment_menu_bg_alloc_VRAM);
@@ -3840,23 +4016,23 @@ SECTIONS
     segment_menu_bg_noload_VRAM = .;
     .segment_menu_bg.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_bg_sbss_START = .;
-        build/us/asm/segment_menu_bg.o(.sbss*);
-        segment_menu_bg_sbss_END = .;
-        segment_menu_bg_sbss_SIZE = ABSOLUTE(segment_menu_bg_sbss_END - segment_menu_bg_sbss_START);
+        segment_menu_bg_SBSS_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.sbss*);
+        segment_menu_bg_SBSS_END = .;
+        segment_menu_bg_SBSS_SIZE = ABSOLUTE(segment_menu_bg_SBSS_END - segment_menu_bg_SBSS_START);
 
-        segment_menu_bg_scommon_START = .;
-        build/us/asm/segment_menu_bg.o(.scommon*);
-        segment_menu_bg_scommon_END = .;
-        segment_menu_bg_scommon_SIZE = ABSOLUTE(segment_menu_bg_scommon_END - segment_menu_bg_scommon_START);
+        segment_menu_bg_SCOMMON_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.scommon*);
+        segment_menu_bg_SCOMMON_END = .;
+        segment_menu_bg_SCOMMON_SIZE = ABSOLUTE(segment_menu_bg_SCOMMON_END - segment_menu_bg_SCOMMON_START);
 
-        segment_menu_bg_bss_START = .;
-        build/us/asm/segment_menu_bg.o(.bss*);
-        segment_menu_bg_bss_END = .;
-        segment_menu_bg_bss_SIZE = ABSOLUTE(segment_menu_bg_bss_END - segment_menu_bg_bss_START);
+        segment_menu_bg_BSS_START = .;
+        build/us/asm/us/data/segment_menu_bg.o(.bss*);
+        segment_menu_bg_BSS_END = .;
+        segment_menu_bg_BSS_SIZE = ABSOLUTE(segment_menu_bg_BSS_END - segment_menu_bg_BSS_START);
 
         segment_menu_bgCOMMON_START = .;
-        build/us/asm/segment_menu_bg.o(COMMON*);
+        build/us/asm/us/data/segment_menu_bg.o(COMMON*);
         segment_menu_bgCOMMON_END = .;
         segment_menu_bgCOMMON_SIZE = ABSOLUTE(segment_menu_bgCOMMON_END - segment_menu_bgCOMMON_START);
     }
@@ -3873,25 +4049,25 @@ SECTIONS
     segment_menu_bg2_alloc_VRAM = .;
     .segment_menu_bg2 : AT(segment_menu_bg2_ROM_START) SUBALIGN(16)
     {
-        segment_menu_bg2_text_START = .;
-        build/us/asm/segment_menu_bg2.o(.text*);
-        segment_menu_bg2_text_END = .;
-        segment_menu_bg2_text_SIZE = ABSOLUTE(segment_menu_bg2_text_END - segment_menu_bg2_text_START);
+        segment_menu_bg2_TEXT_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.text*);
+        segment_menu_bg2_TEXT_END = .;
+        segment_menu_bg2_TEXT_SIZE = ABSOLUTE(segment_menu_bg2_TEXT_END - segment_menu_bg2_TEXT_START);
 
-        segment_menu_bg2_data_START = .;
-        build/us/asm/segment_menu_bg2.o(.data*);
-        segment_menu_bg2_data_END = .;
-        segment_menu_bg2_data_SIZE = ABSOLUTE(segment_menu_bg2_data_END - segment_menu_bg2_data_START);
+        segment_menu_bg2_DATA_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.data*);
+        segment_menu_bg2_DATA_END = .;
+        segment_menu_bg2_DATA_SIZE = ABSOLUTE(segment_menu_bg2_DATA_END - segment_menu_bg2_DATA_START);
 
-        segment_menu_bg2_rodata_START = .;
-        build/us/asm/segment_menu_bg2.o(.rodata*);
-        segment_menu_bg2_rodata_END = .;
-        segment_menu_bg2_rodata_SIZE = ABSOLUTE(segment_menu_bg2_rodata_END - segment_menu_bg2_rodata_START);
+        segment_menu_bg2_RODATA_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.rodata*);
+        segment_menu_bg2_RODATA_END = .;
+        segment_menu_bg2_RODATA_SIZE = ABSOLUTE(segment_menu_bg2_RODATA_END - segment_menu_bg2_RODATA_START);
 
-        segment_menu_bg2_sdata_START = .;
-        build/us/asm/segment_menu_bg2.o(.sdata*);
-        segment_menu_bg2_sdata_END = .;
-        segment_menu_bg2_sdata_SIZE = ABSOLUTE(segment_menu_bg2_sdata_END - segment_menu_bg2_sdata_START);
+        segment_menu_bg2_SDATA_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.sdata*);
+        segment_menu_bg2_SDATA_END = .;
+        segment_menu_bg2_SDATA_SIZE = ABSOLUTE(segment_menu_bg2_SDATA_END - segment_menu_bg2_SDATA_START);
     }
     segment_menu_bg2_alloc_VRAM_END = .;
     segment_menu_bg2_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_alloc_VRAM_END - segment_menu_bg2_alloc_VRAM);
@@ -3899,23 +4075,23 @@ SECTIONS
     segment_menu_bg2_noload_VRAM = .;
     .segment_menu_bg2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_bg2_sbss_START = .;
-        build/us/asm/segment_menu_bg2.o(.sbss*);
-        segment_menu_bg2_sbss_END = .;
-        segment_menu_bg2_sbss_SIZE = ABSOLUTE(segment_menu_bg2_sbss_END - segment_menu_bg2_sbss_START);
+        segment_menu_bg2_SBSS_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.sbss*);
+        segment_menu_bg2_SBSS_END = .;
+        segment_menu_bg2_SBSS_SIZE = ABSOLUTE(segment_menu_bg2_SBSS_END - segment_menu_bg2_SBSS_START);
 
-        segment_menu_bg2_scommon_START = .;
-        build/us/asm/segment_menu_bg2.o(.scommon*);
-        segment_menu_bg2_scommon_END = .;
-        segment_menu_bg2_scommon_SIZE = ABSOLUTE(segment_menu_bg2_scommon_END - segment_menu_bg2_scommon_START);
+        segment_menu_bg2_SCOMMON_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.scommon*);
+        segment_menu_bg2_SCOMMON_END = .;
+        segment_menu_bg2_SCOMMON_SIZE = ABSOLUTE(segment_menu_bg2_SCOMMON_END - segment_menu_bg2_SCOMMON_START);
 
-        segment_menu_bg2_bss_START = .;
-        build/us/asm/segment_menu_bg2.o(.bss*);
-        segment_menu_bg2_bss_END = .;
-        segment_menu_bg2_bss_SIZE = ABSOLUTE(segment_menu_bg2_bss_END - segment_menu_bg2_bss_START);
+        segment_menu_bg2_BSS_START = .;
+        build/us/asm/us/data/segment_menu_bg2.o(.bss*);
+        segment_menu_bg2_BSS_END = .;
+        segment_menu_bg2_BSS_SIZE = ABSOLUTE(segment_menu_bg2_BSS_END - segment_menu_bg2_BSS_START);
 
         segment_menu_bg2COMMON_START = .;
-        build/us/asm/segment_menu_bg2.o(COMMON*);
+        build/us/asm/us/data/segment_menu_bg2.o(COMMON*);
         segment_menu_bg2COMMON_END = .;
         segment_menu_bg2COMMON_SIZE = ABSOLUTE(segment_menu_bg2COMMON_END - segment_menu_bg2COMMON_START);
     }
@@ -3932,25 +4108,25 @@ SECTIONS
     segment_coffee01_alloc_VRAM = .;
     .segment_coffee01 : AT(segment_coffee01_ROM_START) SUBALIGN(16)
     {
-        segment_coffee01_text_START = .;
-        build/us/asm/segment_coffee01.o(.text*);
-        segment_coffee01_text_END = .;
-        segment_coffee01_text_SIZE = ABSOLUTE(segment_coffee01_text_END - segment_coffee01_text_START);
+        segment_coffee01_TEXT_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.text*);
+        segment_coffee01_TEXT_END = .;
+        segment_coffee01_TEXT_SIZE = ABSOLUTE(segment_coffee01_TEXT_END - segment_coffee01_TEXT_START);
 
-        segment_coffee01_data_START = .;
-        build/us/asm/segment_coffee01.o(.data*);
-        segment_coffee01_data_END = .;
-        segment_coffee01_data_SIZE = ABSOLUTE(segment_coffee01_data_END - segment_coffee01_data_START);
+        segment_coffee01_DATA_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.data*);
+        segment_coffee01_DATA_END = .;
+        segment_coffee01_DATA_SIZE = ABSOLUTE(segment_coffee01_DATA_END - segment_coffee01_DATA_START);
 
-        segment_coffee01_rodata_START = .;
-        build/us/asm/segment_coffee01.o(.rodata*);
-        segment_coffee01_rodata_END = .;
-        segment_coffee01_rodata_SIZE = ABSOLUTE(segment_coffee01_rodata_END - segment_coffee01_rodata_START);
+        segment_coffee01_RODATA_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.rodata*);
+        segment_coffee01_RODATA_END = .;
+        segment_coffee01_RODATA_SIZE = ABSOLUTE(segment_coffee01_RODATA_END - segment_coffee01_RODATA_START);
 
-        segment_coffee01_sdata_START = .;
-        build/us/asm/segment_coffee01.o(.sdata*);
-        segment_coffee01_sdata_END = .;
-        segment_coffee01_sdata_SIZE = ABSOLUTE(segment_coffee01_sdata_END - segment_coffee01_sdata_START);
+        segment_coffee01_SDATA_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.sdata*);
+        segment_coffee01_SDATA_END = .;
+        segment_coffee01_SDATA_SIZE = ABSOLUTE(segment_coffee01_SDATA_END - segment_coffee01_SDATA_START);
     }
     segment_coffee01_alloc_VRAM_END = .;
     segment_coffee01_alloc_VRAM_SIZE = ABSOLUTE(segment_coffee01_alloc_VRAM_END - segment_coffee01_alloc_VRAM);
@@ -3958,23 +4134,23 @@ SECTIONS
     segment_coffee01_noload_VRAM = .;
     .segment_coffee01.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_coffee01_sbss_START = .;
-        build/us/asm/segment_coffee01.o(.sbss*);
-        segment_coffee01_sbss_END = .;
-        segment_coffee01_sbss_SIZE = ABSOLUTE(segment_coffee01_sbss_END - segment_coffee01_sbss_START);
+        segment_coffee01_SBSS_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.sbss*);
+        segment_coffee01_SBSS_END = .;
+        segment_coffee01_SBSS_SIZE = ABSOLUTE(segment_coffee01_SBSS_END - segment_coffee01_SBSS_START);
 
-        segment_coffee01_scommon_START = .;
-        build/us/asm/segment_coffee01.o(.scommon*);
-        segment_coffee01_scommon_END = .;
-        segment_coffee01_scommon_SIZE = ABSOLUTE(segment_coffee01_scommon_END - segment_coffee01_scommon_START);
+        segment_coffee01_SCOMMON_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.scommon*);
+        segment_coffee01_SCOMMON_END = .;
+        segment_coffee01_SCOMMON_SIZE = ABSOLUTE(segment_coffee01_SCOMMON_END - segment_coffee01_SCOMMON_START);
 
-        segment_coffee01_bss_START = .;
-        build/us/asm/segment_coffee01.o(.bss*);
-        segment_coffee01_bss_END = .;
-        segment_coffee01_bss_SIZE = ABSOLUTE(segment_coffee01_bss_END - segment_coffee01_bss_START);
+        segment_coffee01_BSS_START = .;
+        build/us/asm/us/data/segment_coffee01.o(.bss*);
+        segment_coffee01_BSS_END = .;
+        segment_coffee01_BSS_SIZE = ABSOLUTE(segment_coffee01_BSS_END - segment_coffee01_BSS_START);
 
         segment_coffee01COMMON_START = .;
-        build/us/asm/segment_coffee01.o(COMMON*);
+        build/us/asm/us/data/segment_coffee01.o(COMMON*);
         segment_coffee01COMMON_END = .;
         segment_coffee01COMMON_SIZE = ABSOLUTE(segment_coffee01COMMON_END - segment_coffee01COMMON_START);
     }
@@ -3991,25 +4167,25 @@ SECTIONS
     segment_title_all_alloc_VRAM = .;
     .segment_title_all : AT(segment_title_all_ROM_START) SUBALIGN(16)
     {
-        segment_title_all_text_START = .;
-        build/us/asm/segment_title_all.o(.text*);
-        segment_title_all_text_END = .;
-        segment_title_all_text_SIZE = ABSOLUTE(segment_title_all_text_END - segment_title_all_text_START);
+        segment_title_all_TEXT_START = .;
+        build/us/asm/us/data/segment_title_all.o(.text*);
+        segment_title_all_TEXT_END = .;
+        segment_title_all_TEXT_SIZE = ABSOLUTE(segment_title_all_TEXT_END - segment_title_all_TEXT_START);
 
-        segment_title_all_data_START = .;
-        build/us/asm/segment_title_all.o(.data*);
-        segment_title_all_data_END = .;
-        segment_title_all_data_SIZE = ABSOLUTE(segment_title_all_data_END - segment_title_all_data_START);
+        segment_title_all_DATA_START = .;
+        build/us/asm/us/data/segment_title_all.o(.data*);
+        segment_title_all_DATA_END = .;
+        segment_title_all_DATA_SIZE = ABSOLUTE(segment_title_all_DATA_END - segment_title_all_DATA_START);
 
-        segment_title_all_rodata_START = .;
-        build/us/asm/segment_title_all.o(.rodata*);
-        segment_title_all_rodata_END = .;
-        segment_title_all_rodata_SIZE = ABSOLUTE(segment_title_all_rodata_END - segment_title_all_rodata_START);
+        segment_title_all_RODATA_START = .;
+        build/us/asm/us/data/segment_title_all.o(.rodata*);
+        segment_title_all_RODATA_END = .;
+        segment_title_all_RODATA_SIZE = ABSOLUTE(segment_title_all_RODATA_END - segment_title_all_RODATA_START);
 
-        segment_title_all_sdata_START = .;
-        build/us/asm/segment_title_all.o(.sdata*);
-        segment_title_all_sdata_END = .;
-        segment_title_all_sdata_SIZE = ABSOLUTE(segment_title_all_sdata_END - segment_title_all_sdata_START);
+        segment_title_all_SDATA_START = .;
+        build/us/asm/us/data/segment_title_all.o(.sdata*);
+        segment_title_all_SDATA_END = .;
+        segment_title_all_SDATA_SIZE = ABSOLUTE(segment_title_all_SDATA_END - segment_title_all_SDATA_START);
     }
     segment_title_all_alloc_VRAM_END = .;
     segment_title_all_alloc_VRAM_SIZE = ABSOLUTE(segment_title_all_alloc_VRAM_END - segment_title_all_alloc_VRAM);
@@ -4017,23 +4193,23 @@ SECTIONS
     segment_title_all_noload_VRAM = .;
     .segment_title_all.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_title_all_sbss_START = .;
-        build/us/asm/segment_title_all.o(.sbss*);
-        segment_title_all_sbss_END = .;
-        segment_title_all_sbss_SIZE = ABSOLUTE(segment_title_all_sbss_END - segment_title_all_sbss_START);
+        segment_title_all_SBSS_START = .;
+        build/us/asm/us/data/segment_title_all.o(.sbss*);
+        segment_title_all_SBSS_END = .;
+        segment_title_all_SBSS_SIZE = ABSOLUTE(segment_title_all_SBSS_END - segment_title_all_SBSS_START);
 
-        segment_title_all_scommon_START = .;
-        build/us/asm/segment_title_all.o(.scommon*);
-        segment_title_all_scommon_END = .;
-        segment_title_all_scommon_SIZE = ABSOLUTE(segment_title_all_scommon_END - segment_title_all_scommon_START);
+        segment_title_all_SCOMMON_START = .;
+        build/us/asm/us/data/segment_title_all.o(.scommon*);
+        segment_title_all_SCOMMON_END = .;
+        segment_title_all_SCOMMON_SIZE = ABSOLUTE(segment_title_all_SCOMMON_END - segment_title_all_SCOMMON_START);
 
-        segment_title_all_bss_START = .;
-        build/us/asm/segment_title_all.o(.bss*);
-        segment_title_all_bss_END = .;
-        segment_title_all_bss_SIZE = ABSOLUTE(segment_title_all_bss_END - segment_title_all_bss_START);
+        segment_title_all_BSS_START = .;
+        build/us/asm/us/data/segment_title_all.o(.bss*);
+        segment_title_all_BSS_END = .;
+        segment_title_all_BSS_SIZE = ABSOLUTE(segment_title_all_BSS_END - segment_title_all_BSS_START);
 
         segment_title_allCOMMON_START = .;
-        build/us/asm/segment_title_all.o(COMMON*);
+        build/us/asm/us/data/segment_title_all.o(COMMON*);
         segment_title_allCOMMON_END = .;
         segment_title_allCOMMON_SIZE = ABSOLUTE(segment_title_allCOMMON_END - segment_title_allCOMMON_START);
     }
@@ -4050,25 +4226,25 @@ SECTIONS
     segment_title_bmp_alloc_VRAM = .;
     .segment_title_bmp : AT(segment_title_bmp_ROM_START) SUBALIGN(16)
     {
-        segment_title_bmp_text_START = .;
-        build/us/asm/segment_title_bmp.o(.text*);
-        segment_title_bmp_text_END = .;
-        segment_title_bmp_text_SIZE = ABSOLUTE(segment_title_bmp_text_END - segment_title_bmp_text_START);
+        segment_title_bmp_TEXT_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.text*);
+        segment_title_bmp_TEXT_END = .;
+        segment_title_bmp_TEXT_SIZE = ABSOLUTE(segment_title_bmp_TEXT_END - segment_title_bmp_TEXT_START);
 
-        segment_title_bmp_data_START = .;
-        build/us/asm/segment_title_bmp.o(.data*);
-        segment_title_bmp_data_END = .;
-        segment_title_bmp_data_SIZE = ABSOLUTE(segment_title_bmp_data_END - segment_title_bmp_data_START);
+        segment_title_bmp_DATA_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.data*);
+        segment_title_bmp_DATA_END = .;
+        segment_title_bmp_DATA_SIZE = ABSOLUTE(segment_title_bmp_DATA_END - segment_title_bmp_DATA_START);
 
-        segment_title_bmp_rodata_START = .;
-        build/us/asm/segment_title_bmp.o(.rodata*);
-        segment_title_bmp_rodata_END = .;
-        segment_title_bmp_rodata_SIZE = ABSOLUTE(segment_title_bmp_rodata_END - segment_title_bmp_rodata_START);
+        segment_title_bmp_RODATA_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.rodata*);
+        segment_title_bmp_RODATA_END = .;
+        segment_title_bmp_RODATA_SIZE = ABSOLUTE(segment_title_bmp_RODATA_END - segment_title_bmp_RODATA_START);
 
-        segment_title_bmp_sdata_START = .;
-        build/us/asm/segment_title_bmp.o(.sdata*);
-        segment_title_bmp_sdata_END = .;
-        segment_title_bmp_sdata_SIZE = ABSOLUTE(segment_title_bmp_sdata_END - segment_title_bmp_sdata_START);
+        segment_title_bmp_SDATA_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.sdata*);
+        segment_title_bmp_SDATA_END = .;
+        segment_title_bmp_SDATA_SIZE = ABSOLUTE(segment_title_bmp_SDATA_END - segment_title_bmp_SDATA_START);
     }
     segment_title_bmp_alloc_VRAM_END = .;
     segment_title_bmp_alloc_VRAM_SIZE = ABSOLUTE(segment_title_bmp_alloc_VRAM_END - segment_title_bmp_alloc_VRAM);
@@ -4076,23 +4252,23 @@ SECTIONS
     segment_title_bmp_noload_VRAM = .;
     .segment_title_bmp.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_title_bmp_sbss_START = .;
-        build/us/asm/segment_title_bmp.o(.sbss*);
-        segment_title_bmp_sbss_END = .;
-        segment_title_bmp_sbss_SIZE = ABSOLUTE(segment_title_bmp_sbss_END - segment_title_bmp_sbss_START);
+        segment_title_bmp_SBSS_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.sbss*);
+        segment_title_bmp_SBSS_END = .;
+        segment_title_bmp_SBSS_SIZE = ABSOLUTE(segment_title_bmp_SBSS_END - segment_title_bmp_SBSS_START);
 
-        segment_title_bmp_scommon_START = .;
-        build/us/asm/segment_title_bmp.o(.scommon*);
-        segment_title_bmp_scommon_END = .;
-        segment_title_bmp_scommon_SIZE = ABSOLUTE(segment_title_bmp_scommon_END - segment_title_bmp_scommon_START);
+        segment_title_bmp_SCOMMON_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.scommon*);
+        segment_title_bmp_SCOMMON_END = .;
+        segment_title_bmp_SCOMMON_SIZE = ABSOLUTE(segment_title_bmp_SCOMMON_END - segment_title_bmp_SCOMMON_START);
 
-        segment_title_bmp_bss_START = .;
-        build/us/asm/segment_title_bmp.o(.bss*);
-        segment_title_bmp_bss_END = .;
-        segment_title_bmp_bss_SIZE = ABSOLUTE(segment_title_bmp_bss_END - segment_title_bmp_bss_START);
+        segment_title_bmp_BSS_START = .;
+        build/us/asm/us/data/segment_title_bmp.o(.bss*);
+        segment_title_bmp_BSS_END = .;
+        segment_title_bmp_BSS_SIZE = ABSOLUTE(segment_title_bmp_BSS_END - segment_title_bmp_BSS_START);
 
         segment_title_bmpCOMMON_START = .;
-        build/us/asm/segment_title_bmp.o(COMMON*);
+        build/us/asm/us/data/segment_title_bmp.o(COMMON*);
         segment_title_bmpCOMMON_END = .;
         segment_title_bmpCOMMON_SIZE = ABSOLUTE(segment_title_bmpCOMMON_END - segment_title_bmpCOMMON_START);
     }
@@ -4109,25 +4285,25 @@ SECTIONS
     segment_waku_alloc_VRAM = .;
     .segment_waku : AT(segment_waku_ROM_START) SUBALIGN(16)
     {
-        segment_waku_text_START = .;
-        build/us/asm/segment_waku.o(.text*);
-        segment_waku_text_END = .;
-        segment_waku_text_SIZE = ABSOLUTE(segment_waku_text_END - segment_waku_text_START);
+        segment_waku_TEXT_START = .;
+        build/us/asm/us/data/segment_waku.o(.text*);
+        segment_waku_TEXT_END = .;
+        segment_waku_TEXT_SIZE = ABSOLUTE(segment_waku_TEXT_END - segment_waku_TEXT_START);
 
-        segment_waku_data_START = .;
-        build/us/asm/segment_waku.o(.data*);
-        segment_waku_data_END = .;
-        segment_waku_data_SIZE = ABSOLUTE(segment_waku_data_END - segment_waku_data_START);
+        segment_waku_DATA_START = .;
+        build/us/asm/us/data/segment_waku.o(.data*);
+        segment_waku_DATA_END = .;
+        segment_waku_DATA_SIZE = ABSOLUTE(segment_waku_DATA_END - segment_waku_DATA_START);
 
-        segment_waku_rodata_START = .;
-        build/us/asm/segment_waku.o(.rodata*);
-        segment_waku_rodata_END = .;
-        segment_waku_rodata_SIZE = ABSOLUTE(segment_waku_rodata_END - segment_waku_rodata_START);
+        segment_waku_RODATA_START = .;
+        build/us/asm/us/data/segment_waku.o(.rodata*);
+        segment_waku_RODATA_END = .;
+        segment_waku_RODATA_SIZE = ABSOLUTE(segment_waku_RODATA_END - segment_waku_RODATA_START);
 
-        segment_waku_sdata_START = .;
-        build/us/asm/segment_waku.o(.sdata*);
-        segment_waku_sdata_END = .;
-        segment_waku_sdata_SIZE = ABSOLUTE(segment_waku_sdata_END - segment_waku_sdata_START);
+        segment_waku_SDATA_START = .;
+        build/us/asm/us/data/segment_waku.o(.sdata*);
+        segment_waku_SDATA_END = .;
+        segment_waku_SDATA_SIZE = ABSOLUTE(segment_waku_SDATA_END - segment_waku_SDATA_START);
     }
     segment_waku_alloc_VRAM_END = .;
     segment_waku_alloc_VRAM_SIZE = ABSOLUTE(segment_waku_alloc_VRAM_END - segment_waku_alloc_VRAM);
@@ -4135,23 +4311,23 @@ SECTIONS
     segment_waku_noload_VRAM = .;
     .segment_waku.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_waku_sbss_START = .;
-        build/us/asm/segment_waku.o(.sbss*);
-        segment_waku_sbss_END = .;
-        segment_waku_sbss_SIZE = ABSOLUTE(segment_waku_sbss_END - segment_waku_sbss_START);
+        segment_waku_SBSS_START = .;
+        build/us/asm/us/data/segment_waku.o(.sbss*);
+        segment_waku_SBSS_END = .;
+        segment_waku_SBSS_SIZE = ABSOLUTE(segment_waku_SBSS_END - segment_waku_SBSS_START);
 
-        segment_waku_scommon_START = .;
-        build/us/asm/segment_waku.o(.scommon*);
-        segment_waku_scommon_END = .;
-        segment_waku_scommon_SIZE = ABSOLUTE(segment_waku_scommon_END - segment_waku_scommon_START);
+        segment_waku_SCOMMON_START = .;
+        build/us/asm/us/data/segment_waku.o(.scommon*);
+        segment_waku_SCOMMON_END = .;
+        segment_waku_SCOMMON_SIZE = ABSOLUTE(segment_waku_SCOMMON_END - segment_waku_SCOMMON_START);
 
-        segment_waku_bss_START = .;
-        build/us/asm/segment_waku.o(.bss*);
-        segment_waku_bss_END = .;
-        segment_waku_bss_SIZE = ABSOLUTE(segment_waku_bss_END - segment_waku_bss_START);
+        segment_waku_BSS_START = .;
+        build/us/asm/us/data/segment_waku.o(.bss*);
+        segment_waku_BSS_END = .;
+        segment_waku_BSS_SIZE = ABSOLUTE(segment_waku_BSS_END - segment_waku_BSS_START);
 
         segment_wakuCOMMON_START = .;
-        build/us/asm/segment_waku.o(COMMON*);
+        build/us/asm/us/data/segment_waku.o(COMMON*);
         segment_wakuCOMMON_END = .;
         segment_wakuCOMMON_SIZE = ABSOLUTE(segment_wakuCOMMON_END - segment_wakuCOMMON_START);
     }
@@ -4168,25 +4344,25 @@ SECTIONS
     segment_waku2_alloc_VRAM = .;
     .segment_waku2 : AT(segment_waku2_ROM_START) SUBALIGN(16)
     {
-        segment_waku2_text_START = .;
-        build/us/asm/segment_waku2.o(.text*);
-        segment_waku2_text_END = .;
-        segment_waku2_text_SIZE = ABSOLUTE(segment_waku2_text_END - segment_waku2_text_START);
+        segment_waku2_TEXT_START = .;
+        build/us/asm/us/data/segment_waku2.o(.text*);
+        segment_waku2_TEXT_END = .;
+        segment_waku2_TEXT_SIZE = ABSOLUTE(segment_waku2_TEXT_END - segment_waku2_TEXT_START);
 
-        segment_waku2_data_START = .;
-        build/us/asm/segment_waku2.o(.data*);
-        segment_waku2_data_END = .;
-        segment_waku2_data_SIZE = ABSOLUTE(segment_waku2_data_END - segment_waku2_data_START);
+        segment_waku2_DATA_START = .;
+        build/us/asm/us/data/segment_waku2.o(.data*);
+        segment_waku2_DATA_END = .;
+        segment_waku2_DATA_SIZE = ABSOLUTE(segment_waku2_DATA_END - segment_waku2_DATA_START);
 
-        segment_waku2_rodata_START = .;
-        build/us/asm/segment_waku2.o(.rodata*);
-        segment_waku2_rodata_END = .;
-        segment_waku2_rodata_SIZE = ABSOLUTE(segment_waku2_rodata_END - segment_waku2_rodata_START);
+        segment_waku2_RODATA_START = .;
+        build/us/asm/us/data/segment_waku2.o(.rodata*);
+        segment_waku2_RODATA_END = .;
+        segment_waku2_RODATA_SIZE = ABSOLUTE(segment_waku2_RODATA_END - segment_waku2_RODATA_START);
 
-        segment_waku2_sdata_START = .;
-        build/us/asm/segment_waku2.o(.sdata*);
-        segment_waku2_sdata_END = .;
-        segment_waku2_sdata_SIZE = ABSOLUTE(segment_waku2_sdata_END - segment_waku2_sdata_START);
+        segment_waku2_SDATA_START = .;
+        build/us/asm/us/data/segment_waku2.o(.sdata*);
+        segment_waku2_SDATA_END = .;
+        segment_waku2_SDATA_SIZE = ABSOLUTE(segment_waku2_SDATA_END - segment_waku2_SDATA_START);
     }
     segment_waku2_alloc_VRAM_END = .;
     segment_waku2_alloc_VRAM_SIZE = ABSOLUTE(segment_waku2_alloc_VRAM_END - segment_waku2_alloc_VRAM);
@@ -4194,23 +4370,23 @@ SECTIONS
     segment_waku2_noload_VRAM = .;
     .segment_waku2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_waku2_sbss_START = .;
-        build/us/asm/segment_waku2.o(.sbss*);
-        segment_waku2_sbss_END = .;
-        segment_waku2_sbss_SIZE = ABSOLUTE(segment_waku2_sbss_END - segment_waku2_sbss_START);
+        segment_waku2_SBSS_START = .;
+        build/us/asm/us/data/segment_waku2.o(.sbss*);
+        segment_waku2_SBSS_END = .;
+        segment_waku2_SBSS_SIZE = ABSOLUTE(segment_waku2_SBSS_END - segment_waku2_SBSS_START);
 
-        segment_waku2_scommon_START = .;
-        build/us/asm/segment_waku2.o(.scommon*);
-        segment_waku2_scommon_END = .;
-        segment_waku2_scommon_SIZE = ABSOLUTE(segment_waku2_scommon_END - segment_waku2_scommon_START);
+        segment_waku2_SCOMMON_START = .;
+        build/us/asm/us/data/segment_waku2.o(.scommon*);
+        segment_waku2_SCOMMON_END = .;
+        segment_waku2_SCOMMON_SIZE = ABSOLUTE(segment_waku2_SCOMMON_END - segment_waku2_SCOMMON_START);
 
-        segment_waku2_bss_START = .;
-        build/us/asm/segment_waku2.o(.bss*);
-        segment_waku2_bss_END = .;
-        segment_waku2_bss_SIZE = ABSOLUTE(segment_waku2_bss_END - segment_waku2_bss_START);
+        segment_waku2_BSS_START = .;
+        build/us/asm/us/data/segment_waku2.o(.bss*);
+        segment_waku2_BSS_END = .;
+        segment_waku2_BSS_SIZE = ABSOLUTE(segment_waku2_BSS_END - segment_waku2_BSS_START);
 
         segment_waku2COMMON_START = .;
-        build/us/asm/segment_waku2.o(COMMON*);
+        build/us/asm/us/data/segment_waku2.o(COMMON*);
         segment_waku2COMMON_END = .;
         segment_waku2COMMON_SIZE = ABSOLUTE(segment_waku2COMMON_END - segment_waku2COMMON_START);
     }
@@ -4227,25 +4403,25 @@ SECTIONS
     segment_story_bg01_alloc_VRAM = .;
     .segment_story_bg01 : AT(segment_story_bg01_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg01_text_START = .;
-        build/us/asm/segment_story_bg01.o(.text*);
-        segment_story_bg01_text_END = .;
-        segment_story_bg01_text_SIZE = ABSOLUTE(segment_story_bg01_text_END - segment_story_bg01_text_START);
+        segment_story_bg01_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.text*);
+        segment_story_bg01_TEXT_END = .;
+        segment_story_bg01_TEXT_SIZE = ABSOLUTE(segment_story_bg01_TEXT_END - segment_story_bg01_TEXT_START);
 
-        segment_story_bg01_data_START = .;
-        build/us/asm/segment_story_bg01.o(.data*);
-        segment_story_bg01_data_END = .;
-        segment_story_bg01_data_SIZE = ABSOLUTE(segment_story_bg01_data_END - segment_story_bg01_data_START);
+        segment_story_bg01_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.data*);
+        segment_story_bg01_DATA_END = .;
+        segment_story_bg01_DATA_SIZE = ABSOLUTE(segment_story_bg01_DATA_END - segment_story_bg01_DATA_START);
 
-        segment_story_bg01_rodata_START = .;
-        build/us/asm/segment_story_bg01.o(.rodata*);
-        segment_story_bg01_rodata_END = .;
-        segment_story_bg01_rodata_SIZE = ABSOLUTE(segment_story_bg01_rodata_END - segment_story_bg01_rodata_START);
+        segment_story_bg01_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.rodata*);
+        segment_story_bg01_RODATA_END = .;
+        segment_story_bg01_RODATA_SIZE = ABSOLUTE(segment_story_bg01_RODATA_END - segment_story_bg01_RODATA_START);
 
-        segment_story_bg01_sdata_START = .;
-        build/us/asm/segment_story_bg01.o(.sdata*);
-        segment_story_bg01_sdata_END = .;
-        segment_story_bg01_sdata_SIZE = ABSOLUTE(segment_story_bg01_sdata_END - segment_story_bg01_sdata_START);
+        segment_story_bg01_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.sdata*);
+        segment_story_bg01_SDATA_END = .;
+        segment_story_bg01_SDATA_SIZE = ABSOLUTE(segment_story_bg01_SDATA_END - segment_story_bg01_SDATA_START);
     }
     segment_story_bg01_alloc_VRAM_END = .;
     segment_story_bg01_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg01_alloc_VRAM_END - segment_story_bg01_alloc_VRAM);
@@ -4253,23 +4429,23 @@ SECTIONS
     segment_story_bg01_noload_VRAM = .;
     .segment_story_bg01.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg01_sbss_START = .;
-        build/us/asm/segment_story_bg01.o(.sbss*);
-        segment_story_bg01_sbss_END = .;
-        segment_story_bg01_sbss_SIZE = ABSOLUTE(segment_story_bg01_sbss_END - segment_story_bg01_sbss_START);
+        segment_story_bg01_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.sbss*);
+        segment_story_bg01_SBSS_END = .;
+        segment_story_bg01_SBSS_SIZE = ABSOLUTE(segment_story_bg01_SBSS_END - segment_story_bg01_SBSS_START);
 
-        segment_story_bg01_scommon_START = .;
-        build/us/asm/segment_story_bg01.o(.scommon*);
-        segment_story_bg01_scommon_END = .;
-        segment_story_bg01_scommon_SIZE = ABSOLUTE(segment_story_bg01_scommon_END - segment_story_bg01_scommon_START);
+        segment_story_bg01_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.scommon*);
+        segment_story_bg01_SCOMMON_END = .;
+        segment_story_bg01_SCOMMON_SIZE = ABSOLUTE(segment_story_bg01_SCOMMON_END - segment_story_bg01_SCOMMON_START);
 
-        segment_story_bg01_bss_START = .;
-        build/us/asm/segment_story_bg01.o(.bss*);
-        segment_story_bg01_bss_END = .;
-        segment_story_bg01_bss_SIZE = ABSOLUTE(segment_story_bg01_bss_END - segment_story_bg01_bss_START);
+        segment_story_bg01_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg01.o(.bss*);
+        segment_story_bg01_BSS_END = .;
+        segment_story_bg01_BSS_SIZE = ABSOLUTE(segment_story_bg01_BSS_END - segment_story_bg01_BSS_START);
 
         segment_story_bg01COMMON_START = .;
-        build/us/asm/segment_story_bg01.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg01.o(COMMON*);
         segment_story_bg01COMMON_END = .;
         segment_story_bg01COMMON_SIZE = ABSOLUTE(segment_story_bg01COMMON_END - segment_story_bg01COMMON_START);
     }
@@ -4286,25 +4462,25 @@ SECTIONS
     segment_story_bg02_alloc_VRAM = .;
     .segment_story_bg02 : AT(segment_story_bg02_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg02_text_START = .;
-        build/us/asm/segment_story_bg02.o(.text*);
-        segment_story_bg02_text_END = .;
-        segment_story_bg02_text_SIZE = ABSOLUTE(segment_story_bg02_text_END - segment_story_bg02_text_START);
+        segment_story_bg02_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.text*);
+        segment_story_bg02_TEXT_END = .;
+        segment_story_bg02_TEXT_SIZE = ABSOLUTE(segment_story_bg02_TEXT_END - segment_story_bg02_TEXT_START);
 
-        segment_story_bg02_data_START = .;
-        build/us/asm/segment_story_bg02.o(.data*);
-        segment_story_bg02_data_END = .;
-        segment_story_bg02_data_SIZE = ABSOLUTE(segment_story_bg02_data_END - segment_story_bg02_data_START);
+        segment_story_bg02_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.data*);
+        segment_story_bg02_DATA_END = .;
+        segment_story_bg02_DATA_SIZE = ABSOLUTE(segment_story_bg02_DATA_END - segment_story_bg02_DATA_START);
 
-        segment_story_bg02_rodata_START = .;
-        build/us/asm/segment_story_bg02.o(.rodata*);
-        segment_story_bg02_rodata_END = .;
-        segment_story_bg02_rodata_SIZE = ABSOLUTE(segment_story_bg02_rodata_END - segment_story_bg02_rodata_START);
+        segment_story_bg02_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.rodata*);
+        segment_story_bg02_RODATA_END = .;
+        segment_story_bg02_RODATA_SIZE = ABSOLUTE(segment_story_bg02_RODATA_END - segment_story_bg02_RODATA_START);
 
-        segment_story_bg02_sdata_START = .;
-        build/us/asm/segment_story_bg02.o(.sdata*);
-        segment_story_bg02_sdata_END = .;
-        segment_story_bg02_sdata_SIZE = ABSOLUTE(segment_story_bg02_sdata_END - segment_story_bg02_sdata_START);
+        segment_story_bg02_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.sdata*);
+        segment_story_bg02_SDATA_END = .;
+        segment_story_bg02_SDATA_SIZE = ABSOLUTE(segment_story_bg02_SDATA_END - segment_story_bg02_SDATA_START);
     }
     segment_story_bg02_alloc_VRAM_END = .;
     segment_story_bg02_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg02_alloc_VRAM_END - segment_story_bg02_alloc_VRAM);
@@ -4312,23 +4488,23 @@ SECTIONS
     segment_story_bg02_noload_VRAM = .;
     .segment_story_bg02.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg02_sbss_START = .;
-        build/us/asm/segment_story_bg02.o(.sbss*);
-        segment_story_bg02_sbss_END = .;
-        segment_story_bg02_sbss_SIZE = ABSOLUTE(segment_story_bg02_sbss_END - segment_story_bg02_sbss_START);
+        segment_story_bg02_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.sbss*);
+        segment_story_bg02_SBSS_END = .;
+        segment_story_bg02_SBSS_SIZE = ABSOLUTE(segment_story_bg02_SBSS_END - segment_story_bg02_SBSS_START);
 
-        segment_story_bg02_scommon_START = .;
-        build/us/asm/segment_story_bg02.o(.scommon*);
-        segment_story_bg02_scommon_END = .;
-        segment_story_bg02_scommon_SIZE = ABSOLUTE(segment_story_bg02_scommon_END - segment_story_bg02_scommon_START);
+        segment_story_bg02_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.scommon*);
+        segment_story_bg02_SCOMMON_END = .;
+        segment_story_bg02_SCOMMON_SIZE = ABSOLUTE(segment_story_bg02_SCOMMON_END - segment_story_bg02_SCOMMON_START);
 
-        segment_story_bg02_bss_START = .;
-        build/us/asm/segment_story_bg02.o(.bss*);
-        segment_story_bg02_bss_END = .;
-        segment_story_bg02_bss_SIZE = ABSOLUTE(segment_story_bg02_bss_END - segment_story_bg02_bss_START);
+        segment_story_bg02_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg02.o(.bss*);
+        segment_story_bg02_BSS_END = .;
+        segment_story_bg02_BSS_SIZE = ABSOLUTE(segment_story_bg02_BSS_END - segment_story_bg02_BSS_START);
 
         segment_story_bg02COMMON_START = .;
-        build/us/asm/segment_story_bg02.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg02.o(COMMON*);
         segment_story_bg02COMMON_END = .;
         segment_story_bg02COMMON_SIZE = ABSOLUTE(segment_story_bg02COMMON_END - segment_story_bg02COMMON_START);
     }
@@ -4345,25 +4521,25 @@ SECTIONS
     segment_story_bg03_alloc_VRAM = .;
     .segment_story_bg03 : AT(segment_story_bg03_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg03_text_START = .;
-        build/us/asm/segment_story_bg03.o(.text*);
-        segment_story_bg03_text_END = .;
-        segment_story_bg03_text_SIZE = ABSOLUTE(segment_story_bg03_text_END - segment_story_bg03_text_START);
+        segment_story_bg03_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.text*);
+        segment_story_bg03_TEXT_END = .;
+        segment_story_bg03_TEXT_SIZE = ABSOLUTE(segment_story_bg03_TEXT_END - segment_story_bg03_TEXT_START);
 
-        segment_story_bg03_data_START = .;
-        build/us/asm/segment_story_bg03.o(.data*);
-        segment_story_bg03_data_END = .;
-        segment_story_bg03_data_SIZE = ABSOLUTE(segment_story_bg03_data_END - segment_story_bg03_data_START);
+        segment_story_bg03_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.data*);
+        segment_story_bg03_DATA_END = .;
+        segment_story_bg03_DATA_SIZE = ABSOLUTE(segment_story_bg03_DATA_END - segment_story_bg03_DATA_START);
 
-        segment_story_bg03_rodata_START = .;
-        build/us/asm/segment_story_bg03.o(.rodata*);
-        segment_story_bg03_rodata_END = .;
-        segment_story_bg03_rodata_SIZE = ABSOLUTE(segment_story_bg03_rodata_END - segment_story_bg03_rodata_START);
+        segment_story_bg03_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.rodata*);
+        segment_story_bg03_RODATA_END = .;
+        segment_story_bg03_RODATA_SIZE = ABSOLUTE(segment_story_bg03_RODATA_END - segment_story_bg03_RODATA_START);
 
-        segment_story_bg03_sdata_START = .;
-        build/us/asm/segment_story_bg03.o(.sdata*);
-        segment_story_bg03_sdata_END = .;
-        segment_story_bg03_sdata_SIZE = ABSOLUTE(segment_story_bg03_sdata_END - segment_story_bg03_sdata_START);
+        segment_story_bg03_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.sdata*);
+        segment_story_bg03_SDATA_END = .;
+        segment_story_bg03_SDATA_SIZE = ABSOLUTE(segment_story_bg03_SDATA_END - segment_story_bg03_SDATA_START);
     }
     segment_story_bg03_alloc_VRAM_END = .;
     segment_story_bg03_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg03_alloc_VRAM_END - segment_story_bg03_alloc_VRAM);
@@ -4371,23 +4547,23 @@ SECTIONS
     segment_story_bg03_noload_VRAM = .;
     .segment_story_bg03.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg03_sbss_START = .;
-        build/us/asm/segment_story_bg03.o(.sbss*);
-        segment_story_bg03_sbss_END = .;
-        segment_story_bg03_sbss_SIZE = ABSOLUTE(segment_story_bg03_sbss_END - segment_story_bg03_sbss_START);
+        segment_story_bg03_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.sbss*);
+        segment_story_bg03_SBSS_END = .;
+        segment_story_bg03_SBSS_SIZE = ABSOLUTE(segment_story_bg03_SBSS_END - segment_story_bg03_SBSS_START);
 
-        segment_story_bg03_scommon_START = .;
-        build/us/asm/segment_story_bg03.o(.scommon*);
-        segment_story_bg03_scommon_END = .;
-        segment_story_bg03_scommon_SIZE = ABSOLUTE(segment_story_bg03_scommon_END - segment_story_bg03_scommon_START);
+        segment_story_bg03_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.scommon*);
+        segment_story_bg03_SCOMMON_END = .;
+        segment_story_bg03_SCOMMON_SIZE = ABSOLUTE(segment_story_bg03_SCOMMON_END - segment_story_bg03_SCOMMON_START);
 
-        segment_story_bg03_bss_START = .;
-        build/us/asm/segment_story_bg03.o(.bss*);
-        segment_story_bg03_bss_END = .;
-        segment_story_bg03_bss_SIZE = ABSOLUTE(segment_story_bg03_bss_END - segment_story_bg03_bss_START);
+        segment_story_bg03_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg03.o(.bss*);
+        segment_story_bg03_BSS_END = .;
+        segment_story_bg03_BSS_SIZE = ABSOLUTE(segment_story_bg03_BSS_END - segment_story_bg03_BSS_START);
 
         segment_story_bg03COMMON_START = .;
-        build/us/asm/segment_story_bg03.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg03.o(COMMON*);
         segment_story_bg03COMMON_END = .;
         segment_story_bg03COMMON_SIZE = ABSOLUTE(segment_story_bg03COMMON_END - segment_story_bg03COMMON_START);
     }
@@ -4404,25 +4580,25 @@ SECTIONS
     segment_story_bg04_alloc_VRAM = .;
     .segment_story_bg04 : AT(segment_story_bg04_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg04_text_START = .;
-        build/us/asm/segment_story_bg04.o(.text*);
-        segment_story_bg04_text_END = .;
-        segment_story_bg04_text_SIZE = ABSOLUTE(segment_story_bg04_text_END - segment_story_bg04_text_START);
+        segment_story_bg04_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.text*);
+        segment_story_bg04_TEXT_END = .;
+        segment_story_bg04_TEXT_SIZE = ABSOLUTE(segment_story_bg04_TEXT_END - segment_story_bg04_TEXT_START);
 
-        segment_story_bg04_data_START = .;
-        build/us/asm/segment_story_bg04.o(.data*);
-        segment_story_bg04_data_END = .;
-        segment_story_bg04_data_SIZE = ABSOLUTE(segment_story_bg04_data_END - segment_story_bg04_data_START);
+        segment_story_bg04_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.data*);
+        segment_story_bg04_DATA_END = .;
+        segment_story_bg04_DATA_SIZE = ABSOLUTE(segment_story_bg04_DATA_END - segment_story_bg04_DATA_START);
 
-        segment_story_bg04_rodata_START = .;
-        build/us/asm/segment_story_bg04.o(.rodata*);
-        segment_story_bg04_rodata_END = .;
-        segment_story_bg04_rodata_SIZE = ABSOLUTE(segment_story_bg04_rodata_END - segment_story_bg04_rodata_START);
+        segment_story_bg04_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.rodata*);
+        segment_story_bg04_RODATA_END = .;
+        segment_story_bg04_RODATA_SIZE = ABSOLUTE(segment_story_bg04_RODATA_END - segment_story_bg04_RODATA_START);
 
-        segment_story_bg04_sdata_START = .;
-        build/us/asm/segment_story_bg04.o(.sdata*);
-        segment_story_bg04_sdata_END = .;
-        segment_story_bg04_sdata_SIZE = ABSOLUTE(segment_story_bg04_sdata_END - segment_story_bg04_sdata_START);
+        segment_story_bg04_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.sdata*);
+        segment_story_bg04_SDATA_END = .;
+        segment_story_bg04_SDATA_SIZE = ABSOLUTE(segment_story_bg04_SDATA_END - segment_story_bg04_SDATA_START);
     }
     segment_story_bg04_alloc_VRAM_END = .;
     segment_story_bg04_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg04_alloc_VRAM_END - segment_story_bg04_alloc_VRAM);
@@ -4430,23 +4606,23 @@ SECTIONS
     segment_story_bg04_noload_VRAM = .;
     .segment_story_bg04.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg04_sbss_START = .;
-        build/us/asm/segment_story_bg04.o(.sbss*);
-        segment_story_bg04_sbss_END = .;
-        segment_story_bg04_sbss_SIZE = ABSOLUTE(segment_story_bg04_sbss_END - segment_story_bg04_sbss_START);
+        segment_story_bg04_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.sbss*);
+        segment_story_bg04_SBSS_END = .;
+        segment_story_bg04_SBSS_SIZE = ABSOLUTE(segment_story_bg04_SBSS_END - segment_story_bg04_SBSS_START);
 
-        segment_story_bg04_scommon_START = .;
-        build/us/asm/segment_story_bg04.o(.scommon*);
-        segment_story_bg04_scommon_END = .;
-        segment_story_bg04_scommon_SIZE = ABSOLUTE(segment_story_bg04_scommon_END - segment_story_bg04_scommon_START);
+        segment_story_bg04_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.scommon*);
+        segment_story_bg04_SCOMMON_END = .;
+        segment_story_bg04_SCOMMON_SIZE = ABSOLUTE(segment_story_bg04_SCOMMON_END - segment_story_bg04_SCOMMON_START);
 
-        segment_story_bg04_bss_START = .;
-        build/us/asm/segment_story_bg04.o(.bss*);
-        segment_story_bg04_bss_END = .;
-        segment_story_bg04_bss_SIZE = ABSOLUTE(segment_story_bg04_bss_END - segment_story_bg04_bss_START);
+        segment_story_bg04_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg04.o(.bss*);
+        segment_story_bg04_BSS_END = .;
+        segment_story_bg04_BSS_SIZE = ABSOLUTE(segment_story_bg04_BSS_END - segment_story_bg04_BSS_START);
 
         segment_story_bg04COMMON_START = .;
-        build/us/asm/segment_story_bg04.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg04.o(COMMON*);
         segment_story_bg04COMMON_END = .;
         segment_story_bg04COMMON_SIZE = ABSOLUTE(segment_story_bg04COMMON_END - segment_story_bg04COMMON_START);
     }
@@ -4463,25 +4639,25 @@ SECTIONS
     segment_story_bg05_alloc_VRAM = .;
     .segment_story_bg05 : AT(segment_story_bg05_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg05_text_START = .;
-        build/us/asm/segment_story_bg05.o(.text*);
-        segment_story_bg05_text_END = .;
-        segment_story_bg05_text_SIZE = ABSOLUTE(segment_story_bg05_text_END - segment_story_bg05_text_START);
+        segment_story_bg05_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.text*);
+        segment_story_bg05_TEXT_END = .;
+        segment_story_bg05_TEXT_SIZE = ABSOLUTE(segment_story_bg05_TEXT_END - segment_story_bg05_TEXT_START);
 
-        segment_story_bg05_data_START = .;
-        build/us/asm/segment_story_bg05.o(.data*);
-        segment_story_bg05_data_END = .;
-        segment_story_bg05_data_SIZE = ABSOLUTE(segment_story_bg05_data_END - segment_story_bg05_data_START);
+        segment_story_bg05_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.data*);
+        segment_story_bg05_DATA_END = .;
+        segment_story_bg05_DATA_SIZE = ABSOLUTE(segment_story_bg05_DATA_END - segment_story_bg05_DATA_START);
 
-        segment_story_bg05_rodata_START = .;
-        build/us/asm/segment_story_bg05.o(.rodata*);
-        segment_story_bg05_rodata_END = .;
-        segment_story_bg05_rodata_SIZE = ABSOLUTE(segment_story_bg05_rodata_END - segment_story_bg05_rodata_START);
+        segment_story_bg05_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.rodata*);
+        segment_story_bg05_RODATA_END = .;
+        segment_story_bg05_RODATA_SIZE = ABSOLUTE(segment_story_bg05_RODATA_END - segment_story_bg05_RODATA_START);
 
-        segment_story_bg05_sdata_START = .;
-        build/us/asm/segment_story_bg05.o(.sdata*);
-        segment_story_bg05_sdata_END = .;
-        segment_story_bg05_sdata_SIZE = ABSOLUTE(segment_story_bg05_sdata_END - segment_story_bg05_sdata_START);
+        segment_story_bg05_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.sdata*);
+        segment_story_bg05_SDATA_END = .;
+        segment_story_bg05_SDATA_SIZE = ABSOLUTE(segment_story_bg05_SDATA_END - segment_story_bg05_SDATA_START);
     }
     segment_story_bg05_alloc_VRAM_END = .;
     segment_story_bg05_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg05_alloc_VRAM_END - segment_story_bg05_alloc_VRAM);
@@ -4489,23 +4665,23 @@ SECTIONS
     segment_story_bg05_noload_VRAM = .;
     .segment_story_bg05.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg05_sbss_START = .;
-        build/us/asm/segment_story_bg05.o(.sbss*);
-        segment_story_bg05_sbss_END = .;
-        segment_story_bg05_sbss_SIZE = ABSOLUTE(segment_story_bg05_sbss_END - segment_story_bg05_sbss_START);
+        segment_story_bg05_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.sbss*);
+        segment_story_bg05_SBSS_END = .;
+        segment_story_bg05_SBSS_SIZE = ABSOLUTE(segment_story_bg05_SBSS_END - segment_story_bg05_SBSS_START);
 
-        segment_story_bg05_scommon_START = .;
-        build/us/asm/segment_story_bg05.o(.scommon*);
-        segment_story_bg05_scommon_END = .;
-        segment_story_bg05_scommon_SIZE = ABSOLUTE(segment_story_bg05_scommon_END - segment_story_bg05_scommon_START);
+        segment_story_bg05_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.scommon*);
+        segment_story_bg05_SCOMMON_END = .;
+        segment_story_bg05_SCOMMON_SIZE = ABSOLUTE(segment_story_bg05_SCOMMON_END - segment_story_bg05_SCOMMON_START);
 
-        segment_story_bg05_bss_START = .;
-        build/us/asm/segment_story_bg05.o(.bss*);
-        segment_story_bg05_bss_END = .;
-        segment_story_bg05_bss_SIZE = ABSOLUTE(segment_story_bg05_bss_END - segment_story_bg05_bss_START);
+        segment_story_bg05_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg05.o(.bss*);
+        segment_story_bg05_BSS_END = .;
+        segment_story_bg05_BSS_SIZE = ABSOLUTE(segment_story_bg05_BSS_END - segment_story_bg05_BSS_START);
 
         segment_story_bg05COMMON_START = .;
-        build/us/asm/segment_story_bg05.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg05.o(COMMON*);
         segment_story_bg05COMMON_END = .;
         segment_story_bg05COMMON_SIZE = ABSOLUTE(segment_story_bg05COMMON_END - segment_story_bg05COMMON_START);
     }
@@ -4522,25 +4698,25 @@ SECTIONS
     segment_story_bg07_alloc_VRAM = .;
     .segment_story_bg07 : AT(segment_story_bg07_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg07_text_START = .;
-        build/us/asm/segment_story_bg07.o(.text*);
-        segment_story_bg07_text_END = .;
-        segment_story_bg07_text_SIZE = ABSOLUTE(segment_story_bg07_text_END - segment_story_bg07_text_START);
+        segment_story_bg07_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.text*);
+        segment_story_bg07_TEXT_END = .;
+        segment_story_bg07_TEXT_SIZE = ABSOLUTE(segment_story_bg07_TEXT_END - segment_story_bg07_TEXT_START);
 
-        segment_story_bg07_data_START = .;
-        build/us/asm/segment_story_bg07.o(.data*);
-        segment_story_bg07_data_END = .;
-        segment_story_bg07_data_SIZE = ABSOLUTE(segment_story_bg07_data_END - segment_story_bg07_data_START);
+        segment_story_bg07_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.data*);
+        segment_story_bg07_DATA_END = .;
+        segment_story_bg07_DATA_SIZE = ABSOLUTE(segment_story_bg07_DATA_END - segment_story_bg07_DATA_START);
 
-        segment_story_bg07_rodata_START = .;
-        build/us/asm/segment_story_bg07.o(.rodata*);
-        segment_story_bg07_rodata_END = .;
-        segment_story_bg07_rodata_SIZE = ABSOLUTE(segment_story_bg07_rodata_END - segment_story_bg07_rodata_START);
+        segment_story_bg07_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.rodata*);
+        segment_story_bg07_RODATA_END = .;
+        segment_story_bg07_RODATA_SIZE = ABSOLUTE(segment_story_bg07_RODATA_END - segment_story_bg07_RODATA_START);
 
-        segment_story_bg07_sdata_START = .;
-        build/us/asm/segment_story_bg07.o(.sdata*);
-        segment_story_bg07_sdata_END = .;
-        segment_story_bg07_sdata_SIZE = ABSOLUTE(segment_story_bg07_sdata_END - segment_story_bg07_sdata_START);
+        segment_story_bg07_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.sdata*);
+        segment_story_bg07_SDATA_END = .;
+        segment_story_bg07_SDATA_SIZE = ABSOLUTE(segment_story_bg07_SDATA_END - segment_story_bg07_SDATA_START);
     }
     segment_story_bg07_alloc_VRAM_END = .;
     segment_story_bg07_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg07_alloc_VRAM_END - segment_story_bg07_alloc_VRAM);
@@ -4548,23 +4724,23 @@ SECTIONS
     segment_story_bg07_noload_VRAM = .;
     .segment_story_bg07.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg07_sbss_START = .;
-        build/us/asm/segment_story_bg07.o(.sbss*);
-        segment_story_bg07_sbss_END = .;
-        segment_story_bg07_sbss_SIZE = ABSOLUTE(segment_story_bg07_sbss_END - segment_story_bg07_sbss_START);
+        segment_story_bg07_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.sbss*);
+        segment_story_bg07_SBSS_END = .;
+        segment_story_bg07_SBSS_SIZE = ABSOLUTE(segment_story_bg07_SBSS_END - segment_story_bg07_SBSS_START);
 
-        segment_story_bg07_scommon_START = .;
-        build/us/asm/segment_story_bg07.o(.scommon*);
-        segment_story_bg07_scommon_END = .;
-        segment_story_bg07_scommon_SIZE = ABSOLUTE(segment_story_bg07_scommon_END - segment_story_bg07_scommon_START);
+        segment_story_bg07_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.scommon*);
+        segment_story_bg07_SCOMMON_END = .;
+        segment_story_bg07_SCOMMON_SIZE = ABSOLUTE(segment_story_bg07_SCOMMON_END - segment_story_bg07_SCOMMON_START);
 
-        segment_story_bg07_bss_START = .;
-        build/us/asm/segment_story_bg07.o(.bss*);
-        segment_story_bg07_bss_END = .;
-        segment_story_bg07_bss_SIZE = ABSOLUTE(segment_story_bg07_bss_END - segment_story_bg07_bss_START);
+        segment_story_bg07_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg07.o(.bss*);
+        segment_story_bg07_BSS_END = .;
+        segment_story_bg07_BSS_SIZE = ABSOLUTE(segment_story_bg07_BSS_END - segment_story_bg07_BSS_START);
 
         segment_story_bg07COMMON_START = .;
-        build/us/asm/segment_story_bg07.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg07.o(COMMON*);
         segment_story_bg07COMMON_END = .;
         segment_story_bg07COMMON_SIZE = ABSOLUTE(segment_story_bg07COMMON_END - segment_story_bg07COMMON_START);
     }
@@ -4581,25 +4757,25 @@ SECTIONS
     segment_story_bg08_alloc_VRAM = .;
     .segment_story_bg08 : AT(segment_story_bg08_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg08_text_START = .;
-        build/us/asm/segment_story_bg08.o(.text*);
-        segment_story_bg08_text_END = .;
-        segment_story_bg08_text_SIZE = ABSOLUTE(segment_story_bg08_text_END - segment_story_bg08_text_START);
+        segment_story_bg08_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.text*);
+        segment_story_bg08_TEXT_END = .;
+        segment_story_bg08_TEXT_SIZE = ABSOLUTE(segment_story_bg08_TEXT_END - segment_story_bg08_TEXT_START);
 
-        segment_story_bg08_data_START = .;
-        build/us/asm/segment_story_bg08.o(.data*);
-        segment_story_bg08_data_END = .;
-        segment_story_bg08_data_SIZE = ABSOLUTE(segment_story_bg08_data_END - segment_story_bg08_data_START);
+        segment_story_bg08_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.data*);
+        segment_story_bg08_DATA_END = .;
+        segment_story_bg08_DATA_SIZE = ABSOLUTE(segment_story_bg08_DATA_END - segment_story_bg08_DATA_START);
 
-        segment_story_bg08_rodata_START = .;
-        build/us/asm/segment_story_bg08.o(.rodata*);
-        segment_story_bg08_rodata_END = .;
-        segment_story_bg08_rodata_SIZE = ABSOLUTE(segment_story_bg08_rodata_END - segment_story_bg08_rodata_START);
+        segment_story_bg08_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.rodata*);
+        segment_story_bg08_RODATA_END = .;
+        segment_story_bg08_RODATA_SIZE = ABSOLUTE(segment_story_bg08_RODATA_END - segment_story_bg08_RODATA_START);
 
-        segment_story_bg08_sdata_START = .;
-        build/us/asm/segment_story_bg08.o(.sdata*);
-        segment_story_bg08_sdata_END = .;
-        segment_story_bg08_sdata_SIZE = ABSOLUTE(segment_story_bg08_sdata_END - segment_story_bg08_sdata_START);
+        segment_story_bg08_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.sdata*);
+        segment_story_bg08_SDATA_END = .;
+        segment_story_bg08_SDATA_SIZE = ABSOLUTE(segment_story_bg08_SDATA_END - segment_story_bg08_SDATA_START);
     }
     segment_story_bg08_alloc_VRAM_END = .;
     segment_story_bg08_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg08_alloc_VRAM_END - segment_story_bg08_alloc_VRAM);
@@ -4607,23 +4783,23 @@ SECTIONS
     segment_story_bg08_noload_VRAM = .;
     .segment_story_bg08.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg08_sbss_START = .;
-        build/us/asm/segment_story_bg08.o(.sbss*);
-        segment_story_bg08_sbss_END = .;
-        segment_story_bg08_sbss_SIZE = ABSOLUTE(segment_story_bg08_sbss_END - segment_story_bg08_sbss_START);
+        segment_story_bg08_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.sbss*);
+        segment_story_bg08_SBSS_END = .;
+        segment_story_bg08_SBSS_SIZE = ABSOLUTE(segment_story_bg08_SBSS_END - segment_story_bg08_SBSS_START);
 
-        segment_story_bg08_scommon_START = .;
-        build/us/asm/segment_story_bg08.o(.scommon*);
-        segment_story_bg08_scommon_END = .;
-        segment_story_bg08_scommon_SIZE = ABSOLUTE(segment_story_bg08_scommon_END - segment_story_bg08_scommon_START);
+        segment_story_bg08_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.scommon*);
+        segment_story_bg08_SCOMMON_END = .;
+        segment_story_bg08_SCOMMON_SIZE = ABSOLUTE(segment_story_bg08_SCOMMON_END - segment_story_bg08_SCOMMON_START);
 
-        segment_story_bg08_bss_START = .;
-        build/us/asm/segment_story_bg08.o(.bss*);
-        segment_story_bg08_bss_END = .;
-        segment_story_bg08_bss_SIZE = ABSOLUTE(segment_story_bg08_bss_END - segment_story_bg08_bss_START);
+        segment_story_bg08_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg08.o(.bss*);
+        segment_story_bg08_BSS_END = .;
+        segment_story_bg08_BSS_SIZE = ABSOLUTE(segment_story_bg08_BSS_END - segment_story_bg08_BSS_START);
 
         segment_story_bg08COMMON_START = .;
-        build/us/asm/segment_story_bg08.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg08.o(COMMON*);
         segment_story_bg08COMMON_END = .;
         segment_story_bg08COMMON_SIZE = ABSOLUTE(segment_story_bg08COMMON_END - segment_story_bg08COMMON_START);
     }
@@ -4640,25 +4816,25 @@ SECTIONS
     segment_story_bg09_alloc_VRAM = .;
     .segment_story_bg09 : AT(segment_story_bg09_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg09_text_START = .;
-        build/us/asm/segment_story_bg09.o(.text*);
-        segment_story_bg09_text_END = .;
-        segment_story_bg09_text_SIZE = ABSOLUTE(segment_story_bg09_text_END - segment_story_bg09_text_START);
+        segment_story_bg09_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.text*);
+        segment_story_bg09_TEXT_END = .;
+        segment_story_bg09_TEXT_SIZE = ABSOLUTE(segment_story_bg09_TEXT_END - segment_story_bg09_TEXT_START);
 
-        segment_story_bg09_data_START = .;
-        build/us/asm/segment_story_bg09.o(.data*);
-        segment_story_bg09_data_END = .;
-        segment_story_bg09_data_SIZE = ABSOLUTE(segment_story_bg09_data_END - segment_story_bg09_data_START);
+        segment_story_bg09_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.data*);
+        segment_story_bg09_DATA_END = .;
+        segment_story_bg09_DATA_SIZE = ABSOLUTE(segment_story_bg09_DATA_END - segment_story_bg09_DATA_START);
 
-        segment_story_bg09_rodata_START = .;
-        build/us/asm/segment_story_bg09.o(.rodata*);
-        segment_story_bg09_rodata_END = .;
-        segment_story_bg09_rodata_SIZE = ABSOLUTE(segment_story_bg09_rodata_END - segment_story_bg09_rodata_START);
+        segment_story_bg09_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.rodata*);
+        segment_story_bg09_RODATA_END = .;
+        segment_story_bg09_RODATA_SIZE = ABSOLUTE(segment_story_bg09_RODATA_END - segment_story_bg09_RODATA_START);
 
-        segment_story_bg09_sdata_START = .;
-        build/us/asm/segment_story_bg09.o(.sdata*);
-        segment_story_bg09_sdata_END = .;
-        segment_story_bg09_sdata_SIZE = ABSOLUTE(segment_story_bg09_sdata_END - segment_story_bg09_sdata_START);
+        segment_story_bg09_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.sdata*);
+        segment_story_bg09_SDATA_END = .;
+        segment_story_bg09_SDATA_SIZE = ABSOLUTE(segment_story_bg09_SDATA_END - segment_story_bg09_SDATA_START);
     }
     segment_story_bg09_alloc_VRAM_END = .;
     segment_story_bg09_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg09_alloc_VRAM_END - segment_story_bg09_alloc_VRAM);
@@ -4666,23 +4842,23 @@ SECTIONS
     segment_story_bg09_noload_VRAM = .;
     .segment_story_bg09.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg09_sbss_START = .;
-        build/us/asm/segment_story_bg09.o(.sbss*);
-        segment_story_bg09_sbss_END = .;
-        segment_story_bg09_sbss_SIZE = ABSOLUTE(segment_story_bg09_sbss_END - segment_story_bg09_sbss_START);
+        segment_story_bg09_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.sbss*);
+        segment_story_bg09_SBSS_END = .;
+        segment_story_bg09_SBSS_SIZE = ABSOLUTE(segment_story_bg09_SBSS_END - segment_story_bg09_SBSS_START);
 
-        segment_story_bg09_scommon_START = .;
-        build/us/asm/segment_story_bg09.o(.scommon*);
-        segment_story_bg09_scommon_END = .;
-        segment_story_bg09_scommon_SIZE = ABSOLUTE(segment_story_bg09_scommon_END - segment_story_bg09_scommon_START);
+        segment_story_bg09_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.scommon*);
+        segment_story_bg09_SCOMMON_END = .;
+        segment_story_bg09_SCOMMON_SIZE = ABSOLUTE(segment_story_bg09_SCOMMON_END - segment_story_bg09_SCOMMON_START);
 
-        segment_story_bg09_bss_START = .;
-        build/us/asm/segment_story_bg09.o(.bss*);
-        segment_story_bg09_bss_END = .;
-        segment_story_bg09_bss_SIZE = ABSOLUTE(segment_story_bg09_bss_END - segment_story_bg09_bss_START);
+        segment_story_bg09_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg09.o(.bss*);
+        segment_story_bg09_BSS_END = .;
+        segment_story_bg09_BSS_SIZE = ABSOLUTE(segment_story_bg09_BSS_END - segment_story_bg09_BSS_START);
 
         segment_story_bg09COMMON_START = .;
-        build/us/asm/segment_story_bg09.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg09.o(COMMON*);
         segment_story_bg09COMMON_END = .;
         segment_story_bg09COMMON_SIZE = ABSOLUTE(segment_story_bg09COMMON_END - segment_story_bg09COMMON_START);
     }
@@ -4699,25 +4875,25 @@ SECTIONS
     segment_story_bg10_alloc_VRAM = .;
     .segment_story_bg10 : AT(segment_story_bg10_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg10_text_START = .;
-        build/us/asm/segment_story_bg10.o(.text*);
-        segment_story_bg10_text_END = .;
-        segment_story_bg10_text_SIZE = ABSOLUTE(segment_story_bg10_text_END - segment_story_bg10_text_START);
+        segment_story_bg10_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.text*);
+        segment_story_bg10_TEXT_END = .;
+        segment_story_bg10_TEXT_SIZE = ABSOLUTE(segment_story_bg10_TEXT_END - segment_story_bg10_TEXT_START);
 
-        segment_story_bg10_data_START = .;
-        build/us/asm/segment_story_bg10.o(.data*);
-        segment_story_bg10_data_END = .;
-        segment_story_bg10_data_SIZE = ABSOLUTE(segment_story_bg10_data_END - segment_story_bg10_data_START);
+        segment_story_bg10_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.data*);
+        segment_story_bg10_DATA_END = .;
+        segment_story_bg10_DATA_SIZE = ABSOLUTE(segment_story_bg10_DATA_END - segment_story_bg10_DATA_START);
 
-        segment_story_bg10_rodata_START = .;
-        build/us/asm/segment_story_bg10.o(.rodata*);
-        segment_story_bg10_rodata_END = .;
-        segment_story_bg10_rodata_SIZE = ABSOLUTE(segment_story_bg10_rodata_END - segment_story_bg10_rodata_START);
+        segment_story_bg10_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.rodata*);
+        segment_story_bg10_RODATA_END = .;
+        segment_story_bg10_RODATA_SIZE = ABSOLUTE(segment_story_bg10_RODATA_END - segment_story_bg10_RODATA_START);
 
-        segment_story_bg10_sdata_START = .;
-        build/us/asm/segment_story_bg10.o(.sdata*);
-        segment_story_bg10_sdata_END = .;
-        segment_story_bg10_sdata_SIZE = ABSOLUTE(segment_story_bg10_sdata_END - segment_story_bg10_sdata_START);
+        segment_story_bg10_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.sdata*);
+        segment_story_bg10_SDATA_END = .;
+        segment_story_bg10_SDATA_SIZE = ABSOLUTE(segment_story_bg10_SDATA_END - segment_story_bg10_SDATA_START);
     }
     segment_story_bg10_alloc_VRAM_END = .;
     segment_story_bg10_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg10_alloc_VRAM_END - segment_story_bg10_alloc_VRAM);
@@ -4725,23 +4901,23 @@ SECTIONS
     segment_story_bg10_noload_VRAM = .;
     .segment_story_bg10.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg10_sbss_START = .;
-        build/us/asm/segment_story_bg10.o(.sbss*);
-        segment_story_bg10_sbss_END = .;
-        segment_story_bg10_sbss_SIZE = ABSOLUTE(segment_story_bg10_sbss_END - segment_story_bg10_sbss_START);
+        segment_story_bg10_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.sbss*);
+        segment_story_bg10_SBSS_END = .;
+        segment_story_bg10_SBSS_SIZE = ABSOLUTE(segment_story_bg10_SBSS_END - segment_story_bg10_SBSS_START);
 
-        segment_story_bg10_scommon_START = .;
-        build/us/asm/segment_story_bg10.o(.scommon*);
-        segment_story_bg10_scommon_END = .;
-        segment_story_bg10_scommon_SIZE = ABSOLUTE(segment_story_bg10_scommon_END - segment_story_bg10_scommon_START);
+        segment_story_bg10_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.scommon*);
+        segment_story_bg10_SCOMMON_END = .;
+        segment_story_bg10_SCOMMON_SIZE = ABSOLUTE(segment_story_bg10_SCOMMON_END - segment_story_bg10_SCOMMON_START);
 
-        segment_story_bg10_bss_START = .;
-        build/us/asm/segment_story_bg10.o(.bss*);
-        segment_story_bg10_bss_END = .;
-        segment_story_bg10_bss_SIZE = ABSOLUTE(segment_story_bg10_bss_END - segment_story_bg10_bss_START);
+        segment_story_bg10_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg10.o(.bss*);
+        segment_story_bg10_BSS_END = .;
+        segment_story_bg10_BSS_SIZE = ABSOLUTE(segment_story_bg10_BSS_END - segment_story_bg10_BSS_START);
 
         segment_story_bg10COMMON_START = .;
-        build/us/asm/segment_story_bg10.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg10.o(COMMON*);
         segment_story_bg10COMMON_END = .;
         segment_story_bg10COMMON_SIZE = ABSOLUTE(segment_story_bg10COMMON_END - segment_story_bg10COMMON_START);
     }
@@ -4758,25 +4934,25 @@ SECTIONS
     segment_story_bg11_alloc_VRAM = .;
     .segment_story_bg11 : AT(segment_story_bg11_ROM_START) SUBALIGN(16)
     {
-        segment_story_bg11_text_START = .;
-        build/us/asm/segment_story_bg11.o(.text*);
-        segment_story_bg11_text_END = .;
-        segment_story_bg11_text_SIZE = ABSOLUTE(segment_story_bg11_text_END - segment_story_bg11_text_START);
+        segment_story_bg11_TEXT_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.text*);
+        segment_story_bg11_TEXT_END = .;
+        segment_story_bg11_TEXT_SIZE = ABSOLUTE(segment_story_bg11_TEXT_END - segment_story_bg11_TEXT_START);
 
-        segment_story_bg11_data_START = .;
-        build/us/asm/segment_story_bg11.o(.data*);
-        segment_story_bg11_data_END = .;
-        segment_story_bg11_data_SIZE = ABSOLUTE(segment_story_bg11_data_END - segment_story_bg11_data_START);
+        segment_story_bg11_DATA_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.data*);
+        segment_story_bg11_DATA_END = .;
+        segment_story_bg11_DATA_SIZE = ABSOLUTE(segment_story_bg11_DATA_END - segment_story_bg11_DATA_START);
 
-        segment_story_bg11_rodata_START = .;
-        build/us/asm/segment_story_bg11.o(.rodata*);
-        segment_story_bg11_rodata_END = .;
-        segment_story_bg11_rodata_SIZE = ABSOLUTE(segment_story_bg11_rodata_END - segment_story_bg11_rodata_START);
+        segment_story_bg11_RODATA_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.rodata*);
+        segment_story_bg11_RODATA_END = .;
+        segment_story_bg11_RODATA_SIZE = ABSOLUTE(segment_story_bg11_RODATA_END - segment_story_bg11_RODATA_START);
 
-        segment_story_bg11_sdata_START = .;
-        build/us/asm/segment_story_bg11.o(.sdata*);
-        segment_story_bg11_sdata_END = .;
-        segment_story_bg11_sdata_SIZE = ABSOLUTE(segment_story_bg11_sdata_END - segment_story_bg11_sdata_START);
+        segment_story_bg11_SDATA_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.sdata*);
+        segment_story_bg11_SDATA_END = .;
+        segment_story_bg11_SDATA_SIZE = ABSOLUTE(segment_story_bg11_SDATA_END - segment_story_bg11_SDATA_START);
     }
     segment_story_bg11_alloc_VRAM_END = .;
     segment_story_bg11_alloc_VRAM_SIZE = ABSOLUTE(segment_story_bg11_alloc_VRAM_END - segment_story_bg11_alloc_VRAM);
@@ -4784,23 +4960,23 @@ SECTIONS
     segment_story_bg11_noload_VRAM = .;
     .segment_story_bg11.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_story_bg11_sbss_START = .;
-        build/us/asm/segment_story_bg11.o(.sbss*);
-        segment_story_bg11_sbss_END = .;
-        segment_story_bg11_sbss_SIZE = ABSOLUTE(segment_story_bg11_sbss_END - segment_story_bg11_sbss_START);
+        segment_story_bg11_SBSS_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.sbss*);
+        segment_story_bg11_SBSS_END = .;
+        segment_story_bg11_SBSS_SIZE = ABSOLUTE(segment_story_bg11_SBSS_END - segment_story_bg11_SBSS_START);
 
-        segment_story_bg11_scommon_START = .;
-        build/us/asm/segment_story_bg11.o(.scommon*);
-        segment_story_bg11_scommon_END = .;
-        segment_story_bg11_scommon_SIZE = ABSOLUTE(segment_story_bg11_scommon_END - segment_story_bg11_scommon_START);
+        segment_story_bg11_SCOMMON_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.scommon*);
+        segment_story_bg11_SCOMMON_END = .;
+        segment_story_bg11_SCOMMON_SIZE = ABSOLUTE(segment_story_bg11_SCOMMON_END - segment_story_bg11_SCOMMON_START);
 
-        segment_story_bg11_bss_START = .;
-        build/us/asm/segment_story_bg11.o(.bss*);
-        segment_story_bg11_bss_END = .;
-        segment_story_bg11_bss_SIZE = ABSOLUTE(segment_story_bg11_bss_END - segment_story_bg11_bss_START);
+        segment_story_bg11_BSS_START = .;
+        build/us/asm/us/data/segment_story_bg11.o(.bss*);
+        segment_story_bg11_BSS_END = .;
+        segment_story_bg11_BSS_SIZE = ABSOLUTE(segment_story_bg11_BSS_END - segment_story_bg11_BSS_START);
 
         segment_story_bg11COMMON_START = .;
-        build/us/asm/segment_story_bg11.o(COMMON*);
+        build/us/asm/us/data/segment_story_bg11.o(COMMON*);
         segment_story_bg11COMMON_END = .;
         segment_story_bg11COMMON_SIZE = ABSOLUTE(segment_story_bg11COMMON_END - segment_story_bg11COMMON_START);
     }
@@ -4817,25 +4993,25 @@ SECTIONS
     segment_menu_char_alloc_VRAM = .;
     .segment_menu_char 0x00000000 : AT(segment_menu_char_ROM_START) SUBALIGN(16)
     {
-        segment_menu_char_text_START = .;
+        segment_menu_char_TEXT_START = .;
         build/us/src/assets/menu/menu_char.o(.text*);
-        segment_menu_char_text_END = .;
-        segment_menu_char_text_SIZE = ABSOLUTE(segment_menu_char_text_END - segment_menu_char_text_START);
+        segment_menu_char_TEXT_END = .;
+        segment_menu_char_TEXT_SIZE = ABSOLUTE(segment_menu_char_TEXT_END - segment_menu_char_TEXT_START);
 
-        segment_menu_char_data_START = .;
+        segment_menu_char_DATA_START = .;
         build/us/src/assets/menu/menu_char.o(.data*);
-        segment_menu_char_data_END = .;
-        segment_menu_char_data_SIZE = ABSOLUTE(segment_menu_char_data_END - segment_menu_char_data_START);
+        segment_menu_char_DATA_END = .;
+        segment_menu_char_DATA_SIZE = ABSOLUTE(segment_menu_char_DATA_END - segment_menu_char_DATA_START);
 
-        segment_menu_char_rodata_START = .;
+        segment_menu_char_RODATA_START = .;
         build/us/src/assets/menu/menu_char.o(.rodata*);
-        segment_menu_char_rodata_END = .;
-        segment_menu_char_rodata_SIZE = ABSOLUTE(segment_menu_char_rodata_END - segment_menu_char_rodata_START);
+        segment_menu_char_RODATA_END = .;
+        segment_menu_char_RODATA_SIZE = ABSOLUTE(segment_menu_char_RODATA_END - segment_menu_char_RODATA_START);
 
-        segment_menu_char_sdata_START = .;
+        segment_menu_char_SDATA_START = .;
         build/us/src/assets/menu/menu_char.o(.sdata*);
-        segment_menu_char_sdata_END = .;
-        segment_menu_char_sdata_SIZE = ABSOLUTE(segment_menu_char_sdata_END - segment_menu_char_sdata_START);
+        segment_menu_char_SDATA_END = .;
+        segment_menu_char_SDATA_SIZE = ABSOLUTE(segment_menu_char_SDATA_END - segment_menu_char_SDATA_START);
     }
     segment_menu_char_alloc_VRAM_END = .;
     segment_menu_char_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_char_alloc_VRAM_END - segment_menu_char_alloc_VRAM);
@@ -4843,20 +5019,20 @@ SECTIONS
     segment_menu_char_noload_VRAM = .;
     .segment_menu_char.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_char_sbss_START = .;
+        segment_menu_char_SBSS_START = .;
         build/us/src/assets/menu/menu_char.o(.sbss*);
-        segment_menu_char_sbss_END = .;
-        segment_menu_char_sbss_SIZE = ABSOLUTE(segment_menu_char_sbss_END - segment_menu_char_sbss_START);
+        segment_menu_char_SBSS_END = .;
+        segment_menu_char_SBSS_SIZE = ABSOLUTE(segment_menu_char_SBSS_END - segment_menu_char_SBSS_START);
 
-        segment_menu_char_scommon_START = .;
+        segment_menu_char_SCOMMON_START = .;
         build/us/src/assets/menu/menu_char.o(.scommon*);
-        segment_menu_char_scommon_END = .;
-        segment_menu_char_scommon_SIZE = ABSOLUTE(segment_menu_char_scommon_END - segment_menu_char_scommon_START);
+        segment_menu_char_SCOMMON_END = .;
+        segment_menu_char_SCOMMON_SIZE = ABSOLUTE(segment_menu_char_SCOMMON_END - segment_menu_char_SCOMMON_START);
 
-        segment_menu_char_bss_START = .;
+        segment_menu_char_BSS_START = .;
         build/us/src/assets/menu/menu_char.o(.bss*);
-        segment_menu_char_bss_END = .;
-        segment_menu_char_bss_SIZE = ABSOLUTE(segment_menu_char_bss_END - segment_menu_char_bss_START);
+        segment_menu_char_BSS_END = .;
+        segment_menu_char_BSS_SIZE = ABSOLUTE(segment_menu_char_BSS_END - segment_menu_char_BSS_START);
 
         segment_menu_charCOMMON_START = .;
         build/us/src/assets/menu/menu_char.o(COMMON*);
@@ -4876,25 +5052,25 @@ SECTIONS
     segment_menu_common_alloc_VRAM = .;
     .segment_menu_common 0x00000000 : AT(segment_menu_common_ROM_START) SUBALIGN(16)
     {
-        segment_menu_common_text_START = .;
+        segment_menu_common_TEXT_START = .;
         build/us/src/assets/menu/menu_common.o(.text*);
-        segment_menu_common_text_END = .;
-        segment_menu_common_text_SIZE = ABSOLUTE(segment_menu_common_text_END - segment_menu_common_text_START);
+        segment_menu_common_TEXT_END = .;
+        segment_menu_common_TEXT_SIZE = ABSOLUTE(segment_menu_common_TEXT_END - segment_menu_common_TEXT_START);
 
-        segment_menu_common_data_START = .;
+        segment_menu_common_DATA_START = .;
         build/us/src/assets/menu/menu_common.o(.data*);
-        segment_menu_common_data_END = .;
-        segment_menu_common_data_SIZE = ABSOLUTE(segment_menu_common_data_END - segment_menu_common_data_START);
+        segment_menu_common_DATA_END = .;
+        segment_menu_common_DATA_SIZE = ABSOLUTE(segment_menu_common_DATA_END - segment_menu_common_DATA_START);
 
-        segment_menu_common_rodata_START = .;
+        segment_menu_common_RODATA_START = .;
         build/us/src/assets/menu/menu_common.o(.rodata*);
-        segment_menu_common_rodata_END = .;
-        segment_menu_common_rodata_SIZE = ABSOLUTE(segment_menu_common_rodata_END - segment_menu_common_rodata_START);
+        segment_menu_common_RODATA_END = .;
+        segment_menu_common_RODATA_SIZE = ABSOLUTE(segment_menu_common_RODATA_END - segment_menu_common_RODATA_START);
 
-        segment_menu_common_sdata_START = .;
+        segment_menu_common_SDATA_START = .;
         build/us/src/assets/menu/menu_common.o(.sdata*);
-        segment_menu_common_sdata_END = .;
-        segment_menu_common_sdata_SIZE = ABSOLUTE(segment_menu_common_sdata_END - segment_menu_common_sdata_START);
+        segment_menu_common_SDATA_END = .;
+        segment_menu_common_SDATA_SIZE = ABSOLUTE(segment_menu_common_SDATA_END - segment_menu_common_SDATA_START);
     }
     segment_menu_common_alloc_VRAM_END = .;
     segment_menu_common_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_common_alloc_VRAM_END - segment_menu_common_alloc_VRAM);
@@ -4902,20 +5078,20 @@ SECTIONS
     segment_menu_common_noload_VRAM = .;
     .segment_menu_common.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_common_sbss_START = .;
+        segment_menu_common_SBSS_START = .;
         build/us/src/assets/menu/menu_common.o(.sbss*);
-        segment_menu_common_sbss_END = .;
-        segment_menu_common_sbss_SIZE = ABSOLUTE(segment_menu_common_sbss_END - segment_menu_common_sbss_START);
+        segment_menu_common_SBSS_END = .;
+        segment_menu_common_SBSS_SIZE = ABSOLUTE(segment_menu_common_SBSS_END - segment_menu_common_SBSS_START);
 
-        segment_menu_common_scommon_START = .;
+        segment_menu_common_SCOMMON_START = .;
         build/us/src/assets/menu/menu_common.o(.scommon*);
-        segment_menu_common_scommon_END = .;
-        segment_menu_common_scommon_SIZE = ABSOLUTE(segment_menu_common_scommon_END - segment_menu_common_scommon_START);
+        segment_menu_common_SCOMMON_END = .;
+        segment_menu_common_SCOMMON_SIZE = ABSOLUTE(segment_menu_common_SCOMMON_END - segment_menu_common_SCOMMON_START);
 
-        segment_menu_common_bss_START = .;
+        segment_menu_common_BSS_START = .;
         build/us/src/assets/menu/menu_common.o(.bss*);
-        segment_menu_common_bss_END = .;
-        segment_menu_common_bss_SIZE = ABSOLUTE(segment_menu_common_bss_END - segment_menu_common_bss_START);
+        segment_menu_common_BSS_END = .;
+        segment_menu_common_BSS_SIZE = ABSOLUTE(segment_menu_common_BSS_END - segment_menu_common_BSS_START);
 
         segment_menu_commonCOMMON_START = .;
         build/us/src/assets/menu/menu_common.o(COMMON*);
@@ -4935,25 +5111,25 @@ SECTIONS
     segment_menu_level_alloc_VRAM = .;
     .segment_menu_level 0x00000000 : AT(segment_menu_level_ROM_START) SUBALIGN(16)
     {
-        segment_menu_level_text_START = .;
+        segment_menu_level_TEXT_START = .;
         build/us/src/assets/menu/menu_level.o(.text*);
-        segment_menu_level_text_END = .;
-        segment_menu_level_text_SIZE = ABSOLUTE(segment_menu_level_text_END - segment_menu_level_text_START);
+        segment_menu_level_TEXT_END = .;
+        segment_menu_level_TEXT_SIZE = ABSOLUTE(segment_menu_level_TEXT_END - segment_menu_level_TEXT_START);
 
-        segment_menu_level_data_START = .;
+        segment_menu_level_DATA_START = .;
         build/us/src/assets/menu/menu_level.o(.data*);
-        segment_menu_level_data_END = .;
-        segment_menu_level_data_SIZE = ABSOLUTE(segment_menu_level_data_END - segment_menu_level_data_START);
+        segment_menu_level_DATA_END = .;
+        segment_menu_level_DATA_SIZE = ABSOLUTE(segment_menu_level_DATA_END - segment_menu_level_DATA_START);
 
-        segment_menu_level_rodata_START = .;
+        segment_menu_level_RODATA_START = .;
         build/us/src/assets/menu/menu_level.o(.rodata*);
-        segment_menu_level_rodata_END = .;
-        segment_menu_level_rodata_SIZE = ABSOLUTE(segment_menu_level_rodata_END - segment_menu_level_rodata_START);
+        segment_menu_level_RODATA_END = .;
+        segment_menu_level_RODATA_SIZE = ABSOLUTE(segment_menu_level_RODATA_END - segment_menu_level_RODATA_START);
 
-        segment_menu_level_sdata_START = .;
+        segment_menu_level_SDATA_START = .;
         build/us/src/assets/menu/menu_level.o(.sdata*);
-        segment_menu_level_sdata_END = .;
-        segment_menu_level_sdata_SIZE = ABSOLUTE(segment_menu_level_sdata_END - segment_menu_level_sdata_START);
+        segment_menu_level_SDATA_END = .;
+        segment_menu_level_SDATA_SIZE = ABSOLUTE(segment_menu_level_SDATA_END - segment_menu_level_SDATA_START);
     }
     segment_menu_level_alloc_VRAM_END = .;
     segment_menu_level_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_level_alloc_VRAM_END - segment_menu_level_alloc_VRAM);
@@ -4961,20 +5137,20 @@ SECTIONS
     segment_menu_level_noload_VRAM = .;
     .segment_menu_level.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_level_sbss_START = .;
+        segment_menu_level_SBSS_START = .;
         build/us/src/assets/menu/menu_level.o(.sbss*);
-        segment_menu_level_sbss_END = .;
-        segment_menu_level_sbss_SIZE = ABSOLUTE(segment_menu_level_sbss_END - segment_menu_level_sbss_START);
+        segment_menu_level_SBSS_END = .;
+        segment_menu_level_SBSS_SIZE = ABSOLUTE(segment_menu_level_SBSS_END - segment_menu_level_SBSS_START);
 
-        segment_menu_level_scommon_START = .;
+        segment_menu_level_SCOMMON_START = .;
         build/us/src/assets/menu/menu_level.o(.scommon*);
-        segment_menu_level_scommon_END = .;
-        segment_menu_level_scommon_SIZE = ABSOLUTE(segment_menu_level_scommon_END - segment_menu_level_scommon_START);
+        segment_menu_level_SCOMMON_END = .;
+        segment_menu_level_SCOMMON_SIZE = ABSOLUTE(segment_menu_level_SCOMMON_END - segment_menu_level_SCOMMON_START);
 
-        segment_menu_level_bss_START = .;
+        segment_menu_level_BSS_START = .;
         build/us/src/assets/menu/menu_level.o(.bss*);
-        segment_menu_level_bss_END = .;
-        segment_menu_level_bss_SIZE = ABSOLUTE(segment_menu_level_bss_END - segment_menu_level_bss_START);
+        segment_menu_level_BSS_END = .;
+        segment_menu_level_BSS_SIZE = ABSOLUTE(segment_menu_level_BSS_END - segment_menu_level_BSS_START);
 
         segment_menu_levelCOMMON_START = .;
         build/us/src/assets/menu/menu_level.o(COMMON*);
@@ -4994,25 +5170,25 @@ SECTIONS
     segment_menu_main_alloc_VRAM = .;
     .segment_menu_main 0x00000000 : AT(segment_menu_main_ROM_START) SUBALIGN(16)
     {
-        segment_menu_main_text_START = .;
+        segment_menu_main_TEXT_START = .;
         build/us/src/assets/menu/menu_main.o(.text*);
-        segment_menu_main_text_END = .;
-        segment_menu_main_text_SIZE = ABSOLUTE(segment_menu_main_text_END - segment_menu_main_text_START);
+        segment_menu_main_TEXT_END = .;
+        segment_menu_main_TEXT_SIZE = ABSOLUTE(segment_menu_main_TEXT_END - segment_menu_main_TEXT_START);
 
-        segment_menu_main_data_START = .;
+        segment_menu_main_DATA_START = .;
         build/us/src/assets/menu/menu_main.o(.data*);
-        segment_menu_main_data_END = .;
-        segment_menu_main_data_SIZE = ABSOLUTE(segment_menu_main_data_END - segment_menu_main_data_START);
+        segment_menu_main_DATA_END = .;
+        segment_menu_main_DATA_SIZE = ABSOLUTE(segment_menu_main_DATA_END - segment_menu_main_DATA_START);
 
-        segment_menu_main_rodata_START = .;
+        segment_menu_main_RODATA_START = .;
         build/us/src/assets/menu/menu_main.o(.rodata*);
-        segment_menu_main_rodata_END = .;
-        segment_menu_main_rodata_SIZE = ABSOLUTE(segment_menu_main_rodata_END - segment_menu_main_rodata_START);
+        segment_menu_main_RODATA_END = .;
+        segment_menu_main_RODATA_SIZE = ABSOLUTE(segment_menu_main_RODATA_END - segment_menu_main_RODATA_START);
 
-        segment_menu_main_sdata_START = .;
+        segment_menu_main_SDATA_START = .;
         build/us/src/assets/menu/menu_main.o(.sdata*);
-        segment_menu_main_sdata_END = .;
-        segment_menu_main_sdata_SIZE = ABSOLUTE(segment_menu_main_sdata_END - segment_menu_main_sdata_START);
+        segment_menu_main_SDATA_END = .;
+        segment_menu_main_SDATA_SIZE = ABSOLUTE(segment_menu_main_SDATA_END - segment_menu_main_SDATA_START);
     }
     segment_menu_main_alloc_VRAM_END = .;
     segment_menu_main_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_main_alloc_VRAM_END - segment_menu_main_alloc_VRAM);
@@ -5020,20 +5196,20 @@ SECTIONS
     segment_menu_main_noload_VRAM = .;
     .segment_menu_main.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_main_sbss_START = .;
+        segment_menu_main_SBSS_START = .;
         build/us/src/assets/menu/menu_main.o(.sbss*);
-        segment_menu_main_sbss_END = .;
-        segment_menu_main_sbss_SIZE = ABSOLUTE(segment_menu_main_sbss_END - segment_menu_main_sbss_START);
+        segment_menu_main_SBSS_END = .;
+        segment_menu_main_SBSS_SIZE = ABSOLUTE(segment_menu_main_SBSS_END - segment_menu_main_SBSS_START);
 
-        segment_menu_main_scommon_START = .;
+        segment_menu_main_SCOMMON_START = .;
         build/us/src/assets/menu/menu_main.o(.scommon*);
-        segment_menu_main_scommon_END = .;
-        segment_menu_main_scommon_SIZE = ABSOLUTE(segment_menu_main_scommon_END - segment_menu_main_scommon_START);
+        segment_menu_main_SCOMMON_END = .;
+        segment_menu_main_SCOMMON_SIZE = ABSOLUTE(segment_menu_main_SCOMMON_END - segment_menu_main_SCOMMON_START);
 
-        segment_menu_main_bss_START = .;
+        segment_menu_main_BSS_START = .;
         build/us/src/assets/menu/menu_main.o(.bss*);
-        segment_menu_main_bss_END = .;
-        segment_menu_main_bss_SIZE = ABSOLUTE(segment_menu_main_bss_END - segment_menu_main_bss_START);
+        segment_menu_main_BSS_END = .;
+        segment_menu_main_BSS_SIZE = ABSOLUTE(segment_menu_main_BSS_END - segment_menu_main_BSS_START);
 
         segment_menu_mainCOMMON_START = .;
         build/us/src/assets/menu/menu_main.o(COMMON*);
@@ -5053,25 +5229,25 @@ SECTIONS
     segment_menu_name_alloc_VRAM = .;
     .segment_menu_name 0x00000000 : AT(segment_menu_name_ROM_START) SUBALIGN(16)
     {
-        segment_menu_name_text_START = .;
+        segment_menu_name_TEXT_START = .;
         build/us/src/assets/menu/menu_name.o(.text*);
-        segment_menu_name_text_END = .;
-        segment_menu_name_text_SIZE = ABSOLUTE(segment_menu_name_text_END - segment_menu_name_text_START);
+        segment_menu_name_TEXT_END = .;
+        segment_menu_name_TEXT_SIZE = ABSOLUTE(segment_menu_name_TEXT_END - segment_menu_name_TEXT_START);
 
-        segment_menu_name_data_START = .;
+        segment_menu_name_DATA_START = .;
         build/us/src/assets/menu/menu_name.o(.data*);
-        segment_menu_name_data_END = .;
-        segment_menu_name_data_SIZE = ABSOLUTE(segment_menu_name_data_END - segment_menu_name_data_START);
+        segment_menu_name_DATA_END = .;
+        segment_menu_name_DATA_SIZE = ABSOLUTE(segment_menu_name_DATA_END - segment_menu_name_DATA_START);
 
-        segment_menu_name_rodata_START = .;
+        segment_menu_name_RODATA_START = .;
         build/us/src/assets/menu/menu_name.o(.rodata*);
-        segment_menu_name_rodata_END = .;
-        segment_menu_name_rodata_SIZE = ABSOLUTE(segment_menu_name_rodata_END - segment_menu_name_rodata_START);
+        segment_menu_name_RODATA_END = .;
+        segment_menu_name_RODATA_SIZE = ABSOLUTE(segment_menu_name_RODATA_END - segment_menu_name_RODATA_START);
 
-        segment_menu_name_sdata_START = .;
+        segment_menu_name_SDATA_START = .;
         build/us/src/assets/menu/menu_name.o(.sdata*);
-        segment_menu_name_sdata_END = .;
-        segment_menu_name_sdata_SIZE = ABSOLUTE(segment_menu_name_sdata_END - segment_menu_name_sdata_START);
+        segment_menu_name_SDATA_END = .;
+        segment_menu_name_SDATA_SIZE = ABSOLUTE(segment_menu_name_SDATA_END - segment_menu_name_SDATA_START);
     }
     segment_menu_name_alloc_VRAM_END = .;
     segment_menu_name_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_name_alloc_VRAM_END - segment_menu_name_alloc_VRAM);
@@ -5079,20 +5255,20 @@ SECTIONS
     segment_menu_name_noload_VRAM = .;
     .segment_menu_name.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_name_sbss_START = .;
+        segment_menu_name_SBSS_START = .;
         build/us/src/assets/menu/menu_name.o(.sbss*);
-        segment_menu_name_sbss_END = .;
-        segment_menu_name_sbss_SIZE = ABSOLUTE(segment_menu_name_sbss_END - segment_menu_name_sbss_START);
+        segment_menu_name_SBSS_END = .;
+        segment_menu_name_SBSS_SIZE = ABSOLUTE(segment_menu_name_SBSS_END - segment_menu_name_SBSS_START);
 
-        segment_menu_name_scommon_START = .;
+        segment_menu_name_SCOMMON_START = .;
         build/us/src/assets/menu/menu_name.o(.scommon*);
-        segment_menu_name_scommon_END = .;
-        segment_menu_name_scommon_SIZE = ABSOLUTE(segment_menu_name_scommon_END - segment_menu_name_scommon_START);
+        segment_menu_name_SCOMMON_END = .;
+        segment_menu_name_SCOMMON_SIZE = ABSOLUTE(segment_menu_name_SCOMMON_END - segment_menu_name_SCOMMON_START);
 
-        segment_menu_name_bss_START = .;
+        segment_menu_name_BSS_START = .;
         build/us/src/assets/menu/menu_name.o(.bss*);
-        segment_menu_name_bss_END = .;
-        segment_menu_name_bss_SIZE = ABSOLUTE(segment_menu_name_bss_END - segment_menu_name_bss_START);
+        segment_menu_name_BSS_END = .;
+        segment_menu_name_BSS_SIZE = ABSOLUTE(segment_menu_name_BSS_END - segment_menu_name_BSS_START);
 
         segment_menu_nameCOMMON_START = .;
         build/us/src/assets/menu/menu_name.o(COMMON*);
@@ -5112,25 +5288,25 @@ SECTIONS
     segment_menu_p2_alloc_VRAM = .;
     .segment_menu_p2 0x00000000 : AT(segment_menu_p2_ROM_START) SUBALIGN(16)
     {
-        segment_menu_p2_text_START = .;
+        segment_menu_p2_TEXT_START = .;
         build/us/src/assets/menu/menu_p2.o(.text*);
-        segment_menu_p2_text_END = .;
-        segment_menu_p2_text_SIZE = ABSOLUTE(segment_menu_p2_text_END - segment_menu_p2_text_START);
+        segment_menu_p2_TEXT_END = .;
+        segment_menu_p2_TEXT_SIZE = ABSOLUTE(segment_menu_p2_TEXT_END - segment_menu_p2_TEXT_START);
 
-        segment_menu_p2_data_START = .;
+        segment_menu_p2_DATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.data*);
-        segment_menu_p2_data_END = .;
-        segment_menu_p2_data_SIZE = ABSOLUTE(segment_menu_p2_data_END - segment_menu_p2_data_START);
+        segment_menu_p2_DATA_END = .;
+        segment_menu_p2_DATA_SIZE = ABSOLUTE(segment_menu_p2_DATA_END - segment_menu_p2_DATA_START);
 
-        segment_menu_p2_rodata_START = .;
+        segment_menu_p2_RODATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.rodata*);
-        segment_menu_p2_rodata_END = .;
-        segment_menu_p2_rodata_SIZE = ABSOLUTE(segment_menu_p2_rodata_END - segment_menu_p2_rodata_START);
+        segment_menu_p2_RODATA_END = .;
+        segment_menu_p2_RODATA_SIZE = ABSOLUTE(segment_menu_p2_RODATA_END - segment_menu_p2_RODATA_START);
 
-        segment_menu_p2_sdata_START = .;
+        segment_menu_p2_SDATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.sdata*);
-        segment_menu_p2_sdata_END = .;
-        segment_menu_p2_sdata_SIZE = ABSOLUTE(segment_menu_p2_sdata_END - segment_menu_p2_sdata_START);
+        segment_menu_p2_SDATA_END = .;
+        segment_menu_p2_SDATA_SIZE = ABSOLUTE(segment_menu_p2_SDATA_END - segment_menu_p2_SDATA_START);
     }
     segment_menu_p2_alloc_VRAM_END = .;
     segment_menu_p2_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_p2_alloc_VRAM_END - segment_menu_p2_alloc_VRAM);
@@ -5138,20 +5314,20 @@ SECTIONS
     segment_menu_p2_noload_VRAM = .;
     .segment_menu_p2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_p2_sbss_START = .;
+        segment_menu_p2_SBSS_START = .;
         build/us/src/assets/menu/menu_p2.o(.sbss*);
-        segment_menu_p2_sbss_END = .;
-        segment_menu_p2_sbss_SIZE = ABSOLUTE(segment_menu_p2_sbss_END - segment_menu_p2_sbss_START);
+        segment_menu_p2_SBSS_END = .;
+        segment_menu_p2_SBSS_SIZE = ABSOLUTE(segment_menu_p2_SBSS_END - segment_menu_p2_SBSS_START);
 
-        segment_menu_p2_scommon_START = .;
+        segment_menu_p2_SCOMMON_START = .;
         build/us/src/assets/menu/menu_p2.o(.scommon*);
-        segment_menu_p2_scommon_END = .;
-        segment_menu_p2_scommon_SIZE = ABSOLUTE(segment_menu_p2_scommon_END - segment_menu_p2_scommon_START);
+        segment_menu_p2_SCOMMON_END = .;
+        segment_menu_p2_SCOMMON_SIZE = ABSOLUTE(segment_menu_p2_SCOMMON_END - segment_menu_p2_SCOMMON_START);
 
-        segment_menu_p2_bss_START = .;
+        segment_menu_p2_BSS_START = .;
         build/us/src/assets/menu/menu_p2.o(.bss*);
-        segment_menu_p2_bss_END = .;
-        segment_menu_p2_bss_SIZE = ABSOLUTE(segment_menu_p2_bss_END - segment_menu_p2_bss_START);
+        segment_menu_p2_BSS_END = .;
+        segment_menu_p2_BSS_SIZE = ABSOLUTE(segment_menu_p2_BSS_END - segment_menu_p2_BSS_START);
 
         segment_menu_p2COMMON_START = .;
         build/us/src/assets/menu/menu_p2.o(COMMON*);
@@ -5171,25 +5347,25 @@ SECTIONS
     segment_menu_p4_alloc_VRAM = .;
     .segment_menu_p4 0x00000000 : AT(segment_menu_p4_ROM_START) SUBALIGN(16)
     {
-        segment_menu_p4_text_START = .;
+        segment_menu_p4_TEXT_START = .;
         build/us/src/assets/menu/menu_p4.o(.text*);
-        segment_menu_p4_text_END = .;
-        segment_menu_p4_text_SIZE = ABSOLUTE(segment_menu_p4_text_END - segment_menu_p4_text_START);
+        segment_menu_p4_TEXT_END = .;
+        segment_menu_p4_TEXT_SIZE = ABSOLUTE(segment_menu_p4_TEXT_END - segment_menu_p4_TEXT_START);
 
-        segment_menu_p4_data_START = .;
+        segment_menu_p4_DATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.data*);
-        segment_menu_p4_data_END = .;
-        segment_menu_p4_data_SIZE = ABSOLUTE(segment_menu_p4_data_END - segment_menu_p4_data_START);
+        segment_menu_p4_DATA_END = .;
+        segment_menu_p4_DATA_SIZE = ABSOLUTE(segment_menu_p4_DATA_END - segment_menu_p4_DATA_START);
 
-        segment_menu_p4_rodata_START = .;
+        segment_menu_p4_RODATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.rodata*);
-        segment_menu_p4_rodata_END = .;
-        segment_menu_p4_rodata_SIZE = ABSOLUTE(segment_menu_p4_rodata_END - segment_menu_p4_rodata_START);
+        segment_menu_p4_RODATA_END = .;
+        segment_menu_p4_RODATA_SIZE = ABSOLUTE(segment_menu_p4_RODATA_END - segment_menu_p4_RODATA_START);
 
-        segment_menu_p4_sdata_START = .;
+        segment_menu_p4_SDATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.sdata*);
-        segment_menu_p4_sdata_END = .;
-        segment_menu_p4_sdata_SIZE = ABSOLUTE(segment_menu_p4_sdata_END - segment_menu_p4_sdata_START);
+        segment_menu_p4_SDATA_END = .;
+        segment_menu_p4_SDATA_SIZE = ABSOLUTE(segment_menu_p4_SDATA_END - segment_menu_p4_SDATA_START);
     }
     segment_menu_p4_alloc_VRAM_END = .;
     segment_menu_p4_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_p4_alloc_VRAM_END - segment_menu_p4_alloc_VRAM);
@@ -5197,20 +5373,20 @@ SECTIONS
     segment_menu_p4_noload_VRAM = .;
     .segment_menu_p4.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_p4_sbss_START = .;
+        segment_menu_p4_SBSS_START = .;
         build/us/src/assets/menu/menu_p4.o(.sbss*);
-        segment_menu_p4_sbss_END = .;
-        segment_menu_p4_sbss_SIZE = ABSOLUTE(segment_menu_p4_sbss_END - segment_menu_p4_sbss_START);
+        segment_menu_p4_SBSS_END = .;
+        segment_menu_p4_SBSS_SIZE = ABSOLUTE(segment_menu_p4_SBSS_END - segment_menu_p4_SBSS_START);
 
-        segment_menu_p4_scommon_START = .;
+        segment_menu_p4_SCOMMON_START = .;
         build/us/src/assets/menu/menu_p4.o(.scommon*);
-        segment_menu_p4_scommon_END = .;
-        segment_menu_p4_scommon_SIZE = ABSOLUTE(segment_menu_p4_scommon_END - segment_menu_p4_scommon_START);
+        segment_menu_p4_SCOMMON_END = .;
+        segment_menu_p4_SCOMMON_SIZE = ABSOLUTE(segment_menu_p4_SCOMMON_END - segment_menu_p4_SCOMMON_START);
 
-        segment_menu_p4_bss_START = .;
+        segment_menu_p4_BSS_START = .;
         build/us/src/assets/menu/menu_p4.o(.bss*);
-        segment_menu_p4_bss_END = .;
-        segment_menu_p4_bss_SIZE = ABSOLUTE(segment_menu_p4_bss_END - segment_menu_p4_bss_START);
+        segment_menu_p4_BSS_END = .;
+        segment_menu_p4_BSS_SIZE = ABSOLUTE(segment_menu_p4_BSS_END - segment_menu_p4_BSS_START);
 
         segment_menu_p4COMMON_START = .;
         build/us/src/assets/menu/menu_p4.o(COMMON*);
@@ -5230,25 +5406,25 @@ SECTIONS
     segment_menu_rank_alloc_VRAM = .;
     .segment_menu_rank 0x00000000 : AT(segment_menu_rank_ROM_START) SUBALIGN(16)
     {
-        segment_menu_rank_text_START = .;
+        segment_menu_rank_TEXT_START = .;
         build/us/src/assets/menu/menu_rank.o(.text*);
-        segment_menu_rank_text_END = .;
-        segment_menu_rank_text_SIZE = ABSOLUTE(segment_menu_rank_text_END - segment_menu_rank_text_START);
+        segment_menu_rank_TEXT_END = .;
+        segment_menu_rank_TEXT_SIZE = ABSOLUTE(segment_menu_rank_TEXT_END - segment_menu_rank_TEXT_START);
 
-        segment_menu_rank_data_START = .;
+        segment_menu_rank_DATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.data*);
-        segment_menu_rank_data_END = .;
-        segment_menu_rank_data_SIZE = ABSOLUTE(segment_menu_rank_data_END - segment_menu_rank_data_START);
+        segment_menu_rank_DATA_END = .;
+        segment_menu_rank_DATA_SIZE = ABSOLUTE(segment_menu_rank_DATA_END - segment_menu_rank_DATA_START);
 
-        segment_menu_rank_rodata_START = .;
+        segment_menu_rank_RODATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.rodata*);
-        segment_menu_rank_rodata_END = .;
-        segment_menu_rank_rodata_SIZE = ABSOLUTE(segment_menu_rank_rodata_END - segment_menu_rank_rodata_START);
+        segment_menu_rank_RODATA_END = .;
+        segment_menu_rank_RODATA_SIZE = ABSOLUTE(segment_menu_rank_RODATA_END - segment_menu_rank_RODATA_START);
 
-        segment_menu_rank_sdata_START = .;
+        segment_menu_rank_SDATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.sdata*);
-        segment_menu_rank_sdata_END = .;
-        segment_menu_rank_sdata_SIZE = ABSOLUTE(segment_menu_rank_sdata_END - segment_menu_rank_sdata_START);
+        segment_menu_rank_SDATA_END = .;
+        segment_menu_rank_SDATA_SIZE = ABSOLUTE(segment_menu_rank_SDATA_END - segment_menu_rank_SDATA_START);
     }
     segment_menu_rank_alloc_VRAM_END = .;
     segment_menu_rank_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_rank_alloc_VRAM_END - segment_menu_rank_alloc_VRAM);
@@ -5256,20 +5432,20 @@ SECTIONS
     segment_menu_rank_noload_VRAM = .;
     .segment_menu_rank.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_rank_sbss_START = .;
+        segment_menu_rank_SBSS_START = .;
         build/us/src/assets/menu/menu_rank.o(.sbss*);
-        segment_menu_rank_sbss_END = .;
-        segment_menu_rank_sbss_SIZE = ABSOLUTE(segment_menu_rank_sbss_END - segment_menu_rank_sbss_START);
+        segment_menu_rank_SBSS_END = .;
+        segment_menu_rank_SBSS_SIZE = ABSOLUTE(segment_menu_rank_SBSS_END - segment_menu_rank_SBSS_START);
 
-        segment_menu_rank_scommon_START = .;
+        segment_menu_rank_SCOMMON_START = .;
         build/us/src/assets/menu/menu_rank.o(.scommon*);
-        segment_menu_rank_scommon_END = .;
-        segment_menu_rank_scommon_SIZE = ABSOLUTE(segment_menu_rank_scommon_END - segment_menu_rank_scommon_START);
+        segment_menu_rank_SCOMMON_END = .;
+        segment_menu_rank_SCOMMON_SIZE = ABSOLUTE(segment_menu_rank_SCOMMON_END - segment_menu_rank_SCOMMON_START);
 
-        segment_menu_rank_bss_START = .;
+        segment_menu_rank_BSS_START = .;
         build/us/src/assets/menu/menu_rank.o(.bss*);
-        segment_menu_rank_bss_END = .;
-        segment_menu_rank_bss_SIZE = ABSOLUTE(segment_menu_rank_bss_END - segment_menu_rank_bss_START);
+        segment_menu_rank_BSS_END = .;
+        segment_menu_rank_BSS_SIZE = ABSOLUTE(segment_menu_rank_BSS_END - segment_menu_rank_BSS_START);
 
         segment_menu_rankCOMMON_START = .;
         build/us/src/assets/menu/menu_rank.o(COMMON*);
@@ -5289,25 +5465,25 @@ SECTIONS
     segment_menu_setup_alloc_VRAM = .;
     .segment_menu_setup 0x00000000 : AT(segment_menu_setup_ROM_START) SUBALIGN(16)
     {
-        segment_menu_setup_text_START = .;
+        segment_menu_setup_TEXT_START = .;
         build/us/src/assets/menu/menu_setup.o(.text*);
-        segment_menu_setup_text_END = .;
-        segment_menu_setup_text_SIZE = ABSOLUTE(segment_menu_setup_text_END - segment_menu_setup_text_START);
+        segment_menu_setup_TEXT_END = .;
+        segment_menu_setup_TEXT_SIZE = ABSOLUTE(segment_menu_setup_TEXT_END - segment_menu_setup_TEXT_START);
 
-        segment_menu_setup_data_START = .;
+        segment_menu_setup_DATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.data*);
-        segment_menu_setup_data_END = .;
-        segment_menu_setup_data_SIZE = ABSOLUTE(segment_menu_setup_data_END - segment_menu_setup_data_START);
+        segment_menu_setup_DATA_END = .;
+        segment_menu_setup_DATA_SIZE = ABSOLUTE(segment_menu_setup_DATA_END - segment_menu_setup_DATA_START);
 
-        segment_menu_setup_rodata_START = .;
+        segment_menu_setup_RODATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.rodata*);
-        segment_menu_setup_rodata_END = .;
-        segment_menu_setup_rodata_SIZE = ABSOLUTE(segment_menu_setup_rodata_END - segment_menu_setup_rodata_START);
+        segment_menu_setup_RODATA_END = .;
+        segment_menu_setup_RODATA_SIZE = ABSOLUTE(segment_menu_setup_RODATA_END - segment_menu_setup_RODATA_START);
 
-        segment_menu_setup_sdata_START = .;
+        segment_menu_setup_SDATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.sdata*);
-        segment_menu_setup_sdata_END = .;
-        segment_menu_setup_sdata_SIZE = ABSOLUTE(segment_menu_setup_sdata_END - segment_menu_setup_sdata_START);
+        segment_menu_setup_SDATA_END = .;
+        segment_menu_setup_SDATA_SIZE = ABSOLUTE(segment_menu_setup_SDATA_END - segment_menu_setup_SDATA_START);
     }
     segment_menu_setup_alloc_VRAM_END = .;
     segment_menu_setup_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_setup_alloc_VRAM_END - segment_menu_setup_alloc_VRAM);
@@ -5315,20 +5491,20 @@ SECTIONS
     segment_menu_setup_noload_VRAM = .;
     .segment_menu_setup.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_setup_sbss_START = .;
+        segment_menu_setup_SBSS_START = .;
         build/us/src/assets/menu/menu_setup.o(.sbss*);
-        segment_menu_setup_sbss_END = .;
-        segment_menu_setup_sbss_SIZE = ABSOLUTE(segment_menu_setup_sbss_END - segment_menu_setup_sbss_START);
+        segment_menu_setup_SBSS_END = .;
+        segment_menu_setup_SBSS_SIZE = ABSOLUTE(segment_menu_setup_SBSS_END - segment_menu_setup_SBSS_START);
 
-        segment_menu_setup_scommon_START = .;
+        segment_menu_setup_SCOMMON_START = .;
         build/us/src/assets/menu/menu_setup.o(.scommon*);
-        segment_menu_setup_scommon_END = .;
-        segment_menu_setup_scommon_SIZE = ABSOLUTE(segment_menu_setup_scommon_END - segment_menu_setup_scommon_START);
+        segment_menu_setup_SCOMMON_END = .;
+        segment_menu_setup_SCOMMON_SIZE = ABSOLUTE(segment_menu_setup_SCOMMON_END - segment_menu_setup_SCOMMON_START);
 
-        segment_menu_setup_bss_START = .;
+        segment_menu_setup_BSS_START = .;
         build/us/src/assets/menu/menu_setup.o(.bss*);
-        segment_menu_setup_bss_END = .;
-        segment_menu_setup_bss_SIZE = ABSOLUTE(segment_menu_setup_bss_END - segment_menu_setup_bss_START);
+        segment_menu_setup_BSS_END = .;
+        segment_menu_setup_BSS_SIZE = ABSOLUTE(segment_menu_setup_BSS_END - segment_menu_setup_BSS_START);
 
         segment_menu_setupCOMMON_START = .;
         build/us/src/assets/menu/menu_setup.o(COMMON*);
@@ -5348,25 +5524,25 @@ SECTIONS
     segment_menu_story_alloc_VRAM = .;
     .segment_menu_story 0x00000000 : AT(segment_menu_story_ROM_START) SUBALIGN(16)
     {
-        segment_menu_story_text_START = .;
+        segment_menu_story_TEXT_START = .;
         build/us/src/assets/menu/menu_story.o(.text*);
-        segment_menu_story_text_END = .;
-        segment_menu_story_text_SIZE = ABSOLUTE(segment_menu_story_text_END - segment_menu_story_text_START);
+        segment_menu_story_TEXT_END = .;
+        segment_menu_story_TEXT_SIZE = ABSOLUTE(segment_menu_story_TEXT_END - segment_menu_story_TEXT_START);
 
-        segment_menu_story_data_START = .;
+        segment_menu_story_DATA_START = .;
         build/us/src/assets/menu/menu_story.o(.data*);
-        segment_menu_story_data_END = .;
-        segment_menu_story_data_SIZE = ABSOLUTE(segment_menu_story_data_END - segment_menu_story_data_START);
+        segment_menu_story_DATA_END = .;
+        segment_menu_story_DATA_SIZE = ABSOLUTE(segment_menu_story_DATA_END - segment_menu_story_DATA_START);
 
-        segment_menu_story_rodata_START = .;
+        segment_menu_story_RODATA_START = .;
         build/us/src/assets/menu/menu_story.o(.rodata*);
-        segment_menu_story_rodata_END = .;
-        segment_menu_story_rodata_SIZE = ABSOLUTE(segment_menu_story_rodata_END - segment_menu_story_rodata_START);
+        segment_menu_story_RODATA_END = .;
+        segment_menu_story_RODATA_SIZE = ABSOLUTE(segment_menu_story_RODATA_END - segment_menu_story_RODATA_START);
 
-        segment_menu_story_sdata_START = .;
+        segment_menu_story_SDATA_START = .;
         build/us/src/assets/menu/menu_story.o(.sdata*);
-        segment_menu_story_sdata_END = .;
-        segment_menu_story_sdata_SIZE = ABSOLUTE(segment_menu_story_sdata_END - segment_menu_story_sdata_START);
+        segment_menu_story_SDATA_END = .;
+        segment_menu_story_SDATA_SIZE = ABSOLUTE(segment_menu_story_SDATA_END - segment_menu_story_SDATA_START);
     }
     segment_menu_story_alloc_VRAM_END = .;
     segment_menu_story_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_story_alloc_VRAM_END - segment_menu_story_alloc_VRAM);
@@ -5374,20 +5550,20 @@ SECTIONS
     segment_menu_story_noload_VRAM = .;
     .segment_menu_story.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_story_sbss_START = .;
+        segment_menu_story_SBSS_START = .;
         build/us/src/assets/menu/menu_story.o(.sbss*);
-        segment_menu_story_sbss_END = .;
-        segment_menu_story_sbss_SIZE = ABSOLUTE(segment_menu_story_sbss_END - segment_menu_story_sbss_START);
+        segment_menu_story_SBSS_END = .;
+        segment_menu_story_SBSS_SIZE = ABSOLUTE(segment_menu_story_SBSS_END - segment_menu_story_SBSS_START);
 
-        segment_menu_story_scommon_START = .;
+        segment_menu_story_SCOMMON_START = .;
         build/us/src/assets/menu/menu_story.o(.scommon*);
-        segment_menu_story_scommon_END = .;
-        segment_menu_story_scommon_SIZE = ABSOLUTE(segment_menu_story_scommon_END - segment_menu_story_scommon_START);
+        segment_menu_story_SCOMMON_END = .;
+        segment_menu_story_SCOMMON_SIZE = ABSOLUTE(segment_menu_story_SCOMMON_END - segment_menu_story_SCOMMON_START);
 
-        segment_menu_story_bss_START = .;
+        segment_menu_story_BSS_START = .;
         build/us/src/assets/menu/menu_story.o(.bss*);
-        segment_menu_story_bss_END = .;
-        segment_menu_story_bss_SIZE = ABSOLUTE(segment_menu_story_bss_END - segment_menu_story_bss_START);
+        segment_menu_story_BSS_END = .;
+        segment_menu_story_BSS_SIZE = ABSOLUTE(segment_menu_story_BSS_END - segment_menu_story_BSS_START);
 
         segment_menu_storyCOMMON_START = .;
         build/us/src/assets/menu/menu_story.o(COMMON*);
@@ -5407,25 +5583,25 @@ SECTIONS
     segment_menu_cont_alloc_VRAM = .;
     .segment_menu_cont 0x00000000 : AT(segment_menu_cont_ROM_START) SUBALIGN(16)
     {
-        segment_menu_cont_text_START = .;
+        segment_menu_cont_TEXT_START = .;
         build/us/src/assets/menu/menu_cont.o(.text*);
-        segment_menu_cont_text_END = .;
-        segment_menu_cont_text_SIZE = ABSOLUTE(segment_menu_cont_text_END - segment_menu_cont_text_START);
+        segment_menu_cont_TEXT_END = .;
+        segment_menu_cont_TEXT_SIZE = ABSOLUTE(segment_menu_cont_TEXT_END - segment_menu_cont_TEXT_START);
 
-        segment_menu_cont_data_START = .;
+        segment_menu_cont_DATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.data*);
-        segment_menu_cont_data_END = .;
-        segment_menu_cont_data_SIZE = ABSOLUTE(segment_menu_cont_data_END - segment_menu_cont_data_START);
+        segment_menu_cont_DATA_END = .;
+        segment_menu_cont_DATA_SIZE = ABSOLUTE(segment_menu_cont_DATA_END - segment_menu_cont_DATA_START);
 
-        segment_menu_cont_rodata_START = .;
+        segment_menu_cont_RODATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.rodata*);
-        segment_menu_cont_rodata_END = .;
-        segment_menu_cont_rodata_SIZE = ABSOLUTE(segment_menu_cont_rodata_END - segment_menu_cont_rodata_START);
+        segment_menu_cont_RODATA_END = .;
+        segment_menu_cont_RODATA_SIZE = ABSOLUTE(segment_menu_cont_RODATA_END - segment_menu_cont_RODATA_START);
 
-        segment_menu_cont_sdata_START = .;
+        segment_menu_cont_SDATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.sdata*);
-        segment_menu_cont_sdata_END = .;
-        segment_menu_cont_sdata_SIZE = ABSOLUTE(segment_menu_cont_sdata_END - segment_menu_cont_sdata_START);
+        segment_menu_cont_SDATA_END = .;
+        segment_menu_cont_SDATA_SIZE = ABSOLUTE(segment_menu_cont_SDATA_END - segment_menu_cont_SDATA_START);
     }
     segment_menu_cont_alloc_VRAM_END = .;
     segment_menu_cont_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_cont_alloc_VRAM_END - segment_menu_cont_alloc_VRAM);
@@ -5433,20 +5609,20 @@ SECTIONS
     segment_menu_cont_noload_VRAM = .;
     .segment_menu_cont.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_cont_sbss_START = .;
+        segment_menu_cont_SBSS_START = .;
         build/us/src/assets/menu/menu_cont.o(.sbss*);
-        segment_menu_cont_sbss_END = .;
-        segment_menu_cont_sbss_SIZE = ABSOLUTE(segment_menu_cont_sbss_END - segment_menu_cont_sbss_START);
+        segment_menu_cont_SBSS_END = .;
+        segment_menu_cont_SBSS_SIZE = ABSOLUTE(segment_menu_cont_SBSS_END - segment_menu_cont_SBSS_START);
 
-        segment_menu_cont_scommon_START = .;
+        segment_menu_cont_SCOMMON_START = .;
         build/us/src/assets/menu/menu_cont.o(.scommon*);
-        segment_menu_cont_scommon_END = .;
-        segment_menu_cont_scommon_SIZE = ABSOLUTE(segment_menu_cont_scommon_END - segment_menu_cont_scommon_START);
+        segment_menu_cont_SCOMMON_END = .;
+        segment_menu_cont_SCOMMON_SIZE = ABSOLUTE(segment_menu_cont_SCOMMON_END - segment_menu_cont_SCOMMON_START);
 
-        segment_menu_cont_bss_START = .;
+        segment_menu_cont_BSS_START = .;
         build/us/src/assets/menu/menu_cont.o(.bss*);
-        segment_menu_cont_bss_END = .;
-        segment_menu_cont_bss_SIZE = ABSOLUTE(segment_menu_cont_bss_END - segment_menu_cont_bss_START);
+        segment_menu_cont_BSS_END = .;
+        segment_menu_cont_BSS_SIZE = ABSOLUTE(segment_menu_cont_BSS_END - segment_menu_cont_BSS_START);
 
         segment_menu_contCOMMON_START = .;
         build/us/src/assets/menu/menu_cont.o(COMMON*);
@@ -5466,25 +5642,25 @@ SECTIONS
     segment_menu_kasa_alloc_VRAM = .;
     .segment_menu_kasa 0x00000000 : AT(segment_menu_kasa_ROM_START) SUBALIGN(16)
     {
-        segment_menu_kasa_text_START = .;
+        segment_menu_kasa_TEXT_START = .;
         build/us/src/assets/menu/menu_kasa.o(.text*);
-        segment_menu_kasa_text_END = .;
-        segment_menu_kasa_text_SIZE = ABSOLUTE(segment_menu_kasa_text_END - segment_menu_kasa_text_START);
+        segment_menu_kasa_TEXT_END = .;
+        segment_menu_kasa_TEXT_SIZE = ABSOLUTE(segment_menu_kasa_TEXT_END - segment_menu_kasa_TEXT_START);
 
-        segment_menu_kasa_data_START = .;
+        segment_menu_kasa_DATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.data*);
-        segment_menu_kasa_data_END = .;
-        segment_menu_kasa_data_SIZE = ABSOLUTE(segment_menu_kasa_data_END - segment_menu_kasa_data_START);
+        segment_menu_kasa_DATA_END = .;
+        segment_menu_kasa_DATA_SIZE = ABSOLUTE(segment_menu_kasa_DATA_END - segment_menu_kasa_DATA_START);
 
-        segment_menu_kasa_rodata_START = .;
+        segment_menu_kasa_RODATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.rodata*);
-        segment_menu_kasa_rodata_END = .;
-        segment_menu_kasa_rodata_SIZE = ABSOLUTE(segment_menu_kasa_rodata_END - segment_menu_kasa_rodata_START);
+        segment_menu_kasa_RODATA_END = .;
+        segment_menu_kasa_RODATA_SIZE = ABSOLUTE(segment_menu_kasa_RODATA_END - segment_menu_kasa_RODATA_START);
 
-        segment_menu_kasa_sdata_START = .;
+        segment_menu_kasa_SDATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sdata*);
-        segment_menu_kasa_sdata_END = .;
-        segment_menu_kasa_sdata_SIZE = ABSOLUTE(segment_menu_kasa_sdata_END - segment_menu_kasa_sdata_START);
+        segment_menu_kasa_SDATA_END = .;
+        segment_menu_kasa_SDATA_SIZE = ABSOLUTE(segment_menu_kasa_SDATA_END - segment_menu_kasa_SDATA_START);
     }
     segment_menu_kasa_alloc_VRAM_END = .;
     segment_menu_kasa_alloc_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_alloc_VRAM_END - segment_menu_kasa_alloc_VRAM);
@@ -5492,20 +5668,20 @@ SECTIONS
     segment_menu_kasa_noload_VRAM = .;
     .segment_menu_kasa.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_menu_kasa_sbss_START = .;
+        segment_menu_kasa_SBSS_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sbss*);
-        segment_menu_kasa_sbss_END = .;
-        segment_menu_kasa_sbss_SIZE = ABSOLUTE(segment_menu_kasa_sbss_END - segment_menu_kasa_sbss_START);
+        segment_menu_kasa_SBSS_END = .;
+        segment_menu_kasa_SBSS_SIZE = ABSOLUTE(segment_menu_kasa_SBSS_END - segment_menu_kasa_SBSS_START);
 
-        segment_menu_kasa_scommon_START = .;
+        segment_menu_kasa_SCOMMON_START = .;
         build/us/src/assets/menu/menu_kasa.o(.scommon*);
-        segment_menu_kasa_scommon_END = .;
-        segment_menu_kasa_scommon_SIZE = ABSOLUTE(segment_menu_kasa_scommon_END - segment_menu_kasa_scommon_START);
+        segment_menu_kasa_SCOMMON_END = .;
+        segment_menu_kasa_SCOMMON_SIZE = ABSOLUTE(segment_menu_kasa_SCOMMON_END - segment_menu_kasa_SCOMMON_START);
 
-        segment_menu_kasa_bss_START = .;
+        segment_menu_kasa_BSS_START = .;
         build/us/src/assets/menu/menu_kasa.o(.bss*);
-        segment_menu_kasa_bss_END = .;
-        segment_menu_kasa_bss_SIZE = ABSOLUTE(segment_menu_kasa_bss_END - segment_menu_kasa_bss_START);
+        segment_menu_kasa_BSS_END = .;
+        segment_menu_kasa_BSS_SIZE = ABSOLUTE(segment_menu_kasa_BSS_END - segment_menu_kasa_BSS_START);
 
         segment_menu_kasaCOMMON_START = .;
         build/us/src/assets/menu/menu_kasa.o(COMMON*);
@@ -5525,25 +5701,25 @@ SECTIONS
     segment_game_al_alloc_VRAM = .;
     .segment_game_al 0x00000000 : AT(segment_game_al_ROM_START) SUBALIGN(16)
     {
-        segment_game_al_text_START = .;
+        segment_game_al_TEXT_START = .;
         build/us/src/assets/game/game_al.o(.text*);
-        segment_game_al_text_END = .;
-        segment_game_al_text_SIZE = ABSOLUTE(segment_game_al_text_END - segment_game_al_text_START);
+        segment_game_al_TEXT_END = .;
+        segment_game_al_TEXT_SIZE = ABSOLUTE(segment_game_al_TEXT_END - segment_game_al_TEXT_START);
 
-        segment_game_al_data_START = .;
+        segment_game_al_DATA_START = .;
         build/us/src/assets/game/game_al.o(.data*);
-        segment_game_al_data_END = .;
-        segment_game_al_data_SIZE = ABSOLUTE(segment_game_al_data_END - segment_game_al_data_START);
+        segment_game_al_DATA_END = .;
+        segment_game_al_DATA_SIZE = ABSOLUTE(segment_game_al_DATA_END - segment_game_al_DATA_START);
 
-        segment_game_al_rodata_START = .;
+        segment_game_al_RODATA_START = .;
         build/us/src/assets/game/game_al.o(.rodata*);
-        segment_game_al_rodata_END = .;
-        segment_game_al_rodata_SIZE = ABSOLUTE(segment_game_al_rodata_END - segment_game_al_rodata_START);
+        segment_game_al_RODATA_END = .;
+        segment_game_al_RODATA_SIZE = ABSOLUTE(segment_game_al_RODATA_END - segment_game_al_RODATA_START);
 
-        segment_game_al_sdata_START = .;
+        segment_game_al_SDATA_START = .;
         build/us/src/assets/game/game_al.o(.sdata*);
-        segment_game_al_sdata_END = .;
-        segment_game_al_sdata_SIZE = ABSOLUTE(segment_game_al_sdata_END - segment_game_al_sdata_START);
+        segment_game_al_SDATA_END = .;
+        segment_game_al_SDATA_SIZE = ABSOLUTE(segment_game_al_SDATA_END - segment_game_al_SDATA_START);
     }
     segment_game_al_alloc_VRAM_END = .;
     segment_game_al_alloc_VRAM_SIZE = ABSOLUTE(segment_game_al_alloc_VRAM_END - segment_game_al_alloc_VRAM);
@@ -5551,20 +5727,20 @@ SECTIONS
     segment_game_al_noload_VRAM = .;
     .segment_game_al.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_al_sbss_START = .;
+        segment_game_al_SBSS_START = .;
         build/us/src/assets/game/game_al.o(.sbss*);
-        segment_game_al_sbss_END = .;
-        segment_game_al_sbss_SIZE = ABSOLUTE(segment_game_al_sbss_END - segment_game_al_sbss_START);
+        segment_game_al_SBSS_END = .;
+        segment_game_al_SBSS_SIZE = ABSOLUTE(segment_game_al_SBSS_END - segment_game_al_SBSS_START);
 
-        segment_game_al_scommon_START = .;
+        segment_game_al_SCOMMON_START = .;
         build/us/src/assets/game/game_al.o(.scommon*);
-        segment_game_al_scommon_END = .;
-        segment_game_al_scommon_SIZE = ABSOLUTE(segment_game_al_scommon_END - segment_game_al_scommon_START);
+        segment_game_al_SCOMMON_END = .;
+        segment_game_al_SCOMMON_SIZE = ABSOLUTE(segment_game_al_SCOMMON_END - segment_game_al_SCOMMON_START);
 
-        segment_game_al_bss_START = .;
+        segment_game_al_BSS_START = .;
         build/us/src/assets/game/game_al.o(.bss*);
-        segment_game_al_bss_END = .;
-        segment_game_al_bss_SIZE = ABSOLUTE(segment_game_al_bss_END - segment_game_al_bss_START);
+        segment_game_al_BSS_END = .;
+        segment_game_al_BSS_SIZE = ABSOLUTE(segment_game_al_BSS_END - segment_game_al_BSS_START);
 
         segment_game_alCOMMON_START = .;
         build/us/src/assets/game/game_al.o(COMMON*);
@@ -5584,25 +5760,25 @@ SECTIONS
     segment_game_p1_alloc_VRAM = .;
     .segment_game_p1 0x00000000 : AT(segment_game_p1_ROM_START) SUBALIGN(16)
     {
-        segment_game_p1_text_START = .;
+        segment_game_p1_TEXT_START = .;
         build/us/src/assets/game/game_p1.o(.text*);
-        segment_game_p1_text_END = .;
-        segment_game_p1_text_SIZE = ABSOLUTE(segment_game_p1_text_END - segment_game_p1_text_START);
+        segment_game_p1_TEXT_END = .;
+        segment_game_p1_TEXT_SIZE = ABSOLUTE(segment_game_p1_TEXT_END - segment_game_p1_TEXT_START);
 
-        segment_game_p1_data_START = .;
+        segment_game_p1_DATA_START = .;
         build/us/src/assets/game/game_p1.o(.data*);
-        segment_game_p1_data_END = .;
-        segment_game_p1_data_SIZE = ABSOLUTE(segment_game_p1_data_END - segment_game_p1_data_START);
+        segment_game_p1_DATA_END = .;
+        segment_game_p1_DATA_SIZE = ABSOLUTE(segment_game_p1_DATA_END - segment_game_p1_DATA_START);
 
-        segment_game_p1_rodata_START = .;
+        segment_game_p1_RODATA_START = .;
         build/us/src/assets/game/game_p1.o(.rodata*);
-        segment_game_p1_rodata_END = .;
-        segment_game_p1_rodata_SIZE = ABSOLUTE(segment_game_p1_rodata_END - segment_game_p1_rodata_START);
+        segment_game_p1_RODATA_END = .;
+        segment_game_p1_RODATA_SIZE = ABSOLUTE(segment_game_p1_RODATA_END - segment_game_p1_RODATA_START);
 
-        segment_game_p1_sdata_START = .;
+        segment_game_p1_SDATA_START = .;
         build/us/src/assets/game/game_p1.o(.sdata*);
-        segment_game_p1_sdata_END = .;
-        segment_game_p1_sdata_SIZE = ABSOLUTE(segment_game_p1_sdata_END - segment_game_p1_sdata_START);
+        segment_game_p1_SDATA_END = .;
+        segment_game_p1_SDATA_SIZE = ABSOLUTE(segment_game_p1_SDATA_END - segment_game_p1_SDATA_START);
     }
     segment_game_p1_alloc_VRAM_END = .;
     segment_game_p1_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p1_alloc_VRAM_END - segment_game_p1_alloc_VRAM);
@@ -5610,20 +5786,20 @@ SECTIONS
     segment_game_p1_noload_VRAM = .;
     .segment_game_p1.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p1_sbss_START = .;
+        segment_game_p1_SBSS_START = .;
         build/us/src/assets/game/game_p1.o(.sbss*);
-        segment_game_p1_sbss_END = .;
-        segment_game_p1_sbss_SIZE = ABSOLUTE(segment_game_p1_sbss_END - segment_game_p1_sbss_START);
+        segment_game_p1_SBSS_END = .;
+        segment_game_p1_SBSS_SIZE = ABSOLUTE(segment_game_p1_SBSS_END - segment_game_p1_SBSS_START);
 
-        segment_game_p1_scommon_START = .;
+        segment_game_p1_SCOMMON_START = .;
         build/us/src/assets/game/game_p1.o(.scommon*);
-        segment_game_p1_scommon_END = .;
-        segment_game_p1_scommon_SIZE = ABSOLUTE(segment_game_p1_scommon_END - segment_game_p1_scommon_START);
+        segment_game_p1_SCOMMON_END = .;
+        segment_game_p1_SCOMMON_SIZE = ABSOLUTE(segment_game_p1_SCOMMON_END - segment_game_p1_SCOMMON_START);
 
-        segment_game_p1_bss_START = .;
+        segment_game_p1_BSS_START = .;
         build/us/src/assets/game/game_p1.o(.bss*);
-        segment_game_p1_bss_END = .;
-        segment_game_p1_bss_SIZE = ABSOLUTE(segment_game_p1_bss_END - segment_game_p1_bss_START);
+        segment_game_p1_BSS_END = .;
+        segment_game_p1_BSS_SIZE = ABSOLUTE(segment_game_p1_BSS_END - segment_game_p1_BSS_START);
 
         segment_game_p1COMMON_START = .;
         build/us/src/assets/game/game_p1.o(COMMON*);
@@ -5643,25 +5819,25 @@ SECTIONS
     segment_game_p2_alloc_VRAM = .;
     .segment_game_p2 0x00000000 : AT(segment_game_p2_ROM_START) SUBALIGN(16)
     {
-        segment_game_p2_text_START = .;
+        segment_game_p2_TEXT_START = .;
         build/us/src/assets/game/game_p2.o(.text*);
-        segment_game_p2_text_END = .;
-        segment_game_p2_text_SIZE = ABSOLUTE(segment_game_p2_text_END - segment_game_p2_text_START);
+        segment_game_p2_TEXT_END = .;
+        segment_game_p2_TEXT_SIZE = ABSOLUTE(segment_game_p2_TEXT_END - segment_game_p2_TEXT_START);
 
-        segment_game_p2_data_START = .;
+        segment_game_p2_DATA_START = .;
         build/us/src/assets/game/game_p2.o(.data*);
-        segment_game_p2_data_END = .;
-        segment_game_p2_data_SIZE = ABSOLUTE(segment_game_p2_data_END - segment_game_p2_data_START);
+        segment_game_p2_DATA_END = .;
+        segment_game_p2_DATA_SIZE = ABSOLUTE(segment_game_p2_DATA_END - segment_game_p2_DATA_START);
 
-        segment_game_p2_rodata_START = .;
+        segment_game_p2_RODATA_START = .;
         build/us/src/assets/game/game_p2.o(.rodata*);
-        segment_game_p2_rodata_END = .;
-        segment_game_p2_rodata_SIZE = ABSOLUTE(segment_game_p2_rodata_END - segment_game_p2_rodata_START);
+        segment_game_p2_RODATA_END = .;
+        segment_game_p2_RODATA_SIZE = ABSOLUTE(segment_game_p2_RODATA_END - segment_game_p2_RODATA_START);
 
-        segment_game_p2_sdata_START = .;
+        segment_game_p2_SDATA_START = .;
         build/us/src/assets/game/game_p2.o(.sdata*);
-        segment_game_p2_sdata_END = .;
-        segment_game_p2_sdata_SIZE = ABSOLUTE(segment_game_p2_sdata_END - segment_game_p2_sdata_START);
+        segment_game_p2_SDATA_END = .;
+        segment_game_p2_SDATA_SIZE = ABSOLUTE(segment_game_p2_SDATA_END - segment_game_p2_SDATA_START);
     }
     segment_game_p2_alloc_VRAM_END = .;
     segment_game_p2_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p2_alloc_VRAM_END - segment_game_p2_alloc_VRAM);
@@ -5669,20 +5845,20 @@ SECTIONS
     segment_game_p2_noload_VRAM = .;
     .segment_game_p2.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p2_sbss_START = .;
+        segment_game_p2_SBSS_START = .;
         build/us/src/assets/game/game_p2.o(.sbss*);
-        segment_game_p2_sbss_END = .;
-        segment_game_p2_sbss_SIZE = ABSOLUTE(segment_game_p2_sbss_END - segment_game_p2_sbss_START);
+        segment_game_p2_SBSS_END = .;
+        segment_game_p2_SBSS_SIZE = ABSOLUTE(segment_game_p2_SBSS_END - segment_game_p2_SBSS_START);
 
-        segment_game_p2_scommon_START = .;
+        segment_game_p2_SCOMMON_START = .;
         build/us/src/assets/game/game_p2.o(.scommon*);
-        segment_game_p2_scommon_END = .;
-        segment_game_p2_scommon_SIZE = ABSOLUTE(segment_game_p2_scommon_END - segment_game_p2_scommon_START);
+        segment_game_p2_SCOMMON_END = .;
+        segment_game_p2_SCOMMON_SIZE = ABSOLUTE(segment_game_p2_SCOMMON_END - segment_game_p2_SCOMMON_START);
 
-        segment_game_p2_bss_START = .;
+        segment_game_p2_BSS_START = .;
         build/us/src/assets/game/game_p2.o(.bss*);
-        segment_game_p2_bss_END = .;
-        segment_game_p2_bss_SIZE = ABSOLUTE(segment_game_p2_bss_END - segment_game_p2_bss_START);
+        segment_game_p2_BSS_END = .;
+        segment_game_p2_BSS_SIZE = ABSOLUTE(segment_game_p2_BSS_END - segment_game_p2_BSS_START);
 
         segment_game_p2COMMON_START = .;
         build/us/src/assets/game/game_p2.o(COMMON*);
@@ -5702,25 +5878,25 @@ SECTIONS
     segment_game_p4_alloc_VRAM = .;
     .segment_game_p4 0x00000000 : AT(segment_game_p4_ROM_START) SUBALIGN(16)
     {
-        segment_game_p4_text_START = .;
+        segment_game_p4_TEXT_START = .;
         build/us/src/assets/game/game_p4.o(.text*);
-        segment_game_p4_text_END = .;
-        segment_game_p4_text_SIZE = ABSOLUTE(segment_game_p4_text_END - segment_game_p4_text_START);
+        segment_game_p4_TEXT_END = .;
+        segment_game_p4_TEXT_SIZE = ABSOLUTE(segment_game_p4_TEXT_END - segment_game_p4_TEXT_START);
 
-        segment_game_p4_data_START = .;
+        segment_game_p4_DATA_START = .;
         build/us/src/assets/game/game_p4.o(.data*);
-        segment_game_p4_data_END = .;
-        segment_game_p4_data_SIZE = ABSOLUTE(segment_game_p4_data_END - segment_game_p4_data_START);
+        segment_game_p4_DATA_END = .;
+        segment_game_p4_DATA_SIZE = ABSOLUTE(segment_game_p4_DATA_END - segment_game_p4_DATA_START);
 
-        segment_game_p4_rodata_START = .;
+        segment_game_p4_RODATA_START = .;
         build/us/src/assets/game/game_p4.o(.rodata*);
-        segment_game_p4_rodata_END = .;
-        segment_game_p4_rodata_SIZE = ABSOLUTE(segment_game_p4_rodata_END - segment_game_p4_rodata_START);
+        segment_game_p4_RODATA_END = .;
+        segment_game_p4_RODATA_SIZE = ABSOLUTE(segment_game_p4_RODATA_END - segment_game_p4_RODATA_START);
 
-        segment_game_p4_sdata_START = .;
+        segment_game_p4_SDATA_START = .;
         build/us/src/assets/game/game_p4.o(.sdata*);
-        segment_game_p4_sdata_END = .;
-        segment_game_p4_sdata_SIZE = ABSOLUTE(segment_game_p4_sdata_END - segment_game_p4_sdata_START);
+        segment_game_p4_SDATA_END = .;
+        segment_game_p4_SDATA_SIZE = ABSOLUTE(segment_game_p4_SDATA_END - segment_game_p4_SDATA_START);
     }
     segment_game_p4_alloc_VRAM_END = .;
     segment_game_p4_alloc_VRAM_SIZE = ABSOLUTE(segment_game_p4_alloc_VRAM_END - segment_game_p4_alloc_VRAM);
@@ -5728,20 +5904,20 @@ SECTIONS
     segment_game_p4_noload_VRAM = .;
     .segment_game_p4.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_p4_sbss_START = .;
+        segment_game_p4_SBSS_START = .;
         build/us/src/assets/game/game_p4.o(.sbss*);
-        segment_game_p4_sbss_END = .;
-        segment_game_p4_sbss_SIZE = ABSOLUTE(segment_game_p4_sbss_END - segment_game_p4_sbss_START);
+        segment_game_p4_SBSS_END = .;
+        segment_game_p4_SBSS_SIZE = ABSOLUTE(segment_game_p4_SBSS_END - segment_game_p4_SBSS_START);
 
-        segment_game_p4_scommon_START = .;
+        segment_game_p4_SCOMMON_START = .;
         build/us/src/assets/game/game_p4.o(.scommon*);
-        segment_game_p4_scommon_END = .;
-        segment_game_p4_scommon_SIZE = ABSOLUTE(segment_game_p4_scommon_END - segment_game_p4_scommon_START);
+        segment_game_p4_SCOMMON_END = .;
+        segment_game_p4_SCOMMON_SIZE = ABSOLUTE(segment_game_p4_SCOMMON_END - segment_game_p4_SCOMMON_START);
 
-        segment_game_p4_bss_START = .;
+        segment_game_p4_BSS_START = .;
         build/us/src/assets/game/game_p4.o(.bss*);
-        segment_game_p4_bss_END = .;
-        segment_game_p4_bss_SIZE = ABSOLUTE(segment_game_p4_bss_END - segment_game_p4_bss_START);
+        segment_game_p4_BSS_END = .;
+        segment_game_p4_BSS_SIZE = ABSOLUTE(segment_game_p4_BSS_END - segment_game_p4_BSS_START);
 
         segment_game_p4COMMON_START = .;
         build/us/src/assets/game/game_p4.o(COMMON*);
@@ -5761,25 +5937,25 @@ SECTIONS
     segment_game_ls_alloc_VRAM = .;
     .segment_game_ls 0x00000000 : AT(segment_game_ls_ROM_START) SUBALIGN(16)
     {
-        segment_game_ls_text_START = .;
+        segment_game_ls_TEXT_START = .;
         build/us/src/assets/game/game_ls.o(.text*);
-        segment_game_ls_text_END = .;
-        segment_game_ls_text_SIZE = ABSOLUTE(segment_game_ls_text_END - segment_game_ls_text_START);
+        segment_game_ls_TEXT_END = .;
+        segment_game_ls_TEXT_SIZE = ABSOLUTE(segment_game_ls_TEXT_END - segment_game_ls_TEXT_START);
 
-        segment_game_ls_data_START = .;
+        segment_game_ls_DATA_START = .;
         build/us/src/assets/game/game_ls.o(.data*);
-        segment_game_ls_data_END = .;
-        segment_game_ls_data_SIZE = ABSOLUTE(segment_game_ls_data_END - segment_game_ls_data_START);
+        segment_game_ls_DATA_END = .;
+        segment_game_ls_DATA_SIZE = ABSOLUTE(segment_game_ls_DATA_END - segment_game_ls_DATA_START);
 
-        segment_game_ls_rodata_START = .;
+        segment_game_ls_RODATA_START = .;
         build/us/src/assets/game/game_ls.o(.rodata*);
-        segment_game_ls_rodata_END = .;
-        segment_game_ls_rodata_SIZE = ABSOLUTE(segment_game_ls_rodata_END - segment_game_ls_rodata_START);
+        segment_game_ls_RODATA_END = .;
+        segment_game_ls_RODATA_SIZE = ABSOLUTE(segment_game_ls_RODATA_END - segment_game_ls_RODATA_START);
 
-        segment_game_ls_sdata_START = .;
+        segment_game_ls_SDATA_START = .;
         build/us/src/assets/game/game_ls.o(.sdata*);
-        segment_game_ls_sdata_END = .;
-        segment_game_ls_sdata_SIZE = ABSOLUTE(segment_game_ls_sdata_END - segment_game_ls_sdata_START);
+        segment_game_ls_SDATA_END = .;
+        segment_game_ls_SDATA_SIZE = ABSOLUTE(segment_game_ls_SDATA_END - segment_game_ls_SDATA_START);
     }
     segment_game_ls_alloc_VRAM_END = .;
     segment_game_ls_alloc_VRAM_SIZE = ABSOLUTE(segment_game_ls_alloc_VRAM_END - segment_game_ls_alloc_VRAM);
@@ -5787,20 +5963,20 @@ SECTIONS
     segment_game_ls_noload_VRAM = .;
     .segment_game_ls.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_ls_sbss_START = .;
+        segment_game_ls_SBSS_START = .;
         build/us/src/assets/game/game_ls.o(.sbss*);
-        segment_game_ls_sbss_END = .;
-        segment_game_ls_sbss_SIZE = ABSOLUTE(segment_game_ls_sbss_END - segment_game_ls_sbss_START);
+        segment_game_ls_SBSS_END = .;
+        segment_game_ls_SBSS_SIZE = ABSOLUTE(segment_game_ls_SBSS_END - segment_game_ls_SBSS_START);
 
-        segment_game_ls_scommon_START = .;
+        segment_game_ls_SCOMMON_START = .;
         build/us/src/assets/game/game_ls.o(.scommon*);
-        segment_game_ls_scommon_END = .;
-        segment_game_ls_scommon_SIZE = ABSOLUTE(segment_game_ls_scommon_END - segment_game_ls_scommon_START);
+        segment_game_ls_SCOMMON_END = .;
+        segment_game_ls_SCOMMON_SIZE = ABSOLUTE(segment_game_ls_SCOMMON_END - segment_game_ls_SCOMMON_START);
 
-        segment_game_ls_bss_START = .;
+        segment_game_ls_BSS_START = .;
         build/us/src/assets/game/game_ls.o(.bss*);
-        segment_game_ls_bss_END = .;
-        segment_game_ls_bss_SIZE = ABSOLUTE(segment_game_ls_bss_END - segment_game_ls_bss_START);
+        segment_game_ls_BSS_END = .;
+        segment_game_ls_BSS_SIZE = ABSOLUTE(segment_game_ls_BSS_END - segment_game_ls_BSS_START);
 
         segment_game_lsCOMMON_START = .;
         build/us/src/assets/game/game_ls.o(COMMON*);
@@ -5820,25 +5996,25 @@ SECTIONS
     segment_game_item_alloc_VRAM = .;
     .segment_game_item 0x00000000 : AT(segment_game_item_ROM_START) SUBALIGN(16)
     {
-        segment_game_item_text_START = .;
+        segment_game_item_TEXT_START = .;
         build/us/src/assets/game/game_item.o(.text*);
-        segment_game_item_text_END = .;
-        segment_game_item_text_SIZE = ABSOLUTE(segment_game_item_text_END - segment_game_item_text_START);
+        segment_game_item_TEXT_END = .;
+        segment_game_item_TEXT_SIZE = ABSOLUTE(segment_game_item_TEXT_END - segment_game_item_TEXT_START);
 
-        segment_game_item_data_START = .;
+        segment_game_item_DATA_START = .;
         build/us/src/assets/game/game_item.o(.data*);
-        segment_game_item_data_END = .;
-        segment_game_item_data_SIZE = ABSOLUTE(segment_game_item_data_END - segment_game_item_data_START);
+        segment_game_item_DATA_END = .;
+        segment_game_item_DATA_SIZE = ABSOLUTE(segment_game_item_DATA_END - segment_game_item_DATA_START);
 
-        segment_game_item_rodata_START = .;
+        segment_game_item_RODATA_START = .;
         build/us/src/assets/game/game_item.o(.rodata*);
-        segment_game_item_rodata_END = .;
-        segment_game_item_rodata_SIZE = ABSOLUTE(segment_game_item_rodata_END - segment_game_item_rodata_START);
+        segment_game_item_RODATA_END = .;
+        segment_game_item_RODATA_SIZE = ABSOLUTE(segment_game_item_RODATA_END - segment_game_item_RODATA_START);
 
-        segment_game_item_sdata_START = .;
+        segment_game_item_SDATA_START = .;
         build/us/src/assets/game/game_item.o(.sdata*);
-        segment_game_item_sdata_END = .;
-        segment_game_item_sdata_SIZE = ABSOLUTE(segment_game_item_sdata_END - segment_game_item_sdata_START);
+        segment_game_item_SDATA_END = .;
+        segment_game_item_SDATA_SIZE = ABSOLUTE(segment_game_item_SDATA_END - segment_game_item_SDATA_START);
     }
     segment_game_item_alloc_VRAM_END = .;
     segment_game_item_alloc_VRAM_SIZE = ABSOLUTE(segment_game_item_alloc_VRAM_END - segment_game_item_alloc_VRAM);
@@ -5846,20 +6022,20 @@ SECTIONS
     segment_game_item_noload_VRAM = .;
     .segment_game_item.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_game_item_sbss_START = .;
+        segment_game_item_SBSS_START = .;
         build/us/src/assets/game/game_item.o(.sbss*);
-        segment_game_item_sbss_END = .;
-        segment_game_item_sbss_SIZE = ABSOLUTE(segment_game_item_sbss_END - segment_game_item_sbss_START);
+        segment_game_item_SBSS_END = .;
+        segment_game_item_SBSS_SIZE = ABSOLUTE(segment_game_item_SBSS_END - segment_game_item_SBSS_START);
 
-        segment_game_item_scommon_START = .;
+        segment_game_item_SCOMMON_START = .;
         build/us/src/assets/game/game_item.o(.scommon*);
-        segment_game_item_scommon_END = .;
-        segment_game_item_scommon_SIZE = ABSOLUTE(segment_game_item_scommon_END - segment_game_item_scommon_START);
+        segment_game_item_SCOMMON_END = .;
+        segment_game_item_SCOMMON_SIZE = ABSOLUTE(segment_game_item_SCOMMON_END - segment_game_item_SCOMMON_START);
 
-        segment_game_item_bss_START = .;
+        segment_game_item_BSS_START = .;
         build/us/src/assets/game/game_item.o(.bss*);
-        segment_game_item_bss_END = .;
-        segment_game_item_bss_SIZE = ABSOLUTE(segment_game_item_bss_END - segment_game_item_bss_START);
+        segment_game_item_BSS_END = .;
+        segment_game_item_BSS_SIZE = ABSOLUTE(segment_game_item_BSS_END - segment_game_item_BSS_START);
 
         segment_game_itemCOMMON_START = .;
         build/us/src/assets/game/game_item.o(COMMON*);
@@ -5879,25 +6055,25 @@ SECTIONS
     segment_anime_a_alloc_VRAM = .;
     .segment_anime_a 0x00000000 : AT(segment_anime_a_ROM_START) SUBALIGN(16)
     {
-        segment_anime_a_text_START = .;
+        segment_anime_a_TEXT_START = .;
         build/us/src/assets/anime/anime_a.o(.text*);
-        segment_anime_a_text_END = .;
-        segment_anime_a_text_SIZE = ABSOLUTE(segment_anime_a_text_END - segment_anime_a_text_START);
+        segment_anime_a_TEXT_END = .;
+        segment_anime_a_TEXT_SIZE = ABSOLUTE(segment_anime_a_TEXT_END - segment_anime_a_TEXT_START);
 
-        segment_anime_a_data_START = .;
+        segment_anime_a_DATA_START = .;
         build/us/src/assets/anime/anime_a.o(.data*);
-        segment_anime_a_data_END = .;
-        segment_anime_a_data_SIZE = ABSOLUTE(segment_anime_a_data_END - segment_anime_a_data_START);
+        segment_anime_a_DATA_END = .;
+        segment_anime_a_DATA_SIZE = ABSOLUTE(segment_anime_a_DATA_END - segment_anime_a_DATA_START);
 
-        segment_anime_a_rodata_START = .;
+        segment_anime_a_RODATA_START = .;
         build/us/src/assets/anime/anime_a.o(.rodata*);
-        segment_anime_a_rodata_END = .;
-        segment_anime_a_rodata_SIZE = ABSOLUTE(segment_anime_a_rodata_END - segment_anime_a_rodata_START);
+        segment_anime_a_RODATA_END = .;
+        segment_anime_a_RODATA_SIZE = ABSOLUTE(segment_anime_a_RODATA_END - segment_anime_a_RODATA_START);
 
-        segment_anime_a_sdata_START = .;
+        segment_anime_a_SDATA_START = .;
         build/us/src/assets/anime/anime_a.o(.sdata*);
-        segment_anime_a_sdata_END = .;
-        segment_anime_a_sdata_SIZE = ABSOLUTE(segment_anime_a_sdata_END - segment_anime_a_sdata_START);
+        segment_anime_a_SDATA_END = .;
+        segment_anime_a_SDATA_SIZE = ABSOLUTE(segment_anime_a_SDATA_END - segment_anime_a_SDATA_START);
     }
     segment_anime_a_alloc_VRAM_END = .;
     segment_anime_a_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_a_alloc_VRAM_END - segment_anime_a_alloc_VRAM);
@@ -5905,20 +6081,20 @@ SECTIONS
     segment_anime_a_noload_VRAM = .;
     .segment_anime_a.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_a_sbss_START = .;
+        segment_anime_a_SBSS_START = .;
         build/us/src/assets/anime/anime_a.o(.sbss*);
-        segment_anime_a_sbss_END = .;
-        segment_anime_a_sbss_SIZE = ABSOLUTE(segment_anime_a_sbss_END - segment_anime_a_sbss_START);
+        segment_anime_a_SBSS_END = .;
+        segment_anime_a_SBSS_SIZE = ABSOLUTE(segment_anime_a_SBSS_END - segment_anime_a_SBSS_START);
 
-        segment_anime_a_scommon_START = .;
+        segment_anime_a_SCOMMON_START = .;
         build/us/src/assets/anime/anime_a.o(.scommon*);
-        segment_anime_a_scommon_END = .;
-        segment_anime_a_scommon_SIZE = ABSOLUTE(segment_anime_a_scommon_END - segment_anime_a_scommon_START);
+        segment_anime_a_SCOMMON_END = .;
+        segment_anime_a_SCOMMON_SIZE = ABSOLUTE(segment_anime_a_SCOMMON_END - segment_anime_a_SCOMMON_START);
 
-        segment_anime_a_bss_START = .;
+        segment_anime_a_BSS_START = .;
         build/us/src/assets/anime/anime_a.o(.bss*);
-        segment_anime_a_bss_END = .;
-        segment_anime_a_bss_SIZE = ABSOLUTE(segment_anime_a_bss_END - segment_anime_a_bss_START);
+        segment_anime_a_BSS_END = .;
+        segment_anime_a_BSS_SIZE = ABSOLUTE(segment_anime_a_BSS_END - segment_anime_a_BSS_START);
 
         segment_anime_aCOMMON_START = .;
         build/us/src/assets/anime/anime_a.o(COMMON*);
@@ -5938,25 +6114,25 @@ SECTIONS
     segment_anime_b_alloc_VRAM = .;
     .segment_anime_b 0x00000000 : AT(segment_anime_b_ROM_START) SUBALIGN(16)
     {
-        segment_anime_b_text_START = .;
+        segment_anime_b_TEXT_START = .;
         build/us/src/assets/anime/anime_b.o(.text*);
-        segment_anime_b_text_END = .;
-        segment_anime_b_text_SIZE = ABSOLUTE(segment_anime_b_text_END - segment_anime_b_text_START);
+        segment_anime_b_TEXT_END = .;
+        segment_anime_b_TEXT_SIZE = ABSOLUTE(segment_anime_b_TEXT_END - segment_anime_b_TEXT_START);
 
-        segment_anime_b_data_START = .;
+        segment_anime_b_DATA_START = .;
         build/us/src/assets/anime/anime_b.o(.data*);
-        segment_anime_b_data_END = .;
-        segment_anime_b_data_SIZE = ABSOLUTE(segment_anime_b_data_END - segment_anime_b_data_START);
+        segment_anime_b_DATA_END = .;
+        segment_anime_b_DATA_SIZE = ABSOLUTE(segment_anime_b_DATA_END - segment_anime_b_DATA_START);
 
-        segment_anime_b_rodata_START = .;
+        segment_anime_b_RODATA_START = .;
         build/us/src/assets/anime/anime_b.o(.rodata*);
-        segment_anime_b_rodata_END = .;
-        segment_anime_b_rodata_SIZE = ABSOLUTE(segment_anime_b_rodata_END - segment_anime_b_rodata_START);
+        segment_anime_b_RODATA_END = .;
+        segment_anime_b_RODATA_SIZE = ABSOLUTE(segment_anime_b_RODATA_END - segment_anime_b_RODATA_START);
 
-        segment_anime_b_sdata_START = .;
+        segment_anime_b_SDATA_START = .;
         build/us/src/assets/anime/anime_b.o(.sdata*);
-        segment_anime_b_sdata_END = .;
-        segment_anime_b_sdata_SIZE = ABSOLUTE(segment_anime_b_sdata_END - segment_anime_b_sdata_START);
+        segment_anime_b_SDATA_END = .;
+        segment_anime_b_SDATA_SIZE = ABSOLUTE(segment_anime_b_SDATA_END - segment_anime_b_SDATA_START);
     }
     segment_anime_b_alloc_VRAM_END = .;
     segment_anime_b_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_b_alloc_VRAM_END - segment_anime_b_alloc_VRAM);
@@ -5964,20 +6140,20 @@ SECTIONS
     segment_anime_b_noload_VRAM = .;
     .segment_anime_b.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_b_sbss_START = .;
+        segment_anime_b_SBSS_START = .;
         build/us/src/assets/anime/anime_b.o(.sbss*);
-        segment_anime_b_sbss_END = .;
-        segment_anime_b_sbss_SIZE = ABSOLUTE(segment_anime_b_sbss_END - segment_anime_b_sbss_START);
+        segment_anime_b_SBSS_END = .;
+        segment_anime_b_SBSS_SIZE = ABSOLUTE(segment_anime_b_SBSS_END - segment_anime_b_SBSS_START);
 
-        segment_anime_b_scommon_START = .;
+        segment_anime_b_SCOMMON_START = .;
         build/us/src/assets/anime/anime_b.o(.scommon*);
-        segment_anime_b_scommon_END = .;
-        segment_anime_b_scommon_SIZE = ABSOLUTE(segment_anime_b_scommon_END - segment_anime_b_scommon_START);
+        segment_anime_b_SCOMMON_END = .;
+        segment_anime_b_SCOMMON_SIZE = ABSOLUTE(segment_anime_b_SCOMMON_END - segment_anime_b_SCOMMON_START);
 
-        segment_anime_b_bss_START = .;
+        segment_anime_b_BSS_START = .;
         build/us/src/assets/anime/anime_b.o(.bss*);
-        segment_anime_b_bss_END = .;
-        segment_anime_b_bss_SIZE = ABSOLUTE(segment_anime_b_bss_END - segment_anime_b_bss_START);
+        segment_anime_b_BSS_END = .;
+        segment_anime_b_BSS_SIZE = ABSOLUTE(segment_anime_b_BSS_END - segment_anime_b_BSS_START);
 
         segment_anime_bCOMMON_START = .;
         build/us/src/assets/anime/anime_b.o(COMMON*);
@@ -5997,25 +6173,25 @@ SECTIONS
     segment_anime_c_alloc_VRAM = .;
     .segment_anime_c 0x00000000 : AT(segment_anime_c_ROM_START) SUBALIGN(16)
     {
-        segment_anime_c_text_START = .;
+        segment_anime_c_TEXT_START = .;
         build/us/src/assets/anime/anime_c.o(.text*);
-        segment_anime_c_text_END = .;
-        segment_anime_c_text_SIZE = ABSOLUTE(segment_anime_c_text_END - segment_anime_c_text_START);
+        segment_anime_c_TEXT_END = .;
+        segment_anime_c_TEXT_SIZE = ABSOLUTE(segment_anime_c_TEXT_END - segment_anime_c_TEXT_START);
 
-        segment_anime_c_data_START = .;
+        segment_anime_c_DATA_START = .;
         build/us/src/assets/anime/anime_c.o(.data*);
-        segment_anime_c_data_END = .;
-        segment_anime_c_data_SIZE = ABSOLUTE(segment_anime_c_data_END - segment_anime_c_data_START);
+        segment_anime_c_DATA_END = .;
+        segment_anime_c_DATA_SIZE = ABSOLUTE(segment_anime_c_DATA_END - segment_anime_c_DATA_START);
 
-        segment_anime_c_rodata_START = .;
+        segment_anime_c_RODATA_START = .;
         build/us/src/assets/anime/anime_c.o(.rodata*);
-        segment_anime_c_rodata_END = .;
-        segment_anime_c_rodata_SIZE = ABSOLUTE(segment_anime_c_rodata_END - segment_anime_c_rodata_START);
+        segment_anime_c_RODATA_END = .;
+        segment_anime_c_RODATA_SIZE = ABSOLUTE(segment_anime_c_RODATA_END - segment_anime_c_RODATA_START);
 
-        segment_anime_c_sdata_START = .;
+        segment_anime_c_SDATA_START = .;
         build/us/src/assets/anime/anime_c.o(.sdata*);
-        segment_anime_c_sdata_END = .;
-        segment_anime_c_sdata_SIZE = ABSOLUTE(segment_anime_c_sdata_END - segment_anime_c_sdata_START);
+        segment_anime_c_SDATA_END = .;
+        segment_anime_c_SDATA_SIZE = ABSOLUTE(segment_anime_c_SDATA_END - segment_anime_c_SDATA_START);
     }
     segment_anime_c_alloc_VRAM_END = .;
     segment_anime_c_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_c_alloc_VRAM_END - segment_anime_c_alloc_VRAM);
@@ -6023,20 +6199,20 @@ SECTIONS
     segment_anime_c_noload_VRAM = .;
     .segment_anime_c.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_c_sbss_START = .;
+        segment_anime_c_SBSS_START = .;
         build/us/src/assets/anime/anime_c.o(.sbss*);
-        segment_anime_c_sbss_END = .;
-        segment_anime_c_sbss_SIZE = ABSOLUTE(segment_anime_c_sbss_END - segment_anime_c_sbss_START);
+        segment_anime_c_SBSS_END = .;
+        segment_anime_c_SBSS_SIZE = ABSOLUTE(segment_anime_c_SBSS_END - segment_anime_c_SBSS_START);
 
-        segment_anime_c_scommon_START = .;
+        segment_anime_c_SCOMMON_START = .;
         build/us/src/assets/anime/anime_c.o(.scommon*);
-        segment_anime_c_scommon_END = .;
-        segment_anime_c_scommon_SIZE = ABSOLUTE(segment_anime_c_scommon_END - segment_anime_c_scommon_START);
+        segment_anime_c_SCOMMON_END = .;
+        segment_anime_c_SCOMMON_SIZE = ABSOLUTE(segment_anime_c_SCOMMON_END - segment_anime_c_SCOMMON_START);
 
-        segment_anime_c_bss_START = .;
+        segment_anime_c_BSS_START = .;
         build/us/src/assets/anime/anime_c.o(.bss*);
-        segment_anime_c_bss_END = .;
-        segment_anime_c_bss_SIZE = ABSOLUTE(segment_anime_c_bss_END - segment_anime_c_bss_START);
+        segment_anime_c_BSS_END = .;
+        segment_anime_c_BSS_SIZE = ABSOLUTE(segment_anime_c_BSS_END - segment_anime_c_BSS_START);
 
         segment_anime_cCOMMON_START = .;
         build/us/src/assets/anime/anime_c.o(COMMON*);
@@ -6056,25 +6232,25 @@ SECTIONS
     segment_anime_d_alloc_VRAM = .;
     .segment_anime_d 0x00000000 : AT(segment_anime_d_ROM_START) SUBALIGN(16)
     {
-        segment_anime_d_text_START = .;
+        segment_anime_d_TEXT_START = .;
         build/us/src/assets/anime/anime_d.o(.text*);
-        segment_anime_d_text_END = .;
-        segment_anime_d_text_SIZE = ABSOLUTE(segment_anime_d_text_END - segment_anime_d_text_START);
+        segment_anime_d_TEXT_END = .;
+        segment_anime_d_TEXT_SIZE = ABSOLUTE(segment_anime_d_TEXT_END - segment_anime_d_TEXT_START);
 
-        segment_anime_d_data_START = .;
+        segment_anime_d_DATA_START = .;
         build/us/src/assets/anime/anime_d.o(.data*);
-        segment_anime_d_data_END = .;
-        segment_anime_d_data_SIZE = ABSOLUTE(segment_anime_d_data_END - segment_anime_d_data_START);
+        segment_anime_d_DATA_END = .;
+        segment_anime_d_DATA_SIZE = ABSOLUTE(segment_anime_d_DATA_END - segment_anime_d_DATA_START);
 
-        segment_anime_d_rodata_START = .;
+        segment_anime_d_RODATA_START = .;
         build/us/src/assets/anime/anime_d.o(.rodata*);
-        segment_anime_d_rodata_END = .;
-        segment_anime_d_rodata_SIZE = ABSOLUTE(segment_anime_d_rodata_END - segment_anime_d_rodata_START);
+        segment_anime_d_RODATA_END = .;
+        segment_anime_d_RODATA_SIZE = ABSOLUTE(segment_anime_d_RODATA_END - segment_anime_d_RODATA_START);
 
-        segment_anime_d_sdata_START = .;
+        segment_anime_d_SDATA_START = .;
         build/us/src/assets/anime/anime_d.o(.sdata*);
-        segment_anime_d_sdata_END = .;
-        segment_anime_d_sdata_SIZE = ABSOLUTE(segment_anime_d_sdata_END - segment_anime_d_sdata_START);
+        segment_anime_d_SDATA_END = .;
+        segment_anime_d_SDATA_SIZE = ABSOLUTE(segment_anime_d_SDATA_END - segment_anime_d_SDATA_START);
     }
     segment_anime_d_alloc_VRAM_END = .;
     segment_anime_d_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_d_alloc_VRAM_END - segment_anime_d_alloc_VRAM);
@@ -6082,20 +6258,20 @@ SECTIONS
     segment_anime_d_noload_VRAM = .;
     .segment_anime_d.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_d_sbss_START = .;
+        segment_anime_d_SBSS_START = .;
         build/us/src/assets/anime/anime_d.o(.sbss*);
-        segment_anime_d_sbss_END = .;
-        segment_anime_d_sbss_SIZE = ABSOLUTE(segment_anime_d_sbss_END - segment_anime_d_sbss_START);
+        segment_anime_d_SBSS_END = .;
+        segment_anime_d_SBSS_SIZE = ABSOLUTE(segment_anime_d_SBSS_END - segment_anime_d_SBSS_START);
 
-        segment_anime_d_scommon_START = .;
+        segment_anime_d_SCOMMON_START = .;
         build/us/src/assets/anime/anime_d.o(.scommon*);
-        segment_anime_d_scommon_END = .;
-        segment_anime_d_scommon_SIZE = ABSOLUTE(segment_anime_d_scommon_END - segment_anime_d_scommon_START);
+        segment_anime_d_SCOMMON_END = .;
+        segment_anime_d_SCOMMON_SIZE = ABSOLUTE(segment_anime_d_SCOMMON_END - segment_anime_d_SCOMMON_START);
 
-        segment_anime_d_bss_START = .;
+        segment_anime_d_BSS_START = .;
         build/us/src/assets/anime/anime_d.o(.bss*);
-        segment_anime_d_bss_END = .;
-        segment_anime_d_bss_SIZE = ABSOLUTE(segment_anime_d_bss_END - segment_anime_d_bss_START);
+        segment_anime_d_BSS_END = .;
+        segment_anime_d_BSS_SIZE = ABSOLUTE(segment_anime_d_BSS_END - segment_anime_d_BSS_START);
 
         segment_anime_dCOMMON_START = .;
         build/us/src/assets/anime/anime_d.o(COMMON*);
@@ -6115,25 +6291,25 @@ SECTIONS
     segment_anime_e_alloc_VRAM = .;
     .segment_anime_e 0x00000000 : AT(segment_anime_e_ROM_START) SUBALIGN(16)
     {
-        segment_anime_e_text_START = .;
+        segment_anime_e_TEXT_START = .;
         build/us/src/assets/anime/anime_e.o(.text*);
-        segment_anime_e_text_END = .;
-        segment_anime_e_text_SIZE = ABSOLUTE(segment_anime_e_text_END - segment_anime_e_text_START);
+        segment_anime_e_TEXT_END = .;
+        segment_anime_e_TEXT_SIZE = ABSOLUTE(segment_anime_e_TEXT_END - segment_anime_e_TEXT_START);
 
-        segment_anime_e_data_START = .;
+        segment_anime_e_DATA_START = .;
         build/us/src/assets/anime/anime_e.o(.data*);
-        segment_anime_e_data_END = .;
-        segment_anime_e_data_SIZE = ABSOLUTE(segment_anime_e_data_END - segment_anime_e_data_START);
+        segment_anime_e_DATA_END = .;
+        segment_anime_e_DATA_SIZE = ABSOLUTE(segment_anime_e_DATA_END - segment_anime_e_DATA_START);
 
-        segment_anime_e_rodata_START = .;
+        segment_anime_e_RODATA_START = .;
         build/us/src/assets/anime/anime_e.o(.rodata*);
-        segment_anime_e_rodata_END = .;
-        segment_anime_e_rodata_SIZE = ABSOLUTE(segment_anime_e_rodata_END - segment_anime_e_rodata_START);
+        segment_anime_e_RODATA_END = .;
+        segment_anime_e_RODATA_SIZE = ABSOLUTE(segment_anime_e_RODATA_END - segment_anime_e_RODATA_START);
 
-        segment_anime_e_sdata_START = .;
+        segment_anime_e_SDATA_START = .;
         build/us/src/assets/anime/anime_e.o(.sdata*);
-        segment_anime_e_sdata_END = .;
-        segment_anime_e_sdata_SIZE = ABSOLUTE(segment_anime_e_sdata_END - segment_anime_e_sdata_START);
+        segment_anime_e_SDATA_END = .;
+        segment_anime_e_SDATA_SIZE = ABSOLUTE(segment_anime_e_SDATA_END - segment_anime_e_SDATA_START);
     }
     segment_anime_e_alloc_VRAM_END = .;
     segment_anime_e_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_e_alloc_VRAM_END - segment_anime_e_alloc_VRAM);
@@ -6141,20 +6317,20 @@ SECTIONS
     segment_anime_e_noload_VRAM = .;
     .segment_anime_e.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_e_sbss_START = .;
+        segment_anime_e_SBSS_START = .;
         build/us/src/assets/anime/anime_e.o(.sbss*);
-        segment_anime_e_sbss_END = .;
-        segment_anime_e_sbss_SIZE = ABSOLUTE(segment_anime_e_sbss_END - segment_anime_e_sbss_START);
+        segment_anime_e_SBSS_END = .;
+        segment_anime_e_SBSS_SIZE = ABSOLUTE(segment_anime_e_SBSS_END - segment_anime_e_SBSS_START);
 
-        segment_anime_e_scommon_START = .;
+        segment_anime_e_SCOMMON_START = .;
         build/us/src/assets/anime/anime_e.o(.scommon*);
-        segment_anime_e_scommon_END = .;
-        segment_anime_e_scommon_SIZE = ABSOLUTE(segment_anime_e_scommon_END - segment_anime_e_scommon_START);
+        segment_anime_e_SCOMMON_END = .;
+        segment_anime_e_SCOMMON_SIZE = ABSOLUTE(segment_anime_e_SCOMMON_END - segment_anime_e_SCOMMON_START);
 
-        segment_anime_e_bss_START = .;
+        segment_anime_e_BSS_START = .;
         build/us/src/assets/anime/anime_e.o(.bss*);
-        segment_anime_e_bss_END = .;
-        segment_anime_e_bss_SIZE = ABSOLUTE(segment_anime_e_bss_END - segment_anime_e_bss_START);
+        segment_anime_e_BSS_END = .;
+        segment_anime_e_BSS_SIZE = ABSOLUTE(segment_anime_e_BSS_END - segment_anime_e_BSS_START);
 
         segment_anime_eCOMMON_START = .;
         build/us/src/assets/anime/anime_e.o(COMMON*);
@@ -6174,25 +6350,25 @@ SECTIONS
     segment_anime_f_alloc_VRAM = .;
     .segment_anime_f 0x00000000 : AT(segment_anime_f_ROM_START) SUBALIGN(16)
     {
-        segment_anime_f_text_START = .;
+        segment_anime_f_TEXT_START = .;
         build/us/src/assets/anime/anime_f.o(.text*);
-        segment_anime_f_text_END = .;
-        segment_anime_f_text_SIZE = ABSOLUTE(segment_anime_f_text_END - segment_anime_f_text_START);
+        segment_anime_f_TEXT_END = .;
+        segment_anime_f_TEXT_SIZE = ABSOLUTE(segment_anime_f_TEXT_END - segment_anime_f_TEXT_START);
 
-        segment_anime_f_data_START = .;
+        segment_anime_f_DATA_START = .;
         build/us/src/assets/anime/anime_f.o(.data*);
-        segment_anime_f_data_END = .;
-        segment_anime_f_data_SIZE = ABSOLUTE(segment_anime_f_data_END - segment_anime_f_data_START);
+        segment_anime_f_DATA_END = .;
+        segment_anime_f_DATA_SIZE = ABSOLUTE(segment_anime_f_DATA_END - segment_anime_f_DATA_START);
 
-        segment_anime_f_rodata_START = .;
+        segment_anime_f_RODATA_START = .;
         build/us/src/assets/anime/anime_f.o(.rodata*);
-        segment_anime_f_rodata_END = .;
-        segment_anime_f_rodata_SIZE = ABSOLUTE(segment_anime_f_rodata_END - segment_anime_f_rodata_START);
+        segment_anime_f_RODATA_END = .;
+        segment_anime_f_RODATA_SIZE = ABSOLUTE(segment_anime_f_RODATA_END - segment_anime_f_RODATA_START);
 
-        segment_anime_f_sdata_START = .;
+        segment_anime_f_SDATA_START = .;
         build/us/src/assets/anime/anime_f.o(.sdata*);
-        segment_anime_f_sdata_END = .;
-        segment_anime_f_sdata_SIZE = ABSOLUTE(segment_anime_f_sdata_END - segment_anime_f_sdata_START);
+        segment_anime_f_SDATA_END = .;
+        segment_anime_f_SDATA_SIZE = ABSOLUTE(segment_anime_f_SDATA_END - segment_anime_f_SDATA_START);
     }
     segment_anime_f_alloc_VRAM_END = .;
     segment_anime_f_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_f_alloc_VRAM_END - segment_anime_f_alloc_VRAM);
@@ -6200,20 +6376,20 @@ SECTIONS
     segment_anime_f_noload_VRAM = .;
     .segment_anime_f.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_f_sbss_START = .;
+        segment_anime_f_SBSS_START = .;
         build/us/src/assets/anime/anime_f.o(.sbss*);
-        segment_anime_f_sbss_END = .;
-        segment_anime_f_sbss_SIZE = ABSOLUTE(segment_anime_f_sbss_END - segment_anime_f_sbss_START);
+        segment_anime_f_SBSS_END = .;
+        segment_anime_f_SBSS_SIZE = ABSOLUTE(segment_anime_f_SBSS_END - segment_anime_f_SBSS_START);
 
-        segment_anime_f_scommon_START = .;
+        segment_anime_f_SCOMMON_START = .;
         build/us/src/assets/anime/anime_f.o(.scommon*);
-        segment_anime_f_scommon_END = .;
-        segment_anime_f_scommon_SIZE = ABSOLUTE(segment_anime_f_scommon_END - segment_anime_f_scommon_START);
+        segment_anime_f_SCOMMON_END = .;
+        segment_anime_f_SCOMMON_SIZE = ABSOLUTE(segment_anime_f_SCOMMON_END - segment_anime_f_SCOMMON_START);
 
-        segment_anime_f_bss_START = .;
+        segment_anime_f_BSS_START = .;
         build/us/src/assets/anime/anime_f.o(.bss*);
-        segment_anime_f_bss_END = .;
-        segment_anime_f_bss_SIZE = ABSOLUTE(segment_anime_f_bss_END - segment_anime_f_bss_START);
+        segment_anime_f_BSS_END = .;
+        segment_anime_f_BSS_SIZE = ABSOLUTE(segment_anime_f_BSS_END - segment_anime_f_BSS_START);
 
         segment_anime_fCOMMON_START = .;
         build/us/src/assets/anime/anime_f.o(COMMON*);
@@ -6233,25 +6409,25 @@ SECTIONS
     segment_anime_g_alloc_VRAM = .;
     .segment_anime_g 0x00000000 : AT(segment_anime_g_ROM_START) SUBALIGN(16)
     {
-        segment_anime_g_text_START = .;
+        segment_anime_g_TEXT_START = .;
         build/us/src/assets/anime/anime_g.o(.text*);
-        segment_anime_g_text_END = .;
-        segment_anime_g_text_SIZE = ABSOLUTE(segment_anime_g_text_END - segment_anime_g_text_START);
+        segment_anime_g_TEXT_END = .;
+        segment_anime_g_TEXT_SIZE = ABSOLUTE(segment_anime_g_TEXT_END - segment_anime_g_TEXT_START);
 
-        segment_anime_g_data_START = .;
+        segment_anime_g_DATA_START = .;
         build/us/src/assets/anime/anime_g.o(.data*);
-        segment_anime_g_data_END = .;
-        segment_anime_g_data_SIZE = ABSOLUTE(segment_anime_g_data_END - segment_anime_g_data_START);
+        segment_anime_g_DATA_END = .;
+        segment_anime_g_DATA_SIZE = ABSOLUTE(segment_anime_g_DATA_END - segment_anime_g_DATA_START);
 
-        segment_anime_g_rodata_START = .;
+        segment_anime_g_RODATA_START = .;
         build/us/src/assets/anime/anime_g.o(.rodata*);
-        segment_anime_g_rodata_END = .;
-        segment_anime_g_rodata_SIZE = ABSOLUTE(segment_anime_g_rodata_END - segment_anime_g_rodata_START);
+        segment_anime_g_RODATA_END = .;
+        segment_anime_g_RODATA_SIZE = ABSOLUTE(segment_anime_g_RODATA_END - segment_anime_g_RODATA_START);
 
-        segment_anime_g_sdata_START = .;
+        segment_anime_g_SDATA_START = .;
         build/us/src/assets/anime/anime_g.o(.sdata*);
-        segment_anime_g_sdata_END = .;
-        segment_anime_g_sdata_SIZE = ABSOLUTE(segment_anime_g_sdata_END - segment_anime_g_sdata_START);
+        segment_anime_g_SDATA_END = .;
+        segment_anime_g_SDATA_SIZE = ABSOLUTE(segment_anime_g_SDATA_END - segment_anime_g_SDATA_START);
     }
     segment_anime_g_alloc_VRAM_END = .;
     segment_anime_g_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_g_alloc_VRAM_END - segment_anime_g_alloc_VRAM);
@@ -6259,20 +6435,20 @@ SECTIONS
     segment_anime_g_noload_VRAM = .;
     .segment_anime_g.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_g_sbss_START = .;
+        segment_anime_g_SBSS_START = .;
         build/us/src/assets/anime/anime_g.o(.sbss*);
-        segment_anime_g_sbss_END = .;
-        segment_anime_g_sbss_SIZE = ABSOLUTE(segment_anime_g_sbss_END - segment_anime_g_sbss_START);
+        segment_anime_g_SBSS_END = .;
+        segment_anime_g_SBSS_SIZE = ABSOLUTE(segment_anime_g_SBSS_END - segment_anime_g_SBSS_START);
 
-        segment_anime_g_scommon_START = .;
+        segment_anime_g_SCOMMON_START = .;
         build/us/src/assets/anime/anime_g.o(.scommon*);
-        segment_anime_g_scommon_END = .;
-        segment_anime_g_scommon_SIZE = ABSOLUTE(segment_anime_g_scommon_END - segment_anime_g_scommon_START);
+        segment_anime_g_SCOMMON_END = .;
+        segment_anime_g_SCOMMON_SIZE = ABSOLUTE(segment_anime_g_SCOMMON_END - segment_anime_g_SCOMMON_START);
 
-        segment_anime_g_bss_START = .;
+        segment_anime_g_BSS_START = .;
         build/us/src/assets/anime/anime_g.o(.bss*);
-        segment_anime_g_bss_END = .;
-        segment_anime_g_bss_SIZE = ABSOLUTE(segment_anime_g_bss_END - segment_anime_g_bss_START);
+        segment_anime_g_BSS_END = .;
+        segment_anime_g_BSS_SIZE = ABSOLUTE(segment_anime_g_BSS_END - segment_anime_g_BSS_START);
 
         segment_anime_gCOMMON_START = .;
         build/us/src/assets/anime/anime_g.o(COMMON*);
@@ -6292,25 +6468,25 @@ SECTIONS
     segment_anime_h_alloc_VRAM = .;
     .segment_anime_h 0x00000000 : AT(segment_anime_h_ROM_START) SUBALIGN(16)
     {
-        segment_anime_h_text_START = .;
+        segment_anime_h_TEXT_START = .;
         build/us/src/assets/anime/anime_h.o(.text*);
-        segment_anime_h_text_END = .;
-        segment_anime_h_text_SIZE = ABSOLUTE(segment_anime_h_text_END - segment_anime_h_text_START);
+        segment_anime_h_TEXT_END = .;
+        segment_anime_h_TEXT_SIZE = ABSOLUTE(segment_anime_h_TEXT_END - segment_anime_h_TEXT_START);
 
-        segment_anime_h_data_START = .;
+        segment_anime_h_DATA_START = .;
         build/us/src/assets/anime/anime_h.o(.data*);
-        segment_anime_h_data_END = .;
-        segment_anime_h_data_SIZE = ABSOLUTE(segment_anime_h_data_END - segment_anime_h_data_START);
+        segment_anime_h_DATA_END = .;
+        segment_anime_h_DATA_SIZE = ABSOLUTE(segment_anime_h_DATA_END - segment_anime_h_DATA_START);
 
-        segment_anime_h_rodata_START = .;
+        segment_anime_h_RODATA_START = .;
         build/us/src/assets/anime/anime_h.o(.rodata*);
-        segment_anime_h_rodata_END = .;
-        segment_anime_h_rodata_SIZE = ABSOLUTE(segment_anime_h_rodata_END - segment_anime_h_rodata_START);
+        segment_anime_h_RODATA_END = .;
+        segment_anime_h_RODATA_SIZE = ABSOLUTE(segment_anime_h_RODATA_END - segment_anime_h_RODATA_START);
 
-        segment_anime_h_sdata_START = .;
+        segment_anime_h_SDATA_START = .;
         build/us/src/assets/anime/anime_h.o(.sdata*);
-        segment_anime_h_sdata_END = .;
-        segment_anime_h_sdata_SIZE = ABSOLUTE(segment_anime_h_sdata_END - segment_anime_h_sdata_START);
+        segment_anime_h_SDATA_END = .;
+        segment_anime_h_SDATA_SIZE = ABSOLUTE(segment_anime_h_SDATA_END - segment_anime_h_SDATA_START);
     }
     segment_anime_h_alloc_VRAM_END = .;
     segment_anime_h_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_h_alloc_VRAM_END - segment_anime_h_alloc_VRAM);
@@ -6318,20 +6494,20 @@ SECTIONS
     segment_anime_h_noload_VRAM = .;
     .segment_anime_h.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_h_sbss_START = .;
+        segment_anime_h_SBSS_START = .;
         build/us/src/assets/anime/anime_h.o(.sbss*);
-        segment_anime_h_sbss_END = .;
-        segment_anime_h_sbss_SIZE = ABSOLUTE(segment_anime_h_sbss_END - segment_anime_h_sbss_START);
+        segment_anime_h_SBSS_END = .;
+        segment_anime_h_SBSS_SIZE = ABSOLUTE(segment_anime_h_SBSS_END - segment_anime_h_SBSS_START);
 
-        segment_anime_h_scommon_START = .;
+        segment_anime_h_SCOMMON_START = .;
         build/us/src/assets/anime/anime_h.o(.scommon*);
-        segment_anime_h_scommon_END = .;
-        segment_anime_h_scommon_SIZE = ABSOLUTE(segment_anime_h_scommon_END - segment_anime_h_scommon_START);
+        segment_anime_h_SCOMMON_END = .;
+        segment_anime_h_SCOMMON_SIZE = ABSOLUTE(segment_anime_h_SCOMMON_END - segment_anime_h_SCOMMON_START);
 
-        segment_anime_h_bss_START = .;
+        segment_anime_h_BSS_START = .;
         build/us/src/assets/anime/anime_h.o(.bss*);
-        segment_anime_h_bss_END = .;
-        segment_anime_h_bss_SIZE = ABSOLUTE(segment_anime_h_bss_END - segment_anime_h_bss_START);
+        segment_anime_h_BSS_END = .;
+        segment_anime_h_BSS_SIZE = ABSOLUTE(segment_anime_h_BSS_END - segment_anime_h_BSS_START);
 
         segment_anime_hCOMMON_START = .;
         build/us/src/assets/anime/anime_h.o(COMMON*);
@@ -6351,25 +6527,25 @@ SECTIONS
     segment_anime_i_alloc_VRAM = .;
     .segment_anime_i 0x00000000 : AT(segment_anime_i_ROM_START) SUBALIGN(16)
     {
-        segment_anime_i_text_START = .;
+        segment_anime_i_TEXT_START = .;
         build/us/src/assets/anime/anime_i.o(.text*);
-        segment_anime_i_text_END = .;
-        segment_anime_i_text_SIZE = ABSOLUTE(segment_anime_i_text_END - segment_anime_i_text_START);
+        segment_anime_i_TEXT_END = .;
+        segment_anime_i_TEXT_SIZE = ABSOLUTE(segment_anime_i_TEXT_END - segment_anime_i_TEXT_START);
 
-        segment_anime_i_data_START = .;
+        segment_anime_i_DATA_START = .;
         build/us/src/assets/anime/anime_i.o(.data*);
-        segment_anime_i_data_END = .;
-        segment_anime_i_data_SIZE = ABSOLUTE(segment_anime_i_data_END - segment_anime_i_data_START);
+        segment_anime_i_DATA_END = .;
+        segment_anime_i_DATA_SIZE = ABSOLUTE(segment_anime_i_DATA_END - segment_anime_i_DATA_START);
 
-        segment_anime_i_rodata_START = .;
+        segment_anime_i_RODATA_START = .;
         build/us/src/assets/anime/anime_i.o(.rodata*);
-        segment_anime_i_rodata_END = .;
-        segment_anime_i_rodata_SIZE = ABSOLUTE(segment_anime_i_rodata_END - segment_anime_i_rodata_START);
+        segment_anime_i_RODATA_END = .;
+        segment_anime_i_RODATA_SIZE = ABSOLUTE(segment_anime_i_RODATA_END - segment_anime_i_RODATA_START);
 
-        segment_anime_i_sdata_START = .;
+        segment_anime_i_SDATA_START = .;
         build/us/src/assets/anime/anime_i.o(.sdata*);
-        segment_anime_i_sdata_END = .;
-        segment_anime_i_sdata_SIZE = ABSOLUTE(segment_anime_i_sdata_END - segment_anime_i_sdata_START);
+        segment_anime_i_SDATA_END = .;
+        segment_anime_i_SDATA_SIZE = ABSOLUTE(segment_anime_i_SDATA_END - segment_anime_i_SDATA_START);
     }
     segment_anime_i_alloc_VRAM_END = .;
     segment_anime_i_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_i_alloc_VRAM_END - segment_anime_i_alloc_VRAM);
@@ -6377,20 +6553,20 @@ SECTIONS
     segment_anime_i_noload_VRAM = .;
     .segment_anime_i.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_i_sbss_START = .;
+        segment_anime_i_SBSS_START = .;
         build/us/src/assets/anime/anime_i.o(.sbss*);
-        segment_anime_i_sbss_END = .;
-        segment_anime_i_sbss_SIZE = ABSOLUTE(segment_anime_i_sbss_END - segment_anime_i_sbss_START);
+        segment_anime_i_SBSS_END = .;
+        segment_anime_i_SBSS_SIZE = ABSOLUTE(segment_anime_i_SBSS_END - segment_anime_i_SBSS_START);
 
-        segment_anime_i_scommon_START = .;
+        segment_anime_i_SCOMMON_START = .;
         build/us/src/assets/anime/anime_i.o(.scommon*);
-        segment_anime_i_scommon_END = .;
-        segment_anime_i_scommon_SIZE = ABSOLUTE(segment_anime_i_scommon_END - segment_anime_i_scommon_START);
+        segment_anime_i_SCOMMON_END = .;
+        segment_anime_i_SCOMMON_SIZE = ABSOLUTE(segment_anime_i_SCOMMON_END - segment_anime_i_SCOMMON_START);
 
-        segment_anime_i_bss_START = .;
+        segment_anime_i_BSS_START = .;
         build/us/src/assets/anime/anime_i.o(.bss*);
-        segment_anime_i_bss_END = .;
-        segment_anime_i_bss_SIZE = ABSOLUTE(segment_anime_i_bss_END - segment_anime_i_bss_START);
+        segment_anime_i_BSS_END = .;
+        segment_anime_i_BSS_SIZE = ABSOLUTE(segment_anime_i_BSS_END - segment_anime_i_BSS_START);
 
         segment_anime_iCOMMON_START = .;
         build/us/src/assets/anime/anime_i.o(COMMON*);
@@ -6410,25 +6586,25 @@ SECTIONS
     segment_anime_j_alloc_VRAM = .;
     .segment_anime_j 0x00000000 : AT(segment_anime_j_ROM_START) SUBALIGN(16)
     {
-        segment_anime_j_text_START = .;
+        segment_anime_j_TEXT_START = .;
         build/us/src/assets/anime/anime_j.o(.text*);
-        segment_anime_j_text_END = .;
-        segment_anime_j_text_SIZE = ABSOLUTE(segment_anime_j_text_END - segment_anime_j_text_START);
+        segment_anime_j_TEXT_END = .;
+        segment_anime_j_TEXT_SIZE = ABSOLUTE(segment_anime_j_TEXT_END - segment_anime_j_TEXT_START);
 
-        segment_anime_j_data_START = .;
+        segment_anime_j_DATA_START = .;
         build/us/src/assets/anime/anime_j.o(.data*);
-        segment_anime_j_data_END = .;
-        segment_anime_j_data_SIZE = ABSOLUTE(segment_anime_j_data_END - segment_anime_j_data_START);
+        segment_anime_j_DATA_END = .;
+        segment_anime_j_DATA_SIZE = ABSOLUTE(segment_anime_j_DATA_END - segment_anime_j_DATA_START);
 
-        segment_anime_j_rodata_START = .;
+        segment_anime_j_RODATA_START = .;
         build/us/src/assets/anime/anime_j.o(.rodata*);
-        segment_anime_j_rodata_END = .;
-        segment_anime_j_rodata_SIZE = ABSOLUTE(segment_anime_j_rodata_END - segment_anime_j_rodata_START);
+        segment_anime_j_RODATA_END = .;
+        segment_anime_j_RODATA_SIZE = ABSOLUTE(segment_anime_j_RODATA_END - segment_anime_j_RODATA_START);
 
-        segment_anime_j_sdata_START = .;
+        segment_anime_j_SDATA_START = .;
         build/us/src/assets/anime/anime_j.o(.sdata*);
-        segment_anime_j_sdata_END = .;
-        segment_anime_j_sdata_SIZE = ABSOLUTE(segment_anime_j_sdata_END - segment_anime_j_sdata_START);
+        segment_anime_j_SDATA_END = .;
+        segment_anime_j_SDATA_SIZE = ABSOLUTE(segment_anime_j_SDATA_END - segment_anime_j_SDATA_START);
     }
     segment_anime_j_alloc_VRAM_END = .;
     segment_anime_j_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_j_alloc_VRAM_END - segment_anime_j_alloc_VRAM);
@@ -6436,20 +6612,20 @@ SECTIONS
     segment_anime_j_noload_VRAM = .;
     .segment_anime_j.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_j_sbss_START = .;
+        segment_anime_j_SBSS_START = .;
         build/us/src/assets/anime/anime_j.o(.sbss*);
-        segment_anime_j_sbss_END = .;
-        segment_anime_j_sbss_SIZE = ABSOLUTE(segment_anime_j_sbss_END - segment_anime_j_sbss_START);
+        segment_anime_j_SBSS_END = .;
+        segment_anime_j_SBSS_SIZE = ABSOLUTE(segment_anime_j_SBSS_END - segment_anime_j_SBSS_START);
 
-        segment_anime_j_scommon_START = .;
+        segment_anime_j_SCOMMON_START = .;
         build/us/src/assets/anime/anime_j.o(.scommon*);
-        segment_anime_j_scommon_END = .;
-        segment_anime_j_scommon_SIZE = ABSOLUTE(segment_anime_j_scommon_END - segment_anime_j_scommon_START);
+        segment_anime_j_SCOMMON_END = .;
+        segment_anime_j_SCOMMON_SIZE = ABSOLUTE(segment_anime_j_SCOMMON_END - segment_anime_j_SCOMMON_START);
 
-        segment_anime_j_bss_START = .;
+        segment_anime_j_BSS_START = .;
         build/us/src/assets/anime/anime_j.o(.bss*);
-        segment_anime_j_bss_END = .;
-        segment_anime_j_bss_SIZE = ABSOLUTE(segment_anime_j_bss_END - segment_anime_j_bss_START);
+        segment_anime_j_BSS_END = .;
+        segment_anime_j_BSS_SIZE = ABSOLUTE(segment_anime_j_BSS_END - segment_anime_j_BSS_START);
 
         segment_anime_jCOMMON_START = .;
         build/us/src/assets/anime/anime_j.o(COMMON*);
@@ -6469,25 +6645,25 @@ SECTIONS
     segment_anime_k_alloc_VRAM = .;
     .segment_anime_k 0x00000000 : AT(segment_anime_k_ROM_START) SUBALIGN(16)
     {
-        segment_anime_k_text_START = .;
+        segment_anime_k_TEXT_START = .;
         build/us/src/assets/anime/anime_k.o(.text*);
-        segment_anime_k_text_END = .;
-        segment_anime_k_text_SIZE = ABSOLUTE(segment_anime_k_text_END - segment_anime_k_text_START);
+        segment_anime_k_TEXT_END = .;
+        segment_anime_k_TEXT_SIZE = ABSOLUTE(segment_anime_k_TEXT_END - segment_anime_k_TEXT_START);
 
-        segment_anime_k_data_START = .;
+        segment_anime_k_DATA_START = .;
         build/us/src/assets/anime/anime_k.o(.data*);
-        segment_anime_k_data_END = .;
-        segment_anime_k_data_SIZE = ABSOLUTE(segment_anime_k_data_END - segment_anime_k_data_START);
+        segment_anime_k_DATA_END = .;
+        segment_anime_k_DATA_SIZE = ABSOLUTE(segment_anime_k_DATA_END - segment_anime_k_DATA_START);
 
-        segment_anime_k_rodata_START = .;
+        segment_anime_k_RODATA_START = .;
         build/us/src/assets/anime/anime_k.o(.rodata*);
-        segment_anime_k_rodata_END = .;
-        segment_anime_k_rodata_SIZE = ABSOLUTE(segment_anime_k_rodata_END - segment_anime_k_rodata_START);
+        segment_anime_k_RODATA_END = .;
+        segment_anime_k_RODATA_SIZE = ABSOLUTE(segment_anime_k_RODATA_END - segment_anime_k_RODATA_START);
 
-        segment_anime_k_sdata_START = .;
+        segment_anime_k_SDATA_START = .;
         build/us/src/assets/anime/anime_k.o(.sdata*);
-        segment_anime_k_sdata_END = .;
-        segment_anime_k_sdata_SIZE = ABSOLUTE(segment_anime_k_sdata_END - segment_anime_k_sdata_START);
+        segment_anime_k_SDATA_END = .;
+        segment_anime_k_SDATA_SIZE = ABSOLUTE(segment_anime_k_SDATA_END - segment_anime_k_SDATA_START);
     }
     segment_anime_k_alloc_VRAM_END = .;
     segment_anime_k_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_k_alloc_VRAM_END - segment_anime_k_alloc_VRAM);
@@ -6495,20 +6671,20 @@ SECTIONS
     segment_anime_k_noload_VRAM = .;
     .segment_anime_k.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_k_sbss_START = .;
+        segment_anime_k_SBSS_START = .;
         build/us/src/assets/anime/anime_k.o(.sbss*);
-        segment_anime_k_sbss_END = .;
-        segment_anime_k_sbss_SIZE = ABSOLUTE(segment_anime_k_sbss_END - segment_anime_k_sbss_START);
+        segment_anime_k_SBSS_END = .;
+        segment_anime_k_SBSS_SIZE = ABSOLUTE(segment_anime_k_SBSS_END - segment_anime_k_SBSS_START);
 
-        segment_anime_k_scommon_START = .;
+        segment_anime_k_SCOMMON_START = .;
         build/us/src/assets/anime/anime_k.o(.scommon*);
-        segment_anime_k_scommon_END = .;
-        segment_anime_k_scommon_SIZE = ABSOLUTE(segment_anime_k_scommon_END - segment_anime_k_scommon_START);
+        segment_anime_k_SCOMMON_END = .;
+        segment_anime_k_SCOMMON_SIZE = ABSOLUTE(segment_anime_k_SCOMMON_END - segment_anime_k_SCOMMON_START);
 
-        segment_anime_k_bss_START = .;
+        segment_anime_k_BSS_START = .;
         build/us/src/assets/anime/anime_k.o(.bss*);
-        segment_anime_k_bss_END = .;
-        segment_anime_k_bss_SIZE = ABSOLUTE(segment_anime_k_bss_END - segment_anime_k_bss_START);
+        segment_anime_k_BSS_END = .;
+        segment_anime_k_BSS_SIZE = ABSOLUTE(segment_anime_k_BSS_END - segment_anime_k_BSS_START);
 
         segment_anime_kCOMMON_START = .;
         build/us/src/assets/anime/anime_k.o(COMMON*);
@@ -6528,25 +6704,25 @@ SECTIONS
     segment_anime_l_alloc_VRAM = .;
     .segment_anime_l 0x00000000 : AT(segment_anime_l_ROM_START) SUBALIGN(16)
     {
-        segment_anime_l_text_START = .;
+        segment_anime_l_TEXT_START = .;
         build/us/src/assets/anime/anime_l.o(.text*);
-        segment_anime_l_text_END = .;
-        segment_anime_l_text_SIZE = ABSOLUTE(segment_anime_l_text_END - segment_anime_l_text_START);
+        segment_anime_l_TEXT_END = .;
+        segment_anime_l_TEXT_SIZE = ABSOLUTE(segment_anime_l_TEXT_END - segment_anime_l_TEXT_START);
 
-        segment_anime_l_data_START = .;
+        segment_anime_l_DATA_START = .;
         build/us/src/assets/anime/anime_l.o(.data*);
-        segment_anime_l_data_END = .;
-        segment_anime_l_data_SIZE = ABSOLUTE(segment_anime_l_data_END - segment_anime_l_data_START);
+        segment_anime_l_DATA_END = .;
+        segment_anime_l_DATA_SIZE = ABSOLUTE(segment_anime_l_DATA_END - segment_anime_l_DATA_START);
 
-        segment_anime_l_rodata_START = .;
+        segment_anime_l_RODATA_START = .;
         build/us/src/assets/anime/anime_l.o(.rodata*);
-        segment_anime_l_rodata_END = .;
-        segment_anime_l_rodata_SIZE = ABSOLUTE(segment_anime_l_rodata_END - segment_anime_l_rodata_START);
+        segment_anime_l_RODATA_END = .;
+        segment_anime_l_RODATA_SIZE = ABSOLUTE(segment_anime_l_RODATA_END - segment_anime_l_RODATA_START);
 
-        segment_anime_l_sdata_START = .;
+        segment_anime_l_SDATA_START = .;
         build/us/src/assets/anime/anime_l.o(.sdata*);
-        segment_anime_l_sdata_END = .;
-        segment_anime_l_sdata_SIZE = ABSOLUTE(segment_anime_l_sdata_END - segment_anime_l_sdata_START);
+        segment_anime_l_SDATA_END = .;
+        segment_anime_l_SDATA_SIZE = ABSOLUTE(segment_anime_l_SDATA_END - segment_anime_l_SDATA_START);
     }
     segment_anime_l_alloc_VRAM_END = .;
     segment_anime_l_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_l_alloc_VRAM_END - segment_anime_l_alloc_VRAM);
@@ -6554,20 +6730,20 @@ SECTIONS
     segment_anime_l_noload_VRAM = .;
     .segment_anime_l.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_l_sbss_START = .;
+        segment_anime_l_SBSS_START = .;
         build/us/src/assets/anime/anime_l.o(.sbss*);
-        segment_anime_l_sbss_END = .;
-        segment_anime_l_sbss_SIZE = ABSOLUTE(segment_anime_l_sbss_END - segment_anime_l_sbss_START);
+        segment_anime_l_SBSS_END = .;
+        segment_anime_l_SBSS_SIZE = ABSOLUTE(segment_anime_l_SBSS_END - segment_anime_l_SBSS_START);
 
-        segment_anime_l_scommon_START = .;
+        segment_anime_l_SCOMMON_START = .;
         build/us/src/assets/anime/anime_l.o(.scommon*);
-        segment_anime_l_scommon_END = .;
-        segment_anime_l_scommon_SIZE = ABSOLUTE(segment_anime_l_scommon_END - segment_anime_l_scommon_START);
+        segment_anime_l_SCOMMON_END = .;
+        segment_anime_l_SCOMMON_SIZE = ABSOLUTE(segment_anime_l_SCOMMON_END - segment_anime_l_SCOMMON_START);
 
-        segment_anime_l_bss_START = .;
+        segment_anime_l_BSS_START = .;
         build/us/src/assets/anime/anime_l.o(.bss*);
-        segment_anime_l_bss_END = .;
-        segment_anime_l_bss_SIZE = ABSOLUTE(segment_anime_l_bss_END - segment_anime_l_bss_START);
+        segment_anime_l_BSS_END = .;
+        segment_anime_l_BSS_SIZE = ABSOLUTE(segment_anime_l_BSS_END - segment_anime_l_BSS_START);
 
         segment_anime_lCOMMON_START = .;
         build/us/src/assets/anime/anime_l.o(COMMON*);
@@ -6587,25 +6763,25 @@ SECTIONS
     segment_anime_m_alloc_VRAM = .;
     .segment_anime_m 0x00000000 : AT(segment_anime_m_ROM_START) SUBALIGN(16)
     {
-        segment_anime_m_text_START = .;
+        segment_anime_m_TEXT_START = .;
         build/us/src/assets/anime/anime_m.o(.text*);
-        segment_anime_m_text_END = .;
-        segment_anime_m_text_SIZE = ABSOLUTE(segment_anime_m_text_END - segment_anime_m_text_START);
+        segment_anime_m_TEXT_END = .;
+        segment_anime_m_TEXT_SIZE = ABSOLUTE(segment_anime_m_TEXT_END - segment_anime_m_TEXT_START);
 
-        segment_anime_m_data_START = .;
+        segment_anime_m_DATA_START = .;
         build/us/src/assets/anime/anime_m.o(.data*);
-        segment_anime_m_data_END = .;
-        segment_anime_m_data_SIZE = ABSOLUTE(segment_anime_m_data_END - segment_anime_m_data_START);
+        segment_anime_m_DATA_END = .;
+        segment_anime_m_DATA_SIZE = ABSOLUTE(segment_anime_m_DATA_END - segment_anime_m_DATA_START);
 
-        segment_anime_m_rodata_START = .;
+        segment_anime_m_RODATA_START = .;
         build/us/src/assets/anime/anime_m.o(.rodata*);
-        segment_anime_m_rodata_END = .;
-        segment_anime_m_rodata_SIZE = ABSOLUTE(segment_anime_m_rodata_END - segment_anime_m_rodata_START);
+        segment_anime_m_RODATA_END = .;
+        segment_anime_m_RODATA_SIZE = ABSOLUTE(segment_anime_m_RODATA_END - segment_anime_m_RODATA_START);
 
-        segment_anime_m_sdata_START = .;
+        segment_anime_m_SDATA_START = .;
         build/us/src/assets/anime/anime_m.o(.sdata*);
-        segment_anime_m_sdata_END = .;
-        segment_anime_m_sdata_SIZE = ABSOLUTE(segment_anime_m_sdata_END - segment_anime_m_sdata_START);
+        segment_anime_m_SDATA_END = .;
+        segment_anime_m_SDATA_SIZE = ABSOLUTE(segment_anime_m_SDATA_END - segment_anime_m_SDATA_START);
     }
     segment_anime_m_alloc_VRAM_END = .;
     segment_anime_m_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_m_alloc_VRAM_END - segment_anime_m_alloc_VRAM);
@@ -6613,20 +6789,20 @@ SECTIONS
     segment_anime_m_noload_VRAM = .;
     .segment_anime_m.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_m_sbss_START = .;
+        segment_anime_m_SBSS_START = .;
         build/us/src/assets/anime/anime_m.o(.sbss*);
-        segment_anime_m_sbss_END = .;
-        segment_anime_m_sbss_SIZE = ABSOLUTE(segment_anime_m_sbss_END - segment_anime_m_sbss_START);
+        segment_anime_m_SBSS_END = .;
+        segment_anime_m_SBSS_SIZE = ABSOLUTE(segment_anime_m_SBSS_END - segment_anime_m_SBSS_START);
 
-        segment_anime_m_scommon_START = .;
+        segment_anime_m_SCOMMON_START = .;
         build/us/src/assets/anime/anime_m.o(.scommon*);
-        segment_anime_m_scommon_END = .;
-        segment_anime_m_scommon_SIZE = ABSOLUTE(segment_anime_m_scommon_END - segment_anime_m_scommon_START);
+        segment_anime_m_SCOMMON_END = .;
+        segment_anime_m_SCOMMON_SIZE = ABSOLUTE(segment_anime_m_SCOMMON_END - segment_anime_m_SCOMMON_START);
 
-        segment_anime_m_bss_START = .;
+        segment_anime_m_BSS_START = .;
         build/us/src/assets/anime/anime_m.o(.bss*);
-        segment_anime_m_bss_END = .;
-        segment_anime_m_bss_SIZE = ABSOLUTE(segment_anime_m_bss_END - segment_anime_m_bss_START);
+        segment_anime_m_BSS_END = .;
+        segment_anime_m_BSS_SIZE = ABSOLUTE(segment_anime_m_BSS_END - segment_anime_m_BSS_START);
 
         segment_anime_mCOMMON_START = .;
         build/us/src/assets/anime/anime_m.o(COMMON*);
@@ -6646,25 +6822,25 @@ SECTIONS
     segment_anime_n_alloc_VRAM = .;
     .segment_anime_n 0x00000000 : AT(segment_anime_n_ROM_START) SUBALIGN(16)
     {
-        segment_anime_n_text_START = .;
+        segment_anime_n_TEXT_START = .;
         build/us/src/assets/anime/anime_n.o(.text*);
-        segment_anime_n_text_END = .;
-        segment_anime_n_text_SIZE = ABSOLUTE(segment_anime_n_text_END - segment_anime_n_text_START);
+        segment_anime_n_TEXT_END = .;
+        segment_anime_n_TEXT_SIZE = ABSOLUTE(segment_anime_n_TEXT_END - segment_anime_n_TEXT_START);
 
-        segment_anime_n_data_START = .;
+        segment_anime_n_DATA_START = .;
         build/us/src/assets/anime/anime_n.o(.data*);
-        segment_anime_n_data_END = .;
-        segment_anime_n_data_SIZE = ABSOLUTE(segment_anime_n_data_END - segment_anime_n_data_START);
+        segment_anime_n_DATA_END = .;
+        segment_anime_n_DATA_SIZE = ABSOLUTE(segment_anime_n_DATA_END - segment_anime_n_DATA_START);
 
-        segment_anime_n_rodata_START = .;
+        segment_anime_n_RODATA_START = .;
         build/us/src/assets/anime/anime_n.o(.rodata*);
-        segment_anime_n_rodata_END = .;
-        segment_anime_n_rodata_SIZE = ABSOLUTE(segment_anime_n_rodata_END - segment_anime_n_rodata_START);
+        segment_anime_n_RODATA_END = .;
+        segment_anime_n_RODATA_SIZE = ABSOLUTE(segment_anime_n_RODATA_END - segment_anime_n_RODATA_START);
 
-        segment_anime_n_sdata_START = .;
+        segment_anime_n_SDATA_START = .;
         build/us/src/assets/anime/anime_n.o(.sdata*);
-        segment_anime_n_sdata_END = .;
-        segment_anime_n_sdata_SIZE = ABSOLUTE(segment_anime_n_sdata_END - segment_anime_n_sdata_START);
+        segment_anime_n_SDATA_END = .;
+        segment_anime_n_SDATA_SIZE = ABSOLUTE(segment_anime_n_SDATA_END - segment_anime_n_SDATA_START);
     }
     segment_anime_n_alloc_VRAM_END = .;
     segment_anime_n_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_n_alloc_VRAM_END - segment_anime_n_alloc_VRAM);
@@ -6672,20 +6848,20 @@ SECTIONS
     segment_anime_n_noload_VRAM = .;
     .segment_anime_n.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_n_sbss_START = .;
+        segment_anime_n_SBSS_START = .;
         build/us/src/assets/anime/anime_n.o(.sbss*);
-        segment_anime_n_sbss_END = .;
-        segment_anime_n_sbss_SIZE = ABSOLUTE(segment_anime_n_sbss_END - segment_anime_n_sbss_START);
+        segment_anime_n_SBSS_END = .;
+        segment_anime_n_SBSS_SIZE = ABSOLUTE(segment_anime_n_SBSS_END - segment_anime_n_SBSS_START);
 
-        segment_anime_n_scommon_START = .;
+        segment_anime_n_SCOMMON_START = .;
         build/us/src/assets/anime/anime_n.o(.scommon*);
-        segment_anime_n_scommon_END = .;
-        segment_anime_n_scommon_SIZE = ABSOLUTE(segment_anime_n_scommon_END - segment_anime_n_scommon_START);
+        segment_anime_n_SCOMMON_END = .;
+        segment_anime_n_SCOMMON_SIZE = ABSOLUTE(segment_anime_n_SCOMMON_END - segment_anime_n_SCOMMON_START);
 
-        segment_anime_n_bss_START = .;
+        segment_anime_n_BSS_START = .;
         build/us/src/assets/anime/anime_n.o(.bss*);
-        segment_anime_n_bss_END = .;
-        segment_anime_n_bss_SIZE = ABSOLUTE(segment_anime_n_bss_END - segment_anime_n_bss_START);
+        segment_anime_n_BSS_END = .;
+        segment_anime_n_BSS_SIZE = ABSOLUTE(segment_anime_n_BSS_END - segment_anime_n_BSS_START);
 
         segment_anime_nCOMMON_START = .;
         build/us/src/assets/anime/anime_n.o(COMMON*);
@@ -6705,25 +6881,25 @@ SECTIONS
     segment_anime_o_alloc_VRAM = .;
     .segment_anime_o 0x00000000 : AT(segment_anime_o_ROM_START) SUBALIGN(16)
     {
-        segment_anime_o_text_START = .;
+        segment_anime_o_TEXT_START = .;
         build/us/src/assets/anime/anime_o.o(.text*);
-        segment_anime_o_text_END = .;
-        segment_anime_o_text_SIZE = ABSOLUTE(segment_anime_o_text_END - segment_anime_o_text_START);
+        segment_anime_o_TEXT_END = .;
+        segment_anime_o_TEXT_SIZE = ABSOLUTE(segment_anime_o_TEXT_END - segment_anime_o_TEXT_START);
 
-        segment_anime_o_data_START = .;
+        segment_anime_o_DATA_START = .;
         build/us/src/assets/anime/anime_o.o(.data*);
-        segment_anime_o_data_END = .;
-        segment_anime_o_data_SIZE = ABSOLUTE(segment_anime_o_data_END - segment_anime_o_data_START);
+        segment_anime_o_DATA_END = .;
+        segment_anime_o_DATA_SIZE = ABSOLUTE(segment_anime_o_DATA_END - segment_anime_o_DATA_START);
 
-        segment_anime_o_rodata_START = .;
+        segment_anime_o_RODATA_START = .;
         build/us/src/assets/anime/anime_o.o(.rodata*);
-        segment_anime_o_rodata_END = .;
-        segment_anime_o_rodata_SIZE = ABSOLUTE(segment_anime_o_rodata_END - segment_anime_o_rodata_START);
+        segment_anime_o_RODATA_END = .;
+        segment_anime_o_RODATA_SIZE = ABSOLUTE(segment_anime_o_RODATA_END - segment_anime_o_RODATA_START);
 
-        segment_anime_o_sdata_START = .;
+        segment_anime_o_SDATA_START = .;
         build/us/src/assets/anime/anime_o.o(.sdata*);
-        segment_anime_o_sdata_END = .;
-        segment_anime_o_sdata_SIZE = ABSOLUTE(segment_anime_o_sdata_END - segment_anime_o_sdata_START);
+        segment_anime_o_SDATA_END = .;
+        segment_anime_o_SDATA_SIZE = ABSOLUTE(segment_anime_o_SDATA_END - segment_anime_o_SDATA_START);
     }
     segment_anime_o_alloc_VRAM_END = .;
     segment_anime_o_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_o_alloc_VRAM_END - segment_anime_o_alloc_VRAM);
@@ -6731,20 +6907,20 @@ SECTIONS
     segment_anime_o_noload_VRAM = .;
     .segment_anime_o.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_o_sbss_START = .;
+        segment_anime_o_SBSS_START = .;
         build/us/src/assets/anime/anime_o.o(.sbss*);
-        segment_anime_o_sbss_END = .;
-        segment_anime_o_sbss_SIZE = ABSOLUTE(segment_anime_o_sbss_END - segment_anime_o_sbss_START);
+        segment_anime_o_SBSS_END = .;
+        segment_anime_o_SBSS_SIZE = ABSOLUTE(segment_anime_o_SBSS_END - segment_anime_o_SBSS_START);
 
-        segment_anime_o_scommon_START = .;
+        segment_anime_o_SCOMMON_START = .;
         build/us/src/assets/anime/anime_o.o(.scommon*);
-        segment_anime_o_scommon_END = .;
-        segment_anime_o_scommon_SIZE = ABSOLUTE(segment_anime_o_scommon_END - segment_anime_o_scommon_START);
+        segment_anime_o_SCOMMON_END = .;
+        segment_anime_o_SCOMMON_SIZE = ABSOLUTE(segment_anime_o_SCOMMON_END - segment_anime_o_SCOMMON_START);
 
-        segment_anime_o_bss_START = .;
+        segment_anime_o_BSS_START = .;
         build/us/src/assets/anime/anime_o.o(.bss*);
-        segment_anime_o_bss_END = .;
-        segment_anime_o_bss_SIZE = ABSOLUTE(segment_anime_o_bss_END - segment_anime_o_bss_START);
+        segment_anime_o_BSS_END = .;
+        segment_anime_o_BSS_SIZE = ABSOLUTE(segment_anime_o_BSS_END - segment_anime_o_BSS_START);
 
         segment_anime_oCOMMON_START = .;
         build/us/src/assets/anime/anime_o.o(COMMON*);
@@ -6764,25 +6940,25 @@ SECTIONS
     segment_anime_mario_alloc_VRAM = .;
     .segment_anime_mario 0x00000000 : AT(segment_anime_mario_ROM_START) SUBALIGN(16)
     {
-        segment_anime_mario_text_START = .;
+        segment_anime_mario_TEXT_START = .;
         build/us/src/assets/anime/anime_mario.o(.text*);
-        segment_anime_mario_text_END = .;
-        segment_anime_mario_text_SIZE = ABSOLUTE(segment_anime_mario_text_END - segment_anime_mario_text_START);
+        segment_anime_mario_TEXT_END = .;
+        segment_anime_mario_TEXT_SIZE = ABSOLUTE(segment_anime_mario_TEXT_END - segment_anime_mario_TEXT_START);
 
-        segment_anime_mario_data_START = .;
+        segment_anime_mario_DATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.data*);
-        segment_anime_mario_data_END = .;
-        segment_anime_mario_data_SIZE = ABSOLUTE(segment_anime_mario_data_END - segment_anime_mario_data_START);
+        segment_anime_mario_DATA_END = .;
+        segment_anime_mario_DATA_SIZE = ABSOLUTE(segment_anime_mario_DATA_END - segment_anime_mario_DATA_START);
 
-        segment_anime_mario_rodata_START = .;
+        segment_anime_mario_RODATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.rodata*);
-        segment_anime_mario_rodata_END = .;
-        segment_anime_mario_rodata_SIZE = ABSOLUTE(segment_anime_mario_rodata_END - segment_anime_mario_rodata_START);
+        segment_anime_mario_RODATA_END = .;
+        segment_anime_mario_RODATA_SIZE = ABSOLUTE(segment_anime_mario_RODATA_END - segment_anime_mario_RODATA_START);
 
-        segment_anime_mario_sdata_START = .;
+        segment_anime_mario_SDATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.sdata*);
-        segment_anime_mario_sdata_END = .;
-        segment_anime_mario_sdata_SIZE = ABSOLUTE(segment_anime_mario_sdata_END - segment_anime_mario_sdata_START);
+        segment_anime_mario_SDATA_END = .;
+        segment_anime_mario_SDATA_SIZE = ABSOLUTE(segment_anime_mario_SDATA_END - segment_anime_mario_SDATA_START);
     }
     segment_anime_mario_alloc_VRAM_END = .;
     segment_anime_mario_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_mario_alloc_VRAM_END - segment_anime_mario_alloc_VRAM);
@@ -6790,20 +6966,20 @@ SECTIONS
     segment_anime_mario_noload_VRAM = .;
     .segment_anime_mario.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_mario_sbss_START = .;
+        segment_anime_mario_SBSS_START = .;
         build/us/src/assets/anime/anime_mario.o(.sbss*);
-        segment_anime_mario_sbss_END = .;
-        segment_anime_mario_sbss_SIZE = ABSOLUTE(segment_anime_mario_sbss_END - segment_anime_mario_sbss_START);
+        segment_anime_mario_SBSS_END = .;
+        segment_anime_mario_SBSS_SIZE = ABSOLUTE(segment_anime_mario_SBSS_END - segment_anime_mario_SBSS_START);
 
-        segment_anime_mario_scommon_START = .;
+        segment_anime_mario_SCOMMON_START = .;
         build/us/src/assets/anime/anime_mario.o(.scommon*);
-        segment_anime_mario_scommon_END = .;
-        segment_anime_mario_scommon_SIZE = ABSOLUTE(segment_anime_mario_scommon_END - segment_anime_mario_scommon_START);
+        segment_anime_mario_SCOMMON_END = .;
+        segment_anime_mario_SCOMMON_SIZE = ABSOLUTE(segment_anime_mario_SCOMMON_END - segment_anime_mario_SCOMMON_START);
 
-        segment_anime_mario_bss_START = .;
+        segment_anime_mario_BSS_START = .;
         build/us/src/assets/anime/anime_mario.o(.bss*);
-        segment_anime_mario_bss_END = .;
-        segment_anime_mario_bss_SIZE = ABSOLUTE(segment_anime_mario_bss_END - segment_anime_mario_bss_START);
+        segment_anime_mario_BSS_END = .;
+        segment_anime_mario_BSS_SIZE = ABSOLUTE(segment_anime_mario_BSS_END - segment_anime_mario_BSS_START);
 
         segment_anime_marioCOMMON_START = .;
         build/us/src/assets/anime/anime_mario.o(COMMON*);
@@ -6823,25 +6999,25 @@ SECTIONS
     segment_anime_virus_b_alloc_VRAM = .;
     .segment_anime_virus_b 0x00000000 : AT(segment_anime_virus_b_ROM_START) SUBALIGN(16)
     {
-        segment_anime_virus_b_text_START = .;
+        segment_anime_virus_b_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.text*);
-        segment_anime_virus_b_text_END = .;
-        segment_anime_virus_b_text_SIZE = ABSOLUTE(segment_anime_virus_b_text_END - segment_anime_virus_b_text_START);
+        segment_anime_virus_b_TEXT_END = .;
+        segment_anime_virus_b_TEXT_SIZE = ABSOLUTE(segment_anime_virus_b_TEXT_END - segment_anime_virus_b_TEXT_START);
 
-        segment_anime_virus_b_data_START = .;
+        segment_anime_virus_b_DATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.data*);
-        segment_anime_virus_b_data_END = .;
-        segment_anime_virus_b_data_SIZE = ABSOLUTE(segment_anime_virus_b_data_END - segment_anime_virus_b_data_START);
+        segment_anime_virus_b_DATA_END = .;
+        segment_anime_virus_b_DATA_SIZE = ABSOLUTE(segment_anime_virus_b_DATA_END - segment_anime_virus_b_DATA_START);
 
-        segment_anime_virus_b_rodata_START = .;
+        segment_anime_virus_b_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.rodata*);
-        segment_anime_virus_b_rodata_END = .;
-        segment_anime_virus_b_rodata_SIZE = ABSOLUTE(segment_anime_virus_b_rodata_END - segment_anime_virus_b_rodata_START);
+        segment_anime_virus_b_RODATA_END = .;
+        segment_anime_virus_b_RODATA_SIZE = ABSOLUTE(segment_anime_virus_b_RODATA_END - segment_anime_virus_b_RODATA_START);
 
-        segment_anime_virus_b_sdata_START = .;
+        segment_anime_virus_b_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sdata*);
-        segment_anime_virus_b_sdata_END = .;
-        segment_anime_virus_b_sdata_SIZE = ABSOLUTE(segment_anime_virus_b_sdata_END - segment_anime_virus_b_sdata_START);
+        segment_anime_virus_b_SDATA_END = .;
+        segment_anime_virus_b_SDATA_SIZE = ABSOLUTE(segment_anime_virus_b_SDATA_END - segment_anime_virus_b_SDATA_START);
     }
     segment_anime_virus_b_alloc_VRAM_END = .;
     segment_anime_virus_b_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_alloc_VRAM_END - segment_anime_virus_b_alloc_VRAM);
@@ -6849,20 +7025,20 @@ SECTIONS
     segment_anime_virus_b_noload_VRAM = .;
     .segment_anime_virus_b.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_b_sbss_START = .;
+        segment_anime_virus_b_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sbss*);
-        segment_anime_virus_b_sbss_END = .;
-        segment_anime_virus_b_sbss_SIZE = ABSOLUTE(segment_anime_virus_b_sbss_END - segment_anime_virus_b_sbss_START);
+        segment_anime_virus_b_SBSS_END = .;
+        segment_anime_virus_b_SBSS_SIZE = ABSOLUTE(segment_anime_virus_b_SBSS_END - segment_anime_virus_b_SBSS_START);
 
-        segment_anime_virus_b_scommon_START = .;
+        segment_anime_virus_b_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.scommon*);
-        segment_anime_virus_b_scommon_END = .;
-        segment_anime_virus_b_scommon_SIZE = ABSOLUTE(segment_anime_virus_b_scommon_END - segment_anime_virus_b_scommon_START);
+        segment_anime_virus_b_SCOMMON_END = .;
+        segment_anime_virus_b_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_b_SCOMMON_END - segment_anime_virus_b_SCOMMON_START);
 
-        segment_anime_virus_b_bss_START = .;
+        segment_anime_virus_b_BSS_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.bss*);
-        segment_anime_virus_b_bss_END = .;
-        segment_anime_virus_b_bss_SIZE = ABSOLUTE(segment_anime_virus_b_bss_END - segment_anime_virus_b_bss_START);
+        segment_anime_virus_b_BSS_END = .;
+        segment_anime_virus_b_BSS_SIZE = ABSOLUTE(segment_anime_virus_b_BSS_END - segment_anime_virus_b_BSS_START);
 
         segment_anime_virus_bCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_b.o(COMMON*);
@@ -6882,25 +7058,25 @@ SECTIONS
     segment_anime_virus_r_alloc_VRAM = .;
     .segment_anime_virus_r 0x00000000 : AT(segment_anime_virus_r_ROM_START) SUBALIGN(16)
     {
-        segment_anime_virus_r_text_START = .;
+        segment_anime_virus_r_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.text*);
-        segment_anime_virus_r_text_END = .;
-        segment_anime_virus_r_text_SIZE = ABSOLUTE(segment_anime_virus_r_text_END - segment_anime_virus_r_text_START);
+        segment_anime_virus_r_TEXT_END = .;
+        segment_anime_virus_r_TEXT_SIZE = ABSOLUTE(segment_anime_virus_r_TEXT_END - segment_anime_virus_r_TEXT_START);
 
-        segment_anime_virus_r_data_START = .;
+        segment_anime_virus_r_DATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.data*);
-        segment_anime_virus_r_data_END = .;
-        segment_anime_virus_r_data_SIZE = ABSOLUTE(segment_anime_virus_r_data_END - segment_anime_virus_r_data_START);
+        segment_anime_virus_r_DATA_END = .;
+        segment_anime_virus_r_DATA_SIZE = ABSOLUTE(segment_anime_virus_r_DATA_END - segment_anime_virus_r_DATA_START);
 
-        segment_anime_virus_r_rodata_START = .;
+        segment_anime_virus_r_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.rodata*);
-        segment_anime_virus_r_rodata_END = .;
-        segment_anime_virus_r_rodata_SIZE = ABSOLUTE(segment_anime_virus_r_rodata_END - segment_anime_virus_r_rodata_START);
+        segment_anime_virus_r_RODATA_END = .;
+        segment_anime_virus_r_RODATA_SIZE = ABSOLUTE(segment_anime_virus_r_RODATA_END - segment_anime_virus_r_RODATA_START);
 
-        segment_anime_virus_r_sdata_START = .;
+        segment_anime_virus_r_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sdata*);
-        segment_anime_virus_r_sdata_END = .;
-        segment_anime_virus_r_sdata_SIZE = ABSOLUTE(segment_anime_virus_r_sdata_END - segment_anime_virus_r_sdata_START);
+        segment_anime_virus_r_SDATA_END = .;
+        segment_anime_virus_r_SDATA_SIZE = ABSOLUTE(segment_anime_virus_r_SDATA_END - segment_anime_virus_r_SDATA_START);
     }
     segment_anime_virus_r_alloc_VRAM_END = .;
     segment_anime_virus_r_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_alloc_VRAM_END - segment_anime_virus_r_alloc_VRAM);
@@ -6908,20 +7084,20 @@ SECTIONS
     segment_anime_virus_r_noload_VRAM = .;
     .segment_anime_virus_r.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_r_sbss_START = .;
+        segment_anime_virus_r_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sbss*);
-        segment_anime_virus_r_sbss_END = .;
-        segment_anime_virus_r_sbss_SIZE = ABSOLUTE(segment_anime_virus_r_sbss_END - segment_anime_virus_r_sbss_START);
+        segment_anime_virus_r_SBSS_END = .;
+        segment_anime_virus_r_SBSS_SIZE = ABSOLUTE(segment_anime_virus_r_SBSS_END - segment_anime_virus_r_SBSS_START);
 
-        segment_anime_virus_r_scommon_START = .;
+        segment_anime_virus_r_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.scommon*);
-        segment_anime_virus_r_scommon_END = .;
-        segment_anime_virus_r_scommon_SIZE = ABSOLUTE(segment_anime_virus_r_scommon_END - segment_anime_virus_r_scommon_START);
+        segment_anime_virus_r_SCOMMON_END = .;
+        segment_anime_virus_r_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_r_SCOMMON_END - segment_anime_virus_r_SCOMMON_START);
 
-        segment_anime_virus_r_bss_START = .;
+        segment_anime_virus_r_BSS_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.bss*);
-        segment_anime_virus_r_bss_END = .;
-        segment_anime_virus_r_bss_SIZE = ABSOLUTE(segment_anime_virus_r_bss_END - segment_anime_virus_r_bss_START);
+        segment_anime_virus_r_BSS_END = .;
+        segment_anime_virus_r_BSS_SIZE = ABSOLUTE(segment_anime_virus_r_BSS_END - segment_anime_virus_r_BSS_START);
 
         segment_anime_virus_rCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_r.o(COMMON*);
@@ -6941,25 +7117,25 @@ SECTIONS
     segment_anime_virus_y_alloc_VRAM = .;
     .segment_anime_virus_y 0x00000000 : AT(segment_anime_virus_y_ROM_START) SUBALIGN(16)
     {
-        segment_anime_virus_y_text_START = .;
+        segment_anime_virus_y_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.text*);
-        segment_anime_virus_y_text_END = .;
-        segment_anime_virus_y_text_SIZE = ABSOLUTE(segment_anime_virus_y_text_END - segment_anime_virus_y_text_START);
+        segment_anime_virus_y_TEXT_END = .;
+        segment_anime_virus_y_TEXT_SIZE = ABSOLUTE(segment_anime_virus_y_TEXT_END - segment_anime_virus_y_TEXT_START);
 
-        segment_anime_virus_y_data_START = .;
+        segment_anime_virus_y_DATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.data*);
-        segment_anime_virus_y_data_END = .;
-        segment_anime_virus_y_data_SIZE = ABSOLUTE(segment_anime_virus_y_data_END - segment_anime_virus_y_data_START);
+        segment_anime_virus_y_DATA_END = .;
+        segment_anime_virus_y_DATA_SIZE = ABSOLUTE(segment_anime_virus_y_DATA_END - segment_anime_virus_y_DATA_START);
 
-        segment_anime_virus_y_rodata_START = .;
+        segment_anime_virus_y_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.rodata*);
-        segment_anime_virus_y_rodata_END = .;
-        segment_anime_virus_y_rodata_SIZE = ABSOLUTE(segment_anime_virus_y_rodata_END - segment_anime_virus_y_rodata_START);
+        segment_anime_virus_y_RODATA_END = .;
+        segment_anime_virus_y_RODATA_SIZE = ABSOLUTE(segment_anime_virus_y_RODATA_END - segment_anime_virus_y_RODATA_START);
 
-        segment_anime_virus_y_sdata_START = .;
+        segment_anime_virus_y_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sdata*);
-        segment_anime_virus_y_sdata_END = .;
-        segment_anime_virus_y_sdata_SIZE = ABSOLUTE(segment_anime_virus_y_sdata_END - segment_anime_virus_y_sdata_START);
+        segment_anime_virus_y_SDATA_END = .;
+        segment_anime_virus_y_SDATA_SIZE = ABSOLUTE(segment_anime_virus_y_SDATA_END - segment_anime_virus_y_SDATA_START);
     }
     segment_anime_virus_y_alloc_VRAM_END = .;
     segment_anime_virus_y_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_alloc_VRAM_END - segment_anime_virus_y_alloc_VRAM);
@@ -6967,20 +7143,20 @@ SECTIONS
     segment_anime_virus_y_noload_VRAM = .;
     .segment_anime_virus_y.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_virus_y_sbss_START = .;
+        segment_anime_virus_y_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sbss*);
-        segment_anime_virus_y_sbss_END = .;
-        segment_anime_virus_y_sbss_SIZE = ABSOLUTE(segment_anime_virus_y_sbss_END - segment_anime_virus_y_sbss_START);
+        segment_anime_virus_y_SBSS_END = .;
+        segment_anime_virus_y_SBSS_SIZE = ABSOLUTE(segment_anime_virus_y_SBSS_END - segment_anime_virus_y_SBSS_START);
 
-        segment_anime_virus_y_scommon_START = .;
+        segment_anime_virus_y_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.scommon*);
-        segment_anime_virus_y_scommon_END = .;
-        segment_anime_virus_y_scommon_SIZE = ABSOLUTE(segment_anime_virus_y_scommon_END - segment_anime_virus_y_scommon_START);
+        segment_anime_virus_y_SCOMMON_END = .;
+        segment_anime_virus_y_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_y_SCOMMON_END - segment_anime_virus_y_SCOMMON_START);
 
-        segment_anime_virus_y_bss_START = .;
+        segment_anime_virus_y_BSS_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.bss*);
-        segment_anime_virus_y_bss_END = .;
-        segment_anime_virus_y_bss_SIZE = ABSOLUTE(segment_anime_virus_y_bss_END - segment_anime_virus_y_bss_START);
+        segment_anime_virus_y_BSS_END = .;
+        segment_anime_virus_y_BSS_SIZE = ABSOLUTE(segment_anime_virus_y_BSS_END - segment_anime_virus_y_BSS_START);
 
         segment_anime_virus_yCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_y.o(COMMON*);
@@ -7000,25 +7176,25 @@ SECTIONS
     segment_anime_smog_alloc_VRAM = .;
     .segment_anime_smog 0x00000000 : AT(segment_anime_smog_ROM_START) SUBALIGN(16)
     {
-        segment_anime_smog_text_START = .;
+        segment_anime_smog_TEXT_START = .;
         build/us/src/assets/anime/anime_smog.o(.text*);
-        segment_anime_smog_text_END = .;
-        segment_anime_smog_text_SIZE = ABSOLUTE(segment_anime_smog_text_END - segment_anime_smog_text_START);
+        segment_anime_smog_TEXT_END = .;
+        segment_anime_smog_TEXT_SIZE = ABSOLUTE(segment_anime_smog_TEXT_END - segment_anime_smog_TEXT_START);
 
-        segment_anime_smog_data_START = .;
+        segment_anime_smog_DATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.data*);
-        segment_anime_smog_data_END = .;
-        segment_anime_smog_data_SIZE = ABSOLUTE(segment_anime_smog_data_END - segment_anime_smog_data_START);
+        segment_anime_smog_DATA_END = .;
+        segment_anime_smog_DATA_SIZE = ABSOLUTE(segment_anime_smog_DATA_END - segment_anime_smog_DATA_START);
 
-        segment_anime_smog_rodata_START = .;
+        segment_anime_smog_RODATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.rodata*);
-        segment_anime_smog_rodata_END = .;
-        segment_anime_smog_rodata_SIZE = ABSOLUTE(segment_anime_smog_rodata_END - segment_anime_smog_rodata_START);
+        segment_anime_smog_RODATA_END = .;
+        segment_anime_smog_RODATA_SIZE = ABSOLUTE(segment_anime_smog_RODATA_END - segment_anime_smog_RODATA_START);
 
-        segment_anime_smog_sdata_START = .;
+        segment_anime_smog_SDATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.sdata*);
-        segment_anime_smog_sdata_END = .;
-        segment_anime_smog_sdata_SIZE = ABSOLUTE(segment_anime_smog_sdata_END - segment_anime_smog_sdata_START);
+        segment_anime_smog_SDATA_END = .;
+        segment_anime_smog_SDATA_SIZE = ABSOLUTE(segment_anime_smog_SDATA_END - segment_anime_smog_SDATA_START);
     }
     segment_anime_smog_alloc_VRAM_END = .;
     segment_anime_smog_alloc_VRAM_SIZE = ABSOLUTE(segment_anime_smog_alloc_VRAM_END - segment_anime_smog_alloc_VRAM);
@@ -7026,20 +7202,20 @@ SECTIONS
     segment_anime_smog_noload_VRAM = .;
     .segment_anime_smog.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_anime_smog_sbss_START = .;
+        segment_anime_smog_SBSS_START = .;
         build/us/src/assets/anime/anime_smog.o(.sbss*);
-        segment_anime_smog_sbss_END = .;
-        segment_anime_smog_sbss_SIZE = ABSOLUTE(segment_anime_smog_sbss_END - segment_anime_smog_sbss_START);
+        segment_anime_smog_SBSS_END = .;
+        segment_anime_smog_SBSS_SIZE = ABSOLUTE(segment_anime_smog_SBSS_END - segment_anime_smog_SBSS_START);
 
-        segment_anime_smog_scommon_START = .;
+        segment_anime_smog_SCOMMON_START = .;
         build/us/src/assets/anime/anime_smog.o(.scommon*);
-        segment_anime_smog_scommon_END = .;
-        segment_anime_smog_scommon_SIZE = ABSOLUTE(segment_anime_smog_scommon_END - segment_anime_smog_scommon_START);
+        segment_anime_smog_SCOMMON_END = .;
+        segment_anime_smog_SCOMMON_SIZE = ABSOLUTE(segment_anime_smog_SCOMMON_END - segment_anime_smog_SCOMMON_START);
 
-        segment_anime_smog_bss_START = .;
+        segment_anime_smog_BSS_START = .;
         build/us/src/assets/anime/anime_smog.o(.bss*);
-        segment_anime_smog_bss_END = .;
-        segment_anime_smog_bss_SIZE = ABSOLUTE(segment_anime_smog_bss_END - segment_anime_smog_bss_START);
+        segment_anime_smog_BSS_END = .;
+        segment_anime_smog_BSS_SIZE = ABSOLUTE(segment_anime_smog_BSS_END - segment_anime_smog_BSS_START);
 
         segment_anime_smogCOMMON_START = .;
         build/us/src/assets/anime/anime_smog.o(COMMON*);
@@ -7059,25 +7235,25 @@ SECTIONS
     segment_tutorial_data_alloc_VRAM = .;
     .segment_tutorial_data 0x00000000 : AT(segment_tutorial_data_ROM_START) SUBALIGN(16)
     {
-        segment_tutorial_data_text_START = .;
+        segment_tutorial_data_TEXT_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.text*);
-        segment_tutorial_data_text_END = .;
-        segment_tutorial_data_text_SIZE = ABSOLUTE(segment_tutorial_data_text_END - segment_tutorial_data_text_START);
+        segment_tutorial_data_TEXT_END = .;
+        segment_tutorial_data_TEXT_SIZE = ABSOLUTE(segment_tutorial_data_TEXT_END - segment_tutorial_data_TEXT_START);
 
-        segment_tutorial_data_data_START = .;
+        segment_tutorial_data_DATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.data*);
-        segment_tutorial_data_data_END = .;
-        segment_tutorial_data_data_SIZE = ABSOLUTE(segment_tutorial_data_data_END - segment_tutorial_data_data_START);
+        segment_tutorial_data_DATA_END = .;
+        segment_tutorial_data_DATA_SIZE = ABSOLUTE(segment_tutorial_data_DATA_END - segment_tutorial_data_DATA_START);
 
-        segment_tutorial_data_rodata_START = .;
+        segment_tutorial_data_RODATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.rodata*);
-        segment_tutorial_data_rodata_END = .;
-        segment_tutorial_data_rodata_SIZE = ABSOLUTE(segment_tutorial_data_rodata_END - segment_tutorial_data_rodata_START);
+        segment_tutorial_data_RODATA_END = .;
+        segment_tutorial_data_RODATA_SIZE = ABSOLUTE(segment_tutorial_data_RODATA_END - segment_tutorial_data_RODATA_START);
 
-        segment_tutorial_data_sdata_START = .;
+        segment_tutorial_data_SDATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sdata*);
-        segment_tutorial_data_sdata_END = .;
-        segment_tutorial_data_sdata_SIZE = ABSOLUTE(segment_tutorial_data_sdata_END - segment_tutorial_data_sdata_START);
+        segment_tutorial_data_SDATA_END = .;
+        segment_tutorial_data_SDATA_SIZE = ABSOLUTE(segment_tutorial_data_SDATA_END - segment_tutorial_data_SDATA_START);
     }
     segment_tutorial_data_alloc_VRAM_END = .;
     segment_tutorial_data_alloc_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_alloc_VRAM_END - segment_tutorial_data_alloc_VRAM);
@@ -7085,20 +7261,20 @@ SECTIONS
     segment_tutorial_data_noload_VRAM = .;
     .segment_tutorial_data.noload (NOLOAD) : SUBALIGN(16)
     {
-        segment_tutorial_data_sbss_START = .;
+        segment_tutorial_data_SBSS_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sbss*);
-        segment_tutorial_data_sbss_END = .;
-        segment_tutorial_data_sbss_SIZE = ABSOLUTE(segment_tutorial_data_sbss_END - segment_tutorial_data_sbss_START);
+        segment_tutorial_data_SBSS_END = .;
+        segment_tutorial_data_SBSS_SIZE = ABSOLUTE(segment_tutorial_data_SBSS_END - segment_tutorial_data_SBSS_START);
 
-        segment_tutorial_data_scommon_START = .;
+        segment_tutorial_data_SCOMMON_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.scommon*);
-        segment_tutorial_data_scommon_END = .;
-        segment_tutorial_data_scommon_SIZE = ABSOLUTE(segment_tutorial_data_scommon_END - segment_tutorial_data_scommon_START);
+        segment_tutorial_data_SCOMMON_END = .;
+        segment_tutorial_data_SCOMMON_SIZE = ABSOLUTE(segment_tutorial_data_SCOMMON_END - segment_tutorial_data_SCOMMON_START);
 
-        segment_tutorial_data_bss_START = .;
+        segment_tutorial_data_BSS_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.bss*);
-        segment_tutorial_data_bss_END = .;
-        segment_tutorial_data_bss_SIZE = ABSOLUTE(segment_tutorial_data_bss_END - segment_tutorial_data_bss_START);
+        segment_tutorial_data_BSS_END = .;
+        segment_tutorial_data_BSS_SIZE = ABSOLUTE(segment_tutorial_data_BSS_END - segment_tutorial_data_BSS_START);
 
         segment_tutorial_dataCOMMON_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(COMMON*);

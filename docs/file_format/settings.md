@@ -58,9 +58,9 @@ settings:
   - Segment allocatable: `boot_alloc_VRAM`, `boot_alloc_VRAM_END` and `boot_alloc_VRAM_SIZE`.
   - Segment noload: `boot_noload_VRAM`, `boot_noload_VRAM_END` and `boot_noload_VRAM_SIZE`.
   - Section vram (not limited to the foloowing examples):
-    - `.text`: `boot_text_START`, `boot_text_END` and `boot_text_SIZE`.
-    - `.data`: `boot_data_START`, `boot_data_END` and `boot_data_SIZE`.
-    - `.bss`: `boot_bss_START`, `boot_bss_END` and `boot_bss_SIZE`.
+    - `.text`: `boot_TEXT_START`, `boot_TEXT_END` and `boot_TEXT_SIZE`.
+    - `.data`: `boot_DATA_START`, `boot_DATA_END` and `boot_DATA_SIZE`.
+    - `.bss`: `boot_BSS_START`, `boot_BSS_END` and `boot_BSS_SIZE`.
 
 - `makerom`: Produces _camelCase symbols. Given a segment named `boot`:
   - Segment rom: `_bootSegmentRomStart`, `_bootSegmentRomEnd` and `_bootSegmentRomSize`.
