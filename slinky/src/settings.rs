@@ -127,10 +127,9 @@ impl SettingsSerial {
             settings_linker_symbols_style_default,
         )?;
 
-        let hardcoded_gp_value =self.hardcoded_gp_value.get_optional_nullable(
-            "hardcoded_gp_value",
-            settings_hardcoded_gp_value_default,
-        )?; 
+        let hardcoded_gp_value = self
+            .hardcoded_gp_value
+            .get_optional_nullable("hardcoded_gp_value", settings_hardcoded_gp_value_default)?;
 
         let alloc_sections = self
             .alloc_sections

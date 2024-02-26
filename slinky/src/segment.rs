@@ -75,7 +75,9 @@ impl SegmentSerial {
             files.push(file.unserialize(settings)?);
         }
 
-        let fixed_vram = self.fixed_vram.get_optional_nullable("fixed_vram", || None)?;
+        let fixed_vram = self
+            .fixed_vram
+            .get_optional_nullable("fixed_vram", || None)?;
 
         let alloc_sections = self
             .alloc_sections
