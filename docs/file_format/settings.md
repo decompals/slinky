@@ -74,6 +74,32 @@ settings:
 
 `splat`
 
+## `hardcoded_gp_value`
+
+Emits a `_gp` symbol with the specified value, essentially hardcoding the value.
+
+`_gp` is requiered for initializing the `$gp` register.
+
+This can be useful for decomp projects on the discovering step, but it would be
+problematic on shiftable builds.
+
+<!-- TODO: recommend the non-hardcoding alternative once it is implemented -->
+
+### Example
+
+```yaml
+settings:
+  hardcoded_gp_value: 0x800E4090
+```
+
+### Valid values
+
+A positive integer or `null`.
+
+### Default value
+
+`null`
+
 ## `alloc_sections`
 
 List of allocatable sections (the ones that take ROM space).
@@ -88,7 +114,7 @@ This option can be overriden per segment, see
 
 ```yaml
 settings:
-  alloc_sections: `[.rodata, .text, .data]`
+  alloc_sections: [.rodata, .text, .data]
 ```
 
 ### Valid values
@@ -113,7 +139,7 @@ This option can be overriden per segment, see
 
 ```yaml
 settings:
-  noload_sections: `[.bss]`
+  noload_sections: [.bss]
 ```
 
 ### Valid values
@@ -129,6 +155,8 @@ List of strings.
 The value to use in the `SUBALIGN` directives.
 
 If the value is `null` then disables using `SUBALIGN` directives.
+
+GNU LD docs for `SUBALIGN`: <https://sourceware.org/binutils/docs/ld/Forced-Input-Alignment.html#index-SUBALIGN_0028subsection_005falign_0029>
 
 This option can be overriden per segment, see
 [segments.md#subalign](segments.md#subalign) for more info.

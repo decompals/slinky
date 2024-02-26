@@ -86,7 +86,7 @@ an order different than the global one. See
 
 ```yaml
 settings:
-  alloc_sections: `[.text, .data, .rodata]`
+  alloc_sections: [.text, .data, .rodata]
 ```
 
 ### Valid values
@@ -113,7 +113,7 @@ an order different than the global one. See
 
 ```yaml
 settings:
-  noload_sections: `[.bss]`
+  noload_sections: [.bss]
 ```
 
 ### Valid values
@@ -132,6 +132,8 @@ If `null` is specified then no `SUBALIGN` directive is used for this segment.
 
 If an integer is used then the `SUBALIGN` will be emitted for this segment,
 regarding the global setting.
+
+GNU LD docs for `SUBALIGN`: <https://sourceware.org/binutils/docs/ld/Forced-Input-Alignment.html#index-SUBALIGN_0028subsection_005falign_0029>
 
 This option overrides the global setting, see
 [settings.md#subalign](settings.md#subalign) for more info.

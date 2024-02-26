@@ -34,7 +34,12 @@ impl<'a> LinkerWriter<'a> {
     pub fn begin_sections(&mut self) {
         self.writeln("SECTIONS");
         self.begin_block();
+
         self.writeln("__romPos = 0x0;");
+
+        if let Some(hardcoded_gp_value) = self.settings.hardcoded_gp_value {
+            self.writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
+        }
 
         self.writeln("");
     }

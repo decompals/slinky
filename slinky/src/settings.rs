@@ -13,6 +13,8 @@ pub struct Settings {
     pub base_path: PathBuf,
     pub linker_symbols_style: LinkerSymbolsStyle,
 
+    pub hardcoded_gp_value: Option<u32>,
+
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
@@ -32,6 +34,10 @@ fn settings_base_path_default() -> PathBuf {
 
 fn settings_linker_symbols_style_default() -> LinkerSymbolsStyle {
     LinkerSymbolsStyle::Splat
+}
+
+fn settings_hardcoded_gp_value_default() -> Option<u32> {
+    None
 }
 
 fn settings_alloc_sections_default() -> Vec<String> {
@@ -70,6 +76,8 @@ impl Default for Settings {
             base_path: settings_base_path_default(),
             linker_symbols_style: settings_linker_symbols_style_default(),
 
+            hardcoded_gp_value: settings_hardcoded_gp_value_default(),
+
             alloc_sections: settings_alloc_sections_default(),
             noload_sections: settings_noload_sections_default(),
 
@@ -91,11 +99,14 @@ pub(crate) struct SettingsSerial {
     pub linker_symbols_style: AbsentNullable<LinkerSymbolsStyle>,
 
     #[serde(default)]
+    pub hardcoded_gp_value: AbsentNullable<u32>,
+
+    #[serde(default)]
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub noload_sections: AbsentNullable<Vec<String>>,
 
-    // Options passed down to each segment
+    // Options passed down to each Segment
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
 
@@ -115,6 +126,11 @@ impl SettingsSerial {
             "linker_symbols_style",
             settings_linker_symbols_style_default,
         )?;
+
+        let hardcoded_gp_value =self.hardcoded_gp_value.get_optional_nullable(
+            "hardcoded_gp_value",
+            settings_hardcoded_gp_value_default,
+        )?; 
 
         let alloc_sections = self
             .alloc_sections
@@ -138,6 +154,7 @@ impl SettingsSerial {
         Ok(Settings {
             base_path,
             linker_symbols_style,
+            hardcoded_gp_value,
             alloc_sections,
             noload_sections,
             subalign,

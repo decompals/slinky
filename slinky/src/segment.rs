@@ -11,12 +11,16 @@ use crate::{
 
 #[derive(PartialEq, Debug)]
 pub struct Segment {
+    /// Name of the segment
     pub name: String,
+
+    /// List of files corresponding to this segment
     pub files: Vec<FileInfo>,
 
-    pub fixed_vram: Option<u64>,
+    /// If not None then forces the segment to have a fixed vram address instead of following the previous segment
+    pub fixed_vram: Option<u32>,
 
-    // The default of the following come from Options
+    // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
 
@@ -33,7 +37,7 @@ pub(crate) struct SegmentSerial {
     pub name: String,
     pub files: Vec<FileInfoSerial>,
 
-    pub fixed_vram: Option<u64>,
+    pub fixed_vram: AbsentNullable<u32>,
 
     // The default of the following come from Options
     #[serde(default)]
@@ -71,7 +75,7 @@ impl SegmentSerial {
             files.push(file.unserialize(settings)?);
         }
 
-        let fixed_vram = self.fixed_vram;
+        let fixed_vram = self.fixed_vram.get_optional_nullable("fixed_vram", || None)?;
 
         let alloc_sections = self
             .alloc_sections

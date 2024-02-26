@@ -1,0 +1,17 @@
+settings:
+  base_path: build
+  hardcoded_gp_value: 0x800E4090
+
+  alloc_sections: [.rodata, .text, .data, .sdata, .sbss, .bss]
+  noload_sections: []
+
+  subalign: null
+
+segments:
+  - name: main
+    fixed_vram: 0x80010200
+    files:
+      - { path: src/main/file1.o }
+      - { path: src/main/file2.o }
+      - { path: src/main/file3.o }
+      - { path: src/main/file4.o }

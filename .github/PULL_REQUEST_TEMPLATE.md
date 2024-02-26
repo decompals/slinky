@@ -6,6 +6,8 @@ Before opening your PR please make sure to do the following before:
 - Add an entry to [`CHANGELOG.md`](../CHANGELOG.md) about your changes (under
   the `Unreleased` category).
 - Make sure `cargo test` passes locally.
+  - If your changes modify the output of the tests then regenerate them by
+    running the `./tests/regen_tests.sh` script.
 - Run both `cargo clippy --fix` and `cargo fmt`.
 - If this PR fixes an issue then add `fixes #issue_number` is the PR description.
   - This will close the issue when the PR is merged.
