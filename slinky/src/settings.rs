@@ -15,6 +15,8 @@ pub struct Settings {
 
     pub hardcoded_gp_value: Option<u32>,
 
+    pub discard_wildcard_section: bool,
+
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
@@ -38,6 +40,10 @@ fn settings_linker_symbols_style_default() -> LinkerSymbolsStyle {
 
 fn settings_hardcoded_gp_value_default() -> Option<u32> {
     None
+}
+
+fn settings_discard_wildcard_section_default() -> bool {
+    true
 }
 
 fn settings_alloc_sections_default() -> Vec<String> {
@@ -78,6 +84,8 @@ impl Default for Settings {
 
             hardcoded_gp_value: settings_hardcoded_gp_value_default(),
 
+            discard_wildcard_section: settings_discard_wildcard_section_default(),
+
             alloc_sections: settings_alloc_sections_default(),
             noload_sections: settings_noload_sections_default(),
 
@@ -100,6 +108,9 @@ pub(crate) struct SettingsSerial {
 
     #[serde(default)]
     pub hardcoded_gp_value: AbsentNullable<u32>,
+
+    #[serde(default)]
+    pub discard_wildcard_section: AbsentNullable<bool>,
 
     #[serde(default)]
     pub alloc_sections: AbsentNullable<Vec<String>>,
@@ -131,6 +142,11 @@ impl SettingsSerial {
             .hardcoded_gp_value
             .get_optional_nullable("hardcoded_gp_value", settings_hardcoded_gp_value_default)?;
 
+        let discard_wildcard_section = self.discard_wildcard_section.get_non_null(
+            "discard_wildcard_section",
+            settings_discard_wildcard_section_default,
+        )?;
+
         let alloc_sections = self
             .alloc_sections
             .get_non_null("alloc_sections", settings_alloc_sections_default)?;
@@ -154,6 +170,7 @@ impl SettingsSerial {
             base_path,
             linker_symbols_style,
             hardcoded_gp_value,
+            discard_wildcard_section,
             alloc_sections,
             noload_sections,
             subalign,

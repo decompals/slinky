@@ -262,4 +262,8 @@ SECTIONS
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
+    /DISCARD/ :
+    {
+        *(*);
+    }
 }

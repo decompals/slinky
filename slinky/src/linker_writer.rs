@@ -45,6 +45,17 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn end_sections(&mut self) {
+        if self.settings.discard_wildcard_section {
+            self.writeln("/DISCARD/ :");
+            self.begin_block();
+
+            if self.settings.discard_wildcard_section {
+                self.writeln("*(*);")
+            }
+
+            self.end_block();
+        }
+
         self.end_block();
         assert!(self.indent_level == 0);
     }

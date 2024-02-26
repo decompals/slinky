@@ -7475,4 +7475,8 @@ SECTIONS
     segment_tutorial_data_ROM_END = __romPos;
     segment_tutorial_data_ROM_SIZE = ABSOLUTE(segment_tutorial_data_ROM_END - segment_tutorial_data_ROM_START);
 
+    /DISCARD/ :
+    {
+        *(*);
+    }
 }

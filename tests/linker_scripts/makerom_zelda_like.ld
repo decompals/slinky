@@ -133,4 +133,8 @@ SECTIONS
     _bootSegmentRomEnd = __romPos;
     _bootSegmentRomSize = ABSOLUTE(_bootSegmentRomEnd - _bootSegmentRomStart);
 
+    /DISCARD/ :
+    {
+        *(*);
+    }
 }

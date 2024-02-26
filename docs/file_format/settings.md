@@ -100,6 +100,29 @@ A positive integer or `null`.
 
 `null`
 
+## `discard_wildcard_section`
+
+Toggles emitting a discard section with a wildcard (`*`) entry, essentially
+discarding every section and file that is not explicitly listed on the linker
+script.
+
+GNU LD docs for `/DISCARD/`: <https://sourceware.org/binutils/docs/ld/Output-Section-Discarding.html#index-_002fDISCARD_002f>
+
+### Example
+
+```yaml
+settings:
+  discard_wildcard_section: False
+```
+
+### Valid values
+
+Boolean.
+
+### Default value
+
+`True`
+
 ## `alloc_sections`
 
 List of allocatable sections (the ones that take ROM space).
