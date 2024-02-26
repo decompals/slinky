@@ -3,6 +3,7 @@
 
 mod absent_nullable;
 mod error;
+mod utils;
 
 mod linker_symbols_style;
 mod settings;

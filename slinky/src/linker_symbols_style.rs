@@ -3,6 +3,8 @@
 
 use serde::Deserialize;
 
+use crate::utils;
+
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum LinkerSymbolsStyle {
@@ -60,25 +62,10 @@ impl LinkerSymbolsStyle {
                 // TODO: yeet RoData?
                 if section_type == ".rodata" {
                     "RoData".to_string()
+                } else if section_type.chars().nth(0) == Some('.') {
+                    utils::capitalize(&section_type[1..])
                 } else {
-                    // TODO: there must be a better way to Capitalize a string
-                    if section_type.chars().nth(0) == Some('.') {
-                        section_type
-                            .chars()
-                            .nth(1)
-                            .expect("")
-                            .to_uppercase()
-                            .to_string()
-                            + &section_type[2..]
-                    } else {
-                        section_type
-                            .chars()
-                            .nth(0)
-                            .expect("")
-                            .to_uppercase()
-                            .to_string()
-                            + &section_type[1..]
-                    }
+                    utils::capitalize(section_type)
                 }
             }
         }
