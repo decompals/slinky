@@ -259,7 +259,9 @@ impl LinkerWriter<'_> {
 
         self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
 
-        // TODO: FILL()
+        if let Some(fill_value) = segment.fill_value {
+            self.writeln(&format!("FILL(0x{:08X});", fill_value));
+        }
 
         for (i, section) in sections.iter().enumerate() {
             let section_start_sym = style.segment_section_start(&segment.name, section);

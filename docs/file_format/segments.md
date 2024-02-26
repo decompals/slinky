@@ -178,3 +178,36 @@ Boolean
 ### Default value
 
 The value specified for [settings.md#wildcard_sections](settings.md#wildcard_sections)
+
+## `fill_value`
+
+Allows to specify the value of the `FILL` statement emitted for this segment.
+
+If the value is `null` then no `FILL` statements will be emitted for this
+specific segment.
+
+GNU LD docs for `FILL`: <https://sourceware.org/binutils/docs/ld/Output-Section-Data.html#index-FILL_0028expression_0029>
+
+This option overrides the global setting, see
+[settings.md#fill_value](settings.md#fill_value) for more info.
+
+### Example
+
+```yaml
+settings:
+  fill_value: null
+```
+
+Which emits the following `FILL` statement:
+
+```ld
+FILL(0x00000A1F);
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+The value specified for [settings.md#fill_value](settings.md#fill_value)

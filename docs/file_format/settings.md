@@ -172,3 +172,36 @@ Boolean
 ### Default value
 
 `True`
+
+## `fill_value`
+
+Allows to specify the value of the `FILL` statement emitted for every segment of
+the linker script.
+
+If the value is `null` then no `FILL` statements will be emitted.
+
+GNU LD docs for `FILL`: <https://sourceware.org/binutils/docs/ld/Output-Section-Data.html#index-FILL_0028expression_0029>
+
+This option can be overriden per segment, see
+[segments.md#fill_value](segments.md#fill_value) for more info.
+
+### Example
+
+```yaml
+settings:
+  fill_value: 0xA1F
+```
+
+Which emits the following `FILL` statement:
+
+```ld
+FILL(0x00000A1F);
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+`0`

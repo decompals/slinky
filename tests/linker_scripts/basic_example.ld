@@ -7,6 +7,7 @@ SECTIONS
     header_alloc_VRAM = .;
     .header : AT(header_ROM_START) SUBALIGN(32)
     {
+        FILL(0x00000000);
         header_TEXT_START = .;
         build/asm/data/rom_header.o(.text*);
         header_TEXT_END = .;
@@ -33,6 +34,7 @@ SECTIONS
     header_noload_VRAM = .;
     .header.noload (NOLOAD) : SUBALIGN(32)
     {
+        FILL(0x00000000);
         header_SBSS_START = .;
         build/asm/data/rom_header.o(.sbss*);
         header_SBSS_END = .;
@@ -66,6 +68,7 @@ SECTIONS
     ipl3_alloc_VRAM = .;
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(32)
     {
+        FILL(0x00000000);
         ipl3_TEXT_START = .;
         build/asm/data/ipl3.o(.text*);
         ipl3_TEXT_END = .;
@@ -92,6 +95,7 @@ SECTIONS
     ipl3_noload_VRAM = .;
     .ipl3.noload (NOLOAD) : SUBALIGN(32)
     {
+        FILL(0x00000000);
         ipl3_SBSS_START = .;
         build/asm/data/ipl3.o(.sbss*);
         ipl3_SBSS_END = .;
@@ -125,6 +129,7 @@ SECTIONS
     entry_alloc_VRAM = .;
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(32)
     {
+        FILL(0x00000000);
         entry_TEXT_START = .;
         build/asm/entry.o(.text*);
         entry_TEXT_END = .;
@@ -151,6 +156,7 @@ SECTIONS
     entry_noload_VRAM = .;
     .entry.noload (NOLOAD) : SUBALIGN(32)
     {
+        FILL(0x00000000);
         entry_SBSS_START = .;
         build/asm/entry.o(.sbss*);
         entry_SBSS_END = .;
@@ -184,6 +190,7 @@ SECTIONS
     boot_alloc_VRAM = .;
     .boot : AT(boot_ROM_START)
     {
+        FILL(0x00000000);
         boot_TEXT_START = .;
         build/src/boot/boot_main.o(.text*);
         build/src/boot/dmadata.o(.text*);
@@ -218,6 +225,7 @@ SECTIONS
     boot_noload_VRAM = .;
     .boot.noload (NOLOAD) :
     {
+        FILL(0x00000000);
         boot_SBSS_START = .;
         build/src/boot/boot_main.o(.sbss*);
         build/src/boot/dmadata.o(.sbss*);

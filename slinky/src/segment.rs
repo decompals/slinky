@@ -23,6 +23,8 @@ pub struct Segment {
     pub subalign: Option<u32>,
 
     pub wildcard_sections: bool,
+
+    pub fill_value: Option<u32>,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -44,6 +46,9 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub wildcard_sections: AbsentNullable<bool>,
+
+    #[serde(default)]
+    pub fill_value: AbsentNullable<u32>,
 }
 
 impl SegmentSerial {
@@ -83,6 +88,10 @@ impl SegmentSerial {
             .wildcard_sections
             .get_non_null("wildcard_sections", || settings.wildcard_sections)?;
 
+        let fill_value = self
+            .fill_value
+            .get_optional_nullable("fill_value", || settings.fill_value)?;
+
         Ok(Segment {
             name,
             files,
@@ -91,6 +100,7 @@ impl SegmentSerial {
             fixed_vram,
             subalign,
             wildcard_sections,
+            fill_value,
         })
     }
 }

@@ -7,6 +7,7 @@ SECTIONS
     header_alloc_VRAM = .;
     .header 0x8F000000 : AT(header_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         header_TEXT_START = .;
         build/us/src/rom_header/rom_header.o(.text*);
         header_TEXT_END = .;
@@ -33,6 +34,7 @@ SECTIONS
     header_noload_VRAM = .;
     .header.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         header_SBSS_START = .;
         build/us/src/rom_header/rom_header.o(.sbss*);
         header_SBSS_END = .;
@@ -66,6 +68,7 @@ SECTIONS
     ipl3_alloc_VRAM = .;
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         ipl3_TEXT_START = .;
         build/us/asm/us/data/ipl3.o(.text*);
         ipl3_TEXT_END = .;
@@ -92,6 +95,7 @@ SECTIONS
     ipl3_noload_VRAM = .;
     .ipl3.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         ipl3_SBSS_START = .;
         build/us/asm/us/data/ipl3.o(.sbss*);
         ipl3_SBSS_END = .;
@@ -125,6 +129,7 @@ SECTIONS
     entry_alloc_VRAM = .;
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         entry_TEXT_START = .;
         build/us/src/entry/entry.o(.text*);
         entry_TEXT_END = .;
@@ -151,6 +156,7 @@ SECTIONS
     entry_noload_VRAM = .;
     .entry.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         entry_SBSS_START = .;
         build/us/src/entry/entry.o(.sbss*);
         entry_SBSS_END = .;
@@ -184,6 +190,7 @@ SECTIONS
     boot_alloc_VRAM = .;
     .boot : AT(boot_ROM_START)
     {
+        FILL(0x00000000);
         boot_TEXT_START = .;
         build/us/src/boot/boot_main.o(.text*);
         build/us/src/boot/dmadata.o(.text*);
@@ -830,6 +837,7 @@ SECTIONS
     boot_noload_VRAM = .;
     .boot.noload (NOLOAD) :
     {
+        FILL(0x00000000);
         boot_SBSS_START = .;
         build/us/src/boot/boot_main.o(.sbss*);
         build/us/src/boot/dmadata.o(.sbss*);
@@ -1483,6 +1491,7 @@ SECTIONS
     dma_table_alloc_VRAM = .;
     .dma_table : AT(dma_table_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         dma_table_TEXT_START = .;
         build/us/src/dma_table/dma_table.o(.text*);
         dma_table_TEXT_END = .;
@@ -1509,6 +1518,7 @@ SECTIONS
     dma_table_noload_VRAM = .;
     .dma_table.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         dma_table_SBSS_START = .;
         build/us/src/dma_table/dma_table.o(.sbss*);
         dma_table_SBSS_END = .;
@@ -1542,6 +1552,7 @@ SECTIONS
     main_segment_alloc_VRAM = .;
     .main_segment : AT(main_segment_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         main_segment_TEXT_START = .;
         build/us/src/main_segment/main.o(.text*);
         build/us/src/main_segment/nnsched.o(.text*);
@@ -1848,6 +1859,7 @@ SECTIONS
     main_segment_noload_VRAM = .;
     .main_segment.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         main_segment_SBSS_START = .;
         build/us/src/main_segment/main.o(.sbss*);
         build/us/src/main_segment/nnsched.o(.sbss*);
@@ -2161,6 +2173,7 @@ SECTIONS
     buffer1_alloc_VRAM = .;
     .buffer1 : AT(buffer1_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         buffer1_TEXT_START = .;
         build/us/src/buffers/buffer1.o(.text*);
         buffer1_TEXT_END = .;
@@ -2187,6 +2200,7 @@ SECTIONS
     buffer1_noload_VRAM = .;
     .buffer1.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         buffer1_SBSS_START = .;
         build/us/src/buffers/buffer1.o(.sbss*);
         buffer1_SBSS_END = .;
@@ -2220,6 +2234,7 @@ SECTIONS
     buffer2_alloc_VRAM = .;
     .buffer2 0x80205000 : AT(buffer2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         buffer2_TEXT_START = .;
         build/us/src/buffers/buffer2.o(.text*);
         buffer2_TEXT_END = .;
@@ -2246,6 +2261,7 @@ SECTIONS
     buffer2_noload_VRAM = .;
     .buffer2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         buffer2_SBSS_START = .;
         build/us/src/buffers/buffer2.o(.sbss*);
         buffer2_SBSS_END = .;
@@ -2279,6 +2295,7 @@ SECTIONS
     framebuffer_alloc_VRAM = .;
     .framebuffer 0x803B5000 : AT(framebuffer_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         framebuffer_TEXT_START = .;
         build/us/src/buffers/framebuffer.o(.text*);
         framebuffer_TEXT_END = .;
@@ -2305,6 +2322,7 @@ SECTIONS
     framebuffer_noload_VRAM = .;
     .framebuffer.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         framebuffer_SBSS_START = .;
         build/us/src/buffers/framebuffer.o(.sbss*);
         framebuffer_SBSS_END = .;
@@ -2338,6 +2356,7 @@ SECTIONS
     n64_wave_tables_alloc_VRAM = .;
     .n64_wave_tables : AT(n64_wave_tables_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         n64_wave_tables_TEXT_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.text*);
         n64_wave_tables_TEXT_END = .;
@@ -2364,6 +2383,7 @@ SECTIONS
     n64_wave_tables_noload_VRAM = .;
     .n64_wave_tables.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         n64_wave_tables_SBSS_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.sbss*);
         n64_wave_tables_SBSS_END = .;
@@ -2397,6 +2417,7 @@ SECTIONS
     n64_ptr_tables_v2_alloc_VRAM = .;
     .n64_ptr_tables_v2 : AT(n64_ptr_tables_v2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         n64_ptr_tables_v2_TEXT_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.text*);
         n64_ptr_tables_v2_TEXT_END = .;
@@ -2423,6 +2444,7 @@ SECTIONS
     n64_ptr_tables_v2_noload_VRAM = .;
     .n64_ptr_tables_v2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         n64_ptr_tables_v2_SBSS_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.sbss*);
         n64_ptr_tables_v2_SBSS_END = .;
@@ -2456,6 +2478,7 @@ SECTIONS
     segment_172130_alloc_VRAM = .;
     .segment_172130 : AT(segment_172130_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_172130_TEXT_START = .;
         build/us/asm/us/data/segment_172130.o(.text*);
         segment_172130_TEXT_END = .;
@@ -2482,6 +2505,7 @@ SECTIONS
     segment_172130_noload_VRAM = .;
     .segment_172130.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_172130_SBSS_START = .;
         build/us/asm/us/data/segment_172130.o(.sbss*);
         segment_172130_SBSS_END = .;
@@ -2515,6 +2539,7 @@ SECTIONS
     segment_172D60_alloc_VRAM = .;
     .segment_172D60 : AT(segment_172D60_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_172D60_TEXT_START = .;
         build/us/asm/us/data/segment_172D60.o(.text*);
         segment_172D60_TEXT_END = .;
@@ -2541,6 +2566,7 @@ SECTIONS
     segment_172D60_noload_VRAM = .;
     .segment_172D60.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_172D60_SBSS_START = .;
         build/us/asm/us/data/segment_172D60.o(.sbss*);
         segment_172D60_SBSS_END = .;
@@ -2574,6 +2600,7 @@ SECTIONS
     segment_1750C0_alloc_VRAM = .;
     .segment_1750C0 : AT(segment_1750C0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1750C0_TEXT_START = .;
         build/us/asm/us/data/segment_1750C0.o(.text*);
         segment_1750C0_TEXT_END = .;
@@ -2600,6 +2627,7 @@ SECTIONS
     segment_1750C0_noload_VRAM = .;
     .segment_1750C0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1750C0_SBSS_START = .;
         build/us/asm/us/data/segment_1750C0.o(.sbss*);
         segment_1750C0_SBSS_END = .;
@@ -2633,6 +2661,7 @@ SECTIONS
     segment_177420_alloc_VRAM = .;
     .segment_177420 : AT(segment_177420_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_177420_TEXT_START = .;
         build/us/asm/us/data/segment_177420.o(.text*);
         segment_177420_TEXT_END = .;
@@ -2659,6 +2688,7 @@ SECTIONS
     segment_177420_noload_VRAM = .;
     .segment_177420.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_177420_SBSS_START = .;
         build/us/asm/us/data/segment_177420.o(.sbss*);
         segment_177420_SBSS_END = .;
@@ -2692,6 +2722,7 @@ SECTIONS
     segment_179620_alloc_VRAM = .;
     .segment_179620 : AT(segment_179620_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_179620_TEXT_START = .;
         build/us/asm/us/data/segment_179620.o(.text*);
         segment_179620_TEXT_END = .;
@@ -2718,6 +2749,7 @@ SECTIONS
     segment_179620_noload_VRAM = .;
     .segment_179620.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_179620_SBSS_START = .;
         build/us/asm/us/data/segment_179620.o(.sbss*);
         segment_179620_SBSS_END = .;
@@ -2751,6 +2783,7 @@ SECTIONS
     segment_17B790_alloc_VRAM = .;
     .segment_17B790 : AT(segment_17B790_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17B790_TEXT_START = .;
         build/us/asm/us/data/segment_17B790.o(.text*);
         segment_17B790_TEXT_END = .;
@@ -2777,6 +2810,7 @@ SECTIONS
     segment_17B790_noload_VRAM = .;
     .segment_17B790.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17B790_SBSS_START = .;
         build/us/asm/us/data/segment_17B790.o(.sbss*);
         segment_17B790_SBSS_END = .;
@@ -2810,6 +2844,7 @@ SECTIONS
     segment_17C1E0_alloc_VRAM = .;
     .segment_17C1E0 : AT(segment_17C1E0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17C1E0_TEXT_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.text*);
         segment_17C1E0_TEXT_END = .;
@@ -2836,6 +2871,7 @@ SECTIONS
     segment_17C1E0_noload_VRAM = .;
     .segment_17C1E0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17C1E0_SBSS_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.sbss*);
         segment_17C1E0_SBSS_END = .;
@@ -2869,6 +2905,7 @@ SECTIONS
     segment_17D130_alloc_VRAM = .;
     .segment_17D130 : AT(segment_17D130_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17D130_TEXT_START = .;
         build/us/asm/us/data/segment_17D130.o(.text*);
         segment_17D130_TEXT_END = .;
@@ -2895,6 +2932,7 @@ SECTIONS
     segment_17D130_noload_VRAM = .;
     .segment_17D130.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17D130_SBSS_START = .;
         build/us/asm/us/data/segment_17D130.o(.sbss*);
         segment_17D130_SBSS_END = .;
@@ -2928,6 +2966,7 @@ SECTIONS
     segment_17E090_alloc_VRAM = .;
     .segment_17E090 : AT(segment_17E090_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17E090_TEXT_START = .;
         build/us/asm/us/data/segment_17E090.o(.text*);
         segment_17E090_TEXT_END = .;
@@ -2954,6 +2993,7 @@ SECTIONS
     segment_17E090_noload_VRAM = .;
     .segment_17E090.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_17E090_SBSS_START = .;
         build/us/asm/us/data/segment_17E090.o(.sbss*);
         segment_17E090_SBSS_END = .;
@@ -2987,6 +3027,7 @@ SECTIONS
     segment_181840_alloc_VRAM = .;
     .segment_181840 : AT(segment_181840_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_181840_TEXT_START = .;
         build/us/asm/us/data/segment_181840.o(.text*);
         segment_181840_TEXT_END = .;
@@ -3013,6 +3054,7 @@ SECTIONS
     segment_181840_noload_VRAM = .;
     .segment_181840.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_181840_SBSS_START = .;
         build/us/asm/us/data/segment_181840.o(.sbss*);
         segment_181840_SBSS_END = .;
@@ -3046,6 +3088,7 @@ SECTIONS
     segment_184FF0_alloc_VRAM = .;
     .segment_184FF0 : AT(segment_184FF0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_184FF0_TEXT_START = .;
         build/us/asm/us/data/segment_184FF0.o(.text*);
         segment_184FF0_TEXT_END = .;
@@ -3072,6 +3115,7 @@ SECTIONS
     segment_184FF0_noload_VRAM = .;
     .segment_184FF0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_184FF0_SBSS_START = .;
         build/us/asm/us/data/segment_184FF0.o(.sbss*);
         segment_184FF0_SBSS_END = .;
@@ -3105,6 +3149,7 @@ SECTIONS
     segment_186FF0_alloc_VRAM = .;
     .segment_186FF0 : AT(segment_186FF0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_186FF0_TEXT_START = .;
         build/us/asm/us/data/segment_186FF0.o(.text*);
         segment_186FF0_TEXT_END = .;
@@ -3131,6 +3176,7 @@ SECTIONS
     segment_186FF0_noload_VRAM = .;
     .segment_186FF0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_186FF0_SBSS_START = .;
         build/us/asm/us/data/segment_186FF0.o(.sbss*);
         segment_186FF0_SBSS_END = .;
@@ -3164,6 +3210,7 @@ SECTIONS
     segment_188FF0_alloc_VRAM = .;
     .segment_188FF0 : AT(segment_188FF0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_188FF0_TEXT_START = .;
         build/us/asm/us/data/segment_188FF0.o(.text*);
         segment_188FF0_TEXT_END = .;
@@ -3190,6 +3237,7 @@ SECTIONS
     segment_188FF0_noload_VRAM = .;
     .segment_188FF0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_188FF0_SBSS_START = .;
         build/us/asm/us/data/segment_188FF0.o(.sbss*);
         segment_188FF0_SBSS_END = .;
@@ -3223,6 +3271,7 @@ SECTIONS
     segment_189D40_alloc_VRAM = .;
     .segment_189D40 : AT(segment_189D40_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_189D40_TEXT_START = .;
         build/us/asm/us/data/segment_189D40.o(.text*);
         segment_189D40_TEXT_END = .;
@@ -3249,6 +3298,7 @@ SECTIONS
     segment_189D40_noload_VRAM = .;
     .segment_189D40.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_189D40_SBSS_START = .;
         build/us/asm/us/data/segment_189D40.o(.sbss*);
         segment_189D40_SBSS_END = .;
@@ -3282,6 +3332,7 @@ SECTIONS
     segment_18CB40_alloc_VRAM = .;
     .segment_18CB40 : AT(segment_18CB40_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18CB40_TEXT_START = .;
         build/us/asm/us/data/segment_18CB40.o(.text*);
         segment_18CB40_TEXT_END = .;
@@ -3308,6 +3359,7 @@ SECTIONS
     segment_18CB40_noload_VRAM = .;
     .segment_18CB40.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18CB40_SBSS_START = .;
         build/us/asm/us/data/segment_18CB40.o(.sbss*);
         segment_18CB40_SBSS_END = .;
@@ -3341,6 +3393,7 @@ SECTIONS
     segment_18DB90_alloc_VRAM = .;
     .segment_18DB90 : AT(segment_18DB90_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18DB90_TEXT_START = .;
         build/us/asm/us/data/segment_18DB90.o(.text*);
         segment_18DB90_TEXT_END = .;
@@ -3367,6 +3420,7 @@ SECTIONS
     segment_18DB90_noload_VRAM = .;
     .segment_18DB90.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18DB90_SBSS_START = .;
         build/us/asm/us/data/segment_18DB90.o(.sbss*);
         segment_18DB90_SBSS_END = .;
@@ -3400,6 +3454,7 @@ SECTIONS
     segment_18F160_alloc_VRAM = .;
     .segment_18F160 : AT(segment_18F160_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18F160_TEXT_START = .;
         build/us/asm/us/data/segment_18F160.o(.text*);
         segment_18F160_TEXT_END = .;
@@ -3426,6 +3481,7 @@ SECTIONS
     segment_18F160_noload_VRAM = .;
     .segment_18F160.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_18F160_SBSS_START = .;
         build/us/asm/us/data/segment_18F160.o(.sbss*);
         segment_18F160_SBSS_END = .;
@@ -3459,6 +3515,7 @@ SECTIONS
     segment_1906E0_alloc_VRAM = .;
     .segment_1906E0 : AT(segment_1906E0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1906E0_TEXT_START = .;
         build/us/asm/us/data/segment_1906E0.o(.text*);
         segment_1906E0_TEXT_END = .;
@@ -3485,6 +3542,7 @@ SECTIONS
     segment_1906E0_noload_VRAM = .;
     .segment_1906E0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1906E0_SBSS_START = .;
         build/us/asm/us/data/segment_1906E0.o(.sbss*);
         segment_1906E0_SBSS_END = .;
@@ -3518,6 +3576,7 @@ SECTIONS
     segment_1911D0_alloc_VRAM = .;
     .segment_1911D0 : AT(segment_1911D0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1911D0_TEXT_START = .;
         build/us/asm/us/data/segment_1911D0.o(.text*);
         segment_1911D0_TEXT_END = .;
@@ -3544,6 +3603,7 @@ SECTIONS
     segment_1911D0_noload_VRAM = .;
     .segment_1911D0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1911D0_SBSS_START = .;
         build/us/asm/us/data/segment_1911D0.o(.sbss*);
         segment_1911D0_SBSS_END = .;
@@ -3577,6 +3637,7 @@ SECTIONS
     segment_1936C0_alloc_VRAM = .;
     .segment_1936C0 : AT(segment_1936C0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1936C0_TEXT_START = .;
         build/us/asm/us/data/segment_1936C0.o(.text*);
         segment_1936C0_TEXT_END = .;
@@ -3603,6 +3664,7 @@ SECTIONS
     segment_1936C0_noload_VRAM = .;
     .segment_1936C0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1936C0_SBSS_START = .;
         build/us/asm/us/data/segment_1936C0.o(.sbss*);
         segment_1936C0_SBSS_END = .;
@@ -3636,6 +3698,7 @@ SECTIONS
     segment_1937F0_alloc_VRAM = .;
     .segment_1937F0 : AT(segment_1937F0_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1937F0_TEXT_START = .;
         build/us/asm/us/data/segment_1937F0.o(.text*);
         segment_1937F0_TEXT_END = .;
@@ -3662,6 +3725,7 @@ SECTIONS
     segment_1937F0_noload_VRAM = .;
     .segment_1937F0.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_1937F0_SBSS_START = .;
         build/us/asm/us/data/segment_1937F0.o(.sbss*);
         segment_1937F0_SBSS_END = .;
@@ -3695,6 +3759,7 @@ SECTIONS
     segment_194070_alloc_VRAM = .;
     .segment_194070 : AT(segment_194070_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194070_TEXT_START = .;
         build/us/asm/us/data/segment_194070.o(.text*);
         segment_194070_TEXT_END = .;
@@ -3721,6 +3786,7 @@ SECTIONS
     segment_194070_noload_VRAM = .;
     .segment_194070.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194070_SBSS_START = .;
         build/us/asm/us/data/segment_194070.o(.sbss*);
         segment_194070_SBSS_END = .;
@@ -3754,6 +3820,7 @@ SECTIONS
     segment_194150_alloc_VRAM = .;
     .segment_194150 : AT(segment_194150_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194150_TEXT_START = .;
         build/us/asm/us/data/segment_194150.o(.text*);
         segment_194150_TEXT_END = .;
@@ -3780,6 +3847,7 @@ SECTIONS
     segment_194150_noload_VRAM = .;
     .segment_194150.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194150_SBSS_START = .;
         build/us/asm/us/data/segment_194150.o(.sbss*);
         segment_194150_SBSS_END = .;
@@ -3813,6 +3881,7 @@ SECTIONS
     segment_194910_alloc_VRAM = .;
     .segment_194910 : AT(segment_194910_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194910_TEXT_START = .;
         build/us/asm/us/data/segment_194910.o(.text*);
         segment_194910_TEXT_END = .;
@@ -3839,6 +3908,7 @@ SECTIONS
     segment_194910_noload_VRAM = .;
     .segment_194910.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_194910_SBSS_START = .;
         build/us/asm/us/data/segment_194910.o(.sbss*);
         segment_194910_SBSS_END = .;
@@ -3872,6 +3942,7 @@ SECTIONS
     segment_195290_alloc_VRAM = .;
     .segment_195290 : AT(segment_195290_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_195290_TEXT_START = .;
         build/us/asm/us/data/segment_195290.o(.text*);
         segment_195290_TEXT_END = .;
@@ -3898,6 +3969,7 @@ SECTIONS
     segment_195290_noload_VRAM = .;
     .segment_195290.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_195290_SBSS_START = .;
         build/us/asm/us/data/segment_195290.o(.sbss*);
         segment_195290_SBSS_END = .;
@@ -3931,6 +4003,7 @@ SECTIONS
     segment_game_etc_alloc_VRAM = .;
     .segment_game_etc : AT(segment_game_etc_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_etc_TEXT_START = .;
         build/us/asm/us/data/segment_game_etc.o(.text*);
         segment_game_etc_TEXT_END = .;
@@ -3957,6 +4030,7 @@ SECTIONS
     segment_game_etc_noload_VRAM = .;
     .segment_game_etc.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_etc_SBSS_START = .;
         build/us/asm/us/data/segment_game_etc.o(.sbss*);
         segment_game_etc_SBSS_END = .;
@@ -3990,6 +4064,7 @@ SECTIONS
     segment_menu_bg_alloc_VRAM = .;
     .segment_menu_bg : AT(segment_menu_bg_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_bg_TEXT_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.text*);
         segment_menu_bg_TEXT_END = .;
@@ -4016,6 +4091,7 @@ SECTIONS
     segment_menu_bg_noload_VRAM = .;
     .segment_menu_bg.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_bg_SBSS_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.sbss*);
         segment_menu_bg_SBSS_END = .;
@@ -4049,6 +4125,7 @@ SECTIONS
     segment_menu_bg2_alloc_VRAM = .;
     .segment_menu_bg2 : AT(segment_menu_bg2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_bg2_TEXT_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.text*);
         segment_menu_bg2_TEXT_END = .;
@@ -4075,6 +4152,7 @@ SECTIONS
     segment_menu_bg2_noload_VRAM = .;
     .segment_menu_bg2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_bg2_SBSS_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.sbss*);
         segment_menu_bg2_SBSS_END = .;
@@ -4108,6 +4186,7 @@ SECTIONS
     segment_coffee01_alloc_VRAM = .;
     .segment_coffee01 : AT(segment_coffee01_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_coffee01_TEXT_START = .;
         build/us/asm/us/data/segment_coffee01.o(.text*);
         segment_coffee01_TEXT_END = .;
@@ -4134,6 +4213,7 @@ SECTIONS
     segment_coffee01_noload_VRAM = .;
     .segment_coffee01.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_coffee01_SBSS_START = .;
         build/us/asm/us/data/segment_coffee01.o(.sbss*);
         segment_coffee01_SBSS_END = .;
@@ -4167,6 +4247,7 @@ SECTIONS
     segment_title_all_alloc_VRAM = .;
     .segment_title_all : AT(segment_title_all_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_title_all_TEXT_START = .;
         build/us/asm/us/data/segment_title_all.o(.text*);
         segment_title_all_TEXT_END = .;
@@ -4193,6 +4274,7 @@ SECTIONS
     segment_title_all_noload_VRAM = .;
     .segment_title_all.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_title_all_SBSS_START = .;
         build/us/asm/us/data/segment_title_all.o(.sbss*);
         segment_title_all_SBSS_END = .;
@@ -4226,6 +4308,7 @@ SECTIONS
     segment_title_bmp_alloc_VRAM = .;
     .segment_title_bmp : AT(segment_title_bmp_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_title_bmp_TEXT_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.text*);
         segment_title_bmp_TEXT_END = .;
@@ -4252,6 +4335,7 @@ SECTIONS
     segment_title_bmp_noload_VRAM = .;
     .segment_title_bmp.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_title_bmp_SBSS_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.sbss*);
         segment_title_bmp_SBSS_END = .;
@@ -4285,6 +4369,7 @@ SECTIONS
     segment_waku_alloc_VRAM = .;
     .segment_waku : AT(segment_waku_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_waku_TEXT_START = .;
         build/us/asm/us/data/segment_waku.o(.text*);
         segment_waku_TEXT_END = .;
@@ -4311,6 +4396,7 @@ SECTIONS
     segment_waku_noload_VRAM = .;
     .segment_waku.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_waku_SBSS_START = .;
         build/us/asm/us/data/segment_waku.o(.sbss*);
         segment_waku_SBSS_END = .;
@@ -4344,6 +4430,7 @@ SECTIONS
     segment_waku2_alloc_VRAM = .;
     .segment_waku2 : AT(segment_waku2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_waku2_TEXT_START = .;
         build/us/asm/us/data/segment_waku2.o(.text*);
         segment_waku2_TEXT_END = .;
@@ -4370,6 +4457,7 @@ SECTIONS
     segment_waku2_noload_VRAM = .;
     .segment_waku2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_waku2_SBSS_START = .;
         build/us/asm/us/data/segment_waku2.o(.sbss*);
         segment_waku2_SBSS_END = .;
@@ -4403,6 +4491,7 @@ SECTIONS
     segment_story_bg01_alloc_VRAM = .;
     .segment_story_bg01 : AT(segment_story_bg01_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg01_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.text*);
         segment_story_bg01_TEXT_END = .;
@@ -4429,6 +4518,7 @@ SECTIONS
     segment_story_bg01_noload_VRAM = .;
     .segment_story_bg01.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg01_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.sbss*);
         segment_story_bg01_SBSS_END = .;
@@ -4462,6 +4552,7 @@ SECTIONS
     segment_story_bg02_alloc_VRAM = .;
     .segment_story_bg02 : AT(segment_story_bg02_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg02_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.text*);
         segment_story_bg02_TEXT_END = .;
@@ -4488,6 +4579,7 @@ SECTIONS
     segment_story_bg02_noload_VRAM = .;
     .segment_story_bg02.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg02_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.sbss*);
         segment_story_bg02_SBSS_END = .;
@@ -4521,6 +4613,7 @@ SECTIONS
     segment_story_bg03_alloc_VRAM = .;
     .segment_story_bg03 : AT(segment_story_bg03_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg03_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.text*);
         segment_story_bg03_TEXT_END = .;
@@ -4547,6 +4640,7 @@ SECTIONS
     segment_story_bg03_noload_VRAM = .;
     .segment_story_bg03.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg03_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.sbss*);
         segment_story_bg03_SBSS_END = .;
@@ -4580,6 +4674,7 @@ SECTIONS
     segment_story_bg04_alloc_VRAM = .;
     .segment_story_bg04 : AT(segment_story_bg04_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg04_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.text*);
         segment_story_bg04_TEXT_END = .;
@@ -4606,6 +4701,7 @@ SECTIONS
     segment_story_bg04_noload_VRAM = .;
     .segment_story_bg04.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg04_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.sbss*);
         segment_story_bg04_SBSS_END = .;
@@ -4639,6 +4735,7 @@ SECTIONS
     segment_story_bg05_alloc_VRAM = .;
     .segment_story_bg05 : AT(segment_story_bg05_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg05_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.text*);
         segment_story_bg05_TEXT_END = .;
@@ -4665,6 +4762,7 @@ SECTIONS
     segment_story_bg05_noload_VRAM = .;
     .segment_story_bg05.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg05_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.sbss*);
         segment_story_bg05_SBSS_END = .;
@@ -4698,6 +4796,7 @@ SECTIONS
     segment_story_bg07_alloc_VRAM = .;
     .segment_story_bg07 : AT(segment_story_bg07_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg07_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.text*);
         segment_story_bg07_TEXT_END = .;
@@ -4724,6 +4823,7 @@ SECTIONS
     segment_story_bg07_noload_VRAM = .;
     .segment_story_bg07.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg07_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.sbss*);
         segment_story_bg07_SBSS_END = .;
@@ -4757,6 +4857,7 @@ SECTIONS
     segment_story_bg08_alloc_VRAM = .;
     .segment_story_bg08 : AT(segment_story_bg08_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg08_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.text*);
         segment_story_bg08_TEXT_END = .;
@@ -4783,6 +4884,7 @@ SECTIONS
     segment_story_bg08_noload_VRAM = .;
     .segment_story_bg08.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg08_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.sbss*);
         segment_story_bg08_SBSS_END = .;
@@ -4816,6 +4918,7 @@ SECTIONS
     segment_story_bg09_alloc_VRAM = .;
     .segment_story_bg09 : AT(segment_story_bg09_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg09_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.text*);
         segment_story_bg09_TEXT_END = .;
@@ -4842,6 +4945,7 @@ SECTIONS
     segment_story_bg09_noload_VRAM = .;
     .segment_story_bg09.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg09_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.sbss*);
         segment_story_bg09_SBSS_END = .;
@@ -4875,6 +4979,7 @@ SECTIONS
     segment_story_bg10_alloc_VRAM = .;
     .segment_story_bg10 : AT(segment_story_bg10_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg10_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.text*);
         segment_story_bg10_TEXT_END = .;
@@ -4901,6 +5006,7 @@ SECTIONS
     segment_story_bg10_noload_VRAM = .;
     .segment_story_bg10.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg10_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.sbss*);
         segment_story_bg10_SBSS_END = .;
@@ -4934,6 +5040,7 @@ SECTIONS
     segment_story_bg11_alloc_VRAM = .;
     .segment_story_bg11 : AT(segment_story_bg11_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg11_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.text*);
         segment_story_bg11_TEXT_END = .;
@@ -4960,6 +5067,7 @@ SECTIONS
     segment_story_bg11_noload_VRAM = .;
     .segment_story_bg11.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_story_bg11_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.sbss*);
         segment_story_bg11_SBSS_END = .;
@@ -4993,6 +5101,7 @@ SECTIONS
     segment_menu_char_alloc_VRAM = .;
     .segment_menu_char 0x00000000 : AT(segment_menu_char_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_char_TEXT_START = .;
         build/us/src/assets/menu/menu_char.o(.text*);
         segment_menu_char_TEXT_END = .;
@@ -5019,6 +5128,7 @@ SECTIONS
     segment_menu_char_noload_VRAM = .;
     .segment_menu_char.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_char_SBSS_START = .;
         build/us/src/assets/menu/menu_char.o(.sbss*);
         segment_menu_char_SBSS_END = .;
@@ -5052,6 +5162,7 @@ SECTIONS
     segment_menu_common_alloc_VRAM = .;
     .segment_menu_common 0x00000000 : AT(segment_menu_common_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_common_TEXT_START = .;
         build/us/src/assets/menu/menu_common.o(.text*);
         segment_menu_common_TEXT_END = .;
@@ -5078,6 +5189,7 @@ SECTIONS
     segment_menu_common_noload_VRAM = .;
     .segment_menu_common.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_common_SBSS_START = .;
         build/us/src/assets/menu/menu_common.o(.sbss*);
         segment_menu_common_SBSS_END = .;
@@ -5111,6 +5223,7 @@ SECTIONS
     segment_menu_level_alloc_VRAM = .;
     .segment_menu_level 0x00000000 : AT(segment_menu_level_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_level_TEXT_START = .;
         build/us/src/assets/menu/menu_level.o(.text*);
         segment_menu_level_TEXT_END = .;
@@ -5137,6 +5250,7 @@ SECTIONS
     segment_menu_level_noload_VRAM = .;
     .segment_menu_level.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_level_SBSS_START = .;
         build/us/src/assets/menu/menu_level.o(.sbss*);
         segment_menu_level_SBSS_END = .;
@@ -5170,6 +5284,7 @@ SECTIONS
     segment_menu_main_alloc_VRAM = .;
     .segment_menu_main 0x00000000 : AT(segment_menu_main_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_main_TEXT_START = .;
         build/us/src/assets/menu/menu_main.o(.text*);
         segment_menu_main_TEXT_END = .;
@@ -5196,6 +5311,7 @@ SECTIONS
     segment_menu_main_noload_VRAM = .;
     .segment_menu_main.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_main_SBSS_START = .;
         build/us/src/assets/menu/menu_main.o(.sbss*);
         segment_menu_main_SBSS_END = .;
@@ -5229,6 +5345,7 @@ SECTIONS
     segment_menu_name_alloc_VRAM = .;
     .segment_menu_name 0x00000000 : AT(segment_menu_name_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_name_TEXT_START = .;
         build/us/src/assets/menu/menu_name.o(.text*);
         segment_menu_name_TEXT_END = .;
@@ -5255,6 +5372,7 @@ SECTIONS
     segment_menu_name_noload_VRAM = .;
     .segment_menu_name.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_name_SBSS_START = .;
         build/us/src/assets/menu/menu_name.o(.sbss*);
         segment_menu_name_SBSS_END = .;
@@ -5288,6 +5406,7 @@ SECTIONS
     segment_menu_p2_alloc_VRAM = .;
     .segment_menu_p2 0x00000000 : AT(segment_menu_p2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_p2_TEXT_START = .;
         build/us/src/assets/menu/menu_p2.o(.text*);
         segment_menu_p2_TEXT_END = .;
@@ -5314,6 +5433,7 @@ SECTIONS
     segment_menu_p2_noload_VRAM = .;
     .segment_menu_p2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_p2_SBSS_START = .;
         build/us/src/assets/menu/menu_p2.o(.sbss*);
         segment_menu_p2_SBSS_END = .;
@@ -5347,6 +5467,7 @@ SECTIONS
     segment_menu_p4_alloc_VRAM = .;
     .segment_menu_p4 0x00000000 : AT(segment_menu_p4_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_p4_TEXT_START = .;
         build/us/src/assets/menu/menu_p4.o(.text*);
         segment_menu_p4_TEXT_END = .;
@@ -5373,6 +5494,7 @@ SECTIONS
     segment_menu_p4_noload_VRAM = .;
     .segment_menu_p4.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_p4_SBSS_START = .;
         build/us/src/assets/menu/menu_p4.o(.sbss*);
         segment_menu_p4_SBSS_END = .;
@@ -5406,6 +5528,7 @@ SECTIONS
     segment_menu_rank_alloc_VRAM = .;
     .segment_menu_rank 0x00000000 : AT(segment_menu_rank_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_rank_TEXT_START = .;
         build/us/src/assets/menu/menu_rank.o(.text*);
         segment_menu_rank_TEXT_END = .;
@@ -5432,6 +5555,7 @@ SECTIONS
     segment_menu_rank_noload_VRAM = .;
     .segment_menu_rank.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_rank_SBSS_START = .;
         build/us/src/assets/menu/menu_rank.o(.sbss*);
         segment_menu_rank_SBSS_END = .;
@@ -5465,6 +5589,7 @@ SECTIONS
     segment_menu_setup_alloc_VRAM = .;
     .segment_menu_setup 0x00000000 : AT(segment_menu_setup_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_setup_TEXT_START = .;
         build/us/src/assets/menu/menu_setup.o(.text*);
         segment_menu_setup_TEXT_END = .;
@@ -5491,6 +5616,7 @@ SECTIONS
     segment_menu_setup_noload_VRAM = .;
     .segment_menu_setup.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_setup_SBSS_START = .;
         build/us/src/assets/menu/menu_setup.o(.sbss*);
         segment_menu_setup_SBSS_END = .;
@@ -5524,6 +5650,7 @@ SECTIONS
     segment_menu_story_alloc_VRAM = .;
     .segment_menu_story 0x00000000 : AT(segment_menu_story_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_story_TEXT_START = .;
         build/us/src/assets/menu/menu_story.o(.text*);
         segment_menu_story_TEXT_END = .;
@@ -5550,6 +5677,7 @@ SECTIONS
     segment_menu_story_noload_VRAM = .;
     .segment_menu_story.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_story_SBSS_START = .;
         build/us/src/assets/menu/menu_story.o(.sbss*);
         segment_menu_story_SBSS_END = .;
@@ -5583,6 +5711,7 @@ SECTIONS
     segment_menu_cont_alloc_VRAM = .;
     .segment_menu_cont 0x00000000 : AT(segment_menu_cont_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_cont_TEXT_START = .;
         build/us/src/assets/menu/menu_cont.o(.text*);
         segment_menu_cont_TEXT_END = .;
@@ -5609,6 +5738,7 @@ SECTIONS
     segment_menu_cont_noload_VRAM = .;
     .segment_menu_cont.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_cont_SBSS_START = .;
         build/us/src/assets/menu/menu_cont.o(.sbss*);
         segment_menu_cont_SBSS_END = .;
@@ -5642,6 +5772,7 @@ SECTIONS
     segment_menu_kasa_alloc_VRAM = .;
     .segment_menu_kasa 0x00000000 : AT(segment_menu_kasa_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_kasa_TEXT_START = .;
         build/us/src/assets/menu/menu_kasa.o(.text*);
         segment_menu_kasa_TEXT_END = .;
@@ -5668,6 +5799,7 @@ SECTIONS
     segment_menu_kasa_noload_VRAM = .;
     .segment_menu_kasa.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_menu_kasa_SBSS_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sbss*);
         segment_menu_kasa_SBSS_END = .;
@@ -5701,6 +5833,7 @@ SECTIONS
     segment_game_al_alloc_VRAM = .;
     .segment_game_al 0x00000000 : AT(segment_game_al_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_al_TEXT_START = .;
         build/us/src/assets/game/game_al.o(.text*);
         segment_game_al_TEXT_END = .;
@@ -5727,6 +5860,7 @@ SECTIONS
     segment_game_al_noload_VRAM = .;
     .segment_game_al.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_al_SBSS_START = .;
         build/us/src/assets/game/game_al.o(.sbss*);
         segment_game_al_SBSS_END = .;
@@ -5760,6 +5894,7 @@ SECTIONS
     segment_game_p1_alloc_VRAM = .;
     .segment_game_p1 0x00000000 : AT(segment_game_p1_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p1_TEXT_START = .;
         build/us/src/assets/game/game_p1.o(.text*);
         segment_game_p1_TEXT_END = .;
@@ -5786,6 +5921,7 @@ SECTIONS
     segment_game_p1_noload_VRAM = .;
     .segment_game_p1.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p1_SBSS_START = .;
         build/us/src/assets/game/game_p1.o(.sbss*);
         segment_game_p1_SBSS_END = .;
@@ -5819,6 +5955,7 @@ SECTIONS
     segment_game_p2_alloc_VRAM = .;
     .segment_game_p2 0x00000000 : AT(segment_game_p2_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p2_TEXT_START = .;
         build/us/src/assets/game/game_p2.o(.text*);
         segment_game_p2_TEXT_END = .;
@@ -5845,6 +5982,7 @@ SECTIONS
     segment_game_p2_noload_VRAM = .;
     .segment_game_p2.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p2_SBSS_START = .;
         build/us/src/assets/game/game_p2.o(.sbss*);
         segment_game_p2_SBSS_END = .;
@@ -5878,6 +6016,7 @@ SECTIONS
     segment_game_p4_alloc_VRAM = .;
     .segment_game_p4 0x00000000 : AT(segment_game_p4_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p4_TEXT_START = .;
         build/us/src/assets/game/game_p4.o(.text*);
         segment_game_p4_TEXT_END = .;
@@ -5904,6 +6043,7 @@ SECTIONS
     segment_game_p4_noload_VRAM = .;
     .segment_game_p4.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_p4_SBSS_START = .;
         build/us/src/assets/game/game_p4.o(.sbss*);
         segment_game_p4_SBSS_END = .;
@@ -5937,6 +6077,7 @@ SECTIONS
     segment_game_ls_alloc_VRAM = .;
     .segment_game_ls 0x00000000 : AT(segment_game_ls_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_ls_TEXT_START = .;
         build/us/src/assets/game/game_ls.o(.text*);
         segment_game_ls_TEXT_END = .;
@@ -5963,6 +6104,7 @@ SECTIONS
     segment_game_ls_noload_VRAM = .;
     .segment_game_ls.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_ls_SBSS_START = .;
         build/us/src/assets/game/game_ls.o(.sbss*);
         segment_game_ls_SBSS_END = .;
@@ -5996,6 +6138,7 @@ SECTIONS
     segment_game_item_alloc_VRAM = .;
     .segment_game_item 0x00000000 : AT(segment_game_item_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_item_TEXT_START = .;
         build/us/src/assets/game/game_item.o(.text*);
         segment_game_item_TEXT_END = .;
@@ -6022,6 +6165,7 @@ SECTIONS
     segment_game_item_noload_VRAM = .;
     .segment_game_item.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_game_item_SBSS_START = .;
         build/us/src/assets/game/game_item.o(.sbss*);
         segment_game_item_SBSS_END = .;
@@ -6055,6 +6199,7 @@ SECTIONS
     segment_anime_a_alloc_VRAM = .;
     .segment_anime_a 0x00000000 : AT(segment_anime_a_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_a_TEXT_START = .;
         build/us/src/assets/anime/anime_a.o(.text*);
         segment_anime_a_TEXT_END = .;
@@ -6081,6 +6226,7 @@ SECTIONS
     segment_anime_a_noload_VRAM = .;
     .segment_anime_a.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_a_SBSS_START = .;
         build/us/src/assets/anime/anime_a.o(.sbss*);
         segment_anime_a_SBSS_END = .;
@@ -6114,6 +6260,7 @@ SECTIONS
     segment_anime_b_alloc_VRAM = .;
     .segment_anime_b 0x00000000 : AT(segment_anime_b_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_b_TEXT_START = .;
         build/us/src/assets/anime/anime_b.o(.text*);
         segment_anime_b_TEXT_END = .;
@@ -6140,6 +6287,7 @@ SECTIONS
     segment_anime_b_noload_VRAM = .;
     .segment_anime_b.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_b_SBSS_START = .;
         build/us/src/assets/anime/anime_b.o(.sbss*);
         segment_anime_b_SBSS_END = .;
@@ -6173,6 +6321,7 @@ SECTIONS
     segment_anime_c_alloc_VRAM = .;
     .segment_anime_c 0x00000000 : AT(segment_anime_c_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_c_TEXT_START = .;
         build/us/src/assets/anime/anime_c.o(.text*);
         segment_anime_c_TEXT_END = .;
@@ -6199,6 +6348,7 @@ SECTIONS
     segment_anime_c_noload_VRAM = .;
     .segment_anime_c.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_c_SBSS_START = .;
         build/us/src/assets/anime/anime_c.o(.sbss*);
         segment_anime_c_SBSS_END = .;
@@ -6232,6 +6382,7 @@ SECTIONS
     segment_anime_d_alloc_VRAM = .;
     .segment_anime_d 0x00000000 : AT(segment_anime_d_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_d_TEXT_START = .;
         build/us/src/assets/anime/anime_d.o(.text*);
         segment_anime_d_TEXT_END = .;
@@ -6258,6 +6409,7 @@ SECTIONS
     segment_anime_d_noload_VRAM = .;
     .segment_anime_d.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_d_SBSS_START = .;
         build/us/src/assets/anime/anime_d.o(.sbss*);
         segment_anime_d_SBSS_END = .;
@@ -6291,6 +6443,7 @@ SECTIONS
     segment_anime_e_alloc_VRAM = .;
     .segment_anime_e 0x00000000 : AT(segment_anime_e_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_e_TEXT_START = .;
         build/us/src/assets/anime/anime_e.o(.text*);
         segment_anime_e_TEXT_END = .;
@@ -6317,6 +6470,7 @@ SECTIONS
     segment_anime_e_noload_VRAM = .;
     .segment_anime_e.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_e_SBSS_START = .;
         build/us/src/assets/anime/anime_e.o(.sbss*);
         segment_anime_e_SBSS_END = .;
@@ -6350,6 +6504,7 @@ SECTIONS
     segment_anime_f_alloc_VRAM = .;
     .segment_anime_f 0x00000000 : AT(segment_anime_f_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_f_TEXT_START = .;
         build/us/src/assets/anime/anime_f.o(.text*);
         segment_anime_f_TEXT_END = .;
@@ -6376,6 +6531,7 @@ SECTIONS
     segment_anime_f_noload_VRAM = .;
     .segment_anime_f.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_f_SBSS_START = .;
         build/us/src/assets/anime/anime_f.o(.sbss*);
         segment_anime_f_SBSS_END = .;
@@ -6409,6 +6565,7 @@ SECTIONS
     segment_anime_g_alloc_VRAM = .;
     .segment_anime_g 0x00000000 : AT(segment_anime_g_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_g_TEXT_START = .;
         build/us/src/assets/anime/anime_g.o(.text*);
         segment_anime_g_TEXT_END = .;
@@ -6435,6 +6592,7 @@ SECTIONS
     segment_anime_g_noload_VRAM = .;
     .segment_anime_g.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_g_SBSS_START = .;
         build/us/src/assets/anime/anime_g.o(.sbss*);
         segment_anime_g_SBSS_END = .;
@@ -6468,6 +6626,7 @@ SECTIONS
     segment_anime_h_alloc_VRAM = .;
     .segment_anime_h 0x00000000 : AT(segment_anime_h_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_h_TEXT_START = .;
         build/us/src/assets/anime/anime_h.o(.text*);
         segment_anime_h_TEXT_END = .;
@@ -6494,6 +6653,7 @@ SECTIONS
     segment_anime_h_noload_VRAM = .;
     .segment_anime_h.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_h_SBSS_START = .;
         build/us/src/assets/anime/anime_h.o(.sbss*);
         segment_anime_h_SBSS_END = .;
@@ -6527,6 +6687,7 @@ SECTIONS
     segment_anime_i_alloc_VRAM = .;
     .segment_anime_i 0x00000000 : AT(segment_anime_i_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_i_TEXT_START = .;
         build/us/src/assets/anime/anime_i.o(.text*);
         segment_anime_i_TEXT_END = .;
@@ -6553,6 +6714,7 @@ SECTIONS
     segment_anime_i_noload_VRAM = .;
     .segment_anime_i.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_i_SBSS_START = .;
         build/us/src/assets/anime/anime_i.o(.sbss*);
         segment_anime_i_SBSS_END = .;
@@ -6586,6 +6748,7 @@ SECTIONS
     segment_anime_j_alloc_VRAM = .;
     .segment_anime_j 0x00000000 : AT(segment_anime_j_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_j_TEXT_START = .;
         build/us/src/assets/anime/anime_j.o(.text*);
         segment_anime_j_TEXT_END = .;
@@ -6612,6 +6775,7 @@ SECTIONS
     segment_anime_j_noload_VRAM = .;
     .segment_anime_j.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_j_SBSS_START = .;
         build/us/src/assets/anime/anime_j.o(.sbss*);
         segment_anime_j_SBSS_END = .;
@@ -6645,6 +6809,7 @@ SECTIONS
     segment_anime_k_alloc_VRAM = .;
     .segment_anime_k 0x00000000 : AT(segment_anime_k_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_k_TEXT_START = .;
         build/us/src/assets/anime/anime_k.o(.text*);
         segment_anime_k_TEXT_END = .;
@@ -6671,6 +6836,7 @@ SECTIONS
     segment_anime_k_noload_VRAM = .;
     .segment_anime_k.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_k_SBSS_START = .;
         build/us/src/assets/anime/anime_k.o(.sbss*);
         segment_anime_k_SBSS_END = .;
@@ -6704,6 +6870,7 @@ SECTIONS
     segment_anime_l_alloc_VRAM = .;
     .segment_anime_l 0x00000000 : AT(segment_anime_l_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_l_TEXT_START = .;
         build/us/src/assets/anime/anime_l.o(.text*);
         segment_anime_l_TEXT_END = .;
@@ -6730,6 +6897,7 @@ SECTIONS
     segment_anime_l_noload_VRAM = .;
     .segment_anime_l.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_l_SBSS_START = .;
         build/us/src/assets/anime/anime_l.o(.sbss*);
         segment_anime_l_SBSS_END = .;
@@ -6763,6 +6931,7 @@ SECTIONS
     segment_anime_m_alloc_VRAM = .;
     .segment_anime_m 0x00000000 : AT(segment_anime_m_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_m_TEXT_START = .;
         build/us/src/assets/anime/anime_m.o(.text*);
         segment_anime_m_TEXT_END = .;
@@ -6789,6 +6958,7 @@ SECTIONS
     segment_anime_m_noload_VRAM = .;
     .segment_anime_m.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_m_SBSS_START = .;
         build/us/src/assets/anime/anime_m.o(.sbss*);
         segment_anime_m_SBSS_END = .;
@@ -6822,6 +6992,7 @@ SECTIONS
     segment_anime_n_alloc_VRAM = .;
     .segment_anime_n 0x00000000 : AT(segment_anime_n_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_n_TEXT_START = .;
         build/us/src/assets/anime/anime_n.o(.text*);
         segment_anime_n_TEXT_END = .;
@@ -6848,6 +7019,7 @@ SECTIONS
     segment_anime_n_noload_VRAM = .;
     .segment_anime_n.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_n_SBSS_START = .;
         build/us/src/assets/anime/anime_n.o(.sbss*);
         segment_anime_n_SBSS_END = .;
@@ -6881,6 +7053,7 @@ SECTIONS
     segment_anime_o_alloc_VRAM = .;
     .segment_anime_o 0x00000000 : AT(segment_anime_o_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_o_TEXT_START = .;
         build/us/src/assets/anime/anime_o.o(.text*);
         segment_anime_o_TEXT_END = .;
@@ -6907,6 +7080,7 @@ SECTIONS
     segment_anime_o_noload_VRAM = .;
     .segment_anime_o.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_o_SBSS_START = .;
         build/us/src/assets/anime/anime_o.o(.sbss*);
         segment_anime_o_SBSS_END = .;
@@ -6940,6 +7114,7 @@ SECTIONS
     segment_anime_mario_alloc_VRAM = .;
     .segment_anime_mario 0x00000000 : AT(segment_anime_mario_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_mario_TEXT_START = .;
         build/us/src/assets/anime/anime_mario.o(.text*);
         segment_anime_mario_TEXT_END = .;
@@ -6966,6 +7141,7 @@ SECTIONS
     segment_anime_mario_noload_VRAM = .;
     .segment_anime_mario.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_mario_SBSS_START = .;
         build/us/src/assets/anime/anime_mario.o(.sbss*);
         segment_anime_mario_SBSS_END = .;
@@ -6999,6 +7175,7 @@ SECTIONS
     segment_anime_virus_b_alloc_VRAM = .;
     .segment_anime_virus_b 0x00000000 : AT(segment_anime_virus_b_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_b_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.text*);
         segment_anime_virus_b_TEXT_END = .;
@@ -7025,6 +7202,7 @@ SECTIONS
     segment_anime_virus_b_noload_VRAM = .;
     .segment_anime_virus_b.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_b_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sbss*);
         segment_anime_virus_b_SBSS_END = .;
@@ -7058,6 +7236,7 @@ SECTIONS
     segment_anime_virus_r_alloc_VRAM = .;
     .segment_anime_virus_r 0x00000000 : AT(segment_anime_virus_r_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_r_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.text*);
         segment_anime_virus_r_TEXT_END = .;
@@ -7084,6 +7263,7 @@ SECTIONS
     segment_anime_virus_r_noload_VRAM = .;
     .segment_anime_virus_r.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_r_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sbss*);
         segment_anime_virus_r_SBSS_END = .;
@@ -7117,6 +7297,7 @@ SECTIONS
     segment_anime_virus_y_alloc_VRAM = .;
     .segment_anime_virus_y 0x00000000 : AT(segment_anime_virus_y_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_y_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.text*);
         segment_anime_virus_y_TEXT_END = .;
@@ -7143,6 +7324,7 @@ SECTIONS
     segment_anime_virus_y_noload_VRAM = .;
     .segment_anime_virus_y.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_virus_y_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sbss*);
         segment_anime_virus_y_SBSS_END = .;
@@ -7176,6 +7358,7 @@ SECTIONS
     segment_anime_smog_alloc_VRAM = .;
     .segment_anime_smog 0x00000000 : AT(segment_anime_smog_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_smog_TEXT_START = .;
         build/us/src/assets/anime/anime_smog.o(.text*);
         segment_anime_smog_TEXT_END = .;
@@ -7202,6 +7385,7 @@ SECTIONS
     segment_anime_smog_noload_VRAM = .;
     .segment_anime_smog.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_anime_smog_SBSS_START = .;
         build/us/src/assets/anime/anime_smog.o(.sbss*);
         segment_anime_smog_SBSS_END = .;
@@ -7235,6 +7419,7 @@ SECTIONS
     segment_tutorial_data_alloc_VRAM = .;
     .segment_tutorial_data 0x00000000 : AT(segment_tutorial_data_ROM_START) SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_tutorial_data_TEXT_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.text*);
         segment_tutorial_data_TEXT_END = .;
@@ -7261,6 +7446,7 @@ SECTIONS
     segment_tutorial_data_noload_VRAM = .;
     .segment_tutorial_data.noload (NOLOAD) : SUBALIGN(16)
     {
+        FILL(0x00000000);
         segment_tutorial_data_SBSS_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sbss*);
         segment_tutorial_data_SBSS_END = .;

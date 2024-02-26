@@ -7,6 +7,7 @@ SECTIONS
     _makerom_allocSegmentStart = .;
     .makerom 0x80024C00 : AT(_makeromSegmentRomStart)
     {
+        FILL(0x00000000);
         _makeromSegmentDataStart = .;
         build/makerom/header.o(.data*);
         build/makerom/ipl3.o(.data*);
@@ -34,6 +35,7 @@ SECTIONS
     _makerom_noloadSegmentStart = .;
     .makerom.noload (NOLOAD) :
     {
+        FILL(0x00000000);
         _makeromSegmentSbssStart = .;
         build/makerom/header.o(.sbss*);
         build/makerom/ipl3.o(.sbss*);
@@ -75,6 +77,7 @@ SECTIONS
     _boot_allocSegmentStart = .;
     .boot : AT(_bootSegmentRomStart)
     {
+        FILL(0x00000000);
         _bootSegmentTextStart = .;
         build/boot/boot_main.o(.text*);
         _bootSegmentTextEnd = .;
@@ -101,6 +104,7 @@ SECTIONS
     _boot_noloadSegmentStart = .;
     .boot.noload (NOLOAD) :
     {
+        FILL(0x00000000);
         _bootSegmentSbssStart = .;
         build/boot/boot_main.o(.sbss*);
         _bootSegmentSbssEnd = .;
