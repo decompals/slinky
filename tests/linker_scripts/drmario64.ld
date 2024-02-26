@@ -7477,6 +7477,12 @@ SECTIONS
 
     /DISCARD/ :
     {
+        *(.reginfo);
+        *(.MIPS.abiflags);
+        *(.MIPS.options);
+        *(.note.gnu.build-id);
+        *(.interp);
+        *(.eh_frame);
         *(*);
     }
 }

@@ -73,4 +73,13 @@ SECTIONS
     main_ROM_END = __romPos;
     main_ROM_SIZE = ABSOLUTE(main_ROM_END - main_ROM_START);
 
+    /DISCARD/ :
+    {
+        *(.reginfo);
+        *(.MIPS.abiflags);
+        *(.MIPS.options);
+        *(.note.gnu.build-id);
+        *(.interp);
+        *(.eh_frame);
+    }
 }

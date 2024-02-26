@@ -45,9 +45,13 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn end_sections(&mut self) {
-        if self.settings.discard_wildcard_section {
+        if self.settings.discard_wildcard_section || !self.settings.sections_denylist.is_empty() {
             self.writeln("/DISCARD/ :");
             self.begin_block();
+
+            for sect in &self.settings.sections_denylist {
+                self.writeln(&format!("*({});", sect));
+            }
 
             if self.settings.discard_wildcard_section {
                 self.writeln("*(*);")

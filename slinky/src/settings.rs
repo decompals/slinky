@@ -15,6 +15,7 @@ pub struct Settings {
 
     pub hardcoded_gp_value: Option<u32>,
 
+    pub sections_denylist: Vec<String>,
     pub discard_wildcard_section: bool,
 
     // Options passed down to each segment
@@ -40,6 +41,17 @@ fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
 
 fn settings_default_hardcoded_gp_value() -> Option<u32> {
     None
+}
+
+fn settings_default_section_denylist() -> Vec<String> {
+    vec![
+        ".reginfo".into(),
+        ".MIPS.abiflags".into(),
+        ".MIPS.options".into(),
+        ".note.gnu.build-id".into(),
+        ".interp".into(),
+        ".eh_frame".into(),
+    ]
 }
 
 fn settings_default_discard_wildcard_section() -> bool {
@@ -84,6 +96,7 @@ impl Default for Settings {
 
             hardcoded_gp_value: settings_default_hardcoded_gp_value(),
 
+            sections_denylist: settings_default_section_denylist(),
             discard_wildcard_section: settings_default_discard_wildcard_section(),
 
             alloc_sections: settings_default_alloc_sections(),
@@ -109,6 +122,8 @@ pub(crate) struct SettingsSerial {
     #[serde(default)]
     pub hardcoded_gp_value: AbsentNullable<u32>,
 
+    #[serde(default)]
+    pub sections_denylist: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub discard_wildcard_section: AbsentNullable<bool>,
 
@@ -142,6 +157,9 @@ impl SettingsSerial {
             .hardcoded_gp_value
             .get_optional_nullable("hardcoded_gp_value", settings_default_hardcoded_gp_value)?;
 
+        let sections_denylist = self
+            .sections_denylist
+            .get_non_null("sections_denylist", settings_default_section_denylist)?;
         let discard_wildcard_section = self.discard_wildcard_section.get_non_null(
             "discard_wildcard_section",
             settings_default_discard_wildcard_section,
@@ -170,6 +188,7 @@ impl SettingsSerial {
             base_path,
             linker_symbols_style,
             hardcoded_gp_value,
+            sections_denylist,
             discard_wildcard_section,
             alloc_sections,
             noload_sections,

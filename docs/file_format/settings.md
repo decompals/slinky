@@ -100,11 +100,34 @@ A positive integer or `null`.
 
 `null`
 
+## `sections_denylist`
+
+List of sections to be discarded.
+
+This option work independently from `discard_wildcard_section`.
+
+### Example
+
+```yaml
+settings:
+  sections_denylist: [.reginfo, .got]
+```
+
+### Valid values
+
+List of strings.
+
+### Default value
+
+`[.reginfo, .MIPS.abiflags, .MIPS.options, .note.gnu.build-id, .interp, .eh_frame]`
+
 ## `discard_wildcard_section`
 
 Toggles emitting a discard section with a wildcard (`*`) entry, essentially
 discarding every section and file that is not explicitly listed on the linker
 script.
+
+This option work independently from `sections_denylist`.
 
 GNU LD docs for `/DISCARD/`: <https://sourceware.org/binutils/docs/ld/Output-Section-Discarding.html#index-_002fDISCARD_002f>
 
