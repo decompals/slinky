@@ -2,6 +2,8 @@ settings:
   base_path: build
   hardcoded_gp_value: 0x800E4090
 
+  discard_wildcard_section: False
+
   alloc_sections: [.rodata, .text, .data, .sdata, .sbss, .bss]
   noload_sections: []
 

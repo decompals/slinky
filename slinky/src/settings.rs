@@ -30,23 +30,23 @@ pub struct Settings {
 
 // TODO: consider changing the defaults before 1.0.0
 
-fn settings_base_path_default() -> PathBuf {
+fn settings_default_base_path() -> PathBuf {
     PathBuf::new()
 }
 
-fn settings_linker_symbols_style_default() -> LinkerSymbolsStyle {
+fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
     LinkerSymbolsStyle::Splat
 }
 
-fn settings_hardcoded_gp_value_default() -> Option<u32> {
+fn settings_default_hardcoded_gp_value() -> Option<u32> {
     None
 }
 
-fn settings_discard_wildcard_section_default() -> bool {
+fn settings_default_discard_wildcard_section() -> bool {
     true
 }
 
-fn settings_alloc_sections_default() -> Vec<String> {
+fn settings_default_alloc_sections() -> Vec<String> {
     vec![
         ".text".into(),
         ".data".into(),
@@ -55,7 +55,7 @@ fn settings_alloc_sections_default() -> Vec<String> {
     ]
 }
 
-fn settings_noload_sections_default() -> Vec<String> {
+fn settings_default_noload_sections() -> Vec<String> {
     vec![
         ".sbss".into(),
         ".scommon".into(),
@@ -64,36 +64,36 @@ fn settings_noload_sections_default() -> Vec<String> {
     ]
 }
 
-fn settings_subalign_default() -> Option<u32> {
+fn settings_default_subalign() -> Option<u32> {
     Some(16)
 }
 
-fn settings_wildcard_sections_default() -> bool {
+fn settings_default_wildcard_sections() -> bool {
     true
 }
 
-fn settings_fill_value_default() -> Option<u32> {
+fn settings_default_fill_value() -> Option<u32> {
     Some(0)
 }
 
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            base_path: settings_base_path_default(),
-            linker_symbols_style: settings_linker_symbols_style_default(),
+            base_path: settings_default_base_path(),
+            linker_symbols_style: settings_default_linker_symbols_style(),
 
-            hardcoded_gp_value: settings_hardcoded_gp_value_default(),
+            hardcoded_gp_value: settings_default_hardcoded_gp_value(),
 
-            discard_wildcard_section: settings_discard_wildcard_section_default(),
+            discard_wildcard_section: settings_default_discard_wildcard_section(),
 
-            alloc_sections: settings_alloc_sections_default(),
-            noload_sections: settings_noload_sections_default(),
+            alloc_sections: settings_default_alloc_sections(),
+            noload_sections: settings_default_noload_sections(),
 
-            subalign: settings_subalign_default(),
+            subalign: settings_default_subalign(),
 
-            wildcard_sections: settings_wildcard_sections_default(),
+            wildcard_sections: settings_default_wildcard_sections(),
 
-            fill_value: settings_fill_value_default(),
+            fill_value: settings_default_fill_value(),
         }
     }
 }
@@ -132,39 +132,39 @@ impl SettingsSerial {
     pub fn unserialize(self) -> Result<Settings, SlinkyError> {
         let base_path = self
             .base_path
-            .get_non_null("base_path", settings_base_path_default)?;
+            .get_non_null("base_path", settings_default_base_path)?;
         let linker_symbols_style = self.linker_symbols_style.get_non_null(
             "linker_symbols_style",
-            settings_linker_symbols_style_default,
+            settings_default_linker_symbols_style,
         )?;
 
         let hardcoded_gp_value = self
             .hardcoded_gp_value
-            .get_optional_nullable("hardcoded_gp_value", settings_hardcoded_gp_value_default)?;
+            .get_optional_nullable("hardcoded_gp_value", settings_default_hardcoded_gp_value)?;
 
         let discard_wildcard_section = self.discard_wildcard_section.get_non_null(
             "discard_wildcard_section",
-            settings_discard_wildcard_section_default,
+            settings_default_discard_wildcard_section,
         )?;
 
         let alloc_sections = self
             .alloc_sections
-            .get_non_null("alloc_sections", settings_alloc_sections_default)?;
+            .get_non_null("alloc_sections", settings_default_alloc_sections)?;
         let noload_sections = self
             .noload_sections
-            .get_non_null("noload_sections", settings_noload_sections_default)?;
+            .get_non_null("noload_sections", settings_default_noload_sections)?;
 
         let subalign = self
             .subalign
-            .get_optional_nullable("subalign", settings_subalign_default)?;
+            .get_optional_nullable("subalign", settings_default_subalign)?;
 
         let wildcard_sections = self
             .wildcard_sections
-            .get_non_null("wildcard_sections", settings_wildcard_sections_default)?;
+            .get_non_null("wildcard_sections", settings_default_wildcard_sections)?;
 
         let fill_value = self
             .fill_value
-            .get_optional_nullable("fill_value", settings_fill_value_default)?;
+            .get_optional_nullable("fill_value", settings_default_fill_value)?;
 
         Ok(Settings {
             base_path,
