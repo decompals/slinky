@@ -97,4 +97,11 @@ impl LinkerSymbolsStyle {
             LinkerSymbolsStyle::Makerom => format!("_{}Segment{}Size", seg_name, sec),
         }
     }
+
+    pub fn linker_offset(&self, name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_OFFSET", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}Offset", name),
+        }
+    }
 }

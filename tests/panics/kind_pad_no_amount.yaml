@@ -1,4 +1,4 @@
 segments:
   - name: main
     files:
-      - { kind: pad, pad_section: .text }
+      - { kind: pad, section: .text }

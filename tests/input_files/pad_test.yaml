@@ -5,9 +5,9 @@ segments:
   - name: boot
     files:
       - { path: src/boot/boot_main.o }
-      - { kind: pad, pad_amount: 0x40, pad_section: .text }
+      - { kind: pad, pad_amount: 0x40, section: .text }
       - { path: src/boot/dmadata.o }
-      - { kind: pad, pad_amount: 0x20, pad_section: .rodata }
+      - { kind: pad, pad_amount: 0x20, section: .rodata }
       - { path: asm/util.o }
-      - { kind: pad, pad_amount: 0x60, pad_section: .bss }
+      - { kind: pad, pad_amount: 0x60, section: .bss }
       - { path: src/boot/unused_file.o }

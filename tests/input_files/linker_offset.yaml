@@ -1,0 +1,12 @@
+settings:
+  base_path: build
+
+segments:
+  - name: main
+    files:
+      - { kind: linker_offset, linker_offset_name: main_data_start, section: .data }
+      - { path: src/main/boot_main.o }
+      - { path: src/main/dmadata.o }
+      - { path: asm/main/util.o }
+      - { kind: linker_offset, linker_offset_name: libultra_start, section: .text }
+      - { path: src/libultra/libc/bzero.o }

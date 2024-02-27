@@ -1,0 +1,7 @@
+settings:
+  base_path: build
+
+segments:
+  - name: main
+    files:
+      - { kind: linker_offset, section: .data }

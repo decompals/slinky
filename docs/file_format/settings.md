@@ -61,6 +61,7 @@ settings:
     - `.text`: `boot_TEXT_START`, `boot_TEXT_END` and `boot_TEXT_SIZE`.
     - `.data`: `boot_DATA_START`, `boot_DATA_END` and `boot_DATA_SIZE`.
     - `.bss`: `boot_BSS_START`, `boot_BSS_END` and `boot_BSS_SIZE`.
+  - File [`linker_offset_name`](file.md#linker_offset_name): `{name}_OFFSET`
 
 - `makerom`: Produces _camelCase symbols. Given a segment named `boot`:
   - Segment rom: `_bootSegmentRomStart`, `_bootSegmentRomEnd` and `_bootSegmentRomSize`.
@@ -69,6 +70,7 @@ settings:
     - `.text`: `_bootSegmentTextStart`, `_bootSegmentTextEnd` and `_bootSegmentTextSize`.
     - `.data`: `_bootSegmentDataStart`, `_bootSegmentDataEnd` and `_bootSegmentDataSize`.
     - `.bss`: `_bootSegmentBssStart`, `_bootSegmentBssEnd` and `_bootSegmentBssSize`.
+  - File [`linker_offset_name`](file.md#linker_offset_name): `_{name}Offset`
 
 ### Default value
 

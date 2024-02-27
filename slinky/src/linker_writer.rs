@@ -283,6 +283,8 @@ impl LinkerWriter<'_> {
     }
 
     fn write_files_for_section(&mut self, segment: &Segment, section: &str) {
+        let style = &self.settings.linker_symbols_style;
+
         for file in &segment.files {
             let mut path = self.settings.base_path.clone();
 
@@ -297,8 +299,13 @@ impl LinkerWriter<'_> {
                 }
                 //FileKind::Archive => todo!(),
                 FileKind::Pad => {
-                    if file.pad_section == section {
+                    if file.section == section {
                         self.writeln(&format!(". += 0x{:X};", file.pad_amount));
+                    }
+                }
+                FileKind::LinkerOffset => {
+                    if file.section == section {
+                        self.write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
                     }
                 }
             }

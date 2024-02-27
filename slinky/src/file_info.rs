@@ -13,7 +13,9 @@ pub struct FileInfo {
     pub kind: FileKind,
 
     pub pad_amount: u32,
-    pub pad_section: String,
+    pub section: String,
+
+    pub linker_offset_name: String,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -28,7 +30,10 @@ pub(crate) struct FileInfoSerial {
     #[serde(default)]
     pub pad_amount: AbsentNullable<u32>,
     #[serde(default)]
-    pub pad_section: AbsentNullable<String>,
+    pub section: AbsentNullable<String>,
+
+    #[serde(default)]
+    pub linker_offset_name: AbsentNullable<String>,
 }
 
 impl FileInfoSerial {
@@ -47,11 +52,11 @@ impl FileInfoSerial {
 
                     (p, k)
                 }
-                FileKind::Pad => {
+                FileKind::Pad | FileKind::LinkerOffset => {
                     // pad doesn't allow for paths
                     if self.path.has_value() {
                         return Err(SlinkyError::InvalidFieldCombo {
-                            field1: "kind: pad".into(),
+                            field1: "kind: pad or kind: linker_offset".into(),
                             field2: "path".into(),
                         });
                     }
@@ -74,7 +79,7 @@ impl FileInfoSerial {
         };
 
         let pad_amount = match kind {
-            FileKind::Object => {
+            FileKind::Object | FileKind::LinkerOffset => {
                 if self.pad_amount.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "pad_amount".into(),
@@ -86,24 +91,38 @@ impl FileInfoSerial {
             FileKind::Pad => self.pad_amount.get("pad_amount")?,
         };
 
-        let pad_section = match kind {
+        let section = match kind {
             FileKind::Object => {
-                if self.pad_section.has_value() {
+                if self.section.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "pad_section".into(),
+                        field1: "section".into(),
                         field2: "non `kind: pad`".into(),
                     });
                 }
                 "".into()
             }
-            FileKind::Pad => self.pad_section.get("pad_section")?,
+            FileKind::Pad | FileKind::LinkerOffset => self.section.get("section")?,
+        };
+
+        let linker_offset_name = match kind {
+            FileKind::Object | FileKind::Pad => {
+                if self.linker_offset_name.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "linker_offset_name".into(),
+                        field2: "non `kind: linker_offset`".into(),
+                    });
+                }
+                "".into()
+            }
+            FileKind::LinkerOffset => self.linker_offset_name.get("linker_offset_name")?,
         };
 
         Ok(FileInfo {
             path,
             kind,
             pad_amount,
-            pad_section,
+            section,
+            linker_offset_name,
         })
     }
 }
