@@ -33,43 +33,43 @@ pub(crate) struct FileInfoSerial {
 
 impl FileInfoSerial {
     pub(crate) fn unserialize(self, _settings: &Settings) -> Result<FileInfo, SlinkyError> {
-        let (path, kind) = match self.path.get_non_null_no_default("path")? {
-            None => {
-                // Empty path may be okay for some `FileKind`s.
-                // Check if we have one of those.
+        // Since a `kind` can be deduced from a `path` (which requires a `path`) then we need to do both simultaneously
+        let (path, kind) = match self.kind.get_non_null_no_default("kind")? {
+            Some(k) => match k {
+                FileKind::Object => {
+                    let p = self.path.get("path")?;
 
-                match self.kind.get_non_null_no_default("kind")? {
-                    Some(FileKind::Pad) => (PathBuf::new(), FileKind::Pad),
-                    None | Some(FileKind::Object) => {
+                    if p == Path::new("") {
                         return Err(SlinkyError::EmptyValue {
                             name: "path".to_string(),
                         });
                     }
-                }
-            }
 
-            Some(p) => {
+                    (p, k)
+                }
+                FileKind::Pad => {
+                    // pad doesn't allow for paths
+                    if self.path.has_value() {
+                        return Err(SlinkyError::InvalidFieldCombo {
+                            field1: "kind: pad".into(),
+                            field2: "path".into(),
+                        });
+                    }
+
+                    (PathBuf::new(), k)
+                }
+            },
+            None => {
+                let p = self.path.get("path")?;
+
                 if p == Path::new("") {
                     return Err(SlinkyError::EmptyValue {
                         name: "path".to_string(),
                     });
                 }
 
-                // Parse the kind. If none was specified then try to guess it from the path
-                let kind = self.kind.get_non_null("kind", || FileKind::from_path(&p))?;
-
-                // Check the kind we got is fine to be combined with a `path`
-                match kind {
-                    FileKind::Object => (),
-                    FileKind::Pad => {
-                        return Err(SlinkyError::InvalidFieldCombo {
-                            field1: "kind: pad".into(),
-                            field2: "non empty path".into(),
-                        })
-                    }
-                }
-
-                (p, kind)
+                let k = FileKind::from_path(&p);
+                (p, k)
             }
         };
 
