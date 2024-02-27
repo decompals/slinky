@@ -45,7 +45,28 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn end_sections(&mut self) {
+        let mut need_ln = false;
+
+        if !self.settings.sections_allowlist.is_empty() {
+            let address = " 0";
+
+            for sect in &self.settings.sections_allowlist {
+                self.writeln(&format!("{}{} :", sect, address));
+                self.begin_block();
+
+                self.writeln(&format!("*({});", sect));
+
+                self.end_block();
+            }
+
+            need_ln = true;
+        }
+
         if self.settings.discard_wildcard_section || !self.settings.sections_denylist.is_empty() {
+            if need_ln {
+                self.writeln("");
+            }
+
             self.writeln("/DISCARD/ :");
             self.begin_block();
 

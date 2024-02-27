@@ -15,6 +15,7 @@ pub struct Settings {
 
     pub hardcoded_gp_value: Option<u32>,
 
+    pub sections_allowlist: Vec<String>,
     pub sections_denylist: Vec<String>,
     pub discard_wildcard_section: bool,
 
@@ -41,6 +42,10 @@ fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
 
 fn settings_default_hardcoded_gp_value() -> Option<u32> {
     None
+}
+
+fn settings_default_sections_allowlist() -> Vec<String> {
+    vec![]
 }
 
 fn settings_default_section_denylist() -> Vec<String> {
@@ -96,6 +101,7 @@ impl Default for Settings {
 
             hardcoded_gp_value: settings_default_hardcoded_gp_value(),
 
+            sections_allowlist: settings_default_sections_allowlist(),
             sections_denylist: settings_default_section_denylist(),
             discard_wildcard_section: settings_default_discard_wildcard_section(),
 
@@ -122,6 +128,8 @@ pub(crate) struct SettingsSerial {
     #[serde(default)]
     pub hardcoded_gp_value: AbsentNullable<u32>,
 
+    #[serde(default)]
+    pub sections_allowlist: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub sections_denylist: AbsentNullable<Vec<String>>,
     #[serde(default)]
@@ -157,6 +165,9 @@ impl SettingsSerial {
             .hardcoded_gp_value
             .get_optional_nullable("hardcoded_gp_value", settings_default_hardcoded_gp_value)?;
 
+        let sections_allowlist = self
+            .sections_allowlist
+            .get_non_null("sections_allowlist", settings_default_sections_allowlist)?;
         let sections_denylist = self
             .sections_denylist
             .get_non_null("sections_denylist", settings_default_section_denylist)?;
@@ -188,6 +199,7 @@ impl SettingsSerial {
             base_path,
             linker_symbols_style,
             hardcoded_gp_value,
+            sections_allowlist,
             sections_denylist,
             discard_wildcard_section,
             alloc_sections,

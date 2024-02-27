@@ -100,6 +100,27 @@ A positive integer or `null`.
 
 `null`
 
+## `sections_allowlist`
+
+A list of sections to that should be preserved during linking.
+
+Usually used for keeping debugging sections.
+
+### Example
+
+```yaml
+settings:
+  sections_allowlist: [.mdebug, .note, .comment]
+```
+
+### Valid values
+
+List of strings.
+
+### Default value
+
+`[]`
+
 ## `sections_denylist`
 
 List of sections to be discarded.
