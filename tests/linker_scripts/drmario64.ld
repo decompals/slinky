@@ -7624,6 +7624,19 @@ SECTIONS
         *(.comment);
     }
 
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .shstrtab 0 :
+    {
+        *(.shstrtab);
+    }
+
     /DISCARD/ :
     {
         *(.reginfo);

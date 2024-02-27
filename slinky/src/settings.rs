@@ -16,6 +16,7 @@ pub struct Settings {
     pub hardcoded_gp_value: Option<u32>,
 
     pub sections_allowlist: Vec<String>,
+    pub sections_allowlist_extra: Vec<String>,
     pub sections_denylist: Vec<String>,
     pub discard_wildcard_section: bool,
 
@@ -48,7 +49,11 @@ fn settings_default_sections_allowlist() -> Vec<String> {
     vec![]
 }
 
-fn settings_default_section_denylist() -> Vec<String> {
+fn settings_default_sections_allowlist_extra() -> Vec<String> {
+    vec![".shstrtab".into()]
+}
+
+fn settings_default_sections_denylist() -> Vec<String> {
     vec![
         ".reginfo".into(),
         ".MIPS.abiflags".into(),
@@ -102,7 +107,8 @@ impl Default for Settings {
             hardcoded_gp_value: settings_default_hardcoded_gp_value(),
 
             sections_allowlist: settings_default_sections_allowlist(),
-            sections_denylist: settings_default_section_denylist(),
+            sections_allowlist_extra: settings_default_sections_allowlist_extra(),
+            sections_denylist: settings_default_sections_denylist(),
             discard_wildcard_section: settings_default_discard_wildcard_section(),
 
             alloc_sections: settings_default_alloc_sections(),
@@ -130,6 +136,8 @@ pub(crate) struct SettingsSerial {
 
     #[serde(default)]
     pub sections_allowlist: AbsentNullable<Vec<String>>,
+    #[serde(default)]
+    pub sections_allowlist_extra: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub sections_denylist: AbsentNullable<Vec<String>>,
     #[serde(default)]
@@ -168,9 +176,13 @@ impl SettingsSerial {
         let sections_allowlist = self
             .sections_allowlist
             .get_non_null("sections_allowlist", settings_default_sections_allowlist)?;
+        let sections_allowlist_extra = self.sections_allowlist_extra.get_non_null(
+            "sections_allowlist_extra",
+            settings_default_sections_allowlist_extra,
+        )?;
         let sections_denylist = self
             .sections_denylist
-            .get_non_null("sections_denylist", settings_default_section_denylist)?;
+            .get_non_null("sections_denylist", settings_default_sections_denylist)?;
         let discard_wildcard_section = self.discard_wildcard_section.get_non_null(
             "discard_wildcard_section",
             settings_default_discard_wildcard_section,
@@ -200,6 +212,7 @@ impl SettingsSerial {
             linker_symbols_style,
             hardcoded_gp_value,
             sections_allowlist,
+            sections_allowlist_extra,
             sections_denylist,
             discard_wildcard_section,
             alloc_sections,

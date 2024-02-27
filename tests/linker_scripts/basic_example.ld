@@ -262,6 +262,19 @@ SECTIONS
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .shstrtab 0 :
+    {
+        *(.shstrtab);
+    }
+
     /DISCARD/ :
     {
         *(.reginfo);

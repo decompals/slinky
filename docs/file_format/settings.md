@@ -104,7 +104,7 @@ A positive integer or `null`.
 
 A list of sections to that should be preserved during linking.
 
-Usually used for keeping debugging sections.
+Usually used to avoid discarding debugging sections.
 
 ### Example
 
@@ -120,6 +120,38 @@ List of strings.
 ### Default value
 
 `[]`
+
+## `sections_allowlist_extra`
+
+A list of sections to that should be preserved during linking.
+
+This setting works the same as same as
+[`sections_allowlist`](#sections_allowlist). This option exists as a way to have
+a default list of sections to be preserved that won't be overrided if the user
+wants to specify their own allow list by setting `sections_allowlist`.
+
+These defaults exists because some linkers (like clang's `lld`) complain if the
+`.shstrtab` is not listed explicitly if a wildcard was used on the `/DISCARD/`
+section (see [`discard_wildcard_section`](#discard_wildcard_section)), so to
+avoid issues when wanting to use other linkers we emit the section by default.
+
+### Example
+
+```yaml
+settings:
+  sections_allowlist_extra:
+    - .shstrtab
+    - .strtab
+    - .symtab
+```
+
+### Valid values
+
+List of strings.
+
+### Default value
+
+`[.shstrtab]`
 
 ## `sections_denylist`
 

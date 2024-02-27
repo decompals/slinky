@@ -62,6 +62,25 @@ impl<'a> LinkerWriter<'a> {
             need_ln = true;
         }
 
+        if !self.settings.sections_allowlist_extra.is_empty() {
+            if need_ln {
+                self.writeln("");
+            }
+
+            let address = " 0";
+
+            for sect in &self.settings.sections_allowlist_extra {
+                self.writeln(&format!("{}{} :", sect, address));
+                self.begin_block();
+
+                self.writeln(&format!("*({});", sect));
+
+                self.end_block();
+            }
+
+            need_ln = true;
+        }
+
         if self.settings.discard_wildcard_section || !self.settings.sections_denylist.is_empty() {
             if need_ln {
                 self.writeln("");
