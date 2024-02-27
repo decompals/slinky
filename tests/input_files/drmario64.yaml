@@ -2,11 +2,6 @@ settings:
   base_path: build/us
 
   sections_allowlist:
-    # Basic sections.
-    # lld complains if .shstrtab is not explictly mentioned on the linker script when using a wildcard discard, so here we are
-    - .strtab
-    - .symtab
-    - .shstrtab
     # mips debug sections
     - .pdr
     - .mdebug
@@ -55,6 +50,10 @@ settings:
     # misc
     - .note
     - .comment
+  sections_allowlist_extra:
+    - .shstrtab
+    - .strtab
+    - .symtab
   sections_denylist:
     - .reginfo
     - .MIPS.abiflags

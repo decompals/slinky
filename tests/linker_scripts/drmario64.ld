@@ -7475,18 +7475,6 @@ SECTIONS
     segment_tutorial_data_ROM_END = __romPos;
     segment_tutorial_data_ROM_SIZE = ABSOLUTE(segment_tutorial_data_ROM_END - segment_tutorial_data_ROM_START);
 
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
     .pdr 0 :
     {
         *(.pdr);
@@ -7624,6 +7612,10 @@ SECTIONS
         *(.comment);
     }
 
+    .shstrtab 0 :
+    {
+        *(.shstrtab);
+    }
     .strtab 0 :
     {
         *(.strtab);
@@ -7631,10 +7623,6 @@ SECTIONS
     .symtab 0 :
     {
         *(.symtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
     }
 
     /DISCARD/ :
