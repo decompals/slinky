@@ -9,5 +9,11 @@ segments:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/dmadata.o }
       - { path: asm/util.o }
-      - { path: lib/libgultra_rom.a }
-      - { path: lib/libmus.a, kind: archive }
+      - { path: lib/libgultra_rom.a, kind: archive }
+      - { path: lib/libmus.a, subfile: player.o }
+      - { path: lib/libmus.a, subfile: player_fx.o }
+      - { path: lib/libmus.a, subfile: aud_dma.o }
+      - { path: lib/libmus.a, subfile: aud_sched.o }
+      - { path: lib/libmus.a, subfile: aud_thread.o }
+      - { path: lib/libmus.a, subfile: lib_memory.o }
+      - { path: lib/libmus.a, subfile: aud_samples.o }

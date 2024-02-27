@@ -12,6 +12,9 @@ pub struct FileInfo {
 
     pub kind: FileKind,
 
+    // Used for archives
+    pub subfile: String,
+
     pub pad_amount: u32,
     pub section: String,
 
@@ -26,6 +29,9 @@ pub(crate) struct FileInfoSerial {
 
     #[serde(default)]
     pub kind: AbsentNullable<FileKind>,
+
+    #[serde(default)]
+    pub subfile: AbsentNullable<String>,
 
     #[serde(default)]
     pub pad_amount: AbsentNullable<u32>,
@@ -78,6 +84,19 @@ impl FileInfoSerial {
             }
         };
 
+        let subfile = match kind {
+            FileKind::Object | FileKind::LinkerOffset | FileKind::Pad => {
+                if self.subfile.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "subfile".into(),
+                        field2: "non `kind: archive`".into(),
+                    });
+                }
+                "*".to_string()
+            }
+            FileKind::Archive => self.subfile.get_non_null("subfile", || "*".to_string())?,
+        };
+
         let pad_amount = match kind {
             FileKind::Object | FileKind::LinkerOffset | FileKind::Archive => {
                 if self.pad_amount.has_value() {
@@ -96,7 +115,7 @@ impl FileInfoSerial {
                 if self.section.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section".into(),
-                        field2: "non `kind: pad`".into(),
+                        field2: "non `kind: pad or kind: linker_offset`".into(),
                     });
                 }
                 "".into()
@@ -120,6 +139,7 @@ impl FileInfoSerial {
         Ok(FileInfo {
             path,
             kind,
+            subfile,
             pad_amount,
             section,
             linker_offset_name,

@@ -298,7 +298,13 @@ impl LinkerWriter<'_> {
                     self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 }
                 FileKind::Archive => {
-                    self.writeln(&format!("{}:*({}{});", path.display(), section, wildcard));
+                    self.writeln(&format!(
+                        "{}:{}({}{});",
+                        path.display(),
+                        file.subfile,
+                        section,
+                        wildcard
+                    ));
                 }
                 FileKind::Pad => {
                     if file.section == section {

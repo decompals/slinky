@@ -48,8 +48,9 @@ segments:
 
 - `object`: The path points to a relocatable object file. The [`path`](#path) is
   required.
-- `kind`: The path points to an `.a` archive file. The [`path`](#path) is
-  required.
+- `archive`: The path points to an `.a` archive file. The [`path`](#path) is
+  required. A [`subfile`](#subfile) may be specified to only link a
+  specific file instead of the full archive.
 - `pad`: Do not link any file but increment the position of the
   [`section`](#section) in the linker script by [`pad_amount`](#pad_amount)
   bytes. Both [`section`](#section) and [`pad_amount`](#pad_amount) are required.
@@ -64,6 +65,29 @@ Guessed from `path` using the following file extensions:
 - `.o`: `object`.
 - `.a`: `archive`.
 - Anything else: `object`.
+
+## `subfile`
+
+A specific file within an `.a` archive file.
+
+### Example
+
+```yaml
+segments:
+  - name: boot
+    files:
+      - { path: lib/libmus.a, subfile: aud_samples.o }
+```
+
+### Valid values
+
+Non empty strings.
+
+### Default
+
+`*`
+
+This tells the linker to use all the files it needs from the archive.
 
 ## `pad_amount`
 
