@@ -48,6 +48,8 @@ segments:
 
 - `object`: The path points to a relocatable object file. The [`path`](#path) is
   required.
+- `kind`: The path points to an `.a` archive file. The [`path`](#path) is
+  required.
 - `pad`: Do not link any file but increment the position of the
   [`section`](#section) in the linker script by [`pad_amount`](#pad_amount)
   bytes. Both [`section`](#section) and [`pad_amount`](#pad_amount) are required.
@@ -59,8 +61,9 @@ segments:
 
 Guessed from `path` using the following file extensions:
 
-- `.o`: `Object`.
-- Anything else: `Object`.
+- `.o`: `object`.
+- `.a`: `archive`.
+- Anything else: `object`.
 
 ## `pad_amount`
 

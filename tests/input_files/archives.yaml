@@ -1,0 +1,13 @@
+settings:
+  base_path: build
+  subalign: 32
+
+segments:
+  - name: boot
+    subalign: null
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/dmadata.o }
+      - { path: asm/util.o }
+      - { path: lib/libgultra_rom.a }
+      - { path: lib/libmus.a, kind: archive }

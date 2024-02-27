@@ -9,7 +9,7 @@ use serde::Deserialize;
 #[serde(rename_all = "snake_case")]
 pub enum FileKind {
     Object,
-    // Archive,
+    Archive,
     Pad,
     LinkerOffset,
 }
@@ -21,6 +21,7 @@ impl FileKind {
             Some(ext) => match ext.to_str() {
                 None => Self::Object,
                 Some("o") => Self::Object,
+                Some("a") => Self::Archive,
                 Some(&_) => Self::Object,
             },
         }

@@ -41,7 +41,7 @@ impl FileInfoSerial {
         // Since a `kind` can be deduced from a `path` (which requires a `path`) then we need to do both simultaneously
         let (path, kind) = match self.kind.get_non_null_no_default("kind")? {
             Some(k) => match k {
-                FileKind::Object => {
+                FileKind::Object | FileKind::Archive => {
                     let p = self.path.get("path")?;
 
                     if p == Path::new("") {
@@ -79,7 +79,7 @@ impl FileInfoSerial {
         };
 
         let pad_amount = match kind {
-            FileKind::Object | FileKind::LinkerOffset => {
+            FileKind::Object | FileKind::LinkerOffset | FileKind::Archive => {
                 if self.pad_amount.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "pad_amount".into(),
@@ -92,7 +92,7 @@ impl FileInfoSerial {
         };
 
         let section = match kind {
-            FileKind::Object => {
+            FileKind::Object | FileKind::Archive => {
                 if self.section.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section".into(),
@@ -105,7 +105,7 @@ impl FileInfoSerial {
         };
 
         let linker_offset_name = match kind {
-            FileKind::Object | FileKind::Pad => {
+            FileKind::Object | FileKind::Pad | FileKind::Archive => {
                 if self.linker_offset_name.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "linker_offset_name".into(),
