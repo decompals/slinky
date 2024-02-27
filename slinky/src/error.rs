@@ -26,4 +26,10 @@ pub enum SlinkyError {
 
     #[error("The attribute '{name}' should not be empty")]
     EmptyValue { name: String },
+
+    #[error("Field '{field1}' can't be combined with '{field2}'")]
+    InvalidFieldCombo { field1: String, field2: String },
+
+    #[error("Field '{name}' is required")]
+    MissingRequiredField { name: String },
 }

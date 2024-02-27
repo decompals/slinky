@@ -1,0 +1,4 @@
+segments:
+  - name: main
+    files:
+      - { path: src/boot/boot_main.o, pad_section: .text }

@@ -295,7 +295,12 @@ impl LinkerWriter<'_> {
                 FileKind::Object => {
                     self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 }
-                FileKind::Archive => todo!(),
+                //FileKind::Archive => todo!(),
+                FileKind::Pad => {
+                    if file.pad_section == section {
+                        self.writeln(&format!(". += 0x{:X};", file.pad_amount));
+                    }
+                }
             }
         }
     }

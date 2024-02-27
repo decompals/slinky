@@ -70,4 +70,22 @@ impl<T> AbsentNullable<T> {
             AbsentNullable::Value(v) => Ok(Some(v)),
         }
     }
+
+    pub fn get(self, name: &str) -> Result<T, SlinkyError> {
+        match self {
+            AbsentNullable::Absent | AbsentNullable::Null => {
+                Err(SlinkyError::MissingRequiredField {
+                    name: name.to_string(),
+                })
+            }
+            AbsentNullable::Value(v) => Ok(v),
+        }
+    }
+
+    pub fn has_value(self) -> bool {
+        match self {
+            AbsentNullable::Absent | AbsentNullable::Null => false,
+            AbsentNullable::Value(_v) => true,
+        }
+    }
 }

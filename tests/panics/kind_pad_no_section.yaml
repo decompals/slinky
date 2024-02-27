@@ -1,0 +1,4 @@
+segments:
+  - name: main
+    files:
+      - { kind: pad, pad_amount: 0x10 }

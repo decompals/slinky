@@ -1,0 +1,4 @@
+segments:
+  - name: main
+    files:
+      - { path: null }
