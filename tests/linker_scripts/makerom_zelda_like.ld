@@ -148,6 +148,91 @@ SECTIONS
     _bootSegmentRomEnd = __romPos;
     _bootSegmentRomSize = ABSOLUTE(_bootSegmentRomEnd - _bootSegmentRomStart);
 
+    _codeSegmentRomStart = __romPos;
+    _codeSegmentStart = ADDR(.code);
+    _code_allocSegmentStart = .;
+    .code : AT(_codeSegmentRomStart)
+    {
+        FILL(0x00000000);
+        _codeSegmentTextStart = .;
+        build/src/code/main.o(.text*);
+        build/src/code/z_game_over.o(.text*);
+        build/src/code/z_message_PAL.o(.text*);
+        . = ALIGN(., 0x10);
+        _codeSegmentTextEnd = .;
+        _codeSegmentTextSize = ABSOLUTE(_codeSegmentTextEnd - _codeSegmentTextStart);
+
+        _codeSegmentDataStart = .;
+        build/src/code/main.o(.data*);
+        . = ALIGN(., 0x10);
+        _codeSegmentDataEnd = .;
+        _codeSegmentDataSize = ABSOLUTE(_codeSegmentDataEnd - _codeSegmentDataStart);
+
+        _codeSegmentRoDataStart = .;
+        build/src/code/main.o(.rodata*);
+        build/src/code/z_game_over.o(.data*);
+        build/src/code/z_game_over.o(.rodata*);
+        build/src/code/z_message_PAL.o(.data*);
+        build/src/code/z_message_PAL.o(.rodata*);
+        . = ALIGN(., 0x10);
+        _codeSegmentRoDataEnd = .;
+        _codeSegmentRoDataSize = ABSOLUTE(_codeSegmentRoDataEnd - _codeSegmentRoDataStart);
+
+        _codeSegmentSdataStart = .;
+        build/src/code/main.o(.sdata*);
+        build/src/code/z_game_over.o(.sdata*);
+        build/src/code/z_message_PAL.o(.sdata*);
+        . = ALIGN(., 0x10);
+        _codeSegmentSdataEnd = .;
+        _codeSegmentSdataSize = ABSOLUTE(_codeSegmentSdataEnd - _codeSegmentSdataStart);
+    }
+    _code_allocSegmentEnd = .;
+    _code_allocSegmentSize = ABSOLUTE(_code_allocSegmentEnd - _code_allocSegmentStart);
+
+    _code_noloadSegmentStart = .;
+    .code.noload (NOLOAD) :
+    {
+        FILL(0x00000000);
+        _codeSegmentSbssStart = .;
+        build/src/code/main.o(.sbss*);
+        build/src/code/z_game_over.o(.sbss*);
+        build/src/code/z_message_PAL.o(.sbss*);
+        . = ALIGN(., 0x10);
+        _codeSegmentSbssEnd = .;
+        _codeSegmentSbssSize = ABSOLUTE(_codeSegmentSbssEnd - _codeSegmentSbssStart);
+
+        _codeSegmentScommonStart = .;
+        build/src/code/main.o(.scommon*);
+        build/src/code/z_game_over.o(.scommon*);
+        build/src/code/z_message_PAL.o(.scommon*);
+        . = ALIGN(., 0x10);
+        _codeSegmentScommonEnd = .;
+        _codeSegmentScommonSize = ABSOLUTE(_codeSegmentScommonEnd - _codeSegmentScommonStart);
+
+        _codeSegmentBssStart = .;
+        build/src/code/main.o(.bss*);
+        build/src/code/z_game_over.o(.bss*);
+        build/src/code/z_message_PAL.o(.bss*);
+        . = ALIGN(., 0x10);
+        _codeSegmentBssEnd = .;
+        _codeSegmentBssSize = ABSOLUTE(_codeSegmentBssEnd - _codeSegmentBssStart);
+
+        _codeSegmentCOMMONStart = .;
+        build/src/code/main.o(COMMON*);
+        build/src/code/z_game_over.o(COMMON*);
+        build/src/code/z_message_PAL.o(COMMON*);
+        . = ALIGN(., 0x10);
+        _codeSegmentCOMMONEnd = .;
+        _codeSegmentCOMMONSize = ABSOLUTE(_codeSegmentCOMMONEnd - _codeSegmentCOMMONStart);
+    }
+    _code_noloadSegmentEnd = .;
+    _code_noloadSegmentSize = ABSOLUTE(_code_noloadSegmentEnd - _code_noloadSegmentStart);
+    _codeSegmentEnd = .;
+    _codeSegmentSize = ABSOLUTE(_codeSegmentEnd - _codeSegmentStart);
+    __romPos += SIZEOF(.code);
+    _codeSegmentRomEnd = __romPos;
+    _codeSegmentRomSize = ABSOLUTE(_codeSegmentRomEnd - _codeSegmentRomStart);
+
     __romPos = ALIGN(__romPos, 0x1000);
     . = ALIGN(., 0x1000);
     _gameplay_keepSegmentRomStart = __romPos;

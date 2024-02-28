@@ -129,3 +129,43 @@ This name is not used as-is, instead it is controlled by the global
 ### Valid values
 
 Non empty string.
+
+## `section_order`
+
+Allows to specify that one or more sections of this file should be put within
+other specific sections.
+
+Each key represents a section to be placed elsewhere and its key represent the
+section where it should be put on.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: code
+    files:
+      - { path: src/code/main.o }
+      - { path: src/code/message.o, section_order: { .data: .rodata } }
+      - { path: src/code/collisions.o }
+```
+
+The above example would produce an ordering like the following:
+
+```bash
+build/src/code/main.o(.data*);
+build/src/code/collisions.o(.data*); # Notice no entry for message(.data)
+
+# snip
+
+build/src/code/main.o(.rodata*);
+build/src/code/message.o(.data*);
+build/src/code/message.o(.rodata*);
+build/src/code/collisions.o(.rodata*);
+```
+
+### Valid values
+
+A dictionary (map) of non empty string as keys and values.

@@ -2,7 +2,10 @@
 /* SPDX-License-Identifier: MIT */
 
 use serde::Deserialize;
-use std::path::{Path, PathBuf};
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
 
 use crate::{absent_nullable::AbsentNullable, file_kind::FileKind, Settings, SlinkyError};
 
@@ -19,6 +22,8 @@ pub struct FileInfo {
     pub section: String,
 
     pub linker_offset_name: String,
+
+    pub section_order: HashMap<String, String>,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -40,6 +45,9 @@ pub(crate) struct FileInfoSerial {
 
     #[serde(default)]
     pub linker_offset_name: AbsentNullable<String>,
+
+    #[serde(default)]
+    pub section_order: AbsentNullable<HashMap<String, String>>,
 }
 
 impl FileInfoSerial {
@@ -136,6 +144,21 @@ impl FileInfoSerial {
             FileKind::LinkerOffset => self.linker_offset_name.get("linker_offset_name")?,
         };
 
+        let section_order = match kind {
+            FileKind::Pad | FileKind::LinkerOffset => {
+                if self.section_order.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "section_order".into(),
+                        field2: "non `kind: object` or `kind: archive`".into(),
+                    });
+                }
+                HashMap::default()
+            }
+            FileKind::Object | FileKind::Archive => self
+                .section_order
+                .get_non_null("section_order", HashMap::default)?,
+        };
+
         Ok(FileInfo {
             path,
             kind,
@@ -143,6 +166,7 @@ impl FileInfoSerial {
             pad_amount,
             section,
             linker_offset_name,
+            section_order,
         })
     }
 }

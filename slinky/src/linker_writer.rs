@@ -333,6 +333,23 @@ impl LinkerWriter<'_> {
 
     fn emit_section(&mut self, segment: &Segment, section: &str) {
         for file in &segment.files {
+            if !file.section_order.is_empty() {
+                // Keys specify the section and value specify where it will be put
+                // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`
+
+                // This section should be placed somewhere else
+                if file.section_order.contains_key(section) {
+                    continue;
+                }
+
+                // Check if any other section should be placed be placed here
+                for (k, v) in &file.section_order {
+                    if v == section {
+                        self.emit_file(file, segment, k);
+                    }
+                }
+            }
+
             self.emit_file(file, segment, section);
         }
     }

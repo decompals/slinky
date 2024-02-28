@@ -16,6 +16,12 @@ segments:
     files:
       - { path: boot/boot_main.o }
 
+  - name: code
+    files:
+      - { path: src/code/main.o }
+      - { path: src/code/z_game_over.o, section_order: { .data: .rodata } }
+      - { path: src/code/z_message_PAL.o, section_order: { .data: .rodata } }
+
   - name: gameplay_keep
     fixed_vram: 0x04000000
     segment_start_align: 0x1000
