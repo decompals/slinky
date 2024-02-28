@@ -25,6 +25,7 @@ pub struct Settings {
     pub noload_sections: Vec<String>,
 
     pub subalign: Option<u32>,
+    pub segment_start_align: Option<u32>,
     pub section_end_align: Option<u32>,
 
     pub wildcard_sections: bool,
@@ -91,6 +92,10 @@ fn settings_default_subalign() -> Option<u32> {
     Some(0x10)
 }
 
+fn settings_default_segment_start_align() -> Option<u32> {
+    None
+}
+
 fn settings_default_section_end_align() -> Option<u32> {
     Some(0x10)
 }
@@ -120,6 +125,7 @@ impl Default for Settings {
             noload_sections: settings_default_noload_sections(),
 
             subalign: settings_default_subalign(),
+            segment_start_align: settings_default_segment_start_align(),
             section_end_align: settings_default_section_end_align(),
 
             wildcard_sections: settings_default_wildcard_sections(),
@@ -157,6 +163,8 @@ pub(crate) struct SettingsSerial {
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
+    #[serde(default)]
+    pub segment_start_align: AbsentNullable<u32>,
     #[serde(default)]
     pub section_end_align: AbsentNullable<u32>,
 
@@ -207,6 +215,10 @@ impl SettingsSerial {
             .subalign
             .get_optional_nullable("subalign", settings_default_subalign)?;
 
+        let segment_start_align = self
+            .segment_start_align
+            .get_optional_nullable("segment_start_align", settings_default_segment_start_align)?;
+
         let section_end_align = self
             .section_end_align
             .get_optional_nullable("section_end_align", settings_default_section_end_align)?;
@@ -230,6 +242,7 @@ impl SettingsSerial {
             alloc_sections,
             noload_sections,
             subalign,
+            segment_start_align,
             section_end_align,
             wildcard_sections,
             fill_value,

@@ -10,25 +10,25 @@ SECTIONS
         FILL(0x00000000);
         header_TEXT_START = .;
         build/us/src/rom_header/rom_header.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_TEXT_END = .;
         header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
         header_DATA_START = .;
         build/us/src/rom_header/rom_header.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_DATA_END = .;
         header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
         header_RODATA_START = .;
         build/us/src/rom_header/rom_header.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_RODATA_END = .;
         header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
         header_SDATA_START = .;
         build/us/src/rom_header/rom_header.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SDATA_END = .;
         header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
@@ -41,25 +41,25 @@ SECTIONS
         FILL(0x00000000);
         header_SBSS_START = .;
         build/us/src/rom_header/rom_header.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SBSS_END = .;
         header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
         header_SCOMMON_START = .;
         build/us/src/rom_header/rom_header.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SCOMMON_END = .;
         header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
         header_BSS_START = .;
         build/us/src/rom_header/rom_header.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_BSS_END = .;
         header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
         build/us/src/rom_header/rom_header.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
@@ -79,25 +79,25 @@ SECTIONS
         FILL(0x00000000);
         ipl3_TEXT_START = .;
         build/us/asm/us/data/ipl3.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_TEXT_END = .;
         ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
         ipl3_DATA_START = .;
         build/us/asm/us/data/ipl3.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_DATA_END = .;
         ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
         ipl3_RODATA_START = .;
         build/us/asm/us/data/ipl3.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_RODATA_END = .;
         ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
         ipl3_SDATA_START = .;
         build/us/asm/us/data/ipl3.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SDATA_END = .;
         ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
@@ -110,25 +110,25 @@ SECTIONS
         FILL(0x00000000);
         ipl3_SBSS_START = .;
         build/us/asm/us/data/ipl3.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SBSS_END = .;
         ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
         ipl3_SCOMMON_START = .;
         build/us/asm/us/data/ipl3.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SCOMMON_END = .;
         ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
         ipl3_BSS_START = .;
         build/us/asm/us/data/ipl3.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_BSS_END = .;
         ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
         build/us/asm/us/data/ipl3.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
@@ -148,25 +148,25 @@ SECTIONS
         FILL(0x00000000);
         entry_TEXT_START = .;
         build/us/src/entry/entry.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_TEXT_END = .;
         entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
         entry_DATA_START = .;
         build/us/src/entry/entry.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_DATA_END = .;
         entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
         entry_RODATA_START = .;
         build/us/src/entry/entry.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_RODATA_END = .;
         entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
         entry_SDATA_START = .;
         build/us/src/entry/entry.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SDATA_END = .;
         entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
@@ -179,25 +179,25 @@ SECTIONS
         FILL(0x00000000);
         entry_SBSS_START = .;
         build/us/src/entry/entry.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SBSS_END = .;
         entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
         entry_SCOMMON_START = .;
         build/us/src/entry/entry.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SCOMMON_END = .;
         entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
         entry_BSS_START = .;
         build/us/src/entry/entry.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_BSS_END = .;
         entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
         build/us/src/entry/entry.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entryCOMMON_END = .;
         entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
@@ -372,7 +372,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.text*);
         build/us/src/libkmc/ctype.o(.text*);
         build/us/asm/us/data/boot/8001B640.bss.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
@@ -533,7 +533,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.data*);
         build/us/src/libkmc/ctype.o(.data*);
         build/us/asm/us/data/boot/8001B640.bss.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -694,7 +694,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.rodata*);
         build/us/src/libkmc/ctype.o(.rodata*);
         build/us/asm/us/data/boot/8001B640.bss.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -855,7 +855,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.sdata*);
         build/us/src/libkmc/ctype.o(.sdata*);
         build/us/asm/us/data/boot/8001B640.bss.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -1023,7 +1023,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.sbss*);
         build/us/src/libkmc/ctype.o(.sbss*);
         build/us/asm/us/data/boot/8001B640.bss.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -1184,7 +1184,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.scommon*);
         build/us/src/libkmc/ctype.o(.scommon*);
         build/us/asm/us/data/boot/8001B640.bss.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
@@ -1345,7 +1345,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(.bss*);
         build/us/src/libkmc/ctype.o(.bss*);
         build/us/asm/us/data/boot/8001B640.bss.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
@@ -1506,7 +1506,7 @@ SECTIONS
         build/us/src/libkmc/mmuldi3.o(COMMON*);
         build/us/src/libkmc/ctype.o(COMMON*);
         build/us/asm/us/data/boot/8001B640.bss.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -1526,25 +1526,25 @@ SECTIONS
         FILL(0x00000000);
         dma_table_TEXT_START = .;
         build/us/src/dma_table/dma_table.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_TEXT_END = .;
         dma_table_TEXT_SIZE = ABSOLUTE(dma_table_TEXT_END - dma_table_TEXT_START);
 
         dma_table_DATA_START = .;
         build/us/src/dma_table/dma_table.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_DATA_END = .;
         dma_table_DATA_SIZE = ABSOLUTE(dma_table_DATA_END - dma_table_DATA_START);
 
         dma_table_RODATA_START = .;
         build/us/src/dma_table/dma_table.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_RODATA_END = .;
         dma_table_RODATA_SIZE = ABSOLUTE(dma_table_RODATA_END - dma_table_RODATA_START);
 
         dma_table_SDATA_START = .;
         build/us/src/dma_table/dma_table.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_SDATA_END = .;
         dma_table_SDATA_SIZE = ABSOLUTE(dma_table_SDATA_END - dma_table_SDATA_START);
     }
@@ -1557,25 +1557,25 @@ SECTIONS
         FILL(0x00000000);
         dma_table_SBSS_START = .;
         build/us/src/dma_table/dma_table.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_SBSS_END = .;
         dma_table_SBSS_SIZE = ABSOLUTE(dma_table_SBSS_END - dma_table_SBSS_START);
 
         dma_table_SCOMMON_START = .;
         build/us/src/dma_table/dma_table.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_SCOMMON_END = .;
         dma_table_SCOMMON_SIZE = ABSOLUTE(dma_table_SCOMMON_END - dma_table_SCOMMON_START);
 
         dma_table_BSS_START = .;
         build/us/src/dma_table/dma_table.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_table_BSS_END = .;
         dma_table_BSS_SIZE = ABSOLUTE(dma_table_BSS_END - dma_table_BSS_START);
 
         dma_tableCOMMON_START = .;
         build/us/src/dma_table/dma_table.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         dma_tableCOMMON_END = .;
         dma_tableCOMMON_SIZE = ABSOLUTE(dma_tableCOMMON_END - dma_tableCOMMON_START);
     }
@@ -1665,7 +1665,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.text*);
         build/us/asm/us/data/rsp/s2dex.o(.text*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_TEXT_END = .;
         main_segment_TEXT_SIZE = ABSOLUTE(main_segment_TEXT_END - main_segment_TEXT_START);
 
@@ -1741,7 +1741,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.data*);
         build/us/asm/us/data/rsp/s2dex.o(.data*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_DATA_END = .;
         main_segment_DATA_SIZE = ABSOLUTE(main_segment_DATA_END - main_segment_DATA_START);
 
@@ -1817,7 +1817,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.rodata*);
         build/us/asm/us/data/rsp/s2dex.o(.rodata*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_RODATA_END = .;
         main_segment_RODATA_SIZE = ABSOLUTE(main_segment_RODATA_END - main_segment_RODATA_START);
 
@@ -1893,7 +1893,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.sdata*);
         build/us/asm/us/data/rsp/s2dex.o(.sdata*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_SDATA_END = .;
         main_segment_SDATA_SIZE = ABSOLUTE(main_segment_SDATA_END - main_segment_SDATA_START);
     }
@@ -1976,7 +1976,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.sbss*);
         build/us/asm/us/data/rsp/s2dex.o(.sbss*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_SBSS_END = .;
         main_segment_SBSS_SIZE = ABSOLUTE(main_segment_SBSS_END - main_segment_SBSS_START);
 
@@ -2052,7 +2052,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.scommon*);
         build/us/asm/us/data/rsp/s2dex.o(.scommon*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_SCOMMON_END = .;
         main_segment_SCOMMON_SIZE = ABSOLUTE(main_segment_SCOMMON_END - main_segment_SCOMMON_START);
 
@@ -2128,7 +2128,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(.bss*);
         build/us/asm/us/data/rsp/s2dex.o(.bss*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segment_BSS_END = .;
         main_segment_BSS_SIZE = ABSOLUTE(main_segment_BSS_END - main_segment_BSS_START);
 
@@ -2204,7 +2204,7 @@ SECTIONS
         build/us/asm/us/data/rsp/f3dex2.o(COMMON*);
         build/us/asm/us/data/rsp/s2dex.o(COMMON*);
         build/us/asm/us/data/main_segment/800E9BB0.bss.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_segmentCOMMON_END = .;
         main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
@@ -2224,25 +2224,25 @@ SECTIONS
         FILL(0x00000000);
         buffer1_TEXT_START = .;
         build/us/src/buffers/buffer1.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_TEXT_END = .;
         buffer1_TEXT_SIZE = ABSOLUTE(buffer1_TEXT_END - buffer1_TEXT_START);
 
         buffer1_DATA_START = .;
         build/us/src/buffers/buffer1.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_DATA_END = .;
         buffer1_DATA_SIZE = ABSOLUTE(buffer1_DATA_END - buffer1_DATA_START);
 
         buffer1_RODATA_START = .;
         build/us/src/buffers/buffer1.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_RODATA_END = .;
         buffer1_RODATA_SIZE = ABSOLUTE(buffer1_RODATA_END - buffer1_RODATA_START);
 
         buffer1_SDATA_START = .;
         build/us/src/buffers/buffer1.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_SDATA_END = .;
         buffer1_SDATA_SIZE = ABSOLUTE(buffer1_SDATA_END - buffer1_SDATA_START);
     }
@@ -2255,25 +2255,25 @@ SECTIONS
         FILL(0x00000000);
         buffer1_SBSS_START = .;
         build/us/src/buffers/buffer1.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_SBSS_END = .;
         buffer1_SBSS_SIZE = ABSOLUTE(buffer1_SBSS_END - buffer1_SBSS_START);
 
         buffer1_SCOMMON_START = .;
         build/us/src/buffers/buffer1.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_SCOMMON_END = .;
         buffer1_SCOMMON_SIZE = ABSOLUTE(buffer1_SCOMMON_END - buffer1_SCOMMON_START);
 
         buffer1_BSS_START = .;
         build/us/src/buffers/buffer1.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1_BSS_END = .;
         buffer1_BSS_SIZE = ABSOLUTE(buffer1_BSS_END - buffer1_BSS_START);
 
         buffer1COMMON_START = .;
         build/us/src/buffers/buffer1.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer1COMMON_END = .;
         buffer1COMMON_SIZE = ABSOLUTE(buffer1COMMON_END - buffer1COMMON_START);
     }
@@ -2293,25 +2293,25 @@ SECTIONS
         FILL(0x00000000);
         buffer2_TEXT_START = .;
         build/us/src/buffers/buffer2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_TEXT_END = .;
         buffer2_TEXT_SIZE = ABSOLUTE(buffer2_TEXT_END - buffer2_TEXT_START);
 
         buffer2_DATA_START = .;
         build/us/src/buffers/buffer2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_DATA_END = .;
         buffer2_DATA_SIZE = ABSOLUTE(buffer2_DATA_END - buffer2_DATA_START);
 
         buffer2_RODATA_START = .;
         build/us/src/buffers/buffer2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_RODATA_END = .;
         buffer2_RODATA_SIZE = ABSOLUTE(buffer2_RODATA_END - buffer2_RODATA_START);
 
         buffer2_SDATA_START = .;
         build/us/src/buffers/buffer2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_SDATA_END = .;
         buffer2_SDATA_SIZE = ABSOLUTE(buffer2_SDATA_END - buffer2_SDATA_START);
     }
@@ -2324,25 +2324,25 @@ SECTIONS
         FILL(0x00000000);
         buffer2_SBSS_START = .;
         build/us/src/buffers/buffer2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_SBSS_END = .;
         buffer2_SBSS_SIZE = ABSOLUTE(buffer2_SBSS_END - buffer2_SBSS_START);
 
         buffer2_SCOMMON_START = .;
         build/us/src/buffers/buffer2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_SCOMMON_END = .;
         buffer2_SCOMMON_SIZE = ABSOLUTE(buffer2_SCOMMON_END - buffer2_SCOMMON_START);
 
         buffer2_BSS_START = .;
         build/us/src/buffers/buffer2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2_BSS_END = .;
         buffer2_BSS_SIZE = ABSOLUTE(buffer2_BSS_END - buffer2_BSS_START);
 
         buffer2COMMON_START = .;
         build/us/src/buffers/buffer2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         buffer2COMMON_END = .;
         buffer2COMMON_SIZE = ABSOLUTE(buffer2COMMON_END - buffer2COMMON_START);
     }
@@ -2362,25 +2362,25 @@ SECTIONS
         FILL(0x00000000);
         framebuffer_TEXT_START = .;
         build/us/src/buffers/framebuffer.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_TEXT_END = .;
         framebuffer_TEXT_SIZE = ABSOLUTE(framebuffer_TEXT_END - framebuffer_TEXT_START);
 
         framebuffer_DATA_START = .;
         build/us/src/buffers/framebuffer.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_DATA_END = .;
         framebuffer_DATA_SIZE = ABSOLUTE(framebuffer_DATA_END - framebuffer_DATA_START);
 
         framebuffer_RODATA_START = .;
         build/us/src/buffers/framebuffer.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_RODATA_END = .;
         framebuffer_RODATA_SIZE = ABSOLUTE(framebuffer_RODATA_END - framebuffer_RODATA_START);
 
         framebuffer_SDATA_START = .;
         build/us/src/buffers/framebuffer.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_SDATA_END = .;
         framebuffer_SDATA_SIZE = ABSOLUTE(framebuffer_SDATA_END - framebuffer_SDATA_START);
     }
@@ -2393,25 +2393,25 @@ SECTIONS
         FILL(0x00000000);
         framebuffer_SBSS_START = .;
         build/us/src/buffers/framebuffer.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_SBSS_END = .;
         framebuffer_SBSS_SIZE = ABSOLUTE(framebuffer_SBSS_END - framebuffer_SBSS_START);
 
         framebuffer_SCOMMON_START = .;
         build/us/src/buffers/framebuffer.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_SCOMMON_END = .;
         framebuffer_SCOMMON_SIZE = ABSOLUTE(framebuffer_SCOMMON_END - framebuffer_SCOMMON_START);
 
         framebuffer_BSS_START = .;
         build/us/src/buffers/framebuffer.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebuffer_BSS_END = .;
         framebuffer_BSS_SIZE = ABSOLUTE(framebuffer_BSS_END - framebuffer_BSS_START);
 
         framebufferCOMMON_START = .;
         build/us/src/buffers/framebuffer.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         framebufferCOMMON_END = .;
         framebufferCOMMON_SIZE = ABSOLUTE(framebufferCOMMON_END - framebufferCOMMON_START);
     }
@@ -2431,25 +2431,25 @@ SECTIONS
         FILL(0x00000000);
         n64_wave_tables_TEXT_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_TEXT_END = .;
         n64_wave_tables_TEXT_SIZE = ABSOLUTE(n64_wave_tables_TEXT_END - n64_wave_tables_TEXT_START);
 
         n64_wave_tables_DATA_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_DATA_END = .;
         n64_wave_tables_DATA_SIZE = ABSOLUTE(n64_wave_tables_DATA_END - n64_wave_tables_DATA_START);
 
         n64_wave_tables_RODATA_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_RODATA_END = .;
         n64_wave_tables_RODATA_SIZE = ABSOLUTE(n64_wave_tables_RODATA_END - n64_wave_tables_RODATA_START);
 
         n64_wave_tables_SDATA_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_SDATA_END = .;
         n64_wave_tables_SDATA_SIZE = ABSOLUTE(n64_wave_tables_SDATA_END - n64_wave_tables_SDATA_START);
     }
@@ -2462,25 +2462,25 @@ SECTIONS
         FILL(0x00000000);
         n64_wave_tables_SBSS_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_SBSS_END = .;
         n64_wave_tables_SBSS_SIZE = ABSOLUTE(n64_wave_tables_SBSS_END - n64_wave_tables_SBSS_START);
 
         n64_wave_tables_SCOMMON_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_SCOMMON_END = .;
         n64_wave_tables_SCOMMON_SIZE = ABSOLUTE(n64_wave_tables_SCOMMON_END - n64_wave_tables_SCOMMON_START);
 
         n64_wave_tables_BSS_START = .;
         build/us/asm/us/data/n64_wave_tables.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tables_BSS_END = .;
         n64_wave_tables_BSS_SIZE = ABSOLUTE(n64_wave_tables_BSS_END - n64_wave_tables_BSS_START);
 
         n64_wave_tablesCOMMON_START = .;
         build/us/asm/us/data/n64_wave_tables.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_wave_tablesCOMMON_END = .;
         n64_wave_tablesCOMMON_SIZE = ABSOLUTE(n64_wave_tablesCOMMON_END - n64_wave_tablesCOMMON_START);
     }
@@ -2500,25 +2500,25 @@ SECTIONS
         FILL(0x00000000);
         n64_ptr_tables_v2_TEXT_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_TEXT_END = .;
         n64_ptr_tables_v2_TEXT_SIZE = ABSOLUTE(n64_ptr_tables_v2_TEXT_END - n64_ptr_tables_v2_TEXT_START);
 
         n64_ptr_tables_v2_DATA_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_DATA_END = .;
         n64_ptr_tables_v2_DATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_DATA_END - n64_ptr_tables_v2_DATA_START);
 
         n64_ptr_tables_v2_RODATA_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_RODATA_END = .;
         n64_ptr_tables_v2_RODATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_RODATA_END - n64_ptr_tables_v2_RODATA_START);
 
         n64_ptr_tables_v2_SDATA_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_SDATA_END = .;
         n64_ptr_tables_v2_SDATA_SIZE = ABSOLUTE(n64_ptr_tables_v2_SDATA_END - n64_ptr_tables_v2_SDATA_START);
     }
@@ -2531,25 +2531,25 @@ SECTIONS
         FILL(0x00000000);
         n64_ptr_tables_v2_SBSS_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_SBSS_END = .;
         n64_ptr_tables_v2_SBSS_SIZE = ABSOLUTE(n64_ptr_tables_v2_SBSS_END - n64_ptr_tables_v2_SBSS_START);
 
         n64_ptr_tables_v2_SCOMMON_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_SCOMMON_END = .;
         n64_ptr_tables_v2_SCOMMON_SIZE = ABSOLUTE(n64_ptr_tables_v2_SCOMMON_END - n64_ptr_tables_v2_SCOMMON_START);
 
         n64_ptr_tables_v2_BSS_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2_BSS_END = .;
         n64_ptr_tables_v2_BSS_SIZE = ABSOLUTE(n64_ptr_tables_v2_BSS_END - n64_ptr_tables_v2_BSS_START);
 
         n64_ptr_tables_v2COMMON_START = .;
         build/us/asm/us/data/n64_ptr_tables_v2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         n64_ptr_tables_v2COMMON_END = .;
         n64_ptr_tables_v2COMMON_SIZE = ABSOLUTE(n64_ptr_tables_v2COMMON_END - n64_ptr_tables_v2COMMON_START);
     }
@@ -2569,25 +2569,25 @@ SECTIONS
         FILL(0x00000000);
         segment_172130_TEXT_START = .;
         build/us/asm/us/data/segment_172130.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_TEXT_END = .;
         segment_172130_TEXT_SIZE = ABSOLUTE(segment_172130_TEXT_END - segment_172130_TEXT_START);
 
         segment_172130_DATA_START = .;
         build/us/asm/us/data/segment_172130.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_DATA_END = .;
         segment_172130_DATA_SIZE = ABSOLUTE(segment_172130_DATA_END - segment_172130_DATA_START);
 
         segment_172130_RODATA_START = .;
         build/us/asm/us/data/segment_172130.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_RODATA_END = .;
         segment_172130_RODATA_SIZE = ABSOLUTE(segment_172130_RODATA_END - segment_172130_RODATA_START);
 
         segment_172130_SDATA_START = .;
         build/us/asm/us/data/segment_172130.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_SDATA_END = .;
         segment_172130_SDATA_SIZE = ABSOLUTE(segment_172130_SDATA_END - segment_172130_SDATA_START);
     }
@@ -2600,25 +2600,25 @@ SECTIONS
         FILL(0x00000000);
         segment_172130_SBSS_START = .;
         build/us/asm/us/data/segment_172130.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_SBSS_END = .;
         segment_172130_SBSS_SIZE = ABSOLUTE(segment_172130_SBSS_END - segment_172130_SBSS_START);
 
         segment_172130_SCOMMON_START = .;
         build/us/asm/us/data/segment_172130.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_SCOMMON_END = .;
         segment_172130_SCOMMON_SIZE = ABSOLUTE(segment_172130_SCOMMON_END - segment_172130_SCOMMON_START);
 
         segment_172130_BSS_START = .;
         build/us/asm/us/data/segment_172130.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130_BSS_END = .;
         segment_172130_BSS_SIZE = ABSOLUTE(segment_172130_BSS_END - segment_172130_BSS_START);
 
         segment_172130COMMON_START = .;
         build/us/asm/us/data/segment_172130.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172130COMMON_END = .;
         segment_172130COMMON_SIZE = ABSOLUTE(segment_172130COMMON_END - segment_172130COMMON_START);
     }
@@ -2638,25 +2638,25 @@ SECTIONS
         FILL(0x00000000);
         segment_172D60_TEXT_START = .;
         build/us/asm/us/data/segment_172D60.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_TEXT_END = .;
         segment_172D60_TEXT_SIZE = ABSOLUTE(segment_172D60_TEXT_END - segment_172D60_TEXT_START);
 
         segment_172D60_DATA_START = .;
         build/us/asm/us/data/segment_172D60.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_DATA_END = .;
         segment_172D60_DATA_SIZE = ABSOLUTE(segment_172D60_DATA_END - segment_172D60_DATA_START);
 
         segment_172D60_RODATA_START = .;
         build/us/asm/us/data/segment_172D60.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_RODATA_END = .;
         segment_172D60_RODATA_SIZE = ABSOLUTE(segment_172D60_RODATA_END - segment_172D60_RODATA_START);
 
         segment_172D60_SDATA_START = .;
         build/us/asm/us/data/segment_172D60.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_SDATA_END = .;
         segment_172D60_SDATA_SIZE = ABSOLUTE(segment_172D60_SDATA_END - segment_172D60_SDATA_START);
     }
@@ -2669,25 +2669,25 @@ SECTIONS
         FILL(0x00000000);
         segment_172D60_SBSS_START = .;
         build/us/asm/us/data/segment_172D60.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_SBSS_END = .;
         segment_172D60_SBSS_SIZE = ABSOLUTE(segment_172D60_SBSS_END - segment_172D60_SBSS_START);
 
         segment_172D60_SCOMMON_START = .;
         build/us/asm/us/data/segment_172D60.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_SCOMMON_END = .;
         segment_172D60_SCOMMON_SIZE = ABSOLUTE(segment_172D60_SCOMMON_END - segment_172D60_SCOMMON_START);
 
         segment_172D60_BSS_START = .;
         build/us/asm/us/data/segment_172D60.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60_BSS_END = .;
         segment_172D60_BSS_SIZE = ABSOLUTE(segment_172D60_BSS_END - segment_172D60_BSS_START);
 
         segment_172D60COMMON_START = .;
         build/us/asm/us/data/segment_172D60.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_172D60COMMON_END = .;
         segment_172D60COMMON_SIZE = ABSOLUTE(segment_172D60COMMON_END - segment_172D60COMMON_START);
     }
@@ -2707,25 +2707,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1750C0_TEXT_START = .;
         build/us/asm/us/data/segment_1750C0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_TEXT_END = .;
         segment_1750C0_TEXT_SIZE = ABSOLUTE(segment_1750C0_TEXT_END - segment_1750C0_TEXT_START);
 
         segment_1750C0_DATA_START = .;
         build/us/asm/us/data/segment_1750C0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_DATA_END = .;
         segment_1750C0_DATA_SIZE = ABSOLUTE(segment_1750C0_DATA_END - segment_1750C0_DATA_START);
 
         segment_1750C0_RODATA_START = .;
         build/us/asm/us/data/segment_1750C0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_RODATA_END = .;
         segment_1750C0_RODATA_SIZE = ABSOLUTE(segment_1750C0_RODATA_END - segment_1750C0_RODATA_START);
 
         segment_1750C0_SDATA_START = .;
         build/us/asm/us/data/segment_1750C0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_SDATA_END = .;
         segment_1750C0_SDATA_SIZE = ABSOLUTE(segment_1750C0_SDATA_END - segment_1750C0_SDATA_START);
     }
@@ -2738,25 +2738,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1750C0_SBSS_START = .;
         build/us/asm/us/data/segment_1750C0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_SBSS_END = .;
         segment_1750C0_SBSS_SIZE = ABSOLUTE(segment_1750C0_SBSS_END - segment_1750C0_SBSS_START);
 
         segment_1750C0_SCOMMON_START = .;
         build/us/asm/us/data/segment_1750C0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_SCOMMON_END = .;
         segment_1750C0_SCOMMON_SIZE = ABSOLUTE(segment_1750C0_SCOMMON_END - segment_1750C0_SCOMMON_START);
 
         segment_1750C0_BSS_START = .;
         build/us/asm/us/data/segment_1750C0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0_BSS_END = .;
         segment_1750C0_BSS_SIZE = ABSOLUTE(segment_1750C0_BSS_END - segment_1750C0_BSS_START);
 
         segment_1750C0COMMON_START = .;
         build/us/asm/us/data/segment_1750C0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1750C0COMMON_END = .;
         segment_1750C0COMMON_SIZE = ABSOLUTE(segment_1750C0COMMON_END - segment_1750C0COMMON_START);
     }
@@ -2776,25 +2776,25 @@ SECTIONS
         FILL(0x00000000);
         segment_177420_TEXT_START = .;
         build/us/asm/us/data/segment_177420.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_TEXT_END = .;
         segment_177420_TEXT_SIZE = ABSOLUTE(segment_177420_TEXT_END - segment_177420_TEXT_START);
 
         segment_177420_DATA_START = .;
         build/us/asm/us/data/segment_177420.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_DATA_END = .;
         segment_177420_DATA_SIZE = ABSOLUTE(segment_177420_DATA_END - segment_177420_DATA_START);
 
         segment_177420_RODATA_START = .;
         build/us/asm/us/data/segment_177420.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_RODATA_END = .;
         segment_177420_RODATA_SIZE = ABSOLUTE(segment_177420_RODATA_END - segment_177420_RODATA_START);
 
         segment_177420_SDATA_START = .;
         build/us/asm/us/data/segment_177420.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_SDATA_END = .;
         segment_177420_SDATA_SIZE = ABSOLUTE(segment_177420_SDATA_END - segment_177420_SDATA_START);
     }
@@ -2807,25 +2807,25 @@ SECTIONS
         FILL(0x00000000);
         segment_177420_SBSS_START = .;
         build/us/asm/us/data/segment_177420.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_SBSS_END = .;
         segment_177420_SBSS_SIZE = ABSOLUTE(segment_177420_SBSS_END - segment_177420_SBSS_START);
 
         segment_177420_SCOMMON_START = .;
         build/us/asm/us/data/segment_177420.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_SCOMMON_END = .;
         segment_177420_SCOMMON_SIZE = ABSOLUTE(segment_177420_SCOMMON_END - segment_177420_SCOMMON_START);
 
         segment_177420_BSS_START = .;
         build/us/asm/us/data/segment_177420.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420_BSS_END = .;
         segment_177420_BSS_SIZE = ABSOLUTE(segment_177420_BSS_END - segment_177420_BSS_START);
 
         segment_177420COMMON_START = .;
         build/us/asm/us/data/segment_177420.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_177420COMMON_END = .;
         segment_177420COMMON_SIZE = ABSOLUTE(segment_177420COMMON_END - segment_177420COMMON_START);
     }
@@ -2845,25 +2845,25 @@ SECTIONS
         FILL(0x00000000);
         segment_179620_TEXT_START = .;
         build/us/asm/us/data/segment_179620.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_TEXT_END = .;
         segment_179620_TEXT_SIZE = ABSOLUTE(segment_179620_TEXT_END - segment_179620_TEXT_START);
 
         segment_179620_DATA_START = .;
         build/us/asm/us/data/segment_179620.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_DATA_END = .;
         segment_179620_DATA_SIZE = ABSOLUTE(segment_179620_DATA_END - segment_179620_DATA_START);
 
         segment_179620_RODATA_START = .;
         build/us/asm/us/data/segment_179620.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_RODATA_END = .;
         segment_179620_RODATA_SIZE = ABSOLUTE(segment_179620_RODATA_END - segment_179620_RODATA_START);
 
         segment_179620_SDATA_START = .;
         build/us/asm/us/data/segment_179620.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_SDATA_END = .;
         segment_179620_SDATA_SIZE = ABSOLUTE(segment_179620_SDATA_END - segment_179620_SDATA_START);
     }
@@ -2876,25 +2876,25 @@ SECTIONS
         FILL(0x00000000);
         segment_179620_SBSS_START = .;
         build/us/asm/us/data/segment_179620.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_SBSS_END = .;
         segment_179620_SBSS_SIZE = ABSOLUTE(segment_179620_SBSS_END - segment_179620_SBSS_START);
 
         segment_179620_SCOMMON_START = .;
         build/us/asm/us/data/segment_179620.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_SCOMMON_END = .;
         segment_179620_SCOMMON_SIZE = ABSOLUTE(segment_179620_SCOMMON_END - segment_179620_SCOMMON_START);
 
         segment_179620_BSS_START = .;
         build/us/asm/us/data/segment_179620.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620_BSS_END = .;
         segment_179620_BSS_SIZE = ABSOLUTE(segment_179620_BSS_END - segment_179620_BSS_START);
 
         segment_179620COMMON_START = .;
         build/us/asm/us/data/segment_179620.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_179620COMMON_END = .;
         segment_179620COMMON_SIZE = ABSOLUTE(segment_179620COMMON_END - segment_179620COMMON_START);
     }
@@ -2914,25 +2914,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17B790_TEXT_START = .;
         build/us/asm/us/data/segment_17B790.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_TEXT_END = .;
         segment_17B790_TEXT_SIZE = ABSOLUTE(segment_17B790_TEXT_END - segment_17B790_TEXT_START);
 
         segment_17B790_DATA_START = .;
         build/us/asm/us/data/segment_17B790.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_DATA_END = .;
         segment_17B790_DATA_SIZE = ABSOLUTE(segment_17B790_DATA_END - segment_17B790_DATA_START);
 
         segment_17B790_RODATA_START = .;
         build/us/asm/us/data/segment_17B790.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_RODATA_END = .;
         segment_17B790_RODATA_SIZE = ABSOLUTE(segment_17B790_RODATA_END - segment_17B790_RODATA_START);
 
         segment_17B790_SDATA_START = .;
         build/us/asm/us/data/segment_17B790.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_SDATA_END = .;
         segment_17B790_SDATA_SIZE = ABSOLUTE(segment_17B790_SDATA_END - segment_17B790_SDATA_START);
     }
@@ -2945,25 +2945,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17B790_SBSS_START = .;
         build/us/asm/us/data/segment_17B790.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_SBSS_END = .;
         segment_17B790_SBSS_SIZE = ABSOLUTE(segment_17B790_SBSS_END - segment_17B790_SBSS_START);
 
         segment_17B790_SCOMMON_START = .;
         build/us/asm/us/data/segment_17B790.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_SCOMMON_END = .;
         segment_17B790_SCOMMON_SIZE = ABSOLUTE(segment_17B790_SCOMMON_END - segment_17B790_SCOMMON_START);
 
         segment_17B790_BSS_START = .;
         build/us/asm/us/data/segment_17B790.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790_BSS_END = .;
         segment_17B790_BSS_SIZE = ABSOLUTE(segment_17B790_BSS_END - segment_17B790_BSS_START);
 
         segment_17B790COMMON_START = .;
         build/us/asm/us/data/segment_17B790.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17B790COMMON_END = .;
         segment_17B790COMMON_SIZE = ABSOLUTE(segment_17B790COMMON_END - segment_17B790COMMON_START);
     }
@@ -2983,25 +2983,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17C1E0_TEXT_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_TEXT_END = .;
         segment_17C1E0_TEXT_SIZE = ABSOLUTE(segment_17C1E0_TEXT_END - segment_17C1E0_TEXT_START);
 
         segment_17C1E0_DATA_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_DATA_END = .;
         segment_17C1E0_DATA_SIZE = ABSOLUTE(segment_17C1E0_DATA_END - segment_17C1E0_DATA_START);
 
         segment_17C1E0_RODATA_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_RODATA_END = .;
         segment_17C1E0_RODATA_SIZE = ABSOLUTE(segment_17C1E0_RODATA_END - segment_17C1E0_RODATA_START);
 
         segment_17C1E0_SDATA_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_SDATA_END = .;
         segment_17C1E0_SDATA_SIZE = ABSOLUTE(segment_17C1E0_SDATA_END - segment_17C1E0_SDATA_START);
     }
@@ -3014,25 +3014,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17C1E0_SBSS_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_SBSS_END = .;
         segment_17C1E0_SBSS_SIZE = ABSOLUTE(segment_17C1E0_SBSS_END - segment_17C1E0_SBSS_START);
 
         segment_17C1E0_SCOMMON_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_SCOMMON_END = .;
         segment_17C1E0_SCOMMON_SIZE = ABSOLUTE(segment_17C1E0_SCOMMON_END - segment_17C1E0_SCOMMON_START);
 
         segment_17C1E0_BSS_START = .;
         build/us/asm/us/data/segment_17C1E0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0_BSS_END = .;
         segment_17C1E0_BSS_SIZE = ABSOLUTE(segment_17C1E0_BSS_END - segment_17C1E0_BSS_START);
 
         segment_17C1E0COMMON_START = .;
         build/us/asm/us/data/segment_17C1E0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17C1E0COMMON_END = .;
         segment_17C1E0COMMON_SIZE = ABSOLUTE(segment_17C1E0COMMON_END - segment_17C1E0COMMON_START);
     }
@@ -3052,25 +3052,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17D130_TEXT_START = .;
         build/us/asm/us/data/segment_17D130.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_TEXT_END = .;
         segment_17D130_TEXT_SIZE = ABSOLUTE(segment_17D130_TEXT_END - segment_17D130_TEXT_START);
 
         segment_17D130_DATA_START = .;
         build/us/asm/us/data/segment_17D130.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_DATA_END = .;
         segment_17D130_DATA_SIZE = ABSOLUTE(segment_17D130_DATA_END - segment_17D130_DATA_START);
 
         segment_17D130_RODATA_START = .;
         build/us/asm/us/data/segment_17D130.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_RODATA_END = .;
         segment_17D130_RODATA_SIZE = ABSOLUTE(segment_17D130_RODATA_END - segment_17D130_RODATA_START);
 
         segment_17D130_SDATA_START = .;
         build/us/asm/us/data/segment_17D130.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_SDATA_END = .;
         segment_17D130_SDATA_SIZE = ABSOLUTE(segment_17D130_SDATA_END - segment_17D130_SDATA_START);
     }
@@ -3083,25 +3083,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17D130_SBSS_START = .;
         build/us/asm/us/data/segment_17D130.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_SBSS_END = .;
         segment_17D130_SBSS_SIZE = ABSOLUTE(segment_17D130_SBSS_END - segment_17D130_SBSS_START);
 
         segment_17D130_SCOMMON_START = .;
         build/us/asm/us/data/segment_17D130.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_SCOMMON_END = .;
         segment_17D130_SCOMMON_SIZE = ABSOLUTE(segment_17D130_SCOMMON_END - segment_17D130_SCOMMON_START);
 
         segment_17D130_BSS_START = .;
         build/us/asm/us/data/segment_17D130.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130_BSS_END = .;
         segment_17D130_BSS_SIZE = ABSOLUTE(segment_17D130_BSS_END - segment_17D130_BSS_START);
 
         segment_17D130COMMON_START = .;
         build/us/asm/us/data/segment_17D130.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17D130COMMON_END = .;
         segment_17D130COMMON_SIZE = ABSOLUTE(segment_17D130COMMON_END - segment_17D130COMMON_START);
     }
@@ -3121,25 +3121,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17E090_TEXT_START = .;
         build/us/asm/us/data/segment_17E090.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_TEXT_END = .;
         segment_17E090_TEXT_SIZE = ABSOLUTE(segment_17E090_TEXT_END - segment_17E090_TEXT_START);
 
         segment_17E090_DATA_START = .;
         build/us/asm/us/data/segment_17E090.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_DATA_END = .;
         segment_17E090_DATA_SIZE = ABSOLUTE(segment_17E090_DATA_END - segment_17E090_DATA_START);
 
         segment_17E090_RODATA_START = .;
         build/us/asm/us/data/segment_17E090.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_RODATA_END = .;
         segment_17E090_RODATA_SIZE = ABSOLUTE(segment_17E090_RODATA_END - segment_17E090_RODATA_START);
 
         segment_17E090_SDATA_START = .;
         build/us/asm/us/data/segment_17E090.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_SDATA_END = .;
         segment_17E090_SDATA_SIZE = ABSOLUTE(segment_17E090_SDATA_END - segment_17E090_SDATA_START);
     }
@@ -3152,25 +3152,25 @@ SECTIONS
         FILL(0x00000000);
         segment_17E090_SBSS_START = .;
         build/us/asm/us/data/segment_17E090.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_SBSS_END = .;
         segment_17E090_SBSS_SIZE = ABSOLUTE(segment_17E090_SBSS_END - segment_17E090_SBSS_START);
 
         segment_17E090_SCOMMON_START = .;
         build/us/asm/us/data/segment_17E090.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_SCOMMON_END = .;
         segment_17E090_SCOMMON_SIZE = ABSOLUTE(segment_17E090_SCOMMON_END - segment_17E090_SCOMMON_START);
 
         segment_17E090_BSS_START = .;
         build/us/asm/us/data/segment_17E090.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090_BSS_END = .;
         segment_17E090_BSS_SIZE = ABSOLUTE(segment_17E090_BSS_END - segment_17E090_BSS_START);
 
         segment_17E090COMMON_START = .;
         build/us/asm/us/data/segment_17E090.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_17E090COMMON_END = .;
         segment_17E090COMMON_SIZE = ABSOLUTE(segment_17E090COMMON_END - segment_17E090COMMON_START);
     }
@@ -3190,25 +3190,25 @@ SECTIONS
         FILL(0x00000000);
         segment_181840_TEXT_START = .;
         build/us/asm/us/data/segment_181840.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_TEXT_END = .;
         segment_181840_TEXT_SIZE = ABSOLUTE(segment_181840_TEXT_END - segment_181840_TEXT_START);
 
         segment_181840_DATA_START = .;
         build/us/asm/us/data/segment_181840.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_DATA_END = .;
         segment_181840_DATA_SIZE = ABSOLUTE(segment_181840_DATA_END - segment_181840_DATA_START);
 
         segment_181840_RODATA_START = .;
         build/us/asm/us/data/segment_181840.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_RODATA_END = .;
         segment_181840_RODATA_SIZE = ABSOLUTE(segment_181840_RODATA_END - segment_181840_RODATA_START);
 
         segment_181840_SDATA_START = .;
         build/us/asm/us/data/segment_181840.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_SDATA_END = .;
         segment_181840_SDATA_SIZE = ABSOLUTE(segment_181840_SDATA_END - segment_181840_SDATA_START);
     }
@@ -3221,25 +3221,25 @@ SECTIONS
         FILL(0x00000000);
         segment_181840_SBSS_START = .;
         build/us/asm/us/data/segment_181840.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_SBSS_END = .;
         segment_181840_SBSS_SIZE = ABSOLUTE(segment_181840_SBSS_END - segment_181840_SBSS_START);
 
         segment_181840_SCOMMON_START = .;
         build/us/asm/us/data/segment_181840.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_SCOMMON_END = .;
         segment_181840_SCOMMON_SIZE = ABSOLUTE(segment_181840_SCOMMON_END - segment_181840_SCOMMON_START);
 
         segment_181840_BSS_START = .;
         build/us/asm/us/data/segment_181840.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840_BSS_END = .;
         segment_181840_BSS_SIZE = ABSOLUTE(segment_181840_BSS_END - segment_181840_BSS_START);
 
         segment_181840COMMON_START = .;
         build/us/asm/us/data/segment_181840.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_181840COMMON_END = .;
         segment_181840COMMON_SIZE = ABSOLUTE(segment_181840COMMON_END - segment_181840COMMON_START);
     }
@@ -3259,25 +3259,25 @@ SECTIONS
         FILL(0x00000000);
         segment_184FF0_TEXT_START = .;
         build/us/asm/us/data/segment_184FF0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_TEXT_END = .;
         segment_184FF0_TEXT_SIZE = ABSOLUTE(segment_184FF0_TEXT_END - segment_184FF0_TEXT_START);
 
         segment_184FF0_DATA_START = .;
         build/us/asm/us/data/segment_184FF0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_DATA_END = .;
         segment_184FF0_DATA_SIZE = ABSOLUTE(segment_184FF0_DATA_END - segment_184FF0_DATA_START);
 
         segment_184FF0_RODATA_START = .;
         build/us/asm/us/data/segment_184FF0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_RODATA_END = .;
         segment_184FF0_RODATA_SIZE = ABSOLUTE(segment_184FF0_RODATA_END - segment_184FF0_RODATA_START);
 
         segment_184FF0_SDATA_START = .;
         build/us/asm/us/data/segment_184FF0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_SDATA_END = .;
         segment_184FF0_SDATA_SIZE = ABSOLUTE(segment_184FF0_SDATA_END - segment_184FF0_SDATA_START);
     }
@@ -3290,25 +3290,25 @@ SECTIONS
         FILL(0x00000000);
         segment_184FF0_SBSS_START = .;
         build/us/asm/us/data/segment_184FF0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_SBSS_END = .;
         segment_184FF0_SBSS_SIZE = ABSOLUTE(segment_184FF0_SBSS_END - segment_184FF0_SBSS_START);
 
         segment_184FF0_SCOMMON_START = .;
         build/us/asm/us/data/segment_184FF0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_SCOMMON_END = .;
         segment_184FF0_SCOMMON_SIZE = ABSOLUTE(segment_184FF0_SCOMMON_END - segment_184FF0_SCOMMON_START);
 
         segment_184FF0_BSS_START = .;
         build/us/asm/us/data/segment_184FF0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0_BSS_END = .;
         segment_184FF0_BSS_SIZE = ABSOLUTE(segment_184FF0_BSS_END - segment_184FF0_BSS_START);
 
         segment_184FF0COMMON_START = .;
         build/us/asm/us/data/segment_184FF0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_184FF0COMMON_END = .;
         segment_184FF0COMMON_SIZE = ABSOLUTE(segment_184FF0COMMON_END - segment_184FF0COMMON_START);
     }
@@ -3328,25 +3328,25 @@ SECTIONS
         FILL(0x00000000);
         segment_186FF0_TEXT_START = .;
         build/us/asm/us/data/segment_186FF0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_TEXT_END = .;
         segment_186FF0_TEXT_SIZE = ABSOLUTE(segment_186FF0_TEXT_END - segment_186FF0_TEXT_START);
 
         segment_186FF0_DATA_START = .;
         build/us/asm/us/data/segment_186FF0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_DATA_END = .;
         segment_186FF0_DATA_SIZE = ABSOLUTE(segment_186FF0_DATA_END - segment_186FF0_DATA_START);
 
         segment_186FF0_RODATA_START = .;
         build/us/asm/us/data/segment_186FF0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_RODATA_END = .;
         segment_186FF0_RODATA_SIZE = ABSOLUTE(segment_186FF0_RODATA_END - segment_186FF0_RODATA_START);
 
         segment_186FF0_SDATA_START = .;
         build/us/asm/us/data/segment_186FF0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_SDATA_END = .;
         segment_186FF0_SDATA_SIZE = ABSOLUTE(segment_186FF0_SDATA_END - segment_186FF0_SDATA_START);
     }
@@ -3359,25 +3359,25 @@ SECTIONS
         FILL(0x00000000);
         segment_186FF0_SBSS_START = .;
         build/us/asm/us/data/segment_186FF0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_SBSS_END = .;
         segment_186FF0_SBSS_SIZE = ABSOLUTE(segment_186FF0_SBSS_END - segment_186FF0_SBSS_START);
 
         segment_186FF0_SCOMMON_START = .;
         build/us/asm/us/data/segment_186FF0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_SCOMMON_END = .;
         segment_186FF0_SCOMMON_SIZE = ABSOLUTE(segment_186FF0_SCOMMON_END - segment_186FF0_SCOMMON_START);
 
         segment_186FF0_BSS_START = .;
         build/us/asm/us/data/segment_186FF0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0_BSS_END = .;
         segment_186FF0_BSS_SIZE = ABSOLUTE(segment_186FF0_BSS_END - segment_186FF0_BSS_START);
 
         segment_186FF0COMMON_START = .;
         build/us/asm/us/data/segment_186FF0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_186FF0COMMON_END = .;
         segment_186FF0COMMON_SIZE = ABSOLUTE(segment_186FF0COMMON_END - segment_186FF0COMMON_START);
     }
@@ -3397,25 +3397,25 @@ SECTIONS
         FILL(0x00000000);
         segment_188FF0_TEXT_START = .;
         build/us/asm/us/data/segment_188FF0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_TEXT_END = .;
         segment_188FF0_TEXT_SIZE = ABSOLUTE(segment_188FF0_TEXT_END - segment_188FF0_TEXT_START);
 
         segment_188FF0_DATA_START = .;
         build/us/asm/us/data/segment_188FF0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_DATA_END = .;
         segment_188FF0_DATA_SIZE = ABSOLUTE(segment_188FF0_DATA_END - segment_188FF0_DATA_START);
 
         segment_188FF0_RODATA_START = .;
         build/us/asm/us/data/segment_188FF0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_RODATA_END = .;
         segment_188FF0_RODATA_SIZE = ABSOLUTE(segment_188FF0_RODATA_END - segment_188FF0_RODATA_START);
 
         segment_188FF0_SDATA_START = .;
         build/us/asm/us/data/segment_188FF0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_SDATA_END = .;
         segment_188FF0_SDATA_SIZE = ABSOLUTE(segment_188FF0_SDATA_END - segment_188FF0_SDATA_START);
     }
@@ -3428,25 +3428,25 @@ SECTIONS
         FILL(0x00000000);
         segment_188FF0_SBSS_START = .;
         build/us/asm/us/data/segment_188FF0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_SBSS_END = .;
         segment_188FF0_SBSS_SIZE = ABSOLUTE(segment_188FF0_SBSS_END - segment_188FF0_SBSS_START);
 
         segment_188FF0_SCOMMON_START = .;
         build/us/asm/us/data/segment_188FF0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_SCOMMON_END = .;
         segment_188FF0_SCOMMON_SIZE = ABSOLUTE(segment_188FF0_SCOMMON_END - segment_188FF0_SCOMMON_START);
 
         segment_188FF0_BSS_START = .;
         build/us/asm/us/data/segment_188FF0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0_BSS_END = .;
         segment_188FF0_BSS_SIZE = ABSOLUTE(segment_188FF0_BSS_END - segment_188FF0_BSS_START);
 
         segment_188FF0COMMON_START = .;
         build/us/asm/us/data/segment_188FF0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_188FF0COMMON_END = .;
         segment_188FF0COMMON_SIZE = ABSOLUTE(segment_188FF0COMMON_END - segment_188FF0COMMON_START);
     }
@@ -3466,25 +3466,25 @@ SECTIONS
         FILL(0x00000000);
         segment_189D40_TEXT_START = .;
         build/us/asm/us/data/segment_189D40.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_TEXT_END = .;
         segment_189D40_TEXT_SIZE = ABSOLUTE(segment_189D40_TEXT_END - segment_189D40_TEXT_START);
 
         segment_189D40_DATA_START = .;
         build/us/asm/us/data/segment_189D40.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_DATA_END = .;
         segment_189D40_DATA_SIZE = ABSOLUTE(segment_189D40_DATA_END - segment_189D40_DATA_START);
 
         segment_189D40_RODATA_START = .;
         build/us/asm/us/data/segment_189D40.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_RODATA_END = .;
         segment_189D40_RODATA_SIZE = ABSOLUTE(segment_189D40_RODATA_END - segment_189D40_RODATA_START);
 
         segment_189D40_SDATA_START = .;
         build/us/asm/us/data/segment_189D40.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_SDATA_END = .;
         segment_189D40_SDATA_SIZE = ABSOLUTE(segment_189D40_SDATA_END - segment_189D40_SDATA_START);
     }
@@ -3497,25 +3497,25 @@ SECTIONS
         FILL(0x00000000);
         segment_189D40_SBSS_START = .;
         build/us/asm/us/data/segment_189D40.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_SBSS_END = .;
         segment_189D40_SBSS_SIZE = ABSOLUTE(segment_189D40_SBSS_END - segment_189D40_SBSS_START);
 
         segment_189D40_SCOMMON_START = .;
         build/us/asm/us/data/segment_189D40.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_SCOMMON_END = .;
         segment_189D40_SCOMMON_SIZE = ABSOLUTE(segment_189D40_SCOMMON_END - segment_189D40_SCOMMON_START);
 
         segment_189D40_BSS_START = .;
         build/us/asm/us/data/segment_189D40.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40_BSS_END = .;
         segment_189D40_BSS_SIZE = ABSOLUTE(segment_189D40_BSS_END - segment_189D40_BSS_START);
 
         segment_189D40COMMON_START = .;
         build/us/asm/us/data/segment_189D40.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_189D40COMMON_END = .;
         segment_189D40COMMON_SIZE = ABSOLUTE(segment_189D40COMMON_END - segment_189D40COMMON_START);
     }
@@ -3535,25 +3535,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18CB40_TEXT_START = .;
         build/us/asm/us/data/segment_18CB40.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_TEXT_END = .;
         segment_18CB40_TEXT_SIZE = ABSOLUTE(segment_18CB40_TEXT_END - segment_18CB40_TEXT_START);
 
         segment_18CB40_DATA_START = .;
         build/us/asm/us/data/segment_18CB40.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_DATA_END = .;
         segment_18CB40_DATA_SIZE = ABSOLUTE(segment_18CB40_DATA_END - segment_18CB40_DATA_START);
 
         segment_18CB40_RODATA_START = .;
         build/us/asm/us/data/segment_18CB40.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_RODATA_END = .;
         segment_18CB40_RODATA_SIZE = ABSOLUTE(segment_18CB40_RODATA_END - segment_18CB40_RODATA_START);
 
         segment_18CB40_SDATA_START = .;
         build/us/asm/us/data/segment_18CB40.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_SDATA_END = .;
         segment_18CB40_SDATA_SIZE = ABSOLUTE(segment_18CB40_SDATA_END - segment_18CB40_SDATA_START);
     }
@@ -3566,25 +3566,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18CB40_SBSS_START = .;
         build/us/asm/us/data/segment_18CB40.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_SBSS_END = .;
         segment_18CB40_SBSS_SIZE = ABSOLUTE(segment_18CB40_SBSS_END - segment_18CB40_SBSS_START);
 
         segment_18CB40_SCOMMON_START = .;
         build/us/asm/us/data/segment_18CB40.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_SCOMMON_END = .;
         segment_18CB40_SCOMMON_SIZE = ABSOLUTE(segment_18CB40_SCOMMON_END - segment_18CB40_SCOMMON_START);
 
         segment_18CB40_BSS_START = .;
         build/us/asm/us/data/segment_18CB40.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40_BSS_END = .;
         segment_18CB40_BSS_SIZE = ABSOLUTE(segment_18CB40_BSS_END - segment_18CB40_BSS_START);
 
         segment_18CB40COMMON_START = .;
         build/us/asm/us/data/segment_18CB40.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18CB40COMMON_END = .;
         segment_18CB40COMMON_SIZE = ABSOLUTE(segment_18CB40COMMON_END - segment_18CB40COMMON_START);
     }
@@ -3604,25 +3604,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18DB90_TEXT_START = .;
         build/us/asm/us/data/segment_18DB90.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_TEXT_END = .;
         segment_18DB90_TEXT_SIZE = ABSOLUTE(segment_18DB90_TEXT_END - segment_18DB90_TEXT_START);
 
         segment_18DB90_DATA_START = .;
         build/us/asm/us/data/segment_18DB90.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_DATA_END = .;
         segment_18DB90_DATA_SIZE = ABSOLUTE(segment_18DB90_DATA_END - segment_18DB90_DATA_START);
 
         segment_18DB90_RODATA_START = .;
         build/us/asm/us/data/segment_18DB90.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_RODATA_END = .;
         segment_18DB90_RODATA_SIZE = ABSOLUTE(segment_18DB90_RODATA_END - segment_18DB90_RODATA_START);
 
         segment_18DB90_SDATA_START = .;
         build/us/asm/us/data/segment_18DB90.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_SDATA_END = .;
         segment_18DB90_SDATA_SIZE = ABSOLUTE(segment_18DB90_SDATA_END - segment_18DB90_SDATA_START);
     }
@@ -3635,25 +3635,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18DB90_SBSS_START = .;
         build/us/asm/us/data/segment_18DB90.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_SBSS_END = .;
         segment_18DB90_SBSS_SIZE = ABSOLUTE(segment_18DB90_SBSS_END - segment_18DB90_SBSS_START);
 
         segment_18DB90_SCOMMON_START = .;
         build/us/asm/us/data/segment_18DB90.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_SCOMMON_END = .;
         segment_18DB90_SCOMMON_SIZE = ABSOLUTE(segment_18DB90_SCOMMON_END - segment_18DB90_SCOMMON_START);
 
         segment_18DB90_BSS_START = .;
         build/us/asm/us/data/segment_18DB90.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90_BSS_END = .;
         segment_18DB90_BSS_SIZE = ABSOLUTE(segment_18DB90_BSS_END - segment_18DB90_BSS_START);
 
         segment_18DB90COMMON_START = .;
         build/us/asm/us/data/segment_18DB90.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18DB90COMMON_END = .;
         segment_18DB90COMMON_SIZE = ABSOLUTE(segment_18DB90COMMON_END - segment_18DB90COMMON_START);
     }
@@ -3673,25 +3673,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18F160_TEXT_START = .;
         build/us/asm/us/data/segment_18F160.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_TEXT_END = .;
         segment_18F160_TEXT_SIZE = ABSOLUTE(segment_18F160_TEXT_END - segment_18F160_TEXT_START);
 
         segment_18F160_DATA_START = .;
         build/us/asm/us/data/segment_18F160.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_DATA_END = .;
         segment_18F160_DATA_SIZE = ABSOLUTE(segment_18F160_DATA_END - segment_18F160_DATA_START);
 
         segment_18F160_RODATA_START = .;
         build/us/asm/us/data/segment_18F160.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_RODATA_END = .;
         segment_18F160_RODATA_SIZE = ABSOLUTE(segment_18F160_RODATA_END - segment_18F160_RODATA_START);
 
         segment_18F160_SDATA_START = .;
         build/us/asm/us/data/segment_18F160.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_SDATA_END = .;
         segment_18F160_SDATA_SIZE = ABSOLUTE(segment_18F160_SDATA_END - segment_18F160_SDATA_START);
     }
@@ -3704,25 +3704,25 @@ SECTIONS
         FILL(0x00000000);
         segment_18F160_SBSS_START = .;
         build/us/asm/us/data/segment_18F160.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_SBSS_END = .;
         segment_18F160_SBSS_SIZE = ABSOLUTE(segment_18F160_SBSS_END - segment_18F160_SBSS_START);
 
         segment_18F160_SCOMMON_START = .;
         build/us/asm/us/data/segment_18F160.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_SCOMMON_END = .;
         segment_18F160_SCOMMON_SIZE = ABSOLUTE(segment_18F160_SCOMMON_END - segment_18F160_SCOMMON_START);
 
         segment_18F160_BSS_START = .;
         build/us/asm/us/data/segment_18F160.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160_BSS_END = .;
         segment_18F160_BSS_SIZE = ABSOLUTE(segment_18F160_BSS_END - segment_18F160_BSS_START);
 
         segment_18F160COMMON_START = .;
         build/us/asm/us/data/segment_18F160.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_18F160COMMON_END = .;
         segment_18F160COMMON_SIZE = ABSOLUTE(segment_18F160COMMON_END - segment_18F160COMMON_START);
     }
@@ -3742,25 +3742,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1906E0_TEXT_START = .;
         build/us/asm/us/data/segment_1906E0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_TEXT_END = .;
         segment_1906E0_TEXT_SIZE = ABSOLUTE(segment_1906E0_TEXT_END - segment_1906E0_TEXT_START);
 
         segment_1906E0_DATA_START = .;
         build/us/asm/us/data/segment_1906E0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_DATA_END = .;
         segment_1906E0_DATA_SIZE = ABSOLUTE(segment_1906E0_DATA_END - segment_1906E0_DATA_START);
 
         segment_1906E0_RODATA_START = .;
         build/us/asm/us/data/segment_1906E0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_RODATA_END = .;
         segment_1906E0_RODATA_SIZE = ABSOLUTE(segment_1906E0_RODATA_END - segment_1906E0_RODATA_START);
 
         segment_1906E0_SDATA_START = .;
         build/us/asm/us/data/segment_1906E0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_SDATA_END = .;
         segment_1906E0_SDATA_SIZE = ABSOLUTE(segment_1906E0_SDATA_END - segment_1906E0_SDATA_START);
     }
@@ -3773,25 +3773,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1906E0_SBSS_START = .;
         build/us/asm/us/data/segment_1906E0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_SBSS_END = .;
         segment_1906E0_SBSS_SIZE = ABSOLUTE(segment_1906E0_SBSS_END - segment_1906E0_SBSS_START);
 
         segment_1906E0_SCOMMON_START = .;
         build/us/asm/us/data/segment_1906E0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_SCOMMON_END = .;
         segment_1906E0_SCOMMON_SIZE = ABSOLUTE(segment_1906E0_SCOMMON_END - segment_1906E0_SCOMMON_START);
 
         segment_1906E0_BSS_START = .;
         build/us/asm/us/data/segment_1906E0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0_BSS_END = .;
         segment_1906E0_BSS_SIZE = ABSOLUTE(segment_1906E0_BSS_END - segment_1906E0_BSS_START);
 
         segment_1906E0COMMON_START = .;
         build/us/asm/us/data/segment_1906E0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1906E0COMMON_END = .;
         segment_1906E0COMMON_SIZE = ABSOLUTE(segment_1906E0COMMON_END - segment_1906E0COMMON_START);
     }
@@ -3811,25 +3811,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1911D0_TEXT_START = .;
         build/us/asm/us/data/segment_1911D0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_TEXT_END = .;
         segment_1911D0_TEXT_SIZE = ABSOLUTE(segment_1911D0_TEXT_END - segment_1911D0_TEXT_START);
 
         segment_1911D0_DATA_START = .;
         build/us/asm/us/data/segment_1911D0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_DATA_END = .;
         segment_1911D0_DATA_SIZE = ABSOLUTE(segment_1911D0_DATA_END - segment_1911D0_DATA_START);
 
         segment_1911D0_RODATA_START = .;
         build/us/asm/us/data/segment_1911D0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_RODATA_END = .;
         segment_1911D0_RODATA_SIZE = ABSOLUTE(segment_1911D0_RODATA_END - segment_1911D0_RODATA_START);
 
         segment_1911D0_SDATA_START = .;
         build/us/asm/us/data/segment_1911D0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_SDATA_END = .;
         segment_1911D0_SDATA_SIZE = ABSOLUTE(segment_1911D0_SDATA_END - segment_1911D0_SDATA_START);
     }
@@ -3842,25 +3842,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1911D0_SBSS_START = .;
         build/us/asm/us/data/segment_1911D0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_SBSS_END = .;
         segment_1911D0_SBSS_SIZE = ABSOLUTE(segment_1911D0_SBSS_END - segment_1911D0_SBSS_START);
 
         segment_1911D0_SCOMMON_START = .;
         build/us/asm/us/data/segment_1911D0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_SCOMMON_END = .;
         segment_1911D0_SCOMMON_SIZE = ABSOLUTE(segment_1911D0_SCOMMON_END - segment_1911D0_SCOMMON_START);
 
         segment_1911D0_BSS_START = .;
         build/us/asm/us/data/segment_1911D0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0_BSS_END = .;
         segment_1911D0_BSS_SIZE = ABSOLUTE(segment_1911D0_BSS_END - segment_1911D0_BSS_START);
 
         segment_1911D0COMMON_START = .;
         build/us/asm/us/data/segment_1911D0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1911D0COMMON_END = .;
         segment_1911D0COMMON_SIZE = ABSOLUTE(segment_1911D0COMMON_END - segment_1911D0COMMON_START);
     }
@@ -3880,25 +3880,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1936C0_TEXT_START = .;
         build/us/asm/us/data/segment_1936C0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_TEXT_END = .;
         segment_1936C0_TEXT_SIZE = ABSOLUTE(segment_1936C0_TEXT_END - segment_1936C0_TEXT_START);
 
         segment_1936C0_DATA_START = .;
         build/us/asm/us/data/segment_1936C0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_DATA_END = .;
         segment_1936C0_DATA_SIZE = ABSOLUTE(segment_1936C0_DATA_END - segment_1936C0_DATA_START);
 
         segment_1936C0_RODATA_START = .;
         build/us/asm/us/data/segment_1936C0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_RODATA_END = .;
         segment_1936C0_RODATA_SIZE = ABSOLUTE(segment_1936C0_RODATA_END - segment_1936C0_RODATA_START);
 
         segment_1936C0_SDATA_START = .;
         build/us/asm/us/data/segment_1936C0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_SDATA_END = .;
         segment_1936C0_SDATA_SIZE = ABSOLUTE(segment_1936C0_SDATA_END - segment_1936C0_SDATA_START);
     }
@@ -3911,25 +3911,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1936C0_SBSS_START = .;
         build/us/asm/us/data/segment_1936C0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_SBSS_END = .;
         segment_1936C0_SBSS_SIZE = ABSOLUTE(segment_1936C0_SBSS_END - segment_1936C0_SBSS_START);
 
         segment_1936C0_SCOMMON_START = .;
         build/us/asm/us/data/segment_1936C0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_SCOMMON_END = .;
         segment_1936C0_SCOMMON_SIZE = ABSOLUTE(segment_1936C0_SCOMMON_END - segment_1936C0_SCOMMON_START);
 
         segment_1936C0_BSS_START = .;
         build/us/asm/us/data/segment_1936C0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0_BSS_END = .;
         segment_1936C0_BSS_SIZE = ABSOLUTE(segment_1936C0_BSS_END - segment_1936C0_BSS_START);
 
         segment_1936C0COMMON_START = .;
         build/us/asm/us/data/segment_1936C0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1936C0COMMON_END = .;
         segment_1936C0COMMON_SIZE = ABSOLUTE(segment_1936C0COMMON_END - segment_1936C0COMMON_START);
     }
@@ -3949,25 +3949,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1937F0_TEXT_START = .;
         build/us/asm/us/data/segment_1937F0.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_TEXT_END = .;
         segment_1937F0_TEXT_SIZE = ABSOLUTE(segment_1937F0_TEXT_END - segment_1937F0_TEXT_START);
 
         segment_1937F0_DATA_START = .;
         build/us/asm/us/data/segment_1937F0.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_DATA_END = .;
         segment_1937F0_DATA_SIZE = ABSOLUTE(segment_1937F0_DATA_END - segment_1937F0_DATA_START);
 
         segment_1937F0_RODATA_START = .;
         build/us/asm/us/data/segment_1937F0.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_RODATA_END = .;
         segment_1937F0_RODATA_SIZE = ABSOLUTE(segment_1937F0_RODATA_END - segment_1937F0_RODATA_START);
 
         segment_1937F0_SDATA_START = .;
         build/us/asm/us/data/segment_1937F0.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_SDATA_END = .;
         segment_1937F0_SDATA_SIZE = ABSOLUTE(segment_1937F0_SDATA_END - segment_1937F0_SDATA_START);
     }
@@ -3980,25 +3980,25 @@ SECTIONS
         FILL(0x00000000);
         segment_1937F0_SBSS_START = .;
         build/us/asm/us/data/segment_1937F0.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_SBSS_END = .;
         segment_1937F0_SBSS_SIZE = ABSOLUTE(segment_1937F0_SBSS_END - segment_1937F0_SBSS_START);
 
         segment_1937F0_SCOMMON_START = .;
         build/us/asm/us/data/segment_1937F0.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_SCOMMON_END = .;
         segment_1937F0_SCOMMON_SIZE = ABSOLUTE(segment_1937F0_SCOMMON_END - segment_1937F0_SCOMMON_START);
 
         segment_1937F0_BSS_START = .;
         build/us/asm/us/data/segment_1937F0.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0_BSS_END = .;
         segment_1937F0_BSS_SIZE = ABSOLUTE(segment_1937F0_BSS_END - segment_1937F0_BSS_START);
 
         segment_1937F0COMMON_START = .;
         build/us/asm/us/data/segment_1937F0.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_1937F0COMMON_END = .;
         segment_1937F0COMMON_SIZE = ABSOLUTE(segment_1937F0COMMON_END - segment_1937F0COMMON_START);
     }
@@ -4018,25 +4018,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194070_TEXT_START = .;
         build/us/asm/us/data/segment_194070.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_TEXT_END = .;
         segment_194070_TEXT_SIZE = ABSOLUTE(segment_194070_TEXT_END - segment_194070_TEXT_START);
 
         segment_194070_DATA_START = .;
         build/us/asm/us/data/segment_194070.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_DATA_END = .;
         segment_194070_DATA_SIZE = ABSOLUTE(segment_194070_DATA_END - segment_194070_DATA_START);
 
         segment_194070_RODATA_START = .;
         build/us/asm/us/data/segment_194070.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_RODATA_END = .;
         segment_194070_RODATA_SIZE = ABSOLUTE(segment_194070_RODATA_END - segment_194070_RODATA_START);
 
         segment_194070_SDATA_START = .;
         build/us/asm/us/data/segment_194070.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_SDATA_END = .;
         segment_194070_SDATA_SIZE = ABSOLUTE(segment_194070_SDATA_END - segment_194070_SDATA_START);
     }
@@ -4049,25 +4049,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194070_SBSS_START = .;
         build/us/asm/us/data/segment_194070.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_SBSS_END = .;
         segment_194070_SBSS_SIZE = ABSOLUTE(segment_194070_SBSS_END - segment_194070_SBSS_START);
 
         segment_194070_SCOMMON_START = .;
         build/us/asm/us/data/segment_194070.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_SCOMMON_END = .;
         segment_194070_SCOMMON_SIZE = ABSOLUTE(segment_194070_SCOMMON_END - segment_194070_SCOMMON_START);
 
         segment_194070_BSS_START = .;
         build/us/asm/us/data/segment_194070.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070_BSS_END = .;
         segment_194070_BSS_SIZE = ABSOLUTE(segment_194070_BSS_END - segment_194070_BSS_START);
 
         segment_194070COMMON_START = .;
         build/us/asm/us/data/segment_194070.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194070COMMON_END = .;
         segment_194070COMMON_SIZE = ABSOLUTE(segment_194070COMMON_END - segment_194070COMMON_START);
     }
@@ -4087,25 +4087,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194150_TEXT_START = .;
         build/us/asm/us/data/segment_194150.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_TEXT_END = .;
         segment_194150_TEXT_SIZE = ABSOLUTE(segment_194150_TEXT_END - segment_194150_TEXT_START);
 
         segment_194150_DATA_START = .;
         build/us/asm/us/data/segment_194150.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_DATA_END = .;
         segment_194150_DATA_SIZE = ABSOLUTE(segment_194150_DATA_END - segment_194150_DATA_START);
 
         segment_194150_RODATA_START = .;
         build/us/asm/us/data/segment_194150.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_RODATA_END = .;
         segment_194150_RODATA_SIZE = ABSOLUTE(segment_194150_RODATA_END - segment_194150_RODATA_START);
 
         segment_194150_SDATA_START = .;
         build/us/asm/us/data/segment_194150.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_SDATA_END = .;
         segment_194150_SDATA_SIZE = ABSOLUTE(segment_194150_SDATA_END - segment_194150_SDATA_START);
     }
@@ -4118,25 +4118,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194150_SBSS_START = .;
         build/us/asm/us/data/segment_194150.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_SBSS_END = .;
         segment_194150_SBSS_SIZE = ABSOLUTE(segment_194150_SBSS_END - segment_194150_SBSS_START);
 
         segment_194150_SCOMMON_START = .;
         build/us/asm/us/data/segment_194150.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_SCOMMON_END = .;
         segment_194150_SCOMMON_SIZE = ABSOLUTE(segment_194150_SCOMMON_END - segment_194150_SCOMMON_START);
 
         segment_194150_BSS_START = .;
         build/us/asm/us/data/segment_194150.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150_BSS_END = .;
         segment_194150_BSS_SIZE = ABSOLUTE(segment_194150_BSS_END - segment_194150_BSS_START);
 
         segment_194150COMMON_START = .;
         build/us/asm/us/data/segment_194150.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194150COMMON_END = .;
         segment_194150COMMON_SIZE = ABSOLUTE(segment_194150COMMON_END - segment_194150COMMON_START);
     }
@@ -4156,25 +4156,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194910_TEXT_START = .;
         build/us/asm/us/data/segment_194910.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_TEXT_END = .;
         segment_194910_TEXT_SIZE = ABSOLUTE(segment_194910_TEXT_END - segment_194910_TEXT_START);
 
         segment_194910_DATA_START = .;
         build/us/asm/us/data/segment_194910.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_DATA_END = .;
         segment_194910_DATA_SIZE = ABSOLUTE(segment_194910_DATA_END - segment_194910_DATA_START);
 
         segment_194910_RODATA_START = .;
         build/us/asm/us/data/segment_194910.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_RODATA_END = .;
         segment_194910_RODATA_SIZE = ABSOLUTE(segment_194910_RODATA_END - segment_194910_RODATA_START);
 
         segment_194910_SDATA_START = .;
         build/us/asm/us/data/segment_194910.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_SDATA_END = .;
         segment_194910_SDATA_SIZE = ABSOLUTE(segment_194910_SDATA_END - segment_194910_SDATA_START);
     }
@@ -4187,25 +4187,25 @@ SECTIONS
         FILL(0x00000000);
         segment_194910_SBSS_START = .;
         build/us/asm/us/data/segment_194910.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_SBSS_END = .;
         segment_194910_SBSS_SIZE = ABSOLUTE(segment_194910_SBSS_END - segment_194910_SBSS_START);
 
         segment_194910_SCOMMON_START = .;
         build/us/asm/us/data/segment_194910.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_SCOMMON_END = .;
         segment_194910_SCOMMON_SIZE = ABSOLUTE(segment_194910_SCOMMON_END - segment_194910_SCOMMON_START);
 
         segment_194910_BSS_START = .;
         build/us/asm/us/data/segment_194910.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910_BSS_END = .;
         segment_194910_BSS_SIZE = ABSOLUTE(segment_194910_BSS_END - segment_194910_BSS_START);
 
         segment_194910COMMON_START = .;
         build/us/asm/us/data/segment_194910.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_194910COMMON_END = .;
         segment_194910COMMON_SIZE = ABSOLUTE(segment_194910COMMON_END - segment_194910COMMON_START);
     }
@@ -4225,25 +4225,25 @@ SECTIONS
         FILL(0x00000000);
         segment_195290_TEXT_START = .;
         build/us/asm/us/data/segment_195290.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_TEXT_END = .;
         segment_195290_TEXT_SIZE = ABSOLUTE(segment_195290_TEXT_END - segment_195290_TEXT_START);
 
         segment_195290_DATA_START = .;
         build/us/asm/us/data/segment_195290.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_DATA_END = .;
         segment_195290_DATA_SIZE = ABSOLUTE(segment_195290_DATA_END - segment_195290_DATA_START);
 
         segment_195290_RODATA_START = .;
         build/us/asm/us/data/segment_195290.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_RODATA_END = .;
         segment_195290_RODATA_SIZE = ABSOLUTE(segment_195290_RODATA_END - segment_195290_RODATA_START);
 
         segment_195290_SDATA_START = .;
         build/us/asm/us/data/segment_195290.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_SDATA_END = .;
         segment_195290_SDATA_SIZE = ABSOLUTE(segment_195290_SDATA_END - segment_195290_SDATA_START);
     }
@@ -4256,25 +4256,25 @@ SECTIONS
         FILL(0x00000000);
         segment_195290_SBSS_START = .;
         build/us/asm/us/data/segment_195290.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_SBSS_END = .;
         segment_195290_SBSS_SIZE = ABSOLUTE(segment_195290_SBSS_END - segment_195290_SBSS_START);
 
         segment_195290_SCOMMON_START = .;
         build/us/asm/us/data/segment_195290.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_SCOMMON_END = .;
         segment_195290_SCOMMON_SIZE = ABSOLUTE(segment_195290_SCOMMON_END - segment_195290_SCOMMON_START);
 
         segment_195290_BSS_START = .;
         build/us/asm/us/data/segment_195290.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290_BSS_END = .;
         segment_195290_BSS_SIZE = ABSOLUTE(segment_195290_BSS_END - segment_195290_BSS_START);
 
         segment_195290COMMON_START = .;
         build/us/asm/us/data/segment_195290.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_195290COMMON_END = .;
         segment_195290COMMON_SIZE = ABSOLUTE(segment_195290COMMON_END - segment_195290COMMON_START);
     }
@@ -4294,25 +4294,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_etc_TEXT_START = .;
         build/us/asm/us/data/segment_game_etc.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_TEXT_END = .;
         segment_game_etc_TEXT_SIZE = ABSOLUTE(segment_game_etc_TEXT_END - segment_game_etc_TEXT_START);
 
         segment_game_etc_DATA_START = .;
         build/us/asm/us/data/segment_game_etc.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_DATA_END = .;
         segment_game_etc_DATA_SIZE = ABSOLUTE(segment_game_etc_DATA_END - segment_game_etc_DATA_START);
 
         segment_game_etc_RODATA_START = .;
         build/us/asm/us/data/segment_game_etc.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_RODATA_END = .;
         segment_game_etc_RODATA_SIZE = ABSOLUTE(segment_game_etc_RODATA_END - segment_game_etc_RODATA_START);
 
         segment_game_etc_SDATA_START = .;
         build/us/asm/us/data/segment_game_etc.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_SDATA_END = .;
         segment_game_etc_SDATA_SIZE = ABSOLUTE(segment_game_etc_SDATA_END - segment_game_etc_SDATA_START);
     }
@@ -4325,25 +4325,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_etc_SBSS_START = .;
         build/us/asm/us/data/segment_game_etc.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_SBSS_END = .;
         segment_game_etc_SBSS_SIZE = ABSOLUTE(segment_game_etc_SBSS_END - segment_game_etc_SBSS_START);
 
         segment_game_etc_SCOMMON_START = .;
         build/us/asm/us/data/segment_game_etc.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_SCOMMON_END = .;
         segment_game_etc_SCOMMON_SIZE = ABSOLUTE(segment_game_etc_SCOMMON_END - segment_game_etc_SCOMMON_START);
 
         segment_game_etc_BSS_START = .;
         build/us/asm/us/data/segment_game_etc.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etc_BSS_END = .;
         segment_game_etc_BSS_SIZE = ABSOLUTE(segment_game_etc_BSS_END - segment_game_etc_BSS_START);
 
         segment_game_etcCOMMON_START = .;
         build/us/asm/us/data/segment_game_etc.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_etcCOMMON_END = .;
         segment_game_etcCOMMON_SIZE = ABSOLUTE(segment_game_etcCOMMON_END - segment_game_etcCOMMON_START);
     }
@@ -4363,25 +4363,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_bg_TEXT_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_TEXT_END = .;
         segment_menu_bg_TEXT_SIZE = ABSOLUTE(segment_menu_bg_TEXT_END - segment_menu_bg_TEXT_START);
 
         segment_menu_bg_DATA_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_DATA_END = .;
         segment_menu_bg_DATA_SIZE = ABSOLUTE(segment_menu_bg_DATA_END - segment_menu_bg_DATA_START);
 
         segment_menu_bg_RODATA_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_RODATA_END = .;
         segment_menu_bg_RODATA_SIZE = ABSOLUTE(segment_menu_bg_RODATA_END - segment_menu_bg_RODATA_START);
 
         segment_menu_bg_SDATA_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_SDATA_END = .;
         segment_menu_bg_SDATA_SIZE = ABSOLUTE(segment_menu_bg_SDATA_END - segment_menu_bg_SDATA_START);
     }
@@ -4394,25 +4394,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_bg_SBSS_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_SBSS_END = .;
         segment_menu_bg_SBSS_SIZE = ABSOLUTE(segment_menu_bg_SBSS_END - segment_menu_bg_SBSS_START);
 
         segment_menu_bg_SCOMMON_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_SCOMMON_END = .;
         segment_menu_bg_SCOMMON_SIZE = ABSOLUTE(segment_menu_bg_SCOMMON_END - segment_menu_bg_SCOMMON_START);
 
         segment_menu_bg_BSS_START = .;
         build/us/asm/us/data/segment_menu_bg.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg_BSS_END = .;
         segment_menu_bg_BSS_SIZE = ABSOLUTE(segment_menu_bg_BSS_END - segment_menu_bg_BSS_START);
 
         segment_menu_bgCOMMON_START = .;
         build/us/asm/us/data/segment_menu_bg.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bgCOMMON_END = .;
         segment_menu_bgCOMMON_SIZE = ABSOLUTE(segment_menu_bgCOMMON_END - segment_menu_bgCOMMON_START);
     }
@@ -4432,25 +4432,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_bg2_TEXT_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_TEXT_END = .;
         segment_menu_bg2_TEXT_SIZE = ABSOLUTE(segment_menu_bg2_TEXT_END - segment_menu_bg2_TEXT_START);
 
         segment_menu_bg2_DATA_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_DATA_END = .;
         segment_menu_bg2_DATA_SIZE = ABSOLUTE(segment_menu_bg2_DATA_END - segment_menu_bg2_DATA_START);
 
         segment_menu_bg2_RODATA_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_RODATA_END = .;
         segment_menu_bg2_RODATA_SIZE = ABSOLUTE(segment_menu_bg2_RODATA_END - segment_menu_bg2_RODATA_START);
 
         segment_menu_bg2_SDATA_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_SDATA_END = .;
         segment_menu_bg2_SDATA_SIZE = ABSOLUTE(segment_menu_bg2_SDATA_END - segment_menu_bg2_SDATA_START);
     }
@@ -4463,25 +4463,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_bg2_SBSS_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_SBSS_END = .;
         segment_menu_bg2_SBSS_SIZE = ABSOLUTE(segment_menu_bg2_SBSS_END - segment_menu_bg2_SBSS_START);
 
         segment_menu_bg2_SCOMMON_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_SCOMMON_END = .;
         segment_menu_bg2_SCOMMON_SIZE = ABSOLUTE(segment_menu_bg2_SCOMMON_END - segment_menu_bg2_SCOMMON_START);
 
         segment_menu_bg2_BSS_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2_BSS_END = .;
         segment_menu_bg2_BSS_SIZE = ABSOLUTE(segment_menu_bg2_BSS_END - segment_menu_bg2_BSS_START);
 
         segment_menu_bg2COMMON_START = .;
         build/us/asm/us/data/segment_menu_bg2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_bg2COMMON_END = .;
         segment_menu_bg2COMMON_SIZE = ABSOLUTE(segment_menu_bg2COMMON_END - segment_menu_bg2COMMON_START);
     }
@@ -4501,25 +4501,25 @@ SECTIONS
         FILL(0x00000000);
         segment_coffee01_TEXT_START = .;
         build/us/asm/us/data/segment_coffee01.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_TEXT_END = .;
         segment_coffee01_TEXT_SIZE = ABSOLUTE(segment_coffee01_TEXT_END - segment_coffee01_TEXT_START);
 
         segment_coffee01_DATA_START = .;
         build/us/asm/us/data/segment_coffee01.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_DATA_END = .;
         segment_coffee01_DATA_SIZE = ABSOLUTE(segment_coffee01_DATA_END - segment_coffee01_DATA_START);
 
         segment_coffee01_RODATA_START = .;
         build/us/asm/us/data/segment_coffee01.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_RODATA_END = .;
         segment_coffee01_RODATA_SIZE = ABSOLUTE(segment_coffee01_RODATA_END - segment_coffee01_RODATA_START);
 
         segment_coffee01_SDATA_START = .;
         build/us/asm/us/data/segment_coffee01.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_SDATA_END = .;
         segment_coffee01_SDATA_SIZE = ABSOLUTE(segment_coffee01_SDATA_END - segment_coffee01_SDATA_START);
     }
@@ -4532,25 +4532,25 @@ SECTIONS
         FILL(0x00000000);
         segment_coffee01_SBSS_START = .;
         build/us/asm/us/data/segment_coffee01.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_SBSS_END = .;
         segment_coffee01_SBSS_SIZE = ABSOLUTE(segment_coffee01_SBSS_END - segment_coffee01_SBSS_START);
 
         segment_coffee01_SCOMMON_START = .;
         build/us/asm/us/data/segment_coffee01.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_SCOMMON_END = .;
         segment_coffee01_SCOMMON_SIZE = ABSOLUTE(segment_coffee01_SCOMMON_END - segment_coffee01_SCOMMON_START);
 
         segment_coffee01_BSS_START = .;
         build/us/asm/us/data/segment_coffee01.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01_BSS_END = .;
         segment_coffee01_BSS_SIZE = ABSOLUTE(segment_coffee01_BSS_END - segment_coffee01_BSS_START);
 
         segment_coffee01COMMON_START = .;
         build/us/asm/us/data/segment_coffee01.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_coffee01COMMON_END = .;
         segment_coffee01COMMON_SIZE = ABSOLUTE(segment_coffee01COMMON_END - segment_coffee01COMMON_START);
     }
@@ -4570,25 +4570,25 @@ SECTIONS
         FILL(0x00000000);
         segment_title_all_TEXT_START = .;
         build/us/asm/us/data/segment_title_all.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_TEXT_END = .;
         segment_title_all_TEXT_SIZE = ABSOLUTE(segment_title_all_TEXT_END - segment_title_all_TEXT_START);
 
         segment_title_all_DATA_START = .;
         build/us/asm/us/data/segment_title_all.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_DATA_END = .;
         segment_title_all_DATA_SIZE = ABSOLUTE(segment_title_all_DATA_END - segment_title_all_DATA_START);
 
         segment_title_all_RODATA_START = .;
         build/us/asm/us/data/segment_title_all.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_RODATA_END = .;
         segment_title_all_RODATA_SIZE = ABSOLUTE(segment_title_all_RODATA_END - segment_title_all_RODATA_START);
 
         segment_title_all_SDATA_START = .;
         build/us/asm/us/data/segment_title_all.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_SDATA_END = .;
         segment_title_all_SDATA_SIZE = ABSOLUTE(segment_title_all_SDATA_END - segment_title_all_SDATA_START);
     }
@@ -4601,25 +4601,25 @@ SECTIONS
         FILL(0x00000000);
         segment_title_all_SBSS_START = .;
         build/us/asm/us/data/segment_title_all.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_SBSS_END = .;
         segment_title_all_SBSS_SIZE = ABSOLUTE(segment_title_all_SBSS_END - segment_title_all_SBSS_START);
 
         segment_title_all_SCOMMON_START = .;
         build/us/asm/us/data/segment_title_all.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_SCOMMON_END = .;
         segment_title_all_SCOMMON_SIZE = ABSOLUTE(segment_title_all_SCOMMON_END - segment_title_all_SCOMMON_START);
 
         segment_title_all_BSS_START = .;
         build/us/asm/us/data/segment_title_all.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_all_BSS_END = .;
         segment_title_all_BSS_SIZE = ABSOLUTE(segment_title_all_BSS_END - segment_title_all_BSS_START);
 
         segment_title_allCOMMON_START = .;
         build/us/asm/us/data/segment_title_all.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_allCOMMON_END = .;
         segment_title_allCOMMON_SIZE = ABSOLUTE(segment_title_allCOMMON_END - segment_title_allCOMMON_START);
     }
@@ -4639,25 +4639,25 @@ SECTIONS
         FILL(0x00000000);
         segment_title_bmp_TEXT_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_TEXT_END = .;
         segment_title_bmp_TEXT_SIZE = ABSOLUTE(segment_title_bmp_TEXT_END - segment_title_bmp_TEXT_START);
 
         segment_title_bmp_DATA_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_DATA_END = .;
         segment_title_bmp_DATA_SIZE = ABSOLUTE(segment_title_bmp_DATA_END - segment_title_bmp_DATA_START);
 
         segment_title_bmp_RODATA_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_RODATA_END = .;
         segment_title_bmp_RODATA_SIZE = ABSOLUTE(segment_title_bmp_RODATA_END - segment_title_bmp_RODATA_START);
 
         segment_title_bmp_SDATA_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_SDATA_END = .;
         segment_title_bmp_SDATA_SIZE = ABSOLUTE(segment_title_bmp_SDATA_END - segment_title_bmp_SDATA_START);
     }
@@ -4670,25 +4670,25 @@ SECTIONS
         FILL(0x00000000);
         segment_title_bmp_SBSS_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_SBSS_END = .;
         segment_title_bmp_SBSS_SIZE = ABSOLUTE(segment_title_bmp_SBSS_END - segment_title_bmp_SBSS_START);
 
         segment_title_bmp_SCOMMON_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_SCOMMON_END = .;
         segment_title_bmp_SCOMMON_SIZE = ABSOLUTE(segment_title_bmp_SCOMMON_END - segment_title_bmp_SCOMMON_START);
 
         segment_title_bmp_BSS_START = .;
         build/us/asm/us/data/segment_title_bmp.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmp_BSS_END = .;
         segment_title_bmp_BSS_SIZE = ABSOLUTE(segment_title_bmp_BSS_END - segment_title_bmp_BSS_START);
 
         segment_title_bmpCOMMON_START = .;
         build/us/asm/us/data/segment_title_bmp.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_title_bmpCOMMON_END = .;
         segment_title_bmpCOMMON_SIZE = ABSOLUTE(segment_title_bmpCOMMON_END - segment_title_bmpCOMMON_START);
     }
@@ -4708,25 +4708,25 @@ SECTIONS
         FILL(0x00000000);
         segment_waku_TEXT_START = .;
         build/us/asm/us/data/segment_waku.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_TEXT_END = .;
         segment_waku_TEXT_SIZE = ABSOLUTE(segment_waku_TEXT_END - segment_waku_TEXT_START);
 
         segment_waku_DATA_START = .;
         build/us/asm/us/data/segment_waku.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_DATA_END = .;
         segment_waku_DATA_SIZE = ABSOLUTE(segment_waku_DATA_END - segment_waku_DATA_START);
 
         segment_waku_RODATA_START = .;
         build/us/asm/us/data/segment_waku.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_RODATA_END = .;
         segment_waku_RODATA_SIZE = ABSOLUTE(segment_waku_RODATA_END - segment_waku_RODATA_START);
 
         segment_waku_SDATA_START = .;
         build/us/asm/us/data/segment_waku.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_SDATA_END = .;
         segment_waku_SDATA_SIZE = ABSOLUTE(segment_waku_SDATA_END - segment_waku_SDATA_START);
     }
@@ -4739,25 +4739,25 @@ SECTIONS
         FILL(0x00000000);
         segment_waku_SBSS_START = .;
         build/us/asm/us/data/segment_waku.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_SBSS_END = .;
         segment_waku_SBSS_SIZE = ABSOLUTE(segment_waku_SBSS_END - segment_waku_SBSS_START);
 
         segment_waku_SCOMMON_START = .;
         build/us/asm/us/data/segment_waku.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_SCOMMON_END = .;
         segment_waku_SCOMMON_SIZE = ABSOLUTE(segment_waku_SCOMMON_END - segment_waku_SCOMMON_START);
 
         segment_waku_BSS_START = .;
         build/us/asm/us/data/segment_waku.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku_BSS_END = .;
         segment_waku_BSS_SIZE = ABSOLUTE(segment_waku_BSS_END - segment_waku_BSS_START);
 
         segment_wakuCOMMON_START = .;
         build/us/asm/us/data/segment_waku.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_wakuCOMMON_END = .;
         segment_wakuCOMMON_SIZE = ABSOLUTE(segment_wakuCOMMON_END - segment_wakuCOMMON_START);
     }
@@ -4777,25 +4777,25 @@ SECTIONS
         FILL(0x00000000);
         segment_waku2_TEXT_START = .;
         build/us/asm/us/data/segment_waku2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_TEXT_END = .;
         segment_waku2_TEXT_SIZE = ABSOLUTE(segment_waku2_TEXT_END - segment_waku2_TEXT_START);
 
         segment_waku2_DATA_START = .;
         build/us/asm/us/data/segment_waku2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_DATA_END = .;
         segment_waku2_DATA_SIZE = ABSOLUTE(segment_waku2_DATA_END - segment_waku2_DATA_START);
 
         segment_waku2_RODATA_START = .;
         build/us/asm/us/data/segment_waku2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_RODATA_END = .;
         segment_waku2_RODATA_SIZE = ABSOLUTE(segment_waku2_RODATA_END - segment_waku2_RODATA_START);
 
         segment_waku2_SDATA_START = .;
         build/us/asm/us/data/segment_waku2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_SDATA_END = .;
         segment_waku2_SDATA_SIZE = ABSOLUTE(segment_waku2_SDATA_END - segment_waku2_SDATA_START);
     }
@@ -4808,25 +4808,25 @@ SECTIONS
         FILL(0x00000000);
         segment_waku2_SBSS_START = .;
         build/us/asm/us/data/segment_waku2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_SBSS_END = .;
         segment_waku2_SBSS_SIZE = ABSOLUTE(segment_waku2_SBSS_END - segment_waku2_SBSS_START);
 
         segment_waku2_SCOMMON_START = .;
         build/us/asm/us/data/segment_waku2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_SCOMMON_END = .;
         segment_waku2_SCOMMON_SIZE = ABSOLUTE(segment_waku2_SCOMMON_END - segment_waku2_SCOMMON_START);
 
         segment_waku2_BSS_START = .;
         build/us/asm/us/data/segment_waku2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2_BSS_END = .;
         segment_waku2_BSS_SIZE = ABSOLUTE(segment_waku2_BSS_END - segment_waku2_BSS_START);
 
         segment_waku2COMMON_START = .;
         build/us/asm/us/data/segment_waku2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_waku2COMMON_END = .;
         segment_waku2COMMON_SIZE = ABSOLUTE(segment_waku2COMMON_END - segment_waku2COMMON_START);
     }
@@ -4846,25 +4846,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg01_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_TEXT_END = .;
         segment_story_bg01_TEXT_SIZE = ABSOLUTE(segment_story_bg01_TEXT_END - segment_story_bg01_TEXT_START);
 
         segment_story_bg01_DATA_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_DATA_END = .;
         segment_story_bg01_DATA_SIZE = ABSOLUTE(segment_story_bg01_DATA_END - segment_story_bg01_DATA_START);
 
         segment_story_bg01_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_RODATA_END = .;
         segment_story_bg01_RODATA_SIZE = ABSOLUTE(segment_story_bg01_RODATA_END - segment_story_bg01_RODATA_START);
 
         segment_story_bg01_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_SDATA_END = .;
         segment_story_bg01_SDATA_SIZE = ABSOLUTE(segment_story_bg01_SDATA_END - segment_story_bg01_SDATA_START);
     }
@@ -4877,25 +4877,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg01_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_SBSS_END = .;
         segment_story_bg01_SBSS_SIZE = ABSOLUTE(segment_story_bg01_SBSS_END - segment_story_bg01_SBSS_START);
 
         segment_story_bg01_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_SCOMMON_END = .;
         segment_story_bg01_SCOMMON_SIZE = ABSOLUTE(segment_story_bg01_SCOMMON_END - segment_story_bg01_SCOMMON_START);
 
         segment_story_bg01_BSS_START = .;
         build/us/asm/us/data/segment_story_bg01.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01_BSS_END = .;
         segment_story_bg01_BSS_SIZE = ABSOLUTE(segment_story_bg01_BSS_END - segment_story_bg01_BSS_START);
 
         segment_story_bg01COMMON_START = .;
         build/us/asm/us/data/segment_story_bg01.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg01COMMON_END = .;
         segment_story_bg01COMMON_SIZE = ABSOLUTE(segment_story_bg01COMMON_END - segment_story_bg01COMMON_START);
     }
@@ -4915,25 +4915,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg02_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_TEXT_END = .;
         segment_story_bg02_TEXT_SIZE = ABSOLUTE(segment_story_bg02_TEXT_END - segment_story_bg02_TEXT_START);
 
         segment_story_bg02_DATA_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_DATA_END = .;
         segment_story_bg02_DATA_SIZE = ABSOLUTE(segment_story_bg02_DATA_END - segment_story_bg02_DATA_START);
 
         segment_story_bg02_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_RODATA_END = .;
         segment_story_bg02_RODATA_SIZE = ABSOLUTE(segment_story_bg02_RODATA_END - segment_story_bg02_RODATA_START);
 
         segment_story_bg02_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_SDATA_END = .;
         segment_story_bg02_SDATA_SIZE = ABSOLUTE(segment_story_bg02_SDATA_END - segment_story_bg02_SDATA_START);
     }
@@ -4946,25 +4946,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg02_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_SBSS_END = .;
         segment_story_bg02_SBSS_SIZE = ABSOLUTE(segment_story_bg02_SBSS_END - segment_story_bg02_SBSS_START);
 
         segment_story_bg02_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_SCOMMON_END = .;
         segment_story_bg02_SCOMMON_SIZE = ABSOLUTE(segment_story_bg02_SCOMMON_END - segment_story_bg02_SCOMMON_START);
 
         segment_story_bg02_BSS_START = .;
         build/us/asm/us/data/segment_story_bg02.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02_BSS_END = .;
         segment_story_bg02_BSS_SIZE = ABSOLUTE(segment_story_bg02_BSS_END - segment_story_bg02_BSS_START);
 
         segment_story_bg02COMMON_START = .;
         build/us/asm/us/data/segment_story_bg02.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg02COMMON_END = .;
         segment_story_bg02COMMON_SIZE = ABSOLUTE(segment_story_bg02COMMON_END - segment_story_bg02COMMON_START);
     }
@@ -4984,25 +4984,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg03_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_TEXT_END = .;
         segment_story_bg03_TEXT_SIZE = ABSOLUTE(segment_story_bg03_TEXT_END - segment_story_bg03_TEXT_START);
 
         segment_story_bg03_DATA_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_DATA_END = .;
         segment_story_bg03_DATA_SIZE = ABSOLUTE(segment_story_bg03_DATA_END - segment_story_bg03_DATA_START);
 
         segment_story_bg03_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_RODATA_END = .;
         segment_story_bg03_RODATA_SIZE = ABSOLUTE(segment_story_bg03_RODATA_END - segment_story_bg03_RODATA_START);
 
         segment_story_bg03_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_SDATA_END = .;
         segment_story_bg03_SDATA_SIZE = ABSOLUTE(segment_story_bg03_SDATA_END - segment_story_bg03_SDATA_START);
     }
@@ -5015,25 +5015,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg03_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_SBSS_END = .;
         segment_story_bg03_SBSS_SIZE = ABSOLUTE(segment_story_bg03_SBSS_END - segment_story_bg03_SBSS_START);
 
         segment_story_bg03_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_SCOMMON_END = .;
         segment_story_bg03_SCOMMON_SIZE = ABSOLUTE(segment_story_bg03_SCOMMON_END - segment_story_bg03_SCOMMON_START);
 
         segment_story_bg03_BSS_START = .;
         build/us/asm/us/data/segment_story_bg03.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03_BSS_END = .;
         segment_story_bg03_BSS_SIZE = ABSOLUTE(segment_story_bg03_BSS_END - segment_story_bg03_BSS_START);
 
         segment_story_bg03COMMON_START = .;
         build/us/asm/us/data/segment_story_bg03.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg03COMMON_END = .;
         segment_story_bg03COMMON_SIZE = ABSOLUTE(segment_story_bg03COMMON_END - segment_story_bg03COMMON_START);
     }
@@ -5053,25 +5053,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg04_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_TEXT_END = .;
         segment_story_bg04_TEXT_SIZE = ABSOLUTE(segment_story_bg04_TEXT_END - segment_story_bg04_TEXT_START);
 
         segment_story_bg04_DATA_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_DATA_END = .;
         segment_story_bg04_DATA_SIZE = ABSOLUTE(segment_story_bg04_DATA_END - segment_story_bg04_DATA_START);
 
         segment_story_bg04_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_RODATA_END = .;
         segment_story_bg04_RODATA_SIZE = ABSOLUTE(segment_story_bg04_RODATA_END - segment_story_bg04_RODATA_START);
 
         segment_story_bg04_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_SDATA_END = .;
         segment_story_bg04_SDATA_SIZE = ABSOLUTE(segment_story_bg04_SDATA_END - segment_story_bg04_SDATA_START);
     }
@@ -5084,25 +5084,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg04_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_SBSS_END = .;
         segment_story_bg04_SBSS_SIZE = ABSOLUTE(segment_story_bg04_SBSS_END - segment_story_bg04_SBSS_START);
 
         segment_story_bg04_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_SCOMMON_END = .;
         segment_story_bg04_SCOMMON_SIZE = ABSOLUTE(segment_story_bg04_SCOMMON_END - segment_story_bg04_SCOMMON_START);
 
         segment_story_bg04_BSS_START = .;
         build/us/asm/us/data/segment_story_bg04.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04_BSS_END = .;
         segment_story_bg04_BSS_SIZE = ABSOLUTE(segment_story_bg04_BSS_END - segment_story_bg04_BSS_START);
 
         segment_story_bg04COMMON_START = .;
         build/us/asm/us/data/segment_story_bg04.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg04COMMON_END = .;
         segment_story_bg04COMMON_SIZE = ABSOLUTE(segment_story_bg04COMMON_END - segment_story_bg04COMMON_START);
     }
@@ -5122,25 +5122,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg05_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_TEXT_END = .;
         segment_story_bg05_TEXT_SIZE = ABSOLUTE(segment_story_bg05_TEXT_END - segment_story_bg05_TEXT_START);
 
         segment_story_bg05_DATA_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_DATA_END = .;
         segment_story_bg05_DATA_SIZE = ABSOLUTE(segment_story_bg05_DATA_END - segment_story_bg05_DATA_START);
 
         segment_story_bg05_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_RODATA_END = .;
         segment_story_bg05_RODATA_SIZE = ABSOLUTE(segment_story_bg05_RODATA_END - segment_story_bg05_RODATA_START);
 
         segment_story_bg05_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_SDATA_END = .;
         segment_story_bg05_SDATA_SIZE = ABSOLUTE(segment_story_bg05_SDATA_END - segment_story_bg05_SDATA_START);
     }
@@ -5153,25 +5153,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg05_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_SBSS_END = .;
         segment_story_bg05_SBSS_SIZE = ABSOLUTE(segment_story_bg05_SBSS_END - segment_story_bg05_SBSS_START);
 
         segment_story_bg05_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_SCOMMON_END = .;
         segment_story_bg05_SCOMMON_SIZE = ABSOLUTE(segment_story_bg05_SCOMMON_END - segment_story_bg05_SCOMMON_START);
 
         segment_story_bg05_BSS_START = .;
         build/us/asm/us/data/segment_story_bg05.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05_BSS_END = .;
         segment_story_bg05_BSS_SIZE = ABSOLUTE(segment_story_bg05_BSS_END - segment_story_bg05_BSS_START);
 
         segment_story_bg05COMMON_START = .;
         build/us/asm/us/data/segment_story_bg05.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg05COMMON_END = .;
         segment_story_bg05COMMON_SIZE = ABSOLUTE(segment_story_bg05COMMON_END - segment_story_bg05COMMON_START);
     }
@@ -5191,25 +5191,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg07_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_TEXT_END = .;
         segment_story_bg07_TEXT_SIZE = ABSOLUTE(segment_story_bg07_TEXT_END - segment_story_bg07_TEXT_START);
 
         segment_story_bg07_DATA_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_DATA_END = .;
         segment_story_bg07_DATA_SIZE = ABSOLUTE(segment_story_bg07_DATA_END - segment_story_bg07_DATA_START);
 
         segment_story_bg07_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_RODATA_END = .;
         segment_story_bg07_RODATA_SIZE = ABSOLUTE(segment_story_bg07_RODATA_END - segment_story_bg07_RODATA_START);
 
         segment_story_bg07_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_SDATA_END = .;
         segment_story_bg07_SDATA_SIZE = ABSOLUTE(segment_story_bg07_SDATA_END - segment_story_bg07_SDATA_START);
     }
@@ -5222,25 +5222,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg07_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_SBSS_END = .;
         segment_story_bg07_SBSS_SIZE = ABSOLUTE(segment_story_bg07_SBSS_END - segment_story_bg07_SBSS_START);
 
         segment_story_bg07_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_SCOMMON_END = .;
         segment_story_bg07_SCOMMON_SIZE = ABSOLUTE(segment_story_bg07_SCOMMON_END - segment_story_bg07_SCOMMON_START);
 
         segment_story_bg07_BSS_START = .;
         build/us/asm/us/data/segment_story_bg07.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07_BSS_END = .;
         segment_story_bg07_BSS_SIZE = ABSOLUTE(segment_story_bg07_BSS_END - segment_story_bg07_BSS_START);
 
         segment_story_bg07COMMON_START = .;
         build/us/asm/us/data/segment_story_bg07.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg07COMMON_END = .;
         segment_story_bg07COMMON_SIZE = ABSOLUTE(segment_story_bg07COMMON_END - segment_story_bg07COMMON_START);
     }
@@ -5260,25 +5260,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg08_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_TEXT_END = .;
         segment_story_bg08_TEXT_SIZE = ABSOLUTE(segment_story_bg08_TEXT_END - segment_story_bg08_TEXT_START);
 
         segment_story_bg08_DATA_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_DATA_END = .;
         segment_story_bg08_DATA_SIZE = ABSOLUTE(segment_story_bg08_DATA_END - segment_story_bg08_DATA_START);
 
         segment_story_bg08_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_RODATA_END = .;
         segment_story_bg08_RODATA_SIZE = ABSOLUTE(segment_story_bg08_RODATA_END - segment_story_bg08_RODATA_START);
 
         segment_story_bg08_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_SDATA_END = .;
         segment_story_bg08_SDATA_SIZE = ABSOLUTE(segment_story_bg08_SDATA_END - segment_story_bg08_SDATA_START);
     }
@@ -5291,25 +5291,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg08_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_SBSS_END = .;
         segment_story_bg08_SBSS_SIZE = ABSOLUTE(segment_story_bg08_SBSS_END - segment_story_bg08_SBSS_START);
 
         segment_story_bg08_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_SCOMMON_END = .;
         segment_story_bg08_SCOMMON_SIZE = ABSOLUTE(segment_story_bg08_SCOMMON_END - segment_story_bg08_SCOMMON_START);
 
         segment_story_bg08_BSS_START = .;
         build/us/asm/us/data/segment_story_bg08.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08_BSS_END = .;
         segment_story_bg08_BSS_SIZE = ABSOLUTE(segment_story_bg08_BSS_END - segment_story_bg08_BSS_START);
 
         segment_story_bg08COMMON_START = .;
         build/us/asm/us/data/segment_story_bg08.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg08COMMON_END = .;
         segment_story_bg08COMMON_SIZE = ABSOLUTE(segment_story_bg08COMMON_END - segment_story_bg08COMMON_START);
     }
@@ -5329,25 +5329,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg09_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_TEXT_END = .;
         segment_story_bg09_TEXT_SIZE = ABSOLUTE(segment_story_bg09_TEXT_END - segment_story_bg09_TEXT_START);
 
         segment_story_bg09_DATA_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_DATA_END = .;
         segment_story_bg09_DATA_SIZE = ABSOLUTE(segment_story_bg09_DATA_END - segment_story_bg09_DATA_START);
 
         segment_story_bg09_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_RODATA_END = .;
         segment_story_bg09_RODATA_SIZE = ABSOLUTE(segment_story_bg09_RODATA_END - segment_story_bg09_RODATA_START);
 
         segment_story_bg09_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_SDATA_END = .;
         segment_story_bg09_SDATA_SIZE = ABSOLUTE(segment_story_bg09_SDATA_END - segment_story_bg09_SDATA_START);
     }
@@ -5360,25 +5360,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg09_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_SBSS_END = .;
         segment_story_bg09_SBSS_SIZE = ABSOLUTE(segment_story_bg09_SBSS_END - segment_story_bg09_SBSS_START);
 
         segment_story_bg09_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_SCOMMON_END = .;
         segment_story_bg09_SCOMMON_SIZE = ABSOLUTE(segment_story_bg09_SCOMMON_END - segment_story_bg09_SCOMMON_START);
 
         segment_story_bg09_BSS_START = .;
         build/us/asm/us/data/segment_story_bg09.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09_BSS_END = .;
         segment_story_bg09_BSS_SIZE = ABSOLUTE(segment_story_bg09_BSS_END - segment_story_bg09_BSS_START);
 
         segment_story_bg09COMMON_START = .;
         build/us/asm/us/data/segment_story_bg09.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg09COMMON_END = .;
         segment_story_bg09COMMON_SIZE = ABSOLUTE(segment_story_bg09COMMON_END - segment_story_bg09COMMON_START);
     }
@@ -5398,25 +5398,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg10_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_TEXT_END = .;
         segment_story_bg10_TEXT_SIZE = ABSOLUTE(segment_story_bg10_TEXT_END - segment_story_bg10_TEXT_START);
 
         segment_story_bg10_DATA_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_DATA_END = .;
         segment_story_bg10_DATA_SIZE = ABSOLUTE(segment_story_bg10_DATA_END - segment_story_bg10_DATA_START);
 
         segment_story_bg10_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_RODATA_END = .;
         segment_story_bg10_RODATA_SIZE = ABSOLUTE(segment_story_bg10_RODATA_END - segment_story_bg10_RODATA_START);
 
         segment_story_bg10_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_SDATA_END = .;
         segment_story_bg10_SDATA_SIZE = ABSOLUTE(segment_story_bg10_SDATA_END - segment_story_bg10_SDATA_START);
     }
@@ -5429,25 +5429,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg10_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_SBSS_END = .;
         segment_story_bg10_SBSS_SIZE = ABSOLUTE(segment_story_bg10_SBSS_END - segment_story_bg10_SBSS_START);
 
         segment_story_bg10_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_SCOMMON_END = .;
         segment_story_bg10_SCOMMON_SIZE = ABSOLUTE(segment_story_bg10_SCOMMON_END - segment_story_bg10_SCOMMON_START);
 
         segment_story_bg10_BSS_START = .;
         build/us/asm/us/data/segment_story_bg10.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10_BSS_END = .;
         segment_story_bg10_BSS_SIZE = ABSOLUTE(segment_story_bg10_BSS_END - segment_story_bg10_BSS_START);
 
         segment_story_bg10COMMON_START = .;
         build/us/asm/us/data/segment_story_bg10.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg10COMMON_END = .;
         segment_story_bg10COMMON_SIZE = ABSOLUTE(segment_story_bg10COMMON_END - segment_story_bg10COMMON_START);
     }
@@ -5467,25 +5467,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg11_TEXT_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_TEXT_END = .;
         segment_story_bg11_TEXT_SIZE = ABSOLUTE(segment_story_bg11_TEXT_END - segment_story_bg11_TEXT_START);
 
         segment_story_bg11_DATA_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_DATA_END = .;
         segment_story_bg11_DATA_SIZE = ABSOLUTE(segment_story_bg11_DATA_END - segment_story_bg11_DATA_START);
 
         segment_story_bg11_RODATA_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_RODATA_END = .;
         segment_story_bg11_RODATA_SIZE = ABSOLUTE(segment_story_bg11_RODATA_END - segment_story_bg11_RODATA_START);
 
         segment_story_bg11_SDATA_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_SDATA_END = .;
         segment_story_bg11_SDATA_SIZE = ABSOLUTE(segment_story_bg11_SDATA_END - segment_story_bg11_SDATA_START);
     }
@@ -5498,25 +5498,25 @@ SECTIONS
         FILL(0x00000000);
         segment_story_bg11_SBSS_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_SBSS_END = .;
         segment_story_bg11_SBSS_SIZE = ABSOLUTE(segment_story_bg11_SBSS_END - segment_story_bg11_SBSS_START);
 
         segment_story_bg11_SCOMMON_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_SCOMMON_END = .;
         segment_story_bg11_SCOMMON_SIZE = ABSOLUTE(segment_story_bg11_SCOMMON_END - segment_story_bg11_SCOMMON_START);
 
         segment_story_bg11_BSS_START = .;
         build/us/asm/us/data/segment_story_bg11.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11_BSS_END = .;
         segment_story_bg11_BSS_SIZE = ABSOLUTE(segment_story_bg11_BSS_END - segment_story_bg11_BSS_START);
 
         segment_story_bg11COMMON_START = .;
         build/us/asm/us/data/segment_story_bg11.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_story_bg11COMMON_END = .;
         segment_story_bg11COMMON_SIZE = ABSOLUTE(segment_story_bg11COMMON_END - segment_story_bg11COMMON_START);
     }
@@ -5536,25 +5536,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_char_TEXT_START = .;
         build/us/src/assets/menu/menu_char.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_TEXT_END = .;
         segment_menu_char_TEXT_SIZE = ABSOLUTE(segment_menu_char_TEXT_END - segment_menu_char_TEXT_START);
 
         segment_menu_char_DATA_START = .;
         build/us/src/assets/menu/menu_char.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_DATA_END = .;
         segment_menu_char_DATA_SIZE = ABSOLUTE(segment_menu_char_DATA_END - segment_menu_char_DATA_START);
 
         segment_menu_char_RODATA_START = .;
         build/us/src/assets/menu/menu_char.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_RODATA_END = .;
         segment_menu_char_RODATA_SIZE = ABSOLUTE(segment_menu_char_RODATA_END - segment_menu_char_RODATA_START);
 
         segment_menu_char_SDATA_START = .;
         build/us/src/assets/menu/menu_char.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_SDATA_END = .;
         segment_menu_char_SDATA_SIZE = ABSOLUTE(segment_menu_char_SDATA_END - segment_menu_char_SDATA_START);
     }
@@ -5567,25 +5567,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_char_SBSS_START = .;
         build/us/src/assets/menu/menu_char.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_SBSS_END = .;
         segment_menu_char_SBSS_SIZE = ABSOLUTE(segment_menu_char_SBSS_END - segment_menu_char_SBSS_START);
 
         segment_menu_char_SCOMMON_START = .;
         build/us/src/assets/menu/menu_char.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_SCOMMON_END = .;
         segment_menu_char_SCOMMON_SIZE = ABSOLUTE(segment_menu_char_SCOMMON_END - segment_menu_char_SCOMMON_START);
 
         segment_menu_char_BSS_START = .;
         build/us/src/assets/menu/menu_char.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_char_BSS_END = .;
         segment_menu_char_BSS_SIZE = ABSOLUTE(segment_menu_char_BSS_END - segment_menu_char_BSS_START);
 
         segment_menu_charCOMMON_START = .;
         build/us/src/assets/menu/menu_char.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_charCOMMON_END = .;
         segment_menu_charCOMMON_SIZE = ABSOLUTE(segment_menu_charCOMMON_END - segment_menu_charCOMMON_START);
     }
@@ -5605,25 +5605,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_common_TEXT_START = .;
         build/us/src/assets/menu/menu_common.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_TEXT_END = .;
         segment_menu_common_TEXT_SIZE = ABSOLUTE(segment_menu_common_TEXT_END - segment_menu_common_TEXT_START);
 
         segment_menu_common_DATA_START = .;
         build/us/src/assets/menu/menu_common.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_DATA_END = .;
         segment_menu_common_DATA_SIZE = ABSOLUTE(segment_menu_common_DATA_END - segment_menu_common_DATA_START);
 
         segment_menu_common_RODATA_START = .;
         build/us/src/assets/menu/menu_common.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_RODATA_END = .;
         segment_menu_common_RODATA_SIZE = ABSOLUTE(segment_menu_common_RODATA_END - segment_menu_common_RODATA_START);
 
         segment_menu_common_SDATA_START = .;
         build/us/src/assets/menu/menu_common.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_SDATA_END = .;
         segment_menu_common_SDATA_SIZE = ABSOLUTE(segment_menu_common_SDATA_END - segment_menu_common_SDATA_START);
     }
@@ -5636,25 +5636,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_common_SBSS_START = .;
         build/us/src/assets/menu/menu_common.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_SBSS_END = .;
         segment_menu_common_SBSS_SIZE = ABSOLUTE(segment_menu_common_SBSS_END - segment_menu_common_SBSS_START);
 
         segment_menu_common_SCOMMON_START = .;
         build/us/src/assets/menu/menu_common.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_SCOMMON_END = .;
         segment_menu_common_SCOMMON_SIZE = ABSOLUTE(segment_menu_common_SCOMMON_END - segment_menu_common_SCOMMON_START);
 
         segment_menu_common_BSS_START = .;
         build/us/src/assets/menu/menu_common.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_common_BSS_END = .;
         segment_menu_common_BSS_SIZE = ABSOLUTE(segment_menu_common_BSS_END - segment_menu_common_BSS_START);
 
         segment_menu_commonCOMMON_START = .;
         build/us/src/assets/menu/menu_common.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_commonCOMMON_END = .;
         segment_menu_commonCOMMON_SIZE = ABSOLUTE(segment_menu_commonCOMMON_END - segment_menu_commonCOMMON_START);
     }
@@ -5674,25 +5674,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_level_TEXT_START = .;
         build/us/src/assets/menu/menu_level.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_TEXT_END = .;
         segment_menu_level_TEXT_SIZE = ABSOLUTE(segment_menu_level_TEXT_END - segment_menu_level_TEXT_START);
 
         segment_menu_level_DATA_START = .;
         build/us/src/assets/menu/menu_level.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_DATA_END = .;
         segment_menu_level_DATA_SIZE = ABSOLUTE(segment_menu_level_DATA_END - segment_menu_level_DATA_START);
 
         segment_menu_level_RODATA_START = .;
         build/us/src/assets/menu/menu_level.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_RODATA_END = .;
         segment_menu_level_RODATA_SIZE = ABSOLUTE(segment_menu_level_RODATA_END - segment_menu_level_RODATA_START);
 
         segment_menu_level_SDATA_START = .;
         build/us/src/assets/menu/menu_level.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_SDATA_END = .;
         segment_menu_level_SDATA_SIZE = ABSOLUTE(segment_menu_level_SDATA_END - segment_menu_level_SDATA_START);
     }
@@ -5705,25 +5705,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_level_SBSS_START = .;
         build/us/src/assets/menu/menu_level.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_SBSS_END = .;
         segment_menu_level_SBSS_SIZE = ABSOLUTE(segment_menu_level_SBSS_END - segment_menu_level_SBSS_START);
 
         segment_menu_level_SCOMMON_START = .;
         build/us/src/assets/menu/menu_level.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_SCOMMON_END = .;
         segment_menu_level_SCOMMON_SIZE = ABSOLUTE(segment_menu_level_SCOMMON_END - segment_menu_level_SCOMMON_START);
 
         segment_menu_level_BSS_START = .;
         build/us/src/assets/menu/menu_level.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_level_BSS_END = .;
         segment_menu_level_BSS_SIZE = ABSOLUTE(segment_menu_level_BSS_END - segment_menu_level_BSS_START);
 
         segment_menu_levelCOMMON_START = .;
         build/us/src/assets/menu/menu_level.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_levelCOMMON_END = .;
         segment_menu_levelCOMMON_SIZE = ABSOLUTE(segment_menu_levelCOMMON_END - segment_menu_levelCOMMON_START);
     }
@@ -5743,25 +5743,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_main_TEXT_START = .;
         build/us/src/assets/menu/menu_main.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_TEXT_END = .;
         segment_menu_main_TEXT_SIZE = ABSOLUTE(segment_menu_main_TEXT_END - segment_menu_main_TEXT_START);
 
         segment_menu_main_DATA_START = .;
         build/us/src/assets/menu/menu_main.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_DATA_END = .;
         segment_menu_main_DATA_SIZE = ABSOLUTE(segment_menu_main_DATA_END - segment_menu_main_DATA_START);
 
         segment_menu_main_RODATA_START = .;
         build/us/src/assets/menu/menu_main.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_RODATA_END = .;
         segment_menu_main_RODATA_SIZE = ABSOLUTE(segment_menu_main_RODATA_END - segment_menu_main_RODATA_START);
 
         segment_menu_main_SDATA_START = .;
         build/us/src/assets/menu/menu_main.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_SDATA_END = .;
         segment_menu_main_SDATA_SIZE = ABSOLUTE(segment_menu_main_SDATA_END - segment_menu_main_SDATA_START);
     }
@@ -5774,25 +5774,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_main_SBSS_START = .;
         build/us/src/assets/menu/menu_main.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_SBSS_END = .;
         segment_menu_main_SBSS_SIZE = ABSOLUTE(segment_menu_main_SBSS_END - segment_menu_main_SBSS_START);
 
         segment_menu_main_SCOMMON_START = .;
         build/us/src/assets/menu/menu_main.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_SCOMMON_END = .;
         segment_menu_main_SCOMMON_SIZE = ABSOLUTE(segment_menu_main_SCOMMON_END - segment_menu_main_SCOMMON_START);
 
         segment_menu_main_BSS_START = .;
         build/us/src/assets/menu/menu_main.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_main_BSS_END = .;
         segment_menu_main_BSS_SIZE = ABSOLUTE(segment_menu_main_BSS_END - segment_menu_main_BSS_START);
 
         segment_menu_mainCOMMON_START = .;
         build/us/src/assets/menu/menu_main.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_mainCOMMON_END = .;
         segment_menu_mainCOMMON_SIZE = ABSOLUTE(segment_menu_mainCOMMON_END - segment_menu_mainCOMMON_START);
     }
@@ -5812,25 +5812,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_name_TEXT_START = .;
         build/us/src/assets/menu/menu_name.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_TEXT_END = .;
         segment_menu_name_TEXT_SIZE = ABSOLUTE(segment_menu_name_TEXT_END - segment_menu_name_TEXT_START);
 
         segment_menu_name_DATA_START = .;
         build/us/src/assets/menu/menu_name.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_DATA_END = .;
         segment_menu_name_DATA_SIZE = ABSOLUTE(segment_menu_name_DATA_END - segment_menu_name_DATA_START);
 
         segment_menu_name_RODATA_START = .;
         build/us/src/assets/menu/menu_name.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_RODATA_END = .;
         segment_menu_name_RODATA_SIZE = ABSOLUTE(segment_menu_name_RODATA_END - segment_menu_name_RODATA_START);
 
         segment_menu_name_SDATA_START = .;
         build/us/src/assets/menu/menu_name.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_SDATA_END = .;
         segment_menu_name_SDATA_SIZE = ABSOLUTE(segment_menu_name_SDATA_END - segment_menu_name_SDATA_START);
     }
@@ -5843,25 +5843,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_name_SBSS_START = .;
         build/us/src/assets/menu/menu_name.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_SBSS_END = .;
         segment_menu_name_SBSS_SIZE = ABSOLUTE(segment_menu_name_SBSS_END - segment_menu_name_SBSS_START);
 
         segment_menu_name_SCOMMON_START = .;
         build/us/src/assets/menu/menu_name.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_SCOMMON_END = .;
         segment_menu_name_SCOMMON_SIZE = ABSOLUTE(segment_menu_name_SCOMMON_END - segment_menu_name_SCOMMON_START);
 
         segment_menu_name_BSS_START = .;
         build/us/src/assets/menu/menu_name.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_name_BSS_END = .;
         segment_menu_name_BSS_SIZE = ABSOLUTE(segment_menu_name_BSS_END - segment_menu_name_BSS_START);
 
         segment_menu_nameCOMMON_START = .;
         build/us/src/assets/menu/menu_name.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_nameCOMMON_END = .;
         segment_menu_nameCOMMON_SIZE = ABSOLUTE(segment_menu_nameCOMMON_END - segment_menu_nameCOMMON_START);
     }
@@ -5881,25 +5881,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_p2_TEXT_START = .;
         build/us/src/assets/menu/menu_p2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_TEXT_END = .;
         segment_menu_p2_TEXT_SIZE = ABSOLUTE(segment_menu_p2_TEXT_END - segment_menu_p2_TEXT_START);
 
         segment_menu_p2_DATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_DATA_END = .;
         segment_menu_p2_DATA_SIZE = ABSOLUTE(segment_menu_p2_DATA_END - segment_menu_p2_DATA_START);
 
         segment_menu_p2_RODATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_RODATA_END = .;
         segment_menu_p2_RODATA_SIZE = ABSOLUTE(segment_menu_p2_RODATA_END - segment_menu_p2_RODATA_START);
 
         segment_menu_p2_SDATA_START = .;
         build/us/src/assets/menu/menu_p2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_SDATA_END = .;
         segment_menu_p2_SDATA_SIZE = ABSOLUTE(segment_menu_p2_SDATA_END - segment_menu_p2_SDATA_START);
     }
@@ -5912,25 +5912,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_p2_SBSS_START = .;
         build/us/src/assets/menu/menu_p2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_SBSS_END = .;
         segment_menu_p2_SBSS_SIZE = ABSOLUTE(segment_menu_p2_SBSS_END - segment_menu_p2_SBSS_START);
 
         segment_menu_p2_SCOMMON_START = .;
         build/us/src/assets/menu/menu_p2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_SCOMMON_END = .;
         segment_menu_p2_SCOMMON_SIZE = ABSOLUTE(segment_menu_p2_SCOMMON_END - segment_menu_p2_SCOMMON_START);
 
         segment_menu_p2_BSS_START = .;
         build/us/src/assets/menu/menu_p2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2_BSS_END = .;
         segment_menu_p2_BSS_SIZE = ABSOLUTE(segment_menu_p2_BSS_END - segment_menu_p2_BSS_START);
 
         segment_menu_p2COMMON_START = .;
         build/us/src/assets/menu/menu_p2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p2COMMON_END = .;
         segment_menu_p2COMMON_SIZE = ABSOLUTE(segment_menu_p2COMMON_END - segment_menu_p2COMMON_START);
     }
@@ -5950,25 +5950,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_p4_TEXT_START = .;
         build/us/src/assets/menu/menu_p4.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_TEXT_END = .;
         segment_menu_p4_TEXT_SIZE = ABSOLUTE(segment_menu_p4_TEXT_END - segment_menu_p4_TEXT_START);
 
         segment_menu_p4_DATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_DATA_END = .;
         segment_menu_p4_DATA_SIZE = ABSOLUTE(segment_menu_p4_DATA_END - segment_menu_p4_DATA_START);
 
         segment_menu_p4_RODATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_RODATA_END = .;
         segment_menu_p4_RODATA_SIZE = ABSOLUTE(segment_menu_p4_RODATA_END - segment_menu_p4_RODATA_START);
 
         segment_menu_p4_SDATA_START = .;
         build/us/src/assets/menu/menu_p4.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_SDATA_END = .;
         segment_menu_p4_SDATA_SIZE = ABSOLUTE(segment_menu_p4_SDATA_END - segment_menu_p4_SDATA_START);
     }
@@ -5981,25 +5981,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_p4_SBSS_START = .;
         build/us/src/assets/menu/menu_p4.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_SBSS_END = .;
         segment_menu_p4_SBSS_SIZE = ABSOLUTE(segment_menu_p4_SBSS_END - segment_menu_p4_SBSS_START);
 
         segment_menu_p4_SCOMMON_START = .;
         build/us/src/assets/menu/menu_p4.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_SCOMMON_END = .;
         segment_menu_p4_SCOMMON_SIZE = ABSOLUTE(segment_menu_p4_SCOMMON_END - segment_menu_p4_SCOMMON_START);
 
         segment_menu_p4_BSS_START = .;
         build/us/src/assets/menu/menu_p4.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4_BSS_END = .;
         segment_menu_p4_BSS_SIZE = ABSOLUTE(segment_menu_p4_BSS_END - segment_menu_p4_BSS_START);
 
         segment_menu_p4COMMON_START = .;
         build/us/src/assets/menu/menu_p4.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_p4COMMON_END = .;
         segment_menu_p4COMMON_SIZE = ABSOLUTE(segment_menu_p4COMMON_END - segment_menu_p4COMMON_START);
     }
@@ -6019,25 +6019,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_rank_TEXT_START = .;
         build/us/src/assets/menu/menu_rank.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_TEXT_END = .;
         segment_menu_rank_TEXT_SIZE = ABSOLUTE(segment_menu_rank_TEXT_END - segment_menu_rank_TEXT_START);
 
         segment_menu_rank_DATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_DATA_END = .;
         segment_menu_rank_DATA_SIZE = ABSOLUTE(segment_menu_rank_DATA_END - segment_menu_rank_DATA_START);
 
         segment_menu_rank_RODATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_RODATA_END = .;
         segment_menu_rank_RODATA_SIZE = ABSOLUTE(segment_menu_rank_RODATA_END - segment_menu_rank_RODATA_START);
 
         segment_menu_rank_SDATA_START = .;
         build/us/src/assets/menu/menu_rank.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_SDATA_END = .;
         segment_menu_rank_SDATA_SIZE = ABSOLUTE(segment_menu_rank_SDATA_END - segment_menu_rank_SDATA_START);
     }
@@ -6050,25 +6050,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_rank_SBSS_START = .;
         build/us/src/assets/menu/menu_rank.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_SBSS_END = .;
         segment_menu_rank_SBSS_SIZE = ABSOLUTE(segment_menu_rank_SBSS_END - segment_menu_rank_SBSS_START);
 
         segment_menu_rank_SCOMMON_START = .;
         build/us/src/assets/menu/menu_rank.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_SCOMMON_END = .;
         segment_menu_rank_SCOMMON_SIZE = ABSOLUTE(segment_menu_rank_SCOMMON_END - segment_menu_rank_SCOMMON_START);
 
         segment_menu_rank_BSS_START = .;
         build/us/src/assets/menu/menu_rank.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rank_BSS_END = .;
         segment_menu_rank_BSS_SIZE = ABSOLUTE(segment_menu_rank_BSS_END - segment_menu_rank_BSS_START);
 
         segment_menu_rankCOMMON_START = .;
         build/us/src/assets/menu/menu_rank.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_rankCOMMON_END = .;
         segment_menu_rankCOMMON_SIZE = ABSOLUTE(segment_menu_rankCOMMON_END - segment_menu_rankCOMMON_START);
     }
@@ -6088,25 +6088,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_setup_TEXT_START = .;
         build/us/src/assets/menu/menu_setup.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_TEXT_END = .;
         segment_menu_setup_TEXT_SIZE = ABSOLUTE(segment_menu_setup_TEXT_END - segment_menu_setup_TEXT_START);
 
         segment_menu_setup_DATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_DATA_END = .;
         segment_menu_setup_DATA_SIZE = ABSOLUTE(segment_menu_setup_DATA_END - segment_menu_setup_DATA_START);
 
         segment_menu_setup_RODATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_RODATA_END = .;
         segment_menu_setup_RODATA_SIZE = ABSOLUTE(segment_menu_setup_RODATA_END - segment_menu_setup_RODATA_START);
 
         segment_menu_setup_SDATA_START = .;
         build/us/src/assets/menu/menu_setup.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_SDATA_END = .;
         segment_menu_setup_SDATA_SIZE = ABSOLUTE(segment_menu_setup_SDATA_END - segment_menu_setup_SDATA_START);
     }
@@ -6119,25 +6119,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_setup_SBSS_START = .;
         build/us/src/assets/menu/menu_setup.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_SBSS_END = .;
         segment_menu_setup_SBSS_SIZE = ABSOLUTE(segment_menu_setup_SBSS_END - segment_menu_setup_SBSS_START);
 
         segment_menu_setup_SCOMMON_START = .;
         build/us/src/assets/menu/menu_setup.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_SCOMMON_END = .;
         segment_menu_setup_SCOMMON_SIZE = ABSOLUTE(segment_menu_setup_SCOMMON_END - segment_menu_setup_SCOMMON_START);
 
         segment_menu_setup_BSS_START = .;
         build/us/src/assets/menu/menu_setup.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setup_BSS_END = .;
         segment_menu_setup_BSS_SIZE = ABSOLUTE(segment_menu_setup_BSS_END - segment_menu_setup_BSS_START);
 
         segment_menu_setupCOMMON_START = .;
         build/us/src/assets/menu/menu_setup.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_setupCOMMON_END = .;
         segment_menu_setupCOMMON_SIZE = ABSOLUTE(segment_menu_setupCOMMON_END - segment_menu_setupCOMMON_START);
     }
@@ -6157,25 +6157,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_story_TEXT_START = .;
         build/us/src/assets/menu/menu_story.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_TEXT_END = .;
         segment_menu_story_TEXT_SIZE = ABSOLUTE(segment_menu_story_TEXT_END - segment_menu_story_TEXT_START);
 
         segment_menu_story_DATA_START = .;
         build/us/src/assets/menu/menu_story.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_DATA_END = .;
         segment_menu_story_DATA_SIZE = ABSOLUTE(segment_menu_story_DATA_END - segment_menu_story_DATA_START);
 
         segment_menu_story_RODATA_START = .;
         build/us/src/assets/menu/menu_story.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_RODATA_END = .;
         segment_menu_story_RODATA_SIZE = ABSOLUTE(segment_menu_story_RODATA_END - segment_menu_story_RODATA_START);
 
         segment_menu_story_SDATA_START = .;
         build/us/src/assets/menu/menu_story.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_SDATA_END = .;
         segment_menu_story_SDATA_SIZE = ABSOLUTE(segment_menu_story_SDATA_END - segment_menu_story_SDATA_START);
     }
@@ -6188,25 +6188,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_story_SBSS_START = .;
         build/us/src/assets/menu/menu_story.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_SBSS_END = .;
         segment_menu_story_SBSS_SIZE = ABSOLUTE(segment_menu_story_SBSS_END - segment_menu_story_SBSS_START);
 
         segment_menu_story_SCOMMON_START = .;
         build/us/src/assets/menu/menu_story.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_SCOMMON_END = .;
         segment_menu_story_SCOMMON_SIZE = ABSOLUTE(segment_menu_story_SCOMMON_END - segment_menu_story_SCOMMON_START);
 
         segment_menu_story_BSS_START = .;
         build/us/src/assets/menu/menu_story.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_story_BSS_END = .;
         segment_menu_story_BSS_SIZE = ABSOLUTE(segment_menu_story_BSS_END - segment_menu_story_BSS_START);
 
         segment_menu_storyCOMMON_START = .;
         build/us/src/assets/menu/menu_story.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_storyCOMMON_END = .;
         segment_menu_storyCOMMON_SIZE = ABSOLUTE(segment_menu_storyCOMMON_END - segment_menu_storyCOMMON_START);
     }
@@ -6226,25 +6226,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_cont_TEXT_START = .;
         build/us/src/assets/menu/menu_cont.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_TEXT_END = .;
         segment_menu_cont_TEXT_SIZE = ABSOLUTE(segment_menu_cont_TEXT_END - segment_menu_cont_TEXT_START);
 
         segment_menu_cont_DATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_DATA_END = .;
         segment_menu_cont_DATA_SIZE = ABSOLUTE(segment_menu_cont_DATA_END - segment_menu_cont_DATA_START);
 
         segment_menu_cont_RODATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_RODATA_END = .;
         segment_menu_cont_RODATA_SIZE = ABSOLUTE(segment_menu_cont_RODATA_END - segment_menu_cont_RODATA_START);
 
         segment_menu_cont_SDATA_START = .;
         build/us/src/assets/menu/menu_cont.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_SDATA_END = .;
         segment_menu_cont_SDATA_SIZE = ABSOLUTE(segment_menu_cont_SDATA_END - segment_menu_cont_SDATA_START);
     }
@@ -6257,25 +6257,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_cont_SBSS_START = .;
         build/us/src/assets/menu/menu_cont.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_SBSS_END = .;
         segment_menu_cont_SBSS_SIZE = ABSOLUTE(segment_menu_cont_SBSS_END - segment_menu_cont_SBSS_START);
 
         segment_menu_cont_SCOMMON_START = .;
         build/us/src/assets/menu/menu_cont.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_SCOMMON_END = .;
         segment_menu_cont_SCOMMON_SIZE = ABSOLUTE(segment_menu_cont_SCOMMON_END - segment_menu_cont_SCOMMON_START);
 
         segment_menu_cont_BSS_START = .;
         build/us/src/assets/menu/menu_cont.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_cont_BSS_END = .;
         segment_menu_cont_BSS_SIZE = ABSOLUTE(segment_menu_cont_BSS_END - segment_menu_cont_BSS_START);
 
         segment_menu_contCOMMON_START = .;
         build/us/src/assets/menu/menu_cont.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_contCOMMON_END = .;
         segment_menu_contCOMMON_SIZE = ABSOLUTE(segment_menu_contCOMMON_END - segment_menu_contCOMMON_START);
     }
@@ -6295,25 +6295,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_kasa_TEXT_START = .;
         build/us/src/assets/menu/menu_kasa.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_TEXT_END = .;
         segment_menu_kasa_TEXT_SIZE = ABSOLUTE(segment_menu_kasa_TEXT_END - segment_menu_kasa_TEXT_START);
 
         segment_menu_kasa_DATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_DATA_END = .;
         segment_menu_kasa_DATA_SIZE = ABSOLUTE(segment_menu_kasa_DATA_END - segment_menu_kasa_DATA_START);
 
         segment_menu_kasa_RODATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_RODATA_END = .;
         segment_menu_kasa_RODATA_SIZE = ABSOLUTE(segment_menu_kasa_RODATA_END - segment_menu_kasa_RODATA_START);
 
         segment_menu_kasa_SDATA_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_SDATA_END = .;
         segment_menu_kasa_SDATA_SIZE = ABSOLUTE(segment_menu_kasa_SDATA_END - segment_menu_kasa_SDATA_START);
     }
@@ -6326,25 +6326,25 @@ SECTIONS
         FILL(0x00000000);
         segment_menu_kasa_SBSS_START = .;
         build/us/src/assets/menu/menu_kasa.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_SBSS_END = .;
         segment_menu_kasa_SBSS_SIZE = ABSOLUTE(segment_menu_kasa_SBSS_END - segment_menu_kasa_SBSS_START);
 
         segment_menu_kasa_SCOMMON_START = .;
         build/us/src/assets/menu/menu_kasa.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_SCOMMON_END = .;
         segment_menu_kasa_SCOMMON_SIZE = ABSOLUTE(segment_menu_kasa_SCOMMON_END - segment_menu_kasa_SCOMMON_START);
 
         segment_menu_kasa_BSS_START = .;
         build/us/src/assets/menu/menu_kasa.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasa_BSS_END = .;
         segment_menu_kasa_BSS_SIZE = ABSOLUTE(segment_menu_kasa_BSS_END - segment_menu_kasa_BSS_START);
 
         segment_menu_kasaCOMMON_START = .;
         build/us/src/assets/menu/menu_kasa.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_menu_kasaCOMMON_END = .;
         segment_menu_kasaCOMMON_SIZE = ABSOLUTE(segment_menu_kasaCOMMON_END - segment_menu_kasaCOMMON_START);
     }
@@ -6364,25 +6364,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_al_TEXT_START = .;
         build/us/src/assets/game/game_al.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_TEXT_END = .;
         segment_game_al_TEXT_SIZE = ABSOLUTE(segment_game_al_TEXT_END - segment_game_al_TEXT_START);
 
         segment_game_al_DATA_START = .;
         build/us/src/assets/game/game_al.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_DATA_END = .;
         segment_game_al_DATA_SIZE = ABSOLUTE(segment_game_al_DATA_END - segment_game_al_DATA_START);
 
         segment_game_al_RODATA_START = .;
         build/us/src/assets/game/game_al.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_RODATA_END = .;
         segment_game_al_RODATA_SIZE = ABSOLUTE(segment_game_al_RODATA_END - segment_game_al_RODATA_START);
 
         segment_game_al_SDATA_START = .;
         build/us/src/assets/game/game_al.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_SDATA_END = .;
         segment_game_al_SDATA_SIZE = ABSOLUTE(segment_game_al_SDATA_END - segment_game_al_SDATA_START);
     }
@@ -6395,25 +6395,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_al_SBSS_START = .;
         build/us/src/assets/game/game_al.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_SBSS_END = .;
         segment_game_al_SBSS_SIZE = ABSOLUTE(segment_game_al_SBSS_END - segment_game_al_SBSS_START);
 
         segment_game_al_SCOMMON_START = .;
         build/us/src/assets/game/game_al.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_SCOMMON_END = .;
         segment_game_al_SCOMMON_SIZE = ABSOLUTE(segment_game_al_SCOMMON_END - segment_game_al_SCOMMON_START);
 
         segment_game_al_BSS_START = .;
         build/us/src/assets/game/game_al.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_al_BSS_END = .;
         segment_game_al_BSS_SIZE = ABSOLUTE(segment_game_al_BSS_END - segment_game_al_BSS_START);
 
         segment_game_alCOMMON_START = .;
         build/us/src/assets/game/game_al.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_alCOMMON_END = .;
         segment_game_alCOMMON_SIZE = ABSOLUTE(segment_game_alCOMMON_END - segment_game_alCOMMON_START);
     }
@@ -6433,25 +6433,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p1_TEXT_START = .;
         build/us/src/assets/game/game_p1.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_TEXT_END = .;
         segment_game_p1_TEXT_SIZE = ABSOLUTE(segment_game_p1_TEXT_END - segment_game_p1_TEXT_START);
 
         segment_game_p1_DATA_START = .;
         build/us/src/assets/game/game_p1.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_DATA_END = .;
         segment_game_p1_DATA_SIZE = ABSOLUTE(segment_game_p1_DATA_END - segment_game_p1_DATA_START);
 
         segment_game_p1_RODATA_START = .;
         build/us/src/assets/game/game_p1.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_RODATA_END = .;
         segment_game_p1_RODATA_SIZE = ABSOLUTE(segment_game_p1_RODATA_END - segment_game_p1_RODATA_START);
 
         segment_game_p1_SDATA_START = .;
         build/us/src/assets/game/game_p1.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_SDATA_END = .;
         segment_game_p1_SDATA_SIZE = ABSOLUTE(segment_game_p1_SDATA_END - segment_game_p1_SDATA_START);
     }
@@ -6464,25 +6464,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p1_SBSS_START = .;
         build/us/src/assets/game/game_p1.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_SBSS_END = .;
         segment_game_p1_SBSS_SIZE = ABSOLUTE(segment_game_p1_SBSS_END - segment_game_p1_SBSS_START);
 
         segment_game_p1_SCOMMON_START = .;
         build/us/src/assets/game/game_p1.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_SCOMMON_END = .;
         segment_game_p1_SCOMMON_SIZE = ABSOLUTE(segment_game_p1_SCOMMON_END - segment_game_p1_SCOMMON_START);
 
         segment_game_p1_BSS_START = .;
         build/us/src/assets/game/game_p1.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1_BSS_END = .;
         segment_game_p1_BSS_SIZE = ABSOLUTE(segment_game_p1_BSS_END - segment_game_p1_BSS_START);
 
         segment_game_p1COMMON_START = .;
         build/us/src/assets/game/game_p1.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p1COMMON_END = .;
         segment_game_p1COMMON_SIZE = ABSOLUTE(segment_game_p1COMMON_END - segment_game_p1COMMON_START);
     }
@@ -6502,25 +6502,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p2_TEXT_START = .;
         build/us/src/assets/game/game_p2.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_TEXT_END = .;
         segment_game_p2_TEXT_SIZE = ABSOLUTE(segment_game_p2_TEXT_END - segment_game_p2_TEXT_START);
 
         segment_game_p2_DATA_START = .;
         build/us/src/assets/game/game_p2.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_DATA_END = .;
         segment_game_p2_DATA_SIZE = ABSOLUTE(segment_game_p2_DATA_END - segment_game_p2_DATA_START);
 
         segment_game_p2_RODATA_START = .;
         build/us/src/assets/game/game_p2.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_RODATA_END = .;
         segment_game_p2_RODATA_SIZE = ABSOLUTE(segment_game_p2_RODATA_END - segment_game_p2_RODATA_START);
 
         segment_game_p2_SDATA_START = .;
         build/us/src/assets/game/game_p2.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_SDATA_END = .;
         segment_game_p2_SDATA_SIZE = ABSOLUTE(segment_game_p2_SDATA_END - segment_game_p2_SDATA_START);
     }
@@ -6533,25 +6533,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p2_SBSS_START = .;
         build/us/src/assets/game/game_p2.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_SBSS_END = .;
         segment_game_p2_SBSS_SIZE = ABSOLUTE(segment_game_p2_SBSS_END - segment_game_p2_SBSS_START);
 
         segment_game_p2_SCOMMON_START = .;
         build/us/src/assets/game/game_p2.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_SCOMMON_END = .;
         segment_game_p2_SCOMMON_SIZE = ABSOLUTE(segment_game_p2_SCOMMON_END - segment_game_p2_SCOMMON_START);
 
         segment_game_p2_BSS_START = .;
         build/us/src/assets/game/game_p2.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2_BSS_END = .;
         segment_game_p2_BSS_SIZE = ABSOLUTE(segment_game_p2_BSS_END - segment_game_p2_BSS_START);
 
         segment_game_p2COMMON_START = .;
         build/us/src/assets/game/game_p2.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p2COMMON_END = .;
         segment_game_p2COMMON_SIZE = ABSOLUTE(segment_game_p2COMMON_END - segment_game_p2COMMON_START);
     }
@@ -6571,25 +6571,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p4_TEXT_START = .;
         build/us/src/assets/game/game_p4.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_TEXT_END = .;
         segment_game_p4_TEXT_SIZE = ABSOLUTE(segment_game_p4_TEXT_END - segment_game_p4_TEXT_START);
 
         segment_game_p4_DATA_START = .;
         build/us/src/assets/game/game_p4.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_DATA_END = .;
         segment_game_p4_DATA_SIZE = ABSOLUTE(segment_game_p4_DATA_END - segment_game_p4_DATA_START);
 
         segment_game_p4_RODATA_START = .;
         build/us/src/assets/game/game_p4.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_RODATA_END = .;
         segment_game_p4_RODATA_SIZE = ABSOLUTE(segment_game_p4_RODATA_END - segment_game_p4_RODATA_START);
 
         segment_game_p4_SDATA_START = .;
         build/us/src/assets/game/game_p4.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_SDATA_END = .;
         segment_game_p4_SDATA_SIZE = ABSOLUTE(segment_game_p4_SDATA_END - segment_game_p4_SDATA_START);
     }
@@ -6602,25 +6602,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_p4_SBSS_START = .;
         build/us/src/assets/game/game_p4.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_SBSS_END = .;
         segment_game_p4_SBSS_SIZE = ABSOLUTE(segment_game_p4_SBSS_END - segment_game_p4_SBSS_START);
 
         segment_game_p4_SCOMMON_START = .;
         build/us/src/assets/game/game_p4.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_SCOMMON_END = .;
         segment_game_p4_SCOMMON_SIZE = ABSOLUTE(segment_game_p4_SCOMMON_END - segment_game_p4_SCOMMON_START);
 
         segment_game_p4_BSS_START = .;
         build/us/src/assets/game/game_p4.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4_BSS_END = .;
         segment_game_p4_BSS_SIZE = ABSOLUTE(segment_game_p4_BSS_END - segment_game_p4_BSS_START);
 
         segment_game_p4COMMON_START = .;
         build/us/src/assets/game/game_p4.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_p4COMMON_END = .;
         segment_game_p4COMMON_SIZE = ABSOLUTE(segment_game_p4COMMON_END - segment_game_p4COMMON_START);
     }
@@ -6640,25 +6640,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_ls_TEXT_START = .;
         build/us/src/assets/game/game_ls.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_TEXT_END = .;
         segment_game_ls_TEXT_SIZE = ABSOLUTE(segment_game_ls_TEXT_END - segment_game_ls_TEXT_START);
 
         segment_game_ls_DATA_START = .;
         build/us/src/assets/game/game_ls.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_DATA_END = .;
         segment_game_ls_DATA_SIZE = ABSOLUTE(segment_game_ls_DATA_END - segment_game_ls_DATA_START);
 
         segment_game_ls_RODATA_START = .;
         build/us/src/assets/game/game_ls.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_RODATA_END = .;
         segment_game_ls_RODATA_SIZE = ABSOLUTE(segment_game_ls_RODATA_END - segment_game_ls_RODATA_START);
 
         segment_game_ls_SDATA_START = .;
         build/us/src/assets/game/game_ls.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_SDATA_END = .;
         segment_game_ls_SDATA_SIZE = ABSOLUTE(segment_game_ls_SDATA_END - segment_game_ls_SDATA_START);
     }
@@ -6671,25 +6671,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_ls_SBSS_START = .;
         build/us/src/assets/game/game_ls.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_SBSS_END = .;
         segment_game_ls_SBSS_SIZE = ABSOLUTE(segment_game_ls_SBSS_END - segment_game_ls_SBSS_START);
 
         segment_game_ls_SCOMMON_START = .;
         build/us/src/assets/game/game_ls.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_SCOMMON_END = .;
         segment_game_ls_SCOMMON_SIZE = ABSOLUTE(segment_game_ls_SCOMMON_END - segment_game_ls_SCOMMON_START);
 
         segment_game_ls_BSS_START = .;
         build/us/src/assets/game/game_ls.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_ls_BSS_END = .;
         segment_game_ls_BSS_SIZE = ABSOLUTE(segment_game_ls_BSS_END - segment_game_ls_BSS_START);
 
         segment_game_lsCOMMON_START = .;
         build/us/src/assets/game/game_ls.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_lsCOMMON_END = .;
         segment_game_lsCOMMON_SIZE = ABSOLUTE(segment_game_lsCOMMON_END - segment_game_lsCOMMON_START);
     }
@@ -6709,25 +6709,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_item_TEXT_START = .;
         build/us/src/assets/game/game_item.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_TEXT_END = .;
         segment_game_item_TEXT_SIZE = ABSOLUTE(segment_game_item_TEXT_END - segment_game_item_TEXT_START);
 
         segment_game_item_DATA_START = .;
         build/us/src/assets/game/game_item.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_DATA_END = .;
         segment_game_item_DATA_SIZE = ABSOLUTE(segment_game_item_DATA_END - segment_game_item_DATA_START);
 
         segment_game_item_RODATA_START = .;
         build/us/src/assets/game/game_item.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_RODATA_END = .;
         segment_game_item_RODATA_SIZE = ABSOLUTE(segment_game_item_RODATA_END - segment_game_item_RODATA_START);
 
         segment_game_item_SDATA_START = .;
         build/us/src/assets/game/game_item.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_SDATA_END = .;
         segment_game_item_SDATA_SIZE = ABSOLUTE(segment_game_item_SDATA_END - segment_game_item_SDATA_START);
     }
@@ -6740,25 +6740,25 @@ SECTIONS
         FILL(0x00000000);
         segment_game_item_SBSS_START = .;
         build/us/src/assets/game/game_item.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_SBSS_END = .;
         segment_game_item_SBSS_SIZE = ABSOLUTE(segment_game_item_SBSS_END - segment_game_item_SBSS_START);
 
         segment_game_item_SCOMMON_START = .;
         build/us/src/assets/game/game_item.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_SCOMMON_END = .;
         segment_game_item_SCOMMON_SIZE = ABSOLUTE(segment_game_item_SCOMMON_END - segment_game_item_SCOMMON_START);
 
         segment_game_item_BSS_START = .;
         build/us/src/assets/game/game_item.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_item_BSS_END = .;
         segment_game_item_BSS_SIZE = ABSOLUTE(segment_game_item_BSS_END - segment_game_item_BSS_START);
 
         segment_game_itemCOMMON_START = .;
         build/us/src/assets/game/game_item.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_game_itemCOMMON_END = .;
         segment_game_itemCOMMON_SIZE = ABSOLUTE(segment_game_itemCOMMON_END - segment_game_itemCOMMON_START);
     }
@@ -6778,25 +6778,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_a_TEXT_START = .;
         build/us/src/assets/anime/anime_a.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_TEXT_END = .;
         segment_anime_a_TEXT_SIZE = ABSOLUTE(segment_anime_a_TEXT_END - segment_anime_a_TEXT_START);
 
         segment_anime_a_DATA_START = .;
         build/us/src/assets/anime/anime_a.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_DATA_END = .;
         segment_anime_a_DATA_SIZE = ABSOLUTE(segment_anime_a_DATA_END - segment_anime_a_DATA_START);
 
         segment_anime_a_RODATA_START = .;
         build/us/src/assets/anime/anime_a.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_RODATA_END = .;
         segment_anime_a_RODATA_SIZE = ABSOLUTE(segment_anime_a_RODATA_END - segment_anime_a_RODATA_START);
 
         segment_anime_a_SDATA_START = .;
         build/us/src/assets/anime/anime_a.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_SDATA_END = .;
         segment_anime_a_SDATA_SIZE = ABSOLUTE(segment_anime_a_SDATA_END - segment_anime_a_SDATA_START);
     }
@@ -6809,25 +6809,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_a_SBSS_START = .;
         build/us/src/assets/anime/anime_a.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_SBSS_END = .;
         segment_anime_a_SBSS_SIZE = ABSOLUTE(segment_anime_a_SBSS_END - segment_anime_a_SBSS_START);
 
         segment_anime_a_SCOMMON_START = .;
         build/us/src/assets/anime/anime_a.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_SCOMMON_END = .;
         segment_anime_a_SCOMMON_SIZE = ABSOLUTE(segment_anime_a_SCOMMON_END - segment_anime_a_SCOMMON_START);
 
         segment_anime_a_BSS_START = .;
         build/us/src/assets/anime/anime_a.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_a_BSS_END = .;
         segment_anime_a_BSS_SIZE = ABSOLUTE(segment_anime_a_BSS_END - segment_anime_a_BSS_START);
 
         segment_anime_aCOMMON_START = .;
         build/us/src/assets/anime/anime_a.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_aCOMMON_END = .;
         segment_anime_aCOMMON_SIZE = ABSOLUTE(segment_anime_aCOMMON_END - segment_anime_aCOMMON_START);
     }
@@ -6847,25 +6847,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_b_TEXT_START = .;
         build/us/src/assets/anime/anime_b.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_TEXT_END = .;
         segment_anime_b_TEXT_SIZE = ABSOLUTE(segment_anime_b_TEXT_END - segment_anime_b_TEXT_START);
 
         segment_anime_b_DATA_START = .;
         build/us/src/assets/anime/anime_b.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_DATA_END = .;
         segment_anime_b_DATA_SIZE = ABSOLUTE(segment_anime_b_DATA_END - segment_anime_b_DATA_START);
 
         segment_anime_b_RODATA_START = .;
         build/us/src/assets/anime/anime_b.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_RODATA_END = .;
         segment_anime_b_RODATA_SIZE = ABSOLUTE(segment_anime_b_RODATA_END - segment_anime_b_RODATA_START);
 
         segment_anime_b_SDATA_START = .;
         build/us/src/assets/anime/anime_b.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_SDATA_END = .;
         segment_anime_b_SDATA_SIZE = ABSOLUTE(segment_anime_b_SDATA_END - segment_anime_b_SDATA_START);
     }
@@ -6878,25 +6878,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_b_SBSS_START = .;
         build/us/src/assets/anime/anime_b.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_SBSS_END = .;
         segment_anime_b_SBSS_SIZE = ABSOLUTE(segment_anime_b_SBSS_END - segment_anime_b_SBSS_START);
 
         segment_anime_b_SCOMMON_START = .;
         build/us/src/assets/anime/anime_b.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_SCOMMON_END = .;
         segment_anime_b_SCOMMON_SIZE = ABSOLUTE(segment_anime_b_SCOMMON_END - segment_anime_b_SCOMMON_START);
 
         segment_anime_b_BSS_START = .;
         build/us/src/assets/anime/anime_b.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_b_BSS_END = .;
         segment_anime_b_BSS_SIZE = ABSOLUTE(segment_anime_b_BSS_END - segment_anime_b_BSS_START);
 
         segment_anime_bCOMMON_START = .;
         build/us/src/assets/anime/anime_b.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_bCOMMON_END = .;
         segment_anime_bCOMMON_SIZE = ABSOLUTE(segment_anime_bCOMMON_END - segment_anime_bCOMMON_START);
     }
@@ -6916,25 +6916,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_c_TEXT_START = .;
         build/us/src/assets/anime/anime_c.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_TEXT_END = .;
         segment_anime_c_TEXT_SIZE = ABSOLUTE(segment_anime_c_TEXT_END - segment_anime_c_TEXT_START);
 
         segment_anime_c_DATA_START = .;
         build/us/src/assets/anime/anime_c.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_DATA_END = .;
         segment_anime_c_DATA_SIZE = ABSOLUTE(segment_anime_c_DATA_END - segment_anime_c_DATA_START);
 
         segment_anime_c_RODATA_START = .;
         build/us/src/assets/anime/anime_c.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_RODATA_END = .;
         segment_anime_c_RODATA_SIZE = ABSOLUTE(segment_anime_c_RODATA_END - segment_anime_c_RODATA_START);
 
         segment_anime_c_SDATA_START = .;
         build/us/src/assets/anime/anime_c.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_SDATA_END = .;
         segment_anime_c_SDATA_SIZE = ABSOLUTE(segment_anime_c_SDATA_END - segment_anime_c_SDATA_START);
     }
@@ -6947,25 +6947,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_c_SBSS_START = .;
         build/us/src/assets/anime/anime_c.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_SBSS_END = .;
         segment_anime_c_SBSS_SIZE = ABSOLUTE(segment_anime_c_SBSS_END - segment_anime_c_SBSS_START);
 
         segment_anime_c_SCOMMON_START = .;
         build/us/src/assets/anime/anime_c.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_SCOMMON_END = .;
         segment_anime_c_SCOMMON_SIZE = ABSOLUTE(segment_anime_c_SCOMMON_END - segment_anime_c_SCOMMON_START);
 
         segment_anime_c_BSS_START = .;
         build/us/src/assets/anime/anime_c.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_c_BSS_END = .;
         segment_anime_c_BSS_SIZE = ABSOLUTE(segment_anime_c_BSS_END - segment_anime_c_BSS_START);
 
         segment_anime_cCOMMON_START = .;
         build/us/src/assets/anime/anime_c.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_cCOMMON_END = .;
         segment_anime_cCOMMON_SIZE = ABSOLUTE(segment_anime_cCOMMON_END - segment_anime_cCOMMON_START);
     }
@@ -6985,25 +6985,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_d_TEXT_START = .;
         build/us/src/assets/anime/anime_d.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_TEXT_END = .;
         segment_anime_d_TEXT_SIZE = ABSOLUTE(segment_anime_d_TEXT_END - segment_anime_d_TEXT_START);
 
         segment_anime_d_DATA_START = .;
         build/us/src/assets/anime/anime_d.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_DATA_END = .;
         segment_anime_d_DATA_SIZE = ABSOLUTE(segment_anime_d_DATA_END - segment_anime_d_DATA_START);
 
         segment_anime_d_RODATA_START = .;
         build/us/src/assets/anime/anime_d.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_RODATA_END = .;
         segment_anime_d_RODATA_SIZE = ABSOLUTE(segment_anime_d_RODATA_END - segment_anime_d_RODATA_START);
 
         segment_anime_d_SDATA_START = .;
         build/us/src/assets/anime/anime_d.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_SDATA_END = .;
         segment_anime_d_SDATA_SIZE = ABSOLUTE(segment_anime_d_SDATA_END - segment_anime_d_SDATA_START);
     }
@@ -7016,25 +7016,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_d_SBSS_START = .;
         build/us/src/assets/anime/anime_d.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_SBSS_END = .;
         segment_anime_d_SBSS_SIZE = ABSOLUTE(segment_anime_d_SBSS_END - segment_anime_d_SBSS_START);
 
         segment_anime_d_SCOMMON_START = .;
         build/us/src/assets/anime/anime_d.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_SCOMMON_END = .;
         segment_anime_d_SCOMMON_SIZE = ABSOLUTE(segment_anime_d_SCOMMON_END - segment_anime_d_SCOMMON_START);
 
         segment_anime_d_BSS_START = .;
         build/us/src/assets/anime/anime_d.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_d_BSS_END = .;
         segment_anime_d_BSS_SIZE = ABSOLUTE(segment_anime_d_BSS_END - segment_anime_d_BSS_START);
 
         segment_anime_dCOMMON_START = .;
         build/us/src/assets/anime/anime_d.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_dCOMMON_END = .;
         segment_anime_dCOMMON_SIZE = ABSOLUTE(segment_anime_dCOMMON_END - segment_anime_dCOMMON_START);
     }
@@ -7054,25 +7054,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_e_TEXT_START = .;
         build/us/src/assets/anime/anime_e.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_TEXT_END = .;
         segment_anime_e_TEXT_SIZE = ABSOLUTE(segment_anime_e_TEXT_END - segment_anime_e_TEXT_START);
 
         segment_anime_e_DATA_START = .;
         build/us/src/assets/anime/anime_e.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_DATA_END = .;
         segment_anime_e_DATA_SIZE = ABSOLUTE(segment_anime_e_DATA_END - segment_anime_e_DATA_START);
 
         segment_anime_e_RODATA_START = .;
         build/us/src/assets/anime/anime_e.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_RODATA_END = .;
         segment_anime_e_RODATA_SIZE = ABSOLUTE(segment_anime_e_RODATA_END - segment_anime_e_RODATA_START);
 
         segment_anime_e_SDATA_START = .;
         build/us/src/assets/anime/anime_e.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_SDATA_END = .;
         segment_anime_e_SDATA_SIZE = ABSOLUTE(segment_anime_e_SDATA_END - segment_anime_e_SDATA_START);
     }
@@ -7085,25 +7085,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_e_SBSS_START = .;
         build/us/src/assets/anime/anime_e.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_SBSS_END = .;
         segment_anime_e_SBSS_SIZE = ABSOLUTE(segment_anime_e_SBSS_END - segment_anime_e_SBSS_START);
 
         segment_anime_e_SCOMMON_START = .;
         build/us/src/assets/anime/anime_e.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_SCOMMON_END = .;
         segment_anime_e_SCOMMON_SIZE = ABSOLUTE(segment_anime_e_SCOMMON_END - segment_anime_e_SCOMMON_START);
 
         segment_anime_e_BSS_START = .;
         build/us/src/assets/anime/anime_e.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_e_BSS_END = .;
         segment_anime_e_BSS_SIZE = ABSOLUTE(segment_anime_e_BSS_END - segment_anime_e_BSS_START);
 
         segment_anime_eCOMMON_START = .;
         build/us/src/assets/anime/anime_e.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_eCOMMON_END = .;
         segment_anime_eCOMMON_SIZE = ABSOLUTE(segment_anime_eCOMMON_END - segment_anime_eCOMMON_START);
     }
@@ -7123,25 +7123,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_f_TEXT_START = .;
         build/us/src/assets/anime/anime_f.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_TEXT_END = .;
         segment_anime_f_TEXT_SIZE = ABSOLUTE(segment_anime_f_TEXT_END - segment_anime_f_TEXT_START);
 
         segment_anime_f_DATA_START = .;
         build/us/src/assets/anime/anime_f.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_DATA_END = .;
         segment_anime_f_DATA_SIZE = ABSOLUTE(segment_anime_f_DATA_END - segment_anime_f_DATA_START);
 
         segment_anime_f_RODATA_START = .;
         build/us/src/assets/anime/anime_f.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_RODATA_END = .;
         segment_anime_f_RODATA_SIZE = ABSOLUTE(segment_anime_f_RODATA_END - segment_anime_f_RODATA_START);
 
         segment_anime_f_SDATA_START = .;
         build/us/src/assets/anime/anime_f.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_SDATA_END = .;
         segment_anime_f_SDATA_SIZE = ABSOLUTE(segment_anime_f_SDATA_END - segment_anime_f_SDATA_START);
     }
@@ -7154,25 +7154,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_f_SBSS_START = .;
         build/us/src/assets/anime/anime_f.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_SBSS_END = .;
         segment_anime_f_SBSS_SIZE = ABSOLUTE(segment_anime_f_SBSS_END - segment_anime_f_SBSS_START);
 
         segment_anime_f_SCOMMON_START = .;
         build/us/src/assets/anime/anime_f.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_SCOMMON_END = .;
         segment_anime_f_SCOMMON_SIZE = ABSOLUTE(segment_anime_f_SCOMMON_END - segment_anime_f_SCOMMON_START);
 
         segment_anime_f_BSS_START = .;
         build/us/src/assets/anime/anime_f.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_f_BSS_END = .;
         segment_anime_f_BSS_SIZE = ABSOLUTE(segment_anime_f_BSS_END - segment_anime_f_BSS_START);
 
         segment_anime_fCOMMON_START = .;
         build/us/src/assets/anime/anime_f.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_fCOMMON_END = .;
         segment_anime_fCOMMON_SIZE = ABSOLUTE(segment_anime_fCOMMON_END - segment_anime_fCOMMON_START);
     }
@@ -7192,25 +7192,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_g_TEXT_START = .;
         build/us/src/assets/anime/anime_g.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_TEXT_END = .;
         segment_anime_g_TEXT_SIZE = ABSOLUTE(segment_anime_g_TEXT_END - segment_anime_g_TEXT_START);
 
         segment_anime_g_DATA_START = .;
         build/us/src/assets/anime/anime_g.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_DATA_END = .;
         segment_anime_g_DATA_SIZE = ABSOLUTE(segment_anime_g_DATA_END - segment_anime_g_DATA_START);
 
         segment_anime_g_RODATA_START = .;
         build/us/src/assets/anime/anime_g.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_RODATA_END = .;
         segment_anime_g_RODATA_SIZE = ABSOLUTE(segment_anime_g_RODATA_END - segment_anime_g_RODATA_START);
 
         segment_anime_g_SDATA_START = .;
         build/us/src/assets/anime/anime_g.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_SDATA_END = .;
         segment_anime_g_SDATA_SIZE = ABSOLUTE(segment_anime_g_SDATA_END - segment_anime_g_SDATA_START);
     }
@@ -7223,25 +7223,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_g_SBSS_START = .;
         build/us/src/assets/anime/anime_g.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_SBSS_END = .;
         segment_anime_g_SBSS_SIZE = ABSOLUTE(segment_anime_g_SBSS_END - segment_anime_g_SBSS_START);
 
         segment_anime_g_SCOMMON_START = .;
         build/us/src/assets/anime/anime_g.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_SCOMMON_END = .;
         segment_anime_g_SCOMMON_SIZE = ABSOLUTE(segment_anime_g_SCOMMON_END - segment_anime_g_SCOMMON_START);
 
         segment_anime_g_BSS_START = .;
         build/us/src/assets/anime/anime_g.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_g_BSS_END = .;
         segment_anime_g_BSS_SIZE = ABSOLUTE(segment_anime_g_BSS_END - segment_anime_g_BSS_START);
 
         segment_anime_gCOMMON_START = .;
         build/us/src/assets/anime/anime_g.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_gCOMMON_END = .;
         segment_anime_gCOMMON_SIZE = ABSOLUTE(segment_anime_gCOMMON_END - segment_anime_gCOMMON_START);
     }
@@ -7261,25 +7261,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_h_TEXT_START = .;
         build/us/src/assets/anime/anime_h.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_TEXT_END = .;
         segment_anime_h_TEXT_SIZE = ABSOLUTE(segment_anime_h_TEXT_END - segment_anime_h_TEXT_START);
 
         segment_anime_h_DATA_START = .;
         build/us/src/assets/anime/anime_h.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_DATA_END = .;
         segment_anime_h_DATA_SIZE = ABSOLUTE(segment_anime_h_DATA_END - segment_anime_h_DATA_START);
 
         segment_anime_h_RODATA_START = .;
         build/us/src/assets/anime/anime_h.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_RODATA_END = .;
         segment_anime_h_RODATA_SIZE = ABSOLUTE(segment_anime_h_RODATA_END - segment_anime_h_RODATA_START);
 
         segment_anime_h_SDATA_START = .;
         build/us/src/assets/anime/anime_h.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_SDATA_END = .;
         segment_anime_h_SDATA_SIZE = ABSOLUTE(segment_anime_h_SDATA_END - segment_anime_h_SDATA_START);
     }
@@ -7292,25 +7292,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_h_SBSS_START = .;
         build/us/src/assets/anime/anime_h.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_SBSS_END = .;
         segment_anime_h_SBSS_SIZE = ABSOLUTE(segment_anime_h_SBSS_END - segment_anime_h_SBSS_START);
 
         segment_anime_h_SCOMMON_START = .;
         build/us/src/assets/anime/anime_h.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_SCOMMON_END = .;
         segment_anime_h_SCOMMON_SIZE = ABSOLUTE(segment_anime_h_SCOMMON_END - segment_anime_h_SCOMMON_START);
 
         segment_anime_h_BSS_START = .;
         build/us/src/assets/anime/anime_h.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_h_BSS_END = .;
         segment_anime_h_BSS_SIZE = ABSOLUTE(segment_anime_h_BSS_END - segment_anime_h_BSS_START);
 
         segment_anime_hCOMMON_START = .;
         build/us/src/assets/anime/anime_h.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_hCOMMON_END = .;
         segment_anime_hCOMMON_SIZE = ABSOLUTE(segment_anime_hCOMMON_END - segment_anime_hCOMMON_START);
     }
@@ -7330,25 +7330,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_i_TEXT_START = .;
         build/us/src/assets/anime/anime_i.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_TEXT_END = .;
         segment_anime_i_TEXT_SIZE = ABSOLUTE(segment_anime_i_TEXT_END - segment_anime_i_TEXT_START);
 
         segment_anime_i_DATA_START = .;
         build/us/src/assets/anime/anime_i.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_DATA_END = .;
         segment_anime_i_DATA_SIZE = ABSOLUTE(segment_anime_i_DATA_END - segment_anime_i_DATA_START);
 
         segment_anime_i_RODATA_START = .;
         build/us/src/assets/anime/anime_i.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_RODATA_END = .;
         segment_anime_i_RODATA_SIZE = ABSOLUTE(segment_anime_i_RODATA_END - segment_anime_i_RODATA_START);
 
         segment_anime_i_SDATA_START = .;
         build/us/src/assets/anime/anime_i.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_SDATA_END = .;
         segment_anime_i_SDATA_SIZE = ABSOLUTE(segment_anime_i_SDATA_END - segment_anime_i_SDATA_START);
     }
@@ -7361,25 +7361,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_i_SBSS_START = .;
         build/us/src/assets/anime/anime_i.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_SBSS_END = .;
         segment_anime_i_SBSS_SIZE = ABSOLUTE(segment_anime_i_SBSS_END - segment_anime_i_SBSS_START);
 
         segment_anime_i_SCOMMON_START = .;
         build/us/src/assets/anime/anime_i.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_SCOMMON_END = .;
         segment_anime_i_SCOMMON_SIZE = ABSOLUTE(segment_anime_i_SCOMMON_END - segment_anime_i_SCOMMON_START);
 
         segment_anime_i_BSS_START = .;
         build/us/src/assets/anime/anime_i.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_i_BSS_END = .;
         segment_anime_i_BSS_SIZE = ABSOLUTE(segment_anime_i_BSS_END - segment_anime_i_BSS_START);
 
         segment_anime_iCOMMON_START = .;
         build/us/src/assets/anime/anime_i.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_iCOMMON_END = .;
         segment_anime_iCOMMON_SIZE = ABSOLUTE(segment_anime_iCOMMON_END - segment_anime_iCOMMON_START);
     }
@@ -7399,25 +7399,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_j_TEXT_START = .;
         build/us/src/assets/anime/anime_j.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_TEXT_END = .;
         segment_anime_j_TEXT_SIZE = ABSOLUTE(segment_anime_j_TEXT_END - segment_anime_j_TEXT_START);
 
         segment_anime_j_DATA_START = .;
         build/us/src/assets/anime/anime_j.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_DATA_END = .;
         segment_anime_j_DATA_SIZE = ABSOLUTE(segment_anime_j_DATA_END - segment_anime_j_DATA_START);
 
         segment_anime_j_RODATA_START = .;
         build/us/src/assets/anime/anime_j.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_RODATA_END = .;
         segment_anime_j_RODATA_SIZE = ABSOLUTE(segment_anime_j_RODATA_END - segment_anime_j_RODATA_START);
 
         segment_anime_j_SDATA_START = .;
         build/us/src/assets/anime/anime_j.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_SDATA_END = .;
         segment_anime_j_SDATA_SIZE = ABSOLUTE(segment_anime_j_SDATA_END - segment_anime_j_SDATA_START);
     }
@@ -7430,25 +7430,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_j_SBSS_START = .;
         build/us/src/assets/anime/anime_j.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_SBSS_END = .;
         segment_anime_j_SBSS_SIZE = ABSOLUTE(segment_anime_j_SBSS_END - segment_anime_j_SBSS_START);
 
         segment_anime_j_SCOMMON_START = .;
         build/us/src/assets/anime/anime_j.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_SCOMMON_END = .;
         segment_anime_j_SCOMMON_SIZE = ABSOLUTE(segment_anime_j_SCOMMON_END - segment_anime_j_SCOMMON_START);
 
         segment_anime_j_BSS_START = .;
         build/us/src/assets/anime/anime_j.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_j_BSS_END = .;
         segment_anime_j_BSS_SIZE = ABSOLUTE(segment_anime_j_BSS_END - segment_anime_j_BSS_START);
 
         segment_anime_jCOMMON_START = .;
         build/us/src/assets/anime/anime_j.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_jCOMMON_END = .;
         segment_anime_jCOMMON_SIZE = ABSOLUTE(segment_anime_jCOMMON_END - segment_anime_jCOMMON_START);
     }
@@ -7468,25 +7468,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_k_TEXT_START = .;
         build/us/src/assets/anime/anime_k.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_TEXT_END = .;
         segment_anime_k_TEXT_SIZE = ABSOLUTE(segment_anime_k_TEXT_END - segment_anime_k_TEXT_START);
 
         segment_anime_k_DATA_START = .;
         build/us/src/assets/anime/anime_k.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_DATA_END = .;
         segment_anime_k_DATA_SIZE = ABSOLUTE(segment_anime_k_DATA_END - segment_anime_k_DATA_START);
 
         segment_anime_k_RODATA_START = .;
         build/us/src/assets/anime/anime_k.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_RODATA_END = .;
         segment_anime_k_RODATA_SIZE = ABSOLUTE(segment_anime_k_RODATA_END - segment_anime_k_RODATA_START);
 
         segment_anime_k_SDATA_START = .;
         build/us/src/assets/anime/anime_k.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_SDATA_END = .;
         segment_anime_k_SDATA_SIZE = ABSOLUTE(segment_anime_k_SDATA_END - segment_anime_k_SDATA_START);
     }
@@ -7499,25 +7499,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_k_SBSS_START = .;
         build/us/src/assets/anime/anime_k.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_SBSS_END = .;
         segment_anime_k_SBSS_SIZE = ABSOLUTE(segment_anime_k_SBSS_END - segment_anime_k_SBSS_START);
 
         segment_anime_k_SCOMMON_START = .;
         build/us/src/assets/anime/anime_k.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_SCOMMON_END = .;
         segment_anime_k_SCOMMON_SIZE = ABSOLUTE(segment_anime_k_SCOMMON_END - segment_anime_k_SCOMMON_START);
 
         segment_anime_k_BSS_START = .;
         build/us/src/assets/anime/anime_k.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_k_BSS_END = .;
         segment_anime_k_BSS_SIZE = ABSOLUTE(segment_anime_k_BSS_END - segment_anime_k_BSS_START);
 
         segment_anime_kCOMMON_START = .;
         build/us/src/assets/anime/anime_k.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_kCOMMON_END = .;
         segment_anime_kCOMMON_SIZE = ABSOLUTE(segment_anime_kCOMMON_END - segment_anime_kCOMMON_START);
     }
@@ -7537,25 +7537,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_l_TEXT_START = .;
         build/us/src/assets/anime/anime_l.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_TEXT_END = .;
         segment_anime_l_TEXT_SIZE = ABSOLUTE(segment_anime_l_TEXT_END - segment_anime_l_TEXT_START);
 
         segment_anime_l_DATA_START = .;
         build/us/src/assets/anime/anime_l.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_DATA_END = .;
         segment_anime_l_DATA_SIZE = ABSOLUTE(segment_anime_l_DATA_END - segment_anime_l_DATA_START);
 
         segment_anime_l_RODATA_START = .;
         build/us/src/assets/anime/anime_l.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_RODATA_END = .;
         segment_anime_l_RODATA_SIZE = ABSOLUTE(segment_anime_l_RODATA_END - segment_anime_l_RODATA_START);
 
         segment_anime_l_SDATA_START = .;
         build/us/src/assets/anime/anime_l.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_SDATA_END = .;
         segment_anime_l_SDATA_SIZE = ABSOLUTE(segment_anime_l_SDATA_END - segment_anime_l_SDATA_START);
     }
@@ -7568,25 +7568,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_l_SBSS_START = .;
         build/us/src/assets/anime/anime_l.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_SBSS_END = .;
         segment_anime_l_SBSS_SIZE = ABSOLUTE(segment_anime_l_SBSS_END - segment_anime_l_SBSS_START);
 
         segment_anime_l_SCOMMON_START = .;
         build/us/src/assets/anime/anime_l.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_SCOMMON_END = .;
         segment_anime_l_SCOMMON_SIZE = ABSOLUTE(segment_anime_l_SCOMMON_END - segment_anime_l_SCOMMON_START);
 
         segment_anime_l_BSS_START = .;
         build/us/src/assets/anime/anime_l.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_l_BSS_END = .;
         segment_anime_l_BSS_SIZE = ABSOLUTE(segment_anime_l_BSS_END - segment_anime_l_BSS_START);
 
         segment_anime_lCOMMON_START = .;
         build/us/src/assets/anime/anime_l.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_lCOMMON_END = .;
         segment_anime_lCOMMON_SIZE = ABSOLUTE(segment_anime_lCOMMON_END - segment_anime_lCOMMON_START);
     }
@@ -7606,25 +7606,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_m_TEXT_START = .;
         build/us/src/assets/anime/anime_m.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_TEXT_END = .;
         segment_anime_m_TEXT_SIZE = ABSOLUTE(segment_anime_m_TEXT_END - segment_anime_m_TEXT_START);
 
         segment_anime_m_DATA_START = .;
         build/us/src/assets/anime/anime_m.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_DATA_END = .;
         segment_anime_m_DATA_SIZE = ABSOLUTE(segment_anime_m_DATA_END - segment_anime_m_DATA_START);
 
         segment_anime_m_RODATA_START = .;
         build/us/src/assets/anime/anime_m.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_RODATA_END = .;
         segment_anime_m_RODATA_SIZE = ABSOLUTE(segment_anime_m_RODATA_END - segment_anime_m_RODATA_START);
 
         segment_anime_m_SDATA_START = .;
         build/us/src/assets/anime/anime_m.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_SDATA_END = .;
         segment_anime_m_SDATA_SIZE = ABSOLUTE(segment_anime_m_SDATA_END - segment_anime_m_SDATA_START);
     }
@@ -7637,25 +7637,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_m_SBSS_START = .;
         build/us/src/assets/anime/anime_m.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_SBSS_END = .;
         segment_anime_m_SBSS_SIZE = ABSOLUTE(segment_anime_m_SBSS_END - segment_anime_m_SBSS_START);
 
         segment_anime_m_SCOMMON_START = .;
         build/us/src/assets/anime/anime_m.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_SCOMMON_END = .;
         segment_anime_m_SCOMMON_SIZE = ABSOLUTE(segment_anime_m_SCOMMON_END - segment_anime_m_SCOMMON_START);
 
         segment_anime_m_BSS_START = .;
         build/us/src/assets/anime/anime_m.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_m_BSS_END = .;
         segment_anime_m_BSS_SIZE = ABSOLUTE(segment_anime_m_BSS_END - segment_anime_m_BSS_START);
 
         segment_anime_mCOMMON_START = .;
         build/us/src/assets/anime/anime_m.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mCOMMON_END = .;
         segment_anime_mCOMMON_SIZE = ABSOLUTE(segment_anime_mCOMMON_END - segment_anime_mCOMMON_START);
     }
@@ -7675,25 +7675,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_n_TEXT_START = .;
         build/us/src/assets/anime/anime_n.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_TEXT_END = .;
         segment_anime_n_TEXT_SIZE = ABSOLUTE(segment_anime_n_TEXT_END - segment_anime_n_TEXT_START);
 
         segment_anime_n_DATA_START = .;
         build/us/src/assets/anime/anime_n.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_DATA_END = .;
         segment_anime_n_DATA_SIZE = ABSOLUTE(segment_anime_n_DATA_END - segment_anime_n_DATA_START);
 
         segment_anime_n_RODATA_START = .;
         build/us/src/assets/anime/anime_n.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_RODATA_END = .;
         segment_anime_n_RODATA_SIZE = ABSOLUTE(segment_anime_n_RODATA_END - segment_anime_n_RODATA_START);
 
         segment_anime_n_SDATA_START = .;
         build/us/src/assets/anime/anime_n.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_SDATA_END = .;
         segment_anime_n_SDATA_SIZE = ABSOLUTE(segment_anime_n_SDATA_END - segment_anime_n_SDATA_START);
     }
@@ -7706,25 +7706,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_n_SBSS_START = .;
         build/us/src/assets/anime/anime_n.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_SBSS_END = .;
         segment_anime_n_SBSS_SIZE = ABSOLUTE(segment_anime_n_SBSS_END - segment_anime_n_SBSS_START);
 
         segment_anime_n_SCOMMON_START = .;
         build/us/src/assets/anime/anime_n.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_SCOMMON_END = .;
         segment_anime_n_SCOMMON_SIZE = ABSOLUTE(segment_anime_n_SCOMMON_END - segment_anime_n_SCOMMON_START);
 
         segment_anime_n_BSS_START = .;
         build/us/src/assets/anime/anime_n.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_n_BSS_END = .;
         segment_anime_n_BSS_SIZE = ABSOLUTE(segment_anime_n_BSS_END - segment_anime_n_BSS_START);
 
         segment_anime_nCOMMON_START = .;
         build/us/src/assets/anime/anime_n.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_nCOMMON_END = .;
         segment_anime_nCOMMON_SIZE = ABSOLUTE(segment_anime_nCOMMON_END - segment_anime_nCOMMON_START);
     }
@@ -7744,25 +7744,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_o_TEXT_START = .;
         build/us/src/assets/anime/anime_o.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_TEXT_END = .;
         segment_anime_o_TEXT_SIZE = ABSOLUTE(segment_anime_o_TEXT_END - segment_anime_o_TEXT_START);
 
         segment_anime_o_DATA_START = .;
         build/us/src/assets/anime/anime_o.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_DATA_END = .;
         segment_anime_o_DATA_SIZE = ABSOLUTE(segment_anime_o_DATA_END - segment_anime_o_DATA_START);
 
         segment_anime_o_RODATA_START = .;
         build/us/src/assets/anime/anime_o.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_RODATA_END = .;
         segment_anime_o_RODATA_SIZE = ABSOLUTE(segment_anime_o_RODATA_END - segment_anime_o_RODATA_START);
 
         segment_anime_o_SDATA_START = .;
         build/us/src/assets/anime/anime_o.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_SDATA_END = .;
         segment_anime_o_SDATA_SIZE = ABSOLUTE(segment_anime_o_SDATA_END - segment_anime_o_SDATA_START);
     }
@@ -7775,25 +7775,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_o_SBSS_START = .;
         build/us/src/assets/anime/anime_o.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_SBSS_END = .;
         segment_anime_o_SBSS_SIZE = ABSOLUTE(segment_anime_o_SBSS_END - segment_anime_o_SBSS_START);
 
         segment_anime_o_SCOMMON_START = .;
         build/us/src/assets/anime/anime_o.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_SCOMMON_END = .;
         segment_anime_o_SCOMMON_SIZE = ABSOLUTE(segment_anime_o_SCOMMON_END - segment_anime_o_SCOMMON_START);
 
         segment_anime_o_BSS_START = .;
         build/us/src/assets/anime/anime_o.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_o_BSS_END = .;
         segment_anime_o_BSS_SIZE = ABSOLUTE(segment_anime_o_BSS_END - segment_anime_o_BSS_START);
 
         segment_anime_oCOMMON_START = .;
         build/us/src/assets/anime/anime_o.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_oCOMMON_END = .;
         segment_anime_oCOMMON_SIZE = ABSOLUTE(segment_anime_oCOMMON_END - segment_anime_oCOMMON_START);
     }
@@ -7813,25 +7813,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_mario_TEXT_START = .;
         build/us/src/assets/anime/anime_mario.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_TEXT_END = .;
         segment_anime_mario_TEXT_SIZE = ABSOLUTE(segment_anime_mario_TEXT_END - segment_anime_mario_TEXT_START);
 
         segment_anime_mario_DATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_DATA_END = .;
         segment_anime_mario_DATA_SIZE = ABSOLUTE(segment_anime_mario_DATA_END - segment_anime_mario_DATA_START);
 
         segment_anime_mario_RODATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_RODATA_END = .;
         segment_anime_mario_RODATA_SIZE = ABSOLUTE(segment_anime_mario_RODATA_END - segment_anime_mario_RODATA_START);
 
         segment_anime_mario_SDATA_START = .;
         build/us/src/assets/anime/anime_mario.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_SDATA_END = .;
         segment_anime_mario_SDATA_SIZE = ABSOLUTE(segment_anime_mario_SDATA_END - segment_anime_mario_SDATA_START);
     }
@@ -7844,25 +7844,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_mario_SBSS_START = .;
         build/us/src/assets/anime/anime_mario.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_SBSS_END = .;
         segment_anime_mario_SBSS_SIZE = ABSOLUTE(segment_anime_mario_SBSS_END - segment_anime_mario_SBSS_START);
 
         segment_anime_mario_SCOMMON_START = .;
         build/us/src/assets/anime/anime_mario.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_SCOMMON_END = .;
         segment_anime_mario_SCOMMON_SIZE = ABSOLUTE(segment_anime_mario_SCOMMON_END - segment_anime_mario_SCOMMON_START);
 
         segment_anime_mario_BSS_START = .;
         build/us/src/assets/anime/anime_mario.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_mario_BSS_END = .;
         segment_anime_mario_BSS_SIZE = ABSOLUTE(segment_anime_mario_BSS_END - segment_anime_mario_BSS_START);
 
         segment_anime_marioCOMMON_START = .;
         build/us/src/assets/anime/anime_mario.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_marioCOMMON_END = .;
         segment_anime_marioCOMMON_SIZE = ABSOLUTE(segment_anime_marioCOMMON_END - segment_anime_marioCOMMON_START);
     }
@@ -7882,25 +7882,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_b_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_TEXT_END = .;
         segment_anime_virus_b_TEXT_SIZE = ABSOLUTE(segment_anime_virus_b_TEXT_END - segment_anime_virus_b_TEXT_START);
 
         segment_anime_virus_b_DATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_DATA_END = .;
         segment_anime_virus_b_DATA_SIZE = ABSOLUTE(segment_anime_virus_b_DATA_END - segment_anime_virus_b_DATA_START);
 
         segment_anime_virus_b_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_RODATA_END = .;
         segment_anime_virus_b_RODATA_SIZE = ABSOLUTE(segment_anime_virus_b_RODATA_END - segment_anime_virus_b_RODATA_START);
 
         segment_anime_virus_b_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_SDATA_END = .;
         segment_anime_virus_b_SDATA_SIZE = ABSOLUTE(segment_anime_virus_b_SDATA_END - segment_anime_virus_b_SDATA_START);
     }
@@ -7913,25 +7913,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_b_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_SBSS_END = .;
         segment_anime_virus_b_SBSS_SIZE = ABSOLUTE(segment_anime_virus_b_SBSS_END - segment_anime_virus_b_SBSS_START);
 
         segment_anime_virus_b_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_SCOMMON_END = .;
         segment_anime_virus_b_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_b_SCOMMON_END - segment_anime_virus_b_SCOMMON_START);
 
         segment_anime_virus_b_BSS_START = .;
         build/us/src/assets/anime/anime_virus_b.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_b_BSS_END = .;
         segment_anime_virus_b_BSS_SIZE = ABSOLUTE(segment_anime_virus_b_BSS_END - segment_anime_virus_b_BSS_START);
 
         segment_anime_virus_bCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_b.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_bCOMMON_END = .;
         segment_anime_virus_bCOMMON_SIZE = ABSOLUTE(segment_anime_virus_bCOMMON_END - segment_anime_virus_bCOMMON_START);
     }
@@ -7951,25 +7951,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_r_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_TEXT_END = .;
         segment_anime_virus_r_TEXT_SIZE = ABSOLUTE(segment_anime_virus_r_TEXT_END - segment_anime_virus_r_TEXT_START);
 
         segment_anime_virus_r_DATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_DATA_END = .;
         segment_anime_virus_r_DATA_SIZE = ABSOLUTE(segment_anime_virus_r_DATA_END - segment_anime_virus_r_DATA_START);
 
         segment_anime_virus_r_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_RODATA_END = .;
         segment_anime_virus_r_RODATA_SIZE = ABSOLUTE(segment_anime_virus_r_RODATA_END - segment_anime_virus_r_RODATA_START);
 
         segment_anime_virus_r_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_SDATA_END = .;
         segment_anime_virus_r_SDATA_SIZE = ABSOLUTE(segment_anime_virus_r_SDATA_END - segment_anime_virus_r_SDATA_START);
     }
@@ -7982,25 +7982,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_r_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_SBSS_END = .;
         segment_anime_virus_r_SBSS_SIZE = ABSOLUTE(segment_anime_virus_r_SBSS_END - segment_anime_virus_r_SBSS_START);
 
         segment_anime_virus_r_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_SCOMMON_END = .;
         segment_anime_virus_r_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_r_SCOMMON_END - segment_anime_virus_r_SCOMMON_START);
 
         segment_anime_virus_r_BSS_START = .;
         build/us/src/assets/anime/anime_virus_r.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_r_BSS_END = .;
         segment_anime_virus_r_BSS_SIZE = ABSOLUTE(segment_anime_virus_r_BSS_END - segment_anime_virus_r_BSS_START);
 
         segment_anime_virus_rCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_r.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_rCOMMON_END = .;
         segment_anime_virus_rCOMMON_SIZE = ABSOLUTE(segment_anime_virus_rCOMMON_END - segment_anime_virus_rCOMMON_START);
     }
@@ -8020,25 +8020,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_y_TEXT_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_TEXT_END = .;
         segment_anime_virus_y_TEXT_SIZE = ABSOLUTE(segment_anime_virus_y_TEXT_END - segment_anime_virus_y_TEXT_START);
 
         segment_anime_virus_y_DATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_DATA_END = .;
         segment_anime_virus_y_DATA_SIZE = ABSOLUTE(segment_anime_virus_y_DATA_END - segment_anime_virus_y_DATA_START);
 
         segment_anime_virus_y_RODATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_RODATA_END = .;
         segment_anime_virus_y_RODATA_SIZE = ABSOLUTE(segment_anime_virus_y_RODATA_END - segment_anime_virus_y_RODATA_START);
 
         segment_anime_virus_y_SDATA_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_SDATA_END = .;
         segment_anime_virus_y_SDATA_SIZE = ABSOLUTE(segment_anime_virus_y_SDATA_END - segment_anime_virus_y_SDATA_START);
     }
@@ -8051,25 +8051,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_virus_y_SBSS_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_SBSS_END = .;
         segment_anime_virus_y_SBSS_SIZE = ABSOLUTE(segment_anime_virus_y_SBSS_END - segment_anime_virus_y_SBSS_START);
 
         segment_anime_virus_y_SCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_SCOMMON_END = .;
         segment_anime_virus_y_SCOMMON_SIZE = ABSOLUTE(segment_anime_virus_y_SCOMMON_END - segment_anime_virus_y_SCOMMON_START);
 
         segment_anime_virus_y_BSS_START = .;
         build/us/src/assets/anime/anime_virus_y.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_y_BSS_END = .;
         segment_anime_virus_y_BSS_SIZE = ABSOLUTE(segment_anime_virus_y_BSS_END - segment_anime_virus_y_BSS_START);
 
         segment_anime_virus_yCOMMON_START = .;
         build/us/src/assets/anime/anime_virus_y.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_virus_yCOMMON_END = .;
         segment_anime_virus_yCOMMON_SIZE = ABSOLUTE(segment_anime_virus_yCOMMON_END - segment_anime_virus_yCOMMON_START);
     }
@@ -8089,25 +8089,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_smog_TEXT_START = .;
         build/us/src/assets/anime/anime_smog.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_TEXT_END = .;
         segment_anime_smog_TEXT_SIZE = ABSOLUTE(segment_anime_smog_TEXT_END - segment_anime_smog_TEXT_START);
 
         segment_anime_smog_DATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_DATA_END = .;
         segment_anime_smog_DATA_SIZE = ABSOLUTE(segment_anime_smog_DATA_END - segment_anime_smog_DATA_START);
 
         segment_anime_smog_RODATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_RODATA_END = .;
         segment_anime_smog_RODATA_SIZE = ABSOLUTE(segment_anime_smog_RODATA_END - segment_anime_smog_RODATA_START);
 
         segment_anime_smog_SDATA_START = .;
         build/us/src/assets/anime/anime_smog.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_SDATA_END = .;
         segment_anime_smog_SDATA_SIZE = ABSOLUTE(segment_anime_smog_SDATA_END - segment_anime_smog_SDATA_START);
     }
@@ -8120,25 +8120,25 @@ SECTIONS
         FILL(0x00000000);
         segment_anime_smog_SBSS_START = .;
         build/us/src/assets/anime/anime_smog.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_SBSS_END = .;
         segment_anime_smog_SBSS_SIZE = ABSOLUTE(segment_anime_smog_SBSS_END - segment_anime_smog_SBSS_START);
 
         segment_anime_smog_SCOMMON_START = .;
         build/us/src/assets/anime/anime_smog.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_SCOMMON_END = .;
         segment_anime_smog_SCOMMON_SIZE = ABSOLUTE(segment_anime_smog_SCOMMON_END - segment_anime_smog_SCOMMON_START);
 
         segment_anime_smog_BSS_START = .;
         build/us/src/assets/anime/anime_smog.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smog_BSS_END = .;
         segment_anime_smog_BSS_SIZE = ABSOLUTE(segment_anime_smog_BSS_END - segment_anime_smog_BSS_START);
 
         segment_anime_smogCOMMON_START = .;
         build/us/src/assets/anime/anime_smog.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_anime_smogCOMMON_END = .;
         segment_anime_smogCOMMON_SIZE = ABSOLUTE(segment_anime_smogCOMMON_END - segment_anime_smogCOMMON_START);
     }
@@ -8158,25 +8158,25 @@ SECTIONS
         FILL(0x00000000);
         segment_tutorial_data_TEXT_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_TEXT_END = .;
         segment_tutorial_data_TEXT_SIZE = ABSOLUTE(segment_tutorial_data_TEXT_END - segment_tutorial_data_TEXT_START);
 
         segment_tutorial_data_DATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_DATA_END = .;
         segment_tutorial_data_DATA_SIZE = ABSOLUTE(segment_tutorial_data_DATA_END - segment_tutorial_data_DATA_START);
 
         segment_tutorial_data_RODATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_RODATA_END = .;
         segment_tutorial_data_RODATA_SIZE = ABSOLUTE(segment_tutorial_data_RODATA_END - segment_tutorial_data_RODATA_START);
 
         segment_tutorial_data_SDATA_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_SDATA_END = .;
         segment_tutorial_data_SDATA_SIZE = ABSOLUTE(segment_tutorial_data_SDATA_END - segment_tutorial_data_SDATA_START);
     }
@@ -8189,25 +8189,25 @@ SECTIONS
         FILL(0x00000000);
         segment_tutorial_data_SBSS_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_SBSS_END = .;
         segment_tutorial_data_SBSS_SIZE = ABSOLUTE(segment_tutorial_data_SBSS_END - segment_tutorial_data_SBSS_START);
 
         segment_tutorial_data_SCOMMON_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_SCOMMON_END = .;
         segment_tutorial_data_SCOMMON_SIZE = ABSOLUTE(segment_tutorial_data_SCOMMON_END - segment_tutorial_data_SCOMMON_START);
 
         segment_tutorial_data_BSS_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_data_BSS_END = .;
         segment_tutorial_data_BSS_SIZE = ABSOLUTE(segment_tutorial_data_BSS_END - segment_tutorial_data_BSS_START);
 
         segment_tutorial_dataCOMMON_START = .;
         build/us/src/assets/tutorial/tutorial_kasa.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         segment_tutorial_dataCOMMON_END = .;
         segment_tutorial_dataCOMMON_SIZE = ABSOLUTE(segment_tutorial_dataCOMMON_END - segment_tutorial_dataCOMMON_START);
     }

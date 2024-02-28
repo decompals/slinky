@@ -14,7 +14,7 @@ SECTIONS
         build/asm/main/util.o(.text*);
         libultra_start_OFFSET = .;
         build/src/libultra/libc/bzero.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
@@ -24,7 +24,7 @@ SECTIONS
         build/src/main/dmadata.o(.data*);
         build/asm/main/util.o(.data*);
         build/src/libultra/libc/bzero.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_DATA_END = .;
         main_DATA_SIZE = ABSOLUTE(main_DATA_END - main_DATA_START);
 
@@ -33,7 +33,7 @@ SECTIONS
         build/src/main/dmadata.o(.rodata*);
         build/asm/main/util.o(.rodata*);
         build/src/libultra/libc/bzero.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_RODATA_END = .;
         main_RODATA_SIZE = ABSOLUTE(main_RODATA_END - main_RODATA_START);
 
@@ -42,7 +42,7 @@ SECTIONS
         build/src/main/dmadata.o(.sdata*);
         build/asm/main/util.o(.sdata*);
         build/src/libultra/libc/bzero.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
     }
@@ -58,7 +58,7 @@ SECTIONS
         build/src/main/dmadata.o(.sbss*);
         build/asm/main/util.o(.sbss*);
         build/src/libultra/libc/bzero.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_SBSS_END = .;
         main_SBSS_SIZE = ABSOLUTE(main_SBSS_END - main_SBSS_START);
 
@@ -67,7 +67,7 @@ SECTIONS
         build/src/main/dmadata.o(.scommon*);
         build/asm/main/util.o(.scommon*);
         build/src/libultra/libc/bzero.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_SCOMMON_END = .;
         main_SCOMMON_SIZE = ABSOLUTE(main_SCOMMON_END - main_SCOMMON_START);
 
@@ -76,7 +76,7 @@ SECTIONS
         build/src/main/dmadata.o(.bss*);
         build/asm/main/util.o(.bss*);
         build/src/libultra/libc/bzero.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
 
@@ -85,7 +85,7 @@ SECTIONS
         build/src/main/dmadata.o(COMMON*);
         build/asm/main/util.o(COMMON*);
         build/src/libultra/libc/bzero.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         mainCOMMON_END = .;
         mainCOMMON_SIZE = ABSOLUTE(mainCOMMON_END - mainCOMMON_START);
     }

@@ -10,25 +10,25 @@ SECTIONS
         FILL(0x00000000);
         header_TEXT_START = .;
         build/asm/data/rom_header.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_TEXT_END = .;
         header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
         header_DATA_START = .;
         build/asm/data/rom_header.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_DATA_END = .;
         header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
         header_RODATA_START = .;
         build/asm/data/rom_header.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_RODATA_END = .;
         header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
         header_SDATA_START = .;
         build/asm/data/rom_header.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SDATA_END = .;
         header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
@@ -41,25 +41,25 @@ SECTIONS
         FILL(0x00000000);
         header_SBSS_START = .;
         build/asm/data/rom_header.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SBSS_END = .;
         header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
         header_SCOMMON_START = .;
         build/asm/data/rom_header.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_SCOMMON_END = .;
         header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
         header_BSS_START = .;
         build/asm/data/rom_header.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         header_BSS_END = .;
         header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
         build/asm/data/rom_header.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
@@ -79,25 +79,25 @@ SECTIONS
         FILL(0x00000000);
         ipl3_TEXT_START = .;
         build/asm/data/ipl3.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_TEXT_END = .;
         ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
         ipl3_DATA_START = .;
         build/asm/data/ipl3.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_DATA_END = .;
         ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
         ipl3_RODATA_START = .;
         build/asm/data/ipl3.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_RODATA_END = .;
         ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
         ipl3_SDATA_START = .;
         build/asm/data/ipl3.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SDATA_END = .;
         ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
@@ -110,25 +110,25 @@ SECTIONS
         FILL(0x00000000);
         ipl3_SBSS_START = .;
         build/asm/data/ipl3.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SBSS_END = .;
         ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
         ipl3_SCOMMON_START = .;
         build/asm/data/ipl3.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_SCOMMON_END = .;
         ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
         ipl3_BSS_START = .;
         build/asm/data/ipl3.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3_BSS_END = .;
         ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
         build/asm/data/ipl3.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
@@ -148,25 +148,25 @@ SECTIONS
         FILL(0x00000000);
         entry_TEXT_START = .;
         build/asm/entry.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_TEXT_END = .;
         entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
         entry_DATA_START = .;
         build/asm/entry.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_DATA_END = .;
         entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
         entry_RODATA_START = .;
         build/asm/entry.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_RODATA_END = .;
         entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
         entry_SDATA_START = .;
         build/asm/entry.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SDATA_END = .;
         entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
@@ -179,25 +179,25 @@ SECTIONS
         FILL(0x00000000);
         entry_SBSS_START = .;
         build/asm/entry.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SBSS_END = .;
         entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
         entry_SCOMMON_START = .;
         build/asm/entry.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_SCOMMON_END = .;
         entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
         entry_BSS_START = .;
         build/asm/entry.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entry_BSS_END = .;
         entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
         build/asm/entry.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         entryCOMMON_END = .;
         entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
@@ -219,7 +219,7 @@ SECTIONS
         build/src/boot/boot_main.o(.text*);
         build/src/boot/dmadata.o(.text*);
         build/asm/util.o(.text*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
@@ -227,7 +227,7 @@ SECTIONS
         build/src/boot/boot_main.o(.data*);
         build/src/boot/dmadata.o(.data*);
         build/asm/util.o(.data*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -235,7 +235,7 @@ SECTIONS
         build/src/boot/boot_main.o(.rodata*);
         build/src/boot/dmadata.o(.rodata*);
         build/asm/util.o(.rodata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -243,7 +243,7 @@ SECTIONS
         build/src/boot/boot_main.o(.sdata*);
         build/src/boot/dmadata.o(.sdata*);
         build/asm/util.o(.sdata*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -258,7 +258,7 @@ SECTIONS
         build/src/boot/boot_main.o(.sbss*);
         build/src/boot/dmadata.o(.sbss*);
         build/asm/util.o(.sbss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -266,7 +266,7 @@ SECTIONS
         build/src/boot/boot_main.o(.scommon*);
         build/src/boot/dmadata.o(.scommon*);
         build/asm/util.o(.scommon*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
@@ -274,7 +274,7 @@ SECTIONS
         build/src/boot/boot_main.o(.bss*);
         build/src/boot/dmadata.o(.bss*);
         build/asm/util.o(.bss*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
@@ -282,7 +282,7 @@ SECTIONS
         build/src/boot/boot_main.o(COMMON*);
         build/src/boot/dmadata.o(COMMON*);
         build/asm/util.o(COMMON*);
-        . = ALIGN(0x10)
+        . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }

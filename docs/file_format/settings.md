@@ -277,6 +277,30 @@ Positive integers or `null`.
 
 `0x10`
 
+## `segment_start_align`
+
+Force aligning the beginning of the segment to the specified value.
+
+If the value is `null` then no alignment will be forced.
+
+This option can be overriden per segment, see
+[segments.md#segment_start_align](segments.md#segment_start_align) for more info.
+
+### Example
+
+```yaml
+settings:
+  segment_start_align: 0x10
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+`null`
+
 ## `section_end_align`
 
 Force aligning the end of each section to the specified value.

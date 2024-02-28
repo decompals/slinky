@@ -119,6 +119,11 @@ impl<'a> LinkerWriter<'a> {
         let main_seg_sym_end: String = style.segment_vram_end(&segment.name);
         let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
 
+        if let Some(segment_start_align) = segment.segment_start_align {
+            self.align_symbol("__romPos", segment_start_align);
+            self.align_symbol(".", segment_start_align);
+        }
+
         self.write_symbol(&main_seg_rom_sym_start, "__romPos");
         self.write_symbol(&main_seg_sym_start, &format!("ADDR({})", dotted_seg_name));
 
@@ -138,7 +143,6 @@ impl<'a> LinkerWriter<'a> {
         );
 
         self.writeln(&format!("__romPos += SIZEOF({});", dotted_seg_name));
-        // self.writeln(&format!("__romPos = ALIGN(__romPos, {});", ));
         self.write_sym_end_size(
             &main_seg_rom_sym_start,
             &main_seg_rom_sym_end,
@@ -228,6 +232,13 @@ impl LinkerWriter<'_> {
         self.writeln(&format!("{} = {};", symbol, value));
 
         self.linker_symbols.insert(value.to_string());
+    }
+
+    fn align_symbol(&mut self, symbol: &str, align_value: u32) {
+        self.writeln(&format!(
+            "{} = ALIGN({}, 0x{:X});",
+            symbol, symbol, align_value
+        ));
     }
 
     fn write_sym_end_size(&mut self, start: &str, end: &str, size: &str, value: &str) {
@@ -355,7 +366,7 @@ impl LinkerWriter<'_> {
             self.emit_section(segment, section);
 
             if let Some(section_end_align) = segment.section_end_align {
-                self.writeln(&format!(". = ALIGN(0x{:X})", section_end_align));
+                self.align_symbol(".", section_end_align);
             }
             self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 

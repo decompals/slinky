@@ -5,8 +5,8 @@ settings:
 
 segments:
   - name: makerom
-    alloc_sections: [".data", ".text", ".rodata"]
     fixed_vram: 0x80024C00
+    alloc_sections: [".data", ".text", ".rodata"]
     files:
       - { path: makerom/header.o }
       - { path: makerom/ipl3.o }
@@ -15,3 +15,21 @@ segments:
   - name: boot
     files:
       - { path: boot/boot_main.o }
+
+  - name: gameplay_keep
+    fixed_vram: 0x04000000
+    segment_start_align: 0x1000
+    files:
+      - { path: assets/objects/gameplay_keep/gameplay_keep.o }
+
+  - name: gameplay_dangeon_keep
+    fixed_vram: 0x05000000
+    segment_start_align: 0x1000
+    files:
+      - { path: assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o }
+
+  - name: gameplay_dangeon_keep
+    fixed_vram: 0x05000000
+    segment_start_align: 0x1000
+    files:
+      - { path: assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o }

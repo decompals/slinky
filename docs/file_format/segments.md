@@ -154,6 +154,33 @@ Positive integers or `null`.
 
 The value specified for [settings.md#subalign](settings.md#subalign)
 
+## `segment_start_align`
+
+Force aligning the beginning of this specific segment to the specified value.
+
+If the value is `null` then no alignment will be forced at the start of this
+specific segment.
+
+This option overrides the global setting, see
+[settings.md#segment_start_align](settings.md#segment_start_align) for more info.
+
+### Example
+
+```yaml
+segments:
+  - name: gameplay_keep
+    segment_start_align: 0x1000
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+The value specified for
+[settings.md#segment_start_align](settings.md#segment_start_align)
+
 ## `section_end_align`
 
 Force aligning the end of each section for this segment to the specified value.
@@ -178,7 +205,8 @@ Positive integers or `null`.
 
 ### Default value
 
-The value specified for [settings.md#section_end_align](settings.md#section_end_align)
+The value specified for
+[settings.md#section_end_align](settings.md#section_end_align)
 
 ## `wildcard_sections`
 
