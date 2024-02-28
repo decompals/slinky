@@ -8,9 +8,9 @@ use std::{
     path::Path,
 };
 
-use crate::segment::Segment;
-use crate::settings::Settings;
+use crate::Settings;
 use crate::{file_kind::FileKind, SlinkyError};
+use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
     pub linker_symbols: HashSet<String>,
@@ -295,41 +295,45 @@ impl LinkerWriter<'_> {
         self.write_sym_end_size(seg_sym_start, seg_sym_end, seg_sym_size, ".");
     }
 
-    fn emit_section(&mut self, segment: &Segment, section: &str) {
+    fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str) {
         let style = &self.settings.linker_symbols_style;
 
-        for file in &segment.files {
-            let mut path = self.settings.base_path.clone();
+        let mut path = self.settings.base_path.clone();
 
-            path.extend(&file.path);
+        path.extend(&file.path);
 
-            let wildcard = if segment.wildcard_sections { "*" } else { "" };
+        let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
-            // TODO: figure out glob support
-            match file.kind {
-                FileKind::Object => {
-                    self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
-                }
-                FileKind::Archive => {
-                    self.writeln(&format!(
-                        "{}:{}({}{});",
-                        path.display(),
-                        file.subfile,
-                        section,
-                        wildcard
-                    ));
-                }
-                FileKind::Pad => {
-                    if file.section == section {
-                        self.writeln(&format!(". += 0x{:X};", file.pad_amount));
-                    }
-                }
-                FileKind::LinkerOffset => {
-                    if file.section == section {
-                        self.write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
-                    }
+        // TODO: figure out glob support
+        match file.kind {
+            FileKind::Object => {
+                self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
+            }
+            FileKind::Archive => {
+                self.writeln(&format!(
+                    "{}:{}({}{});",
+                    path.display(),
+                    file.subfile,
+                    section,
+                    wildcard
+                ));
+            }
+            FileKind::Pad => {
+                if file.section == section {
+                    self.writeln(&format!(". += 0x{:X};", file.pad_amount));
                 }
             }
+            FileKind::LinkerOffset => {
+                if file.section == section {
+                    self.write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
+                }
+            }
+        }
+    }
+
+    fn emit_section(&mut self, segment: &Segment, section: &str) {
+        for file in &segment.files {
+            self.emit_file(file, segment, section);
         }
     }
 
