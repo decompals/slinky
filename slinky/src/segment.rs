@@ -17,8 +17,13 @@ pub struct Segment {
     /// List of files corresponding to this segment
     pub files: Vec<FileInfo>,
 
-    /// If not None then forces the segment to have a fixed vram address instead of following the previous segment
+    /// If not None then forces the segment to have a fixed vram address instead of following the previous segment.
+    /// Not compatible with `follows_segment`.
     pub fixed_vram: Option<u32>,
+
+    /// If not None then forces the segment's vram address to be after the specified segment instead of following the previous one.
+    /// Not compatible with `fixed_vram`.
+    pub follows_segment: Option<String>,
 
     // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
@@ -38,6 +43,8 @@ pub(crate) struct SegmentSerial {
     pub files: Vec<FileInfoSerial>,
 
     pub fixed_vram: AbsentNullable<u32>,
+
+    pub follows_segment: AbsentNullable<String>,
 
     // The default of the following come from Options
     #[serde(default)]
@@ -79,6 +86,17 @@ impl SegmentSerial {
             .fixed_vram
             .get_optional_nullable("fixed_vram", || None)?;
 
+        let follows_segment = self
+            .follows_segment
+            .get_optional_nullable("follows_segment", || None)?;
+
+        if fixed_vram.is_some() && follows_segment.is_some() {
+            return Err(SlinkyError::InvalidFieldCombo {
+                field1: "fixed_vram".to_string(),
+                field2: "follows_segment".to_string(),
+            });
+        }
+
         let alloc_sections = self
             .alloc_sections
             .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
@@ -101,9 +119,10 @@ impl SegmentSerial {
         Ok(Segment {
             name,
             files,
+            fixed_vram,
+            follows_segment,
             alloc_sections,
             noload_sections,
-            fixed_vram,
             subalign,
             wildcard_sections,
             fill_value,

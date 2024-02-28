@@ -255,6 +255,8 @@ impl LinkerWriter<'_> {
         } else {
             if let Some(fixed_vram) = segment.fixed_vram {
                 line += &format!(" 0x{:08X}", fixed_vram);
+            } else if let Some(follows_segment) = &segment.follows_segment {
+                line += &format!(" {}", &style.segment_vram_end(follows_segment));
             }
 
             line += &format!(" : AT({})", style.segment_rom_start(&segment.name));

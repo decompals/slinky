@@ -1,0 +1,19 @@
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/main/boot_main.o }
+      - { path: src/libultra.o } # yes a single file, deal with it
+
+  - name: kanji
+    files:
+      - { path: src/kanji/kanji.o }
+
+  - name: main
+    follows_segment: boot
+    files:
+      - { path: src/main/main.o }
+      - { path: src/main/dmadata.o }
+      - { path: asm/main/util.o }
