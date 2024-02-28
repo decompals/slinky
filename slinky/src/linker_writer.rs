@@ -284,7 +284,7 @@ impl LinkerWriter<'_> {
         self.write_sym_end_size(seg_sym_start, seg_sym_end, seg_sym_size, ".");
     }
 
-    fn write_files_for_section(&mut self, segment: &Segment, section: &str) {
+    fn emit_section(&mut self, segment: &Segment, section: &str) {
         let style = &self.settings.linker_symbols_style;
 
         for file in &segment.files {
@@ -352,8 +352,11 @@ impl LinkerWriter<'_> {
 
             self.write_symbol(&section_start_sym, ".");
 
-            self.write_files_for_section(segment, section);
+            self.emit_section(segment, section);
 
+            if let Some(section_end_align) = segment.section_end_align {
+                self.writeln(&format!(". = ALIGN(0x{:X})", section_end_align));
+            }
             self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             if i + 1 < sections.len() {

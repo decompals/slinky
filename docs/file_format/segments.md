@@ -154,6 +154,32 @@ Positive integers or `null`.
 
 The value specified for [settings.md#subalign](settings.md#subalign)
 
+## `section_end_align`
+
+Force aligning the end of each section for this segment to the specified value.
+
+If the value is `null` then no alignment will be forced on the end of the
+sections of this segment.
+
+This option overrides the global setting, see
+[settings.md#section_end_align](settings.md#section_end_align) for more info.
+
+### Example
+
+```yaml
+segments:
+  - name: main
+    section_end_align: null
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+The value specified for [settings.md#section_end_align](settings.md#section_end_align)
+
 ## `wildcard_sections`
 
 Toggles using wildcards (`*`) as suffix in the emitted sections for this

@@ -1,5 +1,6 @@
 settings:
   base_path: build
+  section_end_align: null
 
 segments:
   - name: boot

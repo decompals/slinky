@@ -30,6 +30,7 @@ pub struct Segment {
     pub noload_sections: Vec<String>,
 
     pub subalign: Option<u32>,
+    pub section_end_align: Option<u32>,
 
     pub wildcard_sections: bool,
 
@@ -54,6 +55,8 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
+    #[serde(default)]
+    pub section_end_align: AbsentNullable<u32>,
 
     #[serde(default)]
     pub wildcard_sections: AbsentNullable<bool>,
@@ -108,6 +111,10 @@ impl SegmentSerial {
             .subalign
             .get_optional_nullable("subalign", || settings.subalign)?;
 
+        let section_end_align = self
+            .section_end_align
+            .get_optional_nullable("section_end_align", || settings.section_end_align)?;
+
         let wildcard_sections = self
             .wildcard_sections
             .get_non_null("wildcard_sections", || settings.wildcard_sections)?;
@@ -124,6 +131,7 @@ impl SegmentSerial {
             alloc_sections,
             noload_sections,
             subalign,
+            section_end_align,
             wildcard_sections,
             fill_value,
         })

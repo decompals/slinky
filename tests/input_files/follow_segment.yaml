@@ -1,5 +1,6 @@
 settings:
   base_path: build
+  section_end_align: null
 
 segments:
   - name: boot
@@ -13,6 +14,7 @@ segments:
 
   - name: main
     follows_segment: boot
+    section_end_align: 0x20
     files:
       - { path: src/main/main.o }
       - { path: src/main/dmadata.o }

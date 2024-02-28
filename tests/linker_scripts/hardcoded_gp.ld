@@ -14,6 +14,7 @@ SECTIONS
         build/src/main/file2.o(.rodata*);
         build/src/main/file3.o(.rodata*);
         build/src/main/file4.o(.rodata*);
+        . = ALIGN(0x10)
         main_RODATA_END = .;
         main_RODATA_SIZE = ABSOLUTE(main_RODATA_END - main_RODATA_START);
 
@@ -22,6 +23,7 @@ SECTIONS
         build/src/main/file2.o(.text*);
         build/src/main/file3.o(.text*);
         build/src/main/file4.o(.text*);
+        . = ALIGN(0x10)
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
@@ -30,6 +32,7 @@ SECTIONS
         build/src/main/file2.o(.data*);
         build/src/main/file3.o(.data*);
         build/src/main/file4.o(.data*);
+        . = ALIGN(0x10)
         main_DATA_END = .;
         main_DATA_SIZE = ABSOLUTE(main_DATA_END - main_DATA_START);
 
@@ -38,6 +41,7 @@ SECTIONS
         build/src/main/file2.o(.sdata*);
         build/src/main/file3.o(.sdata*);
         build/src/main/file4.o(.sdata*);
+        . = ALIGN(0x10)
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
 
@@ -46,6 +50,7 @@ SECTIONS
         build/src/main/file2.o(.sbss*);
         build/src/main/file3.o(.sbss*);
         build/src/main/file4.o(.sbss*);
+        . = ALIGN(0x10)
         main_SBSS_END = .;
         main_SBSS_SIZE = ABSOLUTE(main_SBSS_END - main_SBSS_START);
 
@@ -54,6 +59,7 @@ SECTIONS
         build/src/main/file2.o(.bss*);
         build/src/main/file3.o(.bss*);
         build/src/main/file4.o(.bss*);
+        . = ALIGN(0x10)
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
     }

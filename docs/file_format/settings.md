@@ -275,7 +275,32 @@ Positive integers or `null`.
 
 ### Default value
 
-`16`
+`0x10`
+
+## `section_end_align`
+
+Force aligning the end of each section to the specified value.
+
+If the value is `null` then no alignment will be forced on the end of the
+sections.
+
+This option can be overriden per segment, see
+[segments.md#section_end_align](segments.md#section_end_align) for more info.
+
+### Example
+
+```yaml
+settings:
+  section_end_align: 0x10
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+`0x10`
 
 ## `wildcard_sections`
 

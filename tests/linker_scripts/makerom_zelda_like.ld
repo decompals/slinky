@@ -12,6 +12,7 @@ SECTIONS
         build/makerom/header.o(.data*);
         build/makerom/ipl3.o(.data*);
         build/makerom/entry.o(.data*);
+        . = ALIGN(0x10)
         _makeromSegmentDataEnd = .;
         _makeromSegmentDataSize = ABSOLUTE(_makeromSegmentDataEnd - _makeromSegmentDataStart);
 
@@ -19,6 +20,7 @@ SECTIONS
         build/makerom/header.o(.text*);
         build/makerom/ipl3.o(.text*);
         build/makerom/entry.o(.text*);
+        . = ALIGN(0x10)
         _makeromSegmentTextEnd = .;
         _makeromSegmentTextSize = ABSOLUTE(_makeromSegmentTextEnd - _makeromSegmentTextStart);
 
@@ -26,6 +28,7 @@ SECTIONS
         build/makerom/header.o(.rodata*);
         build/makerom/ipl3.o(.rodata*);
         build/makerom/entry.o(.rodata*);
+        . = ALIGN(0x10)
         _makeromSegmentRoDataEnd = .;
         _makeromSegmentRoDataSize = ABSOLUTE(_makeromSegmentRoDataEnd - _makeromSegmentRoDataStart);
     }
@@ -40,6 +43,7 @@ SECTIONS
         build/makerom/header.o(.sbss*);
         build/makerom/ipl3.o(.sbss*);
         build/makerom/entry.o(.sbss*);
+        . = ALIGN(0x10)
         _makeromSegmentSbssEnd = .;
         _makeromSegmentSbssSize = ABSOLUTE(_makeromSegmentSbssEnd - _makeromSegmentSbssStart);
 
@@ -47,6 +51,7 @@ SECTIONS
         build/makerom/header.o(.scommon*);
         build/makerom/ipl3.o(.scommon*);
         build/makerom/entry.o(.scommon*);
+        . = ALIGN(0x10)
         _makeromSegmentScommonEnd = .;
         _makeromSegmentScommonSize = ABSOLUTE(_makeromSegmentScommonEnd - _makeromSegmentScommonStart);
 
@@ -54,6 +59,7 @@ SECTIONS
         build/makerom/header.o(.bss*);
         build/makerom/ipl3.o(.bss*);
         build/makerom/entry.o(.bss*);
+        . = ALIGN(0x10)
         _makeromSegmentBssEnd = .;
         _makeromSegmentBssSize = ABSOLUTE(_makeromSegmentBssEnd - _makeromSegmentBssStart);
 
@@ -61,6 +67,7 @@ SECTIONS
         build/makerom/header.o(COMMON*);
         build/makerom/ipl3.o(COMMON*);
         build/makerom/entry.o(COMMON*);
+        . = ALIGN(0x10)
         _makeromSegmentCOMMONEnd = .;
         _makeromSegmentCOMMONSize = ABSOLUTE(_makeromSegmentCOMMONEnd - _makeromSegmentCOMMONStart);
     }
@@ -80,21 +87,25 @@ SECTIONS
         FILL(0x00000000);
         _bootSegmentTextStart = .;
         build/boot/boot_main.o(.text*);
+        . = ALIGN(0x10)
         _bootSegmentTextEnd = .;
         _bootSegmentTextSize = ABSOLUTE(_bootSegmentTextEnd - _bootSegmentTextStart);
 
         _bootSegmentDataStart = .;
         build/boot/boot_main.o(.data*);
+        . = ALIGN(0x10)
         _bootSegmentDataEnd = .;
         _bootSegmentDataSize = ABSOLUTE(_bootSegmentDataEnd - _bootSegmentDataStart);
 
         _bootSegmentRoDataStart = .;
         build/boot/boot_main.o(.rodata*);
+        . = ALIGN(0x10)
         _bootSegmentRoDataEnd = .;
         _bootSegmentRoDataSize = ABSOLUTE(_bootSegmentRoDataEnd - _bootSegmentRoDataStart);
 
         _bootSegmentSdataStart = .;
         build/boot/boot_main.o(.sdata*);
+        . = ALIGN(0x10)
         _bootSegmentSdataEnd = .;
         _bootSegmentSdataSize = ABSOLUTE(_bootSegmentSdataEnd - _bootSegmentSdataStart);
     }
@@ -107,21 +118,25 @@ SECTIONS
         FILL(0x00000000);
         _bootSegmentSbssStart = .;
         build/boot/boot_main.o(.sbss*);
+        . = ALIGN(0x10)
         _bootSegmentSbssEnd = .;
         _bootSegmentSbssSize = ABSOLUTE(_bootSegmentSbssEnd - _bootSegmentSbssStart);
 
         _bootSegmentScommonStart = .;
         build/boot/boot_main.o(.scommon*);
+        . = ALIGN(0x10)
         _bootSegmentScommonEnd = .;
         _bootSegmentScommonSize = ABSOLUTE(_bootSegmentScommonEnd - _bootSegmentScommonStart);
 
         _bootSegmentBssStart = .;
         build/boot/boot_main.o(.bss*);
+        . = ALIGN(0x10)
         _bootSegmentBssEnd = .;
         _bootSegmentBssSize = ABSOLUTE(_bootSegmentBssEnd - _bootSegmentBssStart);
 
         _bootSegmentCOMMONStart = .;
         build/boot/boot_main.o(COMMON*);
+        . = ALIGN(0x10)
         _bootSegmentCOMMONEnd = .;
         _bootSegmentCOMMONSize = ABSOLUTE(_bootSegmentCOMMONEnd - _bootSegmentCOMMONStart);
     }
