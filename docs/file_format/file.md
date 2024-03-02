@@ -11,7 +11,7 @@ Path to the file.
 
 The `base_path` from settings is used as a base for the emitted path.
 
-This field is not compatible with the [`kind`](#kind) `pad`.
+This field is only compatible with the [`kind`](#kind)s `object` and `archive`.
 
 ### Example
 
@@ -57,6 +57,9 @@ segments:
 - `linker_offset`: Emit a symbol between the files at a given
   [`section`](#section). Both [`section`](#section) and
   [`linker_offset_name`](#linker_offset_name) are required.
+- `group`: Allows grouping multiple files for better organization. A group may
+  also have a [`dir`](#dir) field that prefixes the path of all the files from
+  this group. The [`files`](#files) field is required.
 
 ### Default value
 
@@ -169,3 +172,69 @@ build/src/code/collisions.o(.rodata*);
 ### Valid values
 
 A dictionary (map) of non empty string as keys and values.
+
+## `files`
+
+Can only be used with the `group` [`kind`](#kind).
+
+Allows to specify a list of files.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      - kind: group
+        files:
+          - { path: src/libkmc/fmod.o }
+          - { path: src/libkmc/memmove.o }
+          - { path: src/libkmc/memset.o }
+          - { path: src/libkmc/modf.o }
+
+      - { path: src/gzip/unzip.o }
+```
+
+## `dir`
+
+Can only be used with the `group` [`kind`](#kind).
+
+Specifies a directory that will be used as a prefix for the files listed by this
+entry.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      - kind: group
+        dir: src/libultra
+        files:
+          - { path: io/conteepprobe.o }
+          - { path: io/conteeplongwrite.o }
+          - { path: io/conteeplongread.o }
+
+      - kind: group
+        dir: src/libmus
+        files:
+          - { path: player.o }
+          - { path: player_fx.o }
+          - { path: aud_dma.o }
+          - { path: aud_sched.o }
+          - { path: aud_thread.o }
+          - { path: lib_memory.o }
+          - { path: aud_samples.o }
+```

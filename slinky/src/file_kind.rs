@@ -12,6 +12,7 @@ pub enum FileKind {
     Archive,
     Pad,
     LinkerOffset,
+    Group,
 }
 
 impl FileKind {

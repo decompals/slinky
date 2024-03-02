@@ -50,10 +50,6 @@ settings:
     # misc
     - .note
     - .comment
-  sections_allowlist_extra:
-    - .shstrtab
-    - .strtab
-    - .symtab
   sections_denylist:
     - .reginfo
     - .MIPS.abiflags

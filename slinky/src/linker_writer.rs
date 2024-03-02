@@ -295,21 +295,23 @@ impl LinkerWriter<'_> {
         self.write_sym_end_size(seg_sym_start, seg_sym_end, seg_sym_size, ".");
     }
 
-    fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str) {
+    fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str, base_path: &Path) {
         let style = &self.settings.linker_symbols_style;
-
-        let mut path = self.settings.base_path.clone();
-
-        path.extend(&file.path);
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
         // TODO: figure out glob support
         match file.kind {
             FileKind::Object => {
+                let mut path = base_path.to_path_buf();
+                path.extend(&file.path);
+
                 self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
             }
             FileKind::Archive => {
+                let mut path = base_path.to_path_buf();
+                path.extend(&file.path);
+
                 self.writeln(&format!(
                     "{}:{}({}{});",
                     path.display(),
@@ -326,6 +328,15 @@ impl LinkerWriter<'_> {
             FileKind::LinkerOffset => {
                 if file.section == section {
                     self.write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
+                }
+            }
+            FileKind::Group => {
+                let mut new_base_path = base_path.to_path_buf();
+
+                new_base_path.extend(&file.dir);
+
+                for file_of_group in &file.files {
+                    self.emit_file(file_of_group, segment, section, &new_base_path);
                 }
             }
         }
@@ -345,12 +356,12 @@ impl LinkerWriter<'_> {
                 // Check if any other section should be placed be placed here
                 for (k, v) in &file.section_order {
                     if v == section {
-                        self.emit_file(file, segment, k);
+                        self.emit_file(file, segment, k, &self.settings.base_path);
                     }
                 }
             }
 
-            self.emit_file(file, segment, section);
+            self.emit_file(file, segment, section, &self.settings.base_path);
         }
     }
 

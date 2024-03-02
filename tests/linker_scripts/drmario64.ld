@@ -8360,14 +8360,6 @@ SECTIONS
     {
         *(.shstrtab);
     }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
 
     /DISCARD/ :
     {

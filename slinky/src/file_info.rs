@@ -24,6 +24,10 @@ pub struct FileInfo {
     pub linker_offset_name: String,
 
     pub section_order: HashMap<String, String>,
+
+    // Used for groups
+    pub files: Vec<FileInfo>,
+    pub dir: PathBuf,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -48,6 +52,11 @@ pub(crate) struct FileInfoSerial {
 
     #[serde(default)]
     pub section_order: AbsentNullable<HashMap<String, String>>,
+
+    #[serde(default)]
+    pub files: AbsentNullable<Vec<FileInfoSerial>>,
+    #[serde(default)]
+    pub dir: AbsentNullable<PathBuf>,
 }
 
 impl FileInfoSerial {
@@ -66,11 +75,11 @@ impl FileInfoSerial {
 
                     (p, k)
                 }
-                FileKind::Pad | FileKind::LinkerOffset => {
-                    // pad doesn't allow for paths
+                FileKind::Pad | FileKind::LinkerOffset | FileKind::Group => {
+                    // doesn't allow paths
                     if self.path.has_value() {
                         return Err(SlinkyError::InvalidFieldCombo {
-                            field1: "kind: pad or kind: linker_offset".into(),
+                            field1: "`kind: pad`, `kind: linker_offset` or `kind: group`".into(),
                             field2: "path".into(),
                         });
                     }
@@ -93,7 +102,7 @@ impl FileInfoSerial {
         };
 
         let subfile = match kind {
-            FileKind::Object | FileKind::LinkerOffset | FileKind::Pad => {
+            FileKind::Object | FileKind::LinkerOffset | FileKind::Pad | FileKind::Group => {
                 if self.subfile.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "subfile".into(),
@@ -106,7 +115,7 @@ impl FileInfoSerial {
         };
 
         let pad_amount = match kind {
-            FileKind::Object | FileKind::LinkerOffset | FileKind::Archive => {
+            FileKind::Object | FileKind::LinkerOffset | FileKind::Archive | FileKind::Group => {
                 if self.pad_amount.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "pad_amount".into(),
@@ -119,7 +128,7 @@ impl FileInfoSerial {
         };
 
         let section = match kind {
-            FileKind::Object | FileKind::Archive => {
+            FileKind::Object | FileKind::Archive | FileKind::Group => {
                 if self.section.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section".into(),
@@ -132,7 +141,7 @@ impl FileInfoSerial {
         };
 
         let linker_offset_name = match kind {
-            FileKind::Object | FileKind::Pad | FileKind::Archive => {
+            FileKind::Object | FileKind::Pad | FileKind::Archive | FileKind::Group => {
                 if self.linker_offset_name.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "linker_offset_name".into(),
@@ -145,7 +154,7 @@ impl FileInfoSerial {
         };
 
         let section_order = match kind {
-            FileKind::Pad | FileKind::LinkerOffset => {
+            FileKind::Pad | FileKind::LinkerOffset | FileKind::Group => {
                 if self.section_order.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section_order".into(),
@@ -159,6 +168,41 @@ impl FileInfoSerial {
                 .get_non_null("section_order", HashMap::default)?,
         };
 
+        let files = match kind {
+            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
+                if self.files.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "files".into(),
+                        field2: "non `kind: group`".into(),
+                    });
+                }
+                Vec::default()
+            }
+            FileKind::Group => {
+                let temp_vec = self.files.get("files")?;
+                let mut result_vec = Vec::with_capacity(temp_vec.len());
+
+                for temp in temp_vec {
+                    result_vec.push(temp.unserialize(_settings)?);
+                }
+
+                result_vec
+            }
+        };
+
+        let dir = match kind {
+            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
+                if self.dir.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "dir".into(),
+                        field2: "non `kind: group`".into(),
+                    });
+                }
+                PathBuf::default()
+            }
+            FileKind::Group => self.dir.get_non_null("dir", PathBuf::default)?,
+        };
+
         Ok(FileInfo {
             path,
             kind,
@@ -167,6 +211,8 @@ impl FileInfoSerial {
             section,
             linker_offset_name,
             section_order,
+            files,
+            dir,
         })
     }
 }
