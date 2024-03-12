@@ -1,7 +1,7 @@
 settings:
   base_path: build
 
-  d_path: tests/d_outputs/groups.d
+  d_path: tests/test_cases/groups.d
   target_path: build/rom.elf
 
 segments:

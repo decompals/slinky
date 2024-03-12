@@ -236,7 +236,7 @@ impl<'a> LinkerWriter<'a> {
 
         for sym in linker_symbols_sorted {
             ret += &format!(
-                "extern {} {}{};",
+                "extern {} {}{};\n",
                 self.settings.symbols_header_type, sym, arr_suffix
             );
         }

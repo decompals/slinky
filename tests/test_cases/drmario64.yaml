@@ -1,7 +1,7 @@
 settings:
   base_path: build/us
 
-  d_path: tests/d_outputs/drmario64.d
+  d_path: tests/test_cases/drmario64.d
   target_path: build/us/drmario64.us.elf
 
   sections_allowlist:
