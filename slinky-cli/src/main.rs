@@ -52,6 +52,8 @@ fn main() {
     }
 
     if let Some(symbols_header_path) = &document.settings.symbols_header_path {
-        writer.save_symbol_header(symbols_header_path).expect("Error writing symbol header file");
+        writer
+            .save_symbol_header(symbols_header_path)
+            .expect("Error writing symbol header file");
     }
 }

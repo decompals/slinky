@@ -94,7 +94,7 @@ impl<'a> DependenciesWriter<'a> {
 
 // internal functions
 impl<'a> DependenciesWriter<'a> {
-    fn emit_file(&mut self, file: &FileInfo, segment: &Segment, base_path: &Path) {
+    fn emit_file(&mut self, file: &FileInfo, _segment: &Segment, base_path: &Path) {
         // TODO: figure out glob support
         match file.kind {
             FileKind::Object | FileKind::Archive => {
@@ -110,7 +110,7 @@ impl<'a> DependenciesWriter<'a> {
                 new_base_path.extend(&file.dir);
 
                 for file_of_group in &file.files {
-                    self.emit_file(file_of_group, segment, &new_base_path);
+                    self.emit_file(file_of_group, _segment, &new_base_path);
                 }
             }
         }

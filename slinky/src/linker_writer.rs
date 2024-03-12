@@ -185,13 +185,21 @@ impl<'a> LinkerWriter<'a> {
             });
         }
 
-        let arr_suffix = if self.settings.symbols_header_as_array { "[]" } else {""};
+        let arr_suffix = if self.settings.symbols_header_as_array {
+            "[]"
+        } else {
+            ""
+        };
 
-        let mut linker_symbols_sorted: Vec<_> = (&self.linker_symbols).into_iter().collect();
+        let mut linker_symbols_sorted: Vec<_> = self.linker_symbols.iter().collect();
         linker_symbols_sorted.sort();
 
         for sym in linker_symbols_sorted {
-            if let Err(e) = writeln!(f, "extern {} {}{};", self.settings.symbols_header_type, sym, arr_suffix) {
+            if let Err(e) = writeln!(
+                f,
+                "extern {} {}{};",
+                self.settings.symbols_header_type, sym, arr_suffix
+            ) {
                 return Err(SlinkyError::FailedFileWrite {
                     path: path.to_path_buf(),
                     description: e.to_string(),
@@ -217,13 +225,20 @@ impl<'a> LinkerWriter<'a> {
 
         ret += "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n";
 
-        let arr_suffix = if self.settings.symbols_header_as_array { "[]" } else {""};
+        let arr_suffix = if self.settings.symbols_header_as_array {
+            "[]"
+        } else {
+            ""
+        };
 
-        let mut linker_symbols_sorted: Vec<_> = (&self.linker_symbols).into_iter().collect();
+        let mut linker_symbols_sorted: Vec<_> = self.linker_symbols.iter().collect();
         linker_symbols_sorted.sort();
 
         for sym in linker_symbols_sorted {
-            ret += &format!("extern {} {}{};", self.settings.symbols_header_type, sym, arr_suffix);
+            ret += &format!(
+                "extern {} {}{};",
+                self.settings.symbols_header_type, sym, arr_suffix
+            );
         }
 
         ret += "\n#endif\n";

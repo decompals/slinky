@@ -242,9 +242,16 @@ impl SettingsSerial {
             .target_path
             .get_optional_nullable("target_path", settings_default_target_path)?;
 
-        let symbols_header_path = self.symbols_header_path.get_optional_nullable("symbols_header_path", settings_default_symbols_header_path)?;
-        let symbols_header_type = self.symbols_header_type.get_non_null("symbols_header_type", settings_default_symbols_header_type)?;
-        let symbols_header_as_array = self.symbols_header_as_array.get_non_null("symbols_header_as_array", settings_default_symbols_header_as_array)?;
+        let symbols_header_path = self
+            .symbols_header_path
+            .get_optional_nullable("symbols_header_path", settings_default_symbols_header_path)?;
+        let symbols_header_type = self
+            .symbols_header_type
+            .get_non_null("symbols_header_type", settings_default_symbols_header_type)?;
+        let symbols_header_as_array = self.symbols_header_as_array.get_non_null(
+            "symbols_header_as_array",
+            settings_default_symbols_header_as_array,
+        )?;
 
         let sections_allowlist = self
             .sections_allowlist
