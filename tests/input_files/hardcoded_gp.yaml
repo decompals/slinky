@@ -9,6 +9,10 @@ settings:
 
   subalign: null
 
+  symbols_header_path: tests/linker_scripts/hardcoded_gp.h
+  symbols_header_as_array: False
+  symbols_header_type: Addr
+
 segments:
   - name: main
     fixed_vram: 0x80010200

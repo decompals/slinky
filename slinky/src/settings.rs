@@ -18,6 +18,10 @@ pub struct Settings {
     pub d_path: Option<PathBuf>,
     pub target_path: Option<PathBuf>,
 
+    pub symbols_header_path: Option<PathBuf>,
+    pub symbols_header_type: String,
+    pub symbols_header_as_array: bool,
+
     pub sections_allowlist: Vec<String>,
     pub sections_allowlist_extra: Vec<String>,
     pub sections_denylist: Vec<String>,
@@ -52,6 +56,18 @@ fn settings_default_d_path() -> Option<PathBuf> {
 
 fn settings_default_target_path() -> Option<PathBuf> {
     None
+}
+
+fn settings_default_symbols_header_path() -> Option<PathBuf> {
+    None
+}
+
+fn settings_default_symbols_header_type() -> String {
+    "char".to_string()
+}
+
+fn settings_default_symbols_header_as_array() -> bool {
+    true
 }
 
 fn settings_default_hardcoded_gp_value() -> Option<u32> {
@@ -125,10 +141,14 @@ impl Default for Settings {
             base_path: settings_default_base_path(),
             linker_symbols_style: settings_default_linker_symbols_style(),
 
+            hardcoded_gp_value: settings_default_hardcoded_gp_value(),
+
             d_path: settings_default_d_path(),
             target_path: settings_default_target_path(),
 
-            hardcoded_gp_value: settings_default_hardcoded_gp_value(),
+            symbols_header_path: settings_default_symbols_header_path(),
+            symbols_header_type: settings_default_symbols_header_type(),
+            symbols_header_as_array: settings_default_symbols_header_as_array(),
 
             sections_allowlist: settings_default_sections_allowlist(),
             sections_allowlist_extra: settings_default_sections_allowlist_extra(),
@@ -158,12 +178,19 @@ pub(crate) struct SettingsSerial {
     pub linker_symbols_style: AbsentNullable<LinkerSymbolsStyle>,
 
     #[serde(default)]
+    pub hardcoded_gp_value: AbsentNullable<u32>,
+
+    #[serde(default)]
     pub d_path: AbsentNullable<PathBuf>,
     #[serde(default)]
     pub target_path: AbsentNullable<PathBuf>,
 
     #[serde(default)]
-    pub hardcoded_gp_value: AbsentNullable<u32>,
+    pub symbols_header_path: AbsentNullable<PathBuf>,
+    #[serde(default)]
+    pub symbols_header_type: AbsentNullable<String>,
+    #[serde(default)]
+    pub symbols_header_as_array: AbsentNullable<bool>,
 
     #[serde(default)]
     pub sections_allowlist: AbsentNullable<Vec<String>>,
@@ -214,6 +241,10 @@ impl SettingsSerial {
         let target_path = self
             .target_path
             .get_optional_nullable("target_path", settings_default_target_path)?;
+
+        let symbols_header_path = self.symbols_header_path.get_optional_nullable("symbols_header_path", settings_default_symbols_header_path)?;
+        let symbols_header_type = self.symbols_header_type.get_non_null("symbols_header_type", settings_default_symbols_header_type)?;
+        let symbols_header_as_array = self.symbols_header_as_array.get_non_null("symbols_header_as_array", settings_default_symbols_header_as_array)?;
 
         let sections_allowlist = self
             .sections_allowlist
@@ -268,8 +299,14 @@ impl SettingsSerial {
             base_path,
             linker_symbols_style,
             hardcoded_gp_value,
+
             d_path,
             target_path,
+
+            symbols_header_path,
+            symbols_header_type,
+            symbols_header_as_array,
+
             sections_allowlist,
             sections_allowlist_extra,
             sections_denylist,

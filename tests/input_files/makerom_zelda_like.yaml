@@ -3,6 +3,8 @@ settings:
   subalign: null
   linker_symbols_style: makerom
 
+  symbols_header_path: tests/linker_scripts/makerom_zelda_like.h
+
 segments:
   - name: makerom
     fixed_vram: 0x80024C00

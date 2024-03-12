@@ -99,7 +99,6 @@ impl<'a> LinkerWriter<'a> {
         assert!(self.indent_level == 0);
     }
 
-    // TODO: figure out a better way to handle Options
     pub fn add_segment(&mut self, segment: &Segment) {
         let style = &self.settings.linker_symbols_style;
         let dotted_seg_name = format!(".{}", segment.name);
@@ -174,6 +173,63 @@ impl<'a> LinkerWriter<'a> {
 
         ret
     }
+
+    pub fn save_symbol_header(&self, path: &Path) -> Result<(), SlinkyError> {
+        let mut f = utils::create_file_and_parents(path)?;
+
+        if let Err(e) = write!(f, "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n") {
+            return Err(SlinkyError::FailedFileWrite {
+                path: path.to_path_buf(),
+                description: e.to_string(),
+                contents: "".into(),
+            });
+        }
+
+        let arr_suffix = if self.settings.symbols_header_as_array { "[]" } else {""};
+
+        let mut linker_symbols_sorted: Vec<_> = (&self.linker_symbols).into_iter().collect();
+        linker_symbols_sorted.sort();
+
+        for sym in linker_symbols_sorted {
+            if let Err(e) = writeln!(f, "extern {} {}{};", self.settings.symbols_header_type, sym, arr_suffix) {
+                return Err(SlinkyError::FailedFileWrite {
+                    path: path.to_path_buf(),
+                    description: e.to_string(),
+                    contents: sym.into(),
+                });
+            }
+        }
+
+        if let Err(e) = write!(f, "\n#endif\n") {
+            return Err(SlinkyError::FailedFileWrite {
+                path: path.to_path_buf(),
+                description: e.to_string(),
+                contents: "".into(),
+            });
+        }
+
+        Ok(())
+    }
+
+    #[must_use]
+    pub fn export_symbol_header_as_string(&self) -> String {
+        let mut ret = String::new();
+
+        ret += "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n";
+
+        let arr_suffix = if self.settings.symbols_header_as_array { "[]" } else {""};
+
+        let mut linker_symbols_sorted: Vec<_> = (&self.linker_symbols).into_iter().collect();
+        linker_symbols_sorted.sort();
+
+        for sym in linker_symbols_sorted {
+            ret += &format!("extern {} {}{};", self.settings.symbols_header_type, sym, arr_suffix);
+        }
+
+        ret += "\n#endif\n";
+
+        ret
+    }
 }
 
 // internal functions
@@ -209,7 +265,7 @@ impl LinkerWriter<'_> {
 
         self.writeln(&format!("{} = {};", symbol, value));
 
-        self.linker_symbols.insert(value.to_string());
+        self.linker_symbols.insert(symbol.to_string());
     }
 
     fn align_symbol(&mut self, symbol: &str, align_value: u32) {

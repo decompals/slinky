@@ -125,6 +125,10 @@ settings:
   target_path: build/game.elf
 ```
 
+### Valid values
+
+Non-empty path.
+
 ## `target_path`
 
 The path to the file that will result of linking, usually an `.elf` file.
@@ -138,6 +142,91 @@ settings:
   d_path: linker_scripts/game.d
   target_path: build/game.elf
 ```
+
+### Valid values
+
+Non-empty path.
+
+## `symbols_header_path`
+
+Path to output a C header containing the generated linker symbols.
+
+The symbols are declared as `extern` and their type can be customized with
+[`symbols_header_type`](#symbols_header_type) and
+[`symbols_header_as_array`](#symbols_header_as_array).
+
+This file is generated only if `symbols_header_path` is specified.
+
+### Example
+
+```yaml
+settings:
+  symbols_header_path: include/linker_symbols.h
+```
+
+### Valid values
+
+Non-empty path.
+
+## `symbols_header_type`
+
+The type used for every linker symbol on the generated header.
+
+This option is ignored if [`symbols_header_path`](#symbols_header_path) was not
+set.
+
+### Example
+
+```yaml
+settings:
+  symbols_header_path: include/linker_symbols.h
+  symbols_header_type: u32
+```
+
+Generates entries like:
+
+```c
+extern u32 main_BSS_START[];
+```
+
+### Valid values
+
+String
+
+### Default value
+
+`char`
+
+## `symbols_header_as_array`
+
+Allows customizing if the entries from the generated symbols header should be
+declared as arrays or not.
+
+This option is ignored if [`symbols_header_path`](#symbols_header_path) was not
+set.
+
+### Example
+
+```yaml
+settings:
+  symbols_header_path: include/linker_symbols.h
+  symbols_header_type: Addr
+  symbols_header_as_array: False
+```
+
+Generates entries like:
+
+```c
+extern Addr main_BSS_START;
+```
+
+### Valid values
+
+Boolean
+
+### Default value
+
+`True`
 
 ## `sections_allowlist`
 
