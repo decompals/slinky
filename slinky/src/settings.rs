@@ -15,6 +15,9 @@ pub struct Settings {
 
     pub hardcoded_gp_value: Option<u32>,
 
+    pub d_path: Option<PathBuf>,
+    pub target_path: Option<PathBuf>,
+
     pub sections_allowlist: Vec<String>,
     pub sections_allowlist_extra: Vec<String>,
     pub sections_denylist: Vec<String>,
@@ -41,6 +44,14 @@ fn settings_default_base_path() -> PathBuf {
 
 fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
     LinkerSymbolsStyle::Splat
+}
+
+fn settings_default_d_path() -> Option<PathBuf> {
+    None
+}
+
+fn settings_default_target_path() -> Option<PathBuf> {
+    None
 }
 
 fn settings_default_hardcoded_gp_value() -> Option<u32> {
@@ -114,6 +125,9 @@ impl Default for Settings {
             base_path: settings_default_base_path(),
             linker_symbols_style: settings_default_linker_symbols_style(),
 
+            d_path: settings_default_d_path(),
+            target_path: settings_default_target_path(),
+
             hardcoded_gp_value: settings_default_hardcoded_gp_value(),
 
             sections_allowlist: settings_default_sections_allowlist(),
@@ -142,6 +156,11 @@ pub(crate) struct SettingsSerial {
     pub base_path: AbsentNullable<PathBuf>,
     #[serde(default)]
     pub linker_symbols_style: AbsentNullable<LinkerSymbolsStyle>,
+
+    #[serde(default)]
+    pub d_path: AbsentNullable<PathBuf>,
+    #[serde(default)]
+    pub target_path: AbsentNullable<PathBuf>,
 
     #[serde(default)]
     pub hardcoded_gp_value: AbsentNullable<u32>,
@@ -189,6 +208,13 @@ impl SettingsSerial {
             .hardcoded_gp_value
             .get_optional_nullable("hardcoded_gp_value", settings_default_hardcoded_gp_value)?;
 
+        let d_path = self
+            .d_path
+            .get_optional_nullable("d_path", settings_default_d_path)?;
+        let target_path = self
+            .target_path
+            .get_optional_nullable("target_path", settings_default_target_path)?;
+
         let sections_allowlist = self
             .sections_allowlist
             .get_non_null("sections_allowlist", settings_default_sections_allowlist)?;
@@ -203,6 +229,13 @@ impl SettingsSerial {
             "discard_wildcard_section",
             settings_default_discard_wildcard_section,
         )?;
+
+        if d_path.is_some() && target_path.is_none() {
+            return Err(SlinkyError::MissingRequiredFieldCombo {
+                required: "target_path".to_string(),
+                other: "d_path".to_string(),
+            });
+        }
 
         let alloc_sections = self
             .alloc_sections
@@ -235,6 +268,8 @@ impl SettingsSerial {
             base_path,
             linker_symbols_style,
             hardcoded_gp_value,
+            d_path,
+            target_path,
             sections_allowlist,
             sections_allowlist_extra,
             sections_denylist,

@@ -26,11 +26,8 @@ fn get_target_path(original: &Path, folder_name: &str, extension: &str) -> PathB
     test_path
 }
 
-#[rstest]
-fn test_simple_linker_script_generation(#[files("../tests/input_files/*.yaml")] path: PathBuf) {
-    let ld_path = get_target_path(&path, "linker_scripts", "ld");
-
-    let document = slinky::Document::read_file(&path).expect("unable to read original file");
+fn check_ld_generation(yaml_path: &Path, ld_path: &Path) {
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
 
     let mut writer = slinky::LinkerWriter::new(&document.settings);
     writer.begin_sections();
@@ -43,6 +40,45 @@ fn test_simple_linker_script_generation(#[files("../tests/input_files/*.yaml")] 
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
 
     assert_eq!(expected_ld_contents, writer.export_as_string());
+}
+
+fn check_d_generation(yaml_path: &Path, ld_path: &Path) {
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
+
+    let mut dependencies_writer = slinky::DependenciesWriter::new(&document.settings);
+    for segment in &document.segments {
+        dependencies_writer.add_segment(segment);
+    }
+
+    let expected_ld_contents =
+        fs::read_to_string(ld_path).expect("unable to read expected ld file");
+
+    let target_path = document.settings.target_path.as_ref().unwrap();
+    assert_eq!(
+        expected_ld_contents,
+        dependencies_writer.export_as_string(target_path)
+    );
+}
+
+#[rstest]
+fn test_simple_linker_script_generation(#[files("../tests/input_files/*.yaml")] path: PathBuf) {
+    let ld_path = get_target_path(&path, "linker_scripts", "ld");
+
+    check_ld_generation(&path, &ld_path);
+}
+
+#[rstest]
+fn test_dependency_ld_generation(#[files("../tests/d_inputs/*.yaml")] path: PathBuf) {
+    let ld_path = get_target_path(&path, "d_outputs", "ld");
+
+    check_ld_generation(&path, &ld_path);
+}
+
+#[rstest]
+fn test_dependency_d_generation(#[files("../tests/d_inputs/*.yaml")] path: PathBuf) {
+    let ld_path = get_target_path(&path, "d_outputs", "d");
+
+    check_d_generation(&path, &ld_path);
 }
 
 #[rstest]

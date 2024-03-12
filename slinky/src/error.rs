@@ -32,4 +32,7 @@ pub enum SlinkyError {
 
     #[error("Field '{name}' is required")]
     MissingRequiredField { name: String },
+
+    #[error("Field '{required}' is required if field '{other}' is given")]
+    MissingRequiredFieldCombo { required: String, other: String },
 }

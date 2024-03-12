@@ -27,9 +27,11 @@ fn main() {
     // println!("settings {:#?}", document.settings);
 
     let mut writer = slinky::LinkerWriter::new(&document.settings);
+    let mut dependencies_writer = slinky::DependenciesWriter::new(&document.settings);
     writer.begin_sections();
     for segment in &document.segments {
         writer.add_segment(segment);
+        dependencies_writer.add_segment(segment);
     }
     writer.end_sections();
 
@@ -39,5 +41,13 @@ fn main() {
             .expect("Error writing the linker script");
     } else {
         println!("{}", writer.export_as_string());
+    }
+
+    if let Some(d_path) = &document.settings.d_path {
+        if let Some(target_path) = &document.settings.target_path {
+            dependencies_writer
+                .save_dependencies_file(d_path, target_path)
+                .expect("Error writing dependencies file");
+        }
     }
 }

@@ -1,0 +1,8 @@
+settings:
+  base_path: build/us
+  d_path: linker_scripts/us/drmario64.us.d
+
+segments:
+  - name: main
+    files:
+      - { path: src/boot/boot_main.o }

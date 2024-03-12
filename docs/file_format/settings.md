@@ -102,6 +102,43 @@ A positive integer or `null`.
 
 `null`
 
+## `d_path`
+
+Output path for the `.d` (dependencies) file.
+
+A dependencies file consists on a file that lists required files to build a
+given file. This kind of dependency files can be consumed by build systems like
+`make` or `ninja`.
+
+The generated `.d` file will list all the paths listed by every segment as
+required to build a given [`target_path`](#target_path).
+
+This file is generated only if `d_path` is specified.
+
+This option requires [`target_path`](#target_path).
+
+### Example
+
+```yaml
+settings:
+  d_path: linker_scripts/game.d
+  target_path: build/game.elf
+```
+
+## `target_path`
+
+The path to the file that will result of linking, usually an `.elf` file.
+
+Currently only used by the [`d_path`](#d_path) setting.
+
+### Example
+
+```yaml
+settings:
+  d_path: linker_scripts/game.d
+  target_path: build/game.elf
+```
+
 ## `sections_allowlist`
 
 A list of sections to that should be preserved during linking.

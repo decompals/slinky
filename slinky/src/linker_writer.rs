@@ -1,15 +1,10 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{
-    collections::HashSet,
-    fs::{self, File},
-    io::Write,
-    path::Path,
-};
+use std::{collections::HashSet, io::Write, path::Path};
 
-use crate::Settings;
 use crate::{file_kind::FileKind, SlinkyError};
+use crate::{utils, Settings};
 use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
@@ -154,24 +149,7 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
-        if let Some(parent) = path.parent() {
-            if let Err(e) = fs::create_dir_all(parent) {
-                return Err(SlinkyError::FailedDirCreate {
-                    path: parent.to_path_buf(),
-                    description: e.to_string(),
-                });
-            }
-        }
-
-        let mut f = match File::create(path) {
-            Ok(f) => f,
-            Err(e) => {
-                return Err(SlinkyError::FailedFileOpen {
-                    path: path.to_path_buf(),
-                    description: e.to_string(),
-                })
-            }
-        };
+        let mut f = utils::create_file_and_parents(path)?;
 
         for line in &self.buffer {
             if let Err(e) = writeln!(f, "{}", line) {
