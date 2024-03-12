@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+use std::path::PathBuf;
 use std::{collections::HashSet, io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
@@ -9,6 +10,9 @@ use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
     pub linker_symbols: HashSet<String>,
+
+    // Used for dependency generation
+    files_paths: Vec<PathBuf>,
 
     indent_level: i32,
     buffer: Vec<String>,
@@ -20,6 +24,7 @@ impl<'a> LinkerWriter<'a> {
     pub fn new(settings: &'a Settings) -> Self {
         Self {
             linker_symbols: HashSet::new(),
+            files_paths: Vec::new(),
             indent_level: 0,
             buffer: Vec::new(),
             settings,
@@ -169,6 +174,71 @@ impl<'a> LinkerWriter<'a> {
 
         for line in &self.buffer {
             ret += &format!("{}\n", line);
+        }
+
+        ret
+    }
+
+    pub fn save_dependencies_file(
+        &mut self,
+        path: &Path,
+        target_path: &Path,
+    ) -> Result<(), SlinkyError> {
+        let mut f = utils::create_file_and_parents(path)?;
+
+        if let Err(e) = write!(f, "{}:", target_path.display()) {
+            return Err(SlinkyError::FailedFileWrite {
+                path: path.to_path_buf(),
+                description: e.to_string(),
+                contents: target_path.display().to_string(),
+            });
+        }
+
+        for p in &self.files_paths {
+            if let Err(e) = write!(f, " \\\n    {}", p.display()) {
+                return Err(SlinkyError::FailedFileWrite {
+                    path: path.to_path_buf(),
+                    description: e.to_string(),
+                    contents: p.display().to_string(),
+                });
+            }
+        }
+
+        if let Err(e) = write!(f, "\n\n") {
+            return Err(SlinkyError::FailedFileWrite {
+                path: path.to_path_buf(),
+                description: e.to_string(),
+                contents: "".to_string(),
+            });
+        }
+
+        for p in &self.files_paths {
+            if let Err(e) = writeln!(f, "{}:", p.display()) {
+                return Err(SlinkyError::FailedFileWrite {
+                    path: path.to_path_buf(),
+                    description: e.to_string(),
+                    contents: p.display().to_string(),
+                });
+            }
+        }
+
+        Ok(())
+    }
+
+    #[must_use]
+    pub fn export_dependencies_as_string(&self, target_path: &Path) -> String {
+        let mut ret = String::new();
+
+        ret += &format!("{}:", target_path.display());
+
+        for p in &self.files_paths {
+            ret += &format!(" \\\n    {}", p.display());
+        }
+
+        ret += "\n\n";
+
+        for p in &self.files_paths {
+            ret += &format!("{}:\n", p.display());
         }
 
         ret
@@ -356,6 +426,9 @@ impl LinkerWriter<'_> {
                 path.extend(&file.path);
 
                 self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
+                if !self.files_paths.contains(&path) {
+                    self.files_paths.push(path);
+                }
             }
             FileKind::Archive => {
                 let mut path = base_path.to_path_buf();
@@ -368,6 +441,9 @@ impl LinkerWriter<'_> {
                     section,
                     wildcard
                 ));
+                if !self.files_paths.contains(&path) {
+                    self.files_paths.push(path);
+                }
             }
             FileKind::Pad => {
                 if file.section == section {

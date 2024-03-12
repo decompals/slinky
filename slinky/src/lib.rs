@@ -14,7 +14,6 @@ mod segment;
 
 mod document;
 
-mod dependencies_writer;
 mod linker_writer;
 
 pub use error::SlinkyError;
@@ -28,5 +27,4 @@ pub use segment::Segment;
 
 pub use document::Document;
 
-pub use dependencies_writer::DependenciesWriter;
 pub use linker_writer::LinkerWriter;

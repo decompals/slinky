@@ -25,17 +25,19 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) {
 fn check_d_generation(yaml_path: &Path, ld_path: &Path) {
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
 
-    let mut dependencies_writer = slinky::DependenciesWriter::new(&document.settings);
+    let mut writer = slinky::LinkerWriter::new(&document.settings);
+    writer.begin_sections();
     for segment in &document.segments {
-        dependencies_writer.add_segment(segment);
+        writer.add_segment(segment);
     }
+    writer.end_sections();
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
 
     let target_path = document.settings.target_path.as_ref().unwrap();
     assert_eq!(
         expected_d_contents,
-        dependencies_writer.export_as_string(target_path)
+        writer.export_dependencies_as_string(target_path)
     );
 }
 
