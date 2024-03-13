@@ -17,6 +17,8 @@ pub struct LinkerWriter<'a> {
     indent_level: i32,
     buffer: Vec<String>,
 
+    single_segment: bool,
+
     settings: &'a Settings,
 }
 
@@ -27,6 +29,9 @@ impl<'a> LinkerWriter<'a> {
             files_paths: Vec::new(),
             indent_level: 0,
             buffer: Vec::new(),
+
+            single_segment: false,
+
             settings,
         }
     }
@@ -105,6 +110,8 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn add_segment(&mut self, segment: &Segment) {
+        assert!(!self.single_segment);
+
         let style = &self.settings.linker_symbols_style;
         let dotted_seg_name = format!(".{}", segment.name);
 
@@ -150,6 +157,99 @@ impl<'a> LinkerWriter<'a> {
         );
 
         self.writeln("");
+    }
+
+    pub fn add_single_segment(&mut self, segment: &Segment) {
+        assert!(self.buffer.is_empty());
+
+        // Make sure this function is called only once
+        assert!(!self.single_segment);
+        self.single_segment = true;
+
+        let style = &self.settings.linker_symbols_style;
+
+        self.writeln("SECTIONS");
+        self.begin_block();
+
+        //let dotted_seg_name = format!(".{}", segment.name);
+
+        // Emit alloc segment
+        //self.write_single_segment(segment, &dotted_seg_name, &segment.alloc_sections, false);
+
+        //self.writeln("");
+
+        // Emit noload segment
+        //self.write_single_segment(segment, &dotted_seg_name, &segment.noload_sections, true);
+
+        for section in &self.settings.alloc_sections {
+            let mut line = String::new();
+
+            line += &format!("{} :", section);
+
+            if let Some(subalign) = segment.subalign {
+                line += &format!(" SUBALIGN({})", subalign);
+            }
+
+            self.writeln(&line);
+            self.begin_block();
+
+            if let Some(fill_value) = segment.fill_value {
+                self.writeln(&format!("FILL(0x{:08X});", fill_value));
+            }
+
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
+
+            self.emit_section(segment, section);
+
+            if let Some(section_end_align) = segment.section_end_align {
+                self.align_symbol(".", section_end_align);
+            }
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+
+            self.end_block();
+
+            self.writeln("");
+        }
+
+        for section in &self.settings.noload_sections {
+            let mut line = String::new();
+
+            line += &format!("{} (NOLOAD) :", section);
+
+            if let Some(subalign) = segment.subalign {
+                line += &format!(" SUBALIGN({})", subalign);
+            }
+
+            self.writeln(&line);
+            self.begin_block();
+
+            if let Some(fill_value) = segment.fill_value {
+                self.writeln(&format!("FILL(0x{:08X});", fill_value));
+            }
+
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
+
+            self.emit_section(segment, section);
+
+            if let Some(section_end_align) = segment.section_end_align {
+                self.align_symbol(".", section_end_align);
+            }
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+
+            self.end_block();
+
+            self.writeln("");
+        }
+
+        self.end_sections();
     }
 
     pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
@@ -386,7 +486,7 @@ impl LinkerWriter<'_> {
             if let Some(fixed_vram) = segment.fixed_vram {
                 line += &format!(" 0x{:08X}", fixed_vram);
             } else if let Some(follows_segment) = &segment.follows_segment {
-                line += &format!(" {}", &style.segment_vram_end(follows_segment));
+                line += &format!(" {}", style.segment_vram_end(follows_segment));
             }
 
             line += &format!(" : AT({})", style.segment_rom_start(&segment.name));
@@ -541,4 +641,50 @@ impl LinkerWriter<'_> {
             &seg_sym_size,
         );
     }
+
+    /*
+    fn write_single_segment(
+        &mut self,
+        segment: &Segment,
+        dotted_seg_name: &str,
+        sections: &[String],
+        noload: bool,
+    ) {
+        let style = &self.settings.linker_symbols_style;
+
+        self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
+
+        if let Some(fill_value) = segment.fill_value {
+            self.writeln(&format!("FILL(0x{:08X});", fill_value));
+        }
+
+        for (i, section) in sections.iter().enumerate() {
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
+
+            self.emit_section(segment, section);
+
+            if let Some(section_end_align) = segment.section_end_align {
+                self.align_symbol(".", section_end_align);
+            }
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+
+            if i + 1 < sections.len() {
+                self.writeln("");
+            }
+        }
+
+        self.write_segment_end(
+            segment,
+            dotted_seg_name,
+            noload,
+            &seg_sym_start,
+            &seg_sym_end,
+            &seg_sym_size,
+        );
+    }
+    */
 }

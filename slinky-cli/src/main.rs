@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use clap::Parser;
 
@@ -40,6 +40,12 @@ fn main() {
     } else {
         println!("{}", writer.export_as_string());
     }
+
+    //{
+    //    let mut writer_test = slinky::LinkerWriter::new(&document.settings);
+    //    writer_test.add_single_segment(&document.segments[3]);
+    //    writer_test.save_linker_script(Path::new("test.ld")).expect("idk");
+    //}
 
     if let Some(d_path) = &document.settings.d_path {
         if let Some(target_path) = &document.settings.target_path {
