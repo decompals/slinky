@@ -1,11 +1,7 @@
 SECTIONS
 {
-    __romPos = 0x0;
-
-    cod_ROM_START = __romPos;
-    cod_VRAM = ADDR(.cod);
-    cod_alloc_VRAM = .;
-    .cod 0x00100000 : AT(cod_ROM_START)
+    . = 0x00100000;
+    .text :
     {
         FILL(0x00000000);
         cod_TEXT_START = .;
@@ -3049,7 +3045,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_TEXT_END = .;
         cod_TEXT_SIZE = ABSOLUTE(cod_TEXT_END - cod_TEXT_START);
+    }
 
+    .vutext :
+    {
+        FILL(0x00000000);
         cod_VUTEXT_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.vutext*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.vutext*);
@@ -6091,7 +6091,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_VUTEXT_END = .;
         cod_VUTEXT_SIZE = ABSOLUTE(cod_VUTEXT_END - cod_VUTEXT_START);
+    }
 
+    .data :
+    {
+        FILL(0x00000000);
         cod_DATA_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.data*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.data*);
@@ -9133,7 +9137,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_DATA_END = .;
         cod_DATA_SIZE = ABSOLUTE(cod_DATA_END - cod_DATA_START);
+    }
 
+    .vudata :
+    {
+        FILL(0x00000000);
         cod_VUDATA_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.vudata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.vudata*);
@@ -12175,7 +12183,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_VUDATA_END = .;
         cod_VUDATA_SIZE = ABSOLUTE(cod_VUDATA_END - cod_VUDATA_START);
+    }
 
+    .rodata :
+    {
+        FILL(0x00000000);
         cod_RODATA_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.rodata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.rodata*);
@@ -15217,7 +15229,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_RODATA_END = .;
         cod_RODATA_SIZE = ABSOLUTE(cod_RODATA_END - cod_RODATA_START);
+    }
 
+    .gcc_except_table :
+    {
+        FILL(0x00000000);
         cod_GCC_EXCEPT_TABLE_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.gcc_except_table*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.gcc_except_table*);
@@ -18259,7 +18275,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_GCC_EXCEPT_TABLE_END = .;
         cod_GCC_EXCEPT_TABLE_SIZE = ABSOLUTE(cod_GCC_EXCEPT_TABLE_END - cod_GCC_EXCEPT_TABLE_START);
+    }
 
+    .sdata :
+    {
+        FILL(0x00000000);
         cod_SDATA_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.sdata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.sdata*);
@@ -21302,11 +21322,8 @@ SECTIONS
         cod_SDATA_END = .;
         cod_SDATA_SIZE = ABSOLUTE(cod_SDATA_END - cod_SDATA_START);
     }
-    cod_alloc_VRAM_END = .;
-    cod_alloc_VRAM_SIZE = ABSOLUTE(cod_alloc_VRAM_END - cod_alloc_VRAM);
 
-    cod_noload_VRAM = .;
-    .cod.noload (NOLOAD) :
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         cod_SCOMMON_START = .;
@@ -24350,7 +24367,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_SCOMMON_END = .;
         cod_SCOMMON_SIZE = ABSOLUTE(cod_SCOMMON_END - cod_SCOMMON_START);
+    }
 
+    .sbss (NOLOAD) :
+    {
+        FILL(0x00000000);
         cod_SBSS_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.sbss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.sbss*);
@@ -27392,7 +27413,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_SBSS_END = .;
         cod_SBSS_SIZE = ABSOLUTE(cod_SBSS_END - cod_SBSS_START);
+    }
 
+    .bss (NOLOAD) :
+    {
+        FILL(0x00000000);
         cod_BSS_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.bss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.bss*);
@@ -30434,7 +30459,11 @@ SECTIONS
         . = ALIGN(., 0x10);
         cod_BSS_END = .;
         cod_BSS_SIZE = ABSOLUTE(cod_BSS_END - cod_BSS_START);
+    }
 
+    .vubss (NOLOAD) :
+    {
+        FILL(0x00000000);
         cod_VUBSS_START = .;
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0880.scommon.o(.vubss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/004B0888.scommon.o(.vubss*);
@@ -33477,13 +33506,6 @@ SECTIONS
         cod_VUBSS_END = .;
         cod_VUBSS_SIZE = ABSOLUTE(cod_VUBSS_END - cod_VUBSS_START);
     }
-    cod_noload_VRAM_END = .;
-    cod_noload_VRAM_SIZE = ABSOLUTE(cod_noload_VRAM_END - cod_noload_VRAM);
-    cod_VRAM_END = .;
-    cod_VRAM_SIZE = ABSOLUTE(cod_VRAM_END - cod_VRAM);
-    __romPos += SIZEOF(.cod);
-    cod_ROM_END = __romPos;
-    cod_ROM_SIZE = ABSOLUTE(cod_ROM_END - cod_ROM_START);
 
     .pdr 0 :
     {

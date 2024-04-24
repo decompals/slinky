@@ -31,20 +31,33 @@ fn main() {
 
     // println!("settings {:#?}", document.settings);
 
-    let mut writer = slinky::LinkerWriter::new(&document.settings);
-    writer.begin_sections();
-    for segment in &document.segments {
-        writer.add_segment(segment);
-    }
-    writer.end_sections();
-
     if cli.partial_linking {
-    } else if let Some(output_path) = cli.output {
-        writer
-            .save_linker_script(&output_path)
-            .expect("Error writing the linker script");
     } else {
-        println!("{}", writer.export_as_string());
+        let mut writer = slinky::LinkerWriter::new(&document.settings);
+
+        if document.settings.single_segment_mode {
+            assert!(document.segments.len() == 1);
+
+            writer.add_single_segment(&document.segments[0]);
+        } else {
+            writer.begin_sections();
+            for segment in &document.segments {
+                writer.add_segment(segment);
+            }
+            writer.end_sections();
+        }
+
+        if let Some(output_path) = cli.output {
+            writer
+                .save_linker_script(&output_path)
+                .expect("Error writing the linker script");
+        } else {
+            println!("{}", writer.export_as_string());
+        }
+
+        writer
+            .write_other_files()
+            .expect("Error writing other files listed on the document");
     }
 
     //{
@@ -52,8 +65,4 @@ fn main() {
     //    writer_test.add_single_segment(&document.segments[3]);
     //    writer_test.save_linker_script(Path::new("test.ld")).expect("idk");
     //}
-
-    writer
-        .write_other_files()
-        .expect("Error writing other files listed on the document");
 }

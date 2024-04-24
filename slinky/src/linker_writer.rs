@@ -171,6 +171,10 @@ impl<'a> LinkerWriter<'a> {
         self.writeln("SECTIONS");
         self.begin_block();
 
+        if let Some(fixed_vram) = segment.fixed_vram {
+            self.writeln(&format!(". = 0x{:08X};", fixed_vram));
+        }
+
         //let dotted_seg_name = format!(".{}", segment.name);
 
         // Emit alloc segment
