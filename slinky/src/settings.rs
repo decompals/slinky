@@ -27,6 +27,8 @@ pub struct Settings {
     pub sections_denylist: Vec<String>,
     pub discard_wildcard_section: bool,
 
+    pub single_segment_mode: bool,
+
     pub partial_scripts_path: Option<PathBuf>,
     pub partial_build_segments_path: Option<PathBuf>,
 
@@ -100,6 +102,10 @@ const fn settings_default_discard_wildcard_section() -> bool {
     true
 }
 
+const fn settings_default_single_segment_mode() -> bool {
+    false
+}
+
 const fn settings_default_partial_scripts_path() -> Option<PathBuf> {
     None
 }
@@ -166,6 +172,8 @@ impl Default for Settings {
             sections_denylist: settings_default_sections_denylist(),
             discard_wildcard_section: settings_default_discard_wildcard_section(),
 
+            single_segment_mode: settings_default_single_segment_mode(),
+
             partial_scripts_path: settings_default_partial_scripts_path(),
             partial_build_segments_path: settings_default_partial_build_segments_path(),
 
@@ -215,7 +223,12 @@ pub(crate) struct SettingsSerial {
     #[serde(default)]
     pub discard_wildcard_section: AbsentNullable<bool>,
 
+    #[serde(default)]
+    pub single_segment_mode: AbsentNullable<bool>,
+
+    #[serde(default)]
     pub partial_scripts_path: AbsentNullable<PathBuf>,
+    #[serde(default)]
     pub partial_build_segments_path: AbsentNullable<PathBuf>,
 
     // Options passed down to each Segment
@@ -285,6 +298,10 @@ impl SettingsSerial {
             settings_default_discard_wildcard_section,
         )?;
 
+        let single_segment_mode = self
+            .single_segment_mode
+            .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
+
         let partial_scripts_path = self.partial_scripts_path.get_optional_nullable(
             "partial_scripts_path",
             settings_default_partial_scripts_path,
@@ -344,6 +361,8 @@ impl SettingsSerial {
             sections_allowlist_extra,
             sections_denylist,
             discard_wildcard_section,
+
+            single_segment_mode,
 
             partial_scripts_path,
             partial_build_segments_path,

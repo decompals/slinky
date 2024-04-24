@@ -159,7 +159,6 @@ impl<'a> LinkerWriter<'a> {
         self.writeln("");
     }
 
-    /*
     pub fn add_single_segment(&mut self, segment: &Segment) {
         assert!(self.buffer.is_empty());
 
@@ -252,7 +251,6 @@ impl<'a> LinkerWriter<'a> {
 
         self.end_sections();
     }
-    */
 
     pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
         let mut f = utils::create_file_and_parents(path)?;
