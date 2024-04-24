@@ -9,7 +9,7 @@ use crate::{utils, Settings};
 use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
-    pub linker_symbols: HashSet<String>,
+    linker_symbols: HashSet<String>,
 
     // Used for dependency generation
     files_paths: Vec<PathBuf>,
@@ -159,6 +159,7 @@ impl<'a> LinkerWriter<'a> {
         self.writeln("");
     }
 
+    /*
     pub fn add_single_segment(&mut self, segment: &Segment) {
         assert!(self.buffer.is_empty());
 
@@ -251,6 +252,7 @@ impl<'a> LinkerWriter<'a> {
 
         self.end_sections();
     }
+    */
 
     pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
         let mut f = utils::create_file_and_parents(path)?;
@@ -280,7 +282,7 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn save_dependencies_file(
-        &mut self,
+        &self,
         path: &Path,
         target_path: &Path,
     ) -> Result<(), SlinkyError> {
@@ -414,6 +416,27 @@ impl<'a> LinkerWriter<'a> {
         ret += "\n#endif\n";
 
         ret
+    }
+
+    #[must_use]
+    pub fn get(&self) -> &HashSet<String> {
+        &self.linker_symbols
+    }
+}
+
+impl LinkerWriter<'_> {
+    pub fn write_other_files(&self) -> Result<(), SlinkyError> {
+        if let Some(d_path) = &self.settings.d_path {
+            if let Some(target_path) = &self.settings.target_path {
+                self.save_dependencies_file(d_path, target_path)?;
+            }
+        }
+
+        if let Some(symbols_header_path) = &self.settings.symbols_header_path {
+            self.save_symbol_header(symbols_header_path)?;
+        }
+
+        Ok(())
     }
 }
 

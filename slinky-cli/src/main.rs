@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use clap::Parser;
 
@@ -47,17 +47,7 @@ fn main() {
     //    writer_test.save_linker_script(Path::new("test.ld")).expect("idk");
     //}
 
-    if let Some(d_path) = &document.settings.d_path {
-        if let Some(target_path) = &document.settings.target_path {
-            writer
-                .save_dependencies_file(d_path, target_path)
-                .expect("Error writing dependencies file");
-        }
-    }
-
-    if let Some(symbols_header_path) = &document.settings.symbols_header_path {
-        writer
-            .save_symbol_header(symbols_header_path)
-            .expect("Error writing symbol header file");
-    }
+    writer
+        .write_other_files()
+        .expect("Error writing other files listed on the document");
 }
