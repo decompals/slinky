@@ -27,6 +27,9 @@ pub struct Settings {
     pub sections_denylist: Vec<String>,
     pub discard_wildcard_section: bool,
 
+    pub partial_scripts_path: Option<PathBuf>,
+    pub partial_build_segments_path: Option<PathBuf>,
+
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
@@ -46,19 +49,19 @@ fn settings_default_base_path() -> PathBuf {
     PathBuf::new()
 }
 
-fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
+const fn settings_default_linker_symbols_style() -> LinkerSymbolsStyle {
     LinkerSymbolsStyle::Splat
 }
 
-fn settings_default_d_path() -> Option<PathBuf> {
+const fn settings_default_d_path() -> Option<PathBuf> {
     None
 }
 
-fn settings_default_target_path() -> Option<PathBuf> {
+const fn settings_default_target_path() -> Option<PathBuf> {
     None
 }
 
-fn settings_default_symbols_header_path() -> Option<PathBuf> {
+const fn settings_default_symbols_header_path() -> Option<PathBuf> {
     None
 }
 
@@ -66,15 +69,15 @@ fn settings_default_symbols_header_type() -> String {
     "char".to_string()
 }
 
-fn settings_default_symbols_header_as_array() -> bool {
+const fn settings_default_symbols_header_as_array() -> bool {
     true
 }
 
-fn settings_default_hardcoded_gp_value() -> Option<u32> {
+const fn settings_default_hardcoded_gp_value() -> Option<u32> {
     None
 }
 
-fn settings_default_sections_allowlist() -> Vec<String> {
+const fn settings_default_sections_allowlist() -> Vec<String> {
     vec![]
 }
 
@@ -93,8 +96,16 @@ fn settings_default_sections_denylist() -> Vec<String> {
     ]
 }
 
-fn settings_default_discard_wildcard_section() -> bool {
+const fn settings_default_discard_wildcard_section() -> bool {
     true
+}
+
+const fn settings_default_partial_scripts_path() -> Option<PathBuf> {
+    None
+}
+
+const fn settings_default_partial_build_segments_path() -> Option<PathBuf> {
+    None
 }
 
 fn settings_default_alloc_sections() -> Vec<String> {
@@ -115,23 +126,23 @@ fn settings_default_noload_sections() -> Vec<String> {
     ]
 }
 
-fn settings_default_subalign() -> Option<u32> {
+const fn settings_default_subalign() -> Option<u32> {
     Some(0x10)
 }
 
-fn settings_default_segment_start_align() -> Option<u32> {
+const fn settings_default_segment_start_align() -> Option<u32> {
     None
 }
 
-fn settings_default_section_end_align() -> Option<u32> {
+const fn settings_default_section_end_align() -> Option<u32> {
     Some(0x10)
 }
 
-fn settings_default_wildcard_sections() -> bool {
+const fn settings_default_wildcard_sections() -> bool {
     true
 }
 
-fn settings_default_fill_value() -> Option<u32> {
+const fn settings_default_fill_value() -> Option<u32> {
     Some(0)
 }
 
@@ -154,6 +165,9 @@ impl Default for Settings {
             sections_allowlist_extra: settings_default_sections_allowlist_extra(),
             sections_denylist: settings_default_sections_denylist(),
             discard_wildcard_section: settings_default_discard_wildcard_section(),
+
+            partial_scripts_path: settings_default_partial_scripts_path(),
+            partial_build_segments_path: settings_default_partial_build_segments_path(),
 
             alloc_sections: settings_default_alloc_sections(),
             noload_sections: settings_default_noload_sections(),
@@ -200,6 +214,9 @@ pub(crate) struct SettingsSerial {
     pub sections_denylist: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub discard_wildcard_section: AbsentNullable<bool>,
+
+    pub partial_scripts_path: AbsentNullable<PathBuf>,
+    pub partial_build_segments_path: AbsentNullable<PathBuf>,
 
     // Options passed down to each Segment
     #[serde(default)]
@@ -268,6 +285,15 @@ impl SettingsSerial {
             settings_default_discard_wildcard_section,
         )?;
 
+        let partial_scripts_path = self.partial_scripts_path.get_optional_nullable(
+            "partial_scripts_path",
+            settings_default_partial_scripts_path,
+        )?;
+        let partial_build_segments_path = self.partial_build_segments_path.get_optional_nullable(
+            "partial_build_segments_path",
+            settings_default_partial_build_segments_path,
+        )?;
+
         if d_path.is_some() && target_path.is_none() {
             return Err(SlinkyError::MissingRequiredFieldCombo {
                 required: "target_path".to_string(),
@@ -318,6 +344,10 @@ impl SettingsSerial {
             sections_allowlist_extra,
             sections_denylist,
             discard_wildcard_section,
+
+            partial_scripts_path,
+            partial_build_segments_path,
+
             alloc_sections,
             noload_sections,
             subalign,

@@ -16,6 +16,11 @@ struct Cli {
     /// Output file. Print to stdout if missing
     #[arg(short, long)]
     output: Option<PathBuf>,
+
+    /// Generate linker script for partial linking multiple segments.
+    /// Requires both `partial_scripts_path` and `partial_build_segments_path` YAML settings to be set.
+    #[arg(short, long, default_value_t = false)]
+    partial_linking: bool,
 }
 
 fn main() {
@@ -33,7 +38,8 @@ fn main() {
     }
     writer.end_sections();
 
-    if let Some(output_path) = cli.output {
+    if cli.partial_linking {
+    } else if let Some(output_path) = cli.output {
         writer
             .save_linker_script(&output_path)
             .expect("Error writing the linker script");

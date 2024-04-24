@@ -417,11 +417,6 @@ impl<'a> LinkerWriter<'a> {
 
         ret
     }
-
-    #[must_use]
-    pub fn get(&self) -> &HashSet<String> {
-        &self.linker_symbols
-    }
 }
 
 impl LinkerWriter<'_> {
@@ -437,6 +432,14 @@ impl LinkerWriter<'_> {
         }
 
         Ok(())
+    }
+}
+
+// Getters / Setters
+impl LinkerWriter<'_> {
+    #[must_use]
+    pub fn get_linker_symbols(&self) -> &HashSet<String> {
+        &self.linker_symbols
     }
 }
 

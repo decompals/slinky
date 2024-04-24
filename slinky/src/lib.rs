@@ -15,6 +15,7 @@ mod segment;
 mod document;
 
 mod linker_writer;
+mod partial_linker_writer;
 
 pub use error::SlinkyError;
 
@@ -28,3 +29,4 @@ pub use segment::Segment;
 pub use document::Document;
 
 pub use linker_writer::LinkerWriter;
+pub use partial_linker_writer::PartialLinkerWriter;
