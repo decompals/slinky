@@ -327,6 +327,40 @@ Boolean.
 
 `True`
 
+## `single_segment_mode`
+
+Change linker script generation to be more similar to an standard linker script,
+removing the multi-segment handling logic that is used mainly for N64 projects.
+
+With this mode active the emitted sections will correspond directly to
+[`alloc_sections`](#alloc_sections) and [`noload_sectionss`](#noload_sections).
+
+This requires the YAML document to have exactly 1 segment under the
+`[segments.md#segments](segments.md#segments)` section.
+
+The [segments.md#fixed_vram](segments.md#fixed_vram) property is used to specify
+the vram for the first section, then the following sections' vram grow
+accordingly.
+
+### Example
+
+```yaml
+settings:
+  single_segment_mode: True
+```
+
+### Valid values
+
+Boolean.
+
+### Default value
+
+`False`
+
+## `partial_scripts_path`
+
+## `partial_build_segments_path`
+
 ## `alloc_sections`
 
 List of allocatable sections (the ones that take ROM space).
