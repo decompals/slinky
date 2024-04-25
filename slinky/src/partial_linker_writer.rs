@@ -1,13 +1,17 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{collections::HashMap, path::{Path, PathBuf}};
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
 
 use crate::{FileInfo, FileKind, LinkerWriter, Segment, Settings, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
-    partial_writers: Vec<LinkerWriter<'a>>,
+
+    partial_writers: Vec<(LinkerWriter<'a>, String)>,
 
     settings: &'a Settings,
 }
@@ -16,6 +20,7 @@ impl<'a> PartialLinkerWriter<'a> {
     pub fn new(settings: &'a Settings) -> Self {
         Self {
             main_writer: LinkerWriter::new(settings),
+
             partial_writers: Vec::new(),
 
             settings,
@@ -25,12 +30,14 @@ impl<'a> PartialLinkerWriter<'a> {
     pub fn add_all_segment(&mut self, segments: &[Segment]) {
         self.main_writer.begin_sections();
 
+        self.partial_writers.reserve(segments.len());
         for segment in segments {
             let mut partial_writer = LinkerWriter::new(self.settings);
 
             partial_writer.add_single_segment(segment);
 
-            self.partial_writers.push(partial_writer);
+            self.partial_writers
+                .push((partial_writer, segment.name.clone()));
 
             let mut p = PathBuf::new();
 
@@ -55,11 +62,28 @@ impl<'a> PartialLinkerWriter<'a> {
         self.main_writer.end_sections();
     }
 
-    pub fn save_linker_scripts(&self, _path: &Path) -> Result<(), SlinkyError> {
+    pub fn save_linker_scripts(&self, path: &Path) -> Result<(), SlinkyError> {
+        self.main_writer.save_linker_script(path)?;
+
+        for (partial, name) in &self.partial_writers {
+            let mut p = PathBuf::new();
+
+            p.push(&self.settings.partial_scripts_path);
+            p.push(&format!("{}.ld", name));
+
+            partial.save_linker_script(&p)?;
+        }
+
         Ok(())
     }
 
     pub fn write_other_files(&self) -> Result<(), SlinkyError> {
+        self.main_writer.write_other_files()?;
+
+        for (partial, _name) in &self.partial_writers {
+            partial.write_other_files()?;
+        }
+
         Ok(())
     }
 }
@@ -72,7 +96,7 @@ impl PartialLinkerWriter<'_> {
     }
 
     #[must_use]
-    pub fn get_partial_writers(&self) -> &Vec<LinkerWriter> {
+    pub fn get_partial_writers(&self) -> &Vec<(LinkerWriter, String)> {
         &self.partial_writers
     }
 }

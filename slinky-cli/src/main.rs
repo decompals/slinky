@@ -36,8 +36,12 @@ fn main() {
 
         writer.add_all_segment(&document.segments);
 
-        let output_path = cli.output.expect("output path is required for partial linking");
-        writer.save_linker_scripts(&output_path).expect("Error writing the linker scripts");
+        let output_path = cli
+            .output
+            .expect("output path is required for partial linking");
+        writer
+            .save_linker_scripts(&output_path)
+            .expect("Error writing the linker scripts");
         writer
             .write_other_files()
             .expect("Error writing other files listed on the document");
