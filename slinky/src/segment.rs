@@ -9,7 +9,7 @@ use crate::{
     Settings, SlinkyError,
 };
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct Segment {
     /// Name of the segment
     pub name: String,

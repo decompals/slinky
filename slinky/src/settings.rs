@@ -29,8 +29,8 @@ pub struct Settings {
 
     pub single_segment_mode: bool,
 
-    pub partial_scripts_path: Option<PathBuf>,
-    pub partial_build_segments_path: Option<PathBuf>,
+    pub partial_scripts_path: PathBuf,
+    pub partial_build_segments_path: PathBuf,
 
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
@@ -106,12 +106,12 @@ const fn settings_default_single_segment_mode() -> bool {
     false
 }
 
-const fn settings_default_partial_scripts_path() -> Option<PathBuf> {
-    None
+fn settings_default_partial_scripts_path() -> PathBuf {
+    PathBuf::new()
 }
 
-const fn settings_default_partial_build_segments_path() -> Option<PathBuf> {
-    None
+fn settings_default_partial_build_segments_path() -> PathBuf {
+    PathBuf::new()
 }
 
 fn settings_default_alloc_sections() -> Vec<String> {
@@ -302,11 +302,11 @@ impl SettingsSerial {
             .single_segment_mode
             .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
 
-        let partial_scripts_path = self.partial_scripts_path.get_optional_nullable(
+        let partial_scripts_path = self.partial_scripts_path.get_non_null(
             "partial_scripts_path",
             settings_default_partial_scripts_path,
         )?;
-        let partial_build_segments_path = self.partial_build_segments_path.get_optional_nullable(
+        let partial_build_segments_path = self.partial_build_segments_path.get_non_null(
             "partial_build_segments_path",
             settings_default_partial_build_segments_path,
         )?;

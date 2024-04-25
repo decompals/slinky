@@ -1,7 +1,9 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use crate::{LinkerWriter, Segment, Settings};
+use std::{collections::HashMap, path::{Path, PathBuf}};
+
+use crate::{FileInfo, FileKind, LinkerWriter, Segment, Settings, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
@@ -20,10 +22,45 @@ impl<'a> PartialLinkerWriter<'a> {
         }
     }
 
-    pub fn add_segment(&mut self, _segment: &Segment) {
-        let partial_writer = LinkerWriter::new(self.settings);
+    pub fn add_all_segment(&mut self, segments: &[Segment]) {
+        self.main_writer.begin_sections();
 
-        self.partial_writers.push(partial_writer);
+        for segment in segments {
+            let mut partial_writer = LinkerWriter::new(self.settings);
+
+            partial_writer.add_single_segment(segment);
+
+            self.partial_writers.push(partial_writer);
+
+            let mut p = PathBuf::new();
+
+            p.push(&self.settings.partial_build_segments_path);
+            p.push(&format!("{}.o", segment.name));
+
+            let mut reference_segment = segment.clone();
+            reference_segment.files = vec![FileInfo {
+                path: p,
+                kind: FileKind::Object,
+                subfile: "".into(),
+                pad_amount: 0,
+                section: "".into(),
+                linker_offset_name: "".into(),
+                section_order: HashMap::new(),
+                files: Vec::new(),
+                dir: PathBuf::new(),
+            }];
+            self.main_writer.add_segment(&reference_segment);
+        }
+
+        self.main_writer.end_sections();
+    }
+
+    pub fn save_linker_scripts(&self, _path: &Path) -> Result<(), SlinkyError> {
+        Ok(())
+    }
+
+    pub fn write_other_files(&self) -> Result<(), SlinkyError> {
+        Ok(())
     }
 }
 

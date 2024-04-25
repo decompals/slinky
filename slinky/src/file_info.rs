@@ -9,7 +9,7 @@ use std::{
 
 use crate::{absent_nullable::AbsentNullable, file_kind::FileKind, Settings, SlinkyError};
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct FileInfo {
     pub path: PathBuf,
 
