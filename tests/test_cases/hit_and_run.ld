@@ -3042,7 +3042,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.text*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.text*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.text*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_TEXT_END = .;
         cod_TEXT_SIZE = ABSOLUTE(cod_TEXT_END - cod_TEXT_START);
     }
@@ -6088,7 +6088,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.vutext*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.vutext*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.vutext*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_VUTEXT_END = .;
         cod_VUTEXT_SIZE = ABSOLUTE(cod_VUTEXT_END - cod_VUTEXT_START);
     }
@@ -9134,7 +9134,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.data*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.data*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.data*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_DATA_END = .;
         cod_DATA_SIZE = ABSOLUTE(cod_DATA_END - cod_DATA_START);
     }
@@ -12180,7 +12180,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.vudata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.vudata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.vudata*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_VUDATA_END = .;
         cod_VUDATA_SIZE = ABSOLUTE(cod_VUDATA_END - cod_VUDATA_START);
     }
@@ -15226,7 +15226,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.rodata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.rodata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.rodata*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_RODATA_END = .;
         cod_RODATA_SIZE = ABSOLUTE(cod_RODATA_END - cod_RODATA_START);
     }
@@ -18272,7 +18272,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.gcc_except_table*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.gcc_except_table*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.gcc_except_table*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_GCC_EXCEPT_TABLE_END = .;
         cod_GCC_EXCEPT_TABLE_SIZE = ABSOLUTE(cod_GCC_EXCEPT_TABLE_END - cod_GCC_EXCEPT_TABLE_START);
     }
@@ -21318,7 +21318,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.sdata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.sdata*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.sdata*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_SDATA_END = .;
         cod_SDATA_SIZE = ABSOLUTE(cod_SDATA_END - cod_SDATA_START);
     }
@@ -24364,7 +24364,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.scommon*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.scommon*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.scommon*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_SCOMMON_END = .;
         cod_SCOMMON_SIZE = ABSOLUTE(cod_SCOMMON_END - cod_SCOMMON_START);
     }
@@ -27410,7 +27410,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.sbss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.sbss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.sbss*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_SBSS_END = .;
         cod_SBSS_SIZE = ABSOLUTE(cod_SBSS_END - cod_SBSS_START);
     }
@@ -30456,7 +30456,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.bss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.bss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.bss*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_BSS_END = .;
         cod_BSS_SIZE = ABSOLUTE(cod_BSS_END - cod_BSS_START);
     }
@@ -33502,7 +33502,7 @@ SECTIONS
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198D0.bss.o(.vubss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198E0.bss.o(.vubss*);
         build/us_2003_07_10/asm/us_2003_07_10/data/unk/005198F0.bss.o(.vubss*);
-        . = ALIGN(., 0x10);
+        . = ALIGN(., 0x4);
         cod_VUBSS_END = .;
         cod_VUBSS_SIZE = ABSOLUTE(cod_VUBSS_END - cod_VUBSS_START);
     }
