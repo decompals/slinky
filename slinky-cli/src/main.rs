@@ -35,17 +35,7 @@ fn main() {
     } else {
         let mut writer = slinky::LinkerWriter::new(&document.settings);
 
-        if document.settings.single_segment_mode {
-            assert!(document.segments.len() == 1);
-
-            writer.add_single_segment(&document.segments[0]);
-        } else {
-            writer.begin_sections();
-            for segment in &document.segments {
-                writer.add_segment(segment);
-            }
-            writer.end_sections();
-        }
+        writer.add_all_segments(&document.segments);
 
         if let Some(output_path) = cli.output {
             writer

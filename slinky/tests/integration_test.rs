@@ -10,11 +10,7 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) {
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
 
     let mut writer = slinky::LinkerWriter::new(&document.settings);
-    writer.begin_sections();
-    for segment in &document.segments {
-        writer.add_segment(segment);
-    }
-    writer.end_sections();
+    writer.add_all_segments(&document.segments);
 
     let expected_ld_contents =
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
@@ -26,11 +22,7 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) {
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
 
     let mut writer = slinky::LinkerWriter::new(&document.settings);
-    writer.begin_sections();
-    for segment in &document.segments {
-        writer.add_segment(segment);
-    }
-    writer.end_sections();
+    writer.add_all_segments(&document.segments);
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
 
@@ -45,11 +37,7 @@ fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) {
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
 
     let mut writer = slinky::LinkerWriter::new(&document.settings);
-    writer.begin_sections();
-    for segment in &document.segments {
-        writer.add_segment(segment);
-    }
-    writer.end_sections();
+    writer.add_all_segments(&document.segments);
 
     let expected_h_contents = fs::read_to_string(ld_path).expect("unable to read expected h file");
 

@@ -36,6 +36,20 @@ impl<'a> LinkerWriter<'a> {
         }
     }
 
+    pub fn add_all_segments(&mut self, segments: &[Segment]) {
+        if self.settings.single_segment_mode {
+            assert!(segments.len() == 1);
+
+            self.add_single_segment(&segments[0]);
+        } else {
+            self.begin_sections();
+            for segment in segments {
+                self.add_segment(segment);
+            }
+            self.end_sections();
+        }
+    }
+
     pub fn begin_sections(&mut self) {
         self.writeln("SECTIONS");
         self.begin_block();
@@ -173,6 +187,7 @@ impl<'a> LinkerWriter<'a> {
 
         if let Some(fixed_vram) = segment.fixed_vram {
             self.writeln(&format!(". = 0x{:08X};", fixed_vram));
+            self.writeln("");
         }
 
         //let dotted_seg_name = format!(".{}", segment.name);
@@ -188,6 +203,12 @@ impl<'a> LinkerWriter<'a> {
         for section in &self.settings.alloc_sections {
             let mut line = String::new();
 
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
+
             line += &format!("{} :", section);
 
             if let Some(subalign) = segment.subalign {
@@ -201,26 +222,26 @@ impl<'a> LinkerWriter<'a> {
                 self.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
-
             self.emit_section(segment, section);
 
             if let Some(section_end_align) = segment.section_end_align {
                 self.align_symbol(".", section_end_align);
             }
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             self.end_block();
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             self.writeln("");
         }
 
         for section in &self.settings.noload_sections {
             let mut line = String::new();
+
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
 
             line += &format!("{} (NOLOAD) :", section);
 
@@ -235,20 +256,14 @@ impl<'a> LinkerWriter<'a> {
                 self.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
-
             self.emit_section(segment, section);
 
             if let Some(section_end_align) = segment.section_end_align {
                 self.align_symbol(".", section_end_align);
             }
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             self.end_block();
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             self.writeln("");
         }
