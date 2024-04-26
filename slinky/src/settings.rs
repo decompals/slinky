@@ -29,8 +29,8 @@ pub struct Settings {
 
     pub single_segment_mode: bool,
 
-    pub partial_scripts_path: PathBuf,
-    pub partial_build_segments_path: PathBuf,
+    pub partial_scripts_folder: PathBuf,
+    pub partial_build_segments_folder: PathBuf,
 
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
@@ -106,11 +106,11 @@ const fn settings_default_single_segment_mode() -> bool {
     false
 }
 
-fn settings_default_partial_scripts_path() -> PathBuf {
+fn settings_default_partial_scripts_folder() -> PathBuf {
     PathBuf::new()
 }
 
-fn settings_default_partial_build_segments_path() -> PathBuf {
+fn settings_default_partial_build_segments_folder() -> PathBuf {
     PathBuf::new()
 }
 
@@ -174,8 +174,8 @@ impl Default for Settings {
 
             single_segment_mode: settings_default_single_segment_mode(),
 
-            partial_scripts_path: settings_default_partial_scripts_path(),
-            partial_build_segments_path: settings_default_partial_build_segments_path(),
+            partial_scripts_folder: settings_default_partial_scripts_folder(),
+            partial_build_segments_folder: settings_default_partial_build_segments_folder(),
 
             alloc_sections: settings_default_alloc_sections(),
             noload_sections: settings_default_noload_sections(),
@@ -227,9 +227,9 @@ pub(crate) struct SettingsSerial {
     pub single_segment_mode: AbsentNullable<bool>,
 
     #[serde(default)]
-    pub partial_scripts_path: AbsentNullable<PathBuf>,
+    pub partial_scripts_folder: AbsentNullable<PathBuf>,
     #[serde(default)]
-    pub partial_build_segments_path: AbsentNullable<PathBuf>,
+    pub partial_build_segments_folder: AbsentNullable<PathBuf>,
 
     // Options passed down to each Segment
     #[serde(default)]
@@ -302,13 +302,13 @@ impl SettingsSerial {
             .single_segment_mode
             .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
 
-        let partial_scripts_path = self.partial_scripts_path.get_non_null(
-            "partial_scripts_path",
-            settings_default_partial_scripts_path,
+        let partial_scripts_folder = self.partial_scripts_folder.get_non_null(
+            "partial_scripts_folder",
+            settings_default_partial_scripts_folder,
         )?;
-        let partial_build_segments_path = self.partial_build_segments_path.get_non_null(
-            "partial_build_segments_path",
-            settings_default_partial_build_segments_path,
+        let partial_build_segments_folder = self.partial_build_segments_folder.get_non_null(
+            "partial_build_segments_folder",
+            settings_default_partial_build_segments_folder,
         )?;
 
         if d_path.is_some() && target_path.is_none() {
@@ -364,8 +364,8 @@ impl SettingsSerial {
 
             single_segment_mode,
 
-            partial_scripts_path,
-            partial_build_segments_path,
+            partial_scripts_folder,
+            partial_build_segments_folder,
 
             alloc_sections,
             noload_sections,

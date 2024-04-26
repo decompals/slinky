@@ -27,7 +27,7 @@ impl<'a> PartialLinkerWriter<'a> {
         }
     }
 
-    pub fn add_all_segment(&mut self, segments: &[Segment]) {
+    pub fn add_all_segments(&mut self, segments: &[Segment]) {
         self.main_writer.begin_sections();
 
         self.partial_writers.reserve(segments.len());
@@ -41,7 +41,7 @@ impl<'a> PartialLinkerWriter<'a> {
 
             let mut p = PathBuf::new();
 
-            p.push(&self.settings.partial_build_segments_path);
+            p.push(&self.settings.partial_build_segments_folder);
             p.push(&format!("{}.o", segment.name));
 
             let mut reference_segment = segment.clone();
@@ -68,7 +68,7 @@ impl<'a> PartialLinkerWriter<'a> {
         for (partial, name) in &self.partial_writers {
             let mut p = PathBuf::new();
 
-            p.push(&self.settings.partial_scripts_path);
+            p.push(&self.settings.partial_scripts_folder);
             p.push(&format!("{}.ld", name));
 
             partial.save_linker_script(&p)?;
@@ -80,9 +80,9 @@ impl<'a> PartialLinkerWriter<'a> {
     pub fn write_other_files(&self) -> Result<(), SlinkyError> {
         self.main_writer.write_other_files()?;
 
-        for (partial, _name) in &self.partial_writers {
-            partial.write_other_files()?;
-        }
+        //for (partial, _name) in &self.partial_writers {
+        //    partial.write_other_files()?;
+        //}
 
         Ok(())
     }

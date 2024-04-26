@@ -1,0 +1,28 @@
+settings:
+  base_path: build
+  section_end_align: null
+
+  d_path: tests/partial_linking/follow_segment.d
+  target_path: build/rom.elf
+
+  partial_scripts_folder: tests/partial_linking/follow_segment
+  partial_build_segments_folder: segments
+
+segments:
+  - name: boot
+    fixed_vram: 0x80000460
+    files:
+      - { path: src/main/boot_main.o }
+      - { path: src/libultra.o } # yes a single file, deal with it
+
+  - name: kanji
+    files:
+      - { path: src/kanji/kanji.o }
+
+  - name: main
+    follows_segment: boot
+    section_end_align: 0x20
+    files:
+      - { path: src/main/main.o }
+      - { path: src/main/dmadata.o }
+      - { path: asm/main/util.o }

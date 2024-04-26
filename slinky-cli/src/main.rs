@@ -18,7 +18,7 @@ struct Cli {
     output: Option<PathBuf>,
 
     /// Generate linker script for partial linking multiple segments.
-    /// Requires both `partial_scripts_path` and `partial_build_segments_path` YAML settings to be set.
+    /// Requires both `partial_scripts_folder` and `partial_build_segments_folder` YAML settings to be set.
     #[arg(short, long, default_value_t = false)]
     partial_linking: bool,
 }
@@ -34,7 +34,7 @@ fn main() {
     if cli.partial_linking {
         let mut writer = slinky::PartialLinkerWriter::new(&document.settings);
 
-        writer.add_all_segment(&document.segments);
+        writer.add_all_segments(&document.segments);
 
         let output_path = cli
             .output

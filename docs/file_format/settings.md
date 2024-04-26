@@ -357,9 +357,9 @@ Boolean.
 
 `False`
 
-## `partial_scripts_path`
+## `partial_scripts_folder`
 
-## `partial_build_segments_path`
+## `partial_build_segments_folder`
 
 ## `alloc_sections`
 
