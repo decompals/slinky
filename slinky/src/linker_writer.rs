@@ -2,17 +2,17 @@
 /* SPDX-License-Identifier: MIT */
 
 use std::path::PathBuf;
-use std::{collections::HashSet, io::Write, path::Path};
+use std::{io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
 use crate::{utils, Settings};
 use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
-    linker_symbols: HashSet<String>,
+    linker_symbols: indexmap::IndexSet<String>,
 
     // Used for dependency generation
-    files_paths: Vec<PathBuf>,
+    files_paths: indexmap::IndexSet<PathBuf>,
 
     indent_level: i32,
     buffer: Vec<String>,
@@ -25,8 +25,8 @@ pub struct LinkerWriter<'a> {
 impl<'a> LinkerWriter<'a> {
     pub fn new(settings: &'a Settings) -> Self {
         Self {
-            linker_symbols: HashSet::new(),
-            files_paths: Vec::new(),
+            linker_symbols: indexmap::IndexSet::new(),
+            files_paths: indexmap::IndexSet::new(),
             indent_level: 0,
             buffer: Vec::new(),
 
@@ -380,10 +380,7 @@ impl<'a> LinkerWriter<'a> {
             ""
         };
 
-        let mut linker_symbols_sorted: Vec<_> = self.linker_symbols.iter().collect();
-        linker_symbols_sorted.sort();
-
-        for sym in linker_symbols_sorted {
+        for sym in &self.linker_symbols {
             if let Err(e) = writeln!(
                 f,
                 "extern {} {}{};",
@@ -455,7 +452,7 @@ impl LinkerWriter<'_> {
 // Getters / Setters
 impl LinkerWriter<'_> {
     #[must_use]
-    pub fn get_linker_symbols(&self) -> &HashSet<String> {
+    pub fn get_linker_symbols(&self) -> &indexmap::IndexSet<String> {
         &self.linker_symbols
     }
 }
@@ -570,7 +567,8 @@ impl LinkerWriter<'_> {
 
                 self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 if !self.files_paths.contains(&path) {
-                    self.files_paths.push(path);
+                    //self.files_paths.push(path);
+                    self.files_paths.insert(path);
                 }
             }
             FileKind::Archive => {
@@ -585,7 +583,8 @@ impl LinkerWriter<'_> {
                     wildcard
                 ));
                 if !self.files_paths.contains(&path) {
-                    self.files_paths.push(path);
+                    //self.files_paths.push(path);
+                    self.files_paths.insert(path);
                 }
             }
             FileKind::Pad => {
