@@ -43,7 +43,7 @@ fn main() {
             .save_linker_scripts(&output_path)
             .expect("Error writing the linker scripts");
         writer
-            .write_other_files()
+            .save_other_files()
             .expect("Error writing other files listed on the document");
     } else {
         let mut writer = slinky::LinkerWriter::new(&document.settings);
@@ -59,7 +59,7 @@ fn main() {
         }
 
         writer
-            .write_other_files()
+            .save_other_files()
             .expect("Error writing other files listed on the document");
     }
 

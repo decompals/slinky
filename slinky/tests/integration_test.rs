@@ -72,10 +72,11 @@ fn test_panic_invalid_yamls(#[files("../tests/panics/*.yaml")] path: PathBuf) {
 }
 
 #[rstest]
-fn test_partial_linking_script_generation(#[files("../tests/partial_linking/*.ld")] ld_path: PathBuf) {
+fn test_partial_linking_script_generation(
+    #[files("../tests/partial_linking/*.ld")] ld_path: PathBuf,
+) {
     let yaml_path = ld_path.with_extension("yaml");
 
-    //check_ld_generation(&yaml_path, &ld_path);
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
 
     let mut writer = slinky::PartialLinkerWriter::new(&document.settings);
@@ -84,8 +85,10 @@ fn test_partial_linking_script_generation(#[files("../tests/partial_linking/*.ld
     let expected_ld_contents =
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
 
-    assert_eq!(expected_ld_contents, writer.get_main_writer().export_as_string());
-
+    assert_eq!(
+        expected_ld_contents,
+        writer.get_main_writer().export_as_string()
+    );
 
     for (partial, name) in writer.get_partial_writers() {
         let mut p = PathBuf::new();
@@ -94,10 +97,66 @@ fn test_partial_linking_script_generation(#[files("../tests/partial_linking/*.ld
         p.push(&document.settings.partial_scripts_folder);
         p.push(&format!("{}.ld", name));
 
-        //partial.save_linker_script(&p)?;
         let expected_partial_ld_contents =
-        fs::read_to_string(p).expect("unable to read expected ld file");
+            fs::read_to_string(p).expect("unable to read expected ld file");
 
         assert_eq!(expected_partial_ld_contents, partial.export_as_string());
     }
+}
+
+#[rstest]
+fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_path: PathBuf) {
+    let yaml_path = d_path.with_extension("yaml");
+
+    let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
+
+    let mut writer = slinky::PartialLinkerWriter::new(&document.settings);
+    writer.add_all_segments(&document.segments);
+
+    let expected_d_contents = fs::read_to_string(d_path).expect("unable to read expected d file");
+
+    let target_path = document.settings.target_path.as_ref().unwrap();
+    assert_eq!(
+        expected_d_contents,
+        writer
+            .get_main_writer()
+            .export_dependencies_as_string(target_path)
+    );
+
+    for (partial, name) in writer.get_partial_writers() {
+        let mut p = PathBuf::new();
+
+        p.push("..");
+        p.push(&document.settings.partial_scripts_folder);
+        p.push(&format!("{}.d", name));
+
+        let expected_partial_ld_contents =
+            fs::read_to_string(p).expect("unable to read expected d file");
+
+        let mut partial_target = PathBuf::new();
+        partial_target.push(&document.settings.partial_build_segments_folder);
+        partial_target.push(&format!("{}.o", name));
+        assert_eq!(
+            expected_partial_ld_contents,
+            partial.export_dependencies_as_string(&partial_target)
+        );
+    }
+}
+
+#[rstest]
+fn test_partial_linking_symbols_header_generation(
+    #[files("../tests/partial_linking/*.h")] h_path: PathBuf,
+) {
+    let yaml_path = h_path.with_extension("yaml");
+    let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
+
+    let mut writer = slinky::PartialLinkerWriter::new(&document.settings);
+    writer.add_all_segments(&document.segments);
+
+    let expected_h_contents = fs::read_to_string(h_path).expect("unable to read expected h file");
+
+    assert_eq!(
+        expected_h_contents,
+        writer.get_main_writer().export_symbol_header_as_string()
+    );
 }

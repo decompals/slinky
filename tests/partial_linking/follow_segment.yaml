@@ -2,8 +2,10 @@ settings:
   base_path: build
   section_end_align: null
 
-  d_path: tests/partial_linking/follow_segment.d
   target_path: build/rom.elf
+  d_path: tests/partial_linking/follow_segment.d
+
+  symbols_header_path: tests/partial_linking/follow_segment.h
 
   partial_scripts_folder: tests/partial_linking/follow_segment
   partial_build_segments_folder: segments

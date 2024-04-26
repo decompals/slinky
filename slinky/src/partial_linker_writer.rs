@@ -77,12 +77,24 @@ impl<'a> PartialLinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn write_other_files(&self) -> Result<(), SlinkyError> {
-        self.main_writer.write_other_files()?;
+    pub fn save_other_files(&self) -> Result<(), SlinkyError> {
+        self.main_writer.save_other_files()?;
 
-        //for (partial, _name) in &self.partial_writers {
-        //    partial.write_other_files()?;
-        //}
+        if self.settings.d_path.is_some() {
+            for (partial, name) in &self.partial_writers {
+                let mut target_path = PathBuf::new();
+
+                target_path.push(&self.settings.partial_build_segments_folder);
+                target_path.push(&format!("{}.o", name));
+
+                let mut d_path = PathBuf::new();
+
+                d_path.push(&self.settings.partial_scripts_folder);
+                d_path.push(&format!("{}.d", name));
+
+                partial.save_dependencies_file(&d_path, &target_path)?;
+            }
+        }
 
         Ok(())
     }

@@ -437,7 +437,7 @@ impl<'a> LinkerWriter<'a> {
 }
 
 impl LinkerWriter<'_> {
-    pub fn write_other_files(&self) -> Result<(), SlinkyError> {
+    pub fn save_other_files(&self) -> Result<(), SlinkyError> {
         if let Some(d_path) = &self.settings.d_path {
             if let Some(target_path) = &self.settings.target_path {
                 self.save_dependencies_file(d_path, target_path)?;
