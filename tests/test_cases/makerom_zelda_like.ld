@@ -5,6 +5,7 @@ SECTIONS
     _makeromSegmentRomStart = __romPos;
     _makeromSegmentStart = ADDR(.makerom);
     _makerom_allocSegmentStart = .;
+
     .makerom 0x80024C00 : AT(_makeromSegmentRomStart)
     {
         FILL(0x00000000);
@@ -32,10 +33,12 @@ SECTIONS
         _makeromSegmentRoDataEnd = .;
         _makeromSegmentRoDataSize = ABSOLUTE(_makeromSegmentRoDataEnd - _makeromSegmentRoDataStart);
     }
+
     _makerom_allocSegmentEnd = .;
     _makerom_allocSegmentSize = ABSOLUTE(_makerom_allocSegmentEnd - _makerom_allocSegmentStart);
 
     _makerom_noloadSegmentStart = .;
+
     .makerom.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -71,6 +74,7 @@ SECTIONS
         _makeromSegmentCOMMONEnd = .;
         _makeromSegmentCOMMONSize = ABSOLUTE(_makeromSegmentCOMMONEnd - _makeromSegmentCOMMONStart);
     }
+
     _makerom_noloadSegmentEnd = .;
     _makerom_noloadSegmentSize = ABSOLUTE(_makerom_noloadSegmentEnd - _makerom_noloadSegmentStart);
     _makeromSegmentEnd = .;
@@ -82,6 +86,7 @@ SECTIONS
     _bootSegmentRomStart = __romPos;
     _bootSegmentStart = ADDR(.boot);
     _boot_allocSegmentStart = .;
+
     .boot : AT(_bootSegmentRomStart)
     {
         FILL(0x00000000);
@@ -109,10 +114,12 @@ SECTIONS
         _bootSegmentSdataEnd = .;
         _bootSegmentSdataSize = ABSOLUTE(_bootSegmentSdataEnd - _bootSegmentSdataStart);
     }
+
     _boot_allocSegmentEnd = .;
     _boot_allocSegmentSize = ABSOLUTE(_boot_allocSegmentEnd - _boot_allocSegmentStart);
 
     _boot_noloadSegmentStart = .;
+
     .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -140,6 +147,7 @@ SECTIONS
         _bootSegmentCOMMONEnd = .;
         _bootSegmentCOMMONSize = ABSOLUTE(_bootSegmentCOMMONEnd - _bootSegmentCOMMONStart);
     }
+
     _boot_noloadSegmentEnd = .;
     _boot_noloadSegmentSize = ABSOLUTE(_boot_noloadSegmentEnd - _boot_noloadSegmentStart);
     _bootSegmentEnd = .;
@@ -151,6 +159,7 @@ SECTIONS
     _codeSegmentRomStart = __romPos;
     _codeSegmentStart = ADDR(.code);
     _code_allocSegmentStart = .;
+
     .code : AT(_codeSegmentRomStart)
     {
         FILL(0x00000000);
@@ -186,10 +195,12 @@ SECTIONS
         _codeSegmentSdataEnd = .;
         _codeSegmentSdataSize = ABSOLUTE(_codeSegmentSdataEnd - _codeSegmentSdataStart);
     }
+
     _code_allocSegmentEnd = .;
     _code_allocSegmentSize = ABSOLUTE(_code_allocSegmentEnd - _code_allocSegmentStart);
 
     _code_noloadSegmentStart = .;
+
     .code.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -225,6 +236,7 @@ SECTIONS
         _codeSegmentCOMMONEnd = .;
         _codeSegmentCOMMONSize = ABSOLUTE(_codeSegmentCOMMONEnd - _codeSegmentCOMMONStart);
     }
+
     _code_noloadSegmentEnd = .;
     _code_noloadSegmentSize = ABSOLUTE(_code_noloadSegmentEnd - _code_noloadSegmentStart);
     _codeSegmentEnd = .;
@@ -238,6 +250,7 @@ SECTIONS
     _gameplay_keepSegmentRomStart = __romPos;
     _gameplay_keepSegmentStart = ADDR(.gameplay_keep);
     _gameplay_keep_allocSegmentStart = .;
+
     .gameplay_keep 0x04000000 : AT(_gameplay_keepSegmentRomStart)
     {
         FILL(0x00000000);
@@ -265,10 +278,12 @@ SECTIONS
         _gameplay_keepSegmentSdataEnd = .;
         _gameplay_keepSegmentSdataSize = ABSOLUTE(_gameplay_keepSegmentSdataEnd - _gameplay_keepSegmentSdataStart);
     }
+
     _gameplay_keep_allocSegmentEnd = .;
     _gameplay_keep_allocSegmentSize = ABSOLUTE(_gameplay_keep_allocSegmentEnd - _gameplay_keep_allocSegmentStart);
 
     _gameplay_keep_noloadSegmentStart = .;
+
     .gameplay_keep.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -296,6 +311,7 @@ SECTIONS
         _gameplay_keepSegmentCOMMONEnd = .;
         _gameplay_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_keepSegmentCOMMONEnd - _gameplay_keepSegmentCOMMONStart);
     }
+
     _gameplay_keep_noloadSegmentEnd = .;
     _gameplay_keep_noloadSegmentSize = ABSOLUTE(_gameplay_keep_noloadSegmentEnd - _gameplay_keep_noloadSegmentStart);
     _gameplay_keepSegmentEnd = .;
@@ -309,6 +325,7 @@ SECTIONS
     _gameplay_dangeon_keepSegmentRomStart = __romPos;
     _gameplay_dangeon_keepSegmentStart = ADDR(.gameplay_dangeon_keep);
     _gameplay_dangeon_keep_allocSegmentStart = .;
+
     .gameplay_dangeon_keep 0x05000000 : AT(_gameplay_dangeon_keepSegmentRomStart)
     {
         FILL(0x00000000);
@@ -336,10 +353,12 @@ SECTIONS
         _gameplay_dangeon_keepSegmentSdataEnd = .;
         _gameplay_dangeon_keepSegmentSdataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSdataEnd - _gameplay_dangeon_keepSegmentSdataStart);
     }
+
     _gameplay_dangeon_keep_allocSegmentEnd = .;
     _gameplay_dangeon_keep_allocSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_allocSegmentEnd - _gameplay_dangeon_keep_allocSegmentStart);
 
     _gameplay_dangeon_keep_noloadSegmentStart = .;
+
     .gameplay_dangeon_keep.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -367,6 +386,7 @@ SECTIONS
         _gameplay_dangeon_keepSegmentCOMMONEnd = .;
         _gameplay_dangeon_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_dangeon_keepSegmentCOMMONEnd - _gameplay_dangeon_keepSegmentCOMMONStart);
     }
+
     _gameplay_dangeon_keep_noloadSegmentEnd = .;
     _gameplay_dangeon_keep_noloadSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_noloadSegmentEnd - _gameplay_dangeon_keep_noloadSegmentStart);
     _gameplay_dangeon_keepSegmentEnd = .;
@@ -380,6 +400,7 @@ SECTIONS
     _gameplay_dangeon_keepSegmentRomStart = __romPos;
     _gameplay_dangeon_keepSegmentStart = ADDR(.gameplay_dangeon_keep);
     _gameplay_dangeon_keep_allocSegmentStart = .;
+
     .gameplay_dangeon_keep 0x05000000 : AT(_gameplay_dangeon_keepSegmentRomStart)
     {
         FILL(0x00000000);
@@ -407,10 +428,12 @@ SECTIONS
         _gameplay_dangeon_keepSegmentSdataEnd = .;
         _gameplay_dangeon_keepSegmentSdataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSdataEnd - _gameplay_dangeon_keepSegmentSdataStart);
     }
+
     _gameplay_dangeon_keep_allocSegmentEnd = .;
     _gameplay_dangeon_keep_allocSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_allocSegmentEnd - _gameplay_dangeon_keep_allocSegmentStart);
 
     _gameplay_dangeon_keep_noloadSegmentStart = .;
+
     .gameplay_dangeon_keep.noload (NOLOAD) :
     {
         FILL(0x00000000);
@@ -438,6 +461,7 @@ SECTIONS
         _gameplay_dangeon_keepSegmentCOMMONEnd = .;
         _gameplay_dangeon_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_dangeon_keepSegmentCOMMONEnd - _gameplay_dangeon_keepSegmentCOMMONStart);
     }
+
     _gameplay_dangeon_keep_noloadSegmentEnd = .;
     _gameplay_dangeon_keep_noloadSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_noloadSegmentEnd - _gameplay_dangeon_keep_noloadSegmentStart);
     _gameplay_dangeon_keepSegmentEnd = .;

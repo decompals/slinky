@@ -5,6 +5,7 @@ SECTIONS
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
+
     .boot : AT(boot_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -32,10 +33,12 @@ SECTIONS
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
+
     boot_alloc_VRAM_END = .;
     boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
 
     boot_noload_VRAM = .;
+
     .boot.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -63,6 +66,7 @@ SECTIONS
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
+
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
     boot_VRAM_END = .;
@@ -74,6 +78,7 @@ SECTIONS
     kanji_ROM_START = __romPos;
     kanji_VRAM = ADDR(.kanji);
     kanji_alloc_VRAM = .;
+
     .kanji : AT(kanji_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -97,10 +102,12 @@ SECTIONS
         kanji_SDATA_END = .;
         kanji_SDATA_SIZE = ABSOLUTE(kanji_SDATA_END - kanji_SDATA_START);
     }
+
     kanji_alloc_VRAM_END = .;
     kanji_alloc_VRAM_SIZE = ABSOLUTE(kanji_alloc_VRAM_END - kanji_alloc_VRAM);
 
     kanji_noload_VRAM = .;
+
     .kanji.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -124,6 +131,7 @@ SECTIONS
         kanjiCOMMON_END = .;
         kanjiCOMMON_SIZE = ABSOLUTE(kanjiCOMMON_END - kanjiCOMMON_START);
     }
+
     kanji_noload_VRAM_END = .;
     kanji_noload_VRAM_SIZE = ABSOLUTE(kanji_noload_VRAM_END - kanji_noload_VRAM);
     kanji_VRAM_END = .;
@@ -135,6 +143,7 @@ SECTIONS
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;
+
     .main boot_VRAM_END : AT(main_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -170,10 +179,12 @@ SECTIONS
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
     }
+
     main_alloc_VRAM_END = .;
     main_alloc_VRAM_SIZE = ABSOLUTE(main_alloc_VRAM_END - main_alloc_VRAM);
 
     main_noload_VRAM = .;
+
     .main.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -209,6 +220,7 @@ SECTIONS
         mainCOMMON_END = .;
         mainCOMMON_SIZE = ABSOLUTE(mainCOMMON_END - mainCOMMON_START);
     }
+
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
     main_VRAM_END = .;

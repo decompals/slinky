@@ -20,6 +20,9 @@ pub struct LinkerWriter<'a> {
     single_segment: bool,
 
     settings: &'a Settings,
+
+    emit_sections_kind_symbols: bool,
+    emit_section_symbols: bool,
 }
 
 impl<'a> LinkerWriter<'a> {
@@ -33,6 +36,9 @@ impl<'a> LinkerWriter<'a> {
             single_segment: false,
 
             settings,
+
+            emit_sections_kind_symbols: true,
+            emit_section_symbols: true,
         }
     }
 
@@ -127,7 +133,6 @@ impl<'a> LinkerWriter<'a> {
         assert!(!self.single_segment);
 
         let style = &self.settings.linker_symbols_style;
-        let dotted_seg_name = format!(".{}", segment.name);
 
         // rom segment symbols
         let main_seg_rom_sym_start: String = style.segment_rom_start(&segment.name);
@@ -145,15 +150,15 @@ impl<'a> LinkerWriter<'a> {
         }
 
         self.write_symbol(&main_seg_rom_sym_start, "__romPos");
-        self.write_symbol(&main_seg_sym_start, &format!("ADDR({})", dotted_seg_name));
+        self.write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
         // Emit alloc segment
-        self.write_segment(segment, &dotted_seg_name, &segment.alloc_sections, false);
+        self.write_segment(segment, &segment.alloc_sections, false);
 
         self.writeln("");
 
         // Emit noload segment
-        self.write_segment(segment, &dotted_seg_name, &segment.noload_sections, true);
+        self.write_segment(segment, &segment.noload_sections, true);
 
         self.write_sym_end_size(
             &main_seg_sym_start,
@@ -162,7 +167,7 @@ impl<'a> LinkerWriter<'a> {
             ".",
         );
 
-        self.writeln(&format!("__romPos += SIZEOF({});", dotted_seg_name));
+        self.writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
         self.write_sym_end_size(
             &main_seg_rom_sym_start,
             &main_seg_rom_sym_end,
@@ -188,15 +193,13 @@ impl<'a> LinkerWriter<'a> {
             self.writeln("");
         }
 
-        let dotted_seg_name = format!(".{}", segment.name);
-
         // Emit alloc segment
-        self.write_single_segment(segment, &dotted_seg_name, &segment.alloc_sections, false);
+        self.write_single_segment(segment, &segment.alloc_sections, false);
 
         self.writeln("");
 
         // Emit noload segment
-        self.write_single_segment(segment, &dotted_seg_name, &segment.noload_sections, true);
+        self.write_single_segment(segment, &segment.noload_sections, true);
 
         self.writeln("");
 
@@ -384,6 +387,24 @@ impl LinkerWriter<'_> {
     pub fn get_linker_symbols(&self) -> &indexmap::IndexSet<String> {
         &self.linker_symbols
     }
+
+    pub fn set_emit_sections_kind_symbols(&mut self, value: bool) {
+        self.emit_sections_kind_symbols = value;
+    }
+
+    #[must_use]
+    pub fn get_emit_sections_kind_symbols(&mut self) -> bool {
+        self.emit_sections_kind_symbols
+    }
+
+    pub fn set_emit_section_symbols(&mut self, value: bool) {
+        self.emit_section_symbols = value;
+    }
+
+    #[must_use]
+    pub fn get_emit_section_symbols(&mut self) -> bool {
+        self.emit_section_symbols
+    }
 }
 
 // internal functions
@@ -435,19 +456,71 @@ impl LinkerWriter<'_> {
         self.write_symbol(size, &format!("ABSOLUTE({} - {})", end, start));
     }
 
-    fn write_segment_start(
-        &mut self,
-        segment: &Segment,
-        dotted_seg_name: &str,
-        noload: bool,
-        seg_sym_start: &str,
-    ) {
+    fn write_sections_kind_start(&mut self, segment: &Segment, noload: bool) {
+        if self.emit_sections_kind_symbols {
+            let style = &self.settings.linker_symbols_style;
+
+            let seg_sym_suffix = if noload { "noload" } else { "alloc" };
+            let seg_sym = format!("{}_{}", segment.name, seg_sym_suffix);
+
+            let seg_sym_start = style.segment_vram_start(&seg_sym);
+
+            self.write_symbol(&seg_sym_start, ".");
+
+            self.writeln("");
+        }
+    }
+
+    fn write_sections_kind_end(&mut self, segment: &Segment, noload: bool) {
+        if self.emit_sections_kind_symbols {
+            self.writeln("");
+
+            let style = &self.settings.linker_symbols_style;
+
+            let seg_sym_suffix = if noload { "noload" } else { "alloc" };
+            let seg_sym = format!("{}_{}", segment.name, seg_sym_suffix);
+
+            let seg_sym_start = style.segment_vram_start(&seg_sym);
+            let seg_sym_end = style.segment_vram_end(&seg_sym);
+            let seg_sym_size = style.segment_vram_size(&seg_sym);
+
+            self.write_sym_end_size(&seg_sym_start, &seg_sym_end, &seg_sym_size, ".");
+        }
+    }
+
+    fn write_section_symbol_start(&mut self, segment: &Segment, section: &str) {
+        if self.emit_section_symbols {
+            let style = &self.settings.linker_symbols_style;
+
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+
+            self.write_symbol(&section_start_sym, ".");
+        }
+    }
+
+    fn write_section_symbol_end(&mut self, segment: &Segment, section: &str) {
+        if self.emit_section_symbols {
+            if let Some(section_end_align) = segment.section_end_align {
+                self.align_symbol(".", section_end_align);
+            }
+
+            let style = &self.settings.linker_symbols_style;
+
+            let section_start_sym = style.segment_section_start(&segment.name, section);
+            let section_end_sym = style.segment_section_end(&segment.name, section);
+            let section_size_sym = style.segment_section_size(&segment.name, section);
+
+            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+        }
+    }
+
+    fn write_segment_start(&mut self, segment: &Segment, noload: bool) {
         let style = &self.settings.linker_symbols_style;
 
-        self.write_symbol(seg_sym_start, ".");
+        self.write_sections_kind_start(segment, noload);
 
         let name_suffix = if noload { ".noload" } else { "" };
-        let mut line = format!("{}{}", dotted_seg_name, name_suffix);
+        let mut line = format!(".{}{}", segment.name, name_suffix);
 
         if noload {
             line += " (NOLOAD) :";
@@ -469,18 +542,10 @@ impl LinkerWriter<'_> {
         self.begin_block();
     }
 
-    fn write_segment_end(
-        &mut self,
-        _segment: &Segment,
-        _dotted_seg_name: &str,
-        _noload: bool,
-        seg_sym_start: &str,
-        seg_sym_end: &str,
-        seg_sym_size: &str,
-    ) {
+    fn write_segment_end(&mut self, segment: &Segment, noload: bool) {
         self.end_block();
 
-        self.write_sym_end_size(seg_sym_start, seg_sym_end, seg_sym_size, ".");
+        self.write_sections_kind_end(segment, noload);
     }
 
     fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str, base_path: &Path) {
@@ -496,7 +561,6 @@ impl LinkerWriter<'_> {
 
                 self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 if !self.files_paths.contains(&path) {
-                    //self.files_paths.push(path);
                     self.files_paths.insert(path);
                 }
             }
@@ -512,7 +576,6 @@ impl LinkerWriter<'_> {
                     wildcard
                 ));
                 if !self.files_paths.contains(&path) {
-                    //self.files_paths.push(path);
                     self.files_paths.insert(path);
                 }
             }
@@ -561,87 +624,35 @@ impl LinkerWriter<'_> {
         }
     }
 
-    fn write_segment(
-        &mut self,
-        segment: &Segment,
-        dotted_seg_name: &str,
-        sections: &[String],
-        noload: bool,
-    ) {
-        let style = &self.settings.linker_symbols_style;
-
-        let seg_sym_suffix = if noload { "_noload" } else { "_alloc" };
-
-        let seg_sym = format!("{}{}", segment.name, seg_sym_suffix);
-
-        let seg_sym_start = style.segment_vram_start(&seg_sym);
-        let seg_sym_end = style.segment_vram_end(&seg_sym);
-        let seg_sym_size = style.segment_vram_size(&seg_sym);
-
-        self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
+    fn write_segment(&mut self, segment: &Segment, sections: &[String], noload: bool) {
+        self.write_segment_start(segment, noload);
 
         if let Some(fill_value) = segment.fill_value {
             self.writeln(&format!("FILL(0x{:08X});", fill_value));
         }
 
         for (i, section) in sections.iter().enumerate() {
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
+            self.write_section_symbol_start(segment, section);
 
             self.emit_section(segment, section);
 
-            if let Some(section_end_align) = segment.section_end_align {
-                self.align_symbol(".", section_end_align);
-            }
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+            self.write_section_symbol_end(segment, section);
 
             if i + 1 < sections.len() {
                 self.writeln("");
             }
         }
 
-        self.write_segment_end(
-            segment,
-            dotted_seg_name,
-            noload,
-            &seg_sym_start,
-            &seg_sym_end,
-            &seg_sym_size,
-        );
+        self.write_segment_end(segment, noload);
     }
 
-    fn write_single_segment(
-        &mut self,
-        segment: &Segment,
-        _dotted_seg_name: &str,
-        sections: &[String],
-        noload: bool,
-    ) {
-        let style = &self.settings.linker_symbols_style;
-
-        /*
-        let seg_sym_suffix = if noload { "_noload" } else { "_alloc" };
-
-        let seg_sym = format!("{}{}", segment.name, seg_sym_suffix);
-
-        let seg_sym_start = style.segment_vram_start(&seg_sym);
-        let seg_sym_end = style.segment_vram_end(&seg_sym);
-        let seg_sym_size = style.segment_vram_size(&seg_sym);
-        */
-
-        // self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
+    fn write_single_segment(&mut self, segment: &Segment, sections: &[String], noload: bool) {
+        self.write_sections_kind_start(segment, noload);
 
         for (i, section) in sections.iter().enumerate() {
             let mut line = String::new();
 
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
+            self.write_section_symbol_start(segment, section);
 
             line += &format!("{}{} :", section, if noload { " (NOLOAD)" } else { "" });
 
@@ -658,27 +669,14 @@ impl LinkerWriter<'_> {
 
             self.emit_section(segment, section);
 
-            if let Some(section_end_align) = segment.section_end_align {
-                self.align_symbol(".", section_end_align);
-            }
-
             self.end_block();
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
+            self.write_section_symbol_end(segment, section);
 
             if i + 1 < sections.len() {
                 self.writeln("");
             }
         }
 
-        /*
-        self.write_segment_end(
-            segment,
-            dotted_seg_name,
-            noload,
-            &seg_sym_start,
-            &seg_sym_end,
-            &seg_sym_size,
-        );
-        */
+        self.write_sections_kind_end(segment, noload);
     }
 }

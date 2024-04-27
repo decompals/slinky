@@ -34,6 +34,9 @@ impl<'a> PartialLinkerWriter<'a> {
         for segment in segments {
             let mut partial_writer = LinkerWriter::new(self.settings);
 
+            partial_writer.set_emit_sections_kind_symbols(false);
+            partial_writer.set_emit_section_symbols(false);
+
             partial_writer.add_single_segment(segment);
 
             self.partial_writers

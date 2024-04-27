@@ -6,6 +6,7 @@ SECTIONS
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;
+
     .main 0x80010200 : AT(main_ROM_START)
     {
         FILL(0x00000000);
@@ -63,14 +64,17 @@ SECTIONS
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
     }
+
     main_alloc_VRAM_END = .;
     main_alloc_VRAM_SIZE = ABSOLUTE(main_alloc_VRAM_END - main_alloc_VRAM);
 
     main_noload_VRAM = .;
+
     .main.noload (NOLOAD) :
     {
         FILL(0x00000000);
     }
+
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
     main_VRAM_END = .;

@@ -5,6 +5,7 @@ SECTIONS
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
+
     .boot : AT(boot_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -42,10 +43,12 @@ SECTIONS
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
+
     boot_alloc_VRAM_END = .;
     boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
 
     boot_noload_VRAM = .;
+
     .boot.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -82,6 +85,7 @@ SECTIONS
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
+
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
     boot_VRAM_END = .;

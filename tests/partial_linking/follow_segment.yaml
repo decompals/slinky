@@ -1,6 +1,7 @@
 settings:
   base_path: build
-  section_end_align: null
+  segment_start_align: 0x8
+  section_end_align: 0x8
 
   target_path: build/rom.elf
   d_path: tests/partial_linking/follow_segment.d

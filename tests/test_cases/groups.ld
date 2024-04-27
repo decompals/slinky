@@ -5,6 +5,7 @@ SECTIONS
     header_ROM_START = __romPos;
     header_VRAM = ADDR(.header);
     header_alloc_VRAM = .;
+
     .header : AT(header_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -32,10 +33,12 @@ SECTIONS
         header_SDATA_END = .;
         header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
+
     header_alloc_VRAM_END = .;
     header_alloc_VRAM_SIZE = ABSOLUTE(header_alloc_VRAM_END - header_alloc_VRAM);
 
     header_noload_VRAM = .;
+
     .header.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -63,6 +66,7 @@ SECTIONS
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
+
     header_noload_VRAM_END = .;
     header_noload_VRAM_SIZE = ABSOLUTE(header_noload_VRAM_END - header_noload_VRAM);
     header_VRAM_END = .;
@@ -74,6 +78,7 @@ SECTIONS
     ipl3_ROM_START = __romPos;
     ipl3_VRAM = ADDR(.ipl3);
     ipl3_alloc_VRAM = .;
+
     .ipl3 : AT(ipl3_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -101,10 +106,12 @@ SECTIONS
         ipl3_SDATA_END = .;
         ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
+
     ipl3_alloc_VRAM_END = .;
     ipl3_alloc_VRAM_SIZE = ABSOLUTE(ipl3_alloc_VRAM_END - ipl3_alloc_VRAM);
 
     ipl3_noload_VRAM = .;
+
     .ipl3.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -132,6 +139,7 @@ SECTIONS
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
+
     ipl3_noload_VRAM_END = .;
     ipl3_noload_VRAM_SIZE = ABSOLUTE(ipl3_noload_VRAM_END - ipl3_noload_VRAM);
     ipl3_VRAM_END = .;
@@ -143,6 +151,7 @@ SECTIONS
     entry_ROM_START = __romPos;
     entry_VRAM = ADDR(.entry);
     entry_alloc_VRAM = .;
+
     .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -170,10 +179,12 @@ SECTIONS
         entry_SDATA_END = .;
         entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
+
     entry_alloc_VRAM_END = .;
     entry_alloc_VRAM_SIZE = ABSOLUTE(entry_alloc_VRAM_END - entry_alloc_VRAM);
 
     entry_noload_VRAM = .;
+
     .entry.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -201,6 +212,7 @@ SECTIONS
         entryCOMMON_END = .;
         entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
+
     entry_noload_VRAM_END = .;
     entry_noload_VRAM_SIZE = ABSOLUTE(entry_noload_VRAM_END - entry_noload_VRAM);
     entry_VRAM_END = .;
@@ -212,6 +224,7 @@ SECTIONS
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
+
     .boot : AT(boot_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -839,10 +852,12 @@ SECTIONS
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
+
     boot_alloc_VRAM_END = .;
     boot_alloc_VRAM_SIZE = ABSOLUTE(boot_alloc_VRAM_END - boot_alloc_VRAM);
 
     boot_noload_VRAM = .;
+
     .boot.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1470,6 +1485,7 @@ SECTIONS
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
+
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
     boot_VRAM_END = .;
@@ -1481,6 +1497,7 @@ SECTIONS
     dma_table_ROM_START = __romPos;
     dma_table_VRAM = ADDR(.dma_table);
     dma_table_alloc_VRAM = .;
+
     .dma_table : AT(dma_table_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1508,10 +1525,12 @@ SECTIONS
         dma_table_SDATA_END = .;
         dma_table_SDATA_SIZE = ABSOLUTE(dma_table_SDATA_END - dma_table_SDATA_START);
     }
+
     dma_table_alloc_VRAM_END = .;
     dma_table_alloc_VRAM_SIZE = ABSOLUTE(dma_table_alloc_VRAM_END - dma_table_alloc_VRAM);
 
     dma_table_noload_VRAM = .;
+
     .dma_table.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1539,6 +1558,7 @@ SECTIONS
         dma_tableCOMMON_END = .;
         dma_tableCOMMON_SIZE = ABSOLUTE(dma_tableCOMMON_END - dma_tableCOMMON_START);
     }
+
     dma_table_noload_VRAM_END = .;
     dma_table_noload_VRAM_SIZE = ABSOLUTE(dma_table_noload_VRAM_END - dma_table_noload_VRAM);
     dma_table_VRAM_END = .;
@@ -1550,6 +1570,7 @@ SECTIONS
     main_segment_ROM_START = __romPos;
     main_segment_VRAM = ADDR(.main_segment);
     main_segment_alloc_VRAM = .;
+
     .main_segment : AT(main_segment_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1629,10 +1650,12 @@ SECTIONS
         main_segment_SDATA_END = .;
         main_segment_SDATA_SIZE = ABSOLUTE(main_segment_SDATA_END - main_segment_SDATA_START);
     }
+
     main_segment_alloc_VRAM_END = .;
     main_segment_alloc_VRAM_SIZE = ABSOLUTE(main_segment_alloc_VRAM_END - main_segment_alloc_VRAM);
 
     main_segment_noload_VRAM = .;
+
     .main_segment.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1712,6 +1735,7 @@ SECTIONS
         main_segmentCOMMON_END = .;
         main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
+
     main_segment_noload_VRAM_END = .;
     main_segment_noload_VRAM_SIZE = ABSOLUTE(main_segment_noload_VRAM_END - main_segment_noload_VRAM);
     main_segment_VRAM_END = .;
@@ -1723,6 +1747,7 @@ SECTIONS
     framebuffer_ROM_START = __romPos;
     framebuffer_VRAM = ADDR(.framebuffer);
     framebuffer_alloc_VRAM = .;
+
     .framebuffer 0x803B5000 : AT(framebuffer_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1750,10 +1775,12 @@ SECTIONS
         framebuffer_SDATA_END = .;
         framebuffer_SDATA_SIZE = ABSOLUTE(framebuffer_SDATA_END - framebuffer_SDATA_START);
     }
+
     framebuffer_alloc_VRAM_END = .;
     framebuffer_alloc_VRAM_SIZE = ABSOLUTE(framebuffer_alloc_VRAM_END - framebuffer_alloc_VRAM);
 
     framebuffer_noload_VRAM = .;
+
     .framebuffer.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -1781,6 +1808,7 @@ SECTIONS
         framebufferCOMMON_END = .;
         framebufferCOMMON_SIZE = ABSOLUTE(framebufferCOMMON_END - framebufferCOMMON_START);
     }
+
     framebuffer_noload_VRAM_END = .;
     framebuffer_noload_VRAM_SIZE = ABSOLUTE(framebuffer_noload_VRAM_END - framebuffer_noload_VRAM);
     framebuffer_VRAM_END = .;

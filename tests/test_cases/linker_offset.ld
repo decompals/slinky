@@ -5,6 +5,7 @@ SECTIONS
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;
+
     .main : AT(main_ROM_START) SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -46,10 +47,12 @@ SECTIONS
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
     }
+
     main_alloc_VRAM_END = .;
     main_alloc_VRAM_SIZE = ABSOLUTE(main_alloc_VRAM_END - main_alloc_VRAM);
 
     main_noload_VRAM = .;
+
     .main.noload (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
@@ -89,6 +92,7 @@ SECTIONS
         mainCOMMON_END = .;
         mainCOMMON_SIZE = ABSOLUTE(mainCOMMON_END - mainCOMMON_START);
     }
+
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
     main_VRAM_END = .;
