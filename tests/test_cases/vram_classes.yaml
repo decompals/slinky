@@ -62,20 +62,24 @@ segments:
 
   - name: assets1
     vram_class: segment_05
+    files:
       - { path: src/assets/assets1/texture.o }
       - { path: src/assets/assets1/dlist.o }
 
   - name: assets2
     vram_class: segment_05
+    files:
       - { path: src/assets/assets2/texture.o }
       - { path: src/assets/assets2/dlist.o }
 
   - name: assets3
     vram_class: segment_05
+    files:
       - { path: src/assets/assets3/texture.o }
       - { path: src/assets/assets3/dlist.o }
 
   - name: assets4
     vram_class: segment_06
+    files:
       - { path: src/assets/assets4/texture.o }
       - { path: src/assets/assets4/dlist.o }

@@ -12,6 +12,8 @@ mod file_info;
 mod file_kind;
 mod segment;
 
+mod vram_class;
+
 mod document;
 
 mod linker_writer;
@@ -25,6 +27,9 @@ pub use settings::Settings;
 pub use file_info::FileInfo;
 pub use file_kind::FileKind;
 pub use segment::Segment;
+
+
+pub use vram_class::VramClass;
 
 pub use document::Document;
 

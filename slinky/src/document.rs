@@ -6,13 +6,14 @@ use std::{fs, path::Path};
 use serde::Deserialize;
 
 use crate::{
-    absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial, Segment,
-    Settings, SlinkyError,
+    absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial, vram_class::VramClassSerial, Segment, Settings, SlinkyError, VramClass
 };
 
 #[derive(PartialEq, Debug)]
 pub struct Document {
     pub settings: Settings,
+
+    pub vram_classes: Vec<VramClass>,
 
     pub segments: Vec<Segment>,
 }
@@ -47,6 +48,9 @@ pub(crate) struct DocumentSerial {
     #[serde(default)]
     pub settings: AbsentNullable<SettingsSerial>,
 
+    #[serde(default)]
+    pub vram_classes: AbsentNullable<Vec<VramClassSerial>>,
+
     pub segments: Vec<SegmentSerial>,
 }
 
@@ -63,11 +67,21 @@ impl DocumentSerial {
             });
         }
 
+        let mut vram_classes = Vec::new();
+        match self.vram_classes.get_non_null_no_default("vram_classes")? {
+            None => (),
+            Some(v) => {
+                for c in v {
+                    vram_classes.push(c.unserialize(&settings)?);
+                }
+            },
+        }
+
         let mut segments = Vec::with_capacity(self.segments.len());
         for seg in self.segments {
             segments.push(seg.unserialize(&settings)?);
         }
 
-        Ok(Document { settings, segments })
+        Ok(Document { settings, vram_classes, segments })
     }
 }

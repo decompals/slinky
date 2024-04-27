@@ -18,12 +18,15 @@ pub struct Segment {
     pub files: Vec<FileInfo>,
 
     /// If not None then forces the segment to have a fixed vram address instead of following the previous segment.
-    /// Not compatible with `follows_segment`.
+    /// Not compatible with `follows_segment` or `vram_class`.
     pub fixed_vram: Option<u32>,
 
     /// If not None then forces the segment's vram address to be after the specified segment instead of following the previous one.
-    /// Not compatible with `fixed_vram`.
+    /// Not compatible with `fixed_vram` or `vram_class`.
     pub follows_segment: Option<String>,
+
+    /// Not compatible with `fixed_vram` or `follows_segment`.
+    pub vram_class: Option<String>,
 
     // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
@@ -47,6 +50,8 @@ pub(crate) struct SegmentSerial {
     pub fixed_vram: AbsentNullable<u32>,
 
     pub follows_segment: AbsentNullable<String>,
+
+    pub vram_class: AbsentNullable<String>,
 
     // The default of the following come from Options
     #[serde(default)]
@@ -96,11 +101,31 @@ impl SegmentSerial {
             .follows_segment
             .get_optional_nullable("follows_segment", || None)?;
 
-        if fixed_vram.is_some() && follows_segment.is_some() {
-            return Err(SlinkyError::InvalidFieldCombo {
-                field1: "fixed_vram".to_string(),
-                field2: "follows_segment".to_string(),
-            });
+        let vram_class = self.vram_class.get_optional_nullable("vram_class", || None)?;
+
+        if fixed_vram.is_some() {
+            if follows_segment.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_vram".to_string(),
+                    field2: "follows_segment".to_string(),
+                });
+            }
+
+            if vram_class.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_vram".to_string(),
+                    field2: "vram_class".to_string(),
+                });
+            }
+        }
+
+        if follows_segment.is_some() {
+            if vram_class.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "follows_segment".to_string(),
+                    field2: "vram_class".to_string(),
+                });
+            }
         }
 
         let alloc_sections = self
@@ -135,6 +160,7 @@ impl SegmentSerial {
             files,
             fixed_vram,
             follows_segment,
+            vram_class,
             alloc_sections,
             noload_sections,
             subalign,
