@@ -359,7 +359,54 @@ Boolean.
 
 ## `partial_scripts_folder`
 
+This setting is used when generating partial linker scripts for incremental
+linking, thus being ignored during normal linker script generation.
+
+This field holds a path to a folder where the generated partial linker scripts
+will be written to.
+
+Each partial script will be named like the segment's name with a `.ld` file
+extension. If dependency generation is enabled then dependency files will be
+generated in this folder for each partial linker script, named like the
+segment's name and `.d` as the file extension.
+
+### Example
+
+```yaml
+settings:
+  partial_scripts_folder: linker_scripts/partial/
+```
+
+### Valid values
+
+Non-empty path.
+
 ## `partial_build_segments_folder`
+
+This setting is used when generating partial linker scripts for incremental
+linking, thus being ignored during normal linker script generation.
+
+This field holds a path to a folder where each built partial segment will be
+placed by the build system in use. Each built partial segment is expected to be
+named after the corresponding segment and use a `.o` file extension.
+
+This path will be prefixed by the [`base_path`](#base_path) field during
+generation the scripts generation.
+
+### Example
+
+```yaml
+settings:
+  base_path: build/us
+  partial_scripts_folder: segments/
+```
+
+The above example indicates the built partial segments will be in the
+`build/us/segments/`
+
+### Valid values
+
+Non-empty path.
 
 ## `alloc_sections`
 
