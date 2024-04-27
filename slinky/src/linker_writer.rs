@@ -180,8 +180,6 @@ impl<'a> LinkerWriter<'a> {
         assert!(!self.single_segment);
         self.single_segment = true;
 
-        let style = &self.settings.linker_symbols_style;
-
         self.writeln("SECTIONS");
         self.begin_block();
 
@@ -190,83 +188,17 @@ impl<'a> LinkerWriter<'a> {
             self.writeln("");
         }
 
-        //let dotted_seg_name = format!(".{}", segment.name);
+        let dotted_seg_name = format!(".{}", segment.name);
 
         // Emit alloc segment
-        //self.write_single_segment(segment, &dotted_seg_name, &segment.alloc_sections, false);
+        self.write_single_segment(segment, &dotted_seg_name, &segment.alloc_sections, false);
 
-        //self.writeln("");
+        self.writeln("");
 
         // Emit noload segment
-        //self.write_single_segment(segment, &dotted_seg_name, &segment.noload_sections, true);
+        self.write_single_segment(segment, &dotted_seg_name, &segment.noload_sections, true);
 
-        for section in &self.settings.alloc_sections {
-            let mut line = String::new();
-
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
-
-            line += &format!("{} :", section);
-
-            if let Some(subalign) = segment.subalign {
-                line += &format!(" SUBALIGN({})", subalign);
-            }
-
-            self.writeln(&line);
-            self.begin_block();
-
-            if let Some(fill_value) = segment.fill_value {
-                self.writeln(&format!("FILL(0x{:08X});", fill_value));
-            }
-
-            self.emit_section(segment, section);
-
-            if let Some(section_end_align) = segment.section_end_align {
-                self.align_symbol(".", section_end_align);
-            }
-
-            self.end_block();
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
-
-            self.writeln("");
-        }
-
-        for section in &self.settings.noload_sections {
-            let mut line = String::new();
-
-            let section_start_sym = style.segment_section_start(&segment.name, section);
-            let section_end_sym = style.segment_section_end(&segment.name, section);
-            let section_size_sym = style.segment_section_size(&segment.name, section);
-
-            self.write_symbol(&section_start_sym, ".");
-
-            line += &format!("{} (NOLOAD) :", section);
-
-            if let Some(subalign) = segment.subalign {
-                line += &format!(" SUBALIGN({})", subalign);
-            }
-
-            self.writeln(&line);
-            self.begin_block();
-
-            if let Some(fill_value) = segment.fill_value {
-                self.writeln(&format!("FILL(0x{:08X});", fill_value));
-            }
-
-            self.emit_section(segment, section);
-
-            if let Some(section_end_align) = segment.section_end_align {
-                self.align_symbol(".", section_end_align);
-            }
-
-            self.end_block();
-            self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
-
-            self.writeln("");
-        }
+        self.writeln("");
 
         self.end_sections();
     }
@@ -681,34 +613,56 @@ impl LinkerWriter<'_> {
         );
     }
 
-    /*
     fn write_single_segment(
         &mut self,
         segment: &Segment,
-        dotted_seg_name: &str,
+        _dotted_seg_name: &str,
         sections: &[String],
         noload: bool,
     ) {
         let style = &self.settings.linker_symbols_style;
 
-        self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
+        /*
+        let seg_sym_suffix = if noload { "_noload" } else { "_alloc" };
 
-        if let Some(fill_value) = segment.fill_value {
-            self.writeln(&format!("FILL(0x{:08X});", fill_value));
-        }
+        let seg_sym = format!("{}{}", segment.name, seg_sym_suffix);
+
+        let seg_sym_start = style.segment_vram_start(&seg_sym);
+        let seg_sym_end = style.segment_vram_end(&seg_sym);
+        let seg_sym_size = style.segment_vram_size(&seg_sym);
+        */
+
+        // self.write_segment_start(segment, dotted_seg_name, noload, &seg_sym_start);
 
         for (i, section) in sections.iter().enumerate() {
+            let mut line = String::new();
+
             let section_start_sym = style.segment_section_start(&segment.name, section);
             let section_end_sym = style.segment_section_end(&segment.name, section);
             let section_size_sym = style.segment_section_size(&segment.name, section);
 
             self.write_symbol(&section_start_sym, ".");
 
+            line += &format!("{}{} :", section, if noload { " (NOLOAD)" } else { "" });
+
+            if let Some(subalign) = segment.subalign {
+                line += &format!(" SUBALIGN({})", subalign);
+            }
+
+            self.writeln(&line);
+            self.begin_block();
+
+            if let Some(fill_value) = segment.fill_value {
+                self.writeln(&format!("FILL(0x{:08X});", fill_value));
+            }
+
             self.emit_section(segment, section);
 
             if let Some(section_end_align) = segment.section_end_align {
                 self.align_symbol(".", section_end_align);
             }
+
+            self.end_block();
             self.write_sym_end_size(&section_start_sym, &section_end_sym, &section_size_sym, ".");
 
             if i + 1 < sections.len() {
@@ -716,6 +670,7 @@ impl LinkerWriter<'_> {
             }
         }
 
+        /*
         self.write_segment_end(
             segment,
             dotted_seg_name,
@@ -724,6 +679,6 @@ impl LinkerWriter<'_> {
             &seg_sym_end,
             &seg_sym_size,
         );
+        */
     }
-    */
 }
