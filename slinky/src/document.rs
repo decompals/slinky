@@ -6,7 +6,8 @@ use std::{fs, path::Path};
 use serde::Deserialize;
 
 use crate::{
-    absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial, vram_class::VramClassSerial, Segment, Settings, SlinkyError, VramClass
+    absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial,
+    vram_class::VramClassSerial, Segment, Settings, SlinkyError, VramClass,
 };
 
 #[derive(PartialEq, Debug)]
@@ -74,7 +75,7 @@ impl DocumentSerial {
                 for c in v {
                     vram_classes.push(c.unserialize(&settings)?);
                 }
-            },
+            }
         }
 
         let mut segments = Vec::with_capacity(self.segments.len());
@@ -82,6 +83,10 @@ impl DocumentSerial {
             segments.push(seg.unserialize(&settings)?);
         }
 
-        Ok(Document { settings, vram_classes, segments })
+        Ok(Document {
+            settings,
+            vram_classes,
+            segments,
+        })
     }
 }

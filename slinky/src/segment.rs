@@ -101,7 +101,9 @@ impl SegmentSerial {
             .follows_segment
             .get_optional_nullable("follows_segment", || None)?;
 
-        let vram_class = self.vram_class.get_optional_nullable("vram_class", || None)?;
+        let vram_class = self
+            .vram_class
+            .get_optional_nullable("vram_class", || None)?;
 
         if fixed_vram.is_some() {
             if follows_segment.is_some() {
@@ -119,13 +121,11 @@ impl SegmentSerial {
             }
         }
 
-        if follows_segment.is_some() {
-            if vram_class.is_some() {
-                return Err(SlinkyError::InvalidFieldCombo {
-                    field1: "follows_segment".to_string(),
-                    field2: "vram_class".to_string(),
-                });
-            }
+        if follows_segment.is_some() && vram_class.is_some() {
+            return Err(SlinkyError::InvalidFieldCombo {
+                field1: "follows_segment".to_string(),
+                field2: "vram_class".to_string(),
+            });
         }
 
         let alloc_sections = self

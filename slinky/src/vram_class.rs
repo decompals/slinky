@@ -39,7 +39,9 @@ impl VramClassSerial {
             .fixed_vram
             .get_optional_nullable("fixed_vram", || None)?;
 
-        let follows_classes = self.follows_classes.get_non_null("follows_classes", || Vec::new())?;
+        let follows_classes = self
+            .follows_classes
+            .get_non_null("follows_classes", Vec::new)?;
 
         if fixed_vram.is_some() && !follows_classes.is_empty() {
             return Err(SlinkyError::InvalidFieldCombo {
@@ -49,7 +51,9 @@ impl VramClassSerial {
         }
 
         if fixed_vram.is_none() && follows_classes.is_empty() {
-            return Err(SlinkyError::MissingAnyOfOptionalFields { fields: "'fixed_vram', 'follows_classes'".into() })
+            return Err(SlinkyError::MissingAnyOfOptionalFields {
+                fields: "'fixed_vram', 'follows_classes'".into(),
+            });
         }
 
         Ok(VramClass {
