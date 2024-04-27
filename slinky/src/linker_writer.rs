@@ -417,10 +417,7 @@ impl<'a> LinkerWriter<'a> {
             ""
         };
 
-        let mut linker_symbols_sorted: Vec<_> = self.linker_symbols.iter().collect();
-        linker_symbols_sorted.sort();
-
-        for sym in linker_symbols_sorted {
+        for sym in &self.linker_symbols {
             ret += &format!(
                 "extern {} {}{};\n",
                 self.settings.symbols_header_type, sym, arr_suffix
