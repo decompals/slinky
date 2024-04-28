@@ -8,12 +8,14 @@ pub enum SlinkyError {
     #[error("Unable to open file '{path}', because '{description}'")]
     FailedFileOpen { path: PathBuf, description: String },
 
-    #[error("Fail while writing to file '{path}', because '{description}'.\n Contents were: '{contents}'")]
-    FailedFileWrite {
-        path: PathBuf,
+    #[error("Failed to write, because '{description}'.\n Contents were: '{contents}'")]
+    FailedWrite {
         description: String,
         contents: String,
     },
+
+    #[error("Failed to convert string, because '{description}'.")]
+    FailedStringConversion { description: String },
 
     #[error("Unable to create dir '{path}', because '{description}")]
     FailedDirCreate { path: PathBuf, description: String },

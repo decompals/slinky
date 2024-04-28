@@ -65,8 +65,8 @@ impl<'a> PartialLinkerWriter<'a> {
         self.main_writer.end_sections();
     }
 
-    pub fn save_linker_scripts(&self, path: &Path) -> Result<(), SlinkyError> {
-        self.main_writer.save_linker_script(path)?;
+    pub fn export_linker_script_to_files(&self, path: &Path) -> Result<(), SlinkyError> {
+        self.main_writer.export_linker_script_to_file(path)?;
 
         for (partial, name) in &self.partial_writers {
             let mut p = PathBuf::new();
@@ -74,7 +74,7 @@ impl<'a> PartialLinkerWriter<'a> {
             p.push(&self.d.settings.partial_scripts_folder);
             p.push(&format!("{}.ld", name));
 
-            partial.save_linker_script(&p)?;
+            partial.export_linker_script_to_file(&p)?;
         }
 
         Ok(())
@@ -95,7 +95,7 @@ impl<'a> PartialLinkerWriter<'a> {
                 d_path.push(&self.d.settings.partial_scripts_folder);
                 d_path.push(&format!("{}.d", name));
 
-                partial.save_dependencies_file(&d_path, &target_path)?;
+                partial.export_dependencies_file_to_file(&d_path, &target_path)?;
             }
         }
 

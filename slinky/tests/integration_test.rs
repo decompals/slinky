@@ -15,7 +15,10 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) {
     let expected_ld_contents =
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
 
-    assert_eq!(expected_ld_contents, writer.export_as_string());
+    assert_eq!(
+        expected_ld_contents,
+        writer.export_linker_script_to_string().unwrap()
+    );
 }
 
 fn check_d_generation(yaml_path: &Path, ld_path: &Path) {
@@ -29,7 +32,9 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) {
     let target_path = document.settings.target_path.as_ref().unwrap();
     assert_eq!(
         expected_d_contents,
-        writer.export_dependencies_as_string(target_path)
+        writer
+            .export_dependencies_file_to_string(target_path)
+            .unwrap()
     );
 }
 
@@ -41,7 +46,10 @@ fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) {
 
     let expected_h_contents = fs::read_to_string(ld_path).expect("unable to read expected h file");
 
-    assert_eq!(expected_h_contents, writer.export_symbol_header_as_string());
+    assert_eq!(
+        expected_h_contents,
+        writer.export_symbol_header_to_string().unwrap()
+    );
 }
 
 #[rstest]
@@ -87,7 +95,10 @@ fn test_partial_linking_script_generation(
 
     assert_eq!(
         expected_ld_contents,
-        writer.get_main_writer().export_as_string()
+        writer
+            .get_main_writer()
+            .export_linker_script_to_string()
+            .unwrap()
     );
 
     for (partial, name) in writer.get_partial_writers() {
@@ -100,7 +111,10 @@ fn test_partial_linking_script_generation(
         let expected_partial_ld_contents =
             fs::read_to_string(p).expect("unable to read expected ld file");
 
-        assert_eq!(expected_partial_ld_contents, partial.export_as_string());
+        assert_eq!(
+            expected_partial_ld_contents,
+            partial.export_linker_script_to_string().unwrap()
+        );
     }
 }
 
@@ -120,7 +134,8 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
         expected_d_contents,
         writer
             .get_main_writer()
-            .export_dependencies_as_string(target_path)
+            .export_dependencies_file_to_string(target_path)
+            .unwrap()
     );
 
     for (partial, name) in writer.get_partial_writers() {
@@ -138,7 +153,9 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
         partial_target.push(&format!("{}.o", name));
         assert_eq!(
             expected_partial_ld_contents,
-            partial.export_dependencies_as_string(&partial_target)
+            partial
+                .export_dependencies_file_to_string(&partial_target)
+                .unwrap()
         );
     }
 }
@@ -157,6 +174,9 @@ fn test_partial_linking_symbols_header_generation(
 
     assert_eq!(
         expected_h_contents,
-        writer.get_main_writer().export_symbol_header_as_string()
+        writer
+            .get_main_writer()
+            .export_symbol_header_to_string()
+            .unwrap()
     );
 }

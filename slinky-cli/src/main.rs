@@ -40,7 +40,7 @@ fn main() {
             .output
             .expect("output path is required for partial linking");
         writer
-            .save_linker_scripts(&output_path)
+            .export_linker_script_to_files(&output_path)
             .expect("Error writing the linker scripts");
         writer
             .save_other_files()
@@ -52,10 +52,15 @@ fn main() {
 
         if let Some(output_path) = cli.output {
             writer
-                .save_linker_script(&output_path)
+                .export_linker_script_to_file(&output_path)
                 .expect("Error writing the linker script");
         } else {
-            println!("{}", writer.export_as_string());
+            println!(
+                "{}",
+                writer
+                    .export_linker_script_to_string()
+                    .expect("Error exporting script to string")
+            );
         }
 
         writer

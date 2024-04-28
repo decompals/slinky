@@ -106,7 +106,8 @@ impl<'a> LinkerWriter<'a> {
             need_ln = true;
         }
 
-        if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty() {
+        if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty()
+        {
             if need_ln {
                 self.writeln("");
             }
@@ -205,14 +206,13 @@ impl<'a> LinkerWriter<'a> {
 
         self.end_sections();
     }
+}
 
-    pub fn save_linker_script(&self, path: &Path) -> Result<(), SlinkyError> {
-        let mut f = utils::create_file_and_parents(path)?;
-
+impl LinkerWriter<'_> {
+    pub fn export_linker_script(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
         for line in &self.buffer {
-            if let Err(e) = writeln!(f, "{}", line) {
-                return Err(SlinkyError::FailedFileWrite {
-                    path: path.to_path_buf(),
+            if let Err(e) = writeln!(dst, "{}", line) {
+                return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
                     contents: line.into(),
                 });
@@ -222,54 +222,58 @@ impl<'a> LinkerWriter<'a> {
         Ok(())
     }
 
-    #[must_use]
-    pub fn export_as_string(&self) -> String {
-        let mut ret = String::new();
-
-        for line in &self.buffer {
-            ret += &format!("{}\n", line);
-        }
-
-        ret
-    }
-
-    pub fn save_dependencies_file(
-        &self,
-        path: &Path,
-        target_path: &Path,
-    ) -> Result<(), SlinkyError> {
+    pub fn export_linker_script_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
         let mut f = utils::create_file_and_parents(path)?;
 
-        if let Err(e) = write!(f, "{}:", target_path.display()) {
-            return Err(SlinkyError::FailedFileWrite {
-                path: path.to_path_buf(),
+        self.export_linker_script(&mut f)
+    }
+
+    pub fn export_linker_script_to_string(&self) -> Result<String, SlinkyError> {
+        let mut s = Vec::new();
+
+        self.export_linker_script(&mut s)?;
+
+        match String::from_utf8(s) {
+            Err(e) => Err(SlinkyError::FailedStringConversion {
+                description: e.to_string(),
+            }),
+            Ok(ret) => Ok(ret),
+        }
+    }
+}
+
+impl LinkerWriter<'_> {
+    pub fn export_dependencies_file(
+        &self,
+        dst: &mut impl Write,
+        target_path: &Path,
+    ) -> Result<(), SlinkyError> {
+        if let Err(e) = write!(dst, "{}:", target_path.display()) {
+            return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
                 contents: target_path.display().to_string(),
             });
         }
 
         for p in &self.files_paths {
-            if let Err(e) = write!(f, " \\\n    {}", p.display()) {
-                return Err(SlinkyError::FailedFileWrite {
-                    path: path.to_path_buf(),
+            if let Err(e) = write!(dst, " \\\n    {}", p.display()) {
+                return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
                     contents: p.display().to_string(),
                 });
             }
         }
 
-        if let Err(e) = write!(f, "\n\n") {
-            return Err(SlinkyError::FailedFileWrite {
-                path: path.to_path_buf(),
+        if let Err(e) = write!(dst, "\n\n") {
+            return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
                 contents: "".to_string(),
             });
         }
 
         for p in &self.files_paths {
-            if let Err(e) = writeln!(f, "{}:", p.display()) {
-                return Err(SlinkyError::FailedFileWrite {
-                    path: path.to_path_buf(),
+            if let Err(e) = writeln!(dst, "{}:", p.display()) {
+                return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
                     contents: p.display().to_string(),
                 });
@@ -279,31 +283,40 @@ impl<'a> LinkerWriter<'a> {
         Ok(())
     }
 
-    #[must_use]
-    pub fn export_dependencies_as_string(&self, target_path: &Path) -> String {
-        let mut ret = String::new();
-
-        ret += &format!("{}:", target_path.display());
-
-        for p in &self.files_paths {
-            ret += &format!(" \\\n    {}", p.display());
-        }
-
-        ret += "\n\n";
-
-        for p in &self.files_paths {
-            ret += &format!("{}:\n", p.display());
-        }
-
-        ret
-    }
-
-    pub fn save_symbol_header(&self, path: &Path) -> Result<(), SlinkyError> {
+    pub fn export_dependencies_file_to_file(
+        &self,
+        path: &Path,
+        target_path: &Path,
+    ) -> Result<(), SlinkyError> {
         let mut f = utils::create_file_and_parents(path)?;
 
-        if let Err(e) = write!(f, "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n") {
-            return Err(SlinkyError::FailedFileWrite {
-                path: path.to_path_buf(),
+        self.export_dependencies_file(&mut f, target_path)
+    }
+
+    pub fn export_dependencies_file_to_string(
+        &self,
+        target_path: &Path,
+    ) -> Result<String, SlinkyError> {
+        let mut s = Vec::new();
+
+        self.export_dependencies_file(&mut s, target_path)?;
+
+        match String::from_utf8(s) {
+            Err(e) => Err(SlinkyError::FailedStringConversion {
+                description: e.to_string(),
+            }),
+            Ok(ret) => Ok(ret),
+        }
+    }
+}
+
+impl LinkerWriter<'_> {
+    pub fn export_symbol_header(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
+        if let Err(e) = write!(
+            dst,
+            "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n"
+        ) {
+            return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
                 contents: "".into(),
             });
@@ -317,21 +330,19 @@ impl<'a> LinkerWriter<'a> {
 
         for sym in &self.linker_symbols {
             if let Err(e) = writeln!(
-                f,
+                dst,
                 "extern {} {}{};",
                 self.d.settings.symbols_header_type, sym, arr_suffix
             ) {
-                return Err(SlinkyError::FailedFileWrite {
-                    path: path.to_path_buf(),
+                return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
                     contents: sym.into(),
                 });
             }
         }
 
-        if let Err(e) = write!(f, "\n#endif\n") {
-            return Err(SlinkyError::FailedFileWrite {
-                path: path.to_path_buf(),
+        if let Err(e) = write!(dst, "\n#endif\n") {
+            return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
                 contents: "".into(),
             });
@@ -340,28 +351,23 @@ impl<'a> LinkerWriter<'a> {
         Ok(())
     }
 
-    #[must_use]
-    pub fn export_symbol_header_as_string(&self) -> String {
-        let mut ret = String::new();
+    pub fn export_symbol_header_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
+        let mut f = utils::create_file_and_parents(path)?;
 
-        ret += "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n";
+        self.export_symbol_header(&mut f)
+    }
 
-        let arr_suffix = if self.d.settings.symbols_header_as_array {
-            "[]"
-        } else {
-            ""
-        };
+    pub fn export_symbol_header_to_string(&self) -> Result<String, SlinkyError> {
+        let mut s = Vec::new();
 
-        for sym in &self.linker_symbols {
-            ret += &format!(
-                "extern {} {}{};\n",
-                self.d.settings.symbols_header_type, sym, arr_suffix
-            );
+        self.export_symbol_header(&mut s)?;
+
+        match String::from_utf8(s) {
+            Err(e) => Err(SlinkyError::FailedStringConversion {
+                description: e.to_string(),
+            }),
+            Ok(ret) => Ok(ret),
         }
-
-        ret += "\n#endif\n";
-
-        ret
     }
 }
 
@@ -369,12 +375,12 @@ impl LinkerWriter<'_> {
     pub fn save_other_files(&self) -> Result<(), SlinkyError> {
         if let Some(d_path) = &self.d.settings.d_path {
             if let Some(target_path) = &self.d.settings.target_path {
-                self.save_dependencies_file(d_path, target_path)?;
+                self.export_dependencies_file_to_file(d_path, target_path)?;
             }
         }
 
         if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
-            self.save_symbol_header(symbols_header_path)?;
+            self.export_symbol_header_to_file(symbols_header_path)?;
         }
 
         Ok(())
