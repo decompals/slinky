@@ -1,0 +1,88 @@
+settings:
+  base_path: build
+
+  partial_scripts_folder: tests/partial_linking/vram_classes
+  partial_build_segments_folder: segments
+
+vram_classes:
+  - { name: battle_partner, fixed_vram: 0x80238000 }
+  - { name: battle_code, follows_classes: [battle_partner] }
+
+  - { name: heaps2, fixed_vram: 0x80267FF0 }
+  - { name: world_script_api, follows_classes: [heaps2] }
+
+  - { name: texture_memory, follows_classes: [battle_code, world_script_api] }
+
+  - { name: segment_05, fixed_vram: 0x05000000 }
+  - { name: segment_06, fixed_vram: 0x06000000 }
+
+segments:
+  - name: boot
+    fixed_vram: 0x80000460
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/dmadata.o }
+
+
+  - name: battle_partner_goompa
+    vram_class: battle_partner
+    files:
+      - { path: src/battle_partner/goompa.o }
+  - name: battle_partner_goombario
+    vram_class: battle_partner
+    files:
+      - { path: src/battle_partner/goombario.o }
+  - name: battle_partner_kooper
+    vram_class: battle_partner
+    files:
+      - { path: src/battle_partner/kooper.o }
+
+  - name: battle_code
+    vram_class: battle_code
+    files:
+      - { path: src/battle_code/btl_states_actions.o }
+      - { path: src/battle_code/camera.o }
+      - { path: src/battle_code/actors.o }
+      - { path: src/battle_code/popup_messages.o }
+
+  - name: heaps2
+    vram_class: heaps2
+    files:
+      - { path: src/heaps2/heaps2.o }
+
+  - name: world_script_api
+    vram_class: world_script_api
+    files:
+      - { path: src/world/script_api/shops.o }
+      - { path: src/world/script_api/rooms.o }
+      - { path: src/world/script_api/push_blocks.o }
+      - { path: src/world/script_api/enter_exit.o }
+
+  - name: texture_memory
+    vram_class: texture_memory
+    files:
+      - { path: src/texture_memory/texture_memory.o }
+
+  - name: assets1
+    vram_class: segment_05
+    files:
+      - { path: src/assets/assets1/texture.o }
+      - { path: src/assets/assets1/dlist.o }
+
+  - name: assets2
+    vram_class: segment_05
+    files:
+      - { path: src/assets/assets2/texture.o }
+      - { path: src/assets/assets2/dlist.o }
+
+  - name: assets3
+    vram_class: segment_05
+    files:
+      - { path: src/assets/assets3/texture.o }
+      - { path: src/assets/assets3/dlist.o }
+
+  - name: assets4
+    vram_class: segment_06
+    files:
+      - { path: src/assets/assets4/texture.o }
+      - { path: src/assets/assets4/dlist.o }
