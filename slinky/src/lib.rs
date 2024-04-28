@@ -16,6 +16,8 @@ mod vram_class;
 
 mod document;
 
+mod script_buffer;
+
 mod linker_writer;
 mod partial_linker_writer;
 

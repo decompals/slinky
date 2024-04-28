@@ -8,14 +8,13 @@ use crate::{file_kind::FileKind, SlinkyError};
 use crate::{utils, Document};
 use crate::{FileInfo, Segment};
 
+use crate::script_buffer::ScriptBuffer;
+
 pub struct LinkerWriter<'a> {
-    linker_symbols: indexmap::IndexSet<String>,
+    buffer: ScriptBuffer,
 
     // Used for dependency generation
     files_paths: indexmap::IndexSet<PathBuf>,
-
-    indent_level: i32,
-    buffer: Vec<String>,
 
     single_segment: bool,
 
@@ -28,10 +27,9 @@ pub struct LinkerWriter<'a> {
 impl<'a> LinkerWriter<'a> {
     pub fn new(d: &'a Document) -> Self {
         Self {
-            linker_symbols: indexmap::IndexSet::new(),
+            buffer: ScriptBuffer::new(),
+
             files_paths: indexmap::IndexSet::new(),
-            indent_level: 0,
-            buffer: Vec::new(),
 
             single_segment: false,
 
@@ -57,16 +55,17 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn begin_sections(&mut self) {
-        self.writeln("SECTIONS");
-        self.begin_block();
+        self.buffer.writeln("SECTIONS");
+        self.buffer.begin_block();
 
-        self.writeln("__romPos = 0x0;");
+        self.buffer.writeln("__romPos = 0x0;");
 
         if let Some(hardcoded_gp_value) = self.d.settings.hardcoded_gp_value {
-            self.writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
+            self.buffer
+                .writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
         }
 
-        self.writeln("");
+        self.buffer.write_empty_line();
     }
 
     pub fn end_sections(&mut self) {
@@ -76,12 +75,12 @@ impl<'a> LinkerWriter<'a> {
             let address = " 0";
 
             for sect in &self.d.settings.sections_allowlist {
-                self.writeln(&format!("{}{} :", sect, address));
-                self.begin_block();
+                self.buffer.writeln(&format!("{}{} :", sect, address));
+                self.buffer.begin_block();
 
-                self.writeln(&format!("*({});", sect));
+                self.buffer.writeln(&format!("*({});", sect));
 
-                self.end_block();
+                self.buffer.end_block();
             }
 
             need_ln = true;
@@ -89,18 +88,18 @@ impl<'a> LinkerWriter<'a> {
 
         if !self.d.settings.sections_allowlist_extra.is_empty() {
             if need_ln {
-                self.writeln("");
+                self.buffer.write_empty_line();
             }
 
             let address = " 0";
 
             for sect in &self.d.settings.sections_allowlist_extra {
-                self.writeln(&format!("{}{} :", sect, address));
-                self.begin_block();
+                self.buffer.writeln(&format!("{}{} :", sect, address));
+                self.buffer.begin_block();
 
-                self.writeln(&format!("*({});", sect));
+                self.buffer.writeln(&format!("*({});", sect));
 
-                self.end_block();
+                self.buffer.end_block();
             }
 
             need_ln = true;
@@ -109,25 +108,25 @@ impl<'a> LinkerWriter<'a> {
         if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty()
         {
             if need_ln {
-                self.writeln("");
+                self.buffer.write_empty_line();
             }
 
-            self.writeln("/DISCARD/ :");
-            self.begin_block();
+            self.buffer.writeln("/DISCARD/ :");
+            self.buffer.begin_block();
 
             for sect in &self.d.settings.sections_denylist {
-                self.writeln(&format!("*({});", sect));
+                self.buffer.writeln(&format!("*({});", sect));
             }
 
             if self.d.settings.discard_wildcard_section {
-                self.writeln("*(*);")
+                self.buffer.writeln("*(*);")
             }
 
-            self.end_block();
+            self.buffer.end_block();
         }
 
-        self.end_block();
-        assert!(self.indent_level == 0);
+        self.buffer.end_block();
+        self.buffer.finish();
     }
 
     pub fn add_segment(&mut self, segment: &Segment) {
@@ -146,17 +145,19 @@ impl<'a> LinkerWriter<'a> {
         let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
 
         if let Some(segment_start_align) = segment.segment_start_align {
-            self.align_symbol("__romPos", segment_start_align);
-            self.align_symbol(".", segment_start_align);
+            self.buffer.align_symbol("__romPos", segment_start_align);
+            self.buffer.align_symbol(".", segment_start_align);
         }
 
-        self.write_symbol(&main_seg_rom_sym_start, "__romPos");
-        self.write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
+        self.buffer
+            .write_symbol(&main_seg_rom_sym_start, "__romPos");
+        self.buffer
+            .write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
         // Emit alloc segment
         self.write_segment(segment, &segment.alloc_sections, false);
 
-        self.writeln("");
+        self.buffer.write_empty_line();
 
         // Emit noload segment
         self.write_segment(segment, &segment.noload_sections, true);
@@ -168,7 +169,8 @@ impl<'a> LinkerWriter<'a> {
             ".",
         );
 
-        self.writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
+        self.buffer
+            .writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
         self.write_sym_end_size(
             &main_seg_rom_sym_start,
             &main_seg_rom_sym_end,
@@ -176,7 +178,7 @@ impl<'a> LinkerWriter<'a> {
             "__romPos",
         );
 
-        self.writeln("");
+        self.buffer.write_empty_line();
     }
 
     pub fn add_single_segment(&mut self, segment: &Segment) {
@@ -186,23 +188,23 @@ impl<'a> LinkerWriter<'a> {
         assert!(!self.single_segment);
         self.single_segment = true;
 
-        self.writeln("SECTIONS");
-        self.begin_block();
+        self.buffer.writeln("SECTIONS");
+        self.buffer.begin_block();
 
         if let Some(fixed_vram) = segment.fixed_vram {
-            self.writeln(&format!(". = 0x{:08X};", fixed_vram));
-            self.writeln("");
+            self.buffer.writeln(&format!(". = 0x{:08X};", fixed_vram));
+            self.buffer.write_empty_line();
         }
 
         // Emit alloc segment
         self.write_single_segment(segment, &segment.alloc_sections, false);
 
-        self.writeln("");
+        self.buffer.write_empty_line();
 
         // Emit noload segment
         self.write_single_segment(segment, &segment.noload_sections, true);
 
-        self.writeln("");
+        self.buffer.write_empty_line();
 
         self.end_sections();
     }
@@ -210,7 +212,7 @@ impl<'a> LinkerWriter<'a> {
 
 impl LinkerWriter<'_> {
     pub fn export_linker_script(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
-        for line in &self.buffer {
+        for line in self.buffer.get_buffer() {
             if let Err(e) = writeln!(dst, "{}", line) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
@@ -328,7 +330,7 @@ impl LinkerWriter<'_> {
             ""
         };
 
-        for sym in &self.linker_symbols {
+        for sym in self.get_linker_symbols() {
             if let Err(e) = writeln!(
                 dst,
                 "extern {} {}{};",
@@ -391,7 +393,7 @@ impl LinkerWriter<'_> {
 impl LinkerWriter<'_> {
     #[must_use]
     pub fn get_linker_symbols(&self) -> &indexmap::IndexSet<String> {
-        &self.linker_symbols
+        self.buffer.get_linker_symbols()
     }
 
     pub fn set_emit_sections_kind_symbols(&mut self, value: bool) {
@@ -415,51 +417,11 @@ impl LinkerWriter<'_> {
 
 // internal functions
 impl LinkerWriter<'_> {
-    fn writeln(&mut self, line: &str) {
-        if line.is_empty() {
-            self.buffer.push("".to_string());
-        } else {
-            let mut temp = String::new();
-
-            for _i in 0..self.indent_level {
-                temp += "    ";
-            }
-
-            temp += line;
-            self.buffer.push(temp);
-        }
-    }
-
-    fn begin_block(&mut self) {
-        self.writeln("{");
-        self.indent_level += 1;
-    }
-
-    fn end_block(&mut self) {
-        assert!(self.indent_level > 0);
-        self.indent_level -= 1;
-        self.writeln("}");
-    }
-
-    fn write_symbol(&mut self, symbol: &str, value: &str) {
-        // TODO: check `symbol` is a valid C identifier
-
-        self.writeln(&format!("{} = {};", symbol, value));
-
-        self.linker_symbols.insert(symbol.to_string());
-    }
-
-    fn align_symbol(&mut self, symbol: &str, align_value: u32) {
-        self.writeln(&format!(
-            "{} = ALIGN({}, 0x{:X});",
-            symbol, symbol, align_value
-        ));
-    }
-
     fn write_sym_end_size(&mut self, start: &str, end: &str, size: &str, value: &str) {
-        self.write_symbol(end, value);
+        self.buffer.write_symbol(end, value);
 
-        self.write_symbol(size, &format!("ABSOLUTE({} - {})", end, start));
+        self.buffer
+            .write_symbol(size, &format!("ABSOLUTE({} - {})", end, start));
     }
 
     fn write_sections_kind_start(&mut self, segment: &Segment, noload: bool) {
@@ -471,15 +433,15 @@ impl LinkerWriter<'_> {
 
             let seg_sym_start = style.segment_vram_start(&seg_sym);
 
-            self.write_symbol(&seg_sym_start, ".");
+            self.buffer.write_symbol(&seg_sym_start, ".");
 
-            self.writeln("");
+            self.buffer.write_empty_line();
         }
     }
 
     fn write_sections_kind_end(&mut self, segment: &Segment, noload: bool) {
         if self.emit_sections_kind_symbols {
-            self.writeln("");
+            self.buffer.write_empty_line();
 
             let style = &self.d.settings.linker_symbols_style;
 
@@ -500,14 +462,14 @@ impl LinkerWriter<'_> {
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
 
-            self.write_symbol(&section_start_sym, ".");
+            self.buffer.write_symbol(&section_start_sym, ".");
         }
     }
 
     fn write_section_symbol_end(&mut self, segment: &Segment, section: &str) {
         if self.emit_section_symbols {
             if let Some(section_end_align) = segment.section_end_align {
-                self.align_symbol(".", section_end_align);
+                self.buffer.align_symbol(".", section_end_align);
             }
 
             let style = &self.d.settings.linker_symbols_style;
@@ -544,12 +506,12 @@ impl LinkerWriter<'_> {
             line += &format!(" SUBALIGN({})", subalign);
         }
 
-        self.writeln(&line);
-        self.begin_block();
+        self.buffer.writeln(&line);
+        self.buffer.begin_block();
     }
 
     fn write_segment_end(&mut self, segment: &Segment, noload: bool) {
-        self.end_block();
+        self.buffer.end_block();
 
         self.write_sections_kind_end(segment, noload);
     }
@@ -565,7 +527,8 @@ impl LinkerWriter<'_> {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
-                self.writeln(&format!("{}({}{});", path.display(), section, wildcard));
+                self.buffer
+                    .writeln(&format!("{}({}{});", path.display(), section, wildcard));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);
                 }
@@ -574,7 +537,7 @@ impl LinkerWriter<'_> {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
-                self.writeln(&format!(
+                self.buffer.writeln(&format!(
                     "{}:{}({}{});",
                     path.display(),
                     file.subfile,
@@ -587,12 +550,14 @@ impl LinkerWriter<'_> {
             }
             FileKind::Pad => {
                 if file.section == section {
-                    self.writeln(&format!(". += 0x{:X};", file.pad_amount));
+                    self.buffer
+                        .writeln(&format!(". += 0x{:X};", file.pad_amount));
                 }
             }
             FileKind::LinkerOffset => {
                 if file.section == section {
-                    self.write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
+                    self.buffer
+                        .write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
                 }
             }
             FileKind::Group => {
@@ -634,7 +599,7 @@ impl LinkerWriter<'_> {
         self.write_segment_start(segment, noload);
 
         if let Some(fill_value) = segment.fill_value {
-            self.writeln(&format!("FILL(0x{:08X});", fill_value));
+            self.buffer.writeln(&format!("FILL(0x{:08X});", fill_value));
         }
 
         for (i, section) in sections.iter().enumerate() {
@@ -645,7 +610,7 @@ impl LinkerWriter<'_> {
             self.write_section_symbol_end(segment, section);
 
             if i + 1 < sections.len() {
-                self.writeln("");
+                self.buffer.write_empty_line();
             }
         }
 
@@ -666,20 +631,20 @@ impl LinkerWriter<'_> {
                 line += &format!(" SUBALIGN({})", subalign);
             }
 
-            self.writeln(&line);
-            self.begin_block();
+            self.buffer.writeln(&line);
+            self.buffer.begin_block();
 
             if let Some(fill_value) = segment.fill_value {
-                self.writeln(&format!("FILL(0x{:08X});", fill_value));
+                self.buffer.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
             self.emit_section(segment, section);
 
-            self.end_block();
+            self.buffer.end_block();
             self.write_section_symbol_end(segment, section);
 
             if i + 1 < sections.len() {
-                self.writeln("");
+                self.buffer.write_empty_line();
             }
         }
 
