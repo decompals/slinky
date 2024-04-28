@@ -104,4 +104,18 @@ impl LinkerSymbolsStyle {
             LinkerSymbolsStyle::Makerom => format!("_{}Offset", name),
         }
     }
+
+    pub fn vram_class_start(&self, name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_START", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramStart", name),
+        }
+    }
+
+    pub fn vram_class_end(&self, name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_END", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramEnd", name),
+        }
+    }
 }

@@ -1,11 +1,12 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
-use crate::{utils, Document};
+use crate::{utils, Document, VramClass};
 use crate::{FileInfo, Segment};
 
 use crate::script_buffer::ScriptBuffer;
@@ -18,6 +19,9 @@ pub struct LinkerWriter<'a> {
 
     single_segment: bool,
 
+    vram_classes: HashMap<String, VramClass>,
+
+    /* Options to control stuff */
     emit_sections_kind_symbols: bool,
     emit_section_symbols: bool,
 
@@ -26,12 +30,19 @@ pub struct LinkerWriter<'a> {
 
 impl<'a> LinkerWriter<'a> {
     pub fn new(d: &'a Document) -> Self {
+        let mut vram_classes = HashMap::with_capacity(d.vram_classes.len());
+        for vram_class in &d.vram_classes {
+            vram_classes.insert(vram_class.name.clone(), vram_class.clone());
+        }
+
         Self {
             buffer: ScriptBuffer::new(),
 
             files_paths: indexmap::IndexSet::new(),
 
             single_segment: false,
+
+            vram_classes,
 
             emit_sections_kind_symbols: true,
             emit_section_symbols: true,
@@ -143,6 +154,37 @@ impl<'a> LinkerWriter<'a> {
         let main_seg_sym_start: String = style.segment_vram_start(&segment.name);
         let main_seg_sym_end: String = style.segment_vram_end(&segment.name);
         let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
+
+        if let Some(vram_class_name) = &segment.vram_class {
+            // TODO: return Err if vram class is not present instead of unwrapping
+            let vram_class = self.vram_classes.get_mut(vram_class_name).unwrap();
+
+            if !vram_class.emitted {
+                let vram_class_sym = style.vram_class_start(vram_class_name);
+
+                if let Some(fixed_vram) = vram_class.fixed_vram {
+                    self.buffer
+                        .write_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
+                } else {
+                    self.buffer.write_symbol(&vram_class_sym, "0x00000000");
+                    for other_class_name in &vram_class.follows_classes {
+                        self.buffer.write_symbol(
+                            &vram_class_sym,
+                            &format!(
+                                "MAX({}, {})",
+                                vram_class_sym,
+                                style.vram_class_end(other_class_name)
+                            ),
+                        );
+                    }
+                }
+
+                self.buffer.write_empty_line();
+
+                // This is dumb, but Rust complains if you mut-borrow this above and call any other self.function.
+                vram_class.emitted = true;
+            }
+        }
 
         if let Some(segment_start_align) = segment.segment_start_align {
             self.buffer.align_symbol("__romPos", segment_start_align);
@@ -497,6 +539,8 @@ impl LinkerWriter<'_> {
                 line += &format!(" 0x{:08X}", fixed_vram);
             } else if let Some(follows_segment) = &segment.follows_segment {
                 line += &format!(" {}", style.segment_vram_end(follows_segment));
+            } else if let Some(vram_class) = &segment.vram_class {
+                line += &format!(" {}", style.vram_class_start(vram_class));
             }
 
             line += &format!(" : AT({})", style.segment_rom_start(&segment.name));

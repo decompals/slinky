@@ -5,13 +5,16 @@ use serde::Deserialize;
 
 use crate::{absent_nullable::AbsentNullable, Settings, SlinkyError};
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub struct VramClass {
     pub name: String,
 
     pub fixed_vram: Option<u32>,
 
     pub follows_classes: Vec<String>,
+
+    // Settings from below do not come from the document.
+    pub emitted: bool,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -60,6 +63,8 @@ impl VramClassSerial {
             name,
             fixed_vram,
             follows_classes,
+
+            emitted: false,
         })
     }
 }
