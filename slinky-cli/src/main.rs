@@ -32,7 +32,7 @@ fn main() {
     // println!("settings {:#?}", document.settings);
 
     if cli.partial_linking {
-        let mut writer = slinky::PartialLinkerWriter::new(&document.settings);
+        let mut writer = slinky::PartialLinkerWriter::new(&document);
 
         writer.add_all_segments(&document.segments);
 
@@ -46,7 +46,7 @@ fn main() {
             .save_other_files()
             .expect("Error writing other files listed on the document");
     } else {
-        let mut writer = slinky::LinkerWriter::new(&document.settings);
+        let mut writer = slinky::LinkerWriter::new(&document);
 
         writer.add_all_segments(&document.segments);
 
@@ -62,10 +62,4 @@ fn main() {
             .save_other_files()
             .expect("Error writing other files listed on the document");
     }
-
-    //{
-    //    let mut writer_test = slinky::LinkerWriter::new(&document.settings);
-    //    writer_test.add_single_segment(&document.segments[3]);
-    //    writer_test.save_linker_script(Path::new("test.ld")).expect("idk");
-    //}
 }

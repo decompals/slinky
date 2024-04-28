@@ -6,24 +6,24 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::{FileInfo, FileKind, LinkerWriter, Segment, Settings, SlinkyError};
+use crate::{Document, FileInfo, FileKind, LinkerWriter, Segment, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
 
     partial_writers: Vec<(LinkerWriter<'a>, String)>,
 
-    settings: &'a Settings,
+    d: &'a Document,
 }
 
 impl<'a> PartialLinkerWriter<'a> {
-    pub fn new(settings: &'a Settings) -> Self {
+    pub fn new(d: &'a Document) -> Self {
         Self {
-            main_writer: LinkerWriter::new(settings),
+            main_writer: LinkerWriter::new(d),
 
             partial_writers: Vec::new(),
 
-            settings,
+            d,
         }
     }
 
@@ -32,7 +32,7 @@ impl<'a> PartialLinkerWriter<'a> {
 
         self.partial_writers.reserve(segments.len());
         for segment in segments {
-            let mut partial_writer = LinkerWriter::new(self.settings);
+            let mut partial_writer = LinkerWriter::new(self.d);
 
             partial_writer.set_emit_sections_kind_symbols(false);
             partial_writer.set_emit_section_symbols(false);
@@ -44,7 +44,7 @@ impl<'a> PartialLinkerWriter<'a> {
 
             let mut p = PathBuf::new();
 
-            p.push(&self.settings.partial_build_segments_folder);
+            p.push(&self.d.settings.partial_build_segments_folder);
             p.push(&format!("{}.o", segment.name));
 
             let mut reference_segment = segment.clone();
@@ -71,7 +71,7 @@ impl<'a> PartialLinkerWriter<'a> {
         for (partial, name) in &self.partial_writers {
             let mut p = PathBuf::new();
 
-            p.push(&self.settings.partial_scripts_folder);
+            p.push(&self.d.settings.partial_scripts_folder);
             p.push(&format!("{}.ld", name));
 
             partial.save_linker_script(&p)?;
@@ -83,16 +83,16 @@ impl<'a> PartialLinkerWriter<'a> {
     pub fn save_other_files(&self) -> Result<(), SlinkyError> {
         self.main_writer.save_other_files()?;
 
-        if self.settings.d_path.is_some() {
+        if self.d.settings.d_path.is_some() {
             for (partial, name) in &self.partial_writers {
                 let mut target_path = PathBuf::new();
 
-                target_path.push(&self.settings.partial_build_segments_folder);
+                target_path.push(&self.d.settings.partial_build_segments_folder);
                 target_path.push(&format!("{}.o", name));
 
                 let mut d_path = PathBuf::new();
 
-                d_path.push(&self.settings.partial_scripts_folder);
+                d_path.push(&self.d.settings.partial_scripts_folder);
                 d_path.push(&format!("{}.d", name));
 
                 partial.save_dependencies_file(&d_path, &target_path)?;

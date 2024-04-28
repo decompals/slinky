@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
-use crate::{utils, Settings};
+use crate::{utils, Document};
 use crate::{FileInfo, Segment};
 
 pub struct LinkerWriter<'a> {
@@ -19,14 +19,14 @@ pub struct LinkerWriter<'a> {
 
     single_segment: bool,
 
-    settings: &'a Settings,
-
     emit_sections_kind_symbols: bool,
     emit_section_symbols: bool,
+
+    d: &'a Document,
 }
 
 impl<'a> LinkerWriter<'a> {
-    pub fn new(settings: &'a Settings) -> Self {
+    pub fn new(d: &'a Document) -> Self {
         Self {
             linker_symbols: indexmap::IndexSet::new(),
             files_paths: indexmap::IndexSet::new(),
@@ -35,15 +35,15 @@ impl<'a> LinkerWriter<'a> {
 
             single_segment: false,
 
-            settings,
-
             emit_sections_kind_symbols: true,
             emit_section_symbols: true,
+
+            d,
         }
     }
 
     pub fn add_all_segments(&mut self, segments: &[Segment]) {
-        if self.settings.single_segment_mode {
+        if self.d.settings.single_segment_mode {
             assert!(segments.len() == 1);
 
             self.add_single_segment(&segments[0]);
@@ -62,7 +62,7 @@ impl<'a> LinkerWriter<'a> {
 
         self.writeln("__romPos = 0x0;");
 
-        if let Some(hardcoded_gp_value) = self.settings.hardcoded_gp_value {
+        if let Some(hardcoded_gp_value) = self.d.settings.hardcoded_gp_value {
             self.writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
         }
 
@@ -72,10 +72,10 @@ impl<'a> LinkerWriter<'a> {
     pub fn end_sections(&mut self) {
         let mut need_ln = false;
 
-        if !self.settings.sections_allowlist.is_empty() {
+        if !self.d.settings.sections_allowlist.is_empty() {
             let address = " 0";
 
-            for sect in &self.settings.sections_allowlist {
+            for sect in &self.d.settings.sections_allowlist {
                 self.writeln(&format!("{}{} :", sect, address));
                 self.begin_block();
 
@@ -87,14 +87,14 @@ impl<'a> LinkerWriter<'a> {
             need_ln = true;
         }
 
-        if !self.settings.sections_allowlist_extra.is_empty() {
+        if !self.d.settings.sections_allowlist_extra.is_empty() {
             if need_ln {
                 self.writeln("");
             }
 
             let address = " 0";
 
-            for sect in &self.settings.sections_allowlist_extra {
+            for sect in &self.d.settings.sections_allowlist_extra {
                 self.writeln(&format!("{}{} :", sect, address));
                 self.begin_block();
 
@@ -106,7 +106,7 @@ impl<'a> LinkerWriter<'a> {
             need_ln = true;
         }
 
-        if self.settings.discard_wildcard_section || !self.settings.sections_denylist.is_empty() {
+        if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty() {
             if need_ln {
                 self.writeln("");
             }
@@ -114,11 +114,11 @@ impl<'a> LinkerWriter<'a> {
             self.writeln("/DISCARD/ :");
             self.begin_block();
 
-            for sect in &self.settings.sections_denylist {
+            for sect in &self.d.settings.sections_denylist {
                 self.writeln(&format!("*({});", sect));
             }
 
-            if self.settings.discard_wildcard_section {
+            if self.d.settings.discard_wildcard_section {
                 self.writeln("*(*);")
             }
 
@@ -132,7 +132,7 @@ impl<'a> LinkerWriter<'a> {
     pub fn add_segment(&mut self, segment: &Segment) {
         assert!(!self.single_segment);
 
-        let style = &self.settings.linker_symbols_style;
+        let style = &self.d.settings.linker_symbols_style;
 
         // rom segment symbols
         let main_seg_rom_sym_start: String = style.segment_rom_start(&segment.name);
@@ -309,7 +309,7 @@ impl<'a> LinkerWriter<'a> {
             });
         }
 
-        let arr_suffix = if self.settings.symbols_header_as_array {
+        let arr_suffix = if self.d.settings.symbols_header_as_array {
             "[]"
         } else {
             ""
@@ -319,7 +319,7 @@ impl<'a> LinkerWriter<'a> {
             if let Err(e) = writeln!(
                 f,
                 "extern {} {}{};",
-                self.settings.symbols_header_type, sym, arr_suffix
+                self.d.settings.symbols_header_type, sym, arr_suffix
             ) {
                 return Err(SlinkyError::FailedFileWrite {
                     path: path.to_path_buf(),
@@ -346,7 +346,7 @@ impl<'a> LinkerWriter<'a> {
 
         ret += "#ifndef HEADER_SYMBOLS_H\n#define HEADER_SYMBOLS_H\n\n";
 
-        let arr_suffix = if self.settings.symbols_header_as_array {
+        let arr_suffix = if self.d.settings.symbols_header_as_array {
             "[]"
         } else {
             ""
@@ -355,7 +355,7 @@ impl<'a> LinkerWriter<'a> {
         for sym in &self.linker_symbols {
             ret += &format!(
                 "extern {} {}{};\n",
-                self.settings.symbols_header_type, sym, arr_suffix
+                self.d.settings.symbols_header_type, sym, arr_suffix
             );
         }
 
@@ -367,13 +367,13 @@ impl<'a> LinkerWriter<'a> {
 
 impl LinkerWriter<'_> {
     pub fn save_other_files(&self) -> Result<(), SlinkyError> {
-        if let Some(d_path) = &self.settings.d_path {
-            if let Some(target_path) = &self.settings.target_path {
+        if let Some(d_path) = &self.d.settings.d_path {
+            if let Some(target_path) = &self.d.settings.target_path {
                 self.save_dependencies_file(d_path, target_path)?;
             }
         }
 
-        if let Some(symbols_header_path) = &self.settings.symbols_header_path {
+        if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
             self.save_symbol_header(symbols_header_path)?;
         }
 
@@ -458,7 +458,7 @@ impl LinkerWriter<'_> {
 
     fn write_sections_kind_start(&mut self, segment: &Segment, noload: bool) {
         if self.emit_sections_kind_symbols {
-            let style = &self.settings.linker_symbols_style;
+            let style = &self.d.settings.linker_symbols_style;
 
             let seg_sym_suffix = if noload { "noload" } else { "alloc" };
             let seg_sym = format!("{}_{}", segment.name, seg_sym_suffix);
@@ -475,7 +475,7 @@ impl LinkerWriter<'_> {
         if self.emit_sections_kind_symbols {
             self.writeln("");
 
-            let style = &self.settings.linker_symbols_style;
+            let style = &self.d.settings.linker_symbols_style;
 
             let seg_sym_suffix = if noload { "noload" } else { "alloc" };
             let seg_sym = format!("{}_{}", segment.name, seg_sym_suffix);
@@ -490,7 +490,7 @@ impl LinkerWriter<'_> {
 
     fn write_section_symbol_start(&mut self, segment: &Segment, section: &str) {
         if self.emit_section_symbols {
-            let style = &self.settings.linker_symbols_style;
+            let style = &self.d.settings.linker_symbols_style;
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
 
@@ -504,7 +504,7 @@ impl LinkerWriter<'_> {
                 self.align_symbol(".", section_end_align);
             }
 
-            let style = &self.settings.linker_symbols_style;
+            let style = &self.d.settings.linker_symbols_style;
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
             let section_end_sym = style.segment_section_end(&segment.name, section);
@@ -515,7 +515,7 @@ impl LinkerWriter<'_> {
     }
 
     fn write_segment_start(&mut self, segment: &Segment, noload: bool) {
-        let style = &self.settings.linker_symbols_style;
+        let style = &self.d.settings.linker_symbols_style;
 
         self.write_sections_kind_start(segment, noload);
 
@@ -549,7 +549,7 @@ impl LinkerWriter<'_> {
     }
 
     fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str, base_path: &Path) {
-        let style = &self.settings.linker_symbols_style;
+        let style = &self.d.settings.linker_symbols_style;
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
@@ -615,12 +615,12 @@ impl LinkerWriter<'_> {
                 // Check if any other section should be placed be placed here
                 for (k, v) in &file.section_order {
                     if v == section {
-                        self.emit_file(file, segment, k, &self.settings.base_path);
+                        self.emit_file(file, segment, k, &self.d.settings.base_path);
                     }
                 }
             }
 
-            self.emit_file(file, segment, section, &self.settings.base_path);
+            self.emit_file(file, segment, section, &self.d.settings.base_path);
         }
     }
 
