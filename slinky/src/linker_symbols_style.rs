@@ -107,22 +107,22 @@ impl LinkerSymbolsStyle {
 
     pub fn vram_class_start(&self, name: &str) -> String {
         match self {
-            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_START", name),
-            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramStart", name),
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM_CLASS_START", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}VramClassStart", name),
         }
     }
 
     pub fn vram_class_end(&self, name: &str) -> String {
         match self {
-            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_END", name),
-            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramEnd", name),
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM_CLASS_END", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}VramClassEnd", name),
         }
     }
 
     pub fn vram_class_size(&self, name: &str) -> String {
         match self {
-            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_SIZE", name),
-            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramSize", name),
+            LinkerSymbolsStyle::Splat => format!("{}_VRAM_CLASS_SIZE", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}VramClassSize", name),
         }
     }
 }
