@@ -178,10 +178,11 @@ impl<'a> LinkerWriter<'a> {
                         );
                     }
                 }
+                self.buffer
+                    .write_symbol(&style.vram_class_end(vram_class_name), "0x00000000");
 
                 self.buffer.write_empty_line();
 
-                // This is dumb, but Rust complains if you mut-borrow this above and call any other self.function.
                 vram_class.emitted = true;
             }
         }
@@ -219,6 +220,16 @@ impl<'a> LinkerWriter<'a> {
             &main_seg_rom_sym_size,
             "__romPos",
         );
+
+        if let Some(vram_class_name) = &segment.vram_class {
+            self.buffer.write_empty_line();
+
+            let vram_class_sym_end = style.vram_class_end(vram_class_name);
+            self.buffer.write_symbol(
+                &vram_class_sym_end,
+                &format!("MAX({}, {})", vram_class_sym_end, main_seg_sym_end),
+            );
+        }
 
         self.buffer.write_empty_line();
     }

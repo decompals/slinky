@@ -76,6 +76,7 @@ SECTIONS
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
     battle_partner_CLASS_VRAM_START = 0x80238000;
+    battle_partner_CLASS_VRAM_END = 0x00000000;
 
     battle_partner_goompa_ROM_START = __romPos;
     battle_partner_goompa_VRAM = ADDR(.battle_partner_goompa);
@@ -150,6 +151,8 @@ SECTIONS
     battle_partner_goompa_ROM_END = __romPos;
     battle_partner_goompa_ROM_SIZE = ABSOLUTE(battle_partner_goompa_ROM_END - battle_partner_goompa_ROM_START);
 
+    battle_partner_CLASS_VRAM_END = MAX(battle_partner_CLASS_VRAM_END, battle_partner_goompa_VRAM_END);
+
     battle_partner_goombario_ROM_START = __romPos;
     battle_partner_goombario_VRAM = ADDR(.battle_partner_goombario);
     battle_partner_goombario_alloc_VRAM = .;
@@ -222,6 +225,8 @@ SECTIONS
     __romPos += SIZEOF(.battle_partner_goombario);
     battle_partner_goombario_ROM_END = __romPos;
     battle_partner_goombario_ROM_SIZE = ABSOLUTE(battle_partner_goombario_ROM_END - battle_partner_goombario_ROM_START);
+
+    battle_partner_CLASS_VRAM_END = MAX(battle_partner_CLASS_VRAM_END, battle_partner_goombario_VRAM_END);
 
     battle_partner_kooper_ROM_START = __romPos;
     battle_partner_kooper_VRAM = ADDR(.battle_partner_kooper);
@@ -296,8 +301,11 @@ SECTIONS
     battle_partner_kooper_ROM_END = __romPos;
     battle_partner_kooper_ROM_SIZE = ABSOLUTE(battle_partner_kooper_ROM_END - battle_partner_kooper_ROM_START);
 
+    battle_partner_CLASS_VRAM_END = MAX(battle_partner_CLASS_VRAM_END, battle_partner_kooper_VRAM_END);
+
     battle_code_CLASS_VRAM_START = 0x00000000;
     battle_code_CLASS_VRAM_START = MAX(battle_code_CLASS_VRAM_START, battle_partner_CLASS_VRAM_END);
+    battle_code_CLASS_VRAM_END = 0x00000000;
 
     battle_code_ROM_START = __romPos;
     battle_code_VRAM = ADDR(.battle_code);
@@ -372,7 +380,10 @@ SECTIONS
     battle_code_ROM_END = __romPos;
     battle_code_ROM_SIZE = ABSOLUTE(battle_code_ROM_END - battle_code_ROM_START);
 
+    battle_code_CLASS_VRAM_END = MAX(battle_code_CLASS_VRAM_END, battle_code_VRAM_END);
+
     heaps2_CLASS_VRAM_START = 0x80267FF0;
+    heaps2_CLASS_VRAM_END = 0x00000000;
 
     heaps2_ROM_START = __romPos;
     heaps2_VRAM = ADDR(.heaps2);
@@ -447,8 +458,11 @@ SECTIONS
     heaps2_ROM_END = __romPos;
     heaps2_ROM_SIZE = ABSOLUTE(heaps2_ROM_END - heaps2_ROM_START);
 
+    heaps2_CLASS_VRAM_END = MAX(heaps2_CLASS_VRAM_END, heaps2_VRAM_END);
+
     world_script_api_CLASS_VRAM_START = 0x00000000;
     world_script_api_CLASS_VRAM_START = MAX(world_script_api_CLASS_VRAM_START, heaps2_CLASS_VRAM_END);
+    world_script_api_CLASS_VRAM_END = 0x00000000;
 
     world_script_api_ROM_START = __romPos;
     world_script_api_VRAM = ADDR(.world_script_api);
@@ -523,9 +537,12 @@ SECTIONS
     world_script_api_ROM_END = __romPos;
     world_script_api_ROM_SIZE = ABSOLUTE(world_script_api_ROM_END - world_script_api_ROM_START);
 
+    world_script_api_CLASS_VRAM_END = MAX(world_script_api_CLASS_VRAM_END, world_script_api_VRAM_END);
+
     texture_memory_CLASS_VRAM_START = 0x00000000;
     texture_memory_CLASS_VRAM_START = MAX(texture_memory_CLASS_VRAM_START, battle_code_CLASS_VRAM_END);
     texture_memory_CLASS_VRAM_START = MAX(texture_memory_CLASS_VRAM_START, world_script_api_CLASS_VRAM_END);
+    texture_memory_CLASS_VRAM_END = 0x00000000;
 
     texture_memory_ROM_START = __romPos;
     texture_memory_VRAM = ADDR(.texture_memory);
@@ -600,7 +617,10 @@ SECTIONS
     texture_memory_ROM_END = __romPos;
     texture_memory_ROM_SIZE = ABSOLUTE(texture_memory_ROM_END - texture_memory_ROM_START);
 
+    texture_memory_CLASS_VRAM_END = MAX(texture_memory_CLASS_VRAM_END, texture_memory_VRAM_END);
+
     segment_05_CLASS_VRAM_START = 0x05000000;
+    segment_05_CLASS_VRAM_END = 0x00000000;
 
     assets1_ROM_START = __romPos;
     assets1_VRAM = ADDR(.assets1);
@@ -675,6 +695,8 @@ SECTIONS
     assets1_ROM_END = __romPos;
     assets1_ROM_SIZE = ABSOLUTE(assets1_ROM_END - assets1_ROM_START);
 
+    segment_05_CLASS_VRAM_END = MAX(segment_05_CLASS_VRAM_END, assets1_VRAM_END);
+
     assets2_ROM_START = __romPos;
     assets2_VRAM = ADDR(.assets2);
     assets2_alloc_VRAM = .;
@@ -747,6 +769,8 @@ SECTIONS
     __romPos += SIZEOF(.assets2);
     assets2_ROM_END = __romPos;
     assets2_ROM_SIZE = ABSOLUTE(assets2_ROM_END - assets2_ROM_START);
+
+    segment_05_CLASS_VRAM_END = MAX(segment_05_CLASS_VRAM_END, assets2_VRAM_END);
 
     assets3_ROM_START = __romPos;
     assets3_VRAM = ADDR(.assets3);
@@ -821,7 +845,10 @@ SECTIONS
     assets3_ROM_END = __romPos;
     assets3_ROM_SIZE = ABSOLUTE(assets3_ROM_END - assets3_ROM_START);
 
+    segment_05_CLASS_VRAM_END = MAX(segment_05_CLASS_VRAM_END, assets3_VRAM_END);
+
     segment_06_CLASS_VRAM_START = 0x06000000;
+    segment_06_CLASS_VRAM_END = 0x00000000;
 
     assets4_ROM_START = __romPos;
     assets4_VRAM = ADDR(.assets4);
@@ -895,6 +922,8 @@ SECTIONS
     __romPos += SIZEOF(.assets4);
     assets4_ROM_END = __romPos;
     assets4_ROM_SIZE = ABSOLUTE(assets4_ROM_END - assets4_ROM_START);
+
+    segment_06_CLASS_VRAM_END = MAX(segment_06_CLASS_VRAM_END, assets4_VRAM_END);
 
     .shstrtab 0 :
     {
