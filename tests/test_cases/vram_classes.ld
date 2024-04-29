@@ -1013,6 +1013,14 @@ SECTIONS
 
     segment_06_CLASS_VRAM_END = MAX(segment_06_CLASS_VRAM_END, assets4_VRAM_END);
 
+    battle_partner_CLASS_VRAM_SIZE = battle_partner_CLASS_VRAM_END - battle_partner_CLASS_VRAM_START;
+    battle_code_CLASS_VRAM_SIZE = battle_code_CLASS_VRAM_END - battle_code_CLASS_VRAM_START;
+    heaps2_CLASS_VRAM_SIZE = heaps2_CLASS_VRAM_END - heaps2_CLASS_VRAM_START;
+    world_script_api_CLASS_VRAM_SIZE = world_script_api_CLASS_VRAM_END - world_script_api_CLASS_VRAM_START;
+    texture_memory_CLASS_VRAM_SIZE = texture_memory_CLASS_VRAM_END - texture_memory_CLASS_VRAM_START;
+    segment_05_CLASS_VRAM_SIZE = segment_05_CLASS_VRAM_END - segment_05_CLASS_VRAM_START;
+    segment_06_CLASS_VRAM_SIZE = segment_06_CLASS_VRAM_END - segment_06_CLASS_VRAM_START;
+
     .shstrtab 0 :
     {
         *(.shstrtab);

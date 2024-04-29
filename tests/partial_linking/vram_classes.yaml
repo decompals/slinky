@@ -1,6 +1,8 @@
 settings:
   base_path: build
 
+  symbols_header_path: tests/partial_linking/vram_classes.h
+
   partial_scripts_folder: tests/partial_linking/vram_classes
   partial_build_segments_folder: segments
 

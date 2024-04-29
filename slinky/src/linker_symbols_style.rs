@@ -118,4 +118,11 @@ impl LinkerSymbolsStyle {
             LinkerSymbolsStyle::Makerom => format!("_{}ClassVramEnd", name),
         }
     }
+
+    pub fn vram_class_size(&self, name: &str) -> String {
+        match self {
+            LinkerSymbolsStyle::Splat => format!("{}_CLASS_VRAM_SIZE", name),
+            LinkerSymbolsStyle::Makerom => format!("_{}ClassVramSize", name),
+        }
+    }
 }

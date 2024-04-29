@@ -1,7 +1,6 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::collections::HashMap;
 use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
@@ -19,7 +18,7 @@ pub struct LinkerWriter<'a> {
 
     single_segment: bool,
 
-    vram_classes: HashMap<String, VramClass>,
+    vram_classes: indexmap::IndexMap<String, VramClass>,
 
     /* Options to control stuff */
     emit_sections_kind_symbols: bool,
@@ -30,7 +29,7 @@ pub struct LinkerWriter<'a> {
 
 impl<'a> LinkerWriter<'a> {
     pub fn new(d: &'a Document) -> Self {
-        let mut vram_classes = HashMap::with_capacity(d.vram_classes.len());
+        let mut vram_classes = indexmap::IndexMap::with_capacity(d.vram_classes.len());
         for vram_class in &d.vram_classes {
             vram_classes.insert(vram_class.name.clone(), vram_class.clone());
         }
@@ -80,9 +79,31 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn end_sections(&mut self) {
+        let style = &self.d.settings.linker_symbols_style;
         let mut need_ln = false;
 
+        for (vram_class_name, vram_class) in &self.vram_classes {
+            if !vram_class.emitted {
+                continue;
+            }
+
+            self.buffer.write_symbol(
+                &style.vram_class_size(vram_class_name),
+                &format!(
+                    "{} - {}",
+                    style.vram_class_end(vram_class_name),
+                    style.vram_class_start(vram_class_name),
+                ),
+            );
+
+            need_ln = true;
+        }
+
         if !self.d.settings.sections_allowlist.is_empty() {
+            if need_ln {
+                self.buffer.write_empty_line();
+            }
+
             let address = " 0";
 
             for sect in &self.d.settings.sections_allowlist {
@@ -168,13 +189,9 @@ impl<'a> LinkerWriter<'a> {
                 } else {
                     self.buffer.write_symbol(&vram_class_sym, "0x00000000");
                     for other_class_name in &vram_class.follows_classes {
-                        self.buffer.write_symbol(
+                        self.buffer.write_symbol_max_self(
                             &vram_class_sym,
-                            &format!(
-                                "MAX({}, {})",
-                                vram_class_sym,
-                                style.vram_class_end(other_class_name)
-                            ),
+                            &style.vram_class_end(other_class_name),
                         );
                     }
                 }
@@ -225,10 +242,8 @@ impl<'a> LinkerWriter<'a> {
             self.buffer.write_empty_line();
 
             let vram_class_sym_end = style.vram_class_end(vram_class_name);
-            self.buffer.write_symbol(
-                &vram_class_sym_end,
-                &format!("MAX({}, {})", vram_class_sym_end, main_seg_sym_end),
-            );
+            self.buffer
+                .write_symbol_max_self(&vram_class_sym_end, &main_seg_sym_end);
         }
 
         self.buffer.write_empty_line();

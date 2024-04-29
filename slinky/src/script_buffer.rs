@@ -60,6 +60,10 @@ impl ScriptBuffer {
             symbol, symbol, align_value
         ));
     }
+
+    pub fn write_symbol_max_self(&mut self, symbol: &str, other_sym: &str) {
+        self.writeln(&format!("{} = MAX({}, {});", symbol, symbol, other_sym));
+    }
 }
 
 impl ScriptBuffer {
