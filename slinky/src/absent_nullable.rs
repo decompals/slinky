@@ -36,7 +36,7 @@ where
     }
 }
 
-// TODO: consider changing the "default" callbacks to return a result
+// TODO: consider changing the "default" callbacks to return a Result
 impl<T> AbsentNullable<T> {
     pub fn get_non_null<F>(self, name: &str, default: F) -> Result<T, SlinkyError>
     where

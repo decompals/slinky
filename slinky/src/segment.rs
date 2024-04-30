@@ -1,6 +1,8 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+use std::path::PathBuf;
+
 use serde::Deserialize;
 
 use crate::{
@@ -33,6 +35,9 @@ pub struct Segment {
     /// Not compatible with `fixed_vram`, `fixed_symbol` or `follows_segment`.
     pub vram_class: Option<String>,
 
+    /// Used as a prefix for all the files emitted for this Segment.
+    pub dir: PathBuf,
+
     // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
@@ -63,6 +68,9 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub vram_class: AbsentNullable<String>,
+
+    #[serde(default)]
+    pub dir: AbsentNullable<PathBuf>,
 
     // The default of the following come from Options
     #[serde(default)]
@@ -162,6 +170,8 @@ impl SegmentSerial {
             });
         }
 
+        let dir = self.dir.get_non_null("dir", PathBuf::new)?;
+
         let alloc_sections = self
             .alloc_sections
             .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
@@ -196,6 +206,7 @@ impl SegmentSerial {
             fixed_symbol,
             follows_segment,
             vram_class,
+            dir,
             alloc_sections,
             noload_sections,
             subalign,

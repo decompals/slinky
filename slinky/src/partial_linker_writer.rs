@@ -19,7 +19,7 @@ pub struct PartialLinkerWriter<'a> {
 impl<'a> PartialLinkerWriter<'a> {
     pub fn new(d: &'a Document) -> Self {
         Self {
-            main_writer: LinkerWriter::new(d),
+            main_writer: LinkerWriter::new_reference_partial_objects(d),
 
             partial_writers: Vec::new(),
 

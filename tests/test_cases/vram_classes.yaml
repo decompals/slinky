@@ -26,17 +26,17 @@ segments:
 
 
   - name: omo2_1
-    # dir: src/battle/area/omo2_1
+    dir: src/battle/area/omo2_1
     vram_class: battle_area2
     files:
       - { path: actor/shy_squad.o }
   - name: omo2_2
-    # dir: src/battle/area/omo2_2
+    dir: src/battle/area/omo2_2
     vram_class: battle_area2
     files:
       - { path: actor/stilt_guy.o }
   - name: omo2_3
-    # dir: src/battle/area/omo2_3
+    dir: src/battle/area/omo2_3
     vram_class: battle_area2
     files:
       - { path: actor/shy_stack.o }

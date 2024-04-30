@@ -152,6 +152,33 @@ The name of an existing [`vram_class`](vram_class.md).
 
 `null`
 
+## `dir`
+
+Used as a prefix for all the files emitted for this Segment.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: omo2_1
+    dir: src/battle/area/omo2_1
+    files:
+      - { path: actor/shy_squad.o }
+```
+
+Emits the `build/src/battle/area/omo2_1/actor/shy_squad.o` file path.
+
+### Valid values
+
+Any valid path.
+
+### Default value
+
+Empty path.
+
 ## `alloc_sections`
 
 List of allocatable sections (the ones that take ROM space) for this specific

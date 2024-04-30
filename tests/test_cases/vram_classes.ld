@@ -94,25 +94,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_1_TEXT_START = .;
-        build/actor/shy_squad.o(.text*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.text*);
         . = ALIGN(., 0x10);
         omo2_1_TEXT_END = .;
         omo2_1_TEXT_SIZE = ABSOLUTE(omo2_1_TEXT_END - omo2_1_TEXT_START);
 
         omo2_1_DATA_START = .;
-        build/actor/shy_squad.o(.data*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.data*);
         . = ALIGN(., 0x10);
         omo2_1_DATA_END = .;
         omo2_1_DATA_SIZE = ABSOLUTE(omo2_1_DATA_END - omo2_1_DATA_START);
 
         omo2_1_RODATA_START = .;
-        build/actor/shy_squad.o(.rodata*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.rodata*);
         . = ALIGN(., 0x10);
         omo2_1_RODATA_END = .;
         omo2_1_RODATA_SIZE = ABSOLUTE(omo2_1_RODATA_END - omo2_1_RODATA_START);
 
         omo2_1_SDATA_START = .;
-        build/actor/shy_squad.o(.sdata*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.sdata*);
         . = ALIGN(., 0x10);
         omo2_1_SDATA_END = .;
         omo2_1_SDATA_SIZE = ABSOLUTE(omo2_1_SDATA_END - omo2_1_SDATA_START);
@@ -127,25 +127,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_1_SBSS_START = .;
-        build/actor/shy_squad.o(.sbss*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.sbss*);
         . = ALIGN(., 0x10);
         omo2_1_SBSS_END = .;
         omo2_1_SBSS_SIZE = ABSOLUTE(omo2_1_SBSS_END - omo2_1_SBSS_START);
 
         omo2_1_SCOMMON_START = .;
-        build/actor/shy_squad.o(.scommon*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.scommon*);
         . = ALIGN(., 0x10);
         omo2_1_SCOMMON_END = .;
         omo2_1_SCOMMON_SIZE = ABSOLUTE(omo2_1_SCOMMON_END - omo2_1_SCOMMON_START);
 
         omo2_1_BSS_START = .;
-        build/actor/shy_squad.o(.bss*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(.bss*);
         . = ALIGN(., 0x10);
         omo2_1_BSS_END = .;
         omo2_1_BSS_SIZE = ABSOLUTE(omo2_1_BSS_END - omo2_1_BSS_START);
 
         omo2_1COMMON_START = .;
-        build/actor/shy_squad.o(COMMON*);
+        build/src/battle/area/omo2_1/actor/shy_squad.o(COMMON*);
         . = ALIGN(., 0x10);
         omo2_1COMMON_END = .;
         omo2_1COMMON_SIZE = ABSOLUTE(omo2_1COMMON_END - omo2_1COMMON_START);
@@ -169,25 +169,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_2_TEXT_START = .;
-        build/actor/stilt_guy.o(.text*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.text*);
         . = ALIGN(., 0x10);
         omo2_2_TEXT_END = .;
         omo2_2_TEXT_SIZE = ABSOLUTE(omo2_2_TEXT_END - omo2_2_TEXT_START);
 
         omo2_2_DATA_START = .;
-        build/actor/stilt_guy.o(.data*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.data*);
         . = ALIGN(., 0x10);
         omo2_2_DATA_END = .;
         omo2_2_DATA_SIZE = ABSOLUTE(omo2_2_DATA_END - omo2_2_DATA_START);
 
         omo2_2_RODATA_START = .;
-        build/actor/stilt_guy.o(.rodata*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.rodata*);
         . = ALIGN(., 0x10);
         omo2_2_RODATA_END = .;
         omo2_2_RODATA_SIZE = ABSOLUTE(omo2_2_RODATA_END - omo2_2_RODATA_START);
 
         omo2_2_SDATA_START = .;
-        build/actor/stilt_guy.o(.sdata*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.sdata*);
         . = ALIGN(., 0x10);
         omo2_2_SDATA_END = .;
         omo2_2_SDATA_SIZE = ABSOLUTE(omo2_2_SDATA_END - omo2_2_SDATA_START);
@@ -202,25 +202,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_2_SBSS_START = .;
-        build/actor/stilt_guy.o(.sbss*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.sbss*);
         . = ALIGN(., 0x10);
         omo2_2_SBSS_END = .;
         omo2_2_SBSS_SIZE = ABSOLUTE(omo2_2_SBSS_END - omo2_2_SBSS_START);
 
         omo2_2_SCOMMON_START = .;
-        build/actor/stilt_guy.o(.scommon*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.scommon*);
         . = ALIGN(., 0x10);
         omo2_2_SCOMMON_END = .;
         omo2_2_SCOMMON_SIZE = ABSOLUTE(omo2_2_SCOMMON_END - omo2_2_SCOMMON_START);
 
         omo2_2_BSS_START = .;
-        build/actor/stilt_guy.o(.bss*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(.bss*);
         . = ALIGN(., 0x10);
         omo2_2_BSS_END = .;
         omo2_2_BSS_SIZE = ABSOLUTE(omo2_2_BSS_END - omo2_2_BSS_START);
 
         omo2_2COMMON_START = .;
-        build/actor/stilt_guy.o(COMMON*);
+        build/src/battle/area/omo2_2/actor/stilt_guy.o(COMMON*);
         . = ALIGN(., 0x10);
         omo2_2COMMON_END = .;
         omo2_2COMMON_SIZE = ABSOLUTE(omo2_2COMMON_END - omo2_2COMMON_START);
@@ -244,25 +244,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_3_TEXT_START = .;
-        build/actor/shy_stack.o(.text*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.text*);
         . = ALIGN(., 0x10);
         omo2_3_TEXT_END = .;
         omo2_3_TEXT_SIZE = ABSOLUTE(omo2_3_TEXT_END - omo2_3_TEXT_START);
 
         omo2_3_DATA_START = .;
-        build/actor/shy_stack.o(.data*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.data*);
         . = ALIGN(., 0x10);
         omo2_3_DATA_END = .;
         omo2_3_DATA_SIZE = ABSOLUTE(omo2_3_DATA_END - omo2_3_DATA_START);
 
         omo2_3_RODATA_START = .;
-        build/actor/shy_stack.o(.rodata*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.rodata*);
         . = ALIGN(., 0x10);
         omo2_3_RODATA_END = .;
         omo2_3_RODATA_SIZE = ABSOLUTE(omo2_3_RODATA_END - omo2_3_RODATA_START);
 
         omo2_3_SDATA_START = .;
-        build/actor/shy_stack.o(.sdata*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.sdata*);
         . = ALIGN(., 0x10);
         omo2_3_SDATA_END = .;
         omo2_3_SDATA_SIZE = ABSOLUTE(omo2_3_SDATA_END - omo2_3_SDATA_START);
@@ -277,25 +277,25 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_3_SBSS_START = .;
-        build/actor/shy_stack.o(.sbss*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.sbss*);
         . = ALIGN(., 0x10);
         omo2_3_SBSS_END = .;
         omo2_3_SBSS_SIZE = ABSOLUTE(omo2_3_SBSS_END - omo2_3_SBSS_START);
 
         omo2_3_SCOMMON_START = .;
-        build/actor/shy_stack.o(.scommon*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.scommon*);
         . = ALIGN(., 0x10);
         omo2_3_SCOMMON_END = .;
         omo2_3_SCOMMON_SIZE = ABSOLUTE(omo2_3_SCOMMON_END - omo2_3_SCOMMON_START);
 
         omo2_3_BSS_START = .;
-        build/actor/shy_stack.o(.bss*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(.bss*);
         . = ALIGN(., 0x10);
         omo2_3_BSS_END = .;
         omo2_3_BSS_SIZE = ABSOLUTE(omo2_3_BSS_END - omo2_3_BSS_START);
 
         omo2_3COMMON_START = .;
-        build/actor/shy_stack.o(COMMON*);
+        build/src/battle/area/omo2_3/actor/shy_stack.o(COMMON*);
         . = ALIGN(., 0x10);
         omo2_3COMMON_END = .;
         omo2_3COMMON_SIZE = ABSOLUTE(omo2_3COMMON_END - omo2_3COMMON_START);

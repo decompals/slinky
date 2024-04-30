@@ -16,9 +16,10 @@ pub struct LinkerWriter<'a> {
     // Used for dependency generation
     files_paths: indexmap::IndexSet<PathBuf>,
 
-    single_segment: bool,
-
     vram_classes: indexmap::IndexMap<String, VramClass>,
+
+    single_segment: bool,
+    reference_partial_objects: bool,
 
     /* Options to control stuff */
     emit_sections_kind_symbols: bool,
@@ -39,15 +40,24 @@ impl<'a> LinkerWriter<'a> {
 
             files_paths: indexmap::IndexSet::new(),
 
-            single_segment: false,
-
             vram_classes,
+
+            single_segment: false,
+            reference_partial_objects: false,
 
             emit_sections_kind_symbols: true,
             emit_section_symbols: true,
 
             d,
         }
+    }
+
+    pub fn new_reference_partial_objects(d: &'a Document) -> Self {
+        let mut s = Self::new(d);
+
+        s.reference_partial_objects = true;
+
+        s
     }
 
     pub fn add_all_segments(&mut self, segments: &[Segment]) {
@@ -647,6 +657,13 @@ impl LinkerWriter<'_> {
     }
 
     fn emit_section(&mut self, segment: &Segment, section: &str) {
+        let mut base_path = PathBuf::new();
+
+        base_path.extend(&self.d.settings.base_path);
+        if !self.reference_partial_objects {
+            base_path.extend(&segment.dir);
+        }
+
         for file in &segment.files {
             if !file.section_order.is_empty() {
                 // Keys specify the section and value specify where it will be put
@@ -660,12 +677,12 @@ impl LinkerWriter<'_> {
                 // Check if any other section should be placed be placed here
                 for (k, v) in &file.section_order {
                     if v == section {
-                        self.emit_file(file, segment, k, &self.d.settings.base_path);
+                        self.emit_file(file, segment, k, &base_path);
                     }
                 }
             }
 
-            self.emit_file(file, segment, section, &self.d.settings.base_path);
+            self.emit_file(file, segment, section, &base_path);
         }
     }
 
