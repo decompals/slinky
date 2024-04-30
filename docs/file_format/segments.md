@@ -128,7 +128,7 @@ The name of another segment.
 
 If used then force putting the segment at address of the given vram class.
 
-See the [`vram_class`](vram_class.md) docs for more info.
+See the [`vram_classes`](vram_classes.md) docs for more info.
 
 It can't be used in combination with [`fixed_vram`](#fixed_vram),
 [`fixed_symbol`](#fixed_symbol) or [`follows_segment`](#follows_segment).
