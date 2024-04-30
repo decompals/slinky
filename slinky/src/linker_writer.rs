@@ -186,6 +186,8 @@ impl<'a> LinkerWriter<'a> {
                 if let Some(fixed_vram) = vram_class.fixed_vram {
                     self.buffer
                         .write_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
+                } else if let Some(fixed_symbol) = &vram_class.fixed_symbol {
+                    self.buffer.write_symbol(&vram_class_sym, fixed_symbol);
                 } else {
                     self.buffer.write_symbol(&vram_class_sym, "0x00000000");
                     for other_class_name in &vram_class.follows_classes {
@@ -563,6 +565,8 @@ impl LinkerWriter<'_> {
         } else {
             if let Some(fixed_vram) = segment.fixed_vram {
                 line += &format!(" 0x{:08X}", fixed_vram);
+            } else if let Some(fixed_symbol) = &segment.fixed_symbol {
+                line += &format!(" {}", fixed_symbol);
             } else if let Some(follows_segment) = &segment.follows_segment {
                 line += &format!(" {}", style.segment_vram_end(follows_segment));
             } else if let Some(vram_class) = &segment.vram_class {

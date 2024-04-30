@@ -83,6 +83,234 @@ SECTIONS
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
+    battle_area2_VRAM_CLASS_START = Vine1Base;
+    battle_area2_VRAM_CLASS_END = 0x00000000;
+
+    omo2_1_ROM_START = __romPos;
+    omo2_1_VRAM = ADDR(.omo2_1);
+    omo2_1_alloc_VRAM = .;
+
+    .omo2_1 battle_area2_VRAM_CLASS_START : AT(omo2_1_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_1_TEXT_START = .;
+        build/actor/shy_squad.o(.text*);
+        . = ALIGN(., 0x10);
+        omo2_1_TEXT_END = .;
+        omo2_1_TEXT_SIZE = ABSOLUTE(omo2_1_TEXT_END - omo2_1_TEXT_START);
+
+        omo2_1_DATA_START = .;
+        build/actor/shy_squad.o(.data*);
+        . = ALIGN(., 0x10);
+        omo2_1_DATA_END = .;
+        omo2_1_DATA_SIZE = ABSOLUTE(omo2_1_DATA_END - omo2_1_DATA_START);
+
+        omo2_1_RODATA_START = .;
+        build/actor/shy_squad.o(.rodata*);
+        . = ALIGN(., 0x10);
+        omo2_1_RODATA_END = .;
+        omo2_1_RODATA_SIZE = ABSOLUTE(omo2_1_RODATA_END - omo2_1_RODATA_START);
+
+        omo2_1_SDATA_START = .;
+        build/actor/shy_squad.o(.sdata*);
+        . = ALIGN(., 0x10);
+        omo2_1_SDATA_END = .;
+        omo2_1_SDATA_SIZE = ABSOLUTE(omo2_1_SDATA_END - omo2_1_SDATA_START);
+    }
+
+    omo2_1_alloc_VRAM_END = .;
+    omo2_1_alloc_VRAM_SIZE = ABSOLUTE(omo2_1_alloc_VRAM_END - omo2_1_alloc_VRAM);
+
+    omo2_1_noload_VRAM = .;
+
+    .omo2_1.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_1_SBSS_START = .;
+        build/actor/shy_squad.o(.sbss*);
+        . = ALIGN(., 0x10);
+        omo2_1_SBSS_END = .;
+        omo2_1_SBSS_SIZE = ABSOLUTE(omo2_1_SBSS_END - omo2_1_SBSS_START);
+
+        omo2_1_SCOMMON_START = .;
+        build/actor/shy_squad.o(.scommon*);
+        . = ALIGN(., 0x10);
+        omo2_1_SCOMMON_END = .;
+        omo2_1_SCOMMON_SIZE = ABSOLUTE(omo2_1_SCOMMON_END - omo2_1_SCOMMON_START);
+
+        omo2_1_BSS_START = .;
+        build/actor/shy_squad.o(.bss*);
+        . = ALIGN(., 0x10);
+        omo2_1_BSS_END = .;
+        omo2_1_BSS_SIZE = ABSOLUTE(omo2_1_BSS_END - omo2_1_BSS_START);
+
+        omo2_1COMMON_START = .;
+        build/actor/shy_squad.o(COMMON*);
+        . = ALIGN(., 0x10);
+        omo2_1COMMON_END = .;
+        omo2_1COMMON_SIZE = ABSOLUTE(omo2_1COMMON_END - omo2_1COMMON_START);
+    }
+
+    omo2_1_noload_VRAM_END = .;
+    omo2_1_noload_VRAM_SIZE = ABSOLUTE(omo2_1_noload_VRAM_END - omo2_1_noload_VRAM);
+    omo2_1_VRAM_END = .;
+    omo2_1_VRAM_SIZE = ABSOLUTE(omo2_1_VRAM_END - omo2_1_VRAM);
+    __romPos += SIZEOF(.omo2_1);
+    omo2_1_ROM_END = __romPos;
+    omo2_1_ROM_SIZE = ABSOLUTE(omo2_1_ROM_END - omo2_1_ROM_START);
+
+    battle_area2_VRAM_CLASS_END = MAX(battle_area2_VRAM_CLASS_END, omo2_1_VRAM_END);
+
+    omo2_2_ROM_START = __romPos;
+    omo2_2_VRAM = ADDR(.omo2_2);
+    omo2_2_alloc_VRAM = .;
+
+    .omo2_2 battle_area2_VRAM_CLASS_START : AT(omo2_2_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_2_TEXT_START = .;
+        build/actor/stilt_guy.o(.text*);
+        . = ALIGN(., 0x10);
+        omo2_2_TEXT_END = .;
+        omo2_2_TEXT_SIZE = ABSOLUTE(omo2_2_TEXT_END - omo2_2_TEXT_START);
+
+        omo2_2_DATA_START = .;
+        build/actor/stilt_guy.o(.data*);
+        . = ALIGN(., 0x10);
+        omo2_2_DATA_END = .;
+        omo2_2_DATA_SIZE = ABSOLUTE(omo2_2_DATA_END - omo2_2_DATA_START);
+
+        omo2_2_RODATA_START = .;
+        build/actor/stilt_guy.o(.rodata*);
+        . = ALIGN(., 0x10);
+        omo2_2_RODATA_END = .;
+        omo2_2_RODATA_SIZE = ABSOLUTE(omo2_2_RODATA_END - omo2_2_RODATA_START);
+
+        omo2_2_SDATA_START = .;
+        build/actor/stilt_guy.o(.sdata*);
+        . = ALIGN(., 0x10);
+        omo2_2_SDATA_END = .;
+        omo2_2_SDATA_SIZE = ABSOLUTE(omo2_2_SDATA_END - omo2_2_SDATA_START);
+    }
+
+    omo2_2_alloc_VRAM_END = .;
+    omo2_2_alloc_VRAM_SIZE = ABSOLUTE(omo2_2_alloc_VRAM_END - omo2_2_alloc_VRAM);
+
+    omo2_2_noload_VRAM = .;
+
+    .omo2_2.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_2_SBSS_START = .;
+        build/actor/stilt_guy.o(.sbss*);
+        . = ALIGN(., 0x10);
+        omo2_2_SBSS_END = .;
+        omo2_2_SBSS_SIZE = ABSOLUTE(omo2_2_SBSS_END - omo2_2_SBSS_START);
+
+        omo2_2_SCOMMON_START = .;
+        build/actor/stilt_guy.o(.scommon*);
+        . = ALIGN(., 0x10);
+        omo2_2_SCOMMON_END = .;
+        omo2_2_SCOMMON_SIZE = ABSOLUTE(omo2_2_SCOMMON_END - omo2_2_SCOMMON_START);
+
+        omo2_2_BSS_START = .;
+        build/actor/stilt_guy.o(.bss*);
+        . = ALIGN(., 0x10);
+        omo2_2_BSS_END = .;
+        omo2_2_BSS_SIZE = ABSOLUTE(omo2_2_BSS_END - omo2_2_BSS_START);
+
+        omo2_2COMMON_START = .;
+        build/actor/stilt_guy.o(COMMON*);
+        . = ALIGN(., 0x10);
+        omo2_2COMMON_END = .;
+        omo2_2COMMON_SIZE = ABSOLUTE(omo2_2COMMON_END - omo2_2COMMON_START);
+    }
+
+    omo2_2_noload_VRAM_END = .;
+    omo2_2_noload_VRAM_SIZE = ABSOLUTE(omo2_2_noload_VRAM_END - omo2_2_noload_VRAM);
+    omo2_2_VRAM_END = .;
+    omo2_2_VRAM_SIZE = ABSOLUTE(omo2_2_VRAM_END - omo2_2_VRAM);
+    __romPos += SIZEOF(.omo2_2);
+    omo2_2_ROM_END = __romPos;
+    omo2_2_ROM_SIZE = ABSOLUTE(omo2_2_ROM_END - omo2_2_ROM_START);
+
+    battle_area2_VRAM_CLASS_END = MAX(battle_area2_VRAM_CLASS_END, omo2_2_VRAM_END);
+
+    omo2_3_ROM_START = __romPos;
+    omo2_3_VRAM = ADDR(.omo2_3);
+    omo2_3_alloc_VRAM = .;
+
+    .omo2_3 battle_area2_VRAM_CLASS_START : AT(omo2_3_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_3_TEXT_START = .;
+        build/actor/shy_stack.o(.text*);
+        . = ALIGN(., 0x10);
+        omo2_3_TEXT_END = .;
+        omo2_3_TEXT_SIZE = ABSOLUTE(omo2_3_TEXT_END - omo2_3_TEXT_START);
+
+        omo2_3_DATA_START = .;
+        build/actor/shy_stack.o(.data*);
+        . = ALIGN(., 0x10);
+        omo2_3_DATA_END = .;
+        omo2_3_DATA_SIZE = ABSOLUTE(omo2_3_DATA_END - omo2_3_DATA_START);
+
+        omo2_3_RODATA_START = .;
+        build/actor/shy_stack.o(.rodata*);
+        . = ALIGN(., 0x10);
+        omo2_3_RODATA_END = .;
+        omo2_3_RODATA_SIZE = ABSOLUTE(omo2_3_RODATA_END - omo2_3_RODATA_START);
+
+        omo2_3_SDATA_START = .;
+        build/actor/shy_stack.o(.sdata*);
+        . = ALIGN(., 0x10);
+        omo2_3_SDATA_END = .;
+        omo2_3_SDATA_SIZE = ABSOLUTE(omo2_3_SDATA_END - omo2_3_SDATA_START);
+    }
+
+    omo2_3_alloc_VRAM_END = .;
+    omo2_3_alloc_VRAM_SIZE = ABSOLUTE(omo2_3_alloc_VRAM_END - omo2_3_alloc_VRAM);
+
+    omo2_3_noload_VRAM = .;
+
+    .omo2_3.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        omo2_3_SBSS_START = .;
+        build/actor/shy_stack.o(.sbss*);
+        . = ALIGN(., 0x10);
+        omo2_3_SBSS_END = .;
+        omo2_3_SBSS_SIZE = ABSOLUTE(omo2_3_SBSS_END - omo2_3_SBSS_START);
+
+        omo2_3_SCOMMON_START = .;
+        build/actor/shy_stack.o(.scommon*);
+        . = ALIGN(., 0x10);
+        omo2_3_SCOMMON_END = .;
+        omo2_3_SCOMMON_SIZE = ABSOLUTE(omo2_3_SCOMMON_END - omo2_3_SCOMMON_START);
+
+        omo2_3_BSS_START = .;
+        build/actor/shy_stack.o(.bss*);
+        . = ALIGN(., 0x10);
+        omo2_3_BSS_END = .;
+        omo2_3_BSS_SIZE = ABSOLUTE(omo2_3_BSS_END - omo2_3_BSS_START);
+
+        omo2_3COMMON_START = .;
+        build/actor/shy_stack.o(COMMON*);
+        . = ALIGN(., 0x10);
+        omo2_3COMMON_END = .;
+        omo2_3COMMON_SIZE = ABSOLUTE(omo2_3COMMON_END - omo2_3COMMON_START);
+    }
+
+    omo2_3_noload_VRAM_END = .;
+    omo2_3_noload_VRAM_SIZE = ABSOLUTE(omo2_3_noload_VRAM_END - omo2_3_noload_VRAM);
+    omo2_3_VRAM_END = .;
+    omo2_3_VRAM_SIZE = ABSOLUTE(omo2_3_VRAM_END - omo2_3_VRAM);
+    __romPos += SIZEOF(.omo2_3);
+    omo2_3_ROM_END = __romPos;
+    omo2_3_ROM_SIZE = ABSOLUTE(omo2_3_ROM_END - omo2_3_ROM_START);
+
+    battle_area2_VRAM_CLASS_END = MAX(battle_area2_VRAM_CLASS_END, omo2_3_VRAM_END);
+
     battle_partner_VRAM_CLASS_START = 0x80238000;
     battle_partner_VRAM_CLASS_END = 0x00000000;
 
@@ -1013,6 +1241,7 @@ SECTIONS
 
     segment_06_VRAM_CLASS_END = MAX(segment_06_VRAM_CLASS_END, assets4_VRAM_END);
 
+    battle_area2_VRAM_CLASS_SIZE = battle_area2_VRAM_CLASS_END - battle_area2_VRAM_CLASS_START;
     battle_partner_VRAM_CLASS_SIZE = battle_partner_VRAM_CLASS_END - battle_partner_VRAM_CLASS_START;
     battle_code_VRAM_CLASS_SIZE = battle_code_VRAM_CLASS_END - battle_code_VRAM_CLASS_START;
     heaps2_VRAM_CLASS_SIZE = heaps2_VRAM_CLASS_END - heaps2_VRAM_CLASS_START;

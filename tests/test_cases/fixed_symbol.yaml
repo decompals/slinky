@@ -1,0 +1,60 @@
+settings:
+  base_path: build
+  section_end_align: null
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/libultra.o } # yes a single file, deal with it
+
+  - name: kanji
+    files:
+      - { path: src/kanji/kanji.o }
+
+  - name: main
+    follows_segment: boot
+    section_end_align: 0x20
+    files:
+      - { path: src/main/main.o }
+      - { path: src/main/dmadata.o }
+      - { path: asm/main/util.o }
+
+  - name: engine
+    files:
+      - { path: src/engine/engine_cod.o }
+      - { path: src/engine/engine_buffers.o } # Contains gBufferEnemy, gBufferStage, etc
+
+  - name: engine2
+    files:
+      - { path: src/engine2/engine_the_sequel.o }
+
+  - name: enemy_1
+    fixed_symbol: gBufferEnemy
+    files:
+      - { path: src/enemy_1/enemy_1.o }
+
+  - name: enemy_2
+    fixed_symbol: gBufferEnemy
+    files:
+      - { path: src/enemy_2/enemy_2.o }
+
+  - name: enemy_3
+    fixed_symbol: gBufferEnemy
+    files:
+      - { path: src/enemy_2/enemy_2.o }
+
+  - name: stage_1
+    fixed_symbol: gBufferStage
+    files:
+      - { path: src/stage_1/stage_1.o }
+
+  - name: stage_2
+    fixed_symbol: gBufferStage
+    files:
+      - { path: src/stage_2/stage_2.o }
+
+  - name: stage_3
+    fixed_symbol: gBufferStage
+    files:
+      - { path: src/stage_2/stage_2.o }

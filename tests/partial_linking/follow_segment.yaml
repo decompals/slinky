@@ -15,7 +15,7 @@ segments:
   - name: boot
     fixed_vram: 0x80000460
     files:
-      - { path: src/main/boot_main.o }
+      - { path: src/boot/boot_main.o }
       - { path: src/libultra.o } # yes a single file, deal with it
 
   - name: kanji

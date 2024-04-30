@@ -5,56 +5,56 @@ SECTIONS
     .text : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.text*);
+        build/src/boot/boot_main.o(.text*);
         build/src/libultra.o(.text*);
     }
 
     .data : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.data*);
+        build/src/boot/boot_main.o(.data*);
         build/src/libultra.o(.data*);
     }
 
     .rodata : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.rodata*);
+        build/src/boot/boot_main.o(.rodata*);
         build/src/libultra.o(.rodata*);
     }
 
     .sdata : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.sdata*);
+        build/src/boot/boot_main.o(.sdata*);
         build/src/libultra.o(.sdata*);
     }
 
     .sbss (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.sbss*);
+        build/src/boot/boot_main.o(.sbss*);
         build/src/libultra.o(.sbss*);
     }
 
     .scommon (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.scommon*);
+        build/src/boot/boot_main.o(.scommon*);
         build/src/libultra.o(.scommon*);
     }
 
     .bss (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(.bss*);
+        build/src/boot/boot_main.o(.bss*);
         build/src/libultra.o(.bss*);
     }
 
     COMMON (NOLOAD) : SUBALIGN(16)
     {
         FILL(0x00000000);
-        build/src/main/boot_main.o(COMMON*);
+        build/src/boot/boot_main.o(COMMON*);
         build/src/libultra.o(COMMON*);
     }
 

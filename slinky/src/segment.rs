@@ -18,14 +18,19 @@ pub struct Segment {
     pub files: Vec<FileInfo>,
 
     /// If not None then forces the segment to have a fixed vram address instead of following the previous segment.
-    /// Not compatible with `follows_segment` or `vram_class`.
+    /// Not compatible with `fixed_symbol`, `follows_segment` or `vram_class`.
     pub fixed_vram: Option<u32>,
 
+    /// If not None then forces the segment's vram address to be same as the address of the given symbol instead of following the previous segment.
+    /// Not compatible with `fixed_vram`, `follows_segment` or `vram_class`.
+    pub fixed_symbol: Option<String>,
+
     /// If not None then forces the segment's vram address to be after the specified segment instead of following the previous one.
-    /// Not compatible with `fixed_vram` or `vram_class`.
+    /// Not compatible with `fixed_vram`, `fixed_symbol` or `vram_class`.
     pub follows_segment: Option<String>,
 
-    /// Not compatible with `fixed_vram` or `follows_segment`.
+    /// If not None then forces the segment's vram address to be same as the specified vram class instead of following the previous one.
+    /// Not compatible with `fixed_vram`, `fixed_symbol` or `follows_segment`.
     pub vram_class: Option<String>,
 
     // The default value of the following members come from Settings
@@ -47,10 +52,16 @@ pub(crate) struct SegmentSerial {
     pub name: String,
     pub files: Vec<FileInfoSerial>,
 
+    #[serde(default)]
     pub fixed_vram: AbsentNullable<u32>,
 
+    #[serde(default)]
+    pub fixed_symbol: AbsentNullable<String>,
+
+    #[serde(default)]
     pub follows_segment: AbsentNullable<String>,
 
+    #[serde(default)]
     pub vram_class: AbsentNullable<String>,
 
     // The default of the following come from Options
@@ -93,19 +104,26 @@ impl SegmentSerial {
             files.push(file.unserialize(settings)?);
         }
 
-        let fixed_vram = self
-            .fixed_vram
-            .get_optional_nullable("fixed_vram", || None)?;
+        let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
+
+        let fixed_symbol = self.fixed_symbol.get_non_null_no_default("fixed_symbol")?;
 
         let follows_segment = self
             .follows_segment
-            .get_optional_nullable("follows_segment", || None)?;
+            .get_non_null_no_default("follows_segment")?;
 
-        let vram_class = self
-            .vram_class
-            .get_optional_nullable("vram_class", || None)?;
+        let vram_class = self.vram_class.get_non_null_no_default("vram_class")?;
+
+        // TODO: there must be a simpler way to check for all these combinations
 
         if fixed_vram.is_some() {
+            if fixed_symbol.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_vram".to_string(),
+                    field2: "fixed_symbol".to_string(),
+                });
+            }
+
             if follows_segment.is_some() {
                 return Err(SlinkyError::InvalidFieldCombo {
                     field1: "fixed_vram".to_string(),
@@ -116,6 +134,22 @@ impl SegmentSerial {
             if vram_class.is_some() {
                 return Err(SlinkyError::InvalidFieldCombo {
                     field1: "fixed_vram".to_string(),
+                    field2: "vram_class".to_string(),
+                });
+            }
+        }
+
+        if fixed_symbol.is_some() {
+            if follows_segment.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_symbol".to_string(),
+                    field2: "follows_segment".to_string(),
+                });
+            }
+
+            if vram_class.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_symbol".to_string(),
                     field2: "vram_class".to_string(),
                 });
             }
@@ -159,6 +193,7 @@ impl SegmentSerial {
             name,
             files,
             fixed_vram,
+            fixed_symbol,
             follows_segment,
             vram_class,
             alloc_sections,

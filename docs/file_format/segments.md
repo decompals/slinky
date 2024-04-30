@@ -54,6 +54,9 @@ segments:
 
 If used then force putting the segment at the specified address.
 
+It can't be used in combination with [`fixed_symbol`](#fixed_symbol),
+[`follows_segment`](#follows_segment) or [`vram_class`](#vram_class).
+
 ### Example
 
 ```yaml
@@ -65,6 +68,85 @@ segments:
 ### Valid values
 
 Any unsigned integer.
+
+### Default value
+
+`null`
+
+## `fixed_symbol`
+
+If used then force putting the segment at the same address than the address of
+the given symbol.
+
+It can't be used in combination with [`fixed_vram`](#fixed_vram),
+[`follows_segment`](#follows_segment) or [`vram_class`](#vram_class).
+
+### Example
+
+```yaml
+segments:
+  - name: enemy_1
+    fixed_symbol: gBufferEnemy
+```
+
+### Valid values
+
+Non empty string.
+
+### Default value
+
+`null`
+
+## `follows_segment`
+
+If used then force putting the segment after the end of the specified segment.
+
+It can't be used in combination with [`fixed_vram`](#fixed_vram),
+[`fixed_symbol`](#fixed_symbol) or [`vram_class`](#vram_class).
+
+### Example
+
+```yaml
+segments:
+  - name: boot
+
+  - name: kanji
+
+  - name: main
+    follows_segment: boot
+```
+
+### Valid values
+
+The name of another segment.
+
+### Default value
+
+`null`
+
+## `vram_class`
+
+If used then force putting the segment at address of the given vram class.
+
+See the [`vram_class`](vram_class.md) docs for more info.
+
+It can't be used in combination with [`fixed_vram`](#fixed_vram),
+[`fixed_symbol`](#fixed_symbol) or [`follows_segment`](#follows_segment).
+
+### Example
+
+```yaml
+vram_classes:
+  - { name: battle_partner, fixed_vram: 0x80238000 }
+
+segments:
+  - name: battle_partner_goompa
+    vram_class: battle_partner
+```
+
+### Valid values
+
+The name of an existing [`vram_class`](vram_class.md).
 
 ### Default value
 

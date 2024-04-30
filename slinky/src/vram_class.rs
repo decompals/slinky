@@ -11,6 +11,8 @@ pub struct VramClass {
 
     pub fixed_vram: Option<u32>,
 
+    pub fixed_symbol: Option<String>,
+
     pub follows_classes: Vec<String>,
 
     // Settings from below do not come from the document.
@@ -26,6 +28,9 @@ pub(crate) struct VramClassSerial {
     pub fixed_vram: AbsentNullable<u32>,
 
     #[serde(default)]
+    pub fixed_symbol: AbsentNullable<String>,
+
+    #[serde(default)]
     pub follows_classes: AbsentNullable<Vec<String>>,
 }
 
@@ -38,30 +43,47 @@ impl VramClassSerial {
         }
         let name = self.name;
 
-        let fixed_vram = self
-            .fixed_vram
-            .get_optional_nullable("fixed_vram", || None)?;
+        let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
+
+        let fixed_symbol = self.fixed_symbol.get_non_null_no_default("fixed_symbol")?;
 
         let follows_classes = self
             .follows_classes
             .get_non_null("follows_classes", Vec::new)?;
 
-        if fixed_vram.is_some() && !follows_classes.is_empty() {
+        if fixed_vram.is_some() {
+            if fixed_symbol.is_some() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_vram".into(),
+                    field2: "fixed_symbol".into(),
+                });
+            }
+
+            if !follows_classes.is_empty() {
+                return Err(SlinkyError::InvalidFieldCombo {
+                    field1: "fixed_vram".into(),
+                    field2: "follows_classes".into(),
+                });
+            }
+        }
+
+        if fixed_symbol.is_some() && !follows_classes.is_empty() {
             return Err(SlinkyError::InvalidFieldCombo {
-                field1: "fixed_vram".into(),
+                field1: "fixed_symbol".into(),
                 field2: "follows_classes".into(),
             });
         }
 
-        if fixed_vram.is_none() && follows_classes.is_empty() {
+        if fixed_vram.is_none() && fixed_symbol.is_none() && follows_classes.is_empty() {
             return Err(SlinkyError::MissingAnyOfOptionalFields {
-                fields: "'fixed_vram', 'follows_classes'".into(),
+                fields: "'fixed_vram', 'fixed_symbol', 'follows_classes'".into(),
             });
         }
 
         Ok(VramClass {
             name,
             fixed_vram,
+            fixed_symbol,
             follows_classes,
 
             emitted: false,
