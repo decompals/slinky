@@ -183,12 +183,20 @@ classes:
   `battle_partner_goompa` or `battle_partner_goombario`. If the
   `battle_partner_goompa` segment is bigger then its end symbol will be used,
   otherwise the end symbol of `battle_partner_goombario` will be used.
-- The `battle_code` will have the same `vram` address as the `battle_code` vram
-  class.
+- The `battle_code` segment will have the same `vram` address as the
+  `battle_code` vram class.
 - The vram address of the `battle_code` vram class will be the same as the end
   address of the `battle_partner` vram class (which is defined depending on the
   corresponding segments that use that vram class).
-- TODO.
+- The `heaps2` segment will have the same `vram` address as the `heaps2` vram
+  class which has a hardcoded address of `0x80267FF0`.
+- The `world_script_api` segment will have the `vram` address of the
+  `world_script_api` vram class, which its `vram` address is the same as the end
+  address of the `heaps2` vram class.
+- The `texture_memory` segment has the same `vram` as the `texture_memory` vram
+  class. The vram address of the `texture_memory` vram class will be the same as
+  the end symbol of the largest vram class between `battle_partner` and
+  `world_script_api`.
 
 TODO: Add images to explain this memory layout visually.
 
