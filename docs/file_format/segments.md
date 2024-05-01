@@ -11,7 +11,7 @@ Every attribute listed is optional unless explicitly stated.
 
 ## `name`
 
-This is **required**.
+This field is **required**.
 
 The name of the corresponding segment.
 

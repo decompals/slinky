@@ -42,6 +42,8 @@ To be precise, symbols are generated for the following:
 - Segment's allocatable vram start, end and size.
 - Segment's noload vram start, end and size.
 - Section's vram start, end and size.
+- File's [linker offset](file.md#linker_offset_name).
+- [Vram's class](vram_classes.md)'s start, end and size.
 
 ### Example
 
@@ -61,7 +63,9 @@ settings:
     - `.text`: `boot_TEXT_START`, `boot_TEXT_END` and `boot_TEXT_SIZE`.
     - `.data`: `boot_DATA_START`, `boot_DATA_END` and `boot_DATA_SIZE`.
     - `.bss`: `boot_BSS_START`, `boot_BSS_END` and `boot_BSS_SIZE`.
-  - File [`linker_offset_name`](file.md#linker_offset_name): `{name}_OFFSET`
+  - File [`linker_offset_name`](file.md#linker_offset_name): `{name}_OFFSET`.
+  - [Vram class](vram_classes.md): `{name}_VRAM_CLASS_START`,
+    `{name}_VRAM_CLASS_END` and `{name}_VRAM_CLASS_SIZE`.
 
 - `makerom`: Produces _camelCase symbols. Given a segment named `boot`:
   - Segment rom: `_bootSegmentRomStart`, `_bootSegmentRomEnd` and `_bootSegmentRomSize`.
@@ -70,7 +74,9 @@ settings:
     - `.text`: `_bootSegmentTextStart`, `_bootSegmentTextEnd` and `_bootSegmentTextSize`.
     - `.data`: `_bootSegmentDataStart`, `_bootSegmentDataEnd` and `_bootSegmentDataSize`.
     - `.bss`: `_bootSegmentBssStart`, `_bootSegmentBssEnd` and `_bootSegmentBssSize`.
-  - File [`linker_offset_name`](file.md#linker_offset_name): `_{name}Offset`
+  - File [`linker_offset_name`](file.md#linker_offset_name): `_{name}Offset`.
+  - [Vram class](vram_classes.md): `_{name}VramClassStart`, `_{name}VramClassEnd`
+    and `_{name}VramClassSize`.
 
 ### Default value
 

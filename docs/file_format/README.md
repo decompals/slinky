@@ -1,16 +1,18 @@
 # File format
 
-The input file format is composed by two top-level attributes, the
+The input file format is composed by two required top-level attributes, the
 [`settings`](settings.md) attribute and the [`segments`](segments.md)
-attribute. Check their specific documents for in-deep explanations.
+attribute. Other optional top-level attributes may be specified, like
+[vram_classes](vram_classes.md). Check their specific documents for in-deep
+explanations.
 
 ## Example
 
 The following example corresponds to the
-[`basic_example.yaml`](../../tests/input_files/basic_example.yaml) from the
-test cases, while
-[`basic_example.ld`](../../tests/linker_scripts/basic_example.ld) is how the
-output linker script looks like.
+[`basic_example.yaml`](../../tests_cases/basic_example.yaml) from the test
+cases, while
+[`basic_example.ld`](../../tests_cases/basic_example.ld) is how the output
+linker script looks like.
 
 ```yaml
 settings:

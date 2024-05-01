@@ -1,7 +1,4 @@
 /target
 
-.vscode/
-!.vscode/extensions.json
-
 perf.data
 perf.data.old
