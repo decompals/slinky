@@ -1,0 +1,13 @@
+settings:
+  base_path: build
+
+segments:
+  - name: code
+    fixed_vram: 0x80024C00
+    files:
+      - { path: src/code/main.o }
+      - { path: src/code/engine.o, section_order: { .text: .data, .data: .rodata, .rodata: .sdata, .sdata: .text } }
+      - { path: src/code/entities.o, section_order: { .data: .rodata } }
+      - { path: src/code/background.o, section_order: { .rodata: .data } }
+      - { path: src/code/music.o, section_order: { .rodata: .text, .sdata: .text, .data: .text } }
+      - { path: src/code/sfx.o, section_order: { .text: .rodata, .sdata: .rodata, .data: .rodata } }

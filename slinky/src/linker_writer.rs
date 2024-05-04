@@ -656,7 +656,7 @@ impl LinkerWriter<'_> {
         }
     }
 
-    fn emit_section(&mut self, segment: &Segment, section: &str) {
+    fn emit_section(&mut self, segment: &Segment, section: &str, sections: &[String]) {
         let mut base_path = PathBuf::new();
 
         base_path.extend(&self.d.settings.base_path);
@@ -674,15 +674,26 @@ impl LinkerWriter<'_> {
                     continue;
                 }
 
+                let mut sections_to_emit_here = vec![section];
+
                 // Check if any other section should be placed be placed here
                 for (k, v) in &file.section_order {
                     if v == section {
-                        self.emit_file(file, segment, k, &base_path);
+                        sections_to_emit_here.push(k);
                     }
                 }
-            }
 
-            self.emit_file(file, segment, section, &base_path);
+                // We need to preserve the order given by alloc_sections or noload_sections
+                sections_to_emit_here
+                    .sort_unstable_by_key(|&k| sections.iter().position(|s| s == k));
+
+                for k in sections_to_emit_here {
+                    self.emit_file(file, segment, k, &base_path);
+                }
+            } else {
+                // No need to mess with section ordering, just emit the file
+                self.emit_file(file, segment, section, &base_path);
+            }
         }
     }
 
@@ -696,7 +707,7 @@ impl LinkerWriter<'_> {
         for (i, section) in sections.iter().enumerate() {
             self.write_section_symbol_start(segment, section);
 
-            self.emit_section(segment, section);
+            self.emit_section(segment, section, sections);
 
             self.write_section_symbol_end(segment, section);
 
@@ -729,7 +740,7 @@ impl LinkerWriter<'_> {
                 self.buffer.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
-            self.emit_section(segment, section);
+            self.emit_section(segment, section, sections);
 
             self.buffer.end_block();
             self.write_section_symbol_end(segment, section);
