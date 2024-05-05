@@ -11,6 +11,7 @@ SECTIONS
         FILL(0x00000000);
         code_TEXT_START = .;
         build/src/code/main.o(.text*);
+        build/src/code/engine.o(.sdata*);
         build/src/code/entities.o(.text*);
         build/src/code/background.o(.text*);
         build/src/code/music.o(.text*);
@@ -23,6 +24,7 @@ SECTIONS
 
         code_DATA_START = .;
         build/src/code/main.o(.data*);
+        build/src/code/engine.o(.text*);
         build/src/code/background.o(.data*);
         build/src/code/background.o(.rodata*);
         . = ALIGN(., 0x10);
@@ -31,6 +33,7 @@ SECTIONS
 
         code_RODATA_START = .;
         build/src/code/main.o(.rodata*);
+        build/src/code/engine.o(.data*);
         build/src/code/entities.o(.data*);
         build/src/code/entities.o(.rodata*);
         build/src/code/sfx.o(.text*);
@@ -43,6 +46,7 @@ SECTIONS
 
         code_SDATA_START = .;
         build/src/code/main.o(.sdata*);
+        build/src/code/engine.o(.rodata*);
         build/src/code/entities.o(.sdata*);
         build/src/code/background.o(.sdata*);
         . = ALIGN(., 0x10);

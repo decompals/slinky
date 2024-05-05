@@ -669,12 +669,12 @@ impl LinkerWriter<'_> {
                 // Keys specify the section and value specify where it will be put
                 // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`
 
-                // This section should be placed somewhere else
-                if file.section_order.contains_key(section) {
-                    continue;
-                }
-
-                let mut sections_to_emit_here = vec![section];
+                let mut sections_to_emit_here = if file.section_order.contains_key(section) {
+                    // This section should be placed somewhere else
+                    vec![]
+                } else {
+                    vec![section]
+                };
 
                 // Check if any other section should be placed be placed here
                 for (k, v) in &file.section_order {
