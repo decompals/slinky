@@ -5,6 +5,36 @@ segment.
 
 Every attribute listed is optional unless explicitly stated.
 
+## Table of contents
+
+- [File](#file)
+  - [Table of contents](#table-of-contents)
+  - [`path`](#path)
+    - [Example](#example)
+    - [Valid values](#valid-values)
+  - [`kind`](#kind)
+    - [Example](#example-1)
+    - [Valid values](#valid-values-1)
+    - [Default value](#default-value)
+  - [`subfile`](#subfile)
+    - [Example](#example-2)
+    - [Valid values](#valid-values-2)
+    - [Default](#default)
+  - [`pad_amount`](#pad_amount)
+    - [Example](#example-3)
+    - [Valid values](#valid-values-3)
+  - [`section`](#section)
+    - [Valid values](#valid-values-4)
+  - [`linker_offset_name`](#linker_offset_name)
+    - [Valid values](#valid-values-5)
+  - [`section_order`](#section_order)
+    - [Example](#example-4)
+    - [Valid values](#valid-values-6)
+  - [`files`](#files)
+    - [Example](#example-5)
+  - [`dir`](#dir)
+    - [Example](#example-6)
+
 ## `path`
 
 Path to the file.

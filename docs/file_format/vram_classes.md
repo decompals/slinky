@@ -30,6 +30,23 @@ to how segments have linker symbols for their start, end and size. See
 - The size symbol is defined by the subtraction of the end and the start
   symbols.
 
+## Table of contents
+
+- [Vram classes](#vram-classes)
+  - [Table of contents](#table-of-contents)
+  - [`name`](#name)
+    - [Example](#example)
+    - [Valid values](#valid-values)
+  - [`fixed_vram`](#fixed_vram)
+    - [Example](#example-1)
+    - [Valid values](#valid-values-1)
+  - [`fixed_symbol`](#fixed_symbol)
+    - [Example](#example-2)
+    - [Valid values](#valid-values-2)
+  - [`follow_classes`](#follow_classes)
+    - [Example](#example-3)
+    - [Valid values](#valid-values-3)
+
 ## `name`
 
 This field is **required**.
