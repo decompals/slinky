@@ -68,6 +68,8 @@ like `base_path: build/ga{exam/ple}me/` is not valid, but
 `base_path: build/{example}/game/`, `base_path: build/ga{example}me/`,
 `target_path: build/{example}/game.{version}.elf` are valid.
 
+All slinky paths support path replacement unless explicitely stated otherwise.
+
 #### Example
 
 Say we have a yaml file like the following:

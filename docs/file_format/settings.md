@@ -99,7 +99,7 @@ as well.
 ## `base_path`
 
 All the emitted paths are relative to this path. Useful when all the files are
-relative to the same path, like a `build` folder.
+relative to the same directory, like a `build` folder.
 
 ### Example
 

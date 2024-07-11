@@ -467,12 +467,15 @@ impl LinkerWriter<'_> {
     pub fn save_other_files(&self) -> Result<(), SlinkyError> {
         if let Some(d_path) = &self.d.settings.d_path {
             if let Some(target_path) = &self.d.settings.target_path {
-                self.export_dependencies_file_to_file(d_path, target_path)?;
+                self.export_dependencies_file_to_file(
+                    &self.d.escape_path(d_path)?,
+                    &self.d.escape_path(target_path)?,
+                )?;
             }
         }
 
         if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
-            self.export_symbol_header_to_file(symbols_header_path)?;
+            self.export_symbol_header_to_file(&self.d.escape_path(symbols_header_path)?)?;
         }
 
         Ok(())
