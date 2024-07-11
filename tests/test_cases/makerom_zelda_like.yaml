@@ -1,5 +1,5 @@
 settings:
-  base_path: build
+  base_path: build/{version}
   subalign: null
   linker_symbols_style: makerom
 

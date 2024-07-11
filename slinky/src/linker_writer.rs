@@ -60,18 +60,21 @@ impl<'a> LinkerWriter<'a> {
         s
     }
 
-    pub fn add_all_segments(&mut self, segments: &[Segment]) {
+    pub fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
         if self.d.settings.single_segment_mode {
+            // TODO: change assert to proper error
             assert!(segments.len() == 1);
 
-            self.add_single_segment(&segments[0]);
+            self.add_single_segment(&segments[0])?;
         } else {
             self.begin_sections();
             for segment in segments {
-                self.add_segment(segment);
+                self.add_segment(segment)?;
             }
             self.end_sections();
         }
+
+        Ok(())
     }
 
     pub fn begin_sections(&mut self) {
@@ -171,7 +174,7 @@ impl<'a> LinkerWriter<'a> {
         self.buffer.finish();
     }
 
-    pub fn add_segment(&mut self, segment: &Segment) {
+    pub fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
         assert!(!self.single_segment);
 
         let style = &self.d.settings.linker_symbols_style;
@@ -227,12 +230,12 @@ impl<'a> LinkerWriter<'a> {
             .write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
         // Emit alloc segment
-        self.write_segment(segment, &segment.alloc_sections, false);
+        self.write_segment(segment, &segment.alloc_sections, false)?;
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        self.write_segment(segment, &segment.noload_sections, true);
+        self.write_segment(segment, &segment.noload_sections, true)?;
 
         self.write_sym_end_size(
             &main_seg_sym_start,
@@ -259,9 +262,11 @@ impl<'a> LinkerWriter<'a> {
         }
 
         self.buffer.write_empty_line();
+
+        Ok(())
     }
 
-    pub fn add_single_segment(&mut self, segment: &Segment) {
+    pub fn add_single_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
         assert!(self.buffer.is_empty());
 
         // Make sure this function is called only once
@@ -277,16 +282,18 @@ impl<'a> LinkerWriter<'a> {
         }
 
         // Emit alloc segment
-        self.write_single_segment(segment, &segment.alloc_sections, false);
+        self.write_single_segment(segment, &segment.alloc_sections, false)?;
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        self.write_single_segment(segment, &segment.noload_sections, true);
+        self.write_single_segment(segment, &segment.noload_sections, true)?;
 
         self.buffer.write_empty_line();
 
         self.end_sections();
+
+        Ok(())
     }
 }
 
@@ -330,18 +337,20 @@ impl LinkerWriter<'_> {
         dst: &mut impl Write,
         target_path: &Path,
     ) -> Result<(), SlinkyError> {
-        if let Err(e) = write!(dst, "{}:", target_path.display()) {
+        let escaped_target_path = self.d.escape_path(target_path)?;
+        if let Err(e) = write!(dst, "{}:", escaped_target_path.display()) {
             return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
-                contents: target_path.display().to_string(),
+                contents: escaped_target_path.display().to_string(),
             });
         }
 
         for p in &self.files_paths {
-            if let Err(e) = write!(dst, " \\\n    {}", p.display()) {
+            let escaped_p = self.d.escape_path(p)?;
+            if let Err(e) = write!(dst, " \\\n    {}", escaped_p.display()) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
-                    contents: p.display().to_string(),
+                    contents: escaped_p.display().to_string(),
                 });
             }
         }
@@ -354,10 +363,11 @@ impl LinkerWriter<'_> {
         }
 
         for p in &self.files_paths {
-            if let Err(e) = writeln!(dst, "{}:", p.display()) {
+            let escaped_p = self.d.escape_path(p)?;
+            if let Err(e) = writeln!(dst, "{}:", escaped_p.display()) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
-                    contents: p.display().to_string(),
+                    contents: escaped_p.display().to_string(),
                 });
             }
         }
@@ -600,7 +610,13 @@ impl LinkerWriter<'_> {
         self.write_sections_kind_end(segment, noload);
     }
 
-    fn emit_file(&mut self, file: &FileInfo, segment: &Segment, section: &str, base_path: &Path) {
+    fn emit_file(
+        &mut self,
+        file: &FileInfo,
+        segment: &Segment,
+        section: &str,
+        base_path: &Path,
+    ) -> Result<(), SlinkyError> {
         let style = &self.d.settings.linker_symbols_style;
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
@@ -611,25 +627,33 @@ impl LinkerWriter<'_> {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
-                self.buffer
-                    .writeln(&format!("{}({}{});", path.display(), section, wildcard));
-                if !self.files_paths.contains(&path) {
-                    self.files_paths.insert(path);
+                let escaped_path = self.d.escape_path(&path)?;
+
+                self.buffer.writeln(&format!(
+                    "{}({}{});",
+                    escaped_path.display(),
+                    section,
+                    wildcard
+                ));
+                if !self.files_paths.contains(&escaped_path) {
+                    self.files_paths.insert(escaped_path);
                 }
             }
             FileKind::Archive => {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
+                let escaped_path = self.d.escape_path(&path)?;
+
                 self.buffer.writeln(&format!(
                     "{}:{}({}{});",
-                    path.display(),
+                    escaped_path.display(),
                     file.subfile,
                     section,
                     wildcard
                 ));
-                if !self.files_paths.contains(&path) {
-                    self.files_paths.insert(path);
+                if !self.files_paths.contains(&escaped_path) {
+                    self.files_paths.insert(escaped_path);
                 }
             }
             FileKind::Pad => {
@@ -650,13 +674,20 @@ impl LinkerWriter<'_> {
                 new_base_path.extend(&file.dir);
 
                 for file_of_group in &file.files {
-                    self.emit_file(file_of_group, segment, section, &new_base_path);
+                    self.emit_file(file_of_group, segment, section, &new_base_path)?;
                 }
             }
         }
+
+        Ok(())
     }
 
-    fn emit_section(&mut self, segment: &Segment, section: &str, sections: &[String]) {
+    fn emit_section(
+        &mut self,
+        segment: &Segment,
+        section: &str,
+        sections: &[String],
+    ) -> Result<(), SlinkyError> {
         let mut base_path = PathBuf::new();
 
         base_path.extend(&self.d.settings.base_path);
@@ -688,16 +719,23 @@ impl LinkerWriter<'_> {
                     .sort_unstable_by_key(|&k| sections.iter().position(|s| s == k));
 
                 for k in sections_to_emit_here {
-                    self.emit_file(file, segment, k, &base_path);
+                    self.emit_file(file, segment, k, &base_path)?;
                 }
             } else {
                 // No need to mess with section ordering, just emit the file
-                self.emit_file(file, segment, section, &base_path);
+                self.emit_file(file, segment, section, &base_path)?;
             }
         }
+
+        Ok(())
     }
 
-    fn write_segment(&mut self, segment: &Segment, sections: &[String], noload: bool) {
+    fn write_segment(
+        &mut self,
+        segment: &Segment,
+        sections: &[String],
+        noload: bool,
+    ) -> Result<(), SlinkyError> {
         self.write_segment_start(segment, noload);
 
         if let Some(fill_value) = segment.fill_value {
@@ -707,7 +745,7 @@ impl LinkerWriter<'_> {
         for (i, section) in sections.iter().enumerate() {
             self.write_section_symbol_start(segment, section);
 
-            self.emit_section(segment, section, sections);
+            self.emit_section(segment, section, sections)?;
 
             self.write_section_symbol_end(segment, section);
 
@@ -717,9 +755,16 @@ impl LinkerWriter<'_> {
         }
 
         self.write_segment_end(segment, noload);
+
+        Ok(())
     }
 
-    fn write_single_segment(&mut self, segment: &Segment, sections: &[String], noload: bool) {
+    fn write_single_segment(
+        &mut self,
+        segment: &Segment,
+        sections: &[String],
+        noload: bool,
+    ) -> Result<(), SlinkyError> {
         self.write_sections_kind_start(segment, noload);
 
         for (i, section) in sections.iter().enumerate() {
@@ -740,7 +785,7 @@ impl LinkerWriter<'_> {
                 self.buffer.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
-            self.emit_section(segment, section, sections);
+            self.emit_section(segment, section, sections)?;
 
             self.buffer.end_block();
             self.write_section_symbol_end(segment, section);
@@ -751,5 +796,7 @@ impl LinkerWriter<'_> {
         }
 
         self.write_sections_kind_end(segment, noload);
+
+        Ok(())
     }
 }

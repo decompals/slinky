@@ -27,7 +27,7 @@ impl<'a> PartialLinkerWriter<'a> {
         }
     }
 
-    pub fn add_all_segments(&mut self, segments: &[Segment]) {
+    pub fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
         self.main_writer.begin_sections();
 
         self.partial_writers.reserve(segments.len());
@@ -37,7 +37,7 @@ impl<'a> PartialLinkerWriter<'a> {
             partial_writer.set_emit_sections_kind_symbols(false);
             partial_writer.set_emit_section_symbols(false);
 
-            partial_writer.add_single_segment(segment);
+            partial_writer.add_single_segment(segment)?;
 
             self.partial_writers
                 .push((partial_writer, segment.name.clone()));
@@ -59,10 +59,12 @@ impl<'a> PartialLinkerWriter<'a> {
                 files: Vec::new(),
                 dir: PathBuf::new(),
             }];
-            self.main_writer.add_segment(&reference_segment);
+            self.main_writer.add_segment(&reference_segment)?;
         }
 
         self.main_writer.end_sections();
+
+        Ok(())
     }
 
     pub fn export_linker_script_to_files(&self, path: &Path) -> Result<(), SlinkyError> {

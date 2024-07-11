@@ -40,4 +40,10 @@ pub enum SlinkyError {
 
     #[error("At least one of the following options should be provided: {fields}")]
     MissingAnyOfOptionalFields { fields: String },
+
+    #[error("Path '{path}' referenced custom option {custom_option}, but it was not provided")]
+    CustomOptionInPathNotProvided {
+        path: PathBuf,
+        custom_option: String,
+    },
 }

@@ -10,25 +10,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _makeromSegmentDataStart = .;
-        build/makerom/header.o(.data*);
-        build/makerom/ipl3.o(.data*);
-        build/makerom/entry.o(.data*);
+        build/us/makerom/header.o(.data*);
+        build/us/makerom/ipl3.o(.data*);
+        build/us/makerom/entry.o(.data*);
         . = ALIGN(., 0x10);
         _makeromSegmentDataEnd = .;
         _makeromSegmentDataSize = ABSOLUTE(_makeromSegmentDataEnd - _makeromSegmentDataStart);
 
         _makeromSegmentTextStart = .;
-        build/makerom/header.o(.text*);
-        build/makerom/ipl3.o(.text*);
-        build/makerom/entry.o(.text*);
+        build/us/makerom/header.o(.text*);
+        build/us/makerom/ipl3.o(.text*);
+        build/us/makerom/entry.o(.text*);
         . = ALIGN(., 0x10);
         _makeromSegmentTextEnd = .;
         _makeromSegmentTextSize = ABSOLUTE(_makeromSegmentTextEnd - _makeromSegmentTextStart);
 
         _makeromSegmentRoDataStart = .;
-        build/makerom/header.o(.rodata*);
-        build/makerom/ipl3.o(.rodata*);
-        build/makerom/entry.o(.rodata*);
+        build/us/makerom/header.o(.rodata*);
+        build/us/makerom/ipl3.o(.rodata*);
+        build/us/makerom/entry.o(.rodata*);
         . = ALIGN(., 0x10);
         _makeromSegmentRoDataEnd = .;
         _makeromSegmentRoDataSize = ABSOLUTE(_makeromSegmentRoDataEnd - _makeromSegmentRoDataStart);
@@ -43,33 +43,33 @@ SECTIONS
     {
         FILL(0x00000000);
         _makeromSegmentSbssStart = .;
-        build/makerom/header.o(.sbss*);
-        build/makerom/ipl3.o(.sbss*);
-        build/makerom/entry.o(.sbss*);
+        build/us/makerom/header.o(.sbss*);
+        build/us/makerom/ipl3.o(.sbss*);
+        build/us/makerom/entry.o(.sbss*);
         . = ALIGN(., 0x10);
         _makeromSegmentSbssEnd = .;
         _makeromSegmentSbssSize = ABSOLUTE(_makeromSegmentSbssEnd - _makeromSegmentSbssStart);
 
         _makeromSegmentScommonStart = .;
-        build/makerom/header.o(.scommon*);
-        build/makerom/ipl3.o(.scommon*);
-        build/makerom/entry.o(.scommon*);
+        build/us/makerom/header.o(.scommon*);
+        build/us/makerom/ipl3.o(.scommon*);
+        build/us/makerom/entry.o(.scommon*);
         . = ALIGN(., 0x10);
         _makeromSegmentScommonEnd = .;
         _makeromSegmentScommonSize = ABSOLUTE(_makeromSegmentScommonEnd - _makeromSegmentScommonStart);
 
         _makeromSegmentBssStart = .;
-        build/makerom/header.o(.bss*);
-        build/makerom/ipl3.o(.bss*);
-        build/makerom/entry.o(.bss*);
+        build/us/makerom/header.o(.bss*);
+        build/us/makerom/ipl3.o(.bss*);
+        build/us/makerom/entry.o(.bss*);
         . = ALIGN(., 0x10);
         _makeromSegmentBssEnd = .;
         _makeromSegmentBssSize = ABSOLUTE(_makeromSegmentBssEnd - _makeromSegmentBssStart);
 
         _makeromSegmentCOMMONStart = .;
-        build/makerom/header.o(COMMON*);
-        build/makerom/ipl3.o(COMMON*);
-        build/makerom/entry.o(COMMON*);
+        build/us/makerom/header.o(COMMON*);
+        build/us/makerom/ipl3.o(COMMON*);
+        build/us/makerom/entry.o(COMMON*);
         . = ALIGN(., 0x10);
         _makeromSegmentCOMMONEnd = .;
         _makeromSegmentCOMMONSize = ABSOLUTE(_makeromSegmentCOMMONEnd - _makeromSegmentCOMMONStart);
@@ -91,25 +91,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _bootSegmentTextStart = .;
-        build/boot/boot_main.o(.text*);
+        build/us/boot/boot_main.o(.text*);
         . = ALIGN(., 0x10);
         _bootSegmentTextEnd = .;
         _bootSegmentTextSize = ABSOLUTE(_bootSegmentTextEnd - _bootSegmentTextStart);
 
         _bootSegmentDataStart = .;
-        build/boot/boot_main.o(.data*);
+        build/us/boot/boot_main.o(.data*);
         . = ALIGN(., 0x10);
         _bootSegmentDataEnd = .;
         _bootSegmentDataSize = ABSOLUTE(_bootSegmentDataEnd - _bootSegmentDataStart);
 
         _bootSegmentRoDataStart = .;
-        build/boot/boot_main.o(.rodata*);
+        build/us/boot/boot_main.o(.rodata*);
         . = ALIGN(., 0x10);
         _bootSegmentRoDataEnd = .;
         _bootSegmentRoDataSize = ABSOLUTE(_bootSegmentRoDataEnd - _bootSegmentRoDataStart);
 
         _bootSegmentSdataStart = .;
-        build/boot/boot_main.o(.sdata*);
+        build/us/boot/boot_main.o(.sdata*);
         . = ALIGN(., 0x10);
         _bootSegmentSdataEnd = .;
         _bootSegmentSdataSize = ABSOLUTE(_bootSegmentSdataEnd - _bootSegmentSdataStart);
@@ -124,25 +124,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _bootSegmentSbssStart = .;
-        build/boot/boot_main.o(.sbss*);
+        build/us/boot/boot_main.o(.sbss*);
         . = ALIGN(., 0x10);
         _bootSegmentSbssEnd = .;
         _bootSegmentSbssSize = ABSOLUTE(_bootSegmentSbssEnd - _bootSegmentSbssStart);
 
         _bootSegmentScommonStart = .;
-        build/boot/boot_main.o(.scommon*);
+        build/us/boot/boot_main.o(.scommon*);
         . = ALIGN(., 0x10);
         _bootSegmentScommonEnd = .;
         _bootSegmentScommonSize = ABSOLUTE(_bootSegmentScommonEnd - _bootSegmentScommonStart);
 
         _bootSegmentBssStart = .;
-        build/boot/boot_main.o(.bss*);
+        build/us/boot/boot_main.o(.bss*);
         . = ALIGN(., 0x10);
         _bootSegmentBssEnd = .;
         _bootSegmentBssSize = ABSOLUTE(_bootSegmentBssEnd - _bootSegmentBssStart);
 
         _bootSegmentCOMMONStart = .;
-        build/boot/boot_main.o(COMMON*);
+        build/us/boot/boot_main.o(COMMON*);
         . = ALIGN(., 0x10);
         _bootSegmentCOMMONEnd = .;
         _bootSegmentCOMMONSize = ABSOLUTE(_bootSegmentCOMMONEnd - _bootSegmentCOMMONStart);
@@ -164,33 +164,33 @@ SECTIONS
     {
         FILL(0x00000000);
         _codeSegmentTextStart = .;
-        build/src/code/main.o(.text*);
-        build/src/code/z_game_over.o(.text*);
-        build/src/code/z_message_PAL.o(.text*);
+        build/us/src/code/main.o(.text*);
+        build/us/src/code/z_game_over.o(.text*);
+        build/us/src/code/z_message_PAL.o(.text*);
         . = ALIGN(., 0x10);
         _codeSegmentTextEnd = .;
         _codeSegmentTextSize = ABSOLUTE(_codeSegmentTextEnd - _codeSegmentTextStart);
 
         _codeSegmentDataStart = .;
-        build/src/code/main.o(.data*);
+        build/us/src/code/main.o(.data*);
         . = ALIGN(., 0x10);
         _codeSegmentDataEnd = .;
         _codeSegmentDataSize = ABSOLUTE(_codeSegmentDataEnd - _codeSegmentDataStart);
 
         _codeSegmentRoDataStart = .;
-        build/src/code/main.o(.rodata*);
-        build/src/code/z_game_over.o(.data*);
-        build/src/code/z_game_over.o(.rodata*);
-        build/src/code/z_message_PAL.o(.data*);
-        build/src/code/z_message_PAL.o(.rodata*);
+        build/us/src/code/main.o(.rodata*);
+        build/us/src/code/z_game_over.o(.data*);
+        build/us/src/code/z_game_over.o(.rodata*);
+        build/us/src/code/z_message_PAL.o(.data*);
+        build/us/src/code/z_message_PAL.o(.rodata*);
         . = ALIGN(., 0x10);
         _codeSegmentRoDataEnd = .;
         _codeSegmentRoDataSize = ABSOLUTE(_codeSegmentRoDataEnd - _codeSegmentRoDataStart);
 
         _codeSegmentSdataStart = .;
-        build/src/code/main.o(.sdata*);
-        build/src/code/z_game_over.o(.sdata*);
-        build/src/code/z_message_PAL.o(.sdata*);
+        build/us/src/code/main.o(.sdata*);
+        build/us/src/code/z_game_over.o(.sdata*);
+        build/us/src/code/z_message_PAL.o(.sdata*);
         . = ALIGN(., 0x10);
         _codeSegmentSdataEnd = .;
         _codeSegmentSdataSize = ABSOLUTE(_codeSegmentSdataEnd - _codeSegmentSdataStart);
@@ -205,33 +205,33 @@ SECTIONS
     {
         FILL(0x00000000);
         _codeSegmentSbssStart = .;
-        build/src/code/main.o(.sbss*);
-        build/src/code/z_game_over.o(.sbss*);
-        build/src/code/z_message_PAL.o(.sbss*);
+        build/us/src/code/main.o(.sbss*);
+        build/us/src/code/z_game_over.o(.sbss*);
+        build/us/src/code/z_message_PAL.o(.sbss*);
         . = ALIGN(., 0x10);
         _codeSegmentSbssEnd = .;
         _codeSegmentSbssSize = ABSOLUTE(_codeSegmentSbssEnd - _codeSegmentSbssStart);
 
         _codeSegmentScommonStart = .;
-        build/src/code/main.o(.scommon*);
-        build/src/code/z_game_over.o(.scommon*);
-        build/src/code/z_message_PAL.o(.scommon*);
+        build/us/src/code/main.o(.scommon*);
+        build/us/src/code/z_game_over.o(.scommon*);
+        build/us/src/code/z_message_PAL.o(.scommon*);
         . = ALIGN(., 0x10);
         _codeSegmentScommonEnd = .;
         _codeSegmentScommonSize = ABSOLUTE(_codeSegmentScommonEnd - _codeSegmentScommonStart);
 
         _codeSegmentBssStart = .;
-        build/src/code/main.o(.bss*);
-        build/src/code/z_game_over.o(.bss*);
-        build/src/code/z_message_PAL.o(.bss*);
+        build/us/src/code/main.o(.bss*);
+        build/us/src/code/z_game_over.o(.bss*);
+        build/us/src/code/z_message_PAL.o(.bss*);
         . = ALIGN(., 0x10);
         _codeSegmentBssEnd = .;
         _codeSegmentBssSize = ABSOLUTE(_codeSegmentBssEnd - _codeSegmentBssStart);
 
         _codeSegmentCOMMONStart = .;
-        build/src/code/main.o(COMMON*);
-        build/src/code/z_game_over.o(COMMON*);
-        build/src/code/z_message_PAL.o(COMMON*);
+        build/us/src/code/main.o(COMMON*);
+        build/us/src/code/z_game_over.o(COMMON*);
+        build/us/src/code/z_message_PAL.o(COMMON*);
         . = ALIGN(., 0x10);
         _codeSegmentCOMMONEnd = .;
         _codeSegmentCOMMONSize = ABSOLUTE(_codeSegmentCOMMONEnd - _codeSegmentCOMMONStart);
@@ -255,25 +255,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_keepSegmentTextStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.text*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.text*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentTextEnd = .;
         _gameplay_keepSegmentTextSize = ABSOLUTE(_gameplay_keepSegmentTextEnd - _gameplay_keepSegmentTextStart);
 
         _gameplay_keepSegmentDataStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.data*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.data*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentDataEnd = .;
         _gameplay_keepSegmentDataSize = ABSOLUTE(_gameplay_keepSegmentDataEnd - _gameplay_keepSegmentDataStart);
 
         _gameplay_keepSegmentRoDataStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.rodata*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.rodata*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentRoDataEnd = .;
         _gameplay_keepSegmentRoDataSize = ABSOLUTE(_gameplay_keepSegmentRoDataEnd - _gameplay_keepSegmentRoDataStart);
 
         _gameplay_keepSegmentSdataStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.sdata*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.sdata*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentSdataEnd = .;
         _gameplay_keepSegmentSdataSize = ABSOLUTE(_gameplay_keepSegmentSdataEnd - _gameplay_keepSegmentSdataStart);
@@ -288,25 +288,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_keepSegmentSbssStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.sbss*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.sbss*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentSbssEnd = .;
         _gameplay_keepSegmentSbssSize = ABSOLUTE(_gameplay_keepSegmentSbssEnd - _gameplay_keepSegmentSbssStart);
 
         _gameplay_keepSegmentScommonStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.scommon*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.scommon*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentScommonEnd = .;
         _gameplay_keepSegmentScommonSize = ABSOLUTE(_gameplay_keepSegmentScommonEnd - _gameplay_keepSegmentScommonStart);
 
         _gameplay_keepSegmentBssStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(.bss*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(.bss*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentBssEnd = .;
         _gameplay_keepSegmentBssSize = ABSOLUTE(_gameplay_keepSegmentBssEnd - _gameplay_keepSegmentBssStart);
 
         _gameplay_keepSegmentCOMMONStart = .;
-        build/assets/objects/gameplay_keep/gameplay_keep.o(COMMON*);
+        build/us/assets/objects/gameplay_keep/gameplay_keep.o(COMMON*);
         . = ALIGN(., 0x10);
         _gameplay_keepSegmentCOMMONEnd = .;
         _gameplay_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_keepSegmentCOMMONEnd - _gameplay_keepSegmentCOMMONStart);
@@ -330,25 +330,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_dangeon_keepSegmentTextStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.text*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.text*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentTextEnd = .;
         _gameplay_dangeon_keepSegmentTextSize = ABSOLUTE(_gameplay_dangeon_keepSegmentTextEnd - _gameplay_dangeon_keepSegmentTextStart);
 
         _gameplay_dangeon_keepSegmentDataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.data*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.data*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentDataEnd = .;
         _gameplay_dangeon_keepSegmentDataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentDataEnd - _gameplay_dangeon_keepSegmentDataStart);
 
         _gameplay_dangeon_keepSegmentRoDataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.rodata*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.rodata*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentRoDataEnd = .;
         _gameplay_dangeon_keepSegmentRoDataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRoDataEnd - _gameplay_dangeon_keepSegmentRoDataStart);
 
         _gameplay_dangeon_keepSegmentSdataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sdata*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sdata*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentSdataEnd = .;
         _gameplay_dangeon_keepSegmentSdataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSdataEnd - _gameplay_dangeon_keepSegmentSdataStart);
@@ -363,25 +363,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_dangeon_keepSegmentSbssStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sbss*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sbss*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentSbssEnd = .;
         _gameplay_dangeon_keepSegmentSbssSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSbssEnd - _gameplay_dangeon_keepSegmentSbssStart);
 
         _gameplay_dangeon_keepSegmentScommonStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.scommon*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.scommon*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentScommonEnd = .;
         _gameplay_dangeon_keepSegmentScommonSize = ABSOLUTE(_gameplay_dangeon_keepSegmentScommonEnd - _gameplay_dangeon_keepSegmentScommonStart);
 
         _gameplay_dangeon_keepSegmentBssStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.bss*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.bss*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentBssEnd = .;
         _gameplay_dangeon_keepSegmentBssSize = ABSOLUTE(_gameplay_dangeon_keepSegmentBssEnd - _gameplay_dangeon_keepSegmentBssStart);
 
         _gameplay_dangeon_keepSegmentCOMMONStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(COMMON*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(COMMON*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentCOMMONEnd = .;
         _gameplay_dangeon_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_dangeon_keepSegmentCOMMONEnd - _gameplay_dangeon_keepSegmentCOMMONStart);
@@ -405,25 +405,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_dangeon_keepSegmentTextStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.text*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.text*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentTextEnd = .;
         _gameplay_dangeon_keepSegmentTextSize = ABSOLUTE(_gameplay_dangeon_keepSegmentTextEnd - _gameplay_dangeon_keepSegmentTextStart);
 
         _gameplay_dangeon_keepSegmentDataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.data*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.data*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentDataEnd = .;
         _gameplay_dangeon_keepSegmentDataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentDataEnd - _gameplay_dangeon_keepSegmentDataStart);
 
         _gameplay_dangeon_keepSegmentRoDataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.rodata*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.rodata*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentRoDataEnd = .;
         _gameplay_dangeon_keepSegmentRoDataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRoDataEnd - _gameplay_dangeon_keepSegmentRoDataStart);
 
         _gameplay_dangeon_keepSegmentSdataStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sdata*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sdata*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentSdataEnd = .;
         _gameplay_dangeon_keepSegmentSdataSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSdataEnd - _gameplay_dangeon_keepSegmentSdataStart);
@@ -438,25 +438,25 @@ SECTIONS
     {
         FILL(0x00000000);
         _gameplay_dangeon_keepSegmentSbssStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sbss*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.sbss*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentSbssEnd = .;
         _gameplay_dangeon_keepSegmentSbssSize = ABSOLUTE(_gameplay_dangeon_keepSegmentSbssEnd - _gameplay_dangeon_keepSegmentSbssStart);
 
         _gameplay_dangeon_keepSegmentScommonStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.scommon*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.scommon*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentScommonEnd = .;
         _gameplay_dangeon_keepSegmentScommonSize = ABSOLUTE(_gameplay_dangeon_keepSegmentScommonEnd - _gameplay_dangeon_keepSegmentScommonStart);
 
         _gameplay_dangeon_keepSegmentBssStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.bss*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(.bss*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentBssEnd = .;
         _gameplay_dangeon_keepSegmentBssSize = ABSOLUTE(_gameplay_dangeon_keepSegmentBssEnd - _gameplay_dangeon_keepSegmentBssStart);
 
         _gameplay_dangeon_keepSegmentCOMMONStart = .;
-        build/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(COMMON*);
+        build/us/assets/objects/gameplay_dangeon_keep/gameplay_dangeon_keep.o(COMMON*);
         . = ALIGN(., 0x10);
         _gameplay_dangeon_keepSegmentCOMMONEnd = .;
         _gameplay_dangeon_keepSegmentCOMMONSize = ABSOLUTE(_gameplay_dangeon_keepSegmentCOMMONEnd - _gameplay_dangeon_keepSegmentCOMMONStart);

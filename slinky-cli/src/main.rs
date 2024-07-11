@@ -1,9 +1,10 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
+use std::{error::Error, path::PathBuf};
 
 use clap::Parser;
+use regex::Regex;
 
 // TODO: Add program description to cli
 
@@ -21,20 +22,50 @@ struct Cli {
     /// Requires both `partial_scripts_folder` and `partial_build_segments_folder` YAML settings to be set.
     #[arg(short, long, default_value_t = false)]
     partial_linking: bool,
+
+    #[arg(short = 'c', long, value_parser = parse_key_val::<String, String>, value_delimiter = ',')]
+    custom_options: Vec<(String, String)>,
+}
+
+// Taken from https://github.com/clap-rs/clap/blob/f5965e586292d31b2a2cbd83f19d145180471012/examples/typed-derive.rs#L48
+/// Parse a single key-value pair
+fn parse_key_val<T, U>(s: &str) -> Result<(T, U), Box<dyn Error + Send + Sync + 'static>>
+where
+    T: std::str::FromStr,
+    T::Err: Error + Send + Sync + 'static,
+    U: std::str::FromStr,
+    U::Err: Error + Send + Sync + 'static,
+{
+    let pos = s
+        .find('=')
+        .ok_or_else(|| format!("invalid KEY=value: no `=` found in `{s}`"))?;
+    Ok((s[..pos].parse()?, s[pos + 1..].parse()?))
 }
 
 fn main() {
     let cli = Cli::parse();
 
     // TODO: don't use expect?
-    let document = slinky::Document::read_file(&cli.input).expect("Error while parsing input file");
+    let mut document =
+        slinky::Document::read_file(&cli.input).expect("Error while parsing input file");
 
     // println!("settings {:#?}", document.settings);
+
+    let regex_identifier = Regex::new(r"[a-zA-Z_][a-zA-Z0-9_]*").unwrap();
+
+    document.custom_options.reserve(cli.custom_options.len());
+    for (key, value) in &cli.custom_options {
+        if !regex_identifier.is_match(key) {
+            // TODO: is there a better alternative than a plain panic?
+            panic!("Invalid key for custom option: '{}'", key);
+        }
+        document.custom_options.insert(key.into(), value.into());
+    }
 
     if cli.partial_linking {
         let mut writer = slinky::PartialLinkerWriter::new(&document);
 
-        writer.add_all_segments(&document.segments);
+        writer.add_all_segments(&document.segments).expect("");
 
         let output_path = cli
             .output
@@ -48,7 +79,7 @@ fn main() {
     } else {
         let mut writer = slinky::LinkerWriter::new(&document);
 
-        writer.add_all_segments(&document.segments);
+        writer.add_all_segments(&document.segments).expect("ah?");
 
         if let Some(output_path) = cli.output {
             writer
