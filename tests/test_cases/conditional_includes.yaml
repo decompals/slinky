@@ -1,0 +1,37 @@
+settings:
+  base_path: build/{version}
+
+segments:
+  - name: boot
+    fixed_vram: 0x80000460
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/file1.o, include_if_any: [[version, us], [version, jp]] }
+      - { path: src/boot/file2.o, include_if_any: [[version, jp]] }
+      - { path: src/boot/file3.o, include_if_any: [[version, us]] }
+      - { path: src/boot/file4.o, include_if_all: [[version, us]] }
+      - { path: src/boot/file5.o, include_if_all: [[version, jp]] }
+      - { path: src/boot/file6.o, include_if_all: [[version, us], [modding, true]] }
+      - { path: src/boot/file7.o, include_if_any: [[version, jp], [modding, true]] }
+      - { path: src/boot/file8.o, include_if_any: [[version, us], [modding, true]] }
+      - { path: src/boot/file9.o, include_if_any: [[version, jp], [modding, true]], include_if_all: [[version, us]] }
+      - { path: src/boot/dmadata.o }
+      - { path: src/boot/file11.o, exclude_if_any: [[version, us], [version, jp]] }
+      - { path: src/boot/file12.o, exclude_if_any: [[version, jp]] }
+      - { path: src/boot/file13.o, exclude_if_any: [[version, us]] }
+      - { path: src/boot/file14.o, exclude_if_all: [[version, us]] }
+      - { path: src/boot/file15.o, exclude_if_all: [[version, jp]] }
+      - { path: src/boot/file16.o, exclude_if_all: [[version, us], [modding, true]] }
+      - { path: src/boot/file17.o, exclude_if_any: [[version, jp], [modding, true]] }
+      - { path: src/boot/file18.o, exclude_if_any: [[version, us], [modding, true]] }
+      - { path: src/boot/file19.o, exclude_if_any: [[version, jp], [modding, true]], exclude_if_all: [[version, us]] }
+      - { path: src/boot/util.o }
+      - { path: src/boot/file21.o, include_if_any: [[version, us], [version, jp]], exclude_if_any: [[modding, true]] }
+      - { path: src/boot/file22.o, include_if_any: [[version, jp]], exclude_if_any: [[version, us]] }
+      - { path: src/boot/file23.o, include_if_any: [[version, us]], exclude_if_any: [[version, us]] }
+      - { path: src/boot/file24.o, include_if_all: [[version, us]], exclude_if_any: [[version, jp]] }
+      - { path: src/boot/file25.o, include_if_all: [[version, jp]], exclude_if_any: [[version, jp]] }
+      - { path: src/boot/file26.o, include_if_all: [[version, us], [modding, true]], exclude_if_any: [[version, us]] }
+      - { path: src/boot/file27.o, include_if_any: [[version, jp], [modding, true]], exclude_if_any: [[version, us]] }
+      - { path: src/boot/file28.o, include_if_any: [[version, us], [modding, true]], exclude_if_any: [[version, jp]] }
+      - { path: src/boot/file29.o, include_if_any: [[version, jp], [modding, true]], include_if_all: [[version, us]], exclude_if_any: [[version, jp]] }

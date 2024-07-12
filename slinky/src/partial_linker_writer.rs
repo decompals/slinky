@@ -1,12 +1,9 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{
-    collections::HashMap,
-    path::{Path, PathBuf},
-};
+use std::path::{Path, PathBuf};
 
-use crate::{Document, FileInfo, FileKind, LinkerWriter, Segment, SlinkyError};
+use crate::{Document, FileInfo, LinkerWriter, Segment, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
@@ -48,17 +45,7 @@ impl<'a> PartialLinkerWriter<'a> {
             p.push(&format!("{}.o", segment.name));
 
             let mut reference_segment = segment.clone();
-            reference_segment.files = vec![FileInfo {
-                path: p,
-                kind: FileKind::Object,
-                subfile: "".into(),
-                pad_amount: 0,
-                section: "".into(),
-                linker_offset_name: "".into(),
-                section_order: HashMap::new(),
-                files: Vec::new(),
-                dir: PathBuf::new(),
-            }];
+            reference_segment.files = vec![FileInfo::new_object(p)];
             self.main_writer.add_segment(&reference_segment)?;
         }
 

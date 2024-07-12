@@ -28,6 +28,31 @@ pub struct FileInfo {
     // Used for groups
     pub files: Vec<FileInfo>,
     pub dir: PathBuf,
+
+    pub include_if_any: Vec<(String, String)>,
+    pub include_if_all: Vec<(String, String)>,
+    pub exclude_if_any: Vec<(String, String)>,
+    pub exclude_if_all: Vec<(String, String)>,
+}
+
+impl FileInfo {
+    pub fn new_object(p: PathBuf) -> Self {
+        Self {
+            path: p,
+            kind: FileKind::Object,
+            subfile: "".into(),
+            pad_amount: 0,
+            section: "".into(),
+            linker_offset_name: "".into(),
+            section_order: HashMap::new(),
+            files: Vec::new(),
+            dir: PathBuf::new(),
+            include_if_any: Vec::new(),
+            include_if_all: Vec::new(),
+            exclude_if_any: Vec::new(),
+            exclude_if_all: Vec::new(),
+        }
+    }
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -57,6 +82,15 @@ pub(crate) struct FileInfoSerial {
     pub files: AbsentNullable<Vec<FileInfoSerial>>,
     #[serde(default)]
     pub dir: AbsentNullable<PathBuf>,
+
+    #[serde(default)]
+    pub include_if_any: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub include_if_all: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub exclude_if_any: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
 }
 
 impl FileInfoSerial {
@@ -203,6 +237,19 @@ impl FileInfoSerial {
             FileKind::Group => self.dir.get_non_null("dir", PathBuf::default)?,
         };
 
+        let include_if_any = self
+            .include_if_any
+            .get_non_null("include_if_any", Vec::new)?;
+        let include_if_all = self
+            .include_if_all
+            .get_non_null("include_if_all", Vec::new)?;
+        let exclude_if_any = self
+            .exclude_if_any
+            .get_non_null("exclude_if_any", Vec::new)?;
+        let exclude_if_all = self
+            .exclude_if_all
+            .get_non_null("exclude_if_all", Vec::new)?;
+
         Ok(FileInfo {
             path,
             kind,
@@ -213,6 +260,10 @@ impl FileInfoSerial {
             section_order,
             files,
             dir,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
         })
     }
 }

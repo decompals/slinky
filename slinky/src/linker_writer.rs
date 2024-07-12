@@ -620,6 +620,43 @@ impl LinkerWriter<'_> {
         section: &str,
         base_path: &Path,
     ) -> Result<(), SlinkyError> {
+        if file
+            .exclude_if_any
+            .iter()
+            .any(|(key, value)| self.d.custom_options.get(key) == Some(value))
+        {
+            return Ok(());
+        }
+        if !file.exclude_if_all.is_empty()
+            && file
+                .exclude_if_all
+                .iter()
+                .all(|(key, value)| self.d.custom_options.get(key) == Some(value))
+        {
+            return Ok(());
+        }
+
+        if !file.include_if_any.is_empty() || !file.include_if_all.is_empty() {
+            // If neither include fields match the options then we do not emit this entry
+
+            let mut exit = false;
+            if !file.include_if_any.is_empty() {
+                exit = !file
+                    .include_if_any
+                    .iter()
+                    .any(|(key, value)| self.d.custom_options.get(key) == Some(value));
+            }
+            if (exit || file.include_if_any.is_empty()) && !file.include_if_all.is_empty() {
+                exit = !file
+                    .include_if_all
+                    .iter()
+                    .all(|(key, value)| self.d.custom_options.get(key) == Some(value));
+            }
+            if exit {
+                return Ok(());
+            }
+        }
+
         let style = &self.d.settings.linker_symbols_style;
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
