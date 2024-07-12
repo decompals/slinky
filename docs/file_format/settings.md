@@ -87,14 +87,18 @@ as well.
     - [Example](#example-19)
     - [Valid values](#valid-values-19)
     - [Default value](#default-value-14)
-  - [`wildcard_sections`](#wildcard_sections)
+  - [`sections_start_alignment`](#sections_start_alignment)
     - [Example](#example-20)
     - [Valid values](#valid-values-20)
     - [Default value](#default-value-15)
-  - [`fill_value`](#fill_value)
+  - [`wildcard_sections`](#wildcard_sections)
     - [Example](#example-21)
     - [Valid values](#valid-values-21)
     - [Default value](#default-value-16)
+  - [`fill_value`](#fill_value)
+    - [Example](#example-22)
+    - [Valid values](#valid-values-22)
+    - [Default value](#default-value-17)
 
 ## `base_path`
 
@@ -626,6 +630,32 @@ Positive integers or `null`.
 ### Default value
 
 `0x10`
+
+## `sections_start_alignment`
+
+Allows to specify different alignments for the start of every section.
+
+If a specific section is not pressent on this mapping then no alignment will be
+forced on the given section.
+
+This option can be overriden per segment, see
+[segments.md#sections_start_alignment](segments.md#sections_start_alignment) for
+more info.
+
+### Example
+
+```yaml
+settings:
+  section_start_alignment: { .text: 128, .rodata: 0x40, .sdata: 0x8 }
+```
+
+### Valid values
+
+A mapping of strings as keys and positive numbers as values.
+
+### Default value
+
+Empty mapping.
 
 ## `wildcard_sections`
 

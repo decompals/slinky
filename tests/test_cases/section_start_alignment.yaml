@@ -1,0 +1,36 @@
+settings:
+  base_path: build/us_2003_07_10
+
+  single_segment_mode: True
+
+  subalign: null
+
+  alloc_sections:
+    - .text
+    - .vutext
+    - .data
+    - .vudata
+    - .rodata
+    - .gcc_except_table
+    - .sdata
+  noload_sections:
+    - .scommon
+    - .sbss
+    - .bss
+    - .vubss
+
+  sections_start_alignment: { .text: 128, .rodata: 0x40, .sdata: 0x8 }
+
+segments:
+  - name: cod
+    fixed_vram: 0x00100000
+    section_end_align: 0x4
+
+    files:
+      - { path: src/crt0/crt0.o }
+      - { path: src/cod/main.o }
+      - { path: src/cod/graphics.o }
+      - { path: src/cod/sounds.o }
+      - { path: src/cod/yada.o }
+      - { path: src/cod/movies.o }
+      - { path: src/cod/capybara.o }

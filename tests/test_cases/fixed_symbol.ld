@@ -15,6 +15,7 @@ SECTIONS
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
+        . = ALIGN(., 0x400);
         boot_DATA_START = .;
         build/src/boot/boot_main.o(.data*);
         build/src/libultra.o(.data*);
@@ -54,6 +55,7 @@ SECTIONS
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         boot_BSS_START = .;
         build/src/boot/boot_main.o(.bss*);
         build/src/libultra.o(.bss*);
@@ -87,6 +89,7 @@ SECTIONS
         kanji_TEXT_END = .;
         kanji_TEXT_SIZE = ABSOLUTE(kanji_TEXT_END - kanji_TEXT_START);
 
+        . = ALIGN(., 0x400);
         kanji_DATA_START = .;
         build/src/kanji/kanji.o(.data*);
         kanji_DATA_END = .;
@@ -121,6 +124,7 @@ SECTIONS
         kanji_SCOMMON_END = .;
         kanji_SCOMMON_SIZE = ABSOLUTE(kanji_SCOMMON_END - kanji_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         kanji_BSS_START = .;
         build/src/kanji/kanji.o(.bss*);
         kanji_BSS_END = .;
@@ -155,6 +159,7 @@ SECTIONS
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
+        . = ALIGN(., 0x400);
         main_DATA_START = .;
         build/src/main/main.o(.data*);
         build/src/main/dmadata.o(.data*);
@@ -204,6 +209,7 @@ SECTIONS
         main_SCOMMON_END = .;
         main_SCOMMON_SIZE = ABSOLUTE(main_SCOMMON_END - main_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         main_BSS_START = .;
         build/src/main/main.o(.bss*);
         build/src/main/dmadata.o(.bss*);
@@ -242,6 +248,7 @@ SECTIONS
         engine_TEXT_END = .;
         engine_TEXT_SIZE = ABSOLUTE(engine_TEXT_END - engine_TEXT_START);
 
+        . = ALIGN(., 0x400);
         engine_DATA_START = .;
         build/src/engine/engine_cod.o(.data*);
         build/src/engine/engine_buffers.o(.data*);
@@ -281,6 +288,7 @@ SECTIONS
         engine_SCOMMON_END = .;
         engine_SCOMMON_SIZE = ABSOLUTE(engine_SCOMMON_END - engine_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         engine_BSS_START = .;
         build/src/engine/engine_cod.o(.bss*);
         build/src/engine/engine_buffers.o(.bss*);
@@ -314,6 +322,7 @@ SECTIONS
         engine2_TEXT_END = .;
         engine2_TEXT_SIZE = ABSOLUTE(engine2_TEXT_END - engine2_TEXT_START);
 
+        . = ALIGN(., 0x400);
         engine2_DATA_START = .;
         build/src/engine2/engine_the_sequel.o(.data*);
         engine2_DATA_END = .;
@@ -348,6 +357,7 @@ SECTIONS
         engine2_SCOMMON_END = .;
         engine2_SCOMMON_SIZE = ABSOLUTE(engine2_SCOMMON_END - engine2_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         engine2_BSS_START = .;
         build/src/engine2/engine_the_sequel.o(.bss*);
         engine2_BSS_END = .;
@@ -379,6 +389,7 @@ SECTIONS
         enemy_1_TEXT_END = .;
         enemy_1_TEXT_SIZE = ABSOLUTE(enemy_1_TEXT_END - enemy_1_TEXT_START);
 
+        . = ALIGN(., 0x400);
         enemy_1_DATA_START = .;
         build/src/enemy_1/enemy_1.o(.data*);
         enemy_1_DATA_END = .;
@@ -413,6 +424,7 @@ SECTIONS
         enemy_1_SCOMMON_END = .;
         enemy_1_SCOMMON_SIZE = ABSOLUTE(enemy_1_SCOMMON_END - enemy_1_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         enemy_1_BSS_START = .;
         build/src/enemy_1/enemy_1.o(.bss*);
         enemy_1_BSS_END = .;
@@ -444,6 +456,7 @@ SECTIONS
         enemy_2_TEXT_END = .;
         enemy_2_TEXT_SIZE = ABSOLUTE(enemy_2_TEXT_END - enemy_2_TEXT_START);
 
+        . = ALIGN(., 0x400);
         enemy_2_DATA_START = .;
         build/src/enemy_2/enemy_2.o(.data*);
         enemy_2_DATA_END = .;
@@ -478,6 +491,7 @@ SECTIONS
         enemy_2_SCOMMON_END = .;
         enemy_2_SCOMMON_SIZE = ABSOLUTE(enemy_2_SCOMMON_END - enemy_2_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         enemy_2_BSS_START = .;
         build/src/enemy_2/enemy_2.o(.bss*);
         enemy_2_BSS_END = .;
@@ -509,6 +523,7 @@ SECTIONS
         enemy_3_TEXT_END = .;
         enemy_3_TEXT_SIZE = ABSOLUTE(enemy_3_TEXT_END - enemy_3_TEXT_START);
 
+        . = ALIGN(., 0x400);
         enemy_3_DATA_START = .;
         build/src/enemy_2/enemy_2.o(.data*);
         enemy_3_DATA_END = .;
@@ -543,6 +558,7 @@ SECTIONS
         enemy_3_SCOMMON_END = .;
         enemy_3_SCOMMON_SIZE = ABSOLUTE(enemy_3_SCOMMON_END - enemy_3_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         enemy_3_BSS_START = .;
         build/src/enemy_2/enemy_2.o(.bss*);
         enemy_3_BSS_END = .;
@@ -574,6 +590,7 @@ SECTIONS
         stage_1_TEXT_END = .;
         stage_1_TEXT_SIZE = ABSOLUTE(stage_1_TEXT_END - stage_1_TEXT_START);
 
+        . = ALIGN(., 0x400);
         stage_1_DATA_START = .;
         build/src/stage_1/stage_1.o(.data*);
         stage_1_DATA_END = .;
@@ -608,6 +625,7 @@ SECTIONS
         stage_1_SCOMMON_END = .;
         stage_1_SCOMMON_SIZE = ABSOLUTE(stage_1_SCOMMON_END - stage_1_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         stage_1_BSS_START = .;
         build/src/stage_1/stage_1.o(.bss*);
         stage_1_BSS_END = .;
@@ -639,6 +657,7 @@ SECTIONS
         stage_2_TEXT_END = .;
         stage_2_TEXT_SIZE = ABSOLUTE(stage_2_TEXT_END - stage_2_TEXT_START);
 
+        . = ALIGN(., 0x400);
         stage_2_DATA_START = .;
         build/src/stage_2/stage_2.o(.data*);
         stage_2_DATA_END = .;
@@ -673,6 +692,7 @@ SECTIONS
         stage_2_SCOMMON_END = .;
         stage_2_SCOMMON_SIZE = ABSOLUTE(stage_2_SCOMMON_END - stage_2_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         stage_2_BSS_START = .;
         build/src/stage_2/stage_2.o(.bss*);
         stage_2_BSS_END = .;
@@ -704,6 +724,7 @@ SECTIONS
         stage_3_TEXT_END = .;
         stage_3_TEXT_SIZE = ABSOLUTE(stage_3_TEXT_END - stage_3_TEXT_START);
 
+        . = ALIGN(., 0x400);
         stage_3_DATA_START = .;
         build/src/stage_2/stage_2.o(.data*);
         stage_3_DATA_END = .;
@@ -738,6 +759,7 @@ SECTIONS
         stage_3_SCOMMON_END = .;
         stage_3_SCOMMON_SIZE = ABSOLUTE(stage_3_SCOMMON_END - stage_3_SCOMMON_START);
 
+        . = ALIGN(., 0x8000);
         stage_3_BSS_START = .;
         build/src/stage_2/stage_2.o(.bss*);
         stage_3_BSS_END = .;

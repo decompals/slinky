@@ -175,7 +175,12 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
-        if !self.d.should_emit_entry(&segment.exclude_if_any, &segment.exclude_if_all, &segment.include_if_any, &segment.include_if_all) {
+        if !self.d.should_emit_entry(
+            &segment.exclude_if_any,
+            &segment.exclude_if_all,
+            &segment.include_if_any,
+            &segment.include_if_all,
+        ) {
             return Ok(());
         }
 
@@ -559,6 +564,9 @@ impl LinkerWriter<'_> {
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
 
+            if let Some(align_value) = segment.sections_start_alignment.get(section) {
+                self.buffer.align_symbol(".", *align_value);
+            }
             self.buffer.write_symbol(&section_start_sym, ".");
         }
     }
@@ -624,7 +632,12 @@ impl LinkerWriter<'_> {
         section: &str,
         base_path: &Path,
     ) -> Result<(), SlinkyError> {
-        if !self.d.should_emit_entry(&file.exclude_if_any, &file.exclude_if_all, &file.include_if_any, &file.include_if_all) {
+        if !self.d.should_emit_entry(
+            &file.exclude_if_any,
+            &file.exclude_if_all,
+            &file.include_if_any,
+            &file.include_if_all,
+        ) {
             return Ok(());
         }
 

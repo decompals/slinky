@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 use serde::Deserialize;
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 
 use crate::{
     absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle, SlinkyError,
@@ -39,6 +39,7 @@ pub struct Settings {
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
     pub section_end_align: Option<u32>,
+    pub sections_start_alignment: HashMap<String, u32>,
 
     pub wildcard_sections: bool,
 
@@ -144,6 +145,10 @@ const fn settings_default_section_end_align() -> Option<u32> {
     Some(0x10)
 }
 
+fn settings_default_sections_start_alignment() -> HashMap<String, u32> {
+    HashMap::new()
+}
+
 const fn settings_default_wildcard_sections() -> bool {
     true
 }
@@ -183,6 +188,7 @@ impl Default for Settings {
             subalign: settings_default_subalign(),
             segment_start_align: settings_default_segment_start_align(),
             section_end_align: settings_default_section_end_align(),
+            sections_start_alignment: settings_default_sections_start_alignment(),
 
             wildcard_sections: settings_default_wildcard_sections(),
 
@@ -243,6 +249,8 @@ pub(crate) struct SettingsSerial {
     pub segment_start_align: AbsentNullable<u32>,
     #[serde(default)]
     pub section_end_align: AbsentNullable<u32>,
+    #[serde(default)]
+    pub sections_start_alignment: AbsentNullable<HashMap<String, u32>>,
 
     #[serde(default)]
     pub wildcard_sections: AbsentNullable<bool>,
@@ -337,6 +345,11 @@ impl SettingsSerial {
             .section_end_align
             .get_optional_nullable("section_end_align", settings_default_section_end_align)?;
 
+        let sections_start_alignment = self.sections_start_alignment.get_non_null(
+            "sections_start_alignment",
+            settings_default_sections_start_alignment,
+        )?;
+
         let wildcard_sections = self
             .wildcard_sections
             .get_non_null("wildcard_sections", settings_default_wildcard_sections)?;
@@ -372,6 +385,7 @@ impl SettingsSerial {
             subalign,
             segment_start_align,
             section_end_align,
+            sections_start_alignment,
             wildcard_sections,
             fill_value,
         })

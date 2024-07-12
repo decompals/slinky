@@ -59,14 +59,18 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-11)
     - [Valid values](#valid-values-10)
     - [Default value](#default-value-9)
-  - [`wildcard_sections`](#wildcard_sections)
+  - [`sections_start_alignment`](#sections_start_alignment)
     - [Example](#example-12)
     - [Valid values](#valid-values-11)
     - [Default value](#default-value-10)
-  - [`fill_value`](#fill_value)
+  - [`wildcard_sections`](#wildcard_sections)
     - [Example](#example-13)
     - [Valid values](#valid-values-12)
     - [Default value](#default-value-11)
+  - [`fill_value`](#fill_value)
+    - [Example](#example-14)
+    - [Valid values](#valid-values-13)
+    - [Default value](#default-value-12)
 
 ## `name`
 
@@ -382,6 +386,35 @@ Positive integers or `null`.
 
 The value specified for
 [settings.md#section_end_align](settings.md#section_end_align)
+
+## `sections_start_alignment`
+
+Allows to specify different alignments for the start of every section of this
+specific segment.
+
+If a specific section is not pressent on this mapping then no alignment will be
+forced on the given section.
+
+This option overrides the global setting, see
+[settings.md#sections_start_alignment](settings.md#sections_start_alignment) for
+more info.
+
+### Example
+
+```yaml
+segments:
+  - name: main
+    section_start_alignment: { .text: 4, .rodata: 0x10, .data: 0x20 }
+```
+
+### Valid values
+
+A mapping of strings as keys and positive numbers as values.
+
+### Default value
+
+The value specified for
+[settings.md#sections_start_alignment](settings.md#sections_start_alignment)
 
 ## `wildcard_sections`
 

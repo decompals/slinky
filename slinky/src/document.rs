@@ -118,7 +118,13 @@ impl Document {
         Ok(new_path)
     }
 
-    pub(crate) fn should_emit_entry(&self, exclude_if_any: &[(String, String)], exclude_if_all: &[(String, String)], include_if_any: &[(String, String)], include_if_all: &[(String, String)]) -> bool {
+    pub(crate) fn should_emit_entry(
+        &self,
+        exclude_if_any: &[(String, String)],
+        exclude_if_all: &[(String, String)],
+        include_if_any: &[(String, String)],
+        include_if_all: &[(String, String)],
+    ) -> bool {
         if exclude_if_any
             .iter()
             .any(|(key, value)| self.custom_options.get(key) == Some(value))

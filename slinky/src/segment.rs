@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
@@ -50,6 +50,7 @@ pub struct Segment {
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
     pub section_end_align: Option<u32>,
+    pub sections_start_alignment: HashMap<String, u32>,
 
     pub wildcard_sections: bool,
 
@@ -98,6 +99,8 @@ pub(crate) struct SegmentSerial {
     pub segment_start_align: AbsentNullable<u32>,
     #[serde(default)]
     pub section_end_align: AbsentNullable<u32>,
+    #[serde(default)]
+    pub sections_start_alignment: AbsentNullable<HashMap<String, u32>>,
 
     #[serde(default)]
     pub wildcard_sections: AbsentNullable<bool>,
@@ -187,17 +190,17 @@ impl SegmentSerial {
         let dir = self.dir.get_non_null("dir", PathBuf::new)?;
 
         let include_if_any = self
-        .include_if_any
-        .get_non_null("include_if_any", Vec::new)?;
-    let include_if_all = self
-        .include_if_all
-        .get_non_null("include_if_all", Vec::new)?;
-    let exclude_if_any = self
-        .exclude_if_any
-        .get_non_null("exclude_if_any", Vec::new)?;
-    let exclude_if_all = self
-        .exclude_if_all
-        .get_non_null("exclude_if_all", Vec::new)?;
+            .include_if_any
+            .get_non_null("include_if_any", Vec::new)?;
+        let include_if_all = self
+            .include_if_all
+            .get_non_null("include_if_all", Vec::new)?;
+        let exclude_if_any = self
+            .exclude_if_any
+            .get_non_null("exclude_if_any", Vec::new)?;
+        let exclude_if_all = self
+            .exclude_if_all
+            .get_non_null("exclude_if_all", Vec::new)?;
 
         let alloc_sections = self
             .alloc_sections
@@ -217,6 +220,12 @@ impl SegmentSerial {
         let section_end_align = self
             .section_end_align
             .get_optional_nullable("section_end_align", || settings.section_end_align)?;
+
+        let sections_start_alignment = self
+            .sections_start_alignment
+            .get_non_null("sections_start_alignment", || {
+                settings.sections_start_alignment.clone()
+            })?;
 
         let wildcard_sections = self
             .wildcard_sections
@@ -243,6 +252,7 @@ impl SegmentSerial {
             subalign,
             segment_start_align,
             section_end_align,
+            sections_start_alignment,
             wildcard_sections,
             fill_value,
         })
