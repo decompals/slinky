@@ -175,6 +175,10 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
+        if !self.d.should_emit_entry(&segment.exclude_if_any, &segment.exclude_if_all, &segment.include_if_any, &segment.include_if_all) {
+            return Ok(());
+        }
+
         assert!(!self.single_segment);
 
         let style = &self.d.settings.linker_symbols_style;
@@ -620,41 +624,8 @@ impl LinkerWriter<'_> {
         section: &str,
         base_path: &Path,
     ) -> Result<(), SlinkyError> {
-        if file
-            .exclude_if_any
-            .iter()
-            .any(|(key, value)| self.d.custom_options.get(key) == Some(value))
-        {
+        if !self.d.should_emit_entry(&file.exclude_if_any, &file.exclude_if_all, &file.include_if_any, &file.include_if_all) {
             return Ok(());
-        }
-        if !file.exclude_if_all.is_empty()
-            && file
-                .exclude_if_all
-                .iter()
-                .all(|(key, value)| self.d.custom_options.get(key) == Some(value))
-        {
-            return Ok(());
-        }
-
-        if !file.include_if_any.is_empty() || !file.include_if_all.is_empty() {
-            // If neither include fields match the options then we do not emit this entry
-
-            let mut exit = false;
-            if !file.include_if_any.is_empty() {
-                exit = !file
-                    .include_if_any
-                    .iter()
-                    .any(|(key, value)| self.d.custom_options.get(key) == Some(value));
-            }
-            if (exit || file.include_if_any.is_empty()) && !file.include_if_all.is_empty() {
-                exit = !file
-                    .include_if_all
-                    .iter()
-                    .all(|(key, value)| self.d.custom_options.get(key) == Some(value));
-            }
-            if exit {
-                return Ok(());
-            }
         }
 
         let style = &self.d.settings.linker_symbols_style;

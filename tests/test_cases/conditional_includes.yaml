@@ -51,3 +51,33 @@ segments:
         files:
           - { path: libgcc.a }
 
+  # This segment has a different order on the ROM depending on the version
+  - name: player_model
+    fixed_vram: 0x05000000
+    include_if_any: [[version, jp]]
+    files:
+      - { path: src/assets/player_model.o }
+
+  - name: kanji
+    fixed_vram: 0x01000000
+    include_if_any: [[version, jp], [version, us]]
+    files:
+      - { path: src/language/kanji.o }
+
+  - name: latin_alphabet
+    fixed_vram: 0x01000000
+    include_if_any: [[version, us], [version, eu], [version, fr], [version, gr], [version, es]]
+    files:
+      - { path: src/language/latin_alphabet.o }
+
+  - name: alphabet_extended
+    fixed_vram: 0x01000000
+    include_if_all: [[modding, true], [version, ru]]
+    files:
+      - { path: src/language/alphabet_extended.o }
+
+  - name: player_model
+    fixed_vram: 0x05000000
+    include_if_any: [[version, us]]
+    files:
+      - { path: src/assets/player_model.o }

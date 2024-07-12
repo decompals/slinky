@@ -38,6 +38,7 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-6)
     - [Valid values](#valid-values-5)
     - [Default value](#default-value-4)
+  - [`include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`](#include_if_any-include_if_all-exclude_if_any-and-exclude_if_all)
   - [`alloc_sections`](#alloc_sections)
     - [Example](#example-7)
     - [Valid values](#valid-values-6)
@@ -236,6 +237,13 @@ Any valid path.
 ### Default value
 
 Empty path.
+
+## `include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`
+
+These fields allow to conditionally include or exclude a given segment depending
+on the current [custom options](custom_options.md).
+
+Their syntax is the same as their [`file`](file.md#include_if_any) counterparts.
 
 ## `alloc_sections`
 

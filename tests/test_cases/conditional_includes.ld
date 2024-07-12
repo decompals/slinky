@@ -203,6 +203,225 @@ SECTIONS
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
+    kanji_ROM_START = __romPos;
+    kanji_VRAM = ADDR(.kanji);
+    kanji_alloc_VRAM = .;
+
+    .kanji 0x01000000 : AT(kanji_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        kanji_TEXT_START = .;
+        build/us/src/language/kanji.o(.text*);
+        . = ALIGN(., 0x10);
+        kanji_TEXT_END = .;
+        kanji_TEXT_SIZE = ABSOLUTE(kanji_TEXT_END - kanji_TEXT_START);
+
+        kanji_DATA_START = .;
+        build/us/src/language/kanji.o(.data*);
+        . = ALIGN(., 0x10);
+        kanji_DATA_END = .;
+        kanji_DATA_SIZE = ABSOLUTE(kanji_DATA_END - kanji_DATA_START);
+
+        kanji_RODATA_START = .;
+        build/us/src/language/kanji.o(.rodata*);
+        . = ALIGN(., 0x10);
+        kanji_RODATA_END = .;
+        kanji_RODATA_SIZE = ABSOLUTE(kanji_RODATA_END - kanji_RODATA_START);
+
+        kanji_SDATA_START = .;
+        build/us/src/language/kanji.o(.sdata*);
+        . = ALIGN(., 0x10);
+        kanji_SDATA_END = .;
+        kanji_SDATA_SIZE = ABSOLUTE(kanji_SDATA_END - kanji_SDATA_START);
+    }
+
+    kanji_alloc_VRAM_END = .;
+    kanji_alloc_VRAM_SIZE = ABSOLUTE(kanji_alloc_VRAM_END - kanji_alloc_VRAM);
+
+    kanji_noload_VRAM = .;
+
+    .kanji.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        kanji_SBSS_START = .;
+        build/us/src/language/kanji.o(.sbss*);
+        . = ALIGN(., 0x10);
+        kanji_SBSS_END = .;
+        kanji_SBSS_SIZE = ABSOLUTE(kanji_SBSS_END - kanji_SBSS_START);
+
+        kanji_SCOMMON_START = .;
+        build/us/src/language/kanji.o(.scommon*);
+        . = ALIGN(., 0x10);
+        kanji_SCOMMON_END = .;
+        kanji_SCOMMON_SIZE = ABSOLUTE(kanji_SCOMMON_END - kanji_SCOMMON_START);
+
+        kanji_BSS_START = .;
+        build/us/src/language/kanji.o(.bss*);
+        . = ALIGN(., 0x10);
+        kanji_BSS_END = .;
+        kanji_BSS_SIZE = ABSOLUTE(kanji_BSS_END - kanji_BSS_START);
+
+        kanjiCOMMON_START = .;
+        build/us/src/language/kanji.o(COMMON*);
+        . = ALIGN(., 0x10);
+        kanjiCOMMON_END = .;
+        kanjiCOMMON_SIZE = ABSOLUTE(kanjiCOMMON_END - kanjiCOMMON_START);
+    }
+
+    kanji_noload_VRAM_END = .;
+    kanji_noload_VRAM_SIZE = ABSOLUTE(kanji_noload_VRAM_END - kanji_noload_VRAM);
+    kanji_VRAM_END = .;
+    kanji_VRAM_SIZE = ABSOLUTE(kanji_VRAM_END - kanji_VRAM);
+    __romPos += SIZEOF(.kanji);
+    kanji_ROM_END = __romPos;
+    kanji_ROM_SIZE = ABSOLUTE(kanji_ROM_END - kanji_ROM_START);
+
+    latin_alphabet_ROM_START = __romPos;
+    latin_alphabet_VRAM = ADDR(.latin_alphabet);
+    latin_alphabet_alloc_VRAM = .;
+
+    .latin_alphabet 0x01000000 : AT(latin_alphabet_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        latin_alphabet_TEXT_START = .;
+        build/us/src/language/latin_alphabet.o(.text*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_TEXT_END = .;
+        latin_alphabet_TEXT_SIZE = ABSOLUTE(latin_alphabet_TEXT_END - latin_alphabet_TEXT_START);
+
+        latin_alphabet_DATA_START = .;
+        build/us/src/language/latin_alphabet.o(.data*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_DATA_END = .;
+        latin_alphabet_DATA_SIZE = ABSOLUTE(latin_alphabet_DATA_END - latin_alphabet_DATA_START);
+
+        latin_alphabet_RODATA_START = .;
+        build/us/src/language/latin_alphabet.o(.rodata*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_RODATA_END = .;
+        latin_alphabet_RODATA_SIZE = ABSOLUTE(latin_alphabet_RODATA_END - latin_alphabet_RODATA_START);
+
+        latin_alphabet_SDATA_START = .;
+        build/us/src/language/latin_alphabet.o(.sdata*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_SDATA_END = .;
+        latin_alphabet_SDATA_SIZE = ABSOLUTE(latin_alphabet_SDATA_END - latin_alphabet_SDATA_START);
+    }
+
+    latin_alphabet_alloc_VRAM_END = .;
+    latin_alphabet_alloc_VRAM_SIZE = ABSOLUTE(latin_alphabet_alloc_VRAM_END - latin_alphabet_alloc_VRAM);
+
+    latin_alphabet_noload_VRAM = .;
+
+    .latin_alphabet.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        latin_alphabet_SBSS_START = .;
+        build/us/src/language/latin_alphabet.o(.sbss*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_SBSS_END = .;
+        latin_alphabet_SBSS_SIZE = ABSOLUTE(latin_alphabet_SBSS_END - latin_alphabet_SBSS_START);
+
+        latin_alphabet_SCOMMON_START = .;
+        build/us/src/language/latin_alphabet.o(.scommon*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_SCOMMON_END = .;
+        latin_alphabet_SCOMMON_SIZE = ABSOLUTE(latin_alphabet_SCOMMON_END - latin_alphabet_SCOMMON_START);
+
+        latin_alphabet_BSS_START = .;
+        build/us/src/language/latin_alphabet.o(.bss*);
+        . = ALIGN(., 0x10);
+        latin_alphabet_BSS_END = .;
+        latin_alphabet_BSS_SIZE = ABSOLUTE(latin_alphabet_BSS_END - latin_alphabet_BSS_START);
+
+        latin_alphabetCOMMON_START = .;
+        build/us/src/language/latin_alphabet.o(COMMON*);
+        . = ALIGN(., 0x10);
+        latin_alphabetCOMMON_END = .;
+        latin_alphabetCOMMON_SIZE = ABSOLUTE(latin_alphabetCOMMON_END - latin_alphabetCOMMON_START);
+    }
+
+    latin_alphabet_noload_VRAM_END = .;
+    latin_alphabet_noload_VRAM_SIZE = ABSOLUTE(latin_alphabet_noload_VRAM_END - latin_alphabet_noload_VRAM);
+    latin_alphabet_VRAM_END = .;
+    latin_alphabet_VRAM_SIZE = ABSOLUTE(latin_alphabet_VRAM_END - latin_alphabet_VRAM);
+    __romPos += SIZEOF(.latin_alphabet);
+    latin_alphabet_ROM_END = __romPos;
+    latin_alphabet_ROM_SIZE = ABSOLUTE(latin_alphabet_ROM_END - latin_alphabet_ROM_START);
+
+    player_model_ROM_START = __romPos;
+    player_model_VRAM = ADDR(.player_model);
+    player_model_alloc_VRAM = .;
+
+    .player_model 0x05000000 : AT(player_model_ROM_START) SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        player_model_TEXT_START = .;
+        build/us/src/assets/player_model.o(.text*);
+        . = ALIGN(., 0x10);
+        player_model_TEXT_END = .;
+        player_model_TEXT_SIZE = ABSOLUTE(player_model_TEXT_END - player_model_TEXT_START);
+
+        player_model_DATA_START = .;
+        build/us/src/assets/player_model.o(.data*);
+        . = ALIGN(., 0x10);
+        player_model_DATA_END = .;
+        player_model_DATA_SIZE = ABSOLUTE(player_model_DATA_END - player_model_DATA_START);
+
+        player_model_RODATA_START = .;
+        build/us/src/assets/player_model.o(.rodata*);
+        . = ALIGN(., 0x10);
+        player_model_RODATA_END = .;
+        player_model_RODATA_SIZE = ABSOLUTE(player_model_RODATA_END - player_model_RODATA_START);
+
+        player_model_SDATA_START = .;
+        build/us/src/assets/player_model.o(.sdata*);
+        . = ALIGN(., 0x10);
+        player_model_SDATA_END = .;
+        player_model_SDATA_SIZE = ABSOLUTE(player_model_SDATA_END - player_model_SDATA_START);
+    }
+
+    player_model_alloc_VRAM_END = .;
+    player_model_alloc_VRAM_SIZE = ABSOLUTE(player_model_alloc_VRAM_END - player_model_alloc_VRAM);
+
+    player_model_noload_VRAM = .;
+
+    .player_model.noload (NOLOAD) : SUBALIGN(16)
+    {
+        FILL(0x00000000);
+        player_model_SBSS_START = .;
+        build/us/src/assets/player_model.o(.sbss*);
+        . = ALIGN(., 0x10);
+        player_model_SBSS_END = .;
+        player_model_SBSS_SIZE = ABSOLUTE(player_model_SBSS_END - player_model_SBSS_START);
+
+        player_model_SCOMMON_START = .;
+        build/us/src/assets/player_model.o(.scommon*);
+        . = ALIGN(., 0x10);
+        player_model_SCOMMON_END = .;
+        player_model_SCOMMON_SIZE = ABSOLUTE(player_model_SCOMMON_END - player_model_SCOMMON_START);
+
+        player_model_BSS_START = .;
+        build/us/src/assets/player_model.o(.bss*);
+        . = ALIGN(., 0x10);
+        player_model_BSS_END = .;
+        player_model_BSS_SIZE = ABSOLUTE(player_model_BSS_END - player_model_BSS_START);
+
+        player_modelCOMMON_START = .;
+        build/us/src/assets/player_model.o(COMMON*);
+        . = ALIGN(., 0x10);
+        player_modelCOMMON_END = .;
+        player_modelCOMMON_SIZE = ABSOLUTE(player_modelCOMMON_END - player_modelCOMMON_START);
+    }
+
+    player_model_noload_VRAM_END = .;
+    player_model_noload_VRAM_SIZE = ABSOLUTE(player_model_noload_VRAM_END - player_model_noload_VRAM);
+    player_model_VRAM_END = .;
+    player_model_VRAM_SIZE = ABSOLUTE(player_model_VRAM_END - player_model_VRAM);
+    __romPos += SIZEOF(.player_model);
+    player_model_ROM_END = __romPos;
+    player_model_ROM_SIZE = ABSOLUTE(player_model_ROM_END - player_model_ROM_START);
+
     .shstrtab 0 :
     {
         *(.shstrtab);

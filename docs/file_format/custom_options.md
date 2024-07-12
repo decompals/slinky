@@ -126,7 +126,7 @@ combinations:
 ### Conditional inclusion and exclusion of file entries
 
 Custom options can be used to conditionally include or conditionally exclude
-certain files.
+certain [files](file.md) or [segments](segments.md).
 
 Check the [`include_if_any`](file.md#include_if_any),
 [`include_if_all`](file.md#include_if_all),

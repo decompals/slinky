@@ -38,6 +38,11 @@ pub struct Segment {
     /// Used as a prefix for all the files emitted for this Segment.
     pub dir: PathBuf,
 
+    pub include_if_any: Vec<(String, String)>,
+    pub include_if_all: Vec<(String, String)>,
+    pub exclude_if_any: Vec<(String, String)>,
+    pub exclude_if_all: Vec<(String, String)>,
+
     // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
@@ -71,6 +76,15 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub dir: AbsentNullable<PathBuf>,
+
+    #[serde(default)]
+    pub include_if_any: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub include_if_all: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub exclude_if_any: AbsentNullable<Vec<(String, String)>>,
+    #[serde(default)]
+    pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
 
     // The default of the following come from Options
     #[serde(default)]
@@ -172,6 +186,19 @@ impl SegmentSerial {
 
         let dir = self.dir.get_non_null("dir", PathBuf::new)?;
 
+        let include_if_any = self
+        .include_if_any
+        .get_non_null("include_if_any", Vec::new)?;
+    let include_if_all = self
+        .include_if_all
+        .get_non_null("include_if_all", Vec::new)?;
+    let exclude_if_any = self
+        .exclude_if_any
+        .get_non_null("exclude_if_any", Vec::new)?;
+    let exclude_if_all = self
+        .exclude_if_all
+        .get_non_null("exclude_if_all", Vec::new)?;
+
         let alloc_sections = self
             .alloc_sections
             .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
@@ -207,6 +234,10 @@ impl SegmentSerial {
             follows_segment,
             vram_class,
             dir,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
             alloc_sections,
             noload_sections,
             subalign,

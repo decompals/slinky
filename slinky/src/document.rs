@@ -117,6 +117,44 @@ impl Document {
 
         Ok(new_path)
     }
+
+    pub(crate) fn should_emit_entry(&self, exclude_if_any: &[(String, String)], exclude_if_all: &[(String, String)], include_if_any: &[(String, String)], include_if_all: &[(String, String)]) -> bool {
+        if exclude_if_any
+            .iter()
+            .any(|(key, value)| self.custom_options.get(key) == Some(value))
+        {
+            return false;
+        }
+
+        if !exclude_if_all.is_empty()
+            && exclude_if_all
+                .iter()
+                .all(|(key, value)| self.custom_options.get(key) == Some(value))
+        {
+            return false;
+        }
+
+        if !include_if_any.is_empty() || !include_if_all.is_empty() {
+            // If neither include fields match the options then we do not emit this entry
+
+            let mut exit = false;
+            if !include_if_any.is_empty() {
+                exit = !include_if_any
+                    .iter()
+                    .any(|(key, value)| self.custom_options.get(key) == Some(value));
+            }
+            if (exit || include_if_any.is_empty()) && !include_if_all.is_empty() {
+                exit = !include_if_all
+                    .iter()
+                    .all(|(key, value)| self.custom_options.get(key) == Some(value));
+            }
+            if exit {
+                return false;
+            }
+        }
+
+        true
+    }
 }
 
 #[derive(Deserialize, PartialEq, Debug)]

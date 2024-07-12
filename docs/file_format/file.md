@@ -326,7 +326,7 @@ segments:
         dir: lib
         include_if_any: [[compiler, modern_gcc]]
         files:
-          - { path: libgcc.a }
+          - { path: libgcc.{abi}.a }
 ```
 
 ### Valid values
