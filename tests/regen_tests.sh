@@ -13,7 +13,7 @@ for filepath in tests/test_cases/*.yaml; do
     stem="${filename%.*}"
     output=tests/test_cases/$stem.ld
     echo Generating $output
-    cargo run --release -- $filepath -o $output --custom-options version=us
+    cargo run --release -- $filepath -o $output --custom-options version=us -c compiler=modern_gcc
 done
 
 for filepath in tests/partial_linking/*.yaml; do
@@ -21,5 +21,5 @@ for filepath in tests/partial_linking/*.yaml; do
     stem="${filename%.*}"
     output=tests/partial_linking/$stem.ld
     echo Generating $output
-    cargo run --release -- $filepath -o $output --partial-linking -c version=us
+    cargo run --release -- $filepath -o $output --partial-linking -c version=us -c compiler=modern_gcc
 done

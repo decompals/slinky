@@ -26,6 +26,7 @@ SECTIONS
         build/us/src/boot/file24.o(.text*);
         build/us/src/boot/file28.o(.text*);
         build/us/src/boot/file29.o(.text*);
+        build/us/lib/libgcc.a:*(.text*);
         . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
@@ -47,6 +48,7 @@ SECTIONS
         build/us/src/boot/file24.o(.data*);
         build/us/src/boot/file28.o(.data*);
         build/us/src/boot/file29.o(.data*);
+        build/us/lib/libgcc.a:*(.data*);
         . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
@@ -68,6 +70,7 @@ SECTIONS
         build/us/src/boot/file24.o(.rodata*);
         build/us/src/boot/file28.o(.rodata*);
         build/us/src/boot/file29.o(.rodata*);
+        build/us/lib/libgcc.a:*(.rodata*);
         . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
@@ -89,6 +92,7 @@ SECTIONS
         build/us/src/boot/file24.o(.sdata*);
         build/us/src/boot/file28.o(.sdata*);
         build/us/src/boot/file29.o(.sdata*);
+        build/us/lib/libgcc.a:*(.sdata*);
         . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
@@ -119,6 +123,7 @@ SECTIONS
         build/us/src/boot/file24.o(.sbss*);
         build/us/src/boot/file28.o(.sbss*);
         build/us/src/boot/file29.o(.sbss*);
+        build/us/lib/libgcc.a:*(.sbss*);
         . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
@@ -140,6 +145,7 @@ SECTIONS
         build/us/src/boot/file24.o(.scommon*);
         build/us/src/boot/file28.o(.scommon*);
         build/us/src/boot/file29.o(.scommon*);
+        build/us/lib/libgcc.a:*(.scommon*);
         . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
@@ -161,6 +167,7 @@ SECTIONS
         build/us/src/boot/file24.o(.bss*);
         build/us/src/boot/file28.o(.bss*);
         build/us/src/boot/file29.o(.bss*);
+        build/us/lib/libgcc.a:*(.bss*);
         . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
@@ -182,6 +189,7 @@ SECTIONS
         build/us/src/boot/file24.o(COMMON*);
         build/us/src/boot/file28.o(COMMON*);
         build/us/src/boot/file29.o(COMMON*);
+        build/us/lib/libgcc.a:*(COMMON*);
         . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);

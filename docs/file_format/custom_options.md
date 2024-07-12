@@ -15,6 +15,7 @@ handled by the C preprocessor or in Rust with its features.
   - [Usage](#usage)
     - [Path replacement](#path-replacement)
       - [Example](#example)
+    - [Conditional inclusion and exclusion of file entries](#conditional-inclusion-and-exclusion-of-file-entries)
 
 ## How does this work?
 
@@ -121,3 +122,14 @@ combinations:
     - `build/eu1.1/src/boot/boot_main_pal.o`
     - `build/eu1.1/src/boot/dmadata.o`
     - `build/eu1.1/src/boot/util.o`
+
+### Conditional inclusion and exclusion of file entries
+
+Custom options can be used to conditionally include or conditionally exclude
+certain files.
+
+Check the [`include_if_any`](file.md#include_if_any),
+[`include_if_all`](file.md#include_if_all),
+[`exclude_if_any`](file.md#exclude_if_any) and
+[`exclude_if_all`](file.md#exclude_if_all) fields of [`file.md`](file.md) for
+more information.

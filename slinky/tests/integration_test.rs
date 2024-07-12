@@ -12,6 +12,9 @@ fn set_custom_options(document: &mut Document) {
     document
         .custom_options
         .insert("version".into(), "us".into());
+    document
+        .custom_options
+        .insert("compiler".into(), "modern_gcc".into());
 }
 
 fn check_ld_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyError> {

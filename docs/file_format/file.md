@@ -34,6 +34,18 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-5)
   - [`dir`](#dir)
     - [Example](#example-6)
+  - [`include_if_any`](#include_if_any)
+    - [Example](#example-7)
+    - [Valid values](#valid-values-7)
+  - [`include_if_all`](#include_if_all)
+    - [Example](#example-8)
+    - [Valid values](#valid-values-8)
+  - [`exclude_if_any`](#exclude_if_any)
+    - [Example](#example-9)
+    - [Valid values](#valid-values-9)
+  - [`exclude_if_all`](#exclude_if_all)
+    - [Example](#example-10)
+    - [Valid values](#valid-values-10)
 
 ## `path`
 
@@ -268,3 +280,151 @@ segments:
           - { path: lib_memory.o }
           - { path: aud_samples.o }
 ```
+
+## `include_if_any`
+
+Allows to conditionally include this entry depending on the current [custom
+options](custom_options.md).
+
+Expects a list of key-value tuples. This entry will be emitted into the
+generated files only if at least one of the given tuples matches the current
+custom options. If none of the elements of this list matches any custom option
+then this whole entry will be omitted.
+
+This conditional behavior is only applied if this field is present and not empty.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      # This entry will be emitted only if `version` is `jpn1.0`
+      - { path: src/boot/expansion_required.o, include_if_any: [[version, jpn1.0]] }
+
+      # This entry will be emitted only if `version` is either `pal1.0`, `pal1.1` or `pal1.2`
+      - { path: src/boot/language_selector.o, include_if_any: [[version, pal1.0], [version, pal1.1], [version, pal1.2]] }
+
+      # This whole group will be emitted only if `compiler` is `kmc`
+      - kind: group
+        dir: lib/libkmc
+        include_if_any: [[compiler, kmc]]
+        files:
+          - { path: memmove.o }
+          - { path: memset.o }
+          - { path: strcpy.o }
+          - { path: mmuldi3.o }
+
+      # This whole group will be emitted only if `compiler` is `modern_gcc`
+      - kind: group
+        dir: lib
+        include_if_any: [[compiler, modern_gcc]]
+        files:
+          - { path: libgcc.a }
+```
+
+### Valid values
+
+A list of two-tuples of strings.
+
+## `include_if_all`
+
+Allows to conditionally include this entry depending on the current [custom
+options](custom_options.md).
+
+Expects a list of key-value tuples. This entry will be emitted into the
+generated files only if all the given tuples matches the current custom options.
+If at least one of the elements of this list does not matches any custom option
+then this whole entry will be omitted.
+
+This conditional behavior is only applied if this field is present and not empty.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      # This entry will be emitted only if `compiler` is `modern_gcc` and `modding` is `true`
+      - { path: src/boot/is_viewer.o, include_if_all: [[compiler, modern_gcc], [modding, true]] }
+```
+
+### Valid values
+
+A list of two-tuples of strings.
+
+## `exclude_if_any`
+
+Allows to conditionally exclude this entry depending on the current [custom
+options](custom_options.md).
+
+Expects a list of key-value tuples. This entry won't be emitted into the
+generated files only if at least one of the given tuples matches the current
+custom options. If none of the elements of this list matches any custom option
+then this entry will be normally emitted.
+
+This conditional behavior is only applied if this field is present and not empty.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      # This entry will be emitted only if `compiler` is not `modern_gcc` and `compiler` is not `kmc`
+      - { path: src/libultra/libc/ll.o, exclude_if_any: [[compiler, modern_gcc], [compiler, kmc]] }
+```
+
+### Valid values
+
+A list of two-tuples of strings.
+
+## `exclude_if_all`
+
+Allows to conditionally exclude this entry depending on the current [custom
+options](custom_options.md).
+
+Expects a list of key-value tuples. This entry will not be emitted into the
+generated files only if all the given tuples matches the current custom options.
+If at least one of the elements of this list does match any custom option then
+this whole entry will be normally emitted.
+
+This conditional behavior is only applied if this field is present and not empty.
+
+### Example
+
+```yaml
+settings:
+  base_path: build
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o }
+
+      # This entry won't be emitted only if `compiler` is `modern_gcc` and `modding` is `true`
+      - { path: src/boot/is_viewer.o, exclude_if_all: [[compiler, modern_gcc], [modding, true]] }
+```
+
+### Valid values
+
+A list of two-tuples of strings.

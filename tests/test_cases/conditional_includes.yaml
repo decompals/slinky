@@ -35,3 +35,19 @@ segments:
       - { path: src/boot/file27.o, include_if_any: [[version, jp], [modding, true]], exclude_if_any: [[version, us]] }
       - { path: src/boot/file28.o, include_if_any: [[version, us], [modding, true]], exclude_if_any: [[version, jp]] }
       - { path: src/boot/file29.o, include_if_any: [[version, jp], [modding, true]], include_if_all: [[version, us]], exclude_if_any: [[version, jp]] }
+
+      - kind: group
+        dir: lib/libkmc
+        include_if_any: [[compiler, kmc]]
+        files:
+          - { path: memmove.o }
+          - { path: memset.o }
+          - { path: strcpy.o }
+          - { path: mmuldi3.o }
+
+      - kind: group
+        dir: lib
+        include_if_any: [[compiler, modern_gcc]]
+        files:
+          - { path: libgcc.a }
+
