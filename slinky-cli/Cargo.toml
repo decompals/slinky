@@ -5,8 +5,14 @@
 name = "slinky-cli"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.74.1"
+authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
+license = "MIT"
+description = "Linker script generator for decompilation and modding projects"
+repository = "https://github.com/decompals/slinky"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+keywords = ["linker_script", "generator", "decompilation"]
+categories = ["development-tools::build-utils"]
 
 [dependencies]
 clap = { version = "4.5.1", features = ["derive"] }
