@@ -763,8 +763,9 @@ impl LinkerWriter<'_> {
 
         for file in &segment.files {
             if !file.section_order.is_empty() {
-                // Keys specify the section and value specify where it will be put
-                // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`
+                // Keys specify the section and value specify where it will be put.
+                // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`.
+                // It was done this way instead of the other way around (ie keys specifying the destination section) because the other way would not allow specifying multiple sections should be put in the same destination section.
 
                 let mut sections_to_emit_here = if file.section_order.contains_key(section) {
                     // This section should be placed somewhere else

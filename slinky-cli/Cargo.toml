@@ -11,8 +11,8 @@ license = "MIT"
 description = "Linker script generator for decompilation and modding projects"
 repository = "https://github.com/decompals/slinky"
 
-keywords = ["linker_script", "generator", "decompilation"]
-categories = ["development-tools::build-utils"]
+keywords = ["linker_script", "generator", "decompilation", "cli"]
+categories = ["development-tools::build-utils", "command-line-utilities"]
 
 [dependencies]
 clap = { version = "4.5.1", features = ["derive"] }

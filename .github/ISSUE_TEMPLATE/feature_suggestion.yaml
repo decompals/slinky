@@ -1,7 +1,7 @@
 name: Feature suggestion
 description: Suggest a new feature
 title: "[Suggestion]: "
-labels: ["enhancement"]
+labels: ["enhancement suggestion"]
 projects: ["decompals/1"]
 body:
   - type: markdown
