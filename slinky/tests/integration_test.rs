@@ -16,6 +16,8 @@ fn create_runtime_settings() -> RuntimeSettings {
         ("compiler".into(), "modern_gcc".into()),
     ]);
 
+    rs.set_emit_version_comment(false);
+
     rs
 }
 

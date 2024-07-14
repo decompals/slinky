@@ -26,6 +26,10 @@ struct Cli {
 
     #[arg(short = 'c', long, value_parser = parse_key_val::<String, String>, value_delimiter = ',')]
     custom_options: Vec<(String, String)>,
+
+    /// Disables the version comment emitted on linker scripts
+    #[arg(long)]
+    omit_version_comment: bool,
 }
 
 // Taken from https://github.com/clap-rs/clap/blob/f5965e586292d31b2a2cbd83f19d145180471012/examples/typed-derive.rs#L48
@@ -56,6 +60,8 @@ fn create_runtime_settings(cli: &Cli) -> RuntimeSettings {
     }
 
     rs.add_custom_options(cli.custom_options.iter().cloned());
+
+    rs.set_emit_version_comment(!cli.omit_version_comment);
 
     rs
 }

@@ -23,6 +23,8 @@ mod partial_linker_writer;
 
 mod runtime_settings;
 
+pub mod version;
+
 pub use error::SlinkyError;
 
 pub use linker_symbols_style::LinkerSymbolsStyle;

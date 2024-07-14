@@ -11,6 +11,8 @@ use crate::SlinkyError;
 #[derive(PartialEq, Debug)]
 pub struct RuntimeSettings {
     custom_options: HashMap<String, String>,
+
+    emit_version_comment: bool,
 }
 
 impl Default for RuntimeSettings {
@@ -23,6 +25,8 @@ impl RuntimeSettings {
     pub fn new() -> Self {
         Self {
             custom_options: HashMap::new(),
+
+            emit_version_comment: true,
         }
     }
 
@@ -35,6 +39,14 @@ impl RuntimeSettings {
         I: IntoIterator<Item = (String, String)>,
     {
         self.custom_options.extend(others);
+    }
+
+    pub fn emit_version_comment(&self) -> bool {
+        self.emit_version_comment
+    }
+
+    pub fn set_emit_version_comment(&mut self, emit: bool) {
+        self.emit_version_comment = emit;
     }
 }
 

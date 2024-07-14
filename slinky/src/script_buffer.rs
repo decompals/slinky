@@ -74,11 +74,6 @@ impl ScriptBuffer {
 
 impl ScriptBuffer {
     #[must_use]
-    pub fn is_empty(&self) -> bool {
-        self.buffer.is_empty()
-    }
-
-    #[must_use]
     pub fn get_buffer(&self) -> &[String] {
         &self.buffer
     }
