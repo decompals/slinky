@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
-use crate::{utils, Document, VramClass};
+use crate::{utils, Document, RuntimeSettings, VramClass};
 use crate::{FileInfo, Segment};
 
 use crate::script_buffer::ScriptBuffer;
@@ -26,10 +26,11 @@ pub struct LinkerWriter<'a> {
     emit_section_symbols: bool,
 
     d: &'a Document,
+    rs: &'a RuntimeSettings,
 }
 
 impl<'a> LinkerWriter<'a> {
-    pub fn new(d: &'a Document) -> Self {
+    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
         let mut vram_classes = indexmap::IndexMap::with_capacity(d.vram_classes.len());
         for vram_class in &d.vram_classes {
             vram_classes.insert(vram_class.name.clone(), vram_class.clone());
@@ -49,11 +50,12 @@ impl<'a> LinkerWriter<'a> {
             emit_section_symbols: true,
 
             d,
+            rs,
         }
     }
 
-    pub fn new_reference_partial_objects(d: &'a Document) -> Self {
-        let mut s = Self::new(d);
+    pub fn new_reference_partial_objects(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
+        let mut s = Self::new(d, rs);
 
         s.reference_partial_objects = true;
 
@@ -175,7 +177,7 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
-        if !self.d.should_emit_entry(
+        if !self.rs.should_emit_entry(
             &segment.exclude_if_any,
             &segment.exclude_if_all,
             &segment.include_if_any,
@@ -346,7 +348,7 @@ impl LinkerWriter<'_> {
         dst: &mut impl Write,
         target_path: &Path,
     ) -> Result<(), SlinkyError> {
-        let escaped_target_path = self.d.escape_path(target_path)?;
+        let escaped_target_path = self.rs.escape_path(target_path)?;
         if let Err(e) = write!(dst, "{}:", escaped_target_path.display()) {
             return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
@@ -355,7 +357,7 @@ impl LinkerWriter<'_> {
         }
 
         for p in &self.files_paths {
-            let escaped_p = self.d.escape_path(p)?;
+            let escaped_p = self.rs.escape_path(p)?;
             if let Err(e) = write!(dst, " \\\n    {}", escaped_p.display()) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
@@ -372,7 +374,7 @@ impl LinkerWriter<'_> {
         }
 
         for p in &self.files_paths {
-            let escaped_p = self.d.escape_path(p)?;
+            let escaped_p = self.rs.escape_path(p)?;
             if let Err(e) = writeln!(dst, "{}:", escaped_p.display()) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
@@ -477,14 +479,14 @@ impl LinkerWriter<'_> {
         if let Some(d_path) = &self.d.settings.d_path {
             if let Some(target_path) = &self.d.settings.target_path {
                 self.export_dependencies_file_to_file(
-                    &self.d.escape_path(d_path)?,
-                    &self.d.escape_path(target_path)?,
+                    &self.rs.escape_path(d_path)?,
+                    &self.rs.escape_path(target_path)?,
                 )?;
             }
         }
 
         if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
-            self.export_symbol_header_to_file(&self.d.escape_path(symbols_header_path)?)?;
+            self.export_symbol_header_to_file(&self.rs.escape_path(symbols_header_path)?)?;
         }
 
         Ok(())
@@ -632,7 +634,7 @@ impl LinkerWriter<'_> {
         section: &str,
         base_path: &Path,
     ) -> Result<(), SlinkyError> {
-        if !self.d.should_emit_entry(
+        if !self.rs.should_emit_entry(
             &file.exclude_if_any,
             &file.exclude_if_all,
             &file.include_if_any,
@@ -651,7 +653,7 @@ impl LinkerWriter<'_> {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
-                let escaped_path = self.d.escape_path(&path)?;
+                let escaped_path = self.rs.escape_path(&path)?;
 
                 self.buffer.writeln(&format!(
                     "{}({}{});",
@@ -667,7 +669,7 @@ impl LinkerWriter<'_> {
                 let mut path = base_path.to_path_buf();
                 path.extend(&file.path);
 
-                let escaped_path = self.d.escape_path(&path)?;
+                let escaped_path = self.rs.escape_path(&path)?;
 
                 self.buffer.writeln(&format!(
                     "{}:{}({}{});",

@@ -5,6 +5,7 @@ use std::{error::Error, path::PathBuf};
 
 use clap::Parser;
 use regex::Regex;
+use slinky::RuntimeSettings;
 
 // TODO: Add program description to cli
 
@@ -42,28 +43,35 @@ where
     Ok((s[..pos].parse()?, s[pos + 1..].parse()?))
 }
 
-fn main() {
-    let cli = Cli::parse();
-
-    // TODO: don't use expect?
-    let mut document =
-        slinky::Document::read_file(&cli.input).expect("Error while parsing input file");
-
-    // println!("settings {:#?}", document.settings);
+fn create_runtime_settings(cli: &Cli) -> RuntimeSettings {
+    let mut rs = RuntimeSettings::new();
 
     let regex_identifier = Regex::new(r"[a-zA-Z_][a-zA-Z0-9_]*").unwrap();
 
-    document.custom_options.reserve(cli.custom_options.len());
-    for (key, value) in &cli.custom_options {
+    for (key, _value) in &cli.custom_options {
         if !regex_identifier.is_match(key) {
             // TODO: is there a better alternative than a plain panic?
             panic!("Invalid key for custom option: '{}'", key);
         }
-        document.custom_options.insert(key.into(), value.into());
     }
 
+    rs.add_custom_options(cli.custom_options.iter().cloned());
+
+    rs
+}
+
+fn main() {
+    let cli = Cli::parse();
+
+    // TODO: don't use expect?
+    let document = slinky::Document::read_file(&cli.input).expect("Error while parsing input file");
+
+    // println!("settings {:#?}", document.settings);
+
+    let rs = create_runtime_settings(&cli);
+
     if cli.partial_linking {
-        let mut writer = slinky::PartialLinkerWriter::new(&document);
+        let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
 
         writer.add_all_segments(&document.segments).expect("");
 
@@ -77,7 +85,7 @@ fn main() {
             .save_other_files()
             .expect("Error writing other files listed on the document");
     } else {
-        let mut writer = slinky::LinkerWriter::new(&document);
+        let mut writer = slinky::LinkerWriter::new(&document, &rs);
 
         writer.add_all_segments(&document.segments).expect("ah?");
 

@@ -5,24 +5,25 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use rstest::rstest;
-use slinky::{Document, SlinkyError};
+use slinky::{RuntimeSettings, SlinkyError};
 
-fn set_custom_options(document: &mut Document) {
+fn create_runtime_settings() -> RuntimeSettings {
+    let mut rs = RuntimeSettings::new();
+
     // We are lazy and use the same version for every test case
-    document
-        .custom_options
-        .insert("version".into(), "us".into());
-    document
-        .custom_options
-        .insert("compiler".into(), "modern_gcc".into());
+    rs.add_custom_options([
+        ("version".into(), "us".into()),
+        ("compiler".into(), "modern_gcc".into()),
+    ]);
+
+    rs
 }
 
 fn check_ld_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyError> {
-    let mut document =
-        slinky::Document::read_file(yaml_path).expect("unable to read original file");
-    set_custom_options(&mut document);
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments)?;
 
     let expected_ld_contents =
@@ -37,11 +38,10 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErr
 }
 
 fn check_d_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyError> {
-    let mut document =
-        slinky::Document::read_file(yaml_path).expect("unable to read original file");
-    set_custom_options(&mut document);
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments)?;
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
@@ -58,11 +58,10 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErro
 }
 
 fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyError> {
-    let mut document =
-        slinky::Document::read_file(yaml_path).expect("unable to read original file");
-    set_custom_options(&mut document);
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments)?;
 
     let expected_h_contents = fs::read_to_string(ld_path).expect("unable to read expected h file");
@@ -109,8 +108,9 @@ fn test_partial_linking_script_generation(
     let yaml_path = ld_path.with_extension("yaml");
 
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments).expect("");
 
     let expected_ld_contents =
@@ -146,8 +146,9 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
     let yaml_path = d_path.with_extension("yaml");
 
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments).expect("");
 
     let expected_d_contents = fs::read_to_string(d_path).expect("unable to read expected d file");
@@ -189,8 +190,9 @@ fn test_partial_linking_symbols_header_generation(
 ) {
     let yaml_path = h_path.with_extension("yaml");
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
     writer.add_all_segments(&document.segments).expect("");
 
     let expected_h_contents = fs::read_to_string(h_path).expect("unable to read expected h file");

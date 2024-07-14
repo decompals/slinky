@@ -3,7 +3,7 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::{Document, FileInfo, LinkerWriter, Segment, SlinkyError};
+use crate::{Document, FileInfo, LinkerWriter, RuntimeSettings, Segment, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
@@ -11,16 +11,18 @@ pub struct PartialLinkerWriter<'a> {
     partial_writers: Vec<(LinkerWriter<'a>, String)>,
 
     d: &'a Document,
+    rs: &'a RuntimeSettings,
 }
 
 impl<'a> PartialLinkerWriter<'a> {
-    pub fn new(d: &'a Document) -> Self {
+    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
         Self {
-            main_writer: LinkerWriter::new_reference_partial_objects(d),
+            main_writer: LinkerWriter::new_reference_partial_objects(d, rs),
 
             partial_writers: Vec::new(),
 
             d,
+            rs,
         }
     }
 
@@ -29,7 +31,7 @@ impl<'a> PartialLinkerWriter<'a> {
 
         self.partial_writers.reserve(segments.len());
         for segment in segments {
-            let mut partial_writer = LinkerWriter::new(self.d);
+            let mut partial_writer = LinkerWriter::new(self.d, self.rs);
 
             partial_writer.set_emit_sections_kind_symbols(false);
             partial_writer.set_emit_section_symbols(false);

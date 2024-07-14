@@ -21,6 +21,8 @@ mod script_buffer;
 mod linker_writer;
 mod partial_linker_writer;
 
+mod runtime_settings;
+
 pub use error::SlinkyError;
 
 pub use linker_symbols_style::LinkerSymbolsStyle;
@@ -36,3 +38,5 @@ pub use document::Document;
 
 pub use linker_writer::LinkerWriter;
 pub use partial_linker_writer::PartialLinkerWriter;
+
+pub use runtime_settings::RuntimeSettings;
