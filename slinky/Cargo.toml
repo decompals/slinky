@@ -21,4 +21,4 @@ thiserror = "1.0.57"
 indexmap = "2.2.6"
 
 [dev-dependencies]
-rstest = "0.18.2"
+rstest = "0.21.0"
