@@ -69,9 +69,10 @@ SECTIONS
 
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
+
+    __romPos += SIZEOF(.boot);
     boot_VRAM_END = .;
     boot_VRAM_SIZE = ABSOLUTE(boot_VRAM_END - boot_VRAM);
-    __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
@@ -134,9 +135,10 @@ SECTIONS
 
     kanji_noload_VRAM_END = .;
     kanji_noload_VRAM_SIZE = ABSOLUTE(kanji_noload_VRAM_END - kanji_noload_VRAM);
+
+    __romPos += SIZEOF(.kanji);
     kanji_VRAM_END = .;
     kanji_VRAM_SIZE = ABSOLUTE(kanji_VRAM_END - kanji_VRAM);
-    __romPos += SIZEOF(.kanji);
     kanji_ROM_END = __romPos;
     kanji_ROM_SIZE = ABSOLUTE(kanji_ROM_END - kanji_ROM_START);
 
@@ -223,9 +225,10 @@ SECTIONS
 
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
+
+    __romPos += SIZEOF(.main);
     main_VRAM_END = .;
     main_VRAM_SIZE = ABSOLUTE(main_VRAM_END - main_VRAM);
-    __romPos += SIZEOF(.main);
     main_ROM_END = __romPos;
     main_ROM_SIZE = ABSOLUTE(main_ROM_END - main_ROM_START);
 

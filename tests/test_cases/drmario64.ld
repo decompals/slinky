@@ -61,9 +61,10 @@ SECTIONS
 
     header_noload_VRAM_END = .;
     header_noload_VRAM_SIZE = ABSOLUTE(header_noload_VRAM_END - header_noload_VRAM);
+
+    __romPos += SIZEOF(.header);
     header_VRAM_END = .;
     header_VRAM_SIZE = ABSOLUTE(header_VRAM_END - header_VRAM);
-    __romPos += SIZEOF(.header);
     header_ROM_END = __romPos;
     header_ROM_SIZE = ABSOLUTE(header_ROM_END - header_ROM_START);
 
@@ -126,9 +127,10 @@ SECTIONS
 
     ipl3_noload_VRAM_END = .;
     ipl3_noload_VRAM_SIZE = ABSOLUTE(ipl3_noload_VRAM_END - ipl3_noload_VRAM);
+
+    __romPos += SIZEOF(.ipl3);
     ipl3_VRAM_END = .;
     ipl3_VRAM_SIZE = ABSOLUTE(ipl3_VRAM_END - ipl3_VRAM);
-    __romPos += SIZEOF(.ipl3);
     ipl3_ROM_END = __romPos;
     ipl3_ROM_SIZE = ABSOLUTE(ipl3_ROM_END - ipl3_ROM_START);
 
@@ -191,9 +193,10 @@ SECTIONS
 
     entry_noload_VRAM_END = .;
     entry_noload_VRAM_SIZE = ABSOLUTE(entry_noload_VRAM_END - entry_noload_VRAM);
+
+    __romPos += SIZEOF(.entry);
     entry_VRAM_END = .;
     entry_VRAM_SIZE = ABSOLUTE(entry_VRAM_END - entry_VRAM);
-    __romPos += SIZEOF(.entry);
     entry_ROM_END = __romPos;
     entry_ROM_SIZE = ABSOLUTE(entry_ROM_END - entry_ROM_START);
 
@@ -1496,9 +1499,10 @@ SECTIONS
 
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
+
+    __romPos += SIZEOF(.boot);
     boot_VRAM_END = .;
     boot_VRAM_SIZE = ABSOLUTE(boot_VRAM_END - boot_VRAM);
-    __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
@@ -1561,9 +1565,10 @@ SECTIONS
 
     dma_table_noload_VRAM_END = .;
     dma_table_noload_VRAM_SIZE = ABSOLUTE(dma_table_noload_VRAM_END - dma_table_noload_VRAM);
+
+    __romPos += SIZEOF(.dma_table);
     dma_table_VRAM_END = .;
     dma_table_VRAM_SIZE = ABSOLUTE(dma_table_VRAM_END - dma_table_VRAM);
-    __romPos += SIZEOF(.dma_table);
     dma_table_ROM_END = __romPos;
     dma_table_ROM_SIZE = ABSOLUTE(dma_table_ROM_END - dma_table_ROM_START);
 
@@ -2186,9 +2191,10 @@ SECTIONS
 
     main_segment_noload_VRAM_END = .;
     main_segment_noload_VRAM_SIZE = ABSOLUTE(main_segment_noload_VRAM_END - main_segment_noload_VRAM);
+
+    __romPos += SIZEOF(.main_segment);
     main_segment_VRAM_END = .;
     main_segment_VRAM_SIZE = ABSOLUTE(main_segment_VRAM_END - main_segment_VRAM);
-    __romPos += SIZEOF(.main_segment);
     main_segment_ROM_END = __romPos;
     main_segment_ROM_SIZE = ABSOLUTE(main_segment_ROM_END - main_segment_ROM_START);
 
@@ -2251,9 +2257,10 @@ SECTIONS
 
     buffer1_noload_VRAM_END = .;
     buffer1_noload_VRAM_SIZE = ABSOLUTE(buffer1_noload_VRAM_END - buffer1_noload_VRAM);
+
+    __romPos += SIZEOF(.buffer1);
     buffer1_VRAM_END = .;
     buffer1_VRAM_SIZE = ABSOLUTE(buffer1_VRAM_END - buffer1_VRAM);
-    __romPos += SIZEOF(.buffer1);
     buffer1_ROM_END = __romPos;
     buffer1_ROM_SIZE = ABSOLUTE(buffer1_ROM_END - buffer1_ROM_START);
 
@@ -2316,9 +2323,10 @@ SECTIONS
 
     buffer2_noload_VRAM_END = .;
     buffer2_noload_VRAM_SIZE = ABSOLUTE(buffer2_noload_VRAM_END - buffer2_noload_VRAM);
+
+    __romPos += SIZEOF(.buffer2);
     buffer2_VRAM_END = .;
     buffer2_VRAM_SIZE = ABSOLUTE(buffer2_VRAM_END - buffer2_VRAM);
-    __romPos += SIZEOF(.buffer2);
     buffer2_ROM_END = __romPos;
     buffer2_ROM_SIZE = ABSOLUTE(buffer2_ROM_END - buffer2_ROM_START);
 
@@ -2381,9 +2389,10 @@ SECTIONS
 
     framebuffer_noload_VRAM_END = .;
     framebuffer_noload_VRAM_SIZE = ABSOLUTE(framebuffer_noload_VRAM_END - framebuffer_noload_VRAM);
+
+    __romPos += SIZEOF(.framebuffer);
     framebuffer_VRAM_END = .;
     framebuffer_VRAM_SIZE = ABSOLUTE(framebuffer_VRAM_END - framebuffer_VRAM);
-    __romPos += SIZEOF(.framebuffer);
     framebuffer_ROM_END = __romPos;
     framebuffer_ROM_SIZE = ABSOLUTE(framebuffer_ROM_END - framebuffer_ROM_START);
 
@@ -2446,9 +2455,10 @@ SECTIONS
 
     n64_wave_tables_noload_VRAM_END = .;
     n64_wave_tables_noload_VRAM_SIZE = ABSOLUTE(n64_wave_tables_noload_VRAM_END - n64_wave_tables_noload_VRAM);
+
+    __romPos += SIZEOF(.n64_wave_tables);
     n64_wave_tables_VRAM_END = .;
     n64_wave_tables_VRAM_SIZE = ABSOLUTE(n64_wave_tables_VRAM_END - n64_wave_tables_VRAM);
-    __romPos += SIZEOF(.n64_wave_tables);
     n64_wave_tables_ROM_END = __romPos;
     n64_wave_tables_ROM_SIZE = ABSOLUTE(n64_wave_tables_ROM_END - n64_wave_tables_ROM_START);
 
@@ -2511,9 +2521,10 @@ SECTIONS
 
     n64_ptr_tables_v2_noload_VRAM_END = .;
     n64_ptr_tables_v2_noload_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_noload_VRAM_END - n64_ptr_tables_v2_noload_VRAM);
+
+    __romPos += SIZEOF(.n64_ptr_tables_v2);
     n64_ptr_tables_v2_VRAM_END = .;
     n64_ptr_tables_v2_VRAM_SIZE = ABSOLUTE(n64_ptr_tables_v2_VRAM_END - n64_ptr_tables_v2_VRAM);
-    __romPos += SIZEOF(.n64_ptr_tables_v2);
     n64_ptr_tables_v2_ROM_END = __romPos;
     n64_ptr_tables_v2_ROM_SIZE = ABSOLUTE(n64_ptr_tables_v2_ROM_END - n64_ptr_tables_v2_ROM_START);
 
@@ -2576,9 +2587,10 @@ SECTIONS
 
     segment_172130_noload_VRAM_END = .;
     segment_172130_noload_VRAM_SIZE = ABSOLUTE(segment_172130_noload_VRAM_END - segment_172130_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_172130);
     segment_172130_VRAM_END = .;
     segment_172130_VRAM_SIZE = ABSOLUTE(segment_172130_VRAM_END - segment_172130_VRAM);
-    __romPos += SIZEOF(.segment_172130);
     segment_172130_ROM_END = __romPos;
     segment_172130_ROM_SIZE = ABSOLUTE(segment_172130_ROM_END - segment_172130_ROM_START);
 
@@ -2641,9 +2653,10 @@ SECTIONS
 
     segment_172D60_noload_VRAM_END = .;
     segment_172D60_noload_VRAM_SIZE = ABSOLUTE(segment_172D60_noload_VRAM_END - segment_172D60_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_172D60);
     segment_172D60_VRAM_END = .;
     segment_172D60_VRAM_SIZE = ABSOLUTE(segment_172D60_VRAM_END - segment_172D60_VRAM);
-    __romPos += SIZEOF(.segment_172D60);
     segment_172D60_ROM_END = __romPos;
     segment_172D60_ROM_SIZE = ABSOLUTE(segment_172D60_ROM_END - segment_172D60_ROM_START);
 
@@ -2706,9 +2719,10 @@ SECTIONS
 
     segment_1750C0_noload_VRAM_END = .;
     segment_1750C0_noload_VRAM_SIZE = ABSOLUTE(segment_1750C0_noload_VRAM_END - segment_1750C0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_1750C0);
     segment_1750C0_VRAM_END = .;
     segment_1750C0_VRAM_SIZE = ABSOLUTE(segment_1750C0_VRAM_END - segment_1750C0_VRAM);
-    __romPos += SIZEOF(.segment_1750C0);
     segment_1750C0_ROM_END = __romPos;
     segment_1750C0_ROM_SIZE = ABSOLUTE(segment_1750C0_ROM_END - segment_1750C0_ROM_START);
 
@@ -2771,9 +2785,10 @@ SECTIONS
 
     segment_177420_noload_VRAM_END = .;
     segment_177420_noload_VRAM_SIZE = ABSOLUTE(segment_177420_noload_VRAM_END - segment_177420_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_177420);
     segment_177420_VRAM_END = .;
     segment_177420_VRAM_SIZE = ABSOLUTE(segment_177420_VRAM_END - segment_177420_VRAM);
-    __romPos += SIZEOF(.segment_177420);
     segment_177420_ROM_END = __romPos;
     segment_177420_ROM_SIZE = ABSOLUTE(segment_177420_ROM_END - segment_177420_ROM_START);
 
@@ -2836,9 +2851,10 @@ SECTIONS
 
     segment_179620_noload_VRAM_END = .;
     segment_179620_noload_VRAM_SIZE = ABSOLUTE(segment_179620_noload_VRAM_END - segment_179620_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_179620);
     segment_179620_VRAM_END = .;
     segment_179620_VRAM_SIZE = ABSOLUTE(segment_179620_VRAM_END - segment_179620_VRAM);
-    __romPos += SIZEOF(.segment_179620);
     segment_179620_ROM_END = __romPos;
     segment_179620_ROM_SIZE = ABSOLUTE(segment_179620_ROM_END - segment_179620_ROM_START);
 
@@ -2901,9 +2917,10 @@ SECTIONS
 
     segment_17B790_noload_VRAM_END = .;
     segment_17B790_noload_VRAM_SIZE = ABSOLUTE(segment_17B790_noload_VRAM_END - segment_17B790_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_17B790);
     segment_17B790_VRAM_END = .;
     segment_17B790_VRAM_SIZE = ABSOLUTE(segment_17B790_VRAM_END - segment_17B790_VRAM);
-    __romPos += SIZEOF(.segment_17B790);
     segment_17B790_ROM_END = __romPos;
     segment_17B790_ROM_SIZE = ABSOLUTE(segment_17B790_ROM_END - segment_17B790_ROM_START);
 
@@ -2966,9 +2983,10 @@ SECTIONS
 
     segment_17C1E0_noload_VRAM_END = .;
     segment_17C1E0_noload_VRAM_SIZE = ABSOLUTE(segment_17C1E0_noload_VRAM_END - segment_17C1E0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_17C1E0);
     segment_17C1E0_VRAM_END = .;
     segment_17C1E0_VRAM_SIZE = ABSOLUTE(segment_17C1E0_VRAM_END - segment_17C1E0_VRAM);
-    __romPos += SIZEOF(.segment_17C1E0);
     segment_17C1E0_ROM_END = __romPos;
     segment_17C1E0_ROM_SIZE = ABSOLUTE(segment_17C1E0_ROM_END - segment_17C1E0_ROM_START);
 
@@ -3031,9 +3049,10 @@ SECTIONS
 
     segment_17D130_noload_VRAM_END = .;
     segment_17D130_noload_VRAM_SIZE = ABSOLUTE(segment_17D130_noload_VRAM_END - segment_17D130_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_17D130);
     segment_17D130_VRAM_END = .;
     segment_17D130_VRAM_SIZE = ABSOLUTE(segment_17D130_VRAM_END - segment_17D130_VRAM);
-    __romPos += SIZEOF(.segment_17D130);
     segment_17D130_ROM_END = __romPos;
     segment_17D130_ROM_SIZE = ABSOLUTE(segment_17D130_ROM_END - segment_17D130_ROM_START);
 
@@ -3096,9 +3115,10 @@ SECTIONS
 
     segment_17E090_noload_VRAM_END = .;
     segment_17E090_noload_VRAM_SIZE = ABSOLUTE(segment_17E090_noload_VRAM_END - segment_17E090_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_17E090);
     segment_17E090_VRAM_END = .;
     segment_17E090_VRAM_SIZE = ABSOLUTE(segment_17E090_VRAM_END - segment_17E090_VRAM);
-    __romPos += SIZEOF(.segment_17E090);
     segment_17E090_ROM_END = __romPos;
     segment_17E090_ROM_SIZE = ABSOLUTE(segment_17E090_ROM_END - segment_17E090_ROM_START);
 
@@ -3161,9 +3181,10 @@ SECTIONS
 
     segment_181840_noload_VRAM_END = .;
     segment_181840_noload_VRAM_SIZE = ABSOLUTE(segment_181840_noload_VRAM_END - segment_181840_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_181840);
     segment_181840_VRAM_END = .;
     segment_181840_VRAM_SIZE = ABSOLUTE(segment_181840_VRAM_END - segment_181840_VRAM);
-    __romPos += SIZEOF(.segment_181840);
     segment_181840_ROM_END = __romPos;
     segment_181840_ROM_SIZE = ABSOLUTE(segment_181840_ROM_END - segment_181840_ROM_START);
 
@@ -3226,9 +3247,10 @@ SECTIONS
 
     segment_184FF0_noload_VRAM_END = .;
     segment_184FF0_noload_VRAM_SIZE = ABSOLUTE(segment_184FF0_noload_VRAM_END - segment_184FF0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_184FF0);
     segment_184FF0_VRAM_END = .;
     segment_184FF0_VRAM_SIZE = ABSOLUTE(segment_184FF0_VRAM_END - segment_184FF0_VRAM);
-    __romPos += SIZEOF(.segment_184FF0);
     segment_184FF0_ROM_END = __romPos;
     segment_184FF0_ROM_SIZE = ABSOLUTE(segment_184FF0_ROM_END - segment_184FF0_ROM_START);
 
@@ -3291,9 +3313,10 @@ SECTIONS
 
     segment_186FF0_noload_VRAM_END = .;
     segment_186FF0_noload_VRAM_SIZE = ABSOLUTE(segment_186FF0_noload_VRAM_END - segment_186FF0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_186FF0);
     segment_186FF0_VRAM_END = .;
     segment_186FF0_VRAM_SIZE = ABSOLUTE(segment_186FF0_VRAM_END - segment_186FF0_VRAM);
-    __romPos += SIZEOF(.segment_186FF0);
     segment_186FF0_ROM_END = __romPos;
     segment_186FF0_ROM_SIZE = ABSOLUTE(segment_186FF0_ROM_END - segment_186FF0_ROM_START);
 
@@ -3356,9 +3379,10 @@ SECTIONS
 
     segment_188FF0_noload_VRAM_END = .;
     segment_188FF0_noload_VRAM_SIZE = ABSOLUTE(segment_188FF0_noload_VRAM_END - segment_188FF0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_188FF0);
     segment_188FF0_VRAM_END = .;
     segment_188FF0_VRAM_SIZE = ABSOLUTE(segment_188FF0_VRAM_END - segment_188FF0_VRAM);
-    __romPos += SIZEOF(.segment_188FF0);
     segment_188FF0_ROM_END = __romPos;
     segment_188FF0_ROM_SIZE = ABSOLUTE(segment_188FF0_ROM_END - segment_188FF0_ROM_START);
 
@@ -3421,9 +3445,10 @@ SECTIONS
 
     segment_189D40_noload_VRAM_END = .;
     segment_189D40_noload_VRAM_SIZE = ABSOLUTE(segment_189D40_noload_VRAM_END - segment_189D40_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_189D40);
     segment_189D40_VRAM_END = .;
     segment_189D40_VRAM_SIZE = ABSOLUTE(segment_189D40_VRAM_END - segment_189D40_VRAM);
-    __romPos += SIZEOF(.segment_189D40);
     segment_189D40_ROM_END = __romPos;
     segment_189D40_ROM_SIZE = ABSOLUTE(segment_189D40_ROM_END - segment_189D40_ROM_START);
 
@@ -3486,9 +3511,10 @@ SECTIONS
 
     segment_18CB40_noload_VRAM_END = .;
     segment_18CB40_noload_VRAM_SIZE = ABSOLUTE(segment_18CB40_noload_VRAM_END - segment_18CB40_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_18CB40);
     segment_18CB40_VRAM_END = .;
     segment_18CB40_VRAM_SIZE = ABSOLUTE(segment_18CB40_VRAM_END - segment_18CB40_VRAM);
-    __romPos += SIZEOF(.segment_18CB40);
     segment_18CB40_ROM_END = __romPos;
     segment_18CB40_ROM_SIZE = ABSOLUTE(segment_18CB40_ROM_END - segment_18CB40_ROM_START);
 
@@ -3551,9 +3577,10 @@ SECTIONS
 
     segment_18DB90_noload_VRAM_END = .;
     segment_18DB90_noload_VRAM_SIZE = ABSOLUTE(segment_18DB90_noload_VRAM_END - segment_18DB90_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_18DB90);
     segment_18DB90_VRAM_END = .;
     segment_18DB90_VRAM_SIZE = ABSOLUTE(segment_18DB90_VRAM_END - segment_18DB90_VRAM);
-    __romPos += SIZEOF(.segment_18DB90);
     segment_18DB90_ROM_END = __romPos;
     segment_18DB90_ROM_SIZE = ABSOLUTE(segment_18DB90_ROM_END - segment_18DB90_ROM_START);
 
@@ -3616,9 +3643,10 @@ SECTIONS
 
     segment_18F160_noload_VRAM_END = .;
     segment_18F160_noload_VRAM_SIZE = ABSOLUTE(segment_18F160_noload_VRAM_END - segment_18F160_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_18F160);
     segment_18F160_VRAM_END = .;
     segment_18F160_VRAM_SIZE = ABSOLUTE(segment_18F160_VRAM_END - segment_18F160_VRAM);
-    __romPos += SIZEOF(.segment_18F160);
     segment_18F160_ROM_END = __romPos;
     segment_18F160_ROM_SIZE = ABSOLUTE(segment_18F160_ROM_END - segment_18F160_ROM_START);
 
@@ -3681,9 +3709,10 @@ SECTIONS
 
     segment_1906E0_noload_VRAM_END = .;
     segment_1906E0_noload_VRAM_SIZE = ABSOLUTE(segment_1906E0_noload_VRAM_END - segment_1906E0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_1906E0);
     segment_1906E0_VRAM_END = .;
     segment_1906E0_VRAM_SIZE = ABSOLUTE(segment_1906E0_VRAM_END - segment_1906E0_VRAM);
-    __romPos += SIZEOF(.segment_1906E0);
     segment_1906E0_ROM_END = __romPos;
     segment_1906E0_ROM_SIZE = ABSOLUTE(segment_1906E0_ROM_END - segment_1906E0_ROM_START);
 
@@ -3746,9 +3775,10 @@ SECTIONS
 
     segment_1911D0_noload_VRAM_END = .;
     segment_1911D0_noload_VRAM_SIZE = ABSOLUTE(segment_1911D0_noload_VRAM_END - segment_1911D0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_1911D0);
     segment_1911D0_VRAM_END = .;
     segment_1911D0_VRAM_SIZE = ABSOLUTE(segment_1911D0_VRAM_END - segment_1911D0_VRAM);
-    __romPos += SIZEOF(.segment_1911D0);
     segment_1911D0_ROM_END = __romPos;
     segment_1911D0_ROM_SIZE = ABSOLUTE(segment_1911D0_ROM_END - segment_1911D0_ROM_START);
 
@@ -3811,9 +3841,10 @@ SECTIONS
 
     segment_1936C0_noload_VRAM_END = .;
     segment_1936C0_noload_VRAM_SIZE = ABSOLUTE(segment_1936C0_noload_VRAM_END - segment_1936C0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_1936C0);
     segment_1936C0_VRAM_END = .;
     segment_1936C0_VRAM_SIZE = ABSOLUTE(segment_1936C0_VRAM_END - segment_1936C0_VRAM);
-    __romPos += SIZEOF(.segment_1936C0);
     segment_1936C0_ROM_END = __romPos;
     segment_1936C0_ROM_SIZE = ABSOLUTE(segment_1936C0_ROM_END - segment_1936C0_ROM_START);
 
@@ -3876,9 +3907,10 @@ SECTIONS
 
     segment_1937F0_noload_VRAM_END = .;
     segment_1937F0_noload_VRAM_SIZE = ABSOLUTE(segment_1937F0_noload_VRAM_END - segment_1937F0_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_1937F0);
     segment_1937F0_VRAM_END = .;
     segment_1937F0_VRAM_SIZE = ABSOLUTE(segment_1937F0_VRAM_END - segment_1937F0_VRAM);
-    __romPos += SIZEOF(.segment_1937F0);
     segment_1937F0_ROM_END = __romPos;
     segment_1937F0_ROM_SIZE = ABSOLUTE(segment_1937F0_ROM_END - segment_1937F0_ROM_START);
 
@@ -3941,9 +3973,10 @@ SECTIONS
 
     segment_194070_noload_VRAM_END = .;
     segment_194070_noload_VRAM_SIZE = ABSOLUTE(segment_194070_noload_VRAM_END - segment_194070_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_194070);
     segment_194070_VRAM_END = .;
     segment_194070_VRAM_SIZE = ABSOLUTE(segment_194070_VRAM_END - segment_194070_VRAM);
-    __romPos += SIZEOF(.segment_194070);
     segment_194070_ROM_END = __romPos;
     segment_194070_ROM_SIZE = ABSOLUTE(segment_194070_ROM_END - segment_194070_ROM_START);
 
@@ -4006,9 +4039,10 @@ SECTIONS
 
     segment_194150_noload_VRAM_END = .;
     segment_194150_noload_VRAM_SIZE = ABSOLUTE(segment_194150_noload_VRAM_END - segment_194150_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_194150);
     segment_194150_VRAM_END = .;
     segment_194150_VRAM_SIZE = ABSOLUTE(segment_194150_VRAM_END - segment_194150_VRAM);
-    __romPos += SIZEOF(.segment_194150);
     segment_194150_ROM_END = __romPos;
     segment_194150_ROM_SIZE = ABSOLUTE(segment_194150_ROM_END - segment_194150_ROM_START);
 
@@ -4071,9 +4105,10 @@ SECTIONS
 
     segment_194910_noload_VRAM_END = .;
     segment_194910_noload_VRAM_SIZE = ABSOLUTE(segment_194910_noload_VRAM_END - segment_194910_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_194910);
     segment_194910_VRAM_END = .;
     segment_194910_VRAM_SIZE = ABSOLUTE(segment_194910_VRAM_END - segment_194910_VRAM);
-    __romPos += SIZEOF(.segment_194910);
     segment_194910_ROM_END = __romPos;
     segment_194910_ROM_SIZE = ABSOLUTE(segment_194910_ROM_END - segment_194910_ROM_START);
 
@@ -4136,9 +4171,10 @@ SECTIONS
 
     segment_195290_noload_VRAM_END = .;
     segment_195290_noload_VRAM_SIZE = ABSOLUTE(segment_195290_noload_VRAM_END - segment_195290_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_195290);
     segment_195290_VRAM_END = .;
     segment_195290_VRAM_SIZE = ABSOLUTE(segment_195290_VRAM_END - segment_195290_VRAM);
-    __romPos += SIZEOF(.segment_195290);
     segment_195290_ROM_END = __romPos;
     segment_195290_ROM_SIZE = ABSOLUTE(segment_195290_ROM_END - segment_195290_ROM_START);
 
@@ -4201,9 +4237,10 @@ SECTIONS
 
     segment_game_etc_noload_VRAM_END = .;
     segment_game_etc_noload_VRAM_SIZE = ABSOLUTE(segment_game_etc_noload_VRAM_END - segment_game_etc_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_etc);
     segment_game_etc_VRAM_END = .;
     segment_game_etc_VRAM_SIZE = ABSOLUTE(segment_game_etc_VRAM_END - segment_game_etc_VRAM);
-    __romPos += SIZEOF(.segment_game_etc);
     segment_game_etc_ROM_END = __romPos;
     segment_game_etc_ROM_SIZE = ABSOLUTE(segment_game_etc_ROM_END - segment_game_etc_ROM_START);
 
@@ -4266,9 +4303,10 @@ SECTIONS
 
     segment_menu_bg_noload_VRAM_END = .;
     segment_menu_bg_noload_VRAM_SIZE = ABSOLUTE(segment_menu_bg_noload_VRAM_END - segment_menu_bg_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_bg);
     segment_menu_bg_VRAM_END = .;
     segment_menu_bg_VRAM_SIZE = ABSOLUTE(segment_menu_bg_VRAM_END - segment_menu_bg_VRAM);
-    __romPos += SIZEOF(.segment_menu_bg);
     segment_menu_bg_ROM_END = __romPos;
     segment_menu_bg_ROM_SIZE = ABSOLUTE(segment_menu_bg_ROM_END - segment_menu_bg_ROM_START);
 
@@ -4331,9 +4369,10 @@ SECTIONS
 
     segment_menu_bg2_noload_VRAM_END = .;
     segment_menu_bg2_noload_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_noload_VRAM_END - segment_menu_bg2_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_bg2);
     segment_menu_bg2_VRAM_END = .;
     segment_menu_bg2_VRAM_SIZE = ABSOLUTE(segment_menu_bg2_VRAM_END - segment_menu_bg2_VRAM);
-    __romPos += SIZEOF(.segment_menu_bg2);
     segment_menu_bg2_ROM_END = __romPos;
     segment_menu_bg2_ROM_SIZE = ABSOLUTE(segment_menu_bg2_ROM_END - segment_menu_bg2_ROM_START);
 
@@ -4396,9 +4435,10 @@ SECTIONS
 
     segment_coffee01_noload_VRAM_END = .;
     segment_coffee01_noload_VRAM_SIZE = ABSOLUTE(segment_coffee01_noload_VRAM_END - segment_coffee01_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_coffee01);
     segment_coffee01_VRAM_END = .;
     segment_coffee01_VRAM_SIZE = ABSOLUTE(segment_coffee01_VRAM_END - segment_coffee01_VRAM);
-    __romPos += SIZEOF(.segment_coffee01);
     segment_coffee01_ROM_END = __romPos;
     segment_coffee01_ROM_SIZE = ABSOLUTE(segment_coffee01_ROM_END - segment_coffee01_ROM_START);
 
@@ -4461,9 +4501,10 @@ SECTIONS
 
     segment_title_all_noload_VRAM_END = .;
     segment_title_all_noload_VRAM_SIZE = ABSOLUTE(segment_title_all_noload_VRAM_END - segment_title_all_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_title_all);
     segment_title_all_VRAM_END = .;
     segment_title_all_VRAM_SIZE = ABSOLUTE(segment_title_all_VRAM_END - segment_title_all_VRAM);
-    __romPos += SIZEOF(.segment_title_all);
     segment_title_all_ROM_END = __romPos;
     segment_title_all_ROM_SIZE = ABSOLUTE(segment_title_all_ROM_END - segment_title_all_ROM_START);
 
@@ -4526,9 +4567,10 @@ SECTIONS
 
     segment_title_bmp_noload_VRAM_END = .;
     segment_title_bmp_noload_VRAM_SIZE = ABSOLUTE(segment_title_bmp_noload_VRAM_END - segment_title_bmp_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_title_bmp);
     segment_title_bmp_VRAM_END = .;
     segment_title_bmp_VRAM_SIZE = ABSOLUTE(segment_title_bmp_VRAM_END - segment_title_bmp_VRAM);
-    __romPos += SIZEOF(.segment_title_bmp);
     segment_title_bmp_ROM_END = __romPos;
     segment_title_bmp_ROM_SIZE = ABSOLUTE(segment_title_bmp_ROM_END - segment_title_bmp_ROM_START);
 
@@ -4591,9 +4633,10 @@ SECTIONS
 
     segment_waku_noload_VRAM_END = .;
     segment_waku_noload_VRAM_SIZE = ABSOLUTE(segment_waku_noload_VRAM_END - segment_waku_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_waku);
     segment_waku_VRAM_END = .;
     segment_waku_VRAM_SIZE = ABSOLUTE(segment_waku_VRAM_END - segment_waku_VRAM);
-    __romPos += SIZEOF(.segment_waku);
     segment_waku_ROM_END = __romPos;
     segment_waku_ROM_SIZE = ABSOLUTE(segment_waku_ROM_END - segment_waku_ROM_START);
 
@@ -4656,9 +4699,10 @@ SECTIONS
 
     segment_waku2_noload_VRAM_END = .;
     segment_waku2_noload_VRAM_SIZE = ABSOLUTE(segment_waku2_noload_VRAM_END - segment_waku2_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_waku2);
     segment_waku2_VRAM_END = .;
     segment_waku2_VRAM_SIZE = ABSOLUTE(segment_waku2_VRAM_END - segment_waku2_VRAM);
-    __romPos += SIZEOF(.segment_waku2);
     segment_waku2_ROM_END = __romPos;
     segment_waku2_ROM_SIZE = ABSOLUTE(segment_waku2_ROM_END - segment_waku2_ROM_START);
 
@@ -4721,9 +4765,10 @@ SECTIONS
 
     segment_story_bg01_noload_VRAM_END = .;
     segment_story_bg01_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg01_noload_VRAM_END - segment_story_bg01_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg01);
     segment_story_bg01_VRAM_END = .;
     segment_story_bg01_VRAM_SIZE = ABSOLUTE(segment_story_bg01_VRAM_END - segment_story_bg01_VRAM);
-    __romPos += SIZEOF(.segment_story_bg01);
     segment_story_bg01_ROM_END = __romPos;
     segment_story_bg01_ROM_SIZE = ABSOLUTE(segment_story_bg01_ROM_END - segment_story_bg01_ROM_START);
 
@@ -4786,9 +4831,10 @@ SECTIONS
 
     segment_story_bg02_noload_VRAM_END = .;
     segment_story_bg02_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg02_noload_VRAM_END - segment_story_bg02_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg02);
     segment_story_bg02_VRAM_END = .;
     segment_story_bg02_VRAM_SIZE = ABSOLUTE(segment_story_bg02_VRAM_END - segment_story_bg02_VRAM);
-    __romPos += SIZEOF(.segment_story_bg02);
     segment_story_bg02_ROM_END = __romPos;
     segment_story_bg02_ROM_SIZE = ABSOLUTE(segment_story_bg02_ROM_END - segment_story_bg02_ROM_START);
 
@@ -4851,9 +4897,10 @@ SECTIONS
 
     segment_story_bg03_noload_VRAM_END = .;
     segment_story_bg03_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg03_noload_VRAM_END - segment_story_bg03_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg03);
     segment_story_bg03_VRAM_END = .;
     segment_story_bg03_VRAM_SIZE = ABSOLUTE(segment_story_bg03_VRAM_END - segment_story_bg03_VRAM);
-    __romPos += SIZEOF(.segment_story_bg03);
     segment_story_bg03_ROM_END = __romPos;
     segment_story_bg03_ROM_SIZE = ABSOLUTE(segment_story_bg03_ROM_END - segment_story_bg03_ROM_START);
 
@@ -4916,9 +4963,10 @@ SECTIONS
 
     segment_story_bg04_noload_VRAM_END = .;
     segment_story_bg04_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg04_noload_VRAM_END - segment_story_bg04_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg04);
     segment_story_bg04_VRAM_END = .;
     segment_story_bg04_VRAM_SIZE = ABSOLUTE(segment_story_bg04_VRAM_END - segment_story_bg04_VRAM);
-    __romPos += SIZEOF(.segment_story_bg04);
     segment_story_bg04_ROM_END = __romPos;
     segment_story_bg04_ROM_SIZE = ABSOLUTE(segment_story_bg04_ROM_END - segment_story_bg04_ROM_START);
 
@@ -4981,9 +5029,10 @@ SECTIONS
 
     segment_story_bg05_noload_VRAM_END = .;
     segment_story_bg05_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg05_noload_VRAM_END - segment_story_bg05_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg05);
     segment_story_bg05_VRAM_END = .;
     segment_story_bg05_VRAM_SIZE = ABSOLUTE(segment_story_bg05_VRAM_END - segment_story_bg05_VRAM);
-    __romPos += SIZEOF(.segment_story_bg05);
     segment_story_bg05_ROM_END = __romPos;
     segment_story_bg05_ROM_SIZE = ABSOLUTE(segment_story_bg05_ROM_END - segment_story_bg05_ROM_START);
 
@@ -5046,9 +5095,10 @@ SECTIONS
 
     segment_story_bg07_noload_VRAM_END = .;
     segment_story_bg07_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg07_noload_VRAM_END - segment_story_bg07_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg07);
     segment_story_bg07_VRAM_END = .;
     segment_story_bg07_VRAM_SIZE = ABSOLUTE(segment_story_bg07_VRAM_END - segment_story_bg07_VRAM);
-    __romPos += SIZEOF(.segment_story_bg07);
     segment_story_bg07_ROM_END = __romPos;
     segment_story_bg07_ROM_SIZE = ABSOLUTE(segment_story_bg07_ROM_END - segment_story_bg07_ROM_START);
 
@@ -5111,9 +5161,10 @@ SECTIONS
 
     segment_story_bg08_noload_VRAM_END = .;
     segment_story_bg08_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg08_noload_VRAM_END - segment_story_bg08_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg08);
     segment_story_bg08_VRAM_END = .;
     segment_story_bg08_VRAM_SIZE = ABSOLUTE(segment_story_bg08_VRAM_END - segment_story_bg08_VRAM);
-    __romPos += SIZEOF(.segment_story_bg08);
     segment_story_bg08_ROM_END = __romPos;
     segment_story_bg08_ROM_SIZE = ABSOLUTE(segment_story_bg08_ROM_END - segment_story_bg08_ROM_START);
 
@@ -5176,9 +5227,10 @@ SECTIONS
 
     segment_story_bg09_noload_VRAM_END = .;
     segment_story_bg09_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg09_noload_VRAM_END - segment_story_bg09_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg09);
     segment_story_bg09_VRAM_END = .;
     segment_story_bg09_VRAM_SIZE = ABSOLUTE(segment_story_bg09_VRAM_END - segment_story_bg09_VRAM);
-    __romPos += SIZEOF(.segment_story_bg09);
     segment_story_bg09_ROM_END = __romPos;
     segment_story_bg09_ROM_SIZE = ABSOLUTE(segment_story_bg09_ROM_END - segment_story_bg09_ROM_START);
 
@@ -5241,9 +5293,10 @@ SECTIONS
 
     segment_story_bg10_noload_VRAM_END = .;
     segment_story_bg10_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg10_noload_VRAM_END - segment_story_bg10_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg10);
     segment_story_bg10_VRAM_END = .;
     segment_story_bg10_VRAM_SIZE = ABSOLUTE(segment_story_bg10_VRAM_END - segment_story_bg10_VRAM);
-    __romPos += SIZEOF(.segment_story_bg10);
     segment_story_bg10_ROM_END = __romPos;
     segment_story_bg10_ROM_SIZE = ABSOLUTE(segment_story_bg10_ROM_END - segment_story_bg10_ROM_START);
 
@@ -5306,9 +5359,10 @@ SECTIONS
 
     segment_story_bg11_noload_VRAM_END = .;
     segment_story_bg11_noload_VRAM_SIZE = ABSOLUTE(segment_story_bg11_noload_VRAM_END - segment_story_bg11_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_story_bg11);
     segment_story_bg11_VRAM_END = .;
     segment_story_bg11_VRAM_SIZE = ABSOLUTE(segment_story_bg11_VRAM_END - segment_story_bg11_VRAM);
-    __romPos += SIZEOF(.segment_story_bg11);
     segment_story_bg11_ROM_END = __romPos;
     segment_story_bg11_ROM_SIZE = ABSOLUTE(segment_story_bg11_ROM_END - segment_story_bg11_ROM_START);
 
@@ -5371,9 +5425,10 @@ SECTIONS
 
     segment_menu_char_noload_VRAM_END = .;
     segment_menu_char_noload_VRAM_SIZE = ABSOLUTE(segment_menu_char_noload_VRAM_END - segment_menu_char_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_char);
     segment_menu_char_VRAM_END = .;
     segment_menu_char_VRAM_SIZE = ABSOLUTE(segment_menu_char_VRAM_END - segment_menu_char_VRAM);
-    __romPos += SIZEOF(.segment_menu_char);
     segment_menu_char_ROM_END = __romPos;
     segment_menu_char_ROM_SIZE = ABSOLUTE(segment_menu_char_ROM_END - segment_menu_char_ROM_START);
 
@@ -5436,9 +5491,10 @@ SECTIONS
 
     segment_menu_common_noload_VRAM_END = .;
     segment_menu_common_noload_VRAM_SIZE = ABSOLUTE(segment_menu_common_noload_VRAM_END - segment_menu_common_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_common);
     segment_menu_common_VRAM_END = .;
     segment_menu_common_VRAM_SIZE = ABSOLUTE(segment_menu_common_VRAM_END - segment_menu_common_VRAM);
-    __romPos += SIZEOF(.segment_menu_common);
     segment_menu_common_ROM_END = __romPos;
     segment_menu_common_ROM_SIZE = ABSOLUTE(segment_menu_common_ROM_END - segment_menu_common_ROM_START);
 
@@ -5501,9 +5557,10 @@ SECTIONS
 
     segment_menu_level_noload_VRAM_END = .;
     segment_menu_level_noload_VRAM_SIZE = ABSOLUTE(segment_menu_level_noload_VRAM_END - segment_menu_level_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_level);
     segment_menu_level_VRAM_END = .;
     segment_menu_level_VRAM_SIZE = ABSOLUTE(segment_menu_level_VRAM_END - segment_menu_level_VRAM);
-    __romPos += SIZEOF(.segment_menu_level);
     segment_menu_level_ROM_END = __romPos;
     segment_menu_level_ROM_SIZE = ABSOLUTE(segment_menu_level_ROM_END - segment_menu_level_ROM_START);
 
@@ -5566,9 +5623,10 @@ SECTIONS
 
     segment_menu_main_noload_VRAM_END = .;
     segment_menu_main_noload_VRAM_SIZE = ABSOLUTE(segment_menu_main_noload_VRAM_END - segment_menu_main_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_main);
     segment_menu_main_VRAM_END = .;
     segment_menu_main_VRAM_SIZE = ABSOLUTE(segment_menu_main_VRAM_END - segment_menu_main_VRAM);
-    __romPos += SIZEOF(.segment_menu_main);
     segment_menu_main_ROM_END = __romPos;
     segment_menu_main_ROM_SIZE = ABSOLUTE(segment_menu_main_ROM_END - segment_menu_main_ROM_START);
 
@@ -5631,9 +5689,10 @@ SECTIONS
 
     segment_menu_name_noload_VRAM_END = .;
     segment_menu_name_noload_VRAM_SIZE = ABSOLUTE(segment_menu_name_noload_VRAM_END - segment_menu_name_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_name);
     segment_menu_name_VRAM_END = .;
     segment_menu_name_VRAM_SIZE = ABSOLUTE(segment_menu_name_VRAM_END - segment_menu_name_VRAM);
-    __romPos += SIZEOF(.segment_menu_name);
     segment_menu_name_ROM_END = __romPos;
     segment_menu_name_ROM_SIZE = ABSOLUTE(segment_menu_name_ROM_END - segment_menu_name_ROM_START);
 
@@ -5696,9 +5755,10 @@ SECTIONS
 
     segment_menu_p2_noload_VRAM_END = .;
     segment_menu_p2_noload_VRAM_SIZE = ABSOLUTE(segment_menu_p2_noload_VRAM_END - segment_menu_p2_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_p2);
     segment_menu_p2_VRAM_END = .;
     segment_menu_p2_VRAM_SIZE = ABSOLUTE(segment_menu_p2_VRAM_END - segment_menu_p2_VRAM);
-    __romPos += SIZEOF(.segment_menu_p2);
     segment_menu_p2_ROM_END = __romPos;
     segment_menu_p2_ROM_SIZE = ABSOLUTE(segment_menu_p2_ROM_END - segment_menu_p2_ROM_START);
 
@@ -5761,9 +5821,10 @@ SECTIONS
 
     segment_menu_p4_noload_VRAM_END = .;
     segment_menu_p4_noload_VRAM_SIZE = ABSOLUTE(segment_menu_p4_noload_VRAM_END - segment_menu_p4_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_p4);
     segment_menu_p4_VRAM_END = .;
     segment_menu_p4_VRAM_SIZE = ABSOLUTE(segment_menu_p4_VRAM_END - segment_menu_p4_VRAM);
-    __romPos += SIZEOF(.segment_menu_p4);
     segment_menu_p4_ROM_END = __romPos;
     segment_menu_p4_ROM_SIZE = ABSOLUTE(segment_menu_p4_ROM_END - segment_menu_p4_ROM_START);
 
@@ -5826,9 +5887,10 @@ SECTIONS
 
     segment_menu_rank_noload_VRAM_END = .;
     segment_menu_rank_noload_VRAM_SIZE = ABSOLUTE(segment_menu_rank_noload_VRAM_END - segment_menu_rank_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_rank);
     segment_menu_rank_VRAM_END = .;
     segment_menu_rank_VRAM_SIZE = ABSOLUTE(segment_menu_rank_VRAM_END - segment_menu_rank_VRAM);
-    __romPos += SIZEOF(.segment_menu_rank);
     segment_menu_rank_ROM_END = __romPos;
     segment_menu_rank_ROM_SIZE = ABSOLUTE(segment_menu_rank_ROM_END - segment_menu_rank_ROM_START);
 
@@ -5891,9 +5953,10 @@ SECTIONS
 
     segment_menu_setup_noload_VRAM_END = .;
     segment_menu_setup_noload_VRAM_SIZE = ABSOLUTE(segment_menu_setup_noload_VRAM_END - segment_menu_setup_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_setup);
     segment_menu_setup_VRAM_END = .;
     segment_menu_setup_VRAM_SIZE = ABSOLUTE(segment_menu_setup_VRAM_END - segment_menu_setup_VRAM);
-    __romPos += SIZEOF(.segment_menu_setup);
     segment_menu_setup_ROM_END = __romPos;
     segment_menu_setup_ROM_SIZE = ABSOLUTE(segment_menu_setup_ROM_END - segment_menu_setup_ROM_START);
 
@@ -5956,9 +6019,10 @@ SECTIONS
 
     segment_menu_story_noload_VRAM_END = .;
     segment_menu_story_noload_VRAM_SIZE = ABSOLUTE(segment_menu_story_noload_VRAM_END - segment_menu_story_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_story);
     segment_menu_story_VRAM_END = .;
     segment_menu_story_VRAM_SIZE = ABSOLUTE(segment_menu_story_VRAM_END - segment_menu_story_VRAM);
-    __romPos += SIZEOF(.segment_menu_story);
     segment_menu_story_ROM_END = __romPos;
     segment_menu_story_ROM_SIZE = ABSOLUTE(segment_menu_story_ROM_END - segment_menu_story_ROM_START);
 
@@ -6021,9 +6085,10 @@ SECTIONS
 
     segment_menu_cont_noload_VRAM_END = .;
     segment_menu_cont_noload_VRAM_SIZE = ABSOLUTE(segment_menu_cont_noload_VRAM_END - segment_menu_cont_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_cont);
     segment_menu_cont_VRAM_END = .;
     segment_menu_cont_VRAM_SIZE = ABSOLUTE(segment_menu_cont_VRAM_END - segment_menu_cont_VRAM);
-    __romPos += SIZEOF(.segment_menu_cont);
     segment_menu_cont_ROM_END = __romPos;
     segment_menu_cont_ROM_SIZE = ABSOLUTE(segment_menu_cont_ROM_END - segment_menu_cont_ROM_START);
 
@@ -6086,9 +6151,10 @@ SECTIONS
 
     segment_menu_kasa_noload_VRAM_END = .;
     segment_menu_kasa_noload_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_noload_VRAM_END - segment_menu_kasa_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_menu_kasa);
     segment_menu_kasa_VRAM_END = .;
     segment_menu_kasa_VRAM_SIZE = ABSOLUTE(segment_menu_kasa_VRAM_END - segment_menu_kasa_VRAM);
-    __romPos += SIZEOF(.segment_menu_kasa);
     segment_menu_kasa_ROM_END = __romPos;
     segment_menu_kasa_ROM_SIZE = ABSOLUTE(segment_menu_kasa_ROM_END - segment_menu_kasa_ROM_START);
 
@@ -6151,9 +6217,10 @@ SECTIONS
 
     segment_game_al_noload_VRAM_END = .;
     segment_game_al_noload_VRAM_SIZE = ABSOLUTE(segment_game_al_noload_VRAM_END - segment_game_al_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_al);
     segment_game_al_VRAM_END = .;
     segment_game_al_VRAM_SIZE = ABSOLUTE(segment_game_al_VRAM_END - segment_game_al_VRAM);
-    __romPos += SIZEOF(.segment_game_al);
     segment_game_al_ROM_END = __romPos;
     segment_game_al_ROM_SIZE = ABSOLUTE(segment_game_al_ROM_END - segment_game_al_ROM_START);
 
@@ -6216,9 +6283,10 @@ SECTIONS
 
     segment_game_p1_noload_VRAM_END = .;
     segment_game_p1_noload_VRAM_SIZE = ABSOLUTE(segment_game_p1_noload_VRAM_END - segment_game_p1_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_p1);
     segment_game_p1_VRAM_END = .;
     segment_game_p1_VRAM_SIZE = ABSOLUTE(segment_game_p1_VRAM_END - segment_game_p1_VRAM);
-    __romPos += SIZEOF(.segment_game_p1);
     segment_game_p1_ROM_END = __romPos;
     segment_game_p1_ROM_SIZE = ABSOLUTE(segment_game_p1_ROM_END - segment_game_p1_ROM_START);
 
@@ -6281,9 +6349,10 @@ SECTIONS
 
     segment_game_p2_noload_VRAM_END = .;
     segment_game_p2_noload_VRAM_SIZE = ABSOLUTE(segment_game_p2_noload_VRAM_END - segment_game_p2_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_p2);
     segment_game_p2_VRAM_END = .;
     segment_game_p2_VRAM_SIZE = ABSOLUTE(segment_game_p2_VRAM_END - segment_game_p2_VRAM);
-    __romPos += SIZEOF(.segment_game_p2);
     segment_game_p2_ROM_END = __romPos;
     segment_game_p2_ROM_SIZE = ABSOLUTE(segment_game_p2_ROM_END - segment_game_p2_ROM_START);
 
@@ -6346,9 +6415,10 @@ SECTIONS
 
     segment_game_p4_noload_VRAM_END = .;
     segment_game_p4_noload_VRAM_SIZE = ABSOLUTE(segment_game_p4_noload_VRAM_END - segment_game_p4_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_p4);
     segment_game_p4_VRAM_END = .;
     segment_game_p4_VRAM_SIZE = ABSOLUTE(segment_game_p4_VRAM_END - segment_game_p4_VRAM);
-    __romPos += SIZEOF(.segment_game_p4);
     segment_game_p4_ROM_END = __romPos;
     segment_game_p4_ROM_SIZE = ABSOLUTE(segment_game_p4_ROM_END - segment_game_p4_ROM_START);
 
@@ -6411,9 +6481,10 @@ SECTIONS
 
     segment_game_ls_noload_VRAM_END = .;
     segment_game_ls_noload_VRAM_SIZE = ABSOLUTE(segment_game_ls_noload_VRAM_END - segment_game_ls_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_ls);
     segment_game_ls_VRAM_END = .;
     segment_game_ls_VRAM_SIZE = ABSOLUTE(segment_game_ls_VRAM_END - segment_game_ls_VRAM);
-    __romPos += SIZEOF(.segment_game_ls);
     segment_game_ls_ROM_END = __romPos;
     segment_game_ls_ROM_SIZE = ABSOLUTE(segment_game_ls_ROM_END - segment_game_ls_ROM_START);
 
@@ -6476,9 +6547,10 @@ SECTIONS
 
     segment_game_item_noload_VRAM_END = .;
     segment_game_item_noload_VRAM_SIZE = ABSOLUTE(segment_game_item_noload_VRAM_END - segment_game_item_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_game_item);
     segment_game_item_VRAM_END = .;
     segment_game_item_VRAM_SIZE = ABSOLUTE(segment_game_item_VRAM_END - segment_game_item_VRAM);
-    __romPos += SIZEOF(.segment_game_item);
     segment_game_item_ROM_END = __romPos;
     segment_game_item_ROM_SIZE = ABSOLUTE(segment_game_item_ROM_END - segment_game_item_ROM_START);
 
@@ -6541,9 +6613,10 @@ SECTIONS
 
     segment_anime_a_noload_VRAM_END = .;
     segment_anime_a_noload_VRAM_SIZE = ABSOLUTE(segment_anime_a_noload_VRAM_END - segment_anime_a_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_a);
     segment_anime_a_VRAM_END = .;
     segment_anime_a_VRAM_SIZE = ABSOLUTE(segment_anime_a_VRAM_END - segment_anime_a_VRAM);
-    __romPos += SIZEOF(.segment_anime_a);
     segment_anime_a_ROM_END = __romPos;
     segment_anime_a_ROM_SIZE = ABSOLUTE(segment_anime_a_ROM_END - segment_anime_a_ROM_START);
 
@@ -6606,9 +6679,10 @@ SECTIONS
 
     segment_anime_b_noload_VRAM_END = .;
     segment_anime_b_noload_VRAM_SIZE = ABSOLUTE(segment_anime_b_noload_VRAM_END - segment_anime_b_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_b);
     segment_anime_b_VRAM_END = .;
     segment_anime_b_VRAM_SIZE = ABSOLUTE(segment_anime_b_VRAM_END - segment_anime_b_VRAM);
-    __romPos += SIZEOF(.segment_anime_b);
     segment_anime_b_ROM_END = __romPos;
     segment_anime_b_ROM_SIZE = ABSOLUTE(segment_anime_b_ROM_END - segment_anime_b_ROM_START);
 
@@ -6671,9 +6745,10 @@ SECTIONS
 
     segment_anime_c_noload_VRAM_END = .;
     segment_anime_c_noload_VRAM_SIZE = ABSOLUTE(segment_anime_c_noload_VRAM_END - segment_anime_c_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_c);
     segment_anime_c_VRAM_END = .;
     segment_anime_c_VRAM_SIZE = ABSOLUTE(segment_anime_c_VRAM_END - segment_anime_c_VRAM);
-    __romPos += SIZEOF(.segment_anime_c);
     segment_anime_c_ROM_END = __romPos;
     segment_anime_c_ROM_SIZE = ABSOLUTE(segment_anime_c_ROM_END - segment_anime_c_ROM_START);
 
@@ -6736,9 +6811,10 @@ SECTIONS
 
     segment_anime_d_noload_VRAM_END = .;
     segment_anime_d_noload_VRAM_SIZE = ABSOLUTE(segment_anime_d_noload_VRAM_END - segment_anime_d_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_d);
     segment_anime_d_VRAM_END = .;
     segment_anime_d_VRAM_SIZE = ABSOLUTE(segment_anime_d_VRAM_END - segment_anime_d_VRAM);
-    __romPos += SIZEOF(.segment_anime_d);
     segment_anime_d_ROM_END = __romPos;
     segment_anime_d_ROM_SIZE = ABSOLUTE(segment_anime_d_ROM_END - segment_anime_d_ROM_START);
 
@@ -6801,9 +6877,10 @@ SECTIONS
 
     segment_anime_e_noload_VRAM_END = .;
     segment_anime_e_noload_VRAM_SIZE = ABSOLUTE(segment_anime_e_noload_VRAM_END - segment_anime_e_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_e);
     segment_anime_e_VRAM_END = .;
     segment_anime_e_VRAM_SIZE = ABSOLUTE(segment_anime_e_VRAM_END - segment_anime_e_VRAM);
-    __romPos += SIZEOF(.segment_anime_e);
     segment_anime_e_ROM_END = __romPos;
     segment_anime_e_ROM_SIZE = ABSOLUTE(segment_anime_e_ROM_END - segment_anime_e_ROM_START);
 
@@ -6866,9 +6943,10 @@ SECTIONS
 
     segment_anime_f_noload_VRAM_END = .;
     segment_anime_f_noload_VRAM_SIZE = ABSOLUTE(segment_anime_f_noload_VRAM_END - segment_anime_f_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_f);
     segment_anime_f_VRAM_END = .;
     segment_anime_f_VRAM_SIZE = ABSOLUTE(segment_anime_f_VRAM_END - segment_anime_f_VRAM);
-    __romPos += SIZEOF(.segment_anime_f);
     segment_anime_f_ROM_END = __romPos;
     segment_anime_f_ROM_SIZE = ABSOLUTE(segment_anime_f_ROM_END - segment_anime_f_ROM_START);
 
@@ -6931,9 +7009,10 @@ SECTIONS
 
     segment_anime_g_noload_VRAM_END = .;
     segment_anime_g_noload_VRAM_SIZE = ABSOLUTE(segment_anime_g_noload_VRAM_END - segment_anime_g_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_g);
     segment_anime_g_VRAM_END = .;
     segment_anime_g_VRAM_SIZE = ABSOLUTE(segment_anime_g_VRAM_END - segment_anime_g_VRAM);
-    __romPos += SIZEOF(.segment_anime_g);
     segment_anime_g_ROM_END = __romPos;
     segment_anime_g_ROM_SIZE = ABSOLUTE(segment_anime_g_ROM_END - segment_anime_g_ROM_START);
 
@@ -6996,9 +7075,10 @@ SECTIONS
 
     segment_anime_h_noload_VRAM_END = .;
     segment_anime_h_noload_VRAM_SIZE = ABSOLUTE(segment_anime_h_noload_VRAM_END - segment_anime_h_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_h);
     segment_anime_h_VRAM_END = .;
     segment_anime_h_VRAM_SIZE = ABSOLUTE(segment_anime_h_VRAM_END - segment_anime_h_VRAM);
-    __romPos += SIZEOF(.segment_anime_h);
     segment_anime_h_ROM_END = __romPos;
     segment_anime_h_ROM_SIZE = ABSOLUTE(segment_anime_h_ROM_END - segment_anime_h_ROM_START);
 
@@ -7061,9 +7141,10 @@ SECTIONS
 
     segment_anime_i_noload_VRAM_END = .;
     segment_anime_i_noload_VRAM_SIZE = ABSOLUTE(segment_anime_i_noload_VRAM_END - segment_anime_i_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_i);
     segment_anime_i_VRAM_END = .;
     segment_anime_i_VRAM_SIZE = ABSOLUTE(segment_anime_i_VRAM_END - segment_anime_i_VRAM);
-    __romPos += SIZEOF(.segment_anime_i);
     segment_anime_i_ROM_END = __romPos;
     segment_anime_i_ROM_SIZE = ABSOLUTE(segment_anime_i_ROM_END - segment_anime_i_ROM_START);
 
@@ -7126,9 +7207,10 @@ SECTIONS
 
     segment_anime_j_noload_VRAM_END = .;
     segment_anime_j_noload_VRAM_SIZE = ABSOLUTE(segment_anime_j_noload_VRAM_END - segment_anime_j_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_j);
     segment_anime_j_VRAM_END = .;
     segment_anime_j_VRAM_SIZE = ABSOLUTE(segment_anime_j_VRAM_END - segment_anime_j_VRAM);
-    __romPos += SIZEOF(.segment_anime_j);
     segment_anime_j_ROM_END = __romPos;
     segment_anime_j_ROM_SIZE = ABSOLUTE(segment_anime_j_ROM_END - segment_anime_j_ROM_START);
 
@@ -7191,9 +7273,10 @@ SECTIONS
 
     segment_anime_k_noload_VRAM_END = .;
     segment_anime_k_noload_VRAM_SIZE = ABSOLUTE(segment_anime_k_noload_VRAM_END - segment_anime_k_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_k);
     segment_anime_k_VRAM_END = .;
     segment_anime_k_VRAM_SIZE = ABSOLUTE(segment_anime_k_VRAM_END - segment_anime_k_VRAM);
-    __romPos += SIZEOF(.segment_anime_k);
     segment_anime_k_ROM_END = __romPos;
     segment_anime_k_ROM_SIZE = ABSOLUTE(segment_anime_k_ROM_END - segment_anime_k_ROM_START);
 
@@ -7256,9 +7339,10 @@ SECTIONS
 
     segment_anime_l_noload_VRAM_END = .;
     segment_anime_l_noload_VRAM_SIZE = ABSOLUTE(segment_anime_l_noload_VRAM_END - segment_anime_l_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_l);
     segment_anime_l_VRAM_END = .;
     segment_anime_l_VRAM_SIZE = ABSOLUTE(segment_anime_l_VRAM_END - segment_anime_l_VRAM);
-    __romPos += SIZEOF(.segment_anime_l);
     segment_anime_l_ROM_END = __romPos;
     segment_anime_l_ROM_SIZE = ABSOLUTE(segment_anime_l_ROM_END - segment_anime_l_ROM_START);
 
@@ -7321,9 +7405,10 @@ SECTIONS
 
     segment_anime_m_noload_VRAM_END = .;
     segment_anime_m_noload_VRAM_SIZE = ABSOLUTE(segment_anime_m_noload_VRAM_END - segment_anime_m_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_m);
     segment_anime_m_VRAM_END = .;
     segment_anime_m_VRAM_SIZE = ABSOLUTE(segment_anime_m_VRAM_END - segment_anime_m_VRAM);
-    __romPos += SIZEOF(.segment_anime_m);
     segment_anime_m_ROM_END = __romPos;
     segment_anime_m_ROM_SIZE = ABSOLUTE(segment_anime_m_ROM_END - segment_anime_m_ROM_START);
 
@@ -7386,9 +7471,10 @@ SECTIONS
 
     segment_anime_n_noload_VRAM_END = .;
     segment_anime_n_noload_VRAM_SIZE = ABSOLUTE(segment_anime_n_noload_VRAM_END - segment_anime_n_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_n);
     segment_anime_n_VRAM_END = .;
     segment_anime_n_VRAM_SIZE = ABSOLUTE(segment_anime_n_VRAM_END - segment_anime_n_VRAM);
-    __romPos += SIZEOF(.segment_anime_n);
     segment_anime_n_ROM_END = __romPos;
     segment_anime_n_ROM_SIZE = ABSOLUTE(segment_anime_n_ROM_END - segment_anime_n_ROM_START);
 
@@ -7451,9 +7537,10 @@ SECTIONS
 
     segment_anime_o_noload_VRAM_END = .;
     segment_anime_o_noload_VRAM_SIZE = ABSOLUTE(segment_anime_o_noload_VRAM_END - segment_anime_o_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_o);
     segment_anime_o_VRAM_END = .;
     segment_anime_o_VRAM_SIZE = ABSOLUTE(segment_anime_o_VRAM_END - segment_anime_o_VRAM);
-    __romPos += SIZEOF(.segment_anime_o);
     segment_anime_o_ROM_END = __romPos;
     segment_anime_o_ROM_SIZE = ABSOLUTE(segment_anime_o_ROM_END - segment_anime_o_ROM_START);
 
@@ -7516,9 +7603,10 @@ SECTIONS
 
     segment_anime_mario_noload_VRAM_END = .;
     segment_anime_mario_noload_VRAM_SIZE = ABSOLUTE(segment_anime_mario_noload_VRAM_END - segment_anime_mario_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_mario);
     segment_anime_mario_VRAM_END = .;
     segment_anime_mario_VRAM_SIZE = ABSOLUTE(segment_anime_mario_VRAM_END - segment_anime_mario_VRAM);
-    __romPos += SIZEOF(.segment_anime_mario);
     segment_anime_mario_ROM_END = __romPos;
     segment_anime_mario_ROM_SIZE = ABSOLUTE(segment_anime_mario_ROM_END - segment_anime_mario_ROM_START);
 
@@ -7581,9 +7669,10 @@ SECTIONS
 
     segment_anime_virus_b_noload_VRAM_END = .;
     segment_anime_virus_b_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_noload_VRAM_END - segment_anime_virus_b_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_virus_b);
     segment_anime_virus_b_VRAM_END = .;
     segment_anime_virus_b_VRAM_SIZE = ABSOLUTE(segment_anime_virus_b_VRAM_END - segment_anime_virus_b_VRAM);
-    __romPos += SIZEOF(.segment_anime_virus_b);
     segment_anime_virus_b_ROM_END = __romPos;
     segment_anime_virus_b_ROM_SIZE = ABSOLUTE(segment_anime_virus_b_ROM_END - segment_anime_virus_b_ROM_START);
 
@@ -7646,9 +7735,10 @@ SECTIONS
 
     segment_anime_virus_r_noload_VRAM_END = .;
     segment_anime_virus_r_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_noload_VRAM_END - segment_anime_virus_r_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_virus_r);
     segment_anime_virus_r_VRAM_END = .;
     segment_anime_virus_r_VRAM_SIZE = ABSOLUTE(segment_anime_virus_r_VRAM_END - segment_anime_virus_r_VRAM);
-    __romPos += SIZEOF(.segment_anime_virus_r);
     segment_anime_virus_r_ROM_END = __romPos;
     segment_anime_virus_r_ROM_SIZE = ABSOLUTE(segment_anime_virus_r_ROM_END - segment_anime_virus_r_ROM_START);
 
@@ -7711,9 +7801,10 @@ SECTIONS
 
     segment_anime_virus_y_noload_VRAM_END = .;
     segment_anime_virus_y_noload_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_noload_VRAM_END - segment_anime_virus_y_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_virus_y);
     segment_anime_virus_y_VRAM_END = .;
     segment_anime_virus_y_VRAM_SIZE = ABSOLUTE(segment_anime_virus_y_VRAM_END - segment_anime_virus_y_VRAM);
-    __romPos += SIZEOF(.segment_anime_virus_y);
     segment_anime_virus_y_ROM_END = __romPos;
     segment_anime_virus_y_ROM_SIZE = ABSOLUTE(segment_anime_virus_y_ROM_END - segment_anime_virus_y_ROM_START);
 
@@ -7776,9 +7867,10 @@ SECTIONS
 
     segment_anime_smog_noload_VRAM_END = .;
     segment_anime_smog_noload_VRAM_SIZE = ABSOLUTE(segment_anime_smog_noload_VRAM_END - segment_anime_smog_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_anime_smog);
     segment_anime_smog_VRAM_END = .;
     segment_anime_smog_VRAM_SIZE = ABSOLUTE(segment_anime_smog_VRAM_END - segment_anime_smog_VRAM);
-    __romPos += SIZEOF(.segment_anime_smog);
     segment_anime_smog_ROM_END = __romPos;
     segment_anime_smog_ROM_SIZE = ABSOLUTE(segment_anime_smog_ROM_END - segment_anime_smog_ROM_START);
 
@@ -7841,9 +7933,10 @@ SECTIONS
 
     segment_tutorial_data_noload_VRAM_END = .;
     segment_tutorial_data_noload_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_noload_VRAM_END - segment_tutorial_data_noload_VRAM);
+
+    __romPos += SIZEOF(.segment_tutorial_data);
     segment_tutorial_data_VRAM_END = .;
     segment_tutorial_data_VRAM_SIZE = ABSOLUTE(segment_tutorial_data_VRAM_END - segment_tutorial_data_VRAM);
-    __romPos += SIZEOF(.segment_tutorial_data);
     segment_tutorial_data_ROM_END = __romPos;
     segment_tutorial_data_ROM_SIZE = ABSOLUTE(segment_tutorial_data_ROM_END - segment_tutorial_data_ROM_START);
 

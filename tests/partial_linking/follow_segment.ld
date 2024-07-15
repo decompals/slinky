@@ -26,6 +26,7 @@ SECTIONS
         boot_RODATA_START = .;
         build/segments/boot.o(.rodata*);
         . = ALIGN(., 0x8);
+        . = ALIGN(., 0x80);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -47,6 +48,7 @@ SECTIONS
         boot_SBSS_START = .;
         build/segments/boot.o(.sbss*);
         . = ALIGN(., 0x8);
+        . = ALIGN(., 0x20);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -71,9 +73,12 @@ SECTIONS
 
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
+
+    __romPos += SIZEOF(.boot);
+    __romPos = ALIGN(__romPos, 0x40);
+    . = ALIGN(., 0x40);
     boot_VRAM_END = .;
     boot_VRAM_SIZE = ABSOLUTE(boot_VRAM_END - boot_VRAM);
-    __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
@@ -101,6 +106,7 @@ SECTIONS
         kanji_RODATA_START = .;
         build/segments/kanji.o(.rodata*);
         . = ALIGN(., 0x8);
+        . = ALIGN(., 0x80);
         kanji_RODATA_END = .;
         kanji_RODATA_SIZE = ABSOLUTE(kanji_RODATA_END - kanji_RODATA_START);
 
@@ -122,6 +128,7 @@ SECTIONS
         kanji_SBSS_START = .;
         build/segments/kanji.o(.sbss*);
         . = ALIGN(., 0x8);
+        . = ALIGN(., 0x20);
         kanji_SBSS_END = .;
         kanji_SBSS_SIZE = ABSOLUTE(kanji_SBSS_END - kanji_SBSS_START);
 
@@ -146,9 +153,12 @@ SECTIONS
 
     kanji_noload_VRAM_END = .;
     kanji_noload_VRAM_SIZE = ABSOLUTE(kanji_noload_VRAM_END - kanji_noload_VRAM);
+
+    __romPos += SIZEOF(.kanji);
+    __romPos = ALIGN(__romPos, 0x40);
+    . = ALIGN(., 0x40);
     kanji_VRAM_END = .;
     kanji_VRAM_SIZE = ABSOLUTE(kanji_VRAM_END - kanji_VRAM);
-    __romPos += SIZEOF(.kanji);
     kanji_ROM_END = __romPos;
     kanji_ROM_SIZE = ABSOLUTE(kanji_ROM_END - kanji_ROM_START);
 
@@ -161,24 +171,29 @@ SECTIONS
     .main boot_VRAM_END : AT(main_ROM_START)
     {
         FILL(0x00000000);
+        . = ALIGN(., 0x40);
         main_TEXT_START = .;
         build/segments/main.o(.text*);
         . = ALIGN(., 0x20);
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
+        . = ALIGN(., 0x40);
         main_DATA_START = .;
         build/segments/main.o(.data*);
         . = ALIGN(., 0x20);
         main_DATA_END = .;
         main_DATA_SIZE = ABSOLUTE(main_DATA_END - main_DATA_START);
 
+        . = ALIGN(., 0x40);
         main_RODATA_START = .;
         build/segments/main.o(.rodata*);
         . = ALIGN(., 0x20);
+        . = ALIGN(., 0x80);
         main_RODATA_END = .;
         main_RODATA_SIZE = ABSOLUTE(main_RODATA_END - main_RODATA_START);
 
+        . = ALIGN(., 0x40);
         main_SDATA_START = .;
         build/segments/main.o(.sdata*);
         . = ALIGN(., 0x20);
@@ -194,24 +209,29 @@ SECTIONS
     .main.noload (NOLOAD) :
     {
         FILL(0x00000000);
+        . = ALIGN(., 0x40);
         main_SBSS_START = .;
         build/segments/main.o(.sbss*);
+        . = ALIGN(., 0x20);
         . = ALIGN(., 0x20);
         main_SBSS_END = .;
         main_SBSS_SIZE = ABSOLUTE(main_SBSS_END - main_SBSS_START);
 
+        . = ALIGN(., 0x40);
         main_SCOMMON_START = .;
         build/segments/main.o(.scommon*);
         . = ALIGN(., 0x20);
         main_SCOMMON_END = .;
         main_SCOMMON_SIZE = ABSOLUTE(main_SCOMMON_END - main_SCOMMON_START);
 
+        . = ALIGN(., 0x40);
         main_BSS_START = .;
         build/segments/main.o(.bss*);
         . = ALIGN(., 0x20);
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
 
+        . = ALIGN(., 0x40);
         mainCOMMON_START = .;
         build/segments/main.o(COMMON*);
         . = ALIGN(., 0x20);
@@ -221,9 +241,12 @@ SECTIONS
 
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
+
+    __romPos += SIZEOF(.main);
+    __romPos = ALIGN(__romPos, 0x40);
+    . = ALIGN(., 0x40);
     main_VRAM_END = .;
     main_VRAM_SIZE = ABSOLUTE(main_VRAM_END - main_VRAM);
-    __romPos += SIZEOF(.main);
     main_ROM_END = __romPos;
     main_ROM_SIZE = ABSOLUTE(main_ROM_END - main_ROM_START);
 

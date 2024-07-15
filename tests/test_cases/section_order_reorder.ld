@@ -101,9 +101,10 @@ SECTIONS
 
     code_noload_VRAM_END = .;
     code_noload_VRAM_SIZE = ABSOLUTE(code_noload_VRAM_END - code_noload_VRAM);
+
+    __romPos += SIZEOF(.code);
     code_VRAM_END = .;
     code_VRAM_SIZE = ABSOLUTE(code_VRAM_END - code_VRAM);
-    __romPos += SIZEOF(.code);
     code_ROM_END = __romPos;
     code_ROM_SIZE = ABSOLUTE(code_ROM_END - code_ROM_START);
 

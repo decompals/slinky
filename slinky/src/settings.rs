@@ -38,8 +38,11 @@ pub struct Settings {
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
+    pub segment_end_align: Option<u32>,
+    pub section_start_align: Option<u32>,
     pub section_end_align: Option<u32>,
     pub sections_start_alignment: HashMap<String, u32>,
+    pub sections_end_alignment: HashMap<String, u32>,
 
     pub wildcard_sections: bool,
 
@@ -139,11 +142,23 @@ const fn settings_default_segment_start_align() -> Option<u32> {
     None
 }
 
+const fn settings_default_segment_end_align() -> Option<u32> {
+    None
+}
+
+const fn settings_default_section_start_align() -> Option<u32> {
+    None
+}
+
 const fn settings_default_section_end_align() -> Option<u32> {
     None
 }
 
 fn settings_default_sections_start_alignment() -> HashMap<String, u32> {
+    HashMap::new()
+}
+
+fn settings_default_sections_end_alignment() -> HashMap<String, u32> {
     HashMap::new()
 }
 
@@ -185,8 +200,11 @@ impl Default for Settings {
 
             subalign: settings_default_subalign(),
             segment_start_align: settings_default_segment_start_align(),
+            segment_end_align: settings_default_segment_end_align(),
+            section_start_align: settings_default_section_start_align(),
             section_end_align: settings_default_section_end_align(),
             sections_start_alignment: settings_default_sections_start_alignment(),
+            sections_end_alignment: settings_default_sections_end_alignment(),
 
             wildcard_sections: settings_default_wildcard_sections(),
 
@@ -246,9 +264,15 @@ pub(crate) struct SettingsSerial {
     #[serde(default)]
     pub segment_start_align: AbsentNullable<u32>,
     #[serde(default)]
+    pub segment_end_align: AbsentNullable<u32>,
+    #[serde(default)]
+    pub section_start_align: AbsentNullable<u32>,
+    #[serde(default)]
     pub section_end_align: AbsentNullable<u32>,
     #[serde(default)]
     pub sections_start_alignment: AbsentNullable<HashMap<String, u32>>,
+    #[serde(default)]
+    pub sections_end_alignment: AbsentNullable<HashMap<String, u32>>,
 
     #[serde(default)]
     pub wildcard_sections: AbsentNullable<bool>,
@@ -339,6 +363,14 @@ impl SettingsSerial {
             .segment_start_align
             .get_optional_nullable("segment_start_align", settings_default_segment_start_align)?;
 
+        let segment_end_align = self
+            .segment_end_align
+            .get_optional_nullable("segment_end_align", settings_default_segment_end_align)?;
+
+        let section_start_align = self
+            .section_start_align
+            .get_optional_nullable("section_start_align", settings_default_section_start_align)?;
+
         let section_end_align = self
             .section_end_align
             .get_optional_nullable("section_end_align", settings_default_section_end_align)?;
@@ -346,6 +378,11 @@ impl SettingsSerial {
         let sections_start_alignment = self.sections_start_alignment.get_non_null(
             "sections_start_alignment",
             settings_default_sections_start_alignment,
+        )?;
+
+        let sections_end_alignment = self.sections_end_alignment.get_non_null(
+            "sections_end_alignment",
+            settings_default_sections_end_alignment,
         )?;
 
         let wildcard_sections = self
@@ -382,8 +419,11 @@ impl SettingsSerial {
             noload_sections,
             subalign,
             segment_start_align,
+            segment_end_align,
+            section_start_align,
             section_end_align,
             sections_start_alignment,
+            sections_end_alignment,
             wildcard_sections,
             fill_value,
         })

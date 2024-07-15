@@ -1,7 +1,9 @@
 settings:
   base_path: build
   segment_start_align: 0x8
+  segment_end_align: 0x40
   section_end_align: 0x8
+  sections_end_alignment: { .rodata: 0x80, .sbss: 0x20 }
 
   target_path: build/rom.elf
   d_path: tests/partial_linking/follow_segment.d
@@ -24,6 +26,7 @@ segments:
 
   - name: main
     follows_segment: boot
+    section_start_align: 0x40
     section_end_align: 0x20
     files:
       - { path: src/main/main.o }

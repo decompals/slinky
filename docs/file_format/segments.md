@@ -55,22 +55,34 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-10)
     - [Valid values](#valid-values-9)
     - [Default value](#default-value-8)
-  - [`section_end_align`](#section_end_align)
+  - [`segment_end_align`](#segment_end_align)
     - [Example](#example-11)
     - [Valid values](#valid-values-10)
     - [Default value](#default-value-9)
-  - [`sections_start_alignment`](#sections_start_alignment)
+  - [`section_start_align`](#section_start_align)
     - [Example](#example-12)
     - [Valid values](#valid-values-11)
     - [Default value](#default-value-10)
-  - [`wildcard_sections`](#wildcard_sections)
+  - [`section_end_align`](#section_end_align)
     - [Example](#example-13)
     - [Valid values](#valid-values-12)
     - [Default value](#default-value-11)
-  - [`fill_value`](#fill_value)
+  - [`sections_start_alignment`](#sections_start_alignment)
     - [Example](#example-14)
     - [Valid values](#valid-values-13)
     - [Default value](#default-value-12)
+  - [`sections_end_alignment`](#sections_end_alignment)
+    - [Example](#example-15)
+    - [Valid values](#valid-values-14)
+    - [Default value](#default-value-13)
+  - [`wildcard_sections`](#wildcard_sections)
+    - [Example](#example-16)
+    - [Valid values](#valid-values-15)
+    - [Default value](#default-value-14)
+  - [`fill_value`](#fill_value)
+    - [Example](#example-17)
+    - [Valid values](#valid-values-16)
+    - [Default value](#default-value-15)
 
 ## `name`
 
@@ -360,12 +372,76 @@ Positive integers or `null`.
 The value specified for
 [settings.md#segment_start_align](settings.md#segment_start_align)
 
+## `segment_end_align`
+
+Force aligning the end of this specific segment to the specified value.
+
+If the value is `null` then no alignment will be forced at the end of this
+specific segment.
+
+This option overrides the global setting, see
+[settings.md#segment_end_align](settings.md#segment_end_align) for more info.
+
+### Example
+
+```yaml
+segments:
+  - name: test
+    segment_end_align: 0x800
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+The value specified for
+[settings.md#segment_end_align](settings.md#segment_end_align)
+
+## `section_start_align`
+
+Force aligning the start of each section for this segment to the specified value.
+
+If the value is `null` then no alignment will be forced on the start of the
+sections of this segment.
+
+Note that this field and [`sections_start_alignment`](#sections_start_alignment)
+does not override each other, meaning that if this field is non-`null` and a
+section is specified in [`sections_start_alignment`](#sections_start_alignment)
+then both alignments will be applied to given section.
+
+This option overrides the global setting, see
+[settings.md#section_start_align](settings.md#section_start_align) for more info.
+
+### Example
+
+```yaml
+segments:
+  - name: main
+    section_start_align: 0x20
+```
+
+### Valid values
+
+Positive integers or `null`.
+
+### Default value
+
+The value specified for
+[settings.md#section_start_align](settings.md#section_start_align)
+
 ## `section_end_align`
 
 Force aligning the end of each section for this segment to the specified value.
 
 If the value is `null` then no alignment will be forced on the end of the
 sections of this segment.
+
+Note that this field and [`sections_end_alignment`](#sections_end_alignment)
+does not override each other, meaning that if this field is non-`null` and a
+section is specified in [`sections_end_alignment`](#sections_end_alignment)
+then both alignments will be applied to given section.
 
 This option overrides the global setting, see
 [settings.md#section_end_align](settings.md#section_end_align) for more info.
@@ -375,7 +451,7 @@ This option overrides the global setting, see
 ```yaml
 segments:
   - name: main
-    section_end_align: null
+    section_end_align: 0x10
 ```
 
 ### Valid values
@@ -389,8 +465,8 @@ The value specified for
 
 ## `sections_start_alignment`
 
-Allows to specify different alignments for the start of every section of this
-specific segment.
+Allows to specify different alignment values for the start of each section of
+this specific segment.
 
 If a specific section is not pressent on this mapping then no alignment will be
 forced on the given section.
@@ -404,7 +480,7 @@ more info.
 ```yaml
 segments:
   - name: main
-    section_start_alignment: { .text: 4, .rodata: 0x10, .data: 0x20 }
+    sections_start_alignment: { .text: 4, .rodata: 0x10, .data: 0x20 }
 ```
 
 ### Valid values
@@ -415,6 +491,40 @@ A mapping of strings as keys and positive numbers as values.
 
 The value specified for
 [settings.md#sections_start_alignment](settings.md#sections_start_alignment)
+
+## `sections_end_alignment`
+
+Allows to specify different alignment values for the end of each section of this
+specific segment.
+
+If a specific section is not pressent on this mapping then no alignment will be
+forced on the given section.
+
+Note that this field and [`section_start_align`](#section_start_align) does not
+override each other, meaning that if a section is specified in this field and
+[`section_start_align`](#section_start_align) is non-`null` then both alignments
+will be applied to the section.
+
+This option overrides the global setting, see
+[settings.md#sections_end_alignment](settings.md#sections_end_alignment) for
+more info.
+
+### Example
+
+```yaml
+segments:
+  - name: main
+    sections_end_alignment: { .text: 4, .rodata: 0x10, .data: 0x20 }
+```
+
+### Valid values
+
+A mapping of strings as keys and positive numbers as values.
+
+### Default value
+
+The value specified for
+[settings.md#sections_end_alignment](settings.md#sections_end_alignment)
 
 ## `wildcard_sections`
 

@@ -260,6 +260,16 @@ impl<'a> LinkerWriter<'a> {
         // Emit noload segment
         self.write_segment(segment, &segment.noload_sections, true)?;
 
+        self.buffer.write_empty_line();
+
+        self.buffer
+            .writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
+
+        if let Some(segment_end_align) = segment.segment_end_align {
+            self.buffer.align_symbol("__romPos", segment_end_align);
+            self.buffer.align_symbol(".", segment_end_align);
+        }
+
         self.write_sym_end_size(
             &main_seg_sym_start,
             &main_seg_sym_end,
@@ -267,8 +277,6 @@ impl<'a> LinkerWriter<'a> {
             ".",
         );
 
-        self.buffer
-            .writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
         self.write_sym_end_size(
             &main_seg_rom_sym_start,
             &main_seg_rom_sym_end,
@@ -602,13 +610,17 @@ impl LinkerWriter<'_> {
 
     fn write_section_symbol_start(&mut self, segment: &Segment, section: &str) {
         if self.emit_section_symbols {
+            if let Some(section_start_align) = segment.section_start_align {
+                self.buffer.align_symbol(".", section_start_align);
+            }
+            if let Some(align_value) = segment.sections_start_alignment.get(section) {
+                self.buffer.align_symbol(".", *align_value);
+            }
+
             let style = &self.d.settings.linker_symbols_style;
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
 
-            if let Some(align_value) = segment.sections_start_alignment.get(section) {
-                self.buffer.align_symbol(".", *align_value);
-            }
             self.buffer.write_symbol(&section_start_sym, ".");
         }
     }
@@ -617,6 +629,9 @@ impl LinkerWriter<'_> {
         if self.emit_section_symbols {
             if let Some(section_end_align) = segment.section_end_align {
                 self.buffer.align_symbol(".", section_end_align);
+            }
+            if let Some(align_value) = segment.sections_end_alignment.get(section) {
+                self.buffer.align_symbol(".", *align_value);
             }
 
             let style = &self.d.settings.linker_symbols_style;

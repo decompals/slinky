@@ -70,9 +70,10 @@ SECTIONS
 
     _makerom_noloadSegmentEnd = .;
     _makerom_noloadSegmentSize = ABSOLUTE(_makerom_noloadSegmentEnd - _makerom_noloadSegmentStart);
+
+    __romPos += SIZEOF(.makerom);
     _makeromSegmentEnd = .;
     _makeromSegmentSize = ABSOLUTE(_makeromSegmentEnd - _makeromSegmentStart);
-    __romPos += SIZEOF(.makerom);
     _makeromSegmentRomEnd = __romPos;
     _makeromSegmentRomSize = ABSOLUTE(_makeromSegmentRomEnd - _makeromSegmentRomStart);
 
@@ -135,9 +136,10 @@ SECTIONS
 
     _boot_noloadSegmentEnd = .;
     _boot_noloadSegmentSize = ABSOLUTE(_boot_noloadSegmentEnd - _boot_noloadSegmentStart);
+
+    __romPos += SIZEOF(.boot);
     _bootSegmentEnd = .;
     _bootSegmentSize = ABSOLUTE(_bootSegmentEnd - _bootSegmentStart);
-    __romPos += SIZEOF(.boot);
     _bootSegmentRomEnd = __romPos;
     _bootSegmentRomSize = ABSOLUTE(_bootSegmentRomEnd - _bootSegmentRomStart);
 
@@ -216,9 +218,10 @@ SECTIONS
 
     _code_noloadSegmentEnd = .;
     _code_noloadSegmentSize = ABSOLUTE(_code_noloadSegmentEnd - _code_noloadSegmentStart);
+
+    __romPos += SIZEOF(.code);
     _codeSegmentEnd = .;
     _codeSegmentSize = ABSOLUTE(_codeSegmentEnd - _codeSegmentStart);
-    __romPos += SIZEOF(.code);
     _codeSegmentRomEnd = __romPos;
     _codeSegmentRomSize = ABSOLUTE(_codeSegmentRomEnd - _codeSegmentRomStart);
 
@@ -283,9 +286,10 @@ SECTIONS
 
     _gameplay_keep_noloadSegmentEnd = .;
     _gameplay_keep_noloadSegmentSize = ABSOLUTE(_gameplay_keep_noloadSegmentEnd - _gameplay_keep_noloadSegmentStart);
+
+    __romPos += SIZEOF(.gameplay_keep);
     _gameplay_keepSegmentEnd = .;
     _gameplay_keepSegmentSize = ABSOLUTE(_gameplay_keepSegmentEnd - _gameplay_keepSegmentStart);
-    __romPos += SIZEOF(.gameplay_keep);
     _gameplay_keepSegmentRomEnd = __romPos;
     _gameplay_keepSegmentRomSize = ABSOLUTE(_gameplay_keepSegmentRomEnd - _gameplay_keepSegmentRomStart);
 
@@ -350,9 +354,10 @@ SECTIONS
 
     _gameplay_dangeon_keep_noloadSegmentEnd = .;
     _gameplay_dangeon_keep_noloadSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_noloadSegmentEnd - _gameplay_dangeon_keep_noloadSegmentStart);
+
+    __romPos += SIZEOF(.gameplay_dangeon_keep);
     _gameplay_dangeon_keepSegmentEnd = .;
     _gameplay_dangeon_keepSegmentSize = ABSOLUTE(_gameplay_dangeon_keepSegmentEnd - _gameplay_dangeon_keepSegmentStart);
-    __romPos += SIZEOF(.gameplay_dangeon_keep);
     _gameplay_dangeon_keepSegmentRomEnd = __romPos;
     _gameplay_dangeon_keepSegmentRomSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRomEnd - _gameplay_dangeon_keepSegmentRomStart);
 
@@ -417,9 +422,10 @@ SECTIONS
 
     _gameplay_dangeon_keep_noloadSegmentEnd = .;
     _gameplay_dangeon_keep_noloadSegmentSize = ABSOLUTE(_gameplay_dangeon_keep_noloadSegmentEnd - _gameplay_dangeon_keep_noloadSegmentStart);
+
+    __romPos += SIZEOF(.gameplay_dangeon_keep);
     _gameplay_dangeon_keepSegmentEnd = .;
     _gameplay_dangeon_keepSegmentSize = ABSOLUTE(_gameplay_dangeon_keepSegmentEnd - _gameplay_dangeon_keepSegmentStart);
-    __romPos += SIZEOF(.gameplay_dangeon_keep);
     _gameplay_dangeon_keepSegmentRomEnd = __romPos;
     _gameplay_dangeon_keepSegmentRomSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRomEnd - _gameplay_dangeon_keepSegmentRomStart);
 

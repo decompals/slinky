@@ -1,7 +1,9 @@
 settings:
   base_path: build
+  section_start_align: 0x40
   section_end_align: null
   sections_start_alignment: { .data: 0x400, .bss: 0x8000 }
+  sections_end_alignment: { .rodata: 0x80, .sbss: 0x20 }
 
 segments:
   - name: boot

@@ -61,9 +61,10 @@ SECTIONS
 
     header_noload_VRAM_END = .;
     header_noload_VRAM_SIZE = ABSOLUTE(header_noload_VRAM_END - header_noload_VRAM);
+
+    __romPos += SIZEOF(.header);
     header_VRAM_END = .;
     header_VRAM_SIZE = ABSOLUTE(header_VRAM_END - header_VRAM);
-    __romPos += SIZEOF(.header);
     header_ROM_END = __romPos;
     header_ROM_SIZE = ABSOLUTE(header_ROM_END - header_ROM_START);
 
@@ -126,9 +127,10 @@ SECTIONS
 
     ipl3_noload_VRAM_END = .;
     ipl3_noload_VRAM_SIZE = ABSOLUTE(ipl3_noload_VRAM_END - ipl3_noload_VRAM);
+
+    __romPos += SIZEOF(.ipl3);
     ipl3_VRAM_END = .;
     ipl3_VRAM_SIZE = ABSOLUTE(ipl3_VRAM_END - ipl3_VRAM);
-    __romPos += SIZEOF(.ipl3);
     ipl3_ROM_END = __romPos;
     ipl3_ROM_SIZE = ABSOLUTE(ipl3_ROM_END - ipl3_ROM_START);
 
@@ -191,9 +193,10 @@ SECTIONS
 
     entry_noload_VRAM_END = .;
     entry_noload_VRAM_SIZE = ABSOLUTE(entry_noload_VRAM_END - entry_noload_VRAM);
+
+    __romPos += SIZEOF(.entry);
     entry_VRAM_END = .;
     entry_VRAM_SIZE = ABSOLUTE(entry_VRAM_END - entry_VRAM);
-    __romPos += SIZEOF(.entry);
     entry_ROM_END = __romPos;
     entry_ROM_SIZE = ABSOLUTE(entry_ROM_END - entry_ROM_START);
 
@@ -204,6 +207,7 @@ SECTIONS
     .boot : AT(boot_ROM_START)
     {
         FILL(0x00000000);
+        . = ALIGN(., 0x20);
         boot_TEXT_START = .;
         build/src/boot/boot_main.o(.text*);
         build/src/boot/util.o(.text*);
@@ -359,6 +363,7 @@ SECTIONS
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
+        . = ALIGN(., 0x20);
         boot_DATA_START = .;
         build/src/boot/boot_main.o(.data*);
         build/src/boot/util.o(.data*);
@@ -514,6 +519,7 @@ SECTIONS
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
+        . = ALIGN(., 0x20);
         boot_RODATA_START = .;
         build/src/boot/boot_main.o(.rodata*);
         build/src/boot/util.o(.rodata*);
@@ -669,6 +675,7 @@ SECTIONS
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
+        . = ALIGN(., 0x20);
         boot_SDATA_START = .;
         build/src/boot/boot_main.o(.sdata*);
         build/src/boot/util.o(.sdata*);
@@ -833,6 +840,7 @@ SECTIONS
     .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
+        . = ALIGN(., 0x20);
         boot_SBSS_START = .;
         build/src/boot/boot_main.o(.sbss*);
         build/src/boot/util.o(.sbss*);
@@ -988,6 +996,7 @@ SECTIONS
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
+        . = ALIGN(., 0x20);
         boot_SCOMMON_START = .;
         build/src/boot/boot_main.o(.scommon*);
         build/src/boot/util.o(.scommon*);
@@ -1143,6 +1152,7 @@ SECTIONS
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
+        . = ALIGN(., 0x20);
         boot_BSS_START = .;
         build/src/boot/boot_main.o(.bss*);
         build/src/boot/util.o(.bss*);
@@ -1298,6 +1308,7 @@ SECTIONS
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
+        . = ALIGN(., 0x20);
         bootCOMMON_START = .;
         build/src/boot/boot_main.o(COMMON*);
         build/src/boot/util.o(COMMON*);
@@ -1456,9 +1467,10 @@ SECTIONS
 
     boot_noload_VRAM_END = .;
     boot_noload_VRAM_SIZE = ABSOLUTE(boot_noload_VRAM_END - boot_noload_VRAM);
+
+    __romPos += SIZEOF(.boot);
     boot_VRAM_END = .;
     boot_VRAM_SIZE = ABSOLUTE(boot_VRAM_END - boot_VRAM);
-    __romPos += SIZEOF(.boot);
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
@@ -1521,9 +1533,10 @@ SECTIONS
 
     dma_table_noload_VRAM_END = .;
     dma_table_noload_VRAM_SIZE = ABSOLUTE(dma_table_noload_VRAM_END - dma_table_noload_VRAM);
+
+    __romPos += SIZEOF(.dma_table);
     dma_table_VRAM_END = .;
     dma_table_VRAM_SIZE = ABSOLUTE(dma_table_VRAM_END - dma_table_VRAM);
-    __romPos += SIZEOF(.dma_table);
     dma_table_ROM_END = __romPos;
     dma_table_ROM_SIZE = ABSOLUTE(dma_table_ROM_END - dma_table_ROM_START);
 
@@ -1690,9 +1703,10 @@ SECTIONS
 
     main_segment_noload_VRAM_END = .;
     main_segment_noload_VRAM_SIZE = ABSOLUTE(main_segment_noload_VRAM_END - main_segment_noload_VRAM);
+
+    __romPos += SIZEOF(.main_segment);
     main_segment_VRAM_END = .;
     main_segment_VRAM_SIZE = ABSOLUTE(main_segment_VRAM_END - main_segment_VRAM);
-    __romPos += SIZEOF(.main_segment);
     main_segment_ROM_END = __romPos;
     main_segment_ROM_SIZE = ABSOLUTE(main_segment_ROM_END - main_segment_ROM_START);
 
@@ -1755,9 +1769,10 @@ SECTIONS
 
     framebuffer_noload_VRAM_END = .;
     framebuffer_noload_VRAM_SIZE = ABSOLUTE(framebuffer_noload_VRAM_END - framebuffer_noload_VRAM);
+
+    __romPos += SIZEOF(.framebuffer);
     framebuffer_VRAM_END = .;
     framebuffer_VRAM_SIZE = ABSOLUTE(framebuffer_VRAM_END - framebuffer_VRAM);
-    __romPos += SIZEOF(.framebuffer);
     framebuffer_ROM_END = __romPos;
     framebuffer_ROM_SIZE = ABSOLUTE(framebuffer_ROM_END - framebuffer_ROM_START);
 

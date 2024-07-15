@@ -71,9 +71,10 @@ SECTIONS
 
     main_noload_VRAM_END = .;
     main_noload_VRAM_SIZE = ABSOLUTE(main_noload_VRAM_END - main_noload_VRAM);
+
+    __romPos += SIZEOF(.main);
     main_VRAM_END = .;
     main_VRAM_SIZE = ABSOLUTE(main_VRAM_END - main_VRAM);
-    __romPos += SIZEOF(.main);
     main_ROM_END = __romPos;
     main_ROM_SIZE = ABSOLUTE(main_ROM_END - main_ROM_START);
 

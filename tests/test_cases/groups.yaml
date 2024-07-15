@@ -19,6 +19,7 @@ segments:
       - { path: src/entry/entry.o }
 
   - name: boot
+    section_start_align: 0x20
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/util.o }
