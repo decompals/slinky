@@ -6,30 +6,26 @@ SECTIONS
     header_VRAM = ADDR(.header);
     header_alloc_VRAM = .;
 
-    .header : AT(header_ROM_START) SUBALIGN(16)
+    .header : AT(header_ROM_START)
     {
         FILL(0x00000000);
         header_TEXT_START = .;
         build/src/rom_header/rom_header.o(.text*);
-        . = ALIGN(., 0x10);
         header_TEXT_END = .;
         header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
         header_DATA_START = .;
         build/src/rom_header/rom_header.o(.data*);
-        . = ALIGN(., 0x10);
         header_DATA_END = .;
         header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
         header_RODATA_START = .;
         build/src/rom_header/rom_header.o(.rodata*);
-        . = ALIGN(., 0x10);
         header_RODATA_END = .;
         header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
         header_SDATA_START = .;
         build/src/rom_header/rom_header.o(.sdata*);
-        . = ALIGN(., 0x10);
         header_SDATA_END = .;
         header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
@@ -39,30 +35,26 @@ SECTIONS
 
     header_noload_VRAM = .;
 
-    .header.noload (NOLOAD) : SUBALIGN(16)
+    .header.noload (NOLOAD) :
     {
         FILL(0x00000000);
         header_SBSS_START = .;
         build/src/rom_header/rom_header.o(.sbss*);
-        . = ALIGN(., 0x10);
         header_SBSS_END = .;
         header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
         header_SCOMMON_START = .;
         build/src/rom_header/rom_header.o(.scommon*);
-        . = ALIGN(., 0x10);
         header_SCOMMON_END = .;
         header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
         header_BSS_START = .;
         build/src/rom_header/rom_header.o(.bss*);
-        . = ALIGN(., 0x10);
         header_BSS_END = .;
         header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
         build/src/rom_header/rom_header.o(COMMON*);
-        . = ALIGN(., 0x10);
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
@@ -79,30 +71,26 @@ SECTIONS
     ipl3_VRAM = ADDR(.ipl3);
     ipl3_alloc_VRAM = .;
 
-    .ipl3 : AT(ipl3_ROM_START) SUBALIGN(16)
+    .ipl3 : AT(ipl3_ROM_START)
     {
         FILL(0x00000000);
         ipl3_TEXT_START = .;
         build/asm/data/ipl3.o(.text*);
-        . = ALIGN(., 0x10);
         ipl3_TEXT_END = .;
         ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
         ipl3_DATA_START = .;
         build/asm/data/ipl3.o(.data*);
-        . = ALIGN(., 0x10);
         ipl3_DATA_END = .;
         ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
         ipl3_RODATA_START = .;
         build/asm/data/ipl3.o(.rodata*);
-        . = ALIGN(., 0x10);
         ipl3_RODATA_END = .;
         ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
         ipl3_SDATA_START = .;
         build/asm/data/ipl3.o(.sdata*);
-        . = ALIGN(., 0x10);
         ipl3_SDATA_END = .;
         ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
@@ -112,30 +100,26 @@ SECTIONS
 
     ipl3_noload_VRAM = .;
 
-    .ipl3.noload (NOLOAD) : SUBALIGN(16)
+    .ipl3.noload (NOLOAD) :
     {
         FILL(0x00000000);
         ipl3_SBSS_START = .;
         build/asm/data/ipl3.o(.sbss*);
-        . = ALIGN(., 0x10);
         ipl3_SBSS_END = .;
         ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
         ipl3_SCOMMON_START = .;
         build/asm/data/ipl3.o(.scommon*);
-        . = ALIGN(., 0x10);
         ipl3_SCOMMON_END = .;
         ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
         ipl3_BSS_START = .;
         build/asm/data/ipl3.o(.bss*);
-        . = ALIGN(., 0x10);
         ipl3_BSS_END = .;
         ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
         build/asm/data/ipl3.o(COMMON*);
-        . = ALIGN(., 0x10);
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
@@ -152,30 +136,26 @@ SECTIONS
     entry_VRAM = ADDR(.entry);
     entry_alloc_VRAM = .;
 
-    .entry 0x80000400 : AT(entry_ROM_START) SUBALIGN(16)
+    .entry 0x80000400 : AT(entry_ROM_START)
     {
         FILL(0x00000000);
         entry_TEXT_START = .;
         build/src/entry/entry.o(.text*);
-        . = ALIGN(., 0x10);
         entry_TEXT_END = .;
         entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
         entry_DATA_START = .;
         build/src/entry/entry.o(.data*);
-        . = ALIGN(., 0x10);
         entry_DATA_END = .;
         entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
         entry_RODATA_START = .;
         build/src/entry/entry.o(.rodata*);
-        . = ALIGN(., 0x10);
         entry_RODATA_END = .;
         entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
         entry_SDATA_START = .;
         build/src/entry/entry.o(.sdata*);
-        . = ALIGN(., 0x10);
         entry_SDATA_END = .;
         entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
@@ -185,30 +165,26 @@ SECTIONS
 
     entry_noload_VRAM = .;
 
-    .entry.noload (NOLOAD) : SUBALIGN(16)
+    .entry.noload (NOLOAD) :
     {
         FILL(0x00000000);
         entry_SBSS_START = .;
         build/src/entry/entry.o(.sbss*);
-        . = ALIGN(., 0x10);
         entry_SBSS_END = .;
         entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
         entry_SCOMMON_START = .;
         build/src/entry/entry.o(.scommon*);
-        . = ALIGN(., 0x10);
         entry_SCOMMON_END = .;
         entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
         entry_BSS_START = .;
         build/src/entry/entry.o(.bss*);
-        . = ALIGN(., 0x10);
         entry_BSS_END = .;
         entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
         build/src/entry/entry.o(COMMON*);
-        . = ALIGN(., 0x10);
         entryCOMMON_END = .;
         entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
@@ -225,7 +201,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot : AT(boot_ROM_START) SUBALIGN(16)
+    .boot : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -380,7 +356,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.text*);
         build/src/libkmc/mmuldi3.o(.text*);
         build/src/libkmc/ctype.o(.text*);
-        . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
@@ -536,7 +511,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.data*);
         build/src/libkmc/mmuldi3.o(.data*);
         build/src/libkmc/ctype.o(.data*);
-        . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -692,7 +666,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.rodata*);
         build/src/libkmc/mmuldi3.o(.rodata*);
         build/src/libkmc/ctype.o(.rodata*);
-        . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -848,7 +821,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.sdata*);
         build/src/libkmc/mmuldi3.o(.sdata*);
         build/src/libkmc/ctype.o(.sdata*);
-        . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -858,7 +830,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
@@ -1013,7 +985,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.sbss*);
         build/src/libkmc/mmuldi3.o(.sbss*);
         build/src/libkmc/ctype.o(.sbss*);
-        . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -1169,7 +1140,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.scommon*);
         build/src/libkmc/mmuldi3.o(.scommon*);
         build/src/libkmc/ctype.o(.scommon*);
-        . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
@@ -1325,7 +1295,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(.bss*);
         build/src/libkmc/mmuldi3.o(.bss*);
         build/src/libkmc/ctype.o(.bss*);
-        . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
@@ -1481,7 +1450,6 @@ SECTIONS
         build/src/libkmc/strcpy.o(COMMON*);
         build/src/libkmc/mmuldi3.o(COMMON*);
         build/src/libkmc/ctype.o(COMMON*);
-        . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -1498,30 +1466,26 @@ SECTIONS
     dma_table_VRAM = ADDR(.dma_table);
     dma_table_alloc_VRAM = .;
 
-    .dma_table : AT(dma_table_ROM_START) SUBALIGN(16)
+    .dma_table : AT(dma_table_ROM_START)
     {
         FILL(0x00000000);
         dma_table_TEXT_START = .;
         build/src/dma_table/dma_table.o(.text*);
-        . = ALIGN(., 0x10);
         dma_table_TEXT_END = .;
         dma_table_TEXT_SIZE = ABSOLUTE(dma_table_TEXT_END - dma_table_TEXT_START);
 
         dma_table_DATA_START = .;
         build/src/dma_table/dma_table.o(.data*);
-        . = ALIGN(., 0x10);
         dma_table_DATA_END = .;
         dma_table_DATA_SIZE = ABSOLUTE(dma_table_DATA_END - dma_table_DATA_START);
 
         dma_table_RODATA_START = .;
         build/src/dma_table/dma_table.o(.rodata*);
-        . = ALIGN(., 0x10);
         dma_table_RODATA_END = .;
         dma_table_RODATA_SIZE = ABSOLUTE(dma_table_RODATA_END - dma_table_RODATA_START);
 
         dma_table_SDATA_START = .;
         build/src/dma_table/dma_table.o(.sdata*);
-        . = ALIGN(., 0x10);
         dma_table_SDATA_END = .;
         dma_table_SDATA_SIZE = ABSOLUTE(dma_table_SDATA_END - dma_table_SDATA_START);
     }
@@ -1531,30 +1495,26 @@ SECTIONS
 
     dma_table_noload_VRAM = .;
 
-    .dma_table.noload (NOLOAD) : SUBALIGN(16)
+    .dma_table.noload (NOLOAD) :
     {
         FILL(0x00000000);
         dma_table_SBSS_START = .;
         build/src/dma_table/dma_table.o(.sbss*);
-        . = ALIGN(., 0x10);
         dma_table_SBSS_END = .;
         dma_table_SBSS_SIZE = ABSOLUTE(dma_table_SBSS_END - dma_table_SBSS_START);
 
         dma_table_SCOMMON_START = .;
         build/src/dma_table/dma_table.o(.scommon*);
-        . = ALIGN(., 0x10);
         dma_table_SCOMMON_END = .;
         dma_table_SCOMMON_SIZE = ABSOLUTE(dma_table_SCOMMON_END - dma_table_SCOMMON_START);
 
         dma_table_BSS_START = .;
         build/src/dma_table/dma_table.o(.bss*);
-        . = ALIGN(., 0x10);
         dma_table_BSS_END = .;
         dma_table_BSS_SIZE = ABSOLUTE(dma_table_BSS_END - dma_table_BSS_START);
 
         dma_tableCOMMON_START = .;
         build/src/dma_table/dma_table.o(COMMON*);
-        . = ALIGN(., 0x10);
         dma_tableCOMMON_END = .;
         dma_tableCOMMON_SIZE = ABSOLUTE(dma_tableCOMMON_END - dma_tableCOMMON_START);
     }
@@ -1571,7 +1531,7 @@ SECTIONS
     main_segment_VRAM = ADDR(.main_segment);
     main_segment_alloc_VRAM = .;
 
-    .main_segment : AT(main_segment_ROM_START) SUBALIGN(16)
+    .main_segment : AT(main_segment_ROM_START)
     {
         FILL(0x00000000);
         main_segment_TEXT_START = .;
@@ -1589,7 +1549,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.text*);
         build/src/rsp/f3dex2.o(.text*);
         build/src/rsp/s2dex.o(.text*);
-        . = ALIGN(., 0x10);
         main_segment_TEXT_END = .;
         main_segment_TEXT_SIZE = ABSOLUTE(main_segment_TEXT_END - main_segment_TEXT_START);
 
@@ -1608,7 +1567,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.data*);
         build/src/rsp/f3dex2.o(.data*);
         build/src/rsp/s2dex.o(.data*);
-        . = ALIGN(., 0x10);
         main_segment_DATA_END = .;
         main_segment_DATA_SIZE = ABSOLUTE(main_segment_DATA_END - main_segment_DATA_START);
 
@@ -1627,7 +1585,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.rodata*);
         build/src/rsp/f3dex2.o(.rodata*);
         build/src/rsp/s2dex.o(.rodata*);
-        . = ALIGN(., 0x10);
         main_segment_RODATA_END = .;
         main_segment_RODATA_SIZE = ABSOLUTE(main_segment_RODATA_END - main_segment_RODATA_START);
 
@@ -1646,7 +1603,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.sdata*);
         build/src/rsp/f3dex2.o(.sdata*);
         build/src/rsp/s2dex.o(.sdata*);
-        . = ALIGN(., 0x10);
         main_segment_SDATA_END = .;
         main_segment_SDATA_SIZE = ABSOLUTE(main_segment_SDATA_END - main_segment_SDATA_START);
     }
@@ -1656,7 +1612,7 @@ SECTIONS
 
     main_segment_noload_VRAM = .;
 
-    .main_segment.noload (NOLOAD) : SUBALIGN(16)
+    .main_segment.noload (NOLOAD) :
     {
         FILL(0x00000000);
         main_segment_SBSS_START = .;
@@ -1674,7 +1630,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.sbss*);
         build/src/rsp/f3dex2.o(.sbss*);
         build/src/rsp/s2dex.o(.sbss*);
-        . = ALIGN(., 0x10);
         main_segment_SBSS_END = .;
         main_segment_SBSS_SIZE = ABSOLUTE(main_segment_SBSS_END - main_segment_SBSS_START);
 
@@ -1693,7 +1648,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.scommon*);
         build/src/rsp/f3dex2.o(.scommon*);
         build/src/rsp/s2dex.o(.scommon*);
-        . = ALIGN(., 0x10);
         main_segment_SCOMMON_END = .;
         main_segment_SCOMMON_SIZE = ABSOLUTE(main_segment_SCOMMON_END - main_segment_SCOMMON_START);
 
@@ -1712,7 +1666,6 @@ SECTIONS
         build/src/rsp/aspMain.o(.bss*);
         build/src/rsp/f3dex2.o(.bss*);
         build/src/rsp/s2dex.o(.bss*);
-        . = ALIGN(., 0x10);
         main_segment_BSS_END = .;
         main_segment_BSS_SIZE = ABSOLUTE(main_segment_BSS_END - main_segment_BSS_START);
 
@@ -1731,7 +1684,6 @@ SECTIONS
         build/src/rsp/aspMain.o(COMMON*);
         build/src/rsp/f3dex2.o(COMMON*);
         build/src/rsp/s2dex.o(COMMON*);
-        . = ALIGN(., 0x10);
         main_segmentCOMMON_END = .;
         main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
@@ -1748,30 +1700,26 @@ SECTIONS
     framebuffer_VRAM = ADDR(.framebuffer);
     framebuffer_alloc_VRAM = .;
 
-    .framebuffer 0x803B5000 : AT(framebuffer_ROM_START) SUBALIGN(16)
+    .framebuffer 0x803B5000 : AT(framebuffer_ROM_START)
     {
         FILL(0x00000000);
         framebuffer_TEXT_START = .;
         build/src/buffers/framebuffer.o(.text*);
-        . = ALIGN(., 0x10);
         framebuffer_TEXT_END = .;
         framebuffer_TEXT_SIZE = ABSOLUTE(framebuffer_TEXT_END - framebuffer_TEXT_START);
 
         framebuffer_DATA_START = .;
         build/src/buffers/framebuffer.o(.data*);
-        . = ALIGN(., 0x10);
         framebuffer_DATA_END = .;
         framebuffer_DATA_SIZE = ABSOLUTE(framebuffer_DATA_END - framebuffer_DATA_START);
 
         framebuffer_RODATA_START = .;
         build/src/buffers/framebuffer.o(.rodata*);
-        . = ALIGN(., 0x10);
         framebuffer_RODATA_END = .;
         framebuffer_RODATA_SIZE = ABSOLUTE(framebuffer_RODATA_END - framebuffer_RODATA_START);
 
         framebuffer_SDATA_START = .;
         build/src/buffers/framebuffer.o(.sdata*);
-        . = ALIGN(., 0x10);
         framebuffer_SDATA_END = .;
         framebuffer_SDATA_SIZE = ABSOLUTE(framebuffer_SDATA_END - framebuffer_SDATA_START);
     }
@@ -1781,30 +1729,26 @@ SECTIONS
 
     framebuffer_noload_VRAM = .;
 
-    .framebuffer.noload (NOLOAD) : SUBALIGN(16)
+    .framebuffer.noload (NOLOAD) :
     {
         FILL(0x00000000);
         framebuffer_SBSS_START = .;
         build/src/buffers/framebuffer.o(.sbss*);
-        . = ALIGN(., 0x10);
         framebuffer_SBSS_END = .;
         framebuffer_SBSS_SIZE = ABSOLUTE(framebuffer_SBSS_END - framebuffer_SBSS_START);
 
         framebuffer_SCOMMON_START = .;
         build/src/buffers/framebuffer.o(.scommon*);
-        . = ALIGN(., 0x10);
         framebuffer_SCOMMON_END = .;
         framebuffer_SCOMMON_SIZE = ABSOLUTE(framebuffer_SCOMMON_END - framebuffer_SCOMMON_START);
 
         framebuffer_BSS_START = .;
         build/src/buffers/framebuffer.o(.bss*);
-        . = ALIGN(., 0x10);
         framebuffer_BSS_END = .;
         framebuffer_BSS_SIZE = ABSOLUTE(framebuffer_BSS_END - framebuffer_BSS_START);
 
         framebufferCOMMON_START = .;
         build/src/buffers/framebuffer.o(COMMON*);
-        . = ALIGN(., 0x10);
         framebufferCOMMON_END = .;
         framebufferCOMMON_SIZE = ABSOLUTE(framebufferCOMMON_END - framebufferCOMMON_START);
     }

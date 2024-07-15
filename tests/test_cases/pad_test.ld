@@ -6,7 +6,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot : AT(boot_ROM_START) SUBALIGN(16)
+    .boot : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -49,7 +49,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;

@@ -6,7 +6,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot 0x80000460 : AT(boot_ROM_START) SUBALIGN(16)
+    .boot 0x80000460 : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -27,7 +27,6 @@ SECTIONS
         build/us/src/boot/file28.o(.text*);
         build/us/src/boot/file29.o(.text*);
         build/us/lib/libgcc.a:*(.text*);
-        . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
@@ -49,7 +48,6 @@ SECTIONS
         build/us/src/boot/file28.o(.data*);
         build/us/src/boot/file29.o(.data*);
         build/us/lib/libgcc.a:*(.data*);
-        . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -71,7 +69,6 @@ SECTIONS
         build/us/src/boot/file28.o(.rodata*);
         build/us/src/boot/file29.o(.rodata*);
         build/us/lib/libgcc.a:*(.rodata*);
-        . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -93,7 +90,6 @@ SECTIONS
         build/us/src/boot/file28.o(.sdata*);
         build/us/src/boot/file29.o(.sdata*);
         build/us/lib/libgcc.a:*(.sdata*);
-        . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -103,7 +99,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
@@ -124,7 +120,6 @@ SECTIONS
         build/us/src/boot/file28.o(.sbss*);
         build/us/src/boot/file29.o(.sbss*);
         build/us/lib/libgcc.a:*(.sbss*);
-        . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -146,7 +141,6 @@ SECTIONS
         build/us/src/boot/file28.o(.scommon*);
         build/us/src/boot/file29.o(.scommon*);
         build/us/lib/libgcc.a:*(.scommon*);
-        . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
@@ -168,7 +162,6 @@ SECTIONS
         build/us/src/boot/file28.o(.bss*);
         build/us/src/boot/file29.o(.bss*);
         build/us/lib/libgcc.a:*(.bss*);
-        . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
@@ -190,7 +183,6 @@ SECTIONS
         build/us/src/boot/file28.o(COMMON*);
         build/us/src/boot/file29.o(COMMON*);
         build/us/lib/libgcc.a:*(COMMON*);
-        . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -207,30 +199,26 @@ SECTIONS
     kanji_VRAM = ADDR(.kanji);
     kanji_alloc_VRAM = .;
 
-    .kanji 0x01000000 : AT(kanji_ROM_START) SUBALIGN(16)
+    .kanji 0x01000000 : AT(kanji_ROM_START)
     {
         FILL(0x00000000);
         kanji_TEXT_START = .;
         build/us/src/language/kanji.o(.text*);
-        . = ALIGN(., 0x10);
         kanji_TEXT_END = .;
         kanji_TEXT_SIZE = ABSOLUTE(kanji_TEXT_END - kanji_TEXT_START);
 
         kanji_DATA_START = .;
         build/us/src/language/kanji.o(.data*);
-        . = ALIGN(., 0x10);
         kanji_DATA_END = .;
         kanji_DATA_SIZE = ABSOLUTE(kanji_DATA_END - kanji_DATA_START);
 
         kanji_RODATA_START = .;
         build/us/src/language/kanji.o(.rodata*);
-        . = ALIGN(., 0x10);
         kanji_RODATA_END = .;
         kanji_RODATA_SIZE = ABSOLUTE(kanji_RODATA_END - kanji_RODATA_START);
 
         kanji_SDATA_START = .;
         build/us/src/language/kanji.o(.sdata*);
-        . = ALIGN(., 0x10);
         kanji_SDATA_END = .;
         kanji_SDATA_SIZE = ABSOLUTE(kanji_SDATA_END - kanji_SDATA_START);
     }
@@ -240,30 +228,26 @@ SECTIONS
 
     kanji_noload_VRAM = .;
 
-    .kanji.noload (NOLOAD) : SUBALIGN(16)
+    .kanji.noload (NOLOAD) :
     {
         FILL(0x00000000);
         kanji_SBSS_START = .;
         build/us/src/language/kanji.o(.sbss*);
-        . = ALIGN(., 0x10);
         kanji_SBSS_END = .;
         kanji_SBSS_SIZE = ABSOLUTE(kanji_SBSS_END - kanji_SBSS_START);
 
         kanji_SCOMMON_START = .;
         build/us/src/language/kanji.o(.scommon*);
-        . = ALIGN(., 0x10);
         kanji_SCOMMON_END = .;
         kanji_SCOMMON_SIZE = ABSOLUTE(kanji_SCOMMON_END - kanji_SCOMMON_START);
 
         kanji_BSS_START = .;
         build/us/src/language/kanji.o(.bss*);
-        . = ALIGN(., 0x10);
         kanji_BSS_END = .;
         kanji_BSS_SIZE = ABSOLUTE(kanji_BSS_END - kanji_BSS_START);
 
         kanjiCOMMON_START = .;
         build/us/src/language/kanji.o(COMMON*);
-        . = ALIGN(., 0x10);
         kanjiCOMMON_END = .;
         kanjiCOMMON_SIZE = ABSOLUTE(kanjiCOMMON_END - kanjiCOMMON_START);
     }
@@ -280,30 +264,26 @@ SECTIONS
     latin_alphabet_VRAM = ADDR(.latin_alphabet);
     latin_alphabet_alloc_VRAM = .;
 
-    .latin_alphabet 0x01000000 : AT(latin_alphabet_ROM_START) SUBALIGN(16)
+    .latin_alphabet 0x01000000 : AT(latin_alphabet_ROM_START)
     {
         FILL(0x00000000);
         latin_alphabet_TEXT_START = .;
         build/us/src/language/latin_alphabet.o(.text*);
-        . = ALIGN(., 0x10);
         latin_alphabet_TEXT_END = .;
         latin_alphabet_TEXT_SIZE = ABSOLUTE(latin_alphabet_TEXT_END - latin_alphabet_TEXT_START);
 
         latin_alphabet_DATA_START = .;
         build/us/src/language/latin_alphabet.o(.data*);
-        . = ALIGN(., 0x10);
         latin_alphabet_DATA_END = .;
         latin_alphabet_DATA_SIZE = ABSOLUTE(latin_alphabet_DATA_END - latin_alphabet_DATA_START);
 
         latin_alphabet_RODATA_START = .;
         build/us/src/language/latin_alphabet.o(.rodata*);
-        . = ALIGN(., 0x10);
         latin_alphabet_RODATA_END = .;
         latin_alphabet_RODATA_SIZE = ABSOLUTE(latin_alphabet_RODATA_END - latin_alphabet_RODATA_START);
 
         latin_alphabet_SDATA_START = .;
         build/us/src/language/latin_alphabet.o(.sdata*);
-        . = ALIGN(., 0x10);
         latin_alphabet_SDATA_END = .;
         latin_alphabet_SDATA_SIZE = ABSOLUTE(latin_alphabet_SDATA_END - latin_alphabet_SDATA_START);
     }
@@ -313,30 +293,26 @@ SECTIONS
 
     latin_alphabet_noload_VRAM = .;
 
-    .latin_alphabet.noload (NOLOAD) : SUBALIGN(16)
+    .latin_alphabet.noload (NOLOAD) :
     {
         FILL(0x00000000);
         latin_alphabet_SBSS_START = .;
         build/us/src/language/latin_alphabet.o(.sbss*);
-        . = ALIGN(., 0x10);
         latin_alphabet_SBSS_END = .;
         latin_alphabet_SBSS_SIZE = ABSOLUTE(latin_alphabet_SBSS_END - latin_alphabet_SBSS_START);
 
         latin_alphabet_SCOMMON_START = .;
         build/us/src/language/latin_alphabet.o(.scommon*);
-        . = ALIGN(., 0x10);
         latin_alphabet_SCOMMON_END = .;
         latin_alphabet_SCOMMON_SIZE = ABSOLUTE(latin_alphabet_SCOMMON_END - latin_alphabet_SCOMMON_START);
 
         latin_alphabet_BSS_START = .;
         build/us/src/language/latin_alphabet.o(.bss*);
-        . = ALIGN(., 0x10);
         latin_alphabet_BSS_END = .;
         latin_alphabet_BSS_SIZE = ABSOLUTE(latin_alphabet_BSS_END - latin_alphabet_BSS_START);
 
         latin_alphabetCOMMON_START = .;
         build/us/src/language/latin_alphabet.o(COMMON*);
-        . = ALIGN(., 0x10);
         latin_alphabetCOMMON_END = .;
         latin_alphabetCOMMON_SIZE = ABSOLUTE(latin_alphabetCOMMON_END - latin_alphabetCOMMON_START);
     }
@@ -353,30 +329,26 @@ SECTIONS
     player_model_VRAM = ADDR(.player_model);
     player_model_alloc_VRAM = .;
 
-    .player_model 0x05000000 : AT(player_model_ROM_START) SUBALIGN(16)
+    .player_model 0x05000000 : AT(player_model_ROM_START)
     {
         FILL(0x00000000);
         player_model_TEXT_START = .;
         build/us/src/assets/player_model.o(.text*);
-        . = ALIGN(., 0x10);
         player_model_TEXT_END = .;
         player_model_TEXT_SIZE = ABSOLUTE(player_model_TEXT_END - player_model_TEXT_START);
 
         player_model_DATA_START = .;
         build/us/src/assets/player_model.o(.data*);
-        . = ALIGN(., 0x10);
         player_model_DATA_END = .;
         player_model_DATA_SIZE = ABSOLUTE(player_model_DATA_END - player_model_DATA_START);
 
         player_model_RODATA_START = .;
         build/us/src/assets/player_model.o(.rodata*);
-        . = ALIGN(., 0x10);
         player_model_RODATA_END = .;
         player_model_RODATA_SIZE = ABSOLUTE(player_model_RODATA_END - player_model_RODATA_START);
 
         player_model_SDATA_START = .;
         build/us/src/assets/player_model.o(.sdata*);
-        . = ALIGN(., 0x10);
         player_model_SDATA_END = .;
         player_model_SDATA_SIZE = ABSOLUTE(player_model_SDATA_END - player_model_SDATA_START);
     }
@@ -386,30 +358,26 @@ SECTIONS
 
     player_model_noload_VRAM = .;
 
-    .player_model.noload (NOLOAD) : SUBALIGN(16)
+    .player_model.noload (NOLOAD) :
     {
         FILL(0x00000000);
         player_model_SBSS_START = .;
         build/us/src/assets/player_model.o(.sbss*);
-        . = ALIGN(., 0x10);
         player_model_SBSS_END = .;
         player_model_SBSS_SIZE = ABSOLUTE(player_model_SBSS_END - player_model_SBSS_START);
 
         player_model_SCOMMON_START = .;
         build/us/src/assets/player_model.o(.scommon*);
-        . = ALIGN(., 0x10);
         player_model_SCOMMON_END = .;
         player_model_SCOMMON_SIZE = ABSOLUTE(player_model_SCOMMON_END - player_model_SCOMMON_START);
 
         player_model_BSS_START = .;
         build/us/src/assets/player_model.o(.bss*);
-        . = ALIGN(., 0x10);
         player_model_BSS_END = .;
         player_model_BSS_SIZE = ABSOLUTE(player_model_BSS_END - player_model_BSS_START);
 
         player_modelCOMMON_START = .;
         build/us/src/assets/player_model.o(COMMON*);
-        . = ALIGN(., 0x10);
         player_modelCOMMON_END = .;
         player_modelCOMMON_SIZE = ABSOLUTE(player_modelCOMMON_END - player_modelCOMMON_START);
     }

@@ -46,8 +46,6 @@ pub struct Settings {
     pub fill_value: Option<u32>,
 }
 
-// TODO: consider changing the defaults before 1.0.0
-
 fn settings_default_base_path() -> PathBuf {
     PathBuf::new()
 }
@@ -134,7 +132,7 @@ fn settings_default_noload_sections() -> Vec<String> {
 }
 
 const fn settings_default_subalign() -> Option<u32> {
-    Some(0x10)
+    None
 }
 
 const fn settings_default_segment_start_align() -> Option<u32> {
@@ -142,7 +140,7 @@ const fn settings_default_segment_start_align() -> Option<u32> {
 }
 
 const fn settings_default_section_end_align() -> Option<u32> {
-    Some(0x10)
+    None
 }
 
 fn settings_default_sections_start_alignment() -> HashMap<String, u32> {

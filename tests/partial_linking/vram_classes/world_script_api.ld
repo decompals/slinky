@@ -1,6 +1,6 @@
 SECTIONS
 {
-    .text : SUBALIGN(16)
+    .text :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.text*);
@@ -9,7 +9,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.text*);
     }
 
-    .data : SUBALIGN(16)
+    .data :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.data*);
@@ -18,7 +18,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.data*);
     }
 
-    .rodata : SUBALIGN(16)
+    .rodata :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.rodata*);
@@ -27,7 +27,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.rodata*);
     }
 
-    .sdata : SUBALIGN(16)
+    .sdata :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.sdata*);
@@ -36,7 +36,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.sdata*);
     }
 
-    .sbss (NOLOAD) : SUBALIGN(16)
+    .sbss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.sbss*);
@@ -45,7 +45,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.sbss*);
     }
 
-    .scommon (NOLOAD) : SUBALIGN(16)
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.scommon*);
@@ -54,7 +54,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.scommon*);
     }
 
-    .bss (NOLOAD) : SUBALIGN(16)
+    .bss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(.bss*);
@@ -63,7 +63,7 @@ SECTIONS
         build/src/world/script_api/enter_exit.o(.bss*);
     }
 
-    COMMON (NOLOAD) : SUBALIGN(16)
+    COMMON (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/world/script_api/shops.o(COMMON*);

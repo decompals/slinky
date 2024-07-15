@@ -1,6 +1,6 @@
 SECTIONS
 {
-    .text : SUBALIGN(16)
+    .text :
     {
         FILL(0x00000000);
         build/src/main/main.o(.text*);
@@ -8,7 +8,7 @@ SECTIONS
         build/asm/main/util.o(.text*);
     }
 
-    .data : SUBALIGN(16)
+    .data :
     {
         FILL(0x00000000);
         build/src/main/main.o(.data*);
@@ -16,7 +16,7 @@ SECTIONS
         build/asm/main/util.o(.data*);
     }
 
-    .rodata : SUBALIGN(16)
+    .rodata :
     {
         FILL(0x00000000);
         build/src/main/main.o(.rodata*);
@@ -24,7 +24,7 @@ SECTIONS
         build/asm/main/util.o(.rodata*);
     }
 
-    .sdata : SUBALIGN(16)
+    .sdata :
     {
         FILL(0x00000000);
         build/src/main/main.o(.sdata*);
@@ -32,7 +32,7 @@ SECTIONS
         build/asm/main/util.o(.sdata*);
     }
 
-    .sbss (NOLOAD) : SUBALIGN(16)
+    .sbss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/main/main.o(.sbss*);
@@ -40,7 +40,7 @@ SECTIONS
         build/asm/main/util.o(.sbss*);
     }
 
-    .scommon (NOLOAD) : SUBALIGN(16)
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/main/main.o(.scommon*);
@@ -48,7 +48,7 @@ SECTIONS
         build/asm/main/util.o(.scommon*);
     }
 
-    .bss (NOLOAD) : SUBALIGN(16)
+    .bss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/main/main.o(.bss*);
@@ -56,7 +56,7 @@ SECTIONS
         build/asm/main/util.o(.bss*);
     }
 
-    COMMON (NOLOAD) : SUBALIGN(16)
+    COMMON (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/main/main.o(COMMON*);

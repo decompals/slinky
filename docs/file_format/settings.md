@@ -580,7 +580,7 @@ Positive integers or `null`.
 
 ### Default value
 
-`0x10`
+`null`
 
 ## `segment_start_align`
 
@@ -629,7 +629,7 @@ Positive integers or `null`.
 
 ### Default value
 
-`0x10`
+`null`
 
 ## `sections_start_alignment`
 

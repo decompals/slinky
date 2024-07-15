@@ -6,7 +6,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot : AT(boot_ROM_START) SUBALIGN(16)
+    .boot : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -40,7 +40,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
@@ -81,7 +81,7 @@ SECTIONS
     kanji_VRAM = ADDR(.kanji);
     kanji_alloc_VRAM = .;
 
-    .kanji : AT(kanji_ROM_START) SUBALIGN(16)
+    .kanji : AT(kanji_ROM_START)
     {
         FILL(0x00000000);
         kanji_TEXT_START = .;
@@ -111,7 +111,7 @@ SECTIONS
 
     kanji_noload_VRAM = .;
 
-    .kanji.noload (NOLOAD) : SUBALIGN(16)
+    .kanji.noload (NOLOAD) :
     {
         FILL(0x00000000);
         kanji_SBSS_START = .;
@@ -148,7 +148,7 @@ SECTIONS
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;
 
-    .main boot_VRAM_END : AT(main_ROM_START) SUBALIGN(16)
+    .main boot_VRAM_END : AT(main_ROM_START)
     {
         FILL(0x00000000);
         main_TEXT_START = .;
@@ -190,7 +190,7 @@ SECTIONS
 
     main_noload_VRAM = .;
 
-    .main.noload (NOLOAD) : SUBALIGN(16)
+    .main.noload (NOLOAD) :
     {
         FILL(0x00000000);
         main_SBSS_START = .;
@@ -239,7 +239,7 @@ SECTIONS
     engine_VRAM = ADDR(.engine);
     engine_alloc_VRAM = .;
 
-    .engine : AT(engine_ROM_START) SUBALIGN(16)
+    .engine : AT(engine_ROM_START)
     {
         FILL(0x00000000);
         engine_TEXT_START = .;
@@ -273,7 +273,7 @@ SECTIONS
 
     engine_noload_VRAM = .;
 
-    .engine.noload (NOLOAD) : SUBALIGN(16)
+    .engine.noload (NOLOAD) :
     {
         FILL(0x00000000);
         engine_SBSS_START = .;
@@ -314,7 +314,7 @@ SECTIONS
     engine2_VRAM = ADDR(.engine2);
     engine2_alloc_VRAM = .;
 
-    .engine2 : AT(engine2_ROM_START) SUBALIGN(16)
+    .engine2 : AT(engine2_ROM_START)
     {
         FILL(0x00000000);
         engine2_TEXT_START = .;
@@ -344,7 +344,7 @@ SECTIONS
 
     engine2_noload_VRAM = .;
 
-    .engine2.noload (NOLOAD) : SUBALIGN(16)
+    .engine2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         engine2_SBSS_START = .;
@@ -381,7 +381,7 @@ SECTIONS
     enemy_1_VRAM = ADDR(.enemy_1);
     enemy_1_alloc_VRAM = .;
 
-    .enemy_1 gBufferEnemy : AT(enemy_1_ROM_START) SUBALIGN(16)
+    .enemy_1 gBufferEnemy : AT(enemy_1_ROM_START)
     {
         FILL(0x00000000);
         enemy_1_TEXT_START = .;
@@ -411,7 +411,7 @@ SECTIONS
 
     enemy_1_noload_VRAM = .;
 
-    .enemy_1.noload (NOLOAD) : SUBALIGN(16)
+    .enemy_1.noload (NOLOAD) :
     {
         FILL(0x00000000);
         enemy_1_SBSS_START = .;
@@ -448,7 +448,7 @@ SECTIONS
     enemy_2_VRAM = ADDR(.enemy_2);
     enemy_2_alloc_VRAM = .;
 
-    .enemy_2 gBufferEnemy : AT(enemy_2_ROM_START) SUBALIGN(16)
+    .enemy_2 gBufferEnemy : AT(enemy_2_ROM_START)
     {
         FILL(0x00000000);
         enemy_2_TEXT_START = .;
@@ -478,7 +478,7 @@ SECTIONS
 
     enemy_2_noload_VRAM = .;
 
-    .enemy_2.noload (NOLOAD) : SUBALIGN(16)
+    .enemy_2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         enemy_2_SBSS_START = .;
@@ -515,7 +515,7 @@ SECTIONS
     enemy_3_VRAM = ADDR(.enemy_3);
     enemy_3_alloc_VRAM = .;
 
-    .enemy_3 gBufferEnemy : AT(enemy_3_ROM_START) SUBALIGN(16)
+    .enemy_3 gBufferEnemy : AT(enemy_3_ROM_START)
     {
         FILL(0x00000000);
         enemy_3_TEXT_START = .;
@@ -545,7 +545,7 @@ SECTIONS
 
     enemy_3_noload_VRAM = .;
 
-    .enemy_3.noload (NOLOAD) : SUBALIGN(16)
+    .enemy_3.noload (NOLOAD) :
     {
         FILL(0x00000000);
         enemy_3_SBSS_START = .;
@@ -582,7 +582,7 @@ SECTIONS
     stage_1_VRAM = ADDR(.stage_1);
     stage_1_alloc_VRAM = .;
 
-    .stage_1 gBufferStage : AT(stage_1_ROM_START) SUBALIGN(16)
+    .stage_1 gBufferStage : AT(stage_1_ROM_START)
     {
         FILL(0x00000000);
         stage_1_TEXT_START = .;
@@ -612,7 +612,7 @@ SECTIONS
 
     stage_1_noload_VRAM = .;
 
-    .stage_1.noload (NOLOAD) : SUBALIGN(16)
+    .stage_1.noload (NOLOAD) :
     {
         FILL(0x00000000);
         stage_1_SBSS_START = .;
@@ -649,7 +649,7 @@ SECTIONS
     stage_2_VRAM = ADDR(.stage_2);
     stage_2_alloc_VRAM = .;
 
-    .stage_2 gBufferStage : AT(stage_2_ROM_START) SUBALIGN(16)
+    .stage_2 gBufferStage : AT(stage_2_ROM_START)
     {
         FILL(0x00000000);
         stage_2_TEXT_START = .;
@@ -679,7 +679,7 @@ SECTIONS
 
     stage_2_noload_VRAM = .;
 
-    .stage_2.noload (NOLOAD) : SUBALIGN(16)
+    .stage_2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         stage_2_SBSS_START = .;
@@ -716,7 +716,7 @@ SECTIONS
     stage_3_VRAM = ADDR(.stage_3);
     stage_3_alloc_VRAM = .;
 
-    .stage_3 gBufferStage : AT(stage_3_ROM_START) SUBALIGN(16)
+    .stage_3 gBufferStage : AT(stage_3_ROM_START)
     {
         FILL(0x00000000);
         stage_3_TEXT_START = .;
@@ -746,7 +746,7 @@ SECTIONS
 
     stage_3_noload_VRAM = .;
 
-    .stage_3.noload (NOLOAD) : SUBALIGN(16)
+    .stage_3.noload (NOLOAD) :
     {
         FILL(0x00000000);
         stage_3_SBSS_START = .;

@@ -1,55 +1,55 @@
 SECTIONS
 {
-    .text : SUBALIGN(16)
+    .text :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.text*);
         build/src/assets/assets2/dlist.o(.text*);
     }
 
-    .data : SUBALIGN(16)
+    .data :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.data*);
         build/src/assets/assets2/dlist.o(.data*);
     }
 
-    .rodata : SUBALIGN(16)
+    .rodata :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.rodata*);
         build/src/assets/assets2/dlist.o(.rodata*);
     }
 
-    .sdata : SUBALIGN(16)
+    .sdata :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.sdata*);
         build/src/assets/assets2/dlist.o(.sdata*);
     }
 
-    .sbss (NOLOAD) : SUBALIGN(16)
+    .sbss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.sbss*);
         build/src/assets/assets2/dlist.o(.sbss*);
     }
 
-    .scommon (NOLOAD) : SUBALIGN(16)
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.scommon*);
         build/src/assets/assets2/dlist.o(.scommon*);
     }
 
-    .bss (NOLOAD) : SUBALIGN(16)
+    .bss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(.bss*);
         build/src/assets/assets2/dlist.o(.bss*);
     }
 
-    COMMON (NOLOAD) : SUBALIGN(16)
+    COMMON (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/assets/assets2/texture.o(COMMON*);

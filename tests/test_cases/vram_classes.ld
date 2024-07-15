@@ -6,34 +6,30 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot 0x80000460 : AT(boot_ROM_START) SUBALIGN(16)
+    .boot 0x80000460 : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
         build/src/boot/boot_main.o(.text*);
         build/src/boot/dmadata.o(.text*);
-        . = ALIGN(., 0x10);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
         boot_DATA_START = .;
         build/src/boot/boot_main.o(.data*);
         build/src/boot/dmadata.o(.data*);
-        . = ALIGN(., 0x10);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
         boot_RODATA_START = .;
         build/src/boot/boot_main.o(.rodata*);
         build/src/boot/dmadata.o(.rodata*);
-        . = ALIGN(., 0x10);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
         boot_SDATA_START = .;
         build/src/boot/boot_main.o(.sdata*);
         build/src/boot/dmadata.o(.sdata*);
-        . = ALIGN(., 0x10);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -43,34 +39,30 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
         build/src/boot/boot_main.o(.sbss*);
         build/src/boot/dmadata.o(.sbss*);
-        . = ALIGN(., 0x10);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
         boot_SCOMMON_START = .;
         build/src/boot/boot_main.o(.scommon*);
         build/src/boot/dmadata.o(.scommon*);
-        . = ALIGN(., 0x10);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         boot_BSS_START = .;
         build/src/boot/boot_main.o(.bss*);
         build/src/boot/dmadata.o(.bss*);
-        . = ALIGN(., 0x10);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
         build/src/boot/boot_main.o(COMMON*);
         build/src/boot/dmadata.o(COMMON*);
-        . = ALIGN(., 0x10);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -90,30 +82,26 @@ SECTIONS
     omo2_1_VRAM = ADDR(.omo2_1);
     omo2_1_alloc_VRAM = .;
 
-    .omo2_1 battle_area2_VRAM_CLASS_START : AT(omo2_1_ROM_START) SUBALIGN(16)
+    .omo2_1 battle_area2_VRAM_CLASS_START : AT(omo2_1_ROM_START)
     {
         FILL(0x00000000);
         omo2_1_TEXT_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.text*);
-        . = ALIGN(., 0x10);
         omo2_1_TEXT_END = .;
         omo2_1_TEXT_SIZE = ABSOLUTE(omo2_1_TEXT_END - omo2_1_TEXT_START);
 
         omo2_1_DATA_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.data*);
-        . = ALIGN(., 0x10);
         omo2_1_DATA_END = .;
         omo2_1_DATA_SIZE = ABSOLUTE(omo2_1_DATA_END - omo2_1_DATA_START);
 
         omo2_1_RODATA_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.rodata*);
-        . = ALIGN(., 0x10);
         omo2_1_RODATA_END = .;
         omo2_1_RODATA_SIZE = ABSOLUTE(omo2_1_RODATA_END - omo2_1_RODATA_START);
 
         omo2_1_SDATA_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.sdata*);
-        . = ALIGN(., 0x10);
         omo2_1_SDATA_END = .;
         omo2_1_SDATA_SIZE = ABSOLUTE(omo2_1_SDATA_END - omo2_1_SDATA_START);
     }
@@ -123,30 +111,26 @@ SECTIONS
 
     omo2_1_noload_VRAM = .;
 
-    .omo2_1.noload (NOLOAD) : SUBALIGN(16)
+    .omo2_1.noload (NOLOAD) :
     {
         FILL(0x00000000);
         omo2_1_SBSS_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.sbss*);
-        . = ALIGN(., 0x10);
         omo2_1_SBSS_END = .;
         omo2_1_SBSS_SIZE = ABSOLUTE(omo2_1_SBSS_END - omo2_1_SBSS_START);
 
         omo2_1_SCOMMON_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.scommon*);
-        . = ALIGN(., 0x10);
         omo2_1_SCOMMON_END = .;
         omo2_1_SCOMMON_SIZE = ABSOLUTE(omo2_1_SCOMMON_END - omo2_1_SCOMMON_START);
 
         omo2_1_BSS_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(.bss*);
-        . = ALIGN(., 0x10);
         omo2_1_BSS_END = .;
         omo2_1_BSS_SIZE = ABSOLUTE(omo2_1_BSS_END - omo2_1_BSS_START);
 
         omo2_1COMMON_START = .;
         build/src/battle/area/omo2_1/actor/shy_squad.o(COMMON*);
-        . = ALIGN(., 0x10);
         omo2_1COMMON_END = .;
         omo2_1COMMON_SIZE = ABSOLUTE(omo2_1COMMON_END - omo2_1COMMON_START);
     }
@@ -165,30 +149,26 @@ SECTIONS
     omo2_2_VRAM = ADDR(.omo2_2);
     omo2_2_alloc_VRAM = .;
 
-    .omo2_2 battle_area2_VRAM_CLASS_START : AT(omo2_2_ROM_START) SUBALIGN(16)
+    .omo2_2 battle_area2_VRAM_CLASS_START : AT(omo2_2_ROM_START)
     {
         FILL(0x00000000);
         omo2_2_TEXT_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.text*);
-        . = ALIGN(., 0x10);
         omo2_2_TEXT_END = .;
         omo2_2_TEXT_SIZE = ABSOLUTE(omo2_2_TEXT_END - omo2_2_TEXT_START);
 
         omo2_2_DATA_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.data*);
-        . = ALIGN(., 0x10);
         omo2_2_DATA_END = .;
         omo2_2_DATA_SIZE = ABSOLUTE(omo2_2_DATA_END - omo2_2_DATA_START);
 
         omo2_2_RODATA_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.rodata*);
-        . = ALIGN(., 0x10);
         omo2_2_RODATA_END = .;
         omo2_2_RODATA_SIZE = ABSOLUTE(omo2_2_RODATA_END - omo2_2_RODATA_START);
 
         omo2_2_SDATA_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.sdata*);
-        . = ALIGN(., 0x10);
         omo2_2_SDATA_END = .;
         omo2_2_SDATA_SIZE = ABSOLUTE(omo2_2_SDATA_END - omo2_2_SDATA_START);
     }
@@ -198,30 +178,26 @@ SECTIONS
 
     omo2_2_noload_VRAM = .;
 
-    .omo2_2.noload (NOLOAD) : SUBALIGN(16)
+    .omo2_2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         omo2_2_SBSS_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.sbss*);
-        . = ALIGN(., 0x10);
         omo2_2_SBSS_END = .;
         omo2_2_SBSS_SIZE = ABSOLUTE(omo2_2_SBSS_END - omo2_2_SBSS_START);
 
         omo2_2_SCOMMON_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.scommon*);
-        . = ALIGN(., 0x10);
         omo2_2_SCOMMON_END = .;
         omo2_2_SCOMMON_SIZE = ABSOLUTE(omo2_2_SCOMMON_END - omo2_2_SCOMMON_START);
 
         omo2_2_BSS_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(.bss*);
-        . = ALIGN(., 0x10);
         omo2_2_BSS_END = .;
         omo2_2_BSS_SIZE = ABSOLUTE(omo2_2_BSS_END - omo2_2_BSS_START);
 
         omo2_2COMMON_START = .;
         build/src/battle/area/omo2_2/actor/stilt_guy.o(COMMON*);
-        . = ALIGN(., 0x10);
         omo2_2COMMON_END = .;
         omo2_2COMMON_SIZE = ABSOLUTE(omo2_2COMMON_END - omo2_2COMMON_START);
     }
@@ -240,30 +216,26 @@ SECTIONS
     omo2_3_VRAM = ADDR(.omo2_3);
     omo2_3_alloc_VRAM = .;
 
-    .omo2_3 battle_area2_VRAM_CLASS_START : AT(omo2_3_ROM_START) SUBALIGN(16)
+    .omo2_3 battle_area2_VRAM_CLASS_START : AT(omo2_3_ROM_START)
     {
         FILL(0x00000000);
         omo2_3_TEXT_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.text*);
-        . = ALIGN(., 0x10);
         omo2_3_TEXT_END = .;
         omo2_3_TEXT_SIZE = ABSOLUTE(omo2_3_TEXT_END - omo2_3_TEXT_START);
 
         omo2_3_DATA_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.data*);
-        . = ALIGN(., 0x10);
         omo2_3_DATA_END = .;
         omo2_3_DATA_SIZE = ABSOLUTE(omo2_3_DATA_END - omo2_3_DATA_START);
 
         omo2_3_RODATA_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.rodata*);
-        . = ALIGN(., 0x10);
         omo2_3_RODATA_END = .;
         omo2_3_RODATA_SIZE = ABSOLUTE(omo2_3_RODATA_END - omo2_3_RODATA_START);
 
         omo2_3_SDATA_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.sdata*);
-        . = ALIGN(., 0x10);
         omo2_3_SDATA_END = .;
         omo2_3_SDATA_SIZE = ABSOLUTE(omo2_3_SDATA_END - omo2_3_SDATA_START);
     }
@@ -273,30 +245,26 @@ SECTIONS
 
     omo2_3_noload_VRAM = .;
 
-    .omo2_3.noload (NOLOAD) : SUBALIGN(16)
+    .omo2_3.noload (NOLOAD) :
     {
         FILL(0x00000000);
         omo2_3_SBSS_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.sbss*);
-        . = ALIGN(., 0x10);
         omo2_3_SBSS_END = .;
         omo2_3_SBSS_SIZE = ABSOLUTE(omo2_3_SBSS_END - omo2_3_SBSS_START);
 
         omo2_3_SCOMMON_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.scommon*);
-        . = ALIGN(., 0x10);
         omo2_3_SCOMMON_END = .;
         omo2_3_SCOMMON_SIZE = ABSOLUTE(omo2_3_SCOMMON_END - omo2_3_SCOMMON_START);
 
         omo2_3_BSS_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(.bss*);
-        . = ALIGN(., 0x10);
         omo2_3_BSS_END = .;
         omo2_3_BSS_SIZE = ABSOLUTE(omo2_3_BSS_END - omo2_3_BSS_START);
 
         omo2_3COMMON_START = .;
         build/src/battle/area/omo2_3/actor/shy_stack.o(COMMON*);
-        . = ALIGN(., 0x10);
         omo2_3COMMON_END = .;
         omo2_3COMMON_SIZE = ABSOLUTE(omo2_3COMMON_END - omo2_3COMMON_START);
     }
@@ -318,30 +286,26 @@ SECTIONS
     battle_partner_goompa_VRAM = ADDR(.battle_partner_goompa);
     battle_partner_goompa_alloc_VRAM = .;
 
-    .battle_partner_goompa battle_partner_VRAM_CLASS_START : AT(battle_partner_goompa_ROM_START) SUBALIGN(16)
+    .battle_partner_goompa battle_partner_VRAM_CLASS_START : AT(battle_partner_goompa_ROM_START)
     {
         FILL(0x00000000);
         battle_partner_goompa_TEXT_START = .;
         build/src/battle_partner/goompa.o(.text*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_TEXT_END = .;
         battle_partner_goompa_TEXT_SIZE = ABSOLUTE(battle_partner_goompa_TEXT_END - battle_partner_goompa_TEXT_START);
 
         battle_partner_goompa_DATA_START = .;
         build/src/battle_partner/goompa.o(.data*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_DATA_END = .;
         battle_partner_goompa_DATA_SIZE = ABSOLUTE(battle_partner_goompa_DATA_END - battle_partner_goompa_DATA_START);
 
         battle_partner_goompa_RODATA_START = .;
         build/src/battle_partner/goompa.o(.rodata*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_RODATA_END = .;
         battle_partner_goompa_RODATA_SIZE = ABSOLUTE(battle_partner_goompa_RODATA_END - battle_partner_goompa_RODATA_START);
 
         battle_partner_goompa_SDATA_START = .;
         build/src/battle_partner/goompa.o(.sdata*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_SDATA_END = .;
         battle_partner_goompa_SDATA_SIZE = ABSOLUTE(battle_partner_goompa_SDATA_END - battle_partner_goompa_SDATA_START);
     }
@@ -351,30 +315,26 @@ SECTIONS
 
     battle_partner_goompa_noload_VRAM = .;
 
-    .battle_partner_goompa.noload (NOLOAD) : SUBALIGN(16)
+    .battle_partner_goompa.noload (NOLOAD) :
     {
         FILL(0x00000000);
         battle_partner_goompa_SBSS_START = .;
         build/src/battle_partner/goompa.o(.sbss*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_SBSS_END = .;
         battle_partner_goompa_SBSS_SIZE = ABSOLUTE(battle_partner_goompa_SBSS_END - battle_partner_goompa_SBSS_START);
 
         battle_partner_goompa_SCOMMON_START = .;
         build/src/battle_partner/goompa.o(.scommon*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_SCOMMON_END = .;
         battle_partner_goompa_SCOMMON_SIZE = ABSOLUTE(battle_partner_goompa_SCOMMON_END - battle_partner_goompa_SCOMMON_START);
 
         battle_partner_goompa_BSS_START = .;
         build/src/battle_partner/goompa.o(.bss*);
-        . = ALIGN(., 0x10);
         battle_partner_goompa_BSS_END = .;
         battle_partner_goompa_BSS_SIZE = ABSOLUTE(battle_partner_goompa_BSS_END - battle_partner_goompa_BSS_START);
 
         battle_partner_goompaCOMMON_START = .;
         build/src/battle_partner/goompa.o(COMMON*);
-        . = ALIGN(., 0x10);
         battle_partner_goompaCOMMON_END = .;
         battle_partner_goompaCOMMON_SIZE = ABSOLUTE(battle_partner_goompaCOMMON_END - battle_partner_goompaCOMMON_START);
     }
@@ -393,30 +353,26 @@ SECTIONS
     battle_partner_goombario_VRAM = ADDR(.battle_partner_goombario);
     battle_partner_goombario_alloc_VRAM = .;
 
-    .battle_partner_goombario battle_partner_VRAM_CLASS_START : AT(battle_partner_goombario_ROM_START) SUBALIGN(16)
+    .battle_partner_goombario battle_partner_VRAM_CLASS_START : AT(battle_partner_goombario_ROM_START)
     {
         FILL(0x00000000);
         battle_partner_goombario_TEXT_START = .;
         build/src/battle_partner/goombario.o(.text*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_TEXT_END = .;
         battle_partner_goombario_TEXT_SIZE = ABSOLUTE(battle_partner_goombario_TEXT_END - battle_partner_goombario_TEXT_START);
 
         battle_partner_goombario_DATA_START = .;
         build/src/battle_partner/goombario.o(.data*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_DATA_END = .;
         battle_partner_goombario_DATA_SIZE = ABSOLUTE(battle_partner_goombario_DATA_END - battle_partner_goombario_DATA_START);
 
         battle_partner_goombario_RODATA_START = .;
         build/src/battle_partner/goombario.o(.rodata*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_RODATA_END = .;
         battle_partner_goombario_RODATA_SIZE = ABSOLUTE(battle_partner_goombario_RODATA_END - battle_partner_goombario_RODATA_START);
 
         battle_partner_goombario_SDATA_START = .;
         build/src/battle_partner/goombario.o(.sdata*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_SDATA_END = .;
         battle_partner_goombario_SDATA_SIZE = ABSOLUTE(battle_partner_goombario_SDATA_END - battle_partner_goombario_SDATA_START);
     }
@@ -426,30 +382,26 @@ SECTIONS
 
     battle_partner_goombario_noload_VRAM = .;
 
-    .battle_partner_goombario.noload (NOLOAD) : SUBALIGN(16)
+    .battle_partner_goombario.noload (NOLOAD) :
     {
         FILL(0x00000000);
         battle_partner_goombario_SBSS_START = .;
         build/src/battle_partner/goombario.o(.sbss*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_SBSS_END = .;
         battle_partner_goombario_SBSS_SIZE = ABSOLUTE(battle_partner_goombario_SBSS_END - battle_partner_goombario_SBSS_START);
 
         battle_partner_goombario_SCOMMON_START = .;
         build/src/battle_partner/goombario.o(.scommon*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_SCOMMON_END = .;
         battle_partner_goombario_SCOMMON_SIZE = ABSOLUTE(battle_partner_goombario_SCOMMON_END - battle_partner_goombario_SCOMMON_START);
 
         battle_partner_goombario_BSS_START = .;
         build/src/battle_partner/goombario.o(.bss*);
-        . = ALIGN(., 0x10);
         battle_partner_goombario_BSS_END = .;
         battle_partner_goombario_BSS_SIZE = ABSOLUTE(battle_partner_goombario_BSS_END - battle_partner_goombario_BSS_START);
 
         battle_partner_goombarioCOMMON_START = .;
         build/src/battle_partner/goombario.o(COMMON*);
-        . = ALIGN(., 0x10);
         battle_partner_goombarioCOMMON_END = .;
         battle_partner_goombarioCOMMON_SIZE = ABSOLUTE(battle_partner_goombarioCOMMON_END - battle_partner_goombarioCOMMON_START);
     }
@@ -468,30 +420,26 @@ SECTIONS
     battle_partner_kooper_VRAM = ADDR(.battle_partner_kooper);
     battle_partner_kooper_alloc_VRAM = .;
 
-    .battle_partner_kooper battle_partner_VRAM_CLASS_START : AT(battle_partner_kooper_ROM_START) SUBALIGN(16)
+    .battle_partner_kooper battle_partner_VRAM_CLASS_START : AT(battle_partner_kooper_ROM_START)
     {
         FILL(0x00000000);
         battle_partner_kooper_TEXT_START = .;
         build/src/battle_partner/kooper.o(.text*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_TEXT_END = .;
         battle_partner_kooper_TEXT_SIZE = ABSOLUTE(battle_partner_kooper_TEXT_END - battle_partner_kooper_TEXT_START);
 
         battle_partner_kooper_DATA_START = .;
         build/src/battle_partner/kooper.o(.data*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_DATA_END = .;
         battle_partner_kooper_DATA_SIZE = ABSOLUTE(battle_partner_kooper_DATA_END - battle_partner_kooper_DATA_START);
 
         battle_partner_kooper_RODATA_START = .;
         build/src/battle_partner/kooper.o(.rodata*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_RODATA_END = .;
         battle_partner_kooper_RODATA_SIZE = ABSOLUTE(battle_partner_kooper_RODATA_END - battle_partner_kooper_RODATA_START);
 
         battle_partner_kooper_SDATA_START = .;
         build/src/battle_partner/kooper.o(.sdata*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_SDATA_END = .;
         battle_partner_kooper_SDATA_SIZE = ABSOLUTE(battle_partner_kooper_SDATA_END - battle_partner_kooper_SDATA_START);
     }
@@ -501,30 +449,26 @@ SECTIONS
 
     battle_partner_kooper_noload_VRAM = .;
 
-    .battle_partner_kooper.noload (NOLOAD) : SUBALIGN(16)
+    .battle_partner_kooper.noload (NOLOAD) :
     {
         FILL(0x00000000);
         battle_partner_kooper_SBSS_START = .;
         build/src/battle_partner/kooper.o(.sbss*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_SBSS_END = .;
         battle_partner_kooper_SBSS_SIZE = ABSOLUTE(battle_partner_kooper_SBSS_END - battle_partner_kooper_SBSS_START);
 
         battle_partner_kooper_SCOMMON_START = .;
         build/src/battle_partner/kooper.o(.scommon*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_SCOMMON_END = .;
         battle_partner_kooper_SCOMMON_SIZE = ABSOLUTE(battle_partner_kooper_SCOMMON_END - battle_partner_kooper_SCOMMON_START);
 
         battle_partner_kooper_BSS_START = .;
         build/src/battle_partner/kooper.o(.bss*);
-        . = ALIGN(., 0x10);
         battle_partner_kooper_BSS_END = .;
         battle_partner_kooper_BSS_SIZE = ABSOLUTE(battle_partner_kooper_BSS_END - battle_partner_kooper_BSS_START);
 
         battle_partner_kooperCOMMON_START = .;
         build/src/battle_partner/kooper.o(COMMON*);
-        . = ALIGN(., 0x10);
         battle_partner_kooperCOMMON_END = .;
         battle_partner_kooperCOMMON_SIZE = ABSOLUTE(battle_partner_kooperCOMMON_END - battle_partner_kooperCOMMON_START);
     }
@@ -547,7 +491,7 @@ SECTIONS
     battle_code_VRAM = ADDR(.battle_code);
     battle_code_alloc_VRAM = .;
 
-    .battle_code battle_code_VRAM_CLASS_START : AT(battle_code_ROM_START) SUBALIGN(16)
+    .battle_code battle_code_VRAM_CLASS_START : AT(battle_code_ROM_START)
     {
         FILL(0x00000000);
         battle_code_TEXT_START = .;
@@ -555,7 +499,6 @@ SECTIONS
         build/src/battle_code/camera.o(.text*);
         build/src/battle_code/actors.o(.text*);
         build/src/battle_code/popup_messages.o(.text*);
-        . = ALIGN(., 0x10);
         battle_code_TEXT_END = .;
         battle_code_TEXT_SIZE = ABSOLUTE(battle_code_TEXT_END - battle_code_TEXT_START);
 
@@ -564,7 +507,6 @@ SECTIONS
         build/src/battle_code/camera.o(.data*);
         build/src/battle_code/actors.o(.data*);
         build/src/battle_code/popup_messages.o(.data*);
-        . = ALIGN(., 0x10);
         battle_code_DATA_END = .;
         battle_code_DATA_SIZE = ABSOLUTE(battle_code_DATA_END - battle_code_DATA_START);
 
@@ -573,7 +515,6 @@ SECTIONS
         build/src/battle_code/camera.o(.rodata*);
         build/src/battle_code/actors.o(.rodata*);
         build/src/battle_code/popup_messages.o(.rodata*);
-        . = ALIGN(., 0x10);
         battle_code_RODATA_END = .;
         battle_code_RODATA_SIZE = ABSOLUTE(battle_code_RODATA_END - battle_code_RODATA_START);
 
@@ -582,7 +523,6 @@ SECTIONS
         build/src/battle_code/camera.o(.sdata*);
         build/src/battle_code/actors.o(.sdata*);
         build/src/battle_code/popup_messages.o(.sdata*);
-        . = ALIGN(., 0x10);
         battle_code_SDATA_END = .;
         battle_code_SDATA_SIZE = ABSOLUTE(battle_code_SDATA_END - battle_code_SDATA_START);
     }
@@ -592,7 +532,7 @@ SECTIONS
 
     battle_code_noload_VRAM = .;
 
-    .battle_code.noload (NOLOAD) : SUBALIGN(16)
+    .battle_code.noload (NOLOAD) :
     {
         FILL(0x00000000);
         battle_code_SBSS_START = .;
@@ -600,7 +540,6 @@ SECTIONS
         build/src/battle_code/camera.o(.sbss*);
         build/src/battle_code/actors.o(.sbss*);
         build/src/battle_code/popup_messages.o(.sbss*);
-        . = ALIGN(., 0x10);
         battle_code_SBSS_END = .;
         battle_code_SBSS_SIZE = ABSOLUTE(battle_code_SBSS_END - battle_code_SBSS_START);
 
@@ -609,7 +548,6 @@ SECTIONS
         build/src/battle_code/camera.o(.scommon*);
         build/src/battle_code/actors.o(.scommon*);
         build/src/battle_code/popup_messages.o(.scommon*);
-        . = ALIGN(., 0x10);
         battle_code_SCOMMON_END = .;
         battle_code_SCOMMON_SIZE = ABSOLUTE(battle_code_SCOMMON_END - battle_code_SCOMMON_START);
 
@@ -618,7 +556,6 @@ SECTIONS
         build/src/battle_code/camera.o(.bss*);
         build/src/battle_code/actors.o(.bss*);
         build/src/battle_code/popup_messages.o(.bss*);
-        . = ALIGN(., 0x10);
         battle_code_BSS_END = .;
         battle_code_BSS_SIZE = ABSOLUTE(battle_code_BSS_END - battle_code_BSS_START);
 
@@ -627,7 +564,6 @@ SECTIONS
         build/src/battle_code/camera.o(COMMON*);
         build/src/battle_code/actors.o(COMMON*);
         build/src/battle_code/popup_messages.o(COMMON*);
-        . = ALIGN(., 0x10);
         battle_codeCOMMON_END = .;
         battle_codeCOMMON_SIZE = ABSOLUTE(battle_codeCOMMON_END - battle_codeCOMMON_START);
     }
@@ -649,30 +585,26 @@ SECTIONS
     heaps2_VRAM = ADDR(.heaps2);
     heaps2_alloc_VRAM = .;
 
-    .heaps2 heaps2_VRAM_CLASS_START : AT(heaps2_ROM_START) SUBALIGN(16)
+    .heaps2 heaps2_VRAM_CLASS_START : AT(heaps2_ROM_START)
     {
         FILL(0x00000000);
         heaps2_TEXT_START = .;
         build/src/heaps2/heaps2.o(.text*);
-        . = ALIGN(., 0x10);
         heaps2_TEXT_END = .;
         heaps2_TEXT_SIZE = ABSOLUTE(heaps2_TEXT_END - heaps2_TEXT_START);
 
         heaps2_DATA_START = .;
         build/src/heaps2/heaps2.o(.data*);
-        . = ALIGN(., 0x10);
         heaps2_DATA_END = .;
         heaps2_DATA_SIZE = ABSOLUTE(heaps2_DATA_END - heaps2_DATA_START);
 
         heaps2_RODATA_START = .;
         build/src/heaps2/heaps2.o(.rodata*);
-        . = ALIGN(., 0x10);
         heaps2_RODATA_END = .;
         heaps2_RODATA_SIZE = ABSOLUTE(heaps2_RODATA_END - heaps2_RODATA_START);
 
         heaps2_SDATA_START = .;
         build/src/heaps2/heaps2.o(.sdata*);
-        . = ALIGN(., 0x10);
         heaps2_SDATA_END = .;
         heaps2_SDATA_SIZE = ABSOLUTE(heaps2_SDATA_END - heaps2_SDATA_START);
     }
@@ -682,30 +614,26 @@ SECTIONS
 
     heaps2_noload_VRAM = .;
 
-    .heaps2.noload (NOLOAD) : SUBALIGN(16)
+    .heaps2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         heaps2_SBSS_START = .;
         build/src/heaps2/heaps2.o(.sbss*);
-        . = ALIGN(., 0x10);
         heaps2_SBSS_END = .;
         heaps2_SBSS_SIZE = ABSOLUTE(heaps2_SBSS_END - heaps2_SBSS_START);
 
         heaps2_SCOMMON_START = .;
         build/src/heaps2/heaps2.o(.scommon*);
-        . = ALIGN(., 0x10);
         heaps2_SCOMMON_END = .;
         heaps2_SCOMMON_SIZE = ABSOLUTE(heaps2_SCOMMON_END - heaps2_SCOMMON_START);
 
         heaps2_BSS_START = .;
         build/src/heaps2/heaps2.o(.bss*);
-        . = ALIGN(., 0x10);
         heaps2_BSS_END = .;
         heaps2_BSS_SIZE = ABSOLUTE(heaps2_BSS_END - heaps2_BSS_START);
 
         heaps2COMMON_START = .;
         build/src/heaps2/heaps2.o(COMMON*);
-        . = ALIGN(., 0x10);
         heaps2COMMON_END = .;
         heaps2COMMON_SIZE = ABSOLUTE(heaps2COMMON_END - heaps2COMMON_START);
     }
@@ -728,7 +656,7 @@ SECTIONS
     world_script_api_VRAM = ADDR(.world_script_api);
     world_script_api_alloc_VRAM = .;
 
-    .world_script_api world_script_api_VRAM_CLASS_START : AT(world_script_api_ROM_START) SUBALIGN(16)
+    .world_script_api world_script_api_VRAM_CLASS_START : AT(world_script_api_ROM_START)
     {
         FILL(0x00000000);
         world_script_api_TEXT_START = .;
@@ -736,7 +664,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.text*);
         build/src/world/script_api/push_blocks.o(.text*);
         build/src/world/script_api/enter_exit.o(.text*);
-        . = ALIGN(., 0x10);
         world_script_api_TEXT_END = .;
         world_script_api_TEXT_SIZE = ABSOLUTE(world_script_api_TEXT_END - world_script_api_TEXT_START);
 
@@ -745,7 +672,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.data*);
         build/src/world/script_api/push_blocks.o(.data*);
         build/src/world/script_api/enter_exit.o(.data*);
-        . = ALIGN(., 0x10);
         world_script_api_DATA_END = .;
         world_script_api_DATA_SIZE = ABSOLUTE(world_script_api_DATA_END - world_script_api_DATA_START);
 
@@ -754,7 +680,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.rodata*);
         build/src/world/script_api/push_blocks.o(.rodata*);
         build/src/world/script_api/enter_exit.o(.rodata*);
-        . = ALIGN(., 0x10);
         world_script_api_RODATA_END = .;
         world_script_api_RODATA_SIZE = ABSOLUTE(world_script_api_RODATA_END - world_script_api_RODATA_START);
 
@@ -763,7 +688,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.sdata*);
         build/src/world/script_api/push_blocks.o(.sdata*);
         build/src/world/script_api/enter_exit.o(.sdata*);
-        . = ALIGN(., 0x10);
         world_script_api_SDATA_END = .;
         world_script_api_SDATA_SIZE = ABSOLUTE(world_script_api_SDATA_END - world_script_api_SDATA_START);
     }
@@ -773,7 +697,7 @@ SECTIONS
 
     world_script_api_noload_VRAM = .;
 
-    .world_script_api.noload (NOLOAD) : SUBALIGN(16)
+    .world_script_api.noload (NOLOAD) :
     {
         FILL(0x00000000);
         world_script_api_SBSS_START = .;
@@ -781,7 +705,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.sbss*);
         build/src/world/script_api/push_blocks.o(.sbss*);
         build/src/world/script_api/enter_exit.o(.sbss*);
-        . = ALIGN(., 0x10);
         world_script_api_SBSS_END = .;
         world_script_api_SBSS_SIZE = ABSOLUTE(world_script_api_SBSS_END - world_script_api_SBSS_START);
 
@@ -790,7 +713,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.scommon*);
         build/src/world/script_api/push_blocks.o(.scommon*);
         build/src/world/script_api/enter_exit.o(.scommon*);
-        . = ALIGN(., 0x10);
         world_script_api_SCOMMON_END = .;
         world_script_api_SCOMMON_SIZE = ABSOLUTE(world_script_api_SCOMMON_END - world_script_api_SCOMMON_START);
 
@@ -799,7 +721,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(.bss*);
         build/src/world/script_api/push_blocks.o(.bss*);
         build/src/world/script_api/enter_exit.o(.bss*);
-        . = ALIGN(., 0x10);
         world_script_api_BSS_END = .;
         world_script_api_BSS_SIZE = ABSOLUTE(world_script_api_BSS_END - world_script_api_BSS_START);
 
@@ -808,7 +729,6 @@ SECTIONS
         build/src/world/script_api/rooms.o(COMMON*);
         build/src/world/script_api/push_blocks.o(COMMON*);
         build/src/world/script_api/enter_exit.o(COMMON*);
-        . = ALIGN(., 0x10);
         world_script_apiCOMMON_END = .;
         world_script_apiCOMMON_SIZE = ABSOLUTE(world_script_apiCOMMON_END - world_script_apiCOMMON_START);
     }
@@ -832,30 +752,26 @@ SECTIONS
     texture_memory_VRAM = ADDR(.texture_memory);
     texture_memory_alloc_VRAM = .;
 
-    .texture_memory texture_memory_VRAM_CLASS_START : AT(texture_memory_ROM_START) SUBALIGN(16)
+    .texture_memory texture_memory_VRAM_CLASS_START : AT(texture_memory_ROM_START)
     {
         FILL(0x00000000);
         texture_memory_TEXT_START = .;
         build/src/texture_memory/texture_memory.o(.text*);
-        . = ALIGN(., 0x10);
         texture_memory_TEXT_END = .;
         texture_memory_TEXT_SIZE = ABSOLUTE(texture_memory_TEXT_END - texture_memory_TEXT_START);
 
         texture_memory_DATA_START = .;
         build/src/texture_memory/texture_memory.o(.data*);
-        . = ALIGN(., 0x10);
         texture_memory_DATA_END = .;
         texture_memory_DATA_SIZE = ABSOLUTE(texture_memory_DATA_END - texture_memory_DATA_START);
 
         texture_memory_RODATA_START = .;
         build/src/texture_memory/texture_memory.o(.rodata*);
-        . = ALIGN(., 0x10);
         texture_memory_RODATA_END = .;
         texture_memory_RODATA_SIZE = ABSOLUTE(texture_memory_RODATA_END - texture_memory_RODATA_START);
 
         texture_memory_SDATA_START = .;
         build/src/texture_memory/texture_memory.o(.sdata*);
-        . = ALIGN(., 0x10);
         texture_memory_SDATA_END = .;
         texture_memory_SDATA_SIZE = ABSOLUTE(texture_memory_SDATA_END - texture_memory_SDATA_START);
     }
@@ -865,30 +781,26 @@ SECTIONS
 
     texture_memory_noload_VRAM = .;
 
-    .texture_memory.noload (NOLOAD) : SUBALIGN(16)
+    .texture_memory.noload (NOLOAD) :
     {
         FILL(0x00000000);
         texture_memory_SBSS_START = .;
         build/src/texture_memory/texture_memory.o(.sbss*);
-        . = ALIGN(., 0x10);
         texture_memory_SBSS_END = .;
         texture_memory_SBSS_SIZE = ABSOLUTE(texture_memory_SBSS_END - texture_memory_SBSS_START);
 
         texture_memory_SCOMMON_START = .;
         build/src/texture_memory/texture_memory.o(.scommon*);
-        . = ALIGN(., 0x10);
         texture_memory_SCOMMON_END = .;
         texture_memory_SCOMMON_SIZE = ABSOLUTE(texture_memory_SCOMMON_END - texture_memory_SCOMMON_START);
 
         texture_memory_BSS_START = .;
         build/src/texture_memory/texture_memory.o(.bss*);
-        . = ALIGN(., 0x10);
         texture_memory_BSS_END = .;
         texture_memory_BSS_SIZE = ABSOLUTE(texture_memory_BSS_END - texture_memory_BSS_START);
 
         texture_memoryCOMMON_START = .;
         build/src/texture_memory/texture_memory.o(COMMON*);
-        . = ALIGN(., 0x10);
         texture_memoryCOMMON_END = .;
         texture_memoryCOMMON_SIZE = ABSOLUTE(texture_memoryCOMMON_END - texture_memoryCOMMON_START);
     }
@@ -910,34 +822,30 @@ SECTIONS
     assets1_VRAM = ADDR(.assets1);
     assets1_alloc_VRAM = .;
 
-    .assets1 segment_05_VRAM_CLASS_START : AT(assets1_ROM_START) SUBALIGN(16)
+    .assets1 segment_05_VRAM_CLASS_START : AT(assets1_ROM_START)
     {
         FILL(0x00000000);
         assets1_TEXT_START = .;
         build/src/assets/assets1/texture.o(.text*);
         build/src/assets/assets1/dlist.o(.text*);
-        . = ALIGN(., 0x10);
         assets1_TEXT_END = .;
         assets1_TEXT_SIZE = ABSOLUTE(assets1_TEXT_END - assets1_TEXT_START);
 
         assets1_DATA_START = .;
         build/src/assets/assets1/texture.o(.data*);
         build/src/assets/assets1/dlist.o(.data*);
-        . = ALIGN(., 0x10);
         assets1_DATA_END = .;
         assets1_DATA_SIZE = ABSOLUTE(assets1_DATA_END - assets1_DATA_START);
 
         assets1_RODATA_START = .;
         build/src/assets/assets1/texture.o(.rodata*);
         build/src/assets/assets1/dlist.o(.rodata*);
-        . = ALIGN(., 0x10);
         assets1_RODATA_END = .;
         assets1_RODATA_SIZE = ABSOLUTE(assets1_RODATA_END - assets1_RODATA_START);
 
         assets1_SDATA_START = .;
         build/src/assets/assets1/texture.o(.sdata*);
         build/src/assets/assets1/dlist.o(.sdata*);
-        . = ALIGN(., 0x10);
         assets1_SDATA_END = .;
         assets1_SDATA_SIZE = ABSOLUTE(assets1_SDATA_END - assets1_SDATA_START);
     }
@@ -947,34 +855,30 @@ SECTIONS
 
     assets1_noload_VRAM = .;
 
-    .assets1.noload (NOLOAD) : SUBALIGN(16)
+    .assets1.noload (NOLOAD) :
     {
         FILL(0x00000000);
         assets1_SBSS_START = .;
         build/src/assets/assets1/texture.o(.sbss*);
         build/src/assets/assets1/dlist.o(.sbss*);
-        . = ALIGN(., 0x10);
         assets1_SBSS_END = .;
         assets1_SBSS_SIZE = ABSOLUTE(assets1_SBSS_END - assets1_SBSS_START);
 
         assets1_SCOMMON_START = .;
         build/src/assets/assets1/texture.o(.scommon*);
         build/src/assets/assets1/dlist.o(.scommon*);
-        . = ALIGN(., 0x10);
         assets1_SCOMMON_END = .;
         assets1_SCOMMON_SIZE = ABSOLUTE(assets1_SCOMMON_END - assets1_SCOMMON_START);
 
         assets1_BSS_START = .;
         build/src/assets/assets1/texture.o(.bss*);
         build/src/assets/assets1/dlist.o(.bss*);
-        . = ALIGN(., 0x10);
         assets1_BSS_END = .;
         assets1_BSS_SIZE = ABSOLUTE(assets1_BSS_END - assets1_BSS_START);
 
         assets1COMMON_START = .;
         build/src/assets/assets1/texture.o(COMMON*);
         build/src/assets/assets1/dlist.o(COMMON*);
-        . = ALIGN(., 0x10);
         assets1COMMON_END = .;
         assets1COMMON_SIZE = ABSOLUTE(assets1COMMON_END - assets1COMMON_START);
     }
@@ -993,34 +897,30 @@ SECTIONS
     assets2_VRAM = ADDR(.assets2);
     assets2_alloc_VRAM = .;
 
-    .assets2 segment_05_VRAM_CLASS_START : AT(assets2_ROM_START) SUBALIGN(16)
+    .assets2 segment_05_VRAM_CLASS_START : AT(assets2_ROM_START)
     {
         FILL(0x00000000);
         assets2_TEXT_START = .;
         build/src/assets/assets2/texture.o(.text*);
         build/src/assets/assets2/dlist.o(.text*);
-        . = ALIGN(., 0x10);
         assets2_TEXT_END = .;
         assets2_TEXT_SIZE = ABSOLUTE(assets2_TEXT_END - assets2_TEXT_START);
 
         assets2_DATA_START = .;
         build/src/assets/assets2/texture.o(.data*);
         build/src/assets/assets2/dlist.o(.data*);
-        . = ALIGN(., 0x10);
         assets2_DATA_END = .;
         assets2_DATA_SIZE = ABSOLUTE(assets2_DATA_END - assets2_DATA_START);
 
         assets2_RODATA_START = .;
         build/src/assets/assets2/texture.o(.rodata*);
         build/src/assets/assets2/dlist.o(.rodata*);
-        . = ALIGN(., 0x10);
         assets2_RODATA_END = .;
         assets2_RODATA_SIZE = ABSOLUTE(assets2_RODATA_END - assets2_RODATA_START);
 
         assets2_SDATA_START = .;
         build/src/assets/assets2/texture.o(.sdata*);
         build/src/assets/assets2/dlist.o(.sdata*);
-        . = ALIGN(., 0x10);
         assets2_SDATA_END = .;
         assets2_SDATA_SIZE = ABSOLUTE(assets2_SDATA_END - assets2_SDATA_START);
     }
@@ -1030,34 +930,30 @@ SECTIONS
 
     assets2_noload_VRAM = .;
 
-    .assets2.noload (NOLOAD) : SUBALIGN(16)
+    .assets2.noload (NOLOAD) :
     {
         FILL(0x00000000);
         assets2_SBSS_START = .;
         build/src/assets/assets2/texture.o(.sbss*);
         build/src/assets/assets2/dlist.o(.sbss*);
-        . = ALIGN(., 0x10);
         assets2_SBSS_END = .;
         assets2_SBSS_SIZE = ABSOLUTE(assets2_SBSS_END - assets2_SBSS_START);
 
         assets2_SCOMMON_START = .;
         build/src/assets/assets2/texture.o(.scommon*);
         build/src/assets/assets2/dlist.o(.scommon*);
-        . = ALIGN(., 0x10);
         assets2_SCOMMON_END = .;
         assets2_SCOMMON_SIZE = ABSOLUTE(assets2_SCOMMON_END - assets2_SCOMMON_START);
 
         assets2_BSS_START = .;
         build/src/assets/assets2/texture.o(.bss*);
         build/src/assets/assets2/dlist.o(.bss*);
-        . = ALIGN(., 0x10);
         assets2_BSS_END = .;
         assets2_BSS_SIZE = ABSOLUTE(assets2_BSS_END - assets2_BSS_START);
 
         assets2COMMON_START = .;
         build/src/assets/assets2/texture.o(COMMON*);
         build/src/assets/assets2/dlist.o(COMMON*);
-        . = ALIGN(., 0x10);
         assets2COMMON_END = .;
         assets2COMMON_SIZE = ABSOLUTE(assets2COMMON_END - assets2COMMON_START);
     }
@@ -1076,34 +972,30 @@ SECTIONS
     assets3_VRAM = ADDR(.assets3);
     assets3_alloc_VRAM = .;
 
-    .assets3 segment_05_VRAM_CLASS_START : AT(assets3_ROM_START) SUBALIGN(16)
+    .assets3 segment_05_VRAM_CLASS_START : AT(assets3_ROM_START)
     {
         FILL(0x00000000);
         assets3_TEXT_START = .;
         build/src/assets/assets3/texture.o(.text*);
         build/src/assets/assets3/dlist.o(.text*);
-        . = ALIGN(., 0x10);
         assets3_TEXT_END = .;
         assets3_TEXT_SIZE = ABSOLUTE(assets3_TEXT_END - assets3_TEXT_START);
 
         assets3_DATA_START = .;
         build/src/assets/assets3/texture.o(.data*);
         build/src/assets/assets3/dlist.o(.data*);
-        . = ALIGN(., 0x10);
         assets3_DATA_END = .;
         assets3_DATA_SIZE = ABSOLUTE(assets3_DATA_END - assets3_DATA_START);
 
         assets3_RODATA_START = .;
         build/src/assets/assets3/texture.o(.rodata*);
         build/src/assets/assets3/dlist.o(.rodata*);
-        . = ALIGN(., 0x10);
         assets3_RODATA_END = .;
         assets3_RODATA_SIZE = ABSOLUTE(assets3_RODATA_END - assets3_RODATA_START);
 
         assets3_SDATA_START = .;
         build/src/assets/assets3/texture.o(.sdata*);
         build/src/assets/assets3/dlist.o(.sdata*);
-        . = ALIGN(., 0x10);
         assets3_SDATA_END = .;
         assets3_SDATA_SIZE = ABSOLUTE(assets3_SDATA_END - assets3_SDATA_START);
     }
@@ -1113,34 +1005,30 @@ SECTIONS
 
     assets3_noload_VRAM = .;
 
-    .assets3.noload (NOLOAD) : SUBALIGN(16)
+    .assets3.noload (NOLOAD) :
     {
         FILL(0x00000000);
         assets3_SBSS_START = .;
         build/src/assets/assets3/texture.o(.sbss*);
         build/src/assets/assets3/dlist.o(.sbss*);
-        . = ALIGN(., 0x10);
         assets3_SBSS_END = .;
         assets3_SBSS_SIZE = ABSOLUTE(assets3_SBSS_END - assets3_SBSS_START);
 
         assets3_SCOMMON_START = .;
         build/src/assets/assets3/texture.o(.scommon*);
         build/src/assets/assets3/dlist.o(.scommon*);
-        . = ALIGN(., 0x10);
         assets3_SCOMMON_END = .;
         assets3_SCOMMON_SIZE = ABSOLUTE(assets3_SCOMMON_END - assets3_SCOMMON_START);
 
         assets3_BSS_START = .;
         build/src/assets/assets3/texture.o(.bss*);
         build/src/assets/assets3/dlist.o(.bss*);
-        . = ALIGN(., 0x10);
         assets3_BSS_END = .;
         assets3_BSS_SIZE = ABSOLUTE(assets3_BSS_END - assets3_BSS_START);
 
         assets3COMMON_START = .;
         build/src/assets/assets3/texture.o(COMMON*);
         build/src/assets/assets3/dlist.o(COMMON*);
-        . = ALIGN(., 0x10);
         assets3COMMON_END = .;
         assets3COMMON_SIZE = ABSOLUTE(assets3COMMON_END - assets3COMMON_START);
     }
@@ -1162,34 +1050,30 @@ SECTIONS
     assets4_VRAM = ADDR(.assets4);
     assets4_alloc_VRAM = .;
 
-    .assets4 segment_06_VRAM_CLASS_START : AT(assets4_ROM_START) SUBALIGN(16)
+    .assets4 segment_06_VRAM_CLASS_START : AT(assets4_ROM_START)
     {
         FILL(0x00000000);
         assets4_TEXT_START = .;
         build/src/assets/assets4/texture.o(.text*);
         build/src/assets/assets4/dlist.o(.text*);
-        . = ALIGN(., 0x10);
         assets4_TEXT_END = .;
         assets4_TEXT_SIZE = ABSOLUTE(assets4_TEXT_END - assets4_TEXT_START);
 
         assets4_DATA_START = .;
         build/src/assets/assets4/texture.o(.data*);
         build/src/assets/assets4/dlist.o(.data*);
-        . = ALIGN(., 0x10);
         assets4_DATA_END = .;
         assets4_DATA_SIZE = ABSOLUTE(assets4_DATA_END - assets4_DATA_START);
 
         assets4_RODATA_START = .;
         build/src/assets/assets4/texture.o(.rodata*);
         build/src/assets/assets4/dlist.o(.rodata*);
-        . = ALIGN(., 0x10);
         assets4_RODATA_END = .;
         assets4_RODATA_SIZE = ABSOLUTE(assets4_RODATA_END - assets4_RODATA_START);
 
         assets4_SDATA_START = .;
         build/src/assets/assets4/texture.o(.sdata*);
         build/src/assets/assets4/dlist.o(.sdata*);
-        . = ALIGN(., 0x10);
         assets4_SDATA_END = .;
         assets4_SDATA_SIZE = ABSOLUTE(assets4_SDATA_END - assets4_SDATA_START);
     }
@@ -1199,34 +1083,30 @@ SECTIONS
 
     assets4_noload_VRAM = .;
 
-    .assets4.noload (NOLOAD) : SUBALIGN(16)
+    .assets4.noload (NOLOAD) :
     {
         FILL(0x00000000);
         assets4_SBSS_START = .;
         build/src/assets/assets4/texture.o(.sbss*);
         build/src/assets/assets4/dlist.o(.sbss*);
-        . = ALIGN(., 0x10);
         assets4_SBSS_END = .;
         assets4_SBSS_SIZE = ABSOLUTE(assets4_SBSS_END - assets4_SBSS_START);
 
         assets4_SCOMMON_START = .;
         build/src/assets/assets4/texture.o(.scommon*);
         build/src/assets/assets4/dlist.o(.scommon*);
-        . = ALIGN(., 0x10);
         assets4_SCOMMON_END = .;
         assets4_SCOMMON_SIZE = ABSOLUTE(assets4_SCOMMON_END - assets4_SCOMMON_START);
 
         assets4_BSS_START = .;
         build/src/assets/assets4/texture.o(.bss*);
         build/src/assets/assets4/dlist.o(.bss*);
-        . = ALIGN(., 0x10);
         assets4_BSS_END = .;
         assets4_BSS_SIZE = ABSOLUTE(assets4_BSS_END - assets4_BSS_START);
 
         assets4COMMON_START = .;
         build/src/assets/assets4/texture.o(COMMON*);
         build/src/assets/assets4/dlist.o(COMMON*);
-        . = ALIGN(., 0x10);
         assets4COMMON_END = .;
         assets4COMMON_SIZE = ABSOLUTE(assets4COMMON_END - assets4COMMON_START);
     }

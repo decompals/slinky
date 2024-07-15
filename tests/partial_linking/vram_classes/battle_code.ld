@@ -1,6 +1,6 @@
 SECTIONS
 {
-    .text : SUBALIGN(16)
+    .text :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.text*);
@@ -9,7 +9,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.text*);
     }
 
-    .data : SUBALIGN(16)
+    .data :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.data*);
@@ -18,7 +18,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.data*);
     }
 
-    .rodata : SUBALIGN(16)
+    .rodata :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.rodata*);
@@ -27,7 +27,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.rodata*);
     }
 
-    .sdata : SUBALIGN(16)
+    .sdata :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.sdata*);
@@ -36,7 +36,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.sdata*);
     }
 
-    .sbss (NOLOAD) : SUBALIGN(16)
+    .sbss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.sbss*);
@@ -45,7 +45,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.sbss*);
     }
 
-    .scommon (NOLOAD) : SUBALIGN(16)
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.scommon*);
@@ -54,7 +54,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.scommon*);
     }
 
-    .bss (NOLOAD) : SUBALIGN(16)
+    .bss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(.bss*);
@@ -63,7 +63,7 @@ SECTIONS
         build/src/battle_code/popup_messages.o(.bss*);
     }
 
-    COMMON (NOLOAD) : SUBALIGN(16)
+    COMMON (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_code/btl_states_actions.o(COMMON*);

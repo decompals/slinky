@@ -1,48 +1,48 @@
 SECTIONS
 {
-    .text : SUBALIGN(16)
+    .text :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.text*);
     }
 
-    .data : SUBALIGN(16)
+    .data :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.data*);
     }
 
-    .rodata : SUBALIGN(16)
+    .rodata :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.rodata*);
     }
 
-    .sdata : SUBALIGN(16)
+    .sdata :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.sdata*);
     }
 
-    .sbss (NOLOAD) : SUBALIGN(16)
+    .sbss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.sbss*);
     }
 
-    .scommon (NOLOAD) : SUBALIGN(16)
+    .scommon (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.scommon*);
     }
 
-    .bss (NOLOAD) : SUBALIGN(16)
+    .bss (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(.bss*);
     }
 
-    COMMON (NOLOAD) : SUBALIGN(16)
+    COMMON (NOLOAD) :
     {
         FILL(0x00000000);
         build/src/battle_partner/goombario.o(COMMON*);

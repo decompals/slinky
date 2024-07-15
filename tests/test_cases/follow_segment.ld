@@ -6,7 +6,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot : AT(boot_ROM_START) SUBALIGN(16)
+    .boot : AT(boot_ROM_START)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -39,7 +39,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) : SUBALIGN(16)
+    .boot.noload (NOLOAD) :
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
@@ -79,7 +79,7 @@ SECTIONS
     kanji_VRAM = ADDR(.kanji);
     kanji_alloc_VRAM = .;
 
-    .kanji : AT(kanji_ROM_START) SUBALIGN(16)
+    .kanji : AT(kanji_ROM_START)
     {
         FILL(0x00000000);
         kanji_TEXT_START = .;
@@ -108,7 +108,7 @@ SECTIONS
 
     kanji_noload_VRAM = .;
 
-    .kanji.noload (NOLOAD) : SUBALIGN(16)
+    .kanji.noload (NOLOAD) :
     {
         FILL(0x00000000);
         kanji_SBSS_START = .;
@@ -144,7 +144,7 @@ SECTIONS
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;
 
-    .main boot_VRAM_END : AT(main_ROM_START) SUBALIGN(16)
+    .main boot_VRAM_END : AT(main_ROM_START)
     {
         FILL(0x00000000);
         main_TEXT_START = .;
@@ -185,7 +185,7 @@ SECTIONS
 
     main_noload_VRAM = .;
 
-    .main.noload (NOLOAD) : SUBALIGN(16)
+    .main.noload (NOLOAD) :
     {
         FILL(0x00000000);
         main_SBSS_START = .;
