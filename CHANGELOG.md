@@ -7,12 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2024-XX-YY
+## [0.2.0] - 2024-07-15
 
 ### Added
 
 - Initial relase
 
-[unreleased]: https://github.com/decompals/slinky/compare/main...develop
+[unreleased]: https://github.com/decompals/slinky/compare/0.2.0...main
 
-[1.0.0]: https://github.com/decompals/slinky/releases/tag/1.0.0
+[0.2.0]: https://github.com/decompals/slinky/releases/tag/0.2.0
