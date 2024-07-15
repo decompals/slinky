@@ -153,7 +153,7 @@ jobs:
 
       - name: Publish .tar.gz release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.archive == 'tar.gz'
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: slinky-cli-${{ matrix.builder.target }}.tar.gz
 

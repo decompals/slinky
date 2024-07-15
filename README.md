@@ -1,6 +1,6 @@
 # slinky
 
-![Crates.io Version](https://img.shields.io/crates/v/2Fslinky?link=https%3A%2F%2Fcrates.io%2Fcrates%2Fslinky)
+![Crates.io Version](https://img.shields.io/crates/v/slinky)
 ![Crates.io Downloads (recent)](https://img.shields.io/crates/dr/slinky)
 ![Crates.io MSRV](https://img.shields.io/crates/msrv/slinky)
 ![GitHub](https://img.shields.io/github/license/decompals/slinky)

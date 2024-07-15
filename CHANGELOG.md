@@ -7,23 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2024-07-15
+
+### Fixed
+
+- Fix CI not uploading build artifacts to Github release.
+- Fix README badge.
+
 ## [0.2.2] - 2024-07-15
 
-### Fix
+### Fixed
 
-- Fix release
+- Fix release.
 
 ## [0.2.1] - 2024-07-15 [YANKED]
 
-### Fix
+### Fixed
 
-- Fix MSRV
+- Fix MSRV.
 
 ## [0.2.0] - 2024-07-15 [YANKED]
 
 ### Added
 
-- Initial release
+- Initial release.
 
 [unreleased]: https://github.com/decompals/slinky/compare/0.2.2...main
 
