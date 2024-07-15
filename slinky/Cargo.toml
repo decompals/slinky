@@ -5,7 +5,7 @@
 name = "slinky"
 version = "0.2.0"
 edition = "2021"
-rust-version = "1.66.1"
+rust-version = "1.67.1"
 authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
 license = "MIT"
 description = "Linker script generator for decompilation and modding projects"
