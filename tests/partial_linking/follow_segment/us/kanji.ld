@@ -1,61 +1,51 @@
 SECTIONS
 {
-    . = 0x80000460;
-
     .text :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.text*);
-        build/src/libultra.o(.text*);
+        build/us/src/kanji/kanji.o(.text*);
     }
 
     .data :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.data*);
-        build/src/libultra.o(.data*);
+        build/us/src/kanji/kanji.o(.data*);
     }
 
     .rodata :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.rodata*);
-        build/src/libultra.o(.rodata*);
+        build/us/src/kanji/kanji.o(.rodata*);
     }
 
     .sdata :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.sdata*);
-        build/src/libultra.o(.sdata*);
+        build/us/src/kanji/kanji.o(.sdata*);
     }
 
     .sbss (NOLOAD) :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.sbss*);
-        build/src/libultra.o(.sbss*);
+        build/us/src/kanji/kanji.o(.sbss*);
     }
 
     .scommon (NOLOAD) :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.scommon*);
-        build/src/libultra.o(.scommon*);
+        build/us/src/kanji/kanji.o(.scommon*);
     }
 
     .bss (NOLOAD) :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(.bss*);
-        build/src/libultra.o(.bss*);
+        build/us/src/kanji/kanji.o(.bss*);
     }
 
     COMMON (NOLOAD) :
     {
         FILL(0x00000000);
-        build/src/boot/boot_main.o(COMMON*);
-        build/src/libultra.o(COMMON*);
+        build/us/src/kanji/kanji.o(COMMON*);
     }
 
     .shstrtab 0 :

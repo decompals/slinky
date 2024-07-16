@@ -43,7 +43,11 @@ impl<'a> PartialLinkerWriter<'a> {
 
             let mut p = PathBuf::new();
 
-            p.push(&self.d.settings.partial_build_segments_folder);
+            p.push(
+                &self
+                    .rs
+                    .escape_path(&self.d.settings.partial_build_segments_folder)?,
+            );
             p.push(&format!("{}.o", segment.name));
 
             let mut reference_segment = segment.clone();
@@ -62,7 +66,11 @@ impl<'a> PartialLinkerWriter<'a> {
         for (partial, name) in &self.partial_writers {
             let mut p = PathBuf::new();
 
-            p.push(&self.d.settings.partial_scripts_folder);
+            p.push(
+                &self
+                    .rs
+                    .escape_path(&self.d.settings.partial_scripts_folder)?,
+            );
             p.push(&format!("{}.ld", name));
 
             partial.export_linker_script_to_file(&p)?;
@@ -78,12 +86,21 @@ impl<'a> PartialLinkerWriter<'a> {
             for (partial, name) in &self.partial_writers {
                 let mut target_path = PathBuf::new();
 
-                target_path.push(&self.d.settings.partial_build_segments_folder);
+                target_path.push(&self.rs.escape_path(&self.d.settings.base_path)?);
+                target_path.push(
+                    &self
+                        .rs
+                        .escape_path(&self.d.settings.partial_build_segments_folder)?,
+                );
                 target_path.push(&format!("{}.o", name));
 
                 let mut d_path = PathBuf::new();
 
-                d_path.push(&self.d.settings.partial_scripts_folder);
+                d_path.push(
+                    &self
+                        .rs
+                        .escape_path(&self.d.settings.partial_scripts_folder)?,
+                );
                 d_path.push(&format!("{}.d", name));
 
                 partial.export_dependencies_file_to_file(&d_path, &target_path)?;

@@ -12,26 +12,26 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
-        build/segments/boot.o(.text*);
+        build/us/segments/boot.o(.text*);
         . = ALIGN(., 0x8);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
         boot_DATA_START = .;
-        build/segments/boot.o(.data*);
+        build/us/segments/boot.o(.data*);
         . = ALIGN(., 0x8);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
         boot_RODATA_START = .;
-        build/segments/boot.o(.rodata*);
+        build/us/segments/boot.o(.rodata*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x80);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
         boot_SDATA_START = .;
-        build/segments/boot.o(.sdata*);
+        build/us/segments/boot.o(.sdata*);
         . = ALIGN(., 0x8);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
@@ -46,26 +46,26 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
-        build/segments/boot.o(.sbss*);
+        build/us/segments/boot.o(.sbss*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x20);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
         boot_SCOMMON_START = .;
-        build/segments/boot.o(.scommon*);
+        build/us/segments/boot.o(.scommon*);
         . = ALIGN(., 0x8);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         boot_BSS_START = .;
-        build/segments/boot.o(.bss*);
+        build/us/segments/boot.o(.bss*);
         . = ALIGN(., 0x8);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
-        build/segments/boot.o(COMMON*);
+        build/us/segments/boot.o(COMMON*);
         . = ALIGN(., 0x8);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
@@ -92,26 +92,26 @@ SECTIONS
     {
         FILL(0x00000000);
         kanji_TEXT_START = .;
-        build/segments/kanji.o(.text*);
+        build/us/segments/kanji.o(.text*);
         . = ALIGN(., 0x8);
         kanji_TEXT_END = .;
         kanji_TEXT_SIZE = ABSOLUTE(kanji_TEXT_END - kanji_TEXT_START);
 
         kanji_DATA_START = .;
-        build/segments/kanji.o(.data*);
+        build/us/segments/kanji.o(.data*);
         . = ALIGN(., 0x8);
         kanji_DATA_END = .;
         kanji_DATA_SIZE = ABSOLUTE(kanji_DATA_END - kanji_DATA_START);
 
         kanji_RODATA_START = .;
-        build/segments/kanji.o(.rodata*);
+        build/us/segments/kanji.o(.rodata*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x80);
         kanji_RODATA_END = .;
         kanji_RODATA_SIZE = ABSOLUTE(kanji_RODATA_END - kanji_RODATA_START);
 
         kanji_SDATA_START = .;
-        build/segments/kanji.o(.sdata*);
+        build/us/segments/kanji.o(.sdata*);
         . = ALIGN(., 0x8);
         kanji_SDATA_END = .;
         kanji_SDATA_SIZE = ABSOLUTE(kanji_SDATA_END - kanji_SDATA_START);
@@ -126,26 +126,26 @@ SECTIONS
     {
         FILL(0x00000000);
         kanji_SBSS_START = .;
-        build/segments/kanji.o(.sbss*);
+        build/us/segments/kanji.o(.sbss*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x20);
         kanji_SBSS_END = .;
         kanji_SBSS_SIZE = ABSOLUTE(kanji_SBSS_END - kanji_SBSS_START);
 
         kanji_SCOMMON_START = .;
-        build/segments/kanji.o(.scommon*);
+        build/us/segments/kanji.o(.scommon*);
         . = ALIGN(., 0x8);
         kanji_SCOMMON_END = .;
         kanji_SCOMMON_SIZE = ABSOLUTE(kanji_SCOMMON_END - kanji_SCOMMON_START);
 
         kanji_BSS_START = .;
-        build/segments/kanji.o(.bss*);
+        build/us/segments/kanji.o(.bss*);
         . = ALIGN(., 0x8);
         kanji_BSS_END = .;
         kanji_BSS_SIZE = ABSOLUTE(kanji_BSS_END - kanji_BSS_START);
 
         kanjiCOMMON_START = .;
-        build/segments/kanji.o(COMMON*);
+        build/us/segments/kanji.o(COMMON*);
         . = ALIGN(., 0x8);
         kanjiCOMMON_END = .;
         kanjiCOMMON_SIZE = ABSOLUTE(kanjiCOMMON_END - kanjiCOMMON_START);
@@ -173,21 +173,21 @@ SECTIONS
         FILL(0x00000000);
         . = ALIGN(., 0x40);
         main_TEXT_START = .;
-        build/segments/main.o(.text*);
+        build/us/segments/main.o(.text*);
         . = ALIGN(., 0x20);
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
         . = ALIGN(., 0x40);
         main_DATA_START = .;
-        build/segments/main.o(.data*);
+        build/us/segments/main.o(.data*);
         . = ALIGN(., 0x20);
         main_DATA_END = .;
         main_DATA_SIZE = ABSOLUTE(main_DATA_END - main_DATA_START);
 
         . = ALIGN(., 0x40);
         main_RODATA_START = .;
-        build/segments/main.o(.rodata*);
+        build/us/segments/main.o(.rodata*);
         . = ALIGN(., 0x20);
         . = ALIGN(., 0x80);
         main_RODATA_END = .;
@@ -195,7 +195,7 @@ SECTIONS
 
         . = ALIGN(., 0x40);
         main_SDATA_START = .;
-        build/segments/main.o(.sdata*);
+        build/us/segments/main.o(.sdata*);
         . = ALIGN(., 0x20);
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
@@ -211,7 +211,7 @@ SECTIONS
         FILL(0x00000000);
         . = ALIGN(., 0x40);
         main_SBSS_START = .;
-        build/segments/main.o(.sbss*);
+        build/us/segments/main.o(.sbss*);
         . = ALIGN(., 0x20);
         . = ALIGN(., 0x20);
         main_SBSS_END = .;
@@ -219,21 +219,21 @@ SECTIONS
 
         . = ALIGN(., 0x40);
         main_SCOMMON_START = .;
-        build/segments/main.o(.scommon*);
+        build/us/segments/main.o(.scommon*);
         . = ALIGN(., 0x20);
         main_SCOMMON_END = .;
         main_SCOMMON_SIZE = ABSOLUTE(main_SCOMMON_END - main_SCOMMON_START);
 
         . = ALIGN(., 0x40);
         main_BSS_START = .;
-        build/segments/main.o(.bss*);
+        build/us/segments/main.o(.bss*);
         . = ALIGN(., 0x20);
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
 
         . = ALIGN(., 0x40);
         mainCOMMON_START = .;
-        build/segments/main.o(COMMON*);
+        build/us/segments/main.o(COMMON*);
         . = ALIGN(., 0x20);
         mainCOMMON_END = .;
         mainCOMMON_SIZE = ABSOLUTE(mainCOMMON_END - mainCOMMON_START);

@@ -1,8 +1,8 @@
-build/rom.elf: \
-    build/segments/boot.o \
-    build/segments/kanji.o \
-    build/segments/main.o
+build/us/rom.elf: \
+    build/us/segments/boot.o \
+    build/us/segments/kanji.o \
+    build/us/segments/main.o
 
-build/segments/boot.o:
-build/segments/kanji.o:
-build/segments/main.o:
+build/us/segments/boot.o:
+build/us/segments/kanji.o:
+build/us/segments/main.o:

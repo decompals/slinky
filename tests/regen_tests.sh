@@ -8,6 +8,11 @@ set -o pipefail
 
 # This file should be run from the root of the repo
 
+# Remove generated files in case any path has changed
+find tests/ -name '*.ld' -delete
+find tests/ -name '*.d' -delete
+find tests/ -name '*.h' -delete
+
 for filepath in tests/test_cases/*.yaml; do
     filename=$(basename -- "$filepath")
     stem="${filename%.*}"

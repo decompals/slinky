@@ -1,16 +1,16 @@
 settings:
-  base_path: build
+  base_path: build/{version}
   segment_start_align: 0x8
   segment_end_align: 0x40
   section_end_align: 0x8
   sections_end_alignment: { .rodata: 0x80, .sbss: 0x20 }
 
-  target_path: build/rom.elf
+  target_path: build/{version}/rom.elf
   d_path: tests/partial_linking/follow_segment.d
 
   symbols_header_path: tests/partial_linking/follow_segment.h
 
-  partial_scripts_folder: tests/partial_linking/follow_segment
+  partial_scripts_folder: tests/partial_linking/follow_segment/{version}
   partial_build_segments_folder: segments
 
 segments:

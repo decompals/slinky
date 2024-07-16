@@ -68,7 +68,7 @@ impl RuntimeSettings {
     /// Replace all the `{key}` instances on the `path` argument with the corresponding value specified on the global `custom_options`.
     ///
     /// If the `key` is not present on the custom options then it returns an error.
-    pub(crate) fn escape_path(&self, path: &Path) -> Result<PathBuf, SlinkyError> {
+    pub fn escape_path(&self, path: &Path) -> Result<PathBuf, SlinkyError> {
         let mut new_path = PathBuf::new();
 
         for component in path.iter() {
@@ -121,7 +121,7 @@ impl RuntimeSettings {
         Ok(new_path)
     }
 
-    pub(crate) fn should_emit_entry(
+    pub fn should_emit_entry(
         &self,
         exclude_if_any: &[(String, String)],
         exclude_if_all: &[(String, String)],

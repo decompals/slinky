@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix partial linking related paths not being properly escaped.
+- Fix `partial_build_segments_folder` not being properly prefixed on some places.
+
 ## [0.2.4] - 2024-07-15
 
 ### Fixed
