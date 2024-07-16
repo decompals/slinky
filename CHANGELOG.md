@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix partial linking related paths not being properly escaped.
 - Fix `partial_build_segments_folder` not being properly prefixed on some places.
+- Fix `section_order` not being applied to files inside of `group`s.
 
 ## [0.2.4] - 2024-07-15
 
 ### Fixed
 
-- Fix Crate version not updated.
+- Fix crate version not updated.
 
 ## [0.2.3] - 2024-07-15 [YANKED]
 

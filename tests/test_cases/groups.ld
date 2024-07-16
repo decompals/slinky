@@ -1576,10 +1576,6 @@ SECTIONS
         build/src/libmus/aud_thread.o(.data*);
         build/src/libmus/lib_memory.o(.data*);
         build/src/libmus/aud_samples.o(.data*);
-        build/src/rsp/rspboot.o(.data*);
-        build/src/rsp/aspMain.o(.data*);
-        build/src/rsp/f3dex2.o(.data*);
-        build/src/rsp/s2dex.o(.data*);
         main_segment_DATA_END = .;
         main_segment_DATA_SIZE = ABSOLUTE(main_segment_DATA_END - main_segment_DATA_START);
 
@@ -1594,9 +1590,13 @@ SECTIONS
         build/src/libmus/aud_thread.o(.rodata*);
         build/src/libmus/lib_memory.o(.rodata*);
         build/src/libmus/aud_samples.o(.rodata*);
+        build/src/rsp/rspboot.o(.data*);
         build/src/rsp/rspboot.o(.rodata*);
+        build/src/rsp/aspMain.o(.data*);
         build/src/rsp/aspMain.o(.rodata*);
+        build/src/rsp/f3dex2.o(.data*);
         build/src/rsp/f3dex2.o(.rodata*);
+        build/src/rsp/s2dex.o(.data*);
         build/src/rsp/s2dex.o(.rodata*);
         main_segment_RODATA_END = .;
         main_segment_RODATA_SIZE = ABSOLUTE(main_segment_RODATA_END - main_segment_RODATA_START);

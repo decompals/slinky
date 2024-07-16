@@ -3,7 +3,7 @@
 
 [package]
 name = "slinky-cli"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2021"
 rust-version = "1.74.1"
 authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
@@ -17,4 +17,4 @@ categories = ["development-tools::build-utils", "command-line-utilities"]
 [dependencies]
 clap = { version = "4.5.1", features = ["derive"] }
 regex = "1.10.5"
-slinky = { path = "../slinky", version = "0.2.4" }
+slinky = { path = "../slinky", version = "0.2.5" }

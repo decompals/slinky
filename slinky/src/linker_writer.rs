@@ -687,6 +687,7 @@ impl LinkerWriter<'_> {
         file: &FileInfo,
         segment: &Segment,
         section: &str,
+        sections: &[String],
         base_path: &Path,
     ) -> Result<(), SlinkyError> {
         if !self.rs.should_emit_entry(
@@ -755,9 +756,57 @@ impl LinkerWriter<'_> {
                 new_base_path.extend(&file.dir);
 
                 for file_of_group in &file.files {
-                    self.emit_file(file_of_group, segment, section, &new_base_path)?;
+                    //self.emit_file(file_of_group, segment, section, sections, &new_base_path)?;
+                    self.emit_section_for_file(
+                        file_of_group,
+                        segment,
+                        section,
+                        sections,
+                        &new_base_path,
+                    )?;
                 }
             }
+        }
+
+        Ok(())
+    }
+
+    fn emit_section_for_file(
+        &mut self,
+        file: &FileInfo,
+        segment: &Segment,
+        section: &str,
+        sections: &[String],
+        base_path: &Path,
+    ) -> Result<(), SlinkyError> {
+        if !file.section_order.is_empty() {
+            // Keys specify the section and value specify where it will be put.
+            // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`.
+            // It was done this way instead of the other way around (ie keys specifying the destination section) because the other way would not allow specifying multiple sections should be put in the same destination section.
+
+            let mut sections_to_emit_here = if file.section_order.contains_key(section) {
+                // This section should be placed somewhere else
+                vec![]
+            } else {
+                vec![section]
+            };
+
+            // Check if any other section should be placed be placed here
+            for (k, v) in &file.section_order {
+                if v == section {
+                    sections_to_emit_here.push(k);
+                }
+            }
+
+            // We need to preserve the order given by alloc_sections or noload_sections
+            sections_to_emit_here.sort_unstable_by_key(|&k| sections.iter().position(|s| s == k));
+
+            for k in sections_to_emit_here {
+                self.emit_file(file, segment, k, sections, base_path)?;
+            }
+        } else {
+            // No need to mess with section ordering, just emit the file
+            self.emit_file(file, segment, section, sections, base_path)?;
         }
 
         Ok(())
@@ -777,36 +826,7 @@ impl LinkerWriter<'_> {
         }
 
         for file in &segment.files {
-            if !file.section_order.is_empty() {
-                // Keys specify the section and value specify where it will be put.
-                // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`.
-                // It was done this way instead of the other way around (ie keys specifying the destination section) because the other way would not allow specifying multiple sections should be put in the same destination section.
-
-                let mut sections_to_emit_here = if file.section_order.contains_key(section) {
-                    // This section should be placed somewhere else
-                    vec![]
-                } else {
-                    vec![section]
-                };
-
-                // Check if any other section should be placed be placed here
-                for (k, v) in &file.section_order {
-                    if v == section {
-                        sections_to_emit_here.push(k);
-                    }
-                }
-
-                // We need to preserve the order given by alloc_sections or noload_sections
-                sections_to_emit_here
-                    .sort_unstable_by_key(|&k| sections.iter().position(|s| s == k));
-
-                for k in sections_to_emit_here {
-                    self.emit_file(file, segment, k, &base_path)?;
-                }
-            } else {
-                // No need to mess with section ordering, just emit the file
-                self.emit_file(file, segment, section, &base_path)?;
-            }
+            self.emit_section_for_file(file, segment, section, sections, &base_path)?;
         }
 
         Ok(())
