@@ -164,6 +164,86 @@ SECTIONS
 
     __romPos = ALIGN(__romPos, 0x8);
     . = ALIGN(., 0x8);
+    ascii_ROM_START = __romPos;
+    ascii_VRAM = ADDR(.ascii);
+    ascii_alloc_VRAM = .;
+
+    .ascii : AT(ascii_ROM_START)
+    {
+        FILL(0x00000000);
+        ascii_TEXT_START = .;
+        build/us/segments/ascii.o(.text*);
+        . = ALIGN(., 0x8);
+        ascii_TEXT_END = .;
+        ascii_TEXT_SIZE = ABSOLUTE(ascii_TEXT_END - ascii_TEXT_START);
+
+        ascii_DATA_START = .;
+        build/us/segments/ascii.o(.data*);
+        . = ALIGN(., 0x8);
+        ascii_DATA_END = .;
+        ascii_DATA_SIZE = ABSOLUTE(ascii_DATA_END - ascii_DATA_START);
+
+        ascii_RODATA_START = .;
+        build/us/segments/ascii.o(.rodata*);
+        . = ALIGN(., 0x8);
+        . = ALIGN(., 0x80);
+        ascii_RODATA_END = .;
+        ascii_RODATA_SIZE = ABSOLUTE(ascii_RODATA_END - ascii_RODATA_START);
+
+        ascii_SDATA_START = .;
+        build/us/segments/ascii.o(.sdata*);
+        . = ALIGN(., 0x8);
+        ascii_SDATA_END = .;
+        ascii_SDATA_SIZE = ABSOLUTE(ascii_SDATA_END - ascii_SDATA_START);
+    }
+
+    ascii_alloc_VRAM_END = .;
+    ascii_alloc_VRAM_SIZE = ABSOLUTE(ascii_alloc_VRAM_END - ascii_alloc_VRAM);
+
+    ascii_noload_VRAM = .;
+
+    .ascii.noload (NOLOAD) :
+    {
+        FILL(0x00000000);
+        ascii_SBSS_START = .;
+        build/us/segments/ascii.o(.sbss*);
+        . = ALIGN(., 0x8);
+        . = ALIGN(., 0x20);
+        ascii_SBSS_END = .;
+        ascii_SBSS_SIZE = ABSOLUTE(ascii_SBSS_END - ascii_SBSS_START);
+
+        ascii_SCOMMON_START = .;
+        build/us/segments/ascii.o(.scommon*);
+        . = ALIGN(., 0x8);
+        ascii_SCOMMON_END = .;
+        ascii_SCOMMON_SIZE = ABSOLUTE(ascii_SCOMMON_END - ascii_SCOMMON_START);
+
+        ascii_BSS_START = .;
+        build/us/segments/ascii.o(.bss*);
+        . = ALIGN(., 0x8);
+        ascii_BSS_END = .;
+        ascii_BSS_SIZE = ABSOLUTE(ascii_BSS_END - ascii_BSS_START);
+
+        asciiCOMMON_START = .;
+        build/us/segments/ascii.o(COMMON*);
+        . = ALIGN(., 0x8);
+        asciiCOMMON_END = .;
+        asciiCOMMON_SIZE = ABSOLUTE(asciiCOMMON_END - asciiCOMMON_START);
+    }
+
+    ascii_noload_VRAM_END = .;
+    ascii_noload_VRAM_SIZE = ABSOLUTE(ascii_noload_VRAM_END - ascii_noload_VRAM);
+
+    __romPos += SIZEOF(.ascii);
+    __romPos = ALIGN(__romPos, 0x40);
+    . = ALIGN(., 0x40);
+    ascii_VRAM_END = .;
+    ascii_VRAM_SIZE = ABSOLUTE(ascii_VRAM_END - ascii_VRAM);
+    ascii_ROM_END = __romPos;
+    ascii_ROM_SIZE = ABSOLUTE(ascii_ROM_END - ascii_ROM_START);
+
+    __romPos = ALIGN(__romPos, 0x8);
+    . = ALIGN(., 0x8);
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);
     main_alloc_VRAM = .;

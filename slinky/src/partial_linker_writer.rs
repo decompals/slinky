@@ -31,6 +31,15 @@ impl<'a> PartialLinkerWriter<'a> {
 
         self.partial_writers.reserve(segments.len());
         for segment in segments {
+            if !self.rs.should_emit_entry(
+                &segment.exclude_if_any,
+                &segment.exclude_if_all,
+                &segment.include_if_any,
+                &segment.include_if_all,
+            ) {
+                continue;
+            }
+
             let mut partial_writer = LinkerWriter::new(self.d, self.rs);
 
             partial_writer.set_emit_sections_kind_symbols(false);

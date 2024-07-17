@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix partial linking related paths not being properly escaped.
 - Fix `partial_build_segments_folder` not being properly prefixed on some places.
 - Fix `section_order` not being applied to files inside of `group`s.
+- Avoid generating sub-scripts of conditionally excluded segments during partial
+  linking scripts generation.
 
 ## [0.2.4] - 2024-07-15
 

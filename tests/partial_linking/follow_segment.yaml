@@ -21,8 +21,19 @@ segments:
       - { path: src/libultra.o } # yes a single file, deal with it
 
   - name: kanji
+    include_if_any: [[version, us], [version, jp]]
     files:
-      - { path: src/kanji/kanji.o }
+      - { path: src/alphabets/kanji.o }
+
+  - name: ascii
+    include_if_any: [[version, us], [version, eu]]
+    files:
+      - { path: src/alphabets/ascii.o }
+
+  - name: latin1
+    include_if_any: [[version, eu]]
+    files:
+      - { path: src/alphabets/latin1.o }
 
   - name: main
     follows_segment: boot

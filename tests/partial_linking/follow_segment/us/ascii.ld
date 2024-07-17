@@ -3,49 +3,49 @@ SECTIONS
     .text :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.text*);
+        build/us/src/alphabets/ascii.o(.text*);
     }
 
     .data :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.data*);
+        build/us/src/alphabets/ascii.o(.data*);
     }
 
     .rodata :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.rodata*);
+        build/us/src/alphabets/ascii.o(.rodata*);
     }
 
     .sdata :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.sdata*);
+        build/us/src/alphabets/ascii.o(.sdata*);
     }
 
     .sbss (NOLOAD) :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.sbss*);
+        build/us/src/alphabets/ascii.o(.sbss*);
     }
 
     .scommon (NOLOAD) :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.scommon*);
+        build/us/src/alphabets/ascii.o(.scommon*);
     }
 
     .bss (NOLOAD) :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(.bss*);
+        build/us/src/alphabets/ascii.o(.bss*);
     }
 
     COMMON (NOLOAD) :
     {
         FILL(0x00000000);
-        build/us/src/alphabets/kanji.o(COMMON*);
+        build/us/src/alphabets/ascii.o(COMMON*);
     }
 
     .shstrtab 0 :
