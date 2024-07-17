@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5] - 2024-07-17
+
 ### Fixed
 
 - Fix partial linking related paths not being properly escaped.
@@ -46,8 +48,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[unreleased]: https://github.com/decompals/slinky/compare/0.2.4...main
+[unreleased]: https://github.com/decompals/slinky/compare/0.2.5...main
 
+[0.2.5]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.1...0.2.2
