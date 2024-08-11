@@ -3,8 +3,8 @@
 The input file format is composed by two required top-level attributes, the
 [`settings`](settings.md) attribute and the [`segments`](segments.md)
 attribute. Other optional top-level attributes may be specified, like
-[vram_classes](vram_classes.md). Check their specific documents for in-deep
-explanations.
+[vram_classes](vram_classes.md) or [symbol_assignments](symbol_assignments.md).
+Check their specific documents for in-deep explanations.
 
 ## Example
 

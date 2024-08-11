@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
 use crate::{file_kind::FileKind, SlinkyError};
-use crate::{utils, version, Document, RuntimeSettings, VramClass};
+use crate::{utils, version, Document, RuntimeSettings, SymbolAssignment, VramClass};
 use crate::{FileInfo, Segment};
 
 use crate::script_buffer::ScriptBuffer;
@@ -87,6 +87,25 @@ impl<'a> LinkerWriter<'a> {
             }
             self.end_sections()?;
         }
+
+        Ok(())
+    }
+
+    pub fn add_all_undefined_syms(
+        &mut self,
+        undefined_syms: &[SymbolAssignment],
+    ) -> Result<(), SlinkyError> {
+        if undefined_syms.is_empty() {
+            return Ok(());
+        }
+
+        self.begin_undefined_syms()?;
+
+        for undefined_sym in undefined_syms {
+            self.add_undefined_sym(undefined_sym)?;
+        }
+
+        self.end_undefined_syms()?;
 
         Ok(())
     }
@@ -360,7 +379,7 @@ impl LinkerWriter<'_> {
                 continue;
             }
 
-            self.buffer.write_symbol(
+            self.buffer.write_linker_symbol(
                 &style.vram_class_size(vram_class_name),
                 &format!(
                     "{} - {}",
@@ -469,11 +488,13 @@ impl LinkerWriter<'_> {
 
                 if let Some(fixed_vram) = vram_class.fixed_vram {
                     self.buffer
-                        .write_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
+                        .write_linker_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
                 } else if let Some(fixed_symbol) = &vram_class.fixed_symbol {
-                    self.buffer.write_symbol(&vram_class_sym, fixed_symbol);
+                    self.buffer
+                        .write_linker_symbol(&vram_class_sym, fixed_symbol);
                 } else {
-                    self.buffer.write_symbol(&vram_class_sym, "0x00000000");
+                    self.buffer
+                        .write_linker_symbol(&vram_class_sym, "0x00000000");
                     for other_class_name in &vram_class.follows_classes {
                         self.buffer.write_symbol_max_self(
                             &vram_class_sym,
@@ -482,7 +503,7 @@ impl LinkerWriter<'_> {
                     }
                 }
                 self.buffer
-                    .write_symbol(&style.vram_class_end(vram_class_name), "0x00000000");
+                    .write_linker_symbol(&style.vram_class_end(vram_class_name), "0x00000000");
 
                 self.buffer.write_empty_line();
 
@@ -496,9 +517,9 @@ impl LinkerWriter<'_> {
         }
 
         self.buffer
-            .write_symbol(&main_seg_rom_sym_start, "__romPos");
+            .write_linker_symbol(&main_seg_rom_sym_start, "__romPos");
         self.buffer
-            .write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
+            .write_linker_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
         // Emit alloc segment
         self.write_segment(segment, &segment.alloc_sections, false)?;
@@ -572,15 +593,46 @@ impl LinkerWriter<'_> {
 
         Ok(())
     }
+
+    pub(crate) fn begin_undefined_syms(&mut self) -> Result<(), SlinkyError> {
+        if !self.buffer.is_empty() {
+            self.buffer.write_empty_line();
+        }
+
+        Ok(())
+    }
+
+    pub(crate) fn end_undefined_syms(&mut self) -> Result<(), SlinkyError> {
+        Ok(())
+    }
+
+    pub(crate) fn add_undefined_sym(
+        &mut self,
+        undefined_sym: &SymbolAssignment,
+    ) -> Result<(), SlinkyError> {
+        if !self.rs.should_emit_entry(
+            &undefined_sym.exclude_if_any,
+            &undefined_sym.exclude_if_all,
+            &undefined_sym.include_if_any,
+            &undefined_sym.include_if_all,
+        ) {
+            return Ok(());
+        }
+
+        self.buffer
+            .write_symbol_assignment(&undefined_sym.name, &undefined_sym.value);
+
+        Ok(())
+    }
 }
 
 // internal functions
 impl LinkerWriter<'_> {
     fn write_sym_end_size(&mut self, start: &str, end: &str, size: &str, value: &str) {
-        self.buffer.write_symbol(end, value);
+        self.buffer.write_linker_symbol(end, value);
 
         self.buffer
-            .write_symbol(size, &format!("ABSOLUTE({} - {})", end, start));
+            .write_linker_symbol(size, &format!("ABSOLUTE({} - {})", end, start));
     }
 
     fn write_sections_kind_start(&mut self, segment: &Segment, noload: bool) {
@@ -592,7 +644,7 @@ impl LinkerWriter<'_> {
 
             let seg_sym_start = style.segment_vram_start(&seg_sym);
 
-            self.buffer.write_symbol(&seg_sym_start, ".");
+            self.buffer.write_linker_symbol(&seg_sym_start, ".");
 
             self.buffer.write_empty_line();
         }
@@ -628,7 +680,7 @@ impl LinkerWriter<'_> {
 
             let section_start_sym = style.segment_section_start(&segment.name, section);
 
-            self.buffer.write_symbol(&section_start_sym, ".");
+            self.buffer.write_linker_symbol(&section_start_sym, ".");
         }
     }
 
@@ -754,7 +806,7 @@ impl LinkerWriter<'_> {
             FileKind::LinkerOffset => {
                 if file.section == section {
                     self.buffer
-                        .write_symbol(&style.linker_offset(&file.linker_offset_name), ".");
+                        .write_linker_symbol(&style.linker_offset(&file.linker_offset_name), ".");
                 }
             }
             FileKind::Group => {

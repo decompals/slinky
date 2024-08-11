@@ -80,6 +80,9 @@ fn main() {
         let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
 
         writer.add_all_segments(&document.segments).expect("");
+        writer
+            .add_all_undefined_syms(&document.symbol_assignments)
+            .expect("???");
 
         let output_path = cli
             .output
@@ -94,6 +97,9 @@ fn main() {
         let mut writer = slinky::LinkerWriter::new(&document, &rs);
 
         writer.add_all_segments(&document.segments).expect("ah?");
+        writer
+            .add_all_undefined_syms(&document.symbol_assignments)
+            .expect("???");
 
         if let Some(output_path) = cli.output {
             writer

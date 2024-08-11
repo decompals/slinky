@@ -3,7 +3,9 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::{Document, FileInfo, LinkerWriter, RuntimeSettings, Segment, SlinkyError};
+use crate::{
+    Document, FileInfo, LinkerWriter, RuntimeSettings, Segment, SlinkyError, SymbolAssignment,
+};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,
@@ -67,6 +69,13 @@ impl<'a> PartialLinkerWriter<'a> {
         self.main_writer.end_sections()?;
 
         Ok(())
+    }
+
+    pub fn add_all_undefined_syms(
+        &mut self,
+        undefined_syms: &[SymbolAssignment],
+    ) -> Result<(), SlinkyError> {
+        self.main_writer.add_all_undefined_syms(undefined_syms)
     }
 
     pub fn export_linker_script_to_files(&self, path: &Path) -> Result<(), SlinkyError> {

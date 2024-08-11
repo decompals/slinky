@@ -7,7 +7,8 @@ use serde::Deserialize;
 
 use crate::{
     absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial,
-    vram_class::VramClassSerial, Segment, Settings, SlinkyError, VramClass,
+    symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, Segment, Settings,
+    SlinkyError, SymbolAssignment, VramClass,
 };
 
 #[derive(PartialEq, Debug)]
@@ -17,6 +18,8 @@ pub struct Document {
     pub vram_classes: Vec<VramClass>,
 
     pub segments: Vec<Segment>,
+
+    pub symbol_assignments: Vec<SymbolAssignment>,
 }
 
 impl Document {
@@ -53,6 +56,9 @@ pub(crate) struct DocumentSerial {
     pub vram_classes: AbsentNullable<Vec<VramClassSerial>>,
 
     pub segments: Vec<SegmentSerial>,
+
+    #[serde(default)]
+    pub symbol_assignments: AbsentNullable<Vec<SymbolAssignmentSerial>>,
 }
 
 impl DocumentSerial {
@@ -83,10 +89,24 @@ impl DocumentSerial {
             segments.push(seg.unserialize(&settings)?);
         }
 
+        let mut undefined_symbols = Vec::new();
+        match self
+            .symbol_assignments
+            .get_non_null_no_default("undefined_symbols")?
+        {
+            None => (),
+            Some(v) => {
+                for c in v {
+                    undefined_symbols.push(c.unserialize(&settings)?);
+                }
+            }
+        }
+
         Ok(Document {
             settings,
             vram_classes,
             segments,
+            symbol_assignments: undefined_symbols,
         })
     }
 }

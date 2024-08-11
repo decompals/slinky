@@ -11,6 +11,7 @@ mod settings;
 mod file_info;
 mod file_kind;
 mod segment;
+mod symbol_assignment;
 
 mod vram_class;
 
@@ -33,6 +34,7 @@ pub use settings::Settings;
 pub use file_info::FileInfo;
 pub use file_kind::FileKind;
 pub use segment::Segment;
+pub use symbol_assignment::SymbolAssignment;
 
 pub use vram_class::VramClass;
 

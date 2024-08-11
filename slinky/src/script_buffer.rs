@@ -46,12 +46,18 @@ impl ScriptBuffer {
         self.writeln("}");
     }
 
-    pub fn write_symbol(&mut self, symbol: &str, value: &str) {
+    pub fn write_linker_symbol(&mut self, symbol: &str, value: &str) {
+        // TODO: check `symbol` is a valid C identifier
+
+        self.write_symbol_assignment(symbol, value);
+
+        self.linker_symbols.insert(symbol.to_string());
+    }
+
+    pub fn write_symbol_assignment(&mut self, symbol: &str, value: &str) {
         // TODO: check `symbol` is a valid C identifier
 
         self.writeln(&format!("{} = {};", symbol, value));
-
-        self.linker_symbols.insert(symbol.to_string());
     }
 
     pub fn align_symbol(&mut self, symbol: &str, align_value: u32) {
@@ -81,5 +87,10 @@ impl ScriptBuffer {
     #[must_use]
     pub fn get_linker_symbols(&self) -> &indexmap::IndexSet<String> {
         &self.linker_symbols
+    }
+
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.buffer.is_empty()
     }
 }

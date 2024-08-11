@@ -131,7 +131,7 @@ fn test_partial_linking_script_generation(
 
         p.push("..");
         p.push(
-            &rs.escape_path(&document.settings.partial_scripts_folder)
+            rs.escape_path(&document.settings.partial_scripts_folder)
                 .expect("Not able to escape path"),
         );
         p.push(&format!("{}.ld", name));
@@ -172,7 +172,7 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
 
         p.push("..");
         p.push(
-            &rs.escape_path(&document.settings.partial_scripts_folder)
+            rs.escape_path(&document.settings.partial_scripts_folder)
                 .expect("Unable to escape path"),
         );
         p.push(&format!("{}.d", name));
@@ -182,11 +182,11 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
 
         let mut partial_target = PathBuf::new();
         partial_target.push(
-            &rs.escape_path(&document.settings.base_path)
+            rs.escape_path(&document.settings.base_path)
                 .expect("Failed to escape path"),
         );
         partial_target.push(
-            &rs.escape_path(&document.settings.partial_build_segments_folder)
+            rs.escape_path(&document.settings.partial_build_segments_folder)
                 .expect("Failed to escape path"),
         );
         partial_target.push(&format!("{}.o", name));

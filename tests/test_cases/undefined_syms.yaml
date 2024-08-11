@@ -1,0 +1,111 @@
+settings:
+  base_path: build
+
+  symbols_header_path: tests/test_cases/undefined_syms.h
+
+segments:
+  - name: header
+    files:
+      - { path: asm/data/rom_header.o }
+
+  - name: ipl3
+    files:
+      - { path: asm/data/ipl3.o }
+
+  - name: entry
+    fixed_vram: 0x80000400
+    files:
+      - { path: asm/entry.o }
+
+  - name: boot
+    subalign: null
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/dmadata.o }
+      - { path: asm/util.o }
+
+symbol_assignments:
+  - name: MI_MODE_REG
+    value: 0xA4300000
+  - name: MI_VERSION_REG
+    value: 0xA4300004
+  - name: MI_INTR_REG
+    value: 0xA4300008
+  - name: MI_INTR_MASK_REG
+    value: 0xA430000C
+
+  - name: leoBootID
+    value: 0x800001A0
+  - name: osTvType
+    value: 0x80000300
+  - name: osRomType
+    value: 0x80000304
+  - name: osRomBase
+    value: 0x80000308
+  - name: osResetType
+    value: 0x8000030C
+  - name: osCicId
+    value: 0x80000310
+  - name: osVersion
+    value: 0x80000314
+  - name: osMemSize
+    value: 0x80000318
+  - name: osAppNMIBuffer
+    value: 0x8000031C
+
+  - name: __osBbEepromAddress
+    value: 0x8000035C
+    include_if_any: [[version, ique]]
+  - name: __osBbEepromSize
+    value: 0x80000360
+    include_if_any: [[version, ique]]
+  - name: __osBbFlashAddress
+    value: 0x80000364
+    include_if_any: [[version, ique]]
+  - name: __osBbFlashSize
+    value: 0x80000368
+    include_if_any: [[version, ique]]
+  - name: __osBbSramAddress
+    value: 0x8000036C
+    include_if_any: [[version, ique]]
+  - name: __osBbSramSize
+    value: 0x80000370
+    include_if_any: [[version, ique]]
+  - name: __osBbPakAddress
+    value: 0x80000374
+    include_if_any: [[version, ique]]
+  - name: __osBbPakSize
+    value: 0x80000384
+    include_if_any: [[version, ique]]
+  - name: __osBbIsBb
+    value: 0x80000388
+    include_if_any: [[version, ique]]
+  - name: __osBbHackFlags
+    value: 0x8000038C
+    include_if_any: [[version, ique]]
+  - name: __osBbStashMagic
+    value: 0x80000390
+    include_if_any: [[version, ique]]
+  - name: __osBbPakBindings
+    value: 0x80000394
+    include_if_any: [[version, ique]]
+  - name: __osBbStateName
+    value: 0x800003A4
+    include_if_any: [[version, ique]]
+  - name: __osBbStateDirty
+    value: 0x800003B4
+    include_if_any: [[version, ique]]
+  - name: __osBbAuxDataLimit
+    value: 0x800003B8
+    include_if_any: [[version, ique]]
+
+  - name: dummy_test
+    value: 0x80801234
+    include_if_any: [[version, us]]
+
+  - name: dummy_test
+    value: 0x80401234
+    include_if_any: [[version, eu]]
+
+  - name: _gp
+    value: boot_SCOMMON_START + 0x7FF0
