@@ -71,11 +71,12 @@ impl<'a> PartialLinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn add_all_undefined_syms(
+    pub fn add_all_symbol_assignments(
         &mut self,
-        undefined_syms: &[SymbolAssignment],
+        symbol_assignments: &[SymbolAssignment],
     ) -> Result<(), SlinkyError> {
-        self.main_writer.add_all_undefined_syms(undefined_syms)
+        self.main_writer
+            .add_all_symbol_assignments(symbol_assignments)
     }
 
     pub fn export_linker_script_to_files(&self, path: &Path) -> Result<(), SlinkyError> {

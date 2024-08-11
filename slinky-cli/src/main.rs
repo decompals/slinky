@@ -81,7 +81,7 @@ fn main() {
 
         writer.add_all_segments(&document.segments).expect("");
         writer
-            .add_all_undefined_syms(&document.symbol_assignments)
+            .add_all_symbol_assignments(&document.symbol_assignments)
             .expect("???");
 
         let output_path = cli
@@ -98,7 +98,7 @@ fn main() {
 
         writer.add_all_segments(&document.segments).expect("ah?");
         writer
-            .add_all_undefined_syms(&document.symbol_assignments)
+            .add_all_symbol_assignments(&document.symbol_assignments)
             .expect("???");
 
         if let Some(output_path) = cli.output {

@@ -91,21 +91,21 @@ impl<'a> LinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn add_all_undefined_syms(
+    pub fn add_all_symbol_assignments(
         &mut self,
-        undefined_syms: &[SymbolAssignment],
+        symbol_assignments: &[SymbolAssignment],
     ) -> Result<(), SlinkyError> {
-        if undefined_syms.is_empty() {
+        if symbol_assignments.is_empty() {
             return Ok(());
         }
 
-        self.begin_undefined_syms()?;
+        self.begin_symbol_assignments()?;
 
-        for undefined_sym in undefined_syms {
+        for undefined_sym in symbol_assignments {
             self.add_undefined_sym(undefined_sym)?;
         }
 
-        self.end_undefined_syms()?;
+        self.end_symbol_assignments()?;
 
         Ok(())
     }
@@ -594,7 +594,7 @@ impl LinkerWriter<'_> {
         Ok(())
     }
 
-    pub(crate) fn begin_undefined_syms(&mut self) -> Result<(), SlinkyError> {
+    pub(crate) fn begin_symbol_assignments(&mut self) -> Result<(), SlinkyError> {
         if !self.buffer.is_empty() {
             self.buffer.write_empty_line();
         }
@@ -602,7 +602,7 @@ impl LinkerWriter<'_> {
         Ok(())
     }
 
-    pub(crate) fn end_undefined_syms(&mut self) -> Result<(), SlinkyError> {
+    pub(crate) fn end_symbol_assignments(&mut self) -> Result<(), SlinkyError> {
         Ok(())
     }
 
