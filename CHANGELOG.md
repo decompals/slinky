@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add new top-level attribute for the file format: `symbol_assignments`.
+  - Allows to define symbols directly on the generated linker script.
+  - Symbols created this way can be defined with raw addresses, reference other
+    symbols or more complex expressions.
+  - If a symbol assignment is emitted or not can be controlled with the same
+    conditional inclussion/exclussion mechanism used by the custom options.
+  - These definitions can be wrapped in `PROVIDE`, `HIDDEN` or `PROVIDE_HIDDEN`.
+
 ## [0.2.5] - 2024-07-17
 
 ### Fixed

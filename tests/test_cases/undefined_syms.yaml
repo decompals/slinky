@@ -109,3 +109,13 @@ symbol_assignments:
 
   - name: _gp
     value: boot_SCOMMON_START + 0x7FF0
+    hidden: True
+
+  - name: provided_sym
+    value: 0x1234
+    provide: True
+
+  - name: provided_and_hidden_sym
+    value: 0x1234
+    provide: True
+    hidden: True

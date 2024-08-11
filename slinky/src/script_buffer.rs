@@ -49,15 +49,26 @@ impl ScriptBuffer {
     pub fn write_linker_symbol(&mut self, symbol: &str, value: &str) {
         // TODO: check `symbol` is a valid C identifier
 
-        self.write_symbol_assignment(symbol, value);
+        self.write_symbol_assignment(symbol, value, false, false);
 
         self.linker_symbols.insert(symbol.to_string());
     }
 
-    pub fn write_symbol_assignment(&mut self, symbol: &str, value: &str) {
-        // TODO: check `symbol` is a valid C identifier
+    pub fn write_symbol_assignment(
+        &mut self,
+        symbol: &str,
+        value: &str,
+        provide: bool,
+        hidden: bool,
+    ) {
+        let line = match (provide, hidden) {
+            (true, true) => format!("PROVIDE_HIDDEN({} = {});", symbol, value),
+            (true, false) => format!("PROVIDE({} = {});", symbol, value),
+            (false, true) => format!("HIDDEN({} = {});", symbol, value),
+            (false, false) => format!("{} = {};", symbol, value),
+        };
 
-        self.writeln(&format!("{} = {};", symbol, value));
+        self.writeln(&line);
     }
 
     pub fn align_symbol(&mut self, symbol: &str, align_value: u32) {

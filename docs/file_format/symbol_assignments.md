@@ -21,6 +21,12 @@ Every attribute listed is optional unless explicitly stated.
   - [`value`](#value)
     - [Example](#example-1)
     - [Valid values](#valid-values-1)
+  - [`provide`](#provide)
+    - [Valid values](#valid-values-2)
+    - [Default value](#default-value)
+  - [`hidden`](#hidden)
+    - [Valid values](#valid-values-3)
+    - [Default value](#default-value-1)
   - [`include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`](#include_if_any-include_if_all-exclude_if_any-and-exclude_if_all)
 
 ## `name`
@@ -65,6 +71,49 @@ symbol_assignments:
 ### Valid values
 
 Non empty string.
+
+## `provide`
+
+If `provide` is enabled for an entry then this symbol assignment will only be
+applied if the given symbol is referenced but is not defined in any object
+included in the link.
+
+See GNU LD documentation for
+[`PROVIDE`](https://sourceware.org/binutils/docs/ld/PROVIDE.html).
+
+This option can be combined with [`hidden`](#hidden). For more info see the GNU
+LD documentation for
+[`PROVIDE_HIDDEN`](https://sourceware.org/binutils/docs/ld/PROVIDE_005fHIDDEN.html).
+
+### Valid values
+
+Bool.
+
+### Default value
+
+`False`
+
+## `hidden`
+
+Allows defining the symbol that will be hidden and won't be exported.
+
+On a more technical sense, the binding of the generated symbol on the elf will
+be marked as `LOCAL` instead of `GLOBAL.`
+
+See GNU LD documentation for
+[`HIDDEN`](https://sourceware.org/binutils/docs/ld/HIDDEN.html).
+
+This option can be combined with [`provide`](#provide). For more info see the
+GNU LD documentation for
+[`PROVIDE_HIDDEN`](https://sourceware.org/binutils/docs/ld/PROVIDE_005fHIDDEN.html).
+
+### Valid values
+
+Bool.
+
+### Default value
+
+`False`
 
 ## `include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`
 

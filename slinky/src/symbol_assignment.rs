@@ -13,6 +13,13 @@ pub struct SymbolAssignment {
     /// Value or expression to assign to this symbol
     pub value: String,
 
+    /// Signals if this assignment should be wrapped in a `PROVIDE` statement.
+    /// Can be used with `hidden`.
+    pub provide: bool,
+    /// Signals if this assignment should be wrapped in a `HIDDEN` statement.
+    /// Can be used with `provide`.
+    pub hidden: bool,
+
     pub include_if_any: Vec<(String, String)>,
     pub include_if_all: Vec<(String, String)>,
     pub exclude_if_any: Vec<(String, String)>,
@@ -24,6 +31,11 @@ pub struct SymbolAssignment {
 pub(crate) struct SymbolAssignmentSerial {
     pub name: String,
     pub value: String,
+
+    #[serde(default)]
+    pub provide: AbsentNullable<bool>,
+    #[serde(default)]
+    pub hidden: AbsentNullable<bool>,
 
     #[serde(default)]
     pub include_if_any: AbsentNullable<Vec<(String, String)>>,
@@ -51,6 +63,9 @@ impl SymbolAssignmentSerial {
         }
         let value = self.value;
 
+        let provide = self.provide.get_non_null("provide", || false)?;
+        let hidden = self.hidden.get_non_null("hidden", || false)?;
+
         let include_if_any = self
             .include_if_any
             .get_non_null("include_if_any", Vec::new)?;
@@ -67,6 +82,8 @@ impl SymbolAssignmentSerial {
         Ok(SymbolAssignment {
             name,
             value,
+            provide,
+            hidden,
             include_if_any,
             include_if_all,
             exclude_if_any,

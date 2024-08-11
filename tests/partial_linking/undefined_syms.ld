@@ -297,4 +297,6 @@ osVersion = 0x80000314;
 osMemSize = 0x80000318;
 osAppNMIBuffer = 0x8000031C;
 dummy_test = 0x80801234;
-_gp = boot_SCOMMON_START + 0x7FF0;
+HIDDEN(_gp = boot_SCOMMON_START + 0x7FF0);
+PROVIDE(provided_sym = 0x1234);
+PROVIDE_HIDDEN(provided_and_hidden_sym = 0x1234);

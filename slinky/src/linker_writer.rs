@@ -101,8 +101,8 @@ impl<'a> LinkerWriter<'a> {
 
         self.begin_symbol_assignments()?;
 
-        for undefined_sym in symbol_assignments {
-            self.add_undefined_sym(undefined_sym)?;
+        for symbol_assignment in symbol_assignments {
+            self.add_symbol_assignment(symbol_assignment)?;
         }
 
         self.end_symbol_assignments()?;
@@ -606,21 +606,25 @@ impl LinkerWriter<'_> {
         Ok(())
     }
 
-    pub(crate) fn add_undefined_sym(
+    pub(crate) fn add_symbol_assignment(
         &mut self,
-        undefined_sym: &SymbolAssignment,
+        symbol_assignment: &SymbolAssignment,
     ) -> Result<(), SlinkyError> {
         if !self.rs.should_emit_entry(
-            &undefined_sym.exclude_if_any,
-            &undefined_sym.exclude_if_all,
-            &undefined_sym.include_if_any,
-            &undefined_sym.include_if_all,
+            &symbol_assignment.exclude_if_any,
+            &symbol_assignment.exclude_if_all,
+            &symbol_assignment.include_if_any,
+            &symbol_assignment.include_if_all,
         ) {
             return Ok(());
         }
 
-        self.buffer
-            .write_symbol_assignment(&undefined_sym.name, &undefined_sym.value);
+        self.buffer.write_symbol_assignment(
+            &symbol_assignment.name,
+            &symbol_assignment.value,
+            symbol_assignment.provide,
+            symbol_assignment.hidden,
+        );
 
         Ok(())
     }
