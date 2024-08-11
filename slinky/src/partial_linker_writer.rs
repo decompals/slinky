@@ -27,7 +27,7 @@ impl<'a> PartialLinkerWriter<'a> {
     }
 
     pub fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
-        self.main_writer.begin_sections();
+        self.main_writer.begin_sections()?;
 
         self.partial_writers.reserve(segments.len());
         for segment in segments {
@@ -64,7 +64,7 @@ impl<'a> PartialLinkerWriter<'a> {
             self.main_writer.add_segment(&reference_segment)?;
         }
 
-        self.main_writer.end_sections();
+        self.main_writer.end_sections()?;
 
         Ok(())
     }

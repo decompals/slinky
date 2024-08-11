@@ -81,246 +81,12 @@ impl<'a> LinkerWriter<'a> {
 
             self.add_single_segment(&segments[0])?;
         } else {
-            self.begin_sections();
+            self.begin_sections()?;
             for segment in segments {
                 self.add_segment(segment)?;
             }
-            self.end_sections();
+            self.end_sections()?;
         }
-
-        Ok(())
-    }
-
-    pub fn begin_sections(&mut self) {
-        self.buffer.writeln("SECTIONS");
-        self.buffer.begin_block();
-
-        self.buffer.writeln("__romPos = 0x0;");
-
-        if let Some(hardcoded_gp_value) = self.d.settings.hardcoded_gp_value {
-            self.buffer
-                .writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
-        }
-
-        self.buffer.write_empty_line();
-    }
-
-    pub fn end_sections(&mut self) {
-        let style = &self.d.settings.linker_symbols_style;
-        let mut need_ln = false;
-
-        for (vram_class_name, vram_class) in &self.vram_classes {
-            if !vram_class.emitted {
-                continue;
-            }
-
-            self.buffer.write_symbol(
-                &style.vram_class_size(vram_class_name),
-                &format!(
-                    "{} - {}",
-                    style.vram_class_end(vram_class_name),
-                    style.vram_class_start(vram_class_name),
-                ),
-            );
-
-            need_ln = true;
-        }
-
-        if !self.d.settings.sections_allowlist.is_empty() {
-            if need_ln {
-                self.buffer.write_empty_line();
-            }
-
-            let address = " 0";
-
-            for sect in &self.d.settings.sections_allowlist {
-                self.buffer.writeln(&format!("{}{} :", sect, address));
-                self.buffer.begin_block();
-
-                self.buffer.writeln(&format!("*({});", sect));
-
-                self.buffer.end_block();
-            }
-
-            need_ln = true;
-        }
-
-        if !self.d.settings.sections_allowlist_extra.is_empty() {
-            if need_ln {
-                self.buffer.write_empty_line();
-            }
-
-            let address = " 0";
-
-            for sect in &self.d.settings.sections_allowlist_extra {
-                self.buffer.writeln(&format!("{}{} :", sect, address));
-                self.buffer.begin_block();
-
-                self.buffer.writeln(&format!("*({});", sect));
-
-                self.buffer.end_block();
-            }
-
-            need_ln = true;
-        }
-
-        if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty()
-        {
-            if need_ln {
-                self.buffer.write_empty_line();
-            }
-
-            self.buffer.writeln("/DISCARD/ :");
-            self.buffer.begin_block();
-
-            for sect in &self.d.settings.sections_denylist {
-                self.buffer.writeln(&format!("*({});", sect));
-            }
-
-            if self.d.settings.discard_wildcard_section {
-                self.buffer.writeln("*(*);")
-            }
-
-            self.buffer.end_block();
-        }
-
-        self.buffer.end_block();
-        self.buffer.finish();
-    }
-
-    pub fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &segment.exclude_if_any,
-            &segment.exclude_if_all,
-            &segment.include_if_any,
-            &segment.include_if_all,
-        ) {
-            return Ok(());
-        }
-
-        assert!(!self.single_segment);
-
-        let style = &self.d.settings.linker_symbols_style;
-
-        // rom segment symbols
-        let main_seg_rom_sym_start: String = style.segment_rom_start(&segment.name);
-        let main_seg_rom_sym_end: String = style.segment_rom_end(&segment.name);
-        let main_seg_rom_sym_size: String = style.segment_rom_size(&segment.name);
-
-        // vram segment symbols
-        let main_seg_sym_start: String = style.segment_vram_start(&segment.name);
-        let main_seg_sym_end: String = style.segment_vram_end(&segment.name);
-        let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
-
-        if let Some(vram_class_name) = &segment.vram_class {
-            // TODO: return Err if vram class is not present instead of unwrapping
-            let vram_class = self.vram_classes.get_mut(vram_class_name).unwrap();
-
-            if !vram_class.emitted {
-                let vram_class_sym = style.vram_class_start(vram_class_name);
-
-                if let Some(fixed_vram) = vram_class.fixed_vram {
-                    self.buffer
-                        .write_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
-                } else if let Some(fixed_symbol) = &vram_class.fixed_symbol {
-                    self.buffer.write_symbol(&vram_class_sym, fixed_symbol);
-                } else {
-                    self.buffer.write_symbol(&vram_class_sym, "0x00000000");
-                    for other_class_name in &vram_class.follows_classes {
-                        self.buffer.write_symbol_max_self(
-                            &vram_class_sym,
-                            &style.vram_class_end(other_class_name),
-                        );
-                    }
-                }
-                self.buffer
-                    .write_symbol(&style.vram_class_end(vram_class_name), "0x00000000");
-
-                self.buffer.write_empty_line();
-
-                vram_class.emitted = true;
-            }
-        }
-
-        if let Some(segment_start_align) = segment.segment_start_align {
-            self.buffer.align_symbol("__romPos", segment_start_align);
-            self.buffer.align_symbol(".", segment_start_align);
-        }
-
-        self.buffer
-            .write_symbol(&main_seg_rom_sym_start, "__romPos");
-        self.buffer
-            .write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
-
-        // Emit alloc segment
-        self.write_segment(segment, &segment.alloc_sections, false)?;
-
-        self.buffer.write_empty_line();
-
-        // Emit noload segment
-        self.write_segment(segment, &segment.noload_sections, true)?;
-
-        self.buffer.write_empty_line();
-
-        self.buffer
-            .writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
-
-        if let Some(segment_end_align) = segment.segment_end_align {
-            self.buffer.align_symbol("__romPos", segment_end_align);
-            self.buffer.align_symbol(".", segment_end_align);
-        }
-
-        self.write_sym_end_size(
-            &main_seg_sym_start,
-            &main_seg_sym_end,
-            &main_seg_sym_size,
-            ".",
-        );
-
-        self.write_sym_end_size(
-            &main_seg_rom_sym_start,
-            &main_seg_rom_sym_end,
-            &main_seg_rom_sym_size,
-            "__romPos",
-        );
-
-        if let Some(vram_class_name) = &segment.vram_class {
-            self.buffer.write_empty_line();
-
-            let vram_class_sym_end = style.vram_class_end(vram_class_name);
-            self.buffer
-                .write_symbol_max_self(&vram_class_sym_end, &main_seg_sym_end);
-        }
-
-        self.buffer.write_empty_line();
-
-        Ok(())
-    }
-
-    pub fn add_single_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
-        // Make sure this function is called only once
-        assert!(!self.single_segment);
-        self.single_segment = true;
-
-        self.buffer.writeln("SECTIONS");
-        self.buffer.begin_block();
-
-        if let Some(fixed_vram) = segment.fixed_vram {
-            self.buffer.writeln(&format!(". = 0x{:08X};", fixed_vram));
-            self.buffer.write_empty_line();
-        }
-
-        // Emit alloc segment
-        self.write_single_segment(segment, &segment.alloc_sections, false)?;
-
-        self.buffer.write_empty_line();
-
-        // Emit noload segment
-        self.write_single_segment(segment, &segment.noload_sections, true)?;
-
-        self.buffer.write_empty_line();
-
-        self.end_sections();
 
         Ok(())
     }
@@ -564,6 +330,247 @@ impl LinkerWriter<'_> {
     #[must_use]
     pub fn get_emit_section_symbols(&mut self) -> bool {
         self.emit_section_symbols
+    }
+}
+
+// semi internal functions
+impl LinkerWriter<'_> {
+    pub(crate) fn begin_sections(&mut self) -> Result<(), SlinkyError> {
+        self.buffer.writeln("SECTIONS");
+        self.buffer.begin_block();
+
+        self.buffer.writeln("__romPos = 0x0;");
+
+        if let Some(hardcoded_gp_value) = self.d.settings.hardcoded_gp_value {
+            self.buffer
+                .writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
+        }
+
+        self.buffer.write_empty_line();
+
+        Ok(())
+    }
+
+    pub(crate) fn end_sections(&mut self) -> Result<(), SlinkyError> {
+        let style = &self.d.settings.linker_symbols_style;
+        let mut need_ln = false;
+
+        for (vram_class_name, vram_class) in &self.vram_classes {
+            if !vram_class.emitted {
+                continue;
+            }
+
+            self.buffer.write_symbol(
+                &style.vram_class_size(vram_class_name),
+                &format!(
+                    "{} - {}",
+                    style.vram_class_end(vram_class_name),
+                    style.vram_class_start(vram_class_name),
+                ),
+            );
+
+            need_ln = true;
+        }
+
+        if !self.d.settings.sections_allowlist.is_empty() {
+            if need_ln {
+                self.buffer.write_empty_line();
+            }
+
+            let address = " 0";
+
+            for sect in &self.d.settings.sections_allowlist {
+                self.buffer.writeln(&format!("{}{} :", sect, address));
+                self.buffer.begin_block();
+
+                self.buffer.writeln(&format!("*({});", sect));
+
+                self.buffer.end_block();
+            }
+
+            need_ln = true;
+        }
+
+        if !self.d.settings.sections_allowlist_extra.is_empty() {
+            if need_ln {
+                self.buffer.write_empty_line();
+            }
+
+            let address = " 0";
+
+            for sect in &self.d.settings.sections_allowlist_extra {
+                self.buffer.writeln(&format!("{}{} :", sect, address));
+                self.buffer.begin_block();
+
+                self.buffer.writeln(&format!("*({});", sect));
+
+                self.buffer.end_block();
+            }
+
+            need_ln = true;
+        }
+
+        if self.d.settings.discard_wildcard_section || !self.d.settings.sections_denylist.is_empty()
+        {
+            if need_ln {
+                self.buffer.write_empty_line();
+            }
+
+            self.buffer.writeln("/DISCARD/ :");
+            self.buffer.begin_block();
+
+            for sect in &self.d.settings.sections_denylist {
+                self.buffer.writeln(&format!("*({});", sect));
+            }
+
+            if self.d.settings.discard_wildcard_section {
+                self.buffer.writeln("*(*);")
+            }
+
+            self.buffer.end_block();
+        }
+
+        self.buffer.end_block();
+        self.buffer.finish();
+
+        Ok(())
+    }
+
+    pub(crate) fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
+        if !self.rs.should_emit_entry(
+            &segment.exclude_if_any,
+            &segment.exclude_if_all,
+            &segment.include_if_any,
+            &segment.include_if_all,
+        ) {
+            return Ok(());
+        }
+
+        assert!(!self.single_segment);
+
+        let style = &self.d.settings.linker_symbols_style;
+
+        // rom segment symbols
+        let main_seg_rom_sym_start: String = style.segment_rom_start(&segment.name);
+        let main_seg_rom_sym_end: String = style.segment_rom_end(&segment.name);
+        let main_seg_rom_sym_size: String = style.segment_rom_size(&segment.name);
+
+        // vram segment symbols
+        let main_seg_sym_start: String = style.segment_vram_start(&segment.name);
+        let main_seg_sym_end: String = style.segment_vram_end(&segment.name);
+        let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
+
+        if let Some(vram_class_name) = &segment.vram_class {
+            // TODO: return Err if vram class is not present instead of unwrapping
+            let vram_class = self.vram_classes.get_mut(vram_class_name).unwrap();
+
+            if !vram_class.emitted {
+                let vram_class_sym = style.vram_class_start(vram_class_name);
+
+                if let Some(fixed_vram) = vram_class.fixed_vram {
+                    self.buffer
+                        .write_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
+                } else if let Some(fixed_symbol) = &vram_class.fixed_symbol {
+                    self.buffer.write_symbol(&vram_class_sym, fixed_symbol);
+                } else {
+                    self.buffer.write_symbol(&vram_class_sym, "0x00000000");
+                    for other_class_name in &vram_class.follows_classes {
+                        self.buffer.write_symbol_max_self(
+                            &vram_class_sym,
+                            &style.vram_class_end(other_class_name),
+                        );
+                    }
+                }
+                self.buffer
+                    .write_symbol(&style.vram_class_end(vram_class_name), "0x00000000");
+
+                self.buffer.write_empty_line();
+
+                vram_class.emitted = true;
+            }
+        }
+
+        if let Some(segment_start_align) = segment.segment_start_align {
+            self.buffer.align_symbol("__romPos", segment_start_align);
+            self.buffer.align_symbol(".", segment_start_align);
+        }
+
+        self.buffer
+            .write_symbol(&main_seg_rom_sym_start, "__romPos");
+        self.buffer
+            .write_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
+
+        // Emit alloc segment
+        self.write_segment(segment, &segment.alloc_sections, false)?;
+
+        self.buffer.write_empty_line();
+
+        // Emit noload segment
+        self.write_segment(segment, &segment.noload_sections, true)?;
+
+        self.buffer.write_empty_line();
+
+        self.buffer
+            .writeln(&format!("__romPos += SIZEOF(.{});", segment.name));
+
+        if let Some(segment_end_align) = segment.segment_end_align {
+            self.buffer.align_symbol("__romPos", segment_end_align);
+            self.buffer.align_symbol(".", segment_end_align);
+        }
+
+        self.write_sym_end_size(
+            &main_seg_sym_start,
+            &main_seg_sym_end,
+            &main_seg_sym_size,
+            ".",
+        );
+
+        self.write_sym_end_size(
+            &main_seg_rom_sym_start,
+            &main_seg_rom_sym_end,
+            &main_seg_rom_sym_size,
+            "__romPos",
+        );
+
+        if let Some(vram_class_name) = &segment.vram_class {
+            self.buffer.write_empty_line();
+
+            let vram_class_sym_end = style.vram_class_end(vram_class_name);
+            self.buffer
+                .write_symbol_max_self(&vram_class_sym_end, &main_seg_sym_end);
+        }
+
+        self.buffer.write_empty_line();
+
+        Ok(())
+    }
+
+    pub(crate) fn add_single_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
+        // Make sure this function is called only once
+        assert!(!self.single_segment);
+        self.single_segment = true;
+
+        self.buffer.writeln("SECTIONS");
+        self.buffer.begin_block();
+
+        if let Some(fixed_vram) = segment.fixed_vram {
+            self.buffer.writeln(&format!(". = 0x{:08X};", fixed_vram));
+            self.buffer.write_empty_line();
+        }
+
+        // Emit alloc segment
+        self.write_single_segment(segment, &segment.alloc_sections, false)?;
+
+        self.buffer.write_empty_line();
+
+        // Emit noload segment
+        self.write_single_segment(segment, &segment.noload_sections, true)?;
+
+        self.buffer.write_empty_line();
+
+        self.end_sections()?;
+
+        Ok(())
     }
 }
 
