@@ -51,6 +51,28 @@ impl<T> AbsentNullable<T> {
         }
     }
 
+    pub fn get_non_null_not_empty<F>(self, name: &str, default: F) -> Result<T, SlinkyError>
+    where
+        F: FnOnce() -> T,
+        T: Default + PartialEq,
+    {
+        match self {
+            AbsentNullable::Absent => Ok(default()),
+            AbsentNullable::Null => Err(SlinkyError::NullValueOnNonNull {
+                name: name.to_string(),
+            }),
+            AbsentNullable::Value(v) => {
+                if v == T::default() {
+                    Err(SlinkyError::EmptyValue {
+                        name: name.to_string(),
+                    })
+                } else {
+                    Ok(v)
+                }
+            }
+        }
+    }
+
     pub fn get_non_null_no_default(self, name: &str) -> Result<Option<T>, SlinkyError> {
         match self {
             AbsentNullable::Absent => Ok(None),

@@ -233,16 +233,16 @@ impl SegmentSerial {
 
         let include_if_any = self
             .include_if_any
-            .get_non_null("include_if_any", Vec::new)?;
+            .get_non_null_not_empty("include_if_any", Vec::new)?;
         let include_if_all = self
             .include_if_all
-            .get_non_null("include_if_all", Vec::new)?;
+            .get_non_null_not_empty("include_if_all", Vec::new)?;
         let exclude_if_any = self
             .exclude_if_any
-            .get_non_null("exclude_if_any", Vec::new)?;
+            .get_non_null_not_empty("exclude_if_any", Vec::new)?;
         let exclude_if_all = self
             .exclude_if_all
-            .get_non_null("exclude_if_all", Vec::new)?;
+            .get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
         let alloc_sections = self
             .alloc_sections

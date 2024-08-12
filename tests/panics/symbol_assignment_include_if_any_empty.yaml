@@ -1,0 +1,9 @@
+segments:
+  - name: main
+    files:
+      - { path: main.o }
+
+symbol_assignments:
+  - name: dummy_test
+    value: 0x80801234
+    include_if_any: []

@@ -1,0 +1,5 @@
+segments:
+  - name: main
+    include_if_all: []
+    files:
+      - { path: main.o }

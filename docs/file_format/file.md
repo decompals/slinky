@@ -331,7 +331,7 @@ segments:
 
 ### Valid values
 
-A list of two-tuples of strings.
+A non-empty list of two-tuples of strings.
 
 ## `include_if_all`
 
@@ -363,7 +363,7 @@ segments:
 
 ### Valid values
 
-A list of two-tuples of strings.
+A non-empty list of two-tuples of strings.
 
 ## `exclude_if_any`
 
@@ -395,7 +395,7 @@ segments:
 
 ### Valid values
 
-A list of two-tuples of strings.
+A non-empty list of two-tuples of strings.
 
 ## `exclude_if_all`
 
@@ -427,4 +427,4 @@ segments:
 
 ### Valid values
 
-A list of two-tuples of strings.
+A non-empty list of two-tuples of strings.

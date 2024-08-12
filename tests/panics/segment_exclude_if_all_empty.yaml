@@ -1,0 +1,5 @@
+segments:
+  - name: main
+    exclude_if_all: []
+    files:
+      - { path: main.o }
