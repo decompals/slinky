@@ -1,15 +1,26 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use crate::{Document, EscapedPath, Segment, SlinkyError, SymbolAssignment};
+use crate::{Document, EscapedPath, Segment, Settings, SlinkyError, SymbolAssignment};
 
 mod private {
-    use crate::{LinkerWriter, PartialLinkerWriter};
+    use crate::{
+        file_info::FileInfoSerial, segment::SegmentSerial,
+        symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, LinkerWriter,
+        PartialLinkerWriter,
+    };
 
     pub trait Sealed {}
 
     impl Sealed for LinkerWriter<'_> {}
     impl Sealed for PartialLinkerWriter<'_> {}
+
+    impl Sealed for SegmentSerial {}
+    impl Sealed for FileInfoSerial {}
+    impl Sealed for VramClassSerial {}
+    impl Sealed for SymbolAssignmentSerial {}
+
+    impl<T> Sealed for Vec<T> {}
 }
 
 pub trait ScriptImporter: private::Sealed {
@@ -35,3 +46,20 @@ pub trait ScriptExporter: private::Sealed {
 }
 
 pub trait ScriptGenerator: ScriptImporter + ScriptExporter {}
+
+pub(crate) trait Serial: private::Sealed {
+    type Output;
+
+    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError>;
+}
+
+impl<T> Serial for Vec<T>
+where
+    T: Serial,
+{
+    type Output = Vec<T::Output>;
+
+    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+        self.into_iter().map(|x| x.unserialize(settings)).collect()
+    }
+}

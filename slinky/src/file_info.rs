@@ -8,8 +8,8 @@ use std::{
 };
 
 use crate::{
-    absent_nullable::AbsentNullable, file_kind::FileKind, EscapedPath, RuntimeSettings, Settings,
-    SlinkyError,
+    absent_nullable::AbsentNullable, file_kind::FileKind, traits::Serial, EscapedPath,
+    RuntimeSettings, Settings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -106,8 +106,10 @@ pub(crate) struct FileInfoSerial {
     pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
 }
 
-impl FileInfoSerial {
-    pub(crate) fn unserialize(self, _settings: &Settings) -> Result<FileInfo, SlinkyError> {
+impl Serial for FileInfoSerial {
+    type Output = FileInfo;
+
+    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
         // Since a `kind` can be deduced from a `path` (which requires a `path`) then we need to do both simultaneously
         let (path, kind) = match self.kind.get_non_null_no_default("kind")? {
             Some(k) => match k {
@@ -225,16 +227,7 @@ impl FileInfoSerial {
                 }
                 Vec::default()
             }
-            FileKind::Group => {
-                let temp_vec = self.files.get("files")?;
-                let mut result_vec = Vec::with_capacity(temp_vec.len());
-
-                for temp in temp_vec {
-                    result_vec.push(temp.unserialize(_settings)?);
-                }
-
-                result_vec
-            }
+            FileKind::Group => self.files.get("files")?.unserialize(settings)?,
         };
 
         let dir = match kind {
@@ -263,7 +256,7 @@ impl FileInfoSerial {
             .exclude_if_all
             .get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
-        Ok(FileInfo {
+        Ok(Self::Output {
             path,
             kind,
             subfile,

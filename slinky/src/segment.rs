@@ -8,6 +8,7 @@ use serde::Deserialize;
 use crate::{
     absent_nullable::AbsentNullable,
     file_info::{FileInfo, FileInfoSerial},
+    traits::Serial,
     EscapedPath, RuntimeSettings, Settings, SlinkyError,
 };
 
@@ -151,8 +152,10 @@ pub(crate) struct SegmentSerial {
     pub fill_value: AbsentNullable<u32>,
 }
 
-impl SegmentSerial {
-    pub fn unserialize(self, settings: &Settings) -> Result<Segment, SlinkyError> {
+impl Serial for SegmentSerial {
+    type Output = Segment;
+
+    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
         if self.name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
@@ -166,10 +169,7 @@ impl SegmentSerial {
             });
         }
 
-        let mut files = Vec::with_capacity(self.files.len());
-        for file in self.files {
-            files.push(file.unserialize(settings)?);
-        }
+        let files = self.files.unserialize(settings)?;
 
         let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
 
@@ -291,7 +291,7 @@ impl SegmentSerial {
             .fill_value
             .get_optional_nullable("fill_value", || settings.fill_value)?;
 
-        Ok(Segment {
+        Ok(Self::Output {
             name,
             files,
             fixed_vram,

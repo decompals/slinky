@@ -3,7 +3,7 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, Settings, SlinkyError};
+use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct SymbolAssignment {
@@ -47,8 +47,10 @@ pub(crate) struct SymbolAssignmentSerial {
     pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
 }
 
-impl SymbolAssignmentSerial {
-    pub fn unserialize(self, _settings: &Settings) -> Result<SymbolAssignment, SlinkyError> {
+impl Serial for SymbolAssignmentSerial {
+    type Output = SymbolAssignment;
+
+    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
         if self.name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
@@ -79,7 +81,7 @@ impl SymbolAssignmentSerial {
             .exclude_if_all
             .get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
-        Ok(SymbolAssignment {
+        Ok(Self::Output {
             name,
             value,
             provide,

@@ -7,8 +7,8 @@ use serde::Deserialize;
 
 use crate::{
     absent_nullable::AbsentNullable, segment::SegmentSerial, settings::SettingsSerial,
-    symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, Segment, Settings,
-    SlinkyError, SymbolAssignment, VramClass,
+    symbol_assignment::SymbolAssignmentSerial, traits::Serial, vram_class::VramClassSerial,
+    Segment, Settings, SlinkyError, SymbolAssignment, VramClass,
 };
 
 #[derive(PartialEq, Debug)]
@@ -74,39 +74,23 @@ impl DocumentSerial {
             });
         }
 
-        let mut vram_classes = Vec::new();
-        match self.vram_classes.get_non_null_no_default("vram_classes")? {
-            None => (),
-            Some(v) => {
-                for c in v {
-                    vram_classes.push(c.unserialize(&settings)?);
-                }
-            }
-        }
+        let vram_classes = self
+            .vram_classes
+            .get_non_null("vram_classes", Vec::new)?
+            .unserialize(&settings)?;
 
-        let mut segments = Vec::with_capacity(self.segments.len());
-        for seg in self.segments {
-            segments.push(seg.unserialize(&settings)?);
-        }
+        let segments = self.segments.unserialize(&settings)?;
 
-        let mut undefined_symbols = Vec::new();
-        match self
+        let symbol_assignments = self
             .symbol_assignments
-            .get_non_null_no_default("undefined_symbols")?
-        {
-            None => (),
-            Some(v) => {
-                for c in v {
-                    undefined_symbols.push(c.unserialize(&settings)?);
-                }
-            }
-        }
+            .get_non_null("symbol_assignments", Vec::new)?
+            .unserialize(&settings)?;
 
         Ok(Document {
             settings,
             vram_classes,
             segments,
-            symbol_assignments: undefined_symbols,
+            symbol_assignments,
         })
     }
 }

@@ -3,7 +3,7 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, Settings, SlinkyError};
+use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct VramClass {
@@ -34,8 +34,10 @@ pub(crate) struct VramClassSerial {
     pub follows_classes: AbsentNullable<Vec<String>>,
 }
 
-impl VramClassSerial {
-    pub fn unserialize(self, _settings: &Settings) -> Result<VramClass, SlinkyError> {
+impl Serial for VramClassSerial {
+    type Output = VramClass;
+
+    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
         if self.name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
@@ -80,7 +82,7 @@ impl VramClassSerial {
             });
         }
 
-        Ok(VramClass {
+        Ok(Self::Output {
             name,
             fixed_vram,
             fixed_symbol,
