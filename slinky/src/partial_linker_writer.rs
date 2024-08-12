@@ -1,11 +1,9 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::{Path, PathBuf};
-
 use crate::{
-    Document, FileInfo, LinkerWriter, RuntimeSettings, ScriptExporter, ScriptGenerator,
-    ScriptImporter, Segment, SlinkyError, SymbolAssignment,
+    Document, EscapedPath, FileInfo, LinkerWriter, RuntimeSettings, ScriptExporter,
+    ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
 };
 
 pub struct PartialLinkerWriter<'a> {
@@ -55,13 +53,8 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
             self.partial_writers
                 .push((partial_writer, segment.name.clone()));
 
-            let mut p = PathBuf::new();
+            let mut p = self.d.settings.partial_build_segments_folder.clone();
 
-            p.push(
-                &self
-                    .rs
-                    .escape_path(&self.d.settings.partial_build_segments_folder)?,
-            );
             p.push(&format!("{}.o", segment.name));
 
             self.main_writer
@@ -83,18 +76,13 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 }
 
 impl ScriptExporter for PartialLinkerWriter<'_> {
-    fn export_linker_script_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
+    fn export_linker_script_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
         self.main_writer.export_linker_script_to_file(path)?;
 
         for (partial, name) in &self.partial_writers {
-            let mut p = PathBuf::new();
+            let mut p = self.d.settings.partial_scripts_folder_escaped(self.rs)?;
 
-            p.push(
-                &self
-                    .rs
-                    .escape_path(&self.d.settings.partial_scripts_folder)?,
-            );
-            p.push(&format!("{}.ld", name));
+            p.push(EscapedPath::from(format!("{}.ld", name)));
 
             partial.export_linker_script_to_file(&p)?;
         }
@@ -119,24 +107,18 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
 
         if self.d.settings.d_path.is_some() {
             for (partial, name) in &self.partial_writers {
-                let mut target_path = PathBuf::new();
+                let mut target_path = self.d.settings.base_path_escaped(self.rs)?;
 
-                target_path.push(&self.rs.escape_path(&self.d.settings.base_path)?);
                 target_path.push(
-                    &self
-                        .rs
-                        .escape_path(&self.d.settings.partial_build_segments_folder)?,
+                    self.d
+                        .settings
+                        .partial_build_segments_folder_escaped(self.rs)?,
                 );
-                target_path.push(&format!("{}.o", name));
+                target_path.push(EscapedPath::from(format!("{}.o", name)));
 
-                let mut d_path = PathBuf::new();
+                let mut d_path = self.d.settings.partial_scripts_folder_escaped(self.rs)?;
 
-                d_path.push(
-                    &self
-                        .rs
-                        .escape_path(&self.d.settings.partial_scripts_folder)?,
-                );
-                d_path.push(&format!("{}.d", name));
+                d_path.push(EscapedPath::from(format!("{}.d", name)));
 
                 partial.export_dependencies_file_to_file(&d_path, &target_path)?;
             }

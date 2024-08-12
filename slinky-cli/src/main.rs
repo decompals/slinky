@@ -5,7 +5,7 @@ use std::{error::Error, path::PathBuf};
 
 use clap::Parser;
 use regex::Regex;
-use slinky::ScriptGenerator;
+use slinky::{RuntimeSettings, ScriptGenerator};
 
 // TODO: Add program description to cli
 
@@ -69,13 +69,16 @@ fn create_runtime_settings(cli: &Cli) -> slinky::RuntimeSettings {
 fn write_script(
     writer: &mut impl ScriptGenerator,
     document: &slinky::Document,
+    rs: &RuntimeSettings,
     output: &Option<PathBuf>,
 ) {
     writer.add_whole_document(document).expect("ah?");
 
     if let Some(output_path) = output {
         writer
-            .export_linker_script_to_file(output_path)
+            .export_linker_script_to_file(
+                &rs.escape_path(output_path).expect("Error escaping path"),
+            )
             .expect("Error writing the linker script");
     } else {
         println!(
@@ -104,10 +107,10 @@ fn main() {
     if cli.partial_linking {
         let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
 
-        write_script(&mut writer, &document, &cli.output);
+        write_script(&mut writer, &document, &rs, &cli.output);
     } else {
         let mut writer = slinky::LinkerWriter::new(&document, &rs);
 
-        write_script(&mut writer, &document, &cli.output);
+        write_script(&mut writer, &document, &rs, &cli.output);
     }
 }

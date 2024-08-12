@@ -7,7 +7,10 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::{absent_nullable::AbsentNullable, file_kind::FileKind, Settings, SlinkyError};
+use crate::{
+    absent_nullable::AbsentNullable, file_kind::FileKind, EscapedPath, RuntimeSettings, Settings,
+    SlinkyError,
+};
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct FileInfo {
@@ -52,6 +55,16 @@ impl FileInfo {
             exclude_if_any: Vec::new(),
             exclude_if_all: Vec::new(),
         }
+    }
+}
+
+impl FileInfo {
+    pub fn path_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.path)
+    }
+
+    pub fn dir_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.dir)
     }
 }
 

@@ -3,10 +3,11 @@
 
 use std::{
     collections::HashMap,
+    fmt::Debug,
     path::{Path, PathBuf},
 };
 
-use crate::SlinkyError;
+use crate::{EscapedPath, SlinkyError};
 
 #[derive(PartialEq, Debug)]
 pub struct RuntimeSettings {
@@ -68,7 +69,7 @@ impl RuntimeSettings {
     /// Replace all the `{key}` instances on the `path` argument with the corresponding value specified on the global `custom_options`.
     ///
     /// If the `key` is not present on the custom options then it returns an error.
-    pub fn escape_path(&self, path: &Path) -> Result<PathBuf, SlinkyError> {
+    pub fn escape_path(&self, path: &Path) -> Result<EscapedPath, SlinkyError> {
         let mut new_path = PathBuf::new();
 
         for component in path.iter() {
@@ -118,7 +119,7 @@ impl RuntimeSettings {
             }
         }
 
-        Ok(new_path)
+        Ok(EscapedPath(new_path))
     }
 
     pub fn should_emit_entry(

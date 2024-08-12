@@ -92,7 +92,7 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErro
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
 
-    let target_path = document.settings.target_path.as_ref().unwrap();
+    let target_path = &document.settings.target_path_escaped(&rs)?.unwrap();
     compare_multiline_strings(
         &expected_d_contents,
         &writer
@@ -175,7 +175,9 @@ fn test_partial_linking_script_generation(
 
         p.push("..");
         p.push(
-            rs.escape_path(&document.settings.partial_scripts_folder)
+            document
+                .settings
+                .partial_scripts_folder_escaped(&rs)
                 .expect("Not able to escape path"),
         );
         p.push(&format!("{}.ld", name));
@@ -192,6 +194,8 @@ fn test_partial_linking_script_generation(
 
 #[rstest]
 fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_path: PathBuf) {
+    use slinky::EscapedPath;
+
     let yaml_path = d_path.with_extension("yaml");
 
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
@@ -202,7 +206,7 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
 
     let expected_d_contents = fs::read_to_string(d_path).expect("unable to read expected d file");
 
-    let target_path = document.settings.target_path.as_ref().unwrap();
+    let target_path = &document.settings.target_path_escaped(&rs).unwrap().unwrap();
     compare_multiline_strings(
         &expected_d_contents,
         &writer
@@ -216,7 +220,9 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
 
         p.push("..");
         p.push(
-            rs.escape_path(&document.settings.partial_scripts_folder)
+            document
+                .settings
+                .partial_scripts_folder_escaped(&rs)
                 .expect("Unable to escape path"),
         );
         p.push(&format!("{}.d", name));
@@ -224,16 +230,19 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
         let expected_partial_ld_contents =
             fs::read_to_string(p).expect("unable to read expected d file");
 
-        let mut partial_target = PathBuf::new();
+        let mut partial_target = document
+            .settings
+            .base_path_escaped(&rs)
+            .expect("Failed to escape path");
+
         partial_target.push(
-            rs.escape_path(&document.settings.base_path)
+            document
+                .settings
+                .partial_build_segments_folder_escaped(&rs)
                 .expect("Failed to escape path"),
         );
-        partial_target.push(
-            rs.escape_path(&document.settings.partial_build_segments_folder)
-                .expect("Failed to escape path"),
-        );
-        partial_target.push(&format!("{}.o", name));
+        partial_target.push(EscapedPath::from(format!("{}.o", name)));
+
         compare_multiline_strings(
             &expected_partial_ld_contents,
             &partial

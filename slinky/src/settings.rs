@@ -5,7 +5,8 @@ use serde::Deserialize;
 use std::{collections::HashMap, path::PathBuf};
 
 use crate::{
-    absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle, SlinkyError,
+    absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle, EscapedPath,
+    RuntimeSettings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug)]
@@ -210,6 +211,53 @@ impl Default for Settings {
 
             fill_value: settings_default_fill_value(),
         }
+    }
+}
+
+impl Settings {
+    pub fn base_path_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.base_path)
+    }
+
+    pub fn d_path_escaped(&self, rs: &RuntimeSettings) -> Result<Option<EscapedPath>, SlinkyError> {
+        match &self.d_path {
+            Some(p) => Ok(Some(rs.escape_path(p)?)),
+            None => Ok(None),
+        }
+    }
+
+    pub fn target_path_escaped(
+        &self,
+        rs: &RuntimeSettings,
+    ) -> Result<Option<EscapedPath>, SlinkyError> {
+        match &self.target_path {
+            Some(p) => Ok(Some(rs.escape_path(p)?)),
+            None => Ok(None),
+        }
+    }
+
+    pub fn symbols_header_path_escaped(
+        &self,
+        rs: &RuntimeSettings,
+    ) -> Result<Option<EscapedPath>, SlinkyError> {
+        match &self.symbols_header_path {
+            Some(p) => Ok(Some(rs.escape_path(p)?)),
+            None => Ok(None),
+        }
+    }
+
+    pub fn partial_scripts_folder_escaped(
+        &self,
+        rs: &RuntimeSettings,
+    ) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.partial_scripts_folder)
+    }
+
+    pub fn partial_build_segments_folder_escaped(
+        &self,
+        rs: &RuntimeSettings,
+    ) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.partial_build_segments_folder)
     }
 }
 

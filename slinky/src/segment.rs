@@ -8,7 +8,7 @@ use serde::Deserialize;
 use crate::{
     absent_nullable::AbsentNullable,
     file_info::{FileInfo, FileInfoSerial},
-    Settings, SlinkyError,
+    EscapedPath, RuntimeSettings, Settings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -86,6 +86,10 @@ impl Segment {
             wildcard_sections: self.wildcard_sections,
             fill_value: self.fill_value,
         }
+    }
+
+    pub fn dir_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
+        rs.escape_path(&self.dir)
     }
 }
 

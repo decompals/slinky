@@ -3,6 +3,7 @@
 
 mod absent_nullable;
 mod error;
+mod escaped_path;
 mod traits;
 mod utils;
 
@@ -28,6 +29,7 @@ mod runtime_settings;
 pub mod version;
 
 pub use error::SlinkyError;
+pub use escaped_path::EscapedPath;
 
 pub use linker_symbols_style::LinkerSymbolsStyle;
 pub use settings::Settings;
