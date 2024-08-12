@@ -4,7 +4,8 @@
 use std::path::{Path, PathBuf};
 
 use crate::{
-    Document, FileInfo, LinkerWriter, RuntimeSettings, Segment, SlinkyError, SymbolAssignment,
+    Document, FileInfo, LinkerWriter, RuntimeSettings, ScriptExporter, ScriptGenerator,
+    ScriptImporter, Segment, SlinkyError, SymbolAssignment,
 };
 
 pub struct PartialLinkerWriter<'a> {
@@ -27,8 +28,10 @@ impl<'a> PartialLinkerWriter<'a> {
             rs,
         }
     }
+}
 
-    pub fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
+impl ScriptImporter for PartialLinkerWriter<'_> {
+    fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
         self.main_writer.begin_sections()?;
 
         self.partial_writers.reserve(segments.len());
@@ -61,9 +64,8 @@ impl<'a> PartialLinkerWriter<'a> {
             );
             p.push(&format!("{}.o", segment.name));
 
-            let mut reference_segment = segment.clone();
-            reference_segment.files = vec![FileInfo::new_object(p)];
-            self.main_writer.add_segment(&reference_segment)?;
+            self.main_writer
+                .add_segment(&segment.clone_with_new_files(vec![FileInfo::new_object(p)]))?;
         }
 
         self.main_writer.end_sections()?;
@@ -71,15 +73,17 @@ impl<'a> PartialLinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn add_all_symbol_assignments(
+    fn add_all_symbol_assignments(
         &mut self,
         symbol_assignments: &[SymbolAssignment],
     ) -> Result<(), SlinkyError> {
         self.main_writer
             .add_all_symbol_assignments(symbol_assignments)
     }
+}
 
-    pub fn export_linker_script_to_files(&self, path: &Path) -> Result<(), SlinkyError> {
+impl ScriptExporter for PartialLinkerWriter<'_> {
+    fn export_linker_script_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
         self.main_writer.export_linker_script_to_file(path)?;
 
         for (partial, name) in &self.partial_writers {
@@ -98,7 +102,19 @@ impl<'a> PartialLinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn save_other_files(&self) -> Result<(), SlinkyError> {
+    fn export_linker_script_to_string(&self) -> Result<String, SlinkyError> {
+        let mut out = Vec::new();
+
+        out.push(self.main_writer.export_linker_script_to_string()?);
+
+        for (partial, _name) in &self.partial_writers {
+            out.push(partial.export_linker_script_to_string()?);
+        }
+
+        Ok(out.join("\n"))
+    }
+
+    fn save_other_files(&self) -> Result<(), SlinkyError> {
         self.main_writer.save_other_files()?;
 
         if self.d.settings.d_path.is_some() {
@@ -129,6 +145,8 @@ impl<'a> PartialLinkerWriter<'a> {
         Ok(())
     }
 }
+
+impl ScriptGenerator for PartialLinkerWriter<'_> {}
 
 // Getters / Setters
 impl PartialLinkerWriter<'_> {

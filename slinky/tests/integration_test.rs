@@ -5,7 +5,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use rstest::rstest;
-use slinky::{RuntimeSettings, SlinkyError};
+use slinky::{RuntimeSettings, ScriptExporter, ScriptImporter, SlinkyError};
 
 fn compare_multiline_strings(left: &str, right: &str) {
     if left == right {
@@ -70,8 +70,7 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErr
     let rs = create_runtime_settings();
 
     let mut writer = slinky::LinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments)?;
-    writer.add_all_symbol_assignments(&document.symbol_assignments)?;
+    writer.add_whole_document(&document)?;
 
     let expected_ld_contents =
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
@@ -89,8 +88,7 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErro
     let rs = create_runtime_settings();
 
     let mut writer = slinky::LinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments)?;
-    writer.add_all_symbol_assignments(&document.symbol_assignments)?;
+    writer.add_whole_document(&document)?;
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
 
@@ -110,8 +108,7 @@ fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) -> Result<(
     let rs = create_runtime_settings();
 
     let mut writer = slinky::LinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments)?;
-    writer.add_all_symbol_assignments(&document.symbol_assignments)?;
+    writer.add_whole_document(&document)?;
 
     let expected_h_contents = fs::read_to_string(ld_path).expect("unable to read expected h file");
 
@@ -160,10 +157,7 @@ fn test_partial_linking_script_generation(
     let rs = create_runtime_settings();
 
     let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments).expect("");
-    writer
-        .add_all_symbol_assignments(&document.symbol_assignments)
-        .expect("");
+    writer.add_whole_document(&document).expect("");
 
     let expected_ld_contents =
         fs::read_to_string(ld_path).expect("unable to read expected ld file");
@@ -204,10 +198,7 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
     let rs = create_runtime_settings();
 
     let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments).expect("");
-    writer
-        .add_all_symbol_assignments(&document.symbol_assignments)
-        .expect("");
+    writer.add_whole_document(&document).expect("");
 
     let expected_d_contents = fs::read_to_string(d_path).expect("unable to read expected d file");
 
@@ -261,10 +252,7 @@ fn test_partial_linking_symbols_header_generation(
     let rs = create_runtime_settings();
 
     let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
-    writer.add_all_segments(&document.segments).expect("");
-    writer
-        .add_all_symbol_assignments(&document.symbol_assignments)
-        .expect("");
+    writer.add_whole_document(&document).expect("");
 
     let expected_h_contents = fs::read_to_string(h_path).expect("unable to read expected h file");
 

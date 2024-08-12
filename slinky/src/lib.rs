@@ -3,6 +3,7 @@
 
 mod absent_nullable;
 mod error;
+mod traits;
 mod utils;
 
 mod linker_symbols_style;
@@ -39,6 +40,10 @@ pub use symbol_assignment::SymbolAssignment;
 pub use vram_class::VramClass;
 
 pub use document::Document;
+
+pub use traits::ScriptExporter;
+pub use traits::ScriptGenerator;
+pub use traits::ScriptImporter;
 
 pub use linker_writer::LinkerWriter;
 pub use partial_linker_writer::PartialLinkerWriter;

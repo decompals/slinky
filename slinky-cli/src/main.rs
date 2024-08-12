@@ -5,7 +5,7 @@ use std::{error::Error, path::PathBuf};
 
 use clap::Parser;
 use regex::Regex;
-use slinky::RuntimeSettings;
+use slinky::ScriptGenerator;
 
 // TODO: Add program description to cli
 
@@ -47,8 +47,8 @@ where
     Ok((s[..pos].parse()?, s[pos + 1..].parse()?))
 }
 
-fn create_runtime_settings(cli: &Cli) -> RuntimeSettings {
-    let mut rs = RuntimeSettings::new();
+fn create_runtime_settings(cli: &Cli) -> slinky::RuntimeSettings {
+    let mut rs = slinky::RuntimeSettings::new();
 
     let regex_identifier = Regex::new(r"[a-zA-Z_][a-zA-Z0-9_]*").unwrap();
 
@@ -66,6 +66,31 @@ fn create_runtime_settings(cli: &Cli) -> RuntimeSettings {
     rs
 }
 
+fn write_script(
+    writer: &mut impl ScriptGenerator,
+    document: &slinky::Document,
+    output: &Option<PathBuf>,
+) {
+    writer.add_whole_document(document).expect("ah?");
+
+    if let Some(output_path) = output {
+        writer
+            .export_linker_script_to_file(output_path)
+            .expect("Error writing the linker script");
+    } else {
+        println!(
+            "{}",
+            writer
+                .export_linker_script_to_string()
+                .expect("Error exporting script to string")
+        );
+    }
+
+    writer
+        .save_other_files()
+        .expect("Error writing other files listed on the document");
+}
+
 fn main() {
     let cli = Cli::parse();
 
@@ -79,43 +104,10 @@ fn main() {
     if cli.partial_linking {
         let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
 
-        writer.add_all_segments(&document.segments).expect("");
-        writer
-            .add_all_symbol_assignments(&document.symbol_assignments)
-            .expect("???");
-
-        let output_path = cli
-            .output
-            .expect("output path is required for partial linking");
-        writer
-            .export_linker_script_to_files(&output_path)
-            .expect("Error writing the linker scripts");
-        writer
-            .save_other_files()
-            .expect("Error writing other files listed on the document");
+        write_script(&mut writer, &document, &cli.output);
     } else {
         let mut writer = slinky::LinkerWriter::new(&document, &rs);
 
-        writer.add_all_segments(&document.segments).expect("ah?");
-        writer
-            .add_all_symbol_assignments(&document.symbol_assignments)
-            .expect("???");
-
-        if let Some(output_path) = cli.output {
-            writer
-                .export_linker_script_to_file(&output_path)
-                .expect("Error writing the linker script");
-        } else {
-            println!(
-                "{}",
-                writer
-                    .export_linker_script_to_string()
-                    .expect("Error exporting script to string")
-            );
-        }
-
-        writer
-            .save_other_files()
-            .expect("Error writing other files listed on the document");
+        write_script(&mut writer, &document, &cli.output);
     }
 }

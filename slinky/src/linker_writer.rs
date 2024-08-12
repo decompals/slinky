@@ -4,9 +4,10 @@
 use std::path::PathBuf;
 use std::{io::Write, path::Path};
 
-use crate::{file_kind::FileKind, SlinkyError};
-use crate::{utils, version, Document, RuntimeSettings, SymbolAssignment, VramClass};
-use crate::{FileInfo, Segment};
+use crate::{
+    utils, version, Document, FileInfo, FileKind, RuntimeSettings, ScriptExporter, ScriptGenerator,
+    ScriptImporter, Segment, SlinkyError, SymbolAssignment, VramClass,
+};
 
 use crate::script_buffer::ScriptBuffer;
 
@@ -73,8 +74,10 @@ impl<'a> LinkerWriter<'a> {
 
         s
     }
+}
 
-    pub fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
+impl ScriptImporter for LinkerWriter<'_> {
+    fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
         if self.d.settings.single_segment_mode {
             // TODO: change assert to proper error
             assert!(segments.len() == 1);
@@ -91,7 +94,7 @@ impl<'a> LinkerWriter<'a> {
         Ok(())
     }
 
-    pub fn add_all_symbol_assignments(
+    fn add_all_symbol_assignments(
         &mut self,
         symbol_assignments: &[SymbolAssignment],
     ) -> Result<(), SlinkyError> {
@@ -111,6 +114,46 @@ impl<'a> LinkerWriter<'a> {
     }
 }
 
+impl ScriptExporter for LinkerWriter<'_> {
+    fn export_linker_script_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
+        let mut f = utils::create_file_and_parents(path)?;
+
+        self.export_linker_script(&mut f)
+    }
+
+    fn export_linker_script_to_string(&self) -> Result<String, SlinkyError> {
+        let mut s = Vec::new();
+
+        self.export_linker_script(&mut s)?;
+
+        match String::from_utf8(s) {
+            Err(e) => Err(SlinkyError::FailedStringConversion {
+                description: e.to_string(),
+            }),
+            Ok(ret) => Ok(ret),
+        }
+    }
+
+    fn save_other_files(&self) -> Result<(), SlinkyError> {
+        if let Some(d_path) = &self.d.settings.d_path {
+            if let Some(target_path) = &self.d.settings.target_path {
+                self.export_dependencies_file_to_file(
+                    &self.rs.escape_path(d_path)?,
+                    &self.rs.escape_path(target_path)?,
+                )?;
+            }
+        }
+
+        if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
+            self.export_symbol_header_to_file(&self.rs.escape_path(symbols_header_path)?)?;
+        }
+
+        Ok(())
+    }
+}
+
+impl ScriptGenerator for LinkerWriter<'_> {}
+
 impl LinkerWriter<'_> {
     pub fn export_linker_script(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
         for line in self.buffer.get_buffer() {
@@ -123,25 +166,6 @@ impl LinkerWriter<'_> {
         }
 
         Ok(())
-    }
-
-    pub fn export_linker_script_to_file(&self, path: &Path) -> Result<(), SlinkyError> {
-        let mut f = utils::create_file_and_parents(path)?;
-
-        self.export_linker_script(&mut f)
-    }
-
-    pub fn export_linker_script_to_string(&self) -> Result<String, SlinkyError> {
-        let mut s = Vec::new();
-
-        self.export_linker_script(&mut s)?;
-
-        match String::from_utf8(s) {
-            Err(e) => Err(SlinkyError::FailedStringConversion {
-                description: e.to_string(),
-            }),
-            Ok(ret) => Ok(ret),
-        }
     }
 }
 
@@ -304,25 +328,6 @@ impl LinkerWriter<'_> {
             }),
             Ok(ret) => Ok(ret),
         }
-    }
-}
-
-impl LinkerWriter<'_> {
-    pub fn save_other_files(&self) -> Result<(), SlinkyError> {
-        if let Some(d_path) = &self.d.settings.d_path {
-            if let Some(target_path) = &self.d.settings.target_path {
-                self.export_dependencies_file_to_file(
-                    &self.rs.escape_path(d_path)?,
-                    &self.rs.escape_path(target_path)?,
-                )?;
-            }
-        }
-
-        if let Some(symbols_header_path) = &self.d.settings.symbols_header_path {
-            self.export_symbol_header_to_file(&self.rs.escape_path(symbols_header_path)?)?;
-        }
-
-        Ok(())
     }
 }
 

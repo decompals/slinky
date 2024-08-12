@@ -60,6 +60,35 @@ pub struct Segment {
     pub fill_value: Option<u32>,
 }
 
+impl Segment {
+    pub fn clone_with_new_files(&self, new_files: Vec<FileInfo>) -> Self {
+        Self {
+            name: self.name.clone(),
+            files: new_files,
+            fixed_vram: self.fixed_vram,
+            fixed_symbol: self.fixed_symbol.clone(),
+            follows_segment: self.follows_segment.clone(),
+            vram_class: self.vram_class.clone(),
+            dir: self.dir.clone(),
+            include_if_any: self.include_if_any.clone(),
+            include_if_all: self.include_if_all.clone(),
+            exclude_if_any: self.exclude_if_any.clone(),
+            exclude_if_all: self.exclude_if_all.clone(),
+            alloc_sections: self.alloc_sections.clone(),
+            noload_sections: self.noload_sections.clone(),
+            subalign: self.subalign,
+            segment_start_align: self.segment_start_align,
+            segment_end_align: self.segment_end_align,
+            section_start_align: self.section_start_align,
+            section_end_align: self.section_end_align,
+            sections_start_alignment: self.sections_start_alignment.clone(),
+            sections_end_alignment: self.sections_end_alignment.clone(),
+            wildcard_sections: self.wildcard_sections,
+            fill_value: self.fill_value,
+        }
+    }
+}
+
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct SegmentSerial {
