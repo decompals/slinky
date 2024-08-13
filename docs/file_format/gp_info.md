@@ -1,5 +1,15 @@
 # Gp info
 
+Hold the information to emit a `_gp` (global pointer) symbol for the given
+segment.
+
+The `_gp` symbol is used on MIPS builds that want to use the "small data"
+sections. This allows to refences small objects using a single MIPS instruction
+instead of two.
+
+The `_gp` symbol is usually defined as an offset into the start of the first
+small section. It is defined this way to maximize the addressable range of this
+technique. Both the section and the offset are configurable.
 
 Every attribute listed is optional unless explicitly stated.
 
