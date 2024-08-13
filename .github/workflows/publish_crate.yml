@@ -41,21 +41,56 @@ jobs:
         run: cargo clippy --all-targets -- -D warnings
 
   run_tests:
-    name: Run tests
-    runs-on: ubuntu-latest
+    name: Run tests ${{ matrix.builder.target }}
+    runs-on: ${{ matrix.builder.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        builder: [
+          {
+            name: windows,
+            target: x86_64-pc-windows-gnu,
+            runner: windows-2019
+          },
+          {
+            name: windows,
+            target: x86_64-pc-windows-msvc,
+            runner: windows-2019
+          },
+          {
+            name: mac,
+            target: x86_64-apple-darwin,
+            runner: macos-12
+          },
+          {
+            name: mac,
+            target: aarch64-apple-darwin,
+            runner: macos-12
+          },
+          {
+            name: linux,
+            target: x86_64-unknown-linux-musl,
+            runner: ubuntu-20.04
+          },
+          {
+            name: linux,
+            target: x86_64-unknown-linux-gnu,
+            runner: ubuntu-20.04
+          }
+        ]
 
     steps:
       - name: Checkout reposistory
         uses: actions/checkout@v4
 
       - name: Setup Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          override: true
+          targets: ${{ matrix.builder.target }}
 
       - name: Run tests
-        run: cargo test --workspace
+        run: cargo test --workspace --target ${{ matrix.builder.target }}
 
   msrv:
     runs-on: ubuntu-latest
