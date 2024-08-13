@@ -724,6 +724,23 @@ impl LinkerWriter<'_> {
                 self.buffer.align_symbol(".", *align_value);
             }
 
+            if let Some(gp_info) = &segment.gp_info {
+                if self.rs.should_emit_entry(
+                    &gp_info.exclude_if_any,
+                    &gp_info.exclude_if_all,
+                    &gp_info.include_if_any,
+                    &gp_info.include_if_all,
+                ) && gp_info.section == *section
+                {
+                    self.buffer.write_symbol_assignment(
+                        "_gp",
+                        &format!(". + 0x{:X}", gp_info.offset),
+                        gp_info.provide,
+                        gp_info.hidden,
+                    );
+                }
+            }
+
             let style = &self.d.settings.linker_symbols_style;
 
             let section_start_sym = style.segment_section_start(&segment.name, section);

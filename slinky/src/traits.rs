@@ -7,9 +7,9 @@ use crate::{
 
 mod private {
     use crate::{
-        file_info::FileInfoSerial, required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
-        symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, LinkerWriter,
-        PartialLinkerWriter,
+        file_info::FileInfoSerial, gp_info::GpInfoSerial, required_symbol::RequiredSymbolSerial,
+        segment::SegmentSerial, symbol_assignment::SymbolAssignmentSerial,
+        vram_class::VramClassSerial, LinkerWriter, PartialLinkerWriter,
     };
 
     pub trait Sealed {}
@@ -18,12 +18,14 @@ mod private {
     impl Sealed for PartialLinkerWriter<'_> {}
 
     impl Sealed for SegmentSerial {}
+    impl Sealed for GpInfoSerial {}
     impl Sealed for FileInfoSerial {}
     impl Sealed for VramClassSerial {}
     impl Sealed for SymbolAssignmentSerial {}
     impl Sealed for RequiredSymbolSerial {}
 
     impl<T> Sealed for Vec<T> {}
+    impl<T> Sealed for Option<T> {}
 }
 
 pub trait ScriptImporter: private::Sealed {
@@ -69,5 +71,19 @@ where
 
     fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
         self.into_iter().map(|x| x.unserialize(settings)).collect()
+    }
+}
+
+impl<T> Serial for Option<T>
+where
+    T: Serial,
+{
+    type Output = Option<T::Output>;
+
+    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+        match self {
+            Some(v) => v.unserialize(settings).map(Some),
+            None => Ok(None),
+        }
     }
 }

@@ -195,7 +195,12 @@ Emits a `_gp` symbol with the specified value, essentially hardcoding the value.
 This can be useful for decomp projects on the discovering step, but it would be
 problematic on shiftable builds.
 
-<!-- TODO: recommend the non-hardcoding alternative once it is implemented -->
+It is strongly recommended to use the [`gp_info`](segments.md#gp_info) field of
+the corresponding segment instead of hardcoding the `_gp` value, since this
+will this value to shift properly when modifying the code of the builds.
+
+Providing both [`gp_info`](segments.md#gp_info) and a `hardcoded_gp_value` is
+not a valid combination and slinky will refuse to process the file.
 
 ### Example
 

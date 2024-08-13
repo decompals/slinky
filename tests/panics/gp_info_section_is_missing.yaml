@@ -1,0 +1,27 @@
+settings:
+  base_path: build
+  hardcoded_gp_value: 0x800E4090
+
+  discard_wildcard_section: False
+
+  # We don't have small data sections
+  alloc_sections: [.rodata, .text, .data, .bss]
+  noload_sections: []
+
+  subalign: null
+
+  symbols_header_path: tests/test_cases/hardcoded_gp.h
+  symbols_header_as_array: False
+  symbols_header_type: Addr
+
+segments:
+  - name: main
+    fixed_vram: 0x80010200
+    gp_info:
+      section: .lit8 # reference non existing section
+
+    files:
+      - { path: src/main/file1.o }
+      - { path: src/main/file2.o }
+      - { path: src/main/file3.o }
+      - { path: src/main/file4.o }

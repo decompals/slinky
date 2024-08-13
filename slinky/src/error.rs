@@ -1,7 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::PathBuf;
+use std::{borrow::Cow, path::PathBuf};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, thiserror::Error)]
 pub enum SlinkyError {
@@ -45,5 +45,12 @@ pub enum SlinkyError {
     CustomOptionInPathNotProvided {
         path: PathBuf,
         custom_option: String,
+    },
+
+    #[error("Field '{field_name}' refences the section '{section}', but that section is not present on segment '{segment}'")]
+    MissingSectionForSegment {
+        field_name: Cow<'static, str>,
+        section: Cow<'static, str>,
+        segment: Cow<'static, str>,
     },
 }

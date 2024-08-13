@@ -23,6 +23,8 @@ vram_classes:
 segments:
   - name: boot
     fixed_vram: 0x80000460
+    gp_info:
+      section: .sdata
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/dmadata.o }

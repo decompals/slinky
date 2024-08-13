@@ -24,6 +24,7 @@ SECTIONS
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
+        _gp = . + 0x7FF0;
         boot_SDATA_START = .;
         build/segments/boot.o(.sdata*);
         boot_SDATA_END = .;

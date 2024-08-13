@@ -86,6 +86,7 @@ SECTIONS
     cod_RODATA_END = .;
     cod_RODATA_SIZE = ABSOLUTE(cod_RODATA_END - cod_RODATA_START);
 
+    HIDDEN(_gp = . + 0xC000);
     cod_GCC_EXCEPT_TABLE_START = .;
     .gcc_except_table :
     {

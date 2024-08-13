@@ -25,6 +25,11 @@ segments:
   - name: cod
     fixed_vram: 0x00100000
     section_end_align: 0x4
+    gp_info:
+      section: .gcc_except_table # why not
+      offset: 0xC000 # sure
+      hidden: True
+      include_if_any: [[compiler, modern_gcc]]
 
     files:
       - { path: src/crt0/crt0.o }

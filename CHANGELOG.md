@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Useful for making sure a symbol from an static library is being linked.
   - If a symbol assignment is emitted or not can be controlled with the same
     conditional inclussion/exclussion mechanism used by the custom options.
+- Add way to define a non hardcoded `_gp` symbol for a given segment.
+  - Used by defining the `gp_info` field on a segment.
+  - Can't be combined with the global `hardcoded_gp_value`.
 
 ### Changed
 

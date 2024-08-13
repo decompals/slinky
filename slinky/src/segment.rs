@@ -1,13 +1,14 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{collections::HashMap, path::PathBuf};
+use std::{borrow::Cow, collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
 use crate::{
     absent_nullable::AbsentNullable,
     file_info::{FileInfo, FileInfoSerial},
+    gp_info::{GpInfo, GpInfoSerial},
     traits::Serial,
     EscapedPath, RuntimeSettings, Settings, SlinkyError,
 };
@@ -38,6 +39,8 @@ pub struct Segment {
 
     /// Used as a prefix for all the files emitted for this Segment.
     pub dir: PathBuf,
+
+    pub gp_info: Option<GpInfo>,
 
     pub include_if_any: Vec<(String, String)>,
     pub include_if_all: Vec<(String, String)>,
@@ -71,6 +74,7 @@ impl Segment {
             follows_segment: self.follows_segment.clone(),
             vram_class: self.vram_class.clone(),
             dir: self.dir.clone(),
+            gp_info: self.gp_info.clone(),
             include_if_any: self.include_if_any.clone(),
             include_if_all: self.include_if_all.clone(),
             exclude_if_any: self.exclude_if_any.clone(),
@@ -114,6 +118,9 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub dir: AbsentNullable<PathBuf>,
+
+    #[serde(default)]
+    pub gp_info: AbsentNullable<GpInfoSerial>,
 
     #[serde(default)]
     pub include_if_any: AbsentNullable<Vec<(String, String)>>,
@@ -231,6 +238,17 @@ impl Serial for SegmentSerial {
 
         let dir = self.dir.get_non_null("dir", PathBuf::new)?;
 
+        let gp_info = self
+            .gp_info
+            .get_non_null_no_default("gp_info")?
+            .unserialize(settings)?;
+        if gp_info.is_some() && settings.hardcoded_gp_value.is_some() {
+            return Err(SlinkyError::InvalidFieldCombo {
+                field1: "segment.gp_info".to_string(),
+                field2: "settings.hardcoded_gp_value".to_string(),
+            });
+        }
+
         let include_if_any = self
             .include_if_any
             .get_non_null_not_empty("include_if_any", Vec::new)?;
@@ -250,6 +268,16 @@ impl Serial for SegmentSerial {
         let noload_sections = self
             .noload_sections
             .get_non_null("noload_sections", || settings.noload_sections.clone())?;
+
+        if let Some(gp) = &gp_info {
+            if !alloc_sections.contains(&gp.section) && !noload_sections.contains(&gp.section) {
+                return Err(SlinkyError::MissingSectionForSegment {
+                    field_name: Cow::from("gp_info"),
+                    section: Cow::from(gp_info.unwrap().section),
+                    segment: Cow::from(name),
+                });
+            }
+        }
 
         let subalign = self
             .subalign
@@ -299,6 +327,7 @@ impl Serial for SegmentSerial {
             follows_segment,
             vram_class,
             dir,
+            gp_info,
             include_if_any,
             include_if_all,
             exclude_if_any,

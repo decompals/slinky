@@ -38,49 +38,51 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-6)
     - [Valid values](#valid-values-5)
     - [Default value](#default-value-4)
+  - [`gp_info`](#gp_info)
+    - [Example](#example-7)
   - [`include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`](#include_if_any-include_if_all-exclude_if_any-and-exclude_if_all)
   - [`alloc_sections`](#alloc_sections)
-    - [Example](#example-7)
+    - [Example](#example-8)
     - [Valid values](#valid-values-6)
     - [Default value](#default-value-5)
   - [`noload_sections`](#noload_sections)
-    - [Example](#example-8)
+    - [Example](#example-9)
     - [Valid values](#valid-values-7)
     - [Default value](#default-value-6)
   - [`subalign`](#subalign)
-    - [Example](#example-9)
+    - [Example](#example-10)
     - [Valid values](#valid-values-8)
     - [Default value](#default-value-7)
   - [`segment_start_align`](#segment_start_align)
-    - [Example](#example-10)
+    - [Example](#example-11)
     - [Valid values](#valid-values-9)
     - [Default value](#default-value-8)
   - [`segment_end_align`](#segment_end_align)
-    - [Example](#example-11)
+    - [Example](#example-12)
     - [Valid values](#valid-values-10)
     - [Default value](#default-value-9)
   - [`section_start_align`](#section_start_align)
-    - [Example](#example-12)
+    - [Example](#example-13)
     - [Valid values](#valid-values-11)
     - [Default value](#default-value-10)
   - [`section_end_align`](#section_end_align)
-    - [Example](#example-13)
+    - [Example](#example-14)
     - [Valid values](#valid-values-12)
     - [Default value](#default-value-11)
   - [`sections_start_alignment`](#sections_start_alignment)
-    - [Example](#example-14)
+    - [Example](#example-15)
     - [Valid values](#valid-values-13)
     - [Default value](#default-value-12)
   - [`sections_end_alignment`](#sections_end_alignment)
-    - [Example](#example-15)
+    - [Example](#example-16)
     - [Valid values](#valid-values-14)
     - [Default value](#default-value-13)
   - [`wildcard_sections`](#wildcard_sections)
-    - [Example](#example-16)
+    - [Example](#example-17)
     - [Valid values](#valid-values-15)
     - [Default value](#default-value-14)
   - [`fill_value`](#fill_value)
-    - [Example](#example-17)
+    - [Example](#example-18)
     - [Valid values](#valid-values-16)
     - [Default value](#default-value-15)
 
@@ -253,6 +255,22 @@ Any valid path.
 ### Default value
 
 Empty path.
+
+## `gp_info`
+
+Emits a `_gp` symbol for this segment.
+
+For more information about this field see the dedicated
+[`gp_info.md`](gp_info.md) document.
+
+### Example
+
+```yaml
+segments:
+  - name: main
+    gp_info:
+      section: .sdata
+```
 
 ## `include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`
 

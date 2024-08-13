@@ -12,6 +12,7 @@ mod settings;
 
 mod file_info;
 mod file_kind;
+mod gp_info;
 mod required_symbol;
 mod segment;
 mod symbol_assignment;

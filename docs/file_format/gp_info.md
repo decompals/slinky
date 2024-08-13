@@ -1,82 +1,77 @@
-# Symbols assignments
+# Gp info
 
-A "symbol assignment" entry describes extra symbol assignments to define on the
-generated linker script.
-
-These are usually used for defining "undefined symbols", but this system also
-allows for more complex expressions.
-
-Symbols defined in this way do not have a corresponding elf section assigned to
-them, in other words they look like `*ABS*` symbols on the linked elf.
 
 Every attribute listed is optional unless explicitly stated.
 
 ## Table of contents
 
-- [Symbols assignments](#symbols-assignments)
+- [Gp info](#gp-info)
   - [Table of contents](#table-of-contents)
-  - [`name`](#name)
+  - [`section`](#section)
     - [Example](#example)
     - [Valid values](#valid-values)
-  - [`value`](#value)
+    - [Default value](#default-value)
+  - [`offset`](#offset)
     - [Example](#example-1)
     - [Valid values](#valid-values-1)
+    - [Default value](#default-value-1)
   - [`provide`](#provide)
     - [Valid values](#valid-values-2)
-    - [Default value](#default-value)
+    - [Default value](#default-value-2)
   - [`hidden`](#hidden)
     - [Valid values](#valid-values-3)
-    - [Default value](#default-value-1)
+    - [Default value](#default-value-3)
   - [`include_if_any`, `include_if_all`, `exclude_if_any` and `exclude_if_all`](#include_if_any-include_if_all-exclude_if_any-and-exclude_if_all)
 
-## `name`
+## `section`
 
-This field is **required**.
-
-The name of the corresponding symbol to be declared.
+The `_gp` symbol will be emitted just before this section.
 
 ### Example
 
 ```yaml
-symbol_assignments:
-  - name: osMemSize
-    value: 0x80000318
+segments:
+  - name: main
+    gp_info:
+      section: .sdata
 ```
 
 ### Valid values
 
-Non empty string.
+Non-empty string.
 
-TODO: Impose rules for valid names?
+### Default value
 
-## `value`
+`.sdata`
 
-This field is **required**.
+## `offset`
 
-The value or expression to assign to this symbol.
-
-Usually raw addresses are used as values for a given symbol, but more complex
-expressions are allowed too.
-See the GNU LD documentation for [Expressions in Linker Scripts](https://sourceware.org/binutils/docs/ld/Expressions.html)
-for documentation on what is allowed on those expressions.
+An offset into the the section, allowing the `_gp` value to not point to the
+start of the section, maximizing the available accessable range using the `$gp`
+register.
 
 ### Example
 
 ```yaml
-symbol_assignments:
-  - name: _gp
-    value: boot_SCOMMON_START + 0x7FF0
+segments:
+  - name: main
+    gp_info:
+      offset: 0x8000
 ```
 
 ### Valid values
 
-Non empty string.
+Integers.
+
+### Default value
+
+`0x7FF0`
 
 ## `provide`
 
-If `provide` is enabled for an entry then this symbol assignment will only be
-applied if the given symbol is referenced but is not defined in any object
-included in the link.
+If `provide` is enabled then the `_gp` symbol will only be set if it is
+referenced by any linked code but is not defined in any object included in the
+link.
 
 See GNU LD documentation for
 [`PROVIDE`](https://sourceware.org/binutils/docs/ld/PROVIDE.html).
@@ -95,7 +90,7 @@ Bool.
 
 ## `hidden`
 
-Defines the symbol but hides it, so it won't be exported.
+Allows defining the `_gp` symbol to be hidden and won't be exported.
 
 On a more technical sense, the binding of the generated symbol on the elf will
 be marked as `LOCAL` instead of `GLOBAL`.

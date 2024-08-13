@@ -18280,6 +18280,7 @@ SECTIONS
     cod_GCC_EXCEPT_TABLE_END = .;
     cod_GCC_EXCEPT_TABLE_SIZE = ABSOLUTE(cod_GCC_EXCEPT_TABLE_END - cod_GCC_EXCEPT_TABLE_START);
 
+    _gp = . + 0x7FF0;
     cod_SDATA_START = .;
     .sdata :
     {
