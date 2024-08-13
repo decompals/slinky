@@ -1,0 +1,18 @@
+settings:
+  base_path: build
+
+  symbols_header_path: tests/test_cases/required_syms.h
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+
+required_symbols:
+  - name: guMtxCatL
+
+  - name: guS2DEmuSetScissor
+    include_if_any: [[libultra, debug]]
+
+  - name: __osSetCause
+    include_if_any: [[version, us]]

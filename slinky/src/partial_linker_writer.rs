@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 use crate::{
-    Document, EscapedPath, FileInfo, LinkerWriter, RuntimeSettings, ScriptExporter,
+    Document, EscapedPath, FileInfo, LinkerWriter, RequiredSymbol, RuntimeSettings, ScriptExporter,
     ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
 };
 
@@ -30,6 +30,15 @@ impl<'a> PartialLinkerWriter<'a> {
 
 impl ScriptImporter for PartialLinkerWriter<'_> {
     fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
+        let partial_build_segments_folder = match &self.d.settings.partial_build_segments_folder {
+            Some(p) => p,
+            None => {
+                return Err(SlinkyError::MissingRequiredField {
+                    name: "partial_build_segments_folder".to_string(),
+                })
+            }
+        };
+
         self.main_writer.begin_sections()?;
 
         self.partial_writers.reserve(segments.len());
@@ -53,7 +62,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
             self.partial_writers
                 .push((partial_writer, segment.name.clone()));
 
-            let mut p = self.d.settings.partial_build_segments_folder.clone();
+            let mut p = partial_build_segments_folder.clone();
 
             p.push(&format!("{}.o", segment.name));
 
@@ -73,14 +82,31 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
         self.main_writer
             .add_all_symbol_assignments(symbol_assignments)
     }
+
+    fn add_all_required_symbols(
+        &mut self,
+        required_symbols: &[RequiredSymbol],
+    ) -> Result<(), SlinkyError> {
+        self.main_writer.add_all_required_symbols(required_symbols)
+    }
 }
 
 impl ScriptExporter for PartialLinkerWriter<'_> {
     fn export_linker_script_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
+        let partial_scripts_folder =
+            match self.d.settings.partial_scripts_folder_escaped(self.rs)? {
+                Some(p) => p,
+                None => {
+                    return Err(SlinkyError::MissingRequiredField {
+                        name: "partial_scripts_folder".to_string(),
+                    })
+                }
+            };
+
         self.main_writer.export_linker_script_to_file(path)?;
 
         for (partial, name) in &self.partial_writers {
-            let mut p = self.d.settings.partial_scripts_folder_escaped(self.rs)?;
+            let mut p = partial_scripts_folder.clone();
 
             p.push(EscapedPath::from(format!("{}.ld", name)));
 
@@ -103,20 +129,39 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
     }
 
     fn save_other_files(&self) -> Result<(), SlinkyError> {
+        let base_path = self.d.settings.base_path_escaped(self.rs)?;
+        let partial_build_segments_folder = match self
+            .d
+            .settings
+            .partial_build_segments_folder_escaped(self.rs)?
+        {
+            Some(p) => p,
+            None => {
+                return Err(SlinkyError::MissingRequiredField {
+                    name: "partial_build_segments_folder".to_string(),
+                })
+            }
+        };
+        let partial_scripts_folder =
+            match self.d.settings.partial_scripts_folder_escaped(self.rs)? {
+                Some(p) => p,
+                None => {
+                    return Err(SlinkyError::MissingRequiredField {
+                        name: "partial_scripts_folder".to_string(),
+                    })
+                }
+            };
+
         self.main_writer.save_other_files()?;
 
         if self.d.settings.d_path.is_some() {
             for (partial, name) in &self.partial_writers {
-                let mut target_path = self.d.settings.base_path_escaped(self.rs)?;
+                let mut target_path = base_path.clone();
 
-                target_path.push(
-                    self.d
-                        .settings
-                        .partial_build_segments_folder_escaped(self.rs)?,
-                );
+                target_path.extend(&partial_build_segments_folder);
                 target_path.push(EscapedPath::from(format!("{}.o", name)));
 
-                let mut d_path = self.d.settings.partial_scripts_folder_escaped(self.rs)?;
+                let mut d_path = partial_scripts_folder.clone();
 
                 d_path.push(EscapedPath::from(format!("{}.d", name)));
 

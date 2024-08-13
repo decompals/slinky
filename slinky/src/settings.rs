@@ -30,8 +30,8 @@ pub struct Settings {
 
     pub single_segment_mode: bool,
 
-    pub partial_scripts_folder: PathBuf,
-    pub partial_build_segments_folder: PathBuf,
+    pub partial_scripts_folder: Option<PathBuf>,
+    pub partial_build_segments_folder: Option<PathBuf>,
 
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
@@ -109,12 +109,12 @@ const fn settings_default_single_segment_mode() -> bool {
     false
 }
 
-fn settings_default_partial_scripts_folder() -> PathBuf {
-    PathBuf::new()
+const fn settings_default_partial_scripts_folder() -> Option<PathBuf> {
+    None
 }
 
-fn settings_default_partial_build_segments_folder() -> PathBuf {
-    PathBuf::new()
+const fn settings_default_partial_build_segments_folder() -> Option<PathBuf> {
+    None
 }
 
 fn settings_default_alloc_sections() -> Vec<String> {
@@ -249,15 +249,21 @@ impl Settings {
     pub fn partial_scripts_folder_escaped(
         &self,
         rs: &RuntimeSettings,
-    ) -> Result<EscapedPath, SlinkyError> {
-        rs.escape_path(&self.partial_scripts_folder)
+    ) -> Result<Option<EscapedPath>, SlinkyError> {
+        match &self.partial_scripts_folder {
+            Some(p) => Ok(Some(rs.escape_path(p)?)),
+            None => Ok(None),
+        }
     }
 
     pub fn partial_build_segments_folder_escaped(
         &self,
         rs: &RuntimeSettings,
-    ) -> Result<EscapedPath, SlinkyError> {
-        rs.escape_path(&self.partial_build_segments_folder)
+    ) -> Result<Option<EscapedPath>, SlinkyError> {
+        match &self.partial_build_segments_folder {
+            Some(p) => Ok(Some(rs.escape_path(p)?)),
+            None => Ok(None),
+        }
     }
 }
 
@@ -380,14 +386,15 @@ impl SettingsSerial {
             .single_segment_mode
             .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
 
-        let partial_scripts_folder = self.partial_scripts_folder.get_non_null(
+        let partial_scripts_folder = self.partial_scripts_folder.get_optional_nullable(
             "partial_scripts_folder",
             settings_default_partial_scripts_folder,
         )?;
-        let partial_build_segments_folder = self.partial_build_segments_folder.get_non_null(
-            "partial_build_segments_folder",
-            settings_default_partial_build_segments_folder,
-        )?;
+        let partial_build_segments_folder =
+            self.partial_build_segments_folder.get_optional_nullable(
+                "partial_build_segments_folder",
+                settings_default_partial_build_segments_folder,
+            )?;
 
         if d_path.is_some() && target_path.is_none() {
             return Err(SlinkyError::MissingRequiredFieldCombo {

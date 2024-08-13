@@ -13,9 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Allows to define symbols directly on the generated linker script.
   - Symbols created this way can be defined with raw addresses, reference other
     symbols or more complex expressions.
+  - These generated symbols do not have a corresponding section (defined as
+    `ABS` symbols on the elf).
   - If a symbol assignment is emitted or not can be controlled with the same
     conditional inclussion/exclussion mechanism used by the custom options.
   - These definitions can be wrapped in `PROVIDE`, `HIDDEN` or `PROVIDE_HIDDEN`.
+- Add new top-level attribute for the file format: `required_symbols`.
+  - Allows to specify a list of symbols that should be forced to be linked into
+    the build, even if they are not refenced by any other linked code.
+  - Useful for making sure a symbol from an static library is being linked.
+  - If a symbol assignment is emitted or not can be controlled with the same
+    conditional inclussion/exclussion mechanism used by the custom options.
+
+### Changed
+
+- Produce an error if the user specifies an empty conditional
+  inclusion/exclusion for any entry.
 
 ## [0.2.5] - 2024-07-17
 

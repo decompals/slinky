@@ -81,6 +81,18 @@ impl ScriptBuffer {
     pub fn write_symbol_max_self(&mut self, symbol: &str, other_sym: &str) {
         self.writeln(&format!("{} = MAX({}, {});", symbol, symbol, other_sym));
     }
+
+    pub fn write_assert(&mut self, cond: &str, error_msg: &str) {
+        self.writeln(&format!("ASSERT({}, \"Error: {}\");", cond, error_msg));
+    }
+
+    pub fn write_required_symbol(&mut self, name: &str) {
+        self.writeln(&format!("EXTERN({});", name));
+        self.write_assert(
+            &format!("DEFINED({})", name),
+            &format!("Required symbol '{}' was not linked", name),
+        );
+    }
 }
 
 impl ScriptBuffer {

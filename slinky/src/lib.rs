@@ -12,6 +12,7 @@ mod settings;
 
 mod file_info;
 mod file_kind;
+mod required_symbol;
 mod segment;
 mod symbol_assignment;
 
@@ -36,6 +37,7 @@ pub use settings::Settings;
 
 pub use file_info::FileInfo;
 pub use file_kind::FileKind;
+pub use required_symbol::RequiredSymbol;
 pub use segment::Segment;
 pub use symbol_assignment::SymbolAssignment;
 

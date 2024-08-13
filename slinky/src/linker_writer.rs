@@ -4,8 +4,9 @@
 use std::io::Write;
 
 use crate::{
-    utils, version, Document, EscapedPath, FileInfo, FileKind, RuntimeSettings, ScriptExporter,
-    ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment, VramClass,
+    utils, version, Document, EscapedPath, FileInfo, FileKind, RequiredSymbol, RuntimeSettings,
+    ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
+    VramClass,
 };
 
 use crate::script_buffer::ScriptBuffer;
@@ -102,12 +103,27 @@ impl ScriptImporter for LinkerWriter<'_> {
         }
 
         self.begin_symbol_assignments()?;
-
         for symbol_assignment in symbol_assignments {
             self.add_symbol_assignment(symbol_assignment)?;
         }
-
         self.end_symbol_assignments()?;
+
+        Ok(())
+    }
+
+    fn add_all_required_symbols(
+        &mut self,
+        required_symbols: &[RequiredSymbol],
+    ) -> Result<(), SlinkyError> {
+        if required_symbols.is_empty() {
+            return Ok(());
+        }
+
+        self.begin_required_symbols()?;
+        for required_symbol in required_symbols {
+            self.add_required_symbol(required_symbol)?;
+        }
+        self.end_required_symbols()?;
 
         Ok(())
     }
@@ -623,6 +639,36 @@ impl LinkerWriter<'_> {
             symbol_assignment.provide,
             symbol_assignment.hidden,
         );
+
+        Ok(())
+    }
+
+    pub(crate) fn begin_required_symbols(&mut self) -> Result<(), SlinkyError> {
+        if !self.buffer.is_empty() {
+            self.buffer.write_empty_line();
+        }
+
+        Ok(())
+    }
+
+    pub(crate) fn end_required_symbols(&mut self) -> Result<(), SlinkyError> {
+        Ok(())
+    }
+
+    pub(crate) fn add_required_symbol(
+        &mut self,
+        required_symbol: &RequiredSymbol,
+    ) -> Result<(), SlinkyError> {
+        if !self.rs.should_emit_entry(
+            &required_symbol.exclude_if_any,
+            &required_symbol.exclude_if_all,
+            &required_symbol.include_if_any,
+            &required_symbol.include_if_all,
+        ) {
+            return Ok(());
+        }
+
+        self.buffer.write_required_symbol(&required_symbol.name);
 
         Ok(())
     }

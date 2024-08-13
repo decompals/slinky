@@ -30,6 +30,21 @@ impl From<String> for EscapedPath {
     }
 }
 
+impl<P: AsRef<Path>> Extend<P> for EscapedPath {
+    fn extend<I: IntoIterator<Item = P>>(&mut self, iter: I) {
+        self.0.extend(iter);
+    }
+}
+
+impl<'a> IntoIterator for &'a EscapedPath {
+    type Item = &'a std::ffi::OsStr;
+    type IntoIter = std::path::Iter<'a>;
+
+    fn into_iter(self) -> std::path::Iter<'a> {
+        self.0.iter()
+    }
+}
+
 impl Default for EscapedPath {
     fn default() -> Self {
         Self::new()
@@ -39,6 +54,10 @@ impl Default for EscapedPath {
 impl EscapedPath {
     pub fn new() -> Self {
         Self(PathBuf::new())
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.as_os_str().is_empty()
     }
 
     pub fn push(&mut self, path: EscapedPath) {

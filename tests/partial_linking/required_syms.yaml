@@ -1,0 +1,21 @@
+settings:
+  base_path: build
+
+  symbols_header_path: tests/partial_linking/required_syms.h
+
+  partial_scripts_folder: tests/partial_linking/required_syms
+  partial_build_segments_folder: segments
+
+segments:
+  - name: boot
+    files:
+      - { path: src/boot/boot_main.o }
+
+required_symbols:
+  - name: guMtxCatL
+
+  - name: guS2DEmuSetScissor
+    include_if_any: [[libultra, debug]]
+
+  - name: __osSetCause
+    include_if_any: [[version, us]]

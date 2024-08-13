@@ -1,11 +1,13 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use crate::{Document, EscapedPath, Segment, Settings, SlinkyError, SymbolAssignment};
+use crate::{
+    Document, EscapedPath, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment,
+};
 
 mod private {
     use crate::{
-        file_info::FileInfoSerial, segment::SegmentSerial,
+        file_info::FileInfoSerial, required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
         symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, LinkerWriter,
         PartialLinkerWriter,
     };
@@ -19,6 +21,7 @@ mod private {
     impl Sealed for FileInfoSerial {}
     impl Sealed for VramClassSerial {}
     impl Sealed for SymbolAssignmentSerial {}
+    impl Sealed for RequiredSymbolSerial {}
 
     impl<T> Sealed for Vec<T> {}
 }
@@ -29,10 +32,15 @@ pub trait ScriptImporter: private::Sealed {
         &mut self,
         symbol_assignments: &[SymbolAssignment],
     ) -> Result<(), SlinkyError>;
+    fn add_all_required_symbols(
+        &mut self,
+        required_symbols: &[RequiredSymbol],
+    ) -> Result<(), SlinkyError>;
 
     fn add_whole_document(&mut self, document: &Document) -> Result<(), SlinkyError> {
         self.add_all_segments(&document.segments)?;
         self.add_all_symbol_assignments(&document.symbol_assignments)?;
+        self.add_all_required_symbols(&document.required_symbols)?;
 
         Ok(())
     }
