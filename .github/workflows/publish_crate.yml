@@ -66,7 +66,7 @@ jobs:
           {
             name: mac,
             target: aarch64-apple-darwin,
-            runner: macos-12
+            runner: macos-14 # ARM
           },
           {
             name: linux,
@@ -132,7 +132,7 @@ jobs:
           {
             name: mac,
             target: aarch64-apple-darwin,
-            runner: macos-12
+            runner: macos-14 # ARM
           },
           {
             name: linux,
