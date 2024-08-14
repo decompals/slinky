@@ -25,19 +25,19 @@ fn compare_multiline_strings(left: &str, right: &str) {
             (Some(l), Some(r)) => {
                 if l != r {
                     println!("  Different lines:");
-                    println!("    left:  {}", l);
-                    println!("    right: {}", r);
+                    println!("    left:  {:?}", l);
+                    println!("    right: {:?}", r);
                     println!();
                 }
             }
             (Some(l), None) => {
                 println!("  Only one line:");
-                println!("    left:  {}", l);
+                println!("    left:  {:?}", l);
                 println!();
             }
             (None, Some(r)) => {
                 println!("  Only one line:");
-                println!("    right: {}", r);
+                println!("    right: {:?}", r);
                 println!();
             }
             (None, None) => break,
