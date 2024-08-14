@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Produce an error if the user specifies an empty conditional
   inclusion/exclusion for any entry.
+- Make sure all platforms use forward slashes when emitting file paths.
 - Tests now strip the `\r` character from the expected files before compaing
   them.
   - This is done to normalize the tests files accross all platforms, including
