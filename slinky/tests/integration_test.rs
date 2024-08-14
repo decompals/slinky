@@ -7,8 +7,20 @@ use std::path::{Path, PathBuf};
 use rstest::rstest;
 use slinky::{RuntimeSettings, ScriptExporter, ScriptImporter, SlinkyError};
 
-fn compare_multiline_strings(left: &str, right: &str) {
-    if left == right {
+fn compare_multiline_strings(expected: &str, generated: &str) {
+    // We manually strip the CARRIAGE RETURN (`\r`/`U+000D`) character only from
+    // expected because it may get included into the test files when cloning this
+    // repository on Windows with a git configured with its default settings.
+    //
+    // Rust never writes a `\r` character using the `writeln!` macro, so it is
+    // not like this character would get added automatically on Windows builds
+    // of slinky, so the simplest solution is to just strip this character from
+    // `expected`.
+    //
+    // What can go wrong?
+    let expected_cleaned = expected.replace('\r', "");
+
+    if expected_cleaned == generated {
         return;
     }
 
@@ -16,28 +28,28 @@ fn compare_multiline_strings(left: &str, right: &str) {
     println!("Not equal strings :c");
     println!();
 
-    let mut left_splitted = left.split("\n");
-    let mut right_splitted = right.split("\n");
+    let mut expected_splitted = expected_cleaned.split("\n");
+    let mut generated_splitted = generated.split("\n");
 
     // https://stackoverflow.com/a/38168890/6292472
     loop {
-        match (left_splitted.next(), right_splitted.next()) {
+        match (expected_splitted.next(), generated_splitted.next()) {
             (Some(l), Some(r)) => {
                 if l != r {
                     println!("  Different lines:");
-                    println!("    left:  {}", l);
-                    println!("    right: {}", r);
+                    println!("    expected:  {:?}", l);
+                    println!("    generated: {:?}", r);
                     println!();
                 }
             }
             (Some(l), None) => {
                 println!("  Only one line:");
-                println!("    left:  {}", l);
+                println!("    expected:  {:?}", l);
                 println!();
             }
             (None, Some(r)) => {
                 println!("  Only one line:");
-                println!("    right: {}", r);
+                println!("    generated: {:?}", r);
                 println!();
             }
             (None, None) => break,
@@ -48,7 +60,7 @@ fn compare_multiline_strings(left: &str, right: &str) {
     println!("full inequality:");
     println!();
 
-    assert_eq!(left, right);
+    assert_eq!(expected_cleaned, generated);
 }
 
 fn create_runtime_settings() -> RuntimeSettings {
