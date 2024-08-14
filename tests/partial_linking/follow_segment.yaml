@@ -43,3 +43,5 @@ segments:
       - { path: src/main/main.o }
       - { path: src/main/dmadata.o }
       - { path: asm/main/util.o }
+
+entry: ENTRYPOINT

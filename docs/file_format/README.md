@@ -6,6 +6,19 @@ attribute. Other optional top-level attributes may be specified, like
 [vram_classes](vram_classes.md) or [symbol_assignments](symbol_assignments.md).
 Check their specific documents for in-deep explanations.
 
+## Format itself
+
+The document is composed by the following top-level attributes:
+
+- [`settings`](settings.md).
+- A list of [`vram_classes`](vram_classes.md).
+- A list of [`segments`](segments.md).
+  - This list is required.
+- `entry`
+  - A single optional string that specifies the entrypoint of the final build.
+- A list of [`symbol_assignments`](symbol_assignments.md).
+- A list of [`required_symbols`](required_symbols.md).
+
 ## Example
 
 The following example corresponds to the

@@ -346,3 +346,5 @@ SECTIONS
         *(*);
     }
 }
+
+ENTRY(ENTRYPOINT);

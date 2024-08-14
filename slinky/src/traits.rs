@@ -30,6 +30,7 @@ mod private {
 
 pub trait ScriptImporter: private::Sealed {
     fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError>;
+    fn add_entry(&mut self, entry: &str) -> Result<(), SlinkyError>;
     fn add_all_symbol_assignments(
         &mut self,
         symbol_assignments: &[SymbolAssignment],
@@ -41,6 +42,9 @@ pub trait ScriptImporter: private::Sealed {
 
     fn add_whole_document(&mut self, document: &Document) -> Result<(), SlinkyError> {
         self.add_all_segments(&document.segments)?;
+        if let Some(entry) = &document.entry {
+            self.add_entry(entry)?;
+        }
         self.add_all_symbol_assignments(&document.symbol_assignments)?;
         self.add_all_required_symbols(&document.required_symbols)?;
 

@@ -20,6 +20,7 @@ pub struct Document {
 
     pub segments: Vec<Segment>,
 
+    pub entry: Option<String>,
     pub symbol_assignments: Vec<SymbolAssignment>,
     pub required_symbols: Vec<RequiredSymbol>,
 }
@@ -60,6 +61,8 @@ pub(crate) struct DocumentSerial {
     pub segments: Vec<SegmentSerial>,
 
     #[serde(default)]
+    pub entry: AbsentNullable<String>,
+    #[serde(default)]
     pub symbol_assignments: AbsentNullable<Vec<SymbolAssignmentSerial>>,
     #[serde(default)]
     pub required_symbols: AbsentNullable<Vec<RequiredSymbolSerial>>,
@@ -85,6 +88,8 @@ impl DocumentSerial {
 
         let segments = self.segments.unserialize(&settings)?;
 
+        let entry = self.entry.get_non_null_no_default("entry")?;
+
         let symbol_assignments = self
             .symbol_assignments
             .get_non_null("symbol_assignments", Vec::new)?
@@ -99,6 +104,7 @@ impl DocumentSerial {
             settings,
             vram_classes,
             segments,
+            entry,
             symbol_assignments,
             required_symbols,
         })

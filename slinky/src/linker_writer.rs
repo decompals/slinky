@@ -94,6 +94,16 @@ impl ScriptImporter for LinkerWriter<'_> {
         Ok(())
     }
 
+    fn add_entry(&mut self, entry: &str) -> Result<(), SlinkyError> {
+        if !self.buffer.is_empty() {
+            self.buffer.write_empty_line();
+        }
+
+        self.buffer.writeln(&format!("ENTRY({});", entry));
+
+        Ok(())
+    }
+
     fn add_all_symbol_assignments(
         &mut self,
         symbol_assignments: &[SymbolAssignment],

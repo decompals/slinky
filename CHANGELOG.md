@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add way to define a non hardcoded `_gp` symbol for a given segment.
   - Used by defining the `gp_info` field on a segment.
   - Can't be combined with the global `hardcoded_gp_value`.
+- Add new top-level attribute for the file format: `entry`.
+  - Specifies the entrypoint for the build.
 
 ### Changed
 

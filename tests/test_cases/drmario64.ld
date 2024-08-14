@@ -8093,3 +8093,5 @@ SECTIONS
         *(*);
     }
 }
+
+ENTRY(entrypoint);

@@ -781,3 +781,5 @@ segments:
     fixed_vram: 0x0
     files:
       - { path: src/assets/tutorial/tutorial_kasa.o }
+
+entry: entrypoint

@@ -75,6 +75,10 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
         Ok(())
     }
 
+    fn add_entry(&mut self, entry: &str) -> Result<(), SlinkyError> {
+        self.main_writer.add_entry(entry)
+    }
+
     fn add_all_symbol_assignments(
         &mut self,
         symbol_assignments: &[SymbolAssignment],
