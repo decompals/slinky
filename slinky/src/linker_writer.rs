@@ -202,18 +202,18 @@ impl LinkerWriter<'_> {
             }
         }
 
-        if let Err(e) = write!(dst, "{}:", target_path.display()) {
+        if let Err(e) = write!(dst, "{}:", target_path) {
             return Err(SlinkyError::FailedWrite {
                 description: e.to_string(),
-                contents: target_path.display().to_string(),
+                contents: target_path.to_string(),
             });
         }
 
         for p in &self.files_paths {
-            if let Err(e) = write!(dst, " \\\n    {}", p.display()) {
+            if let Err(e) = write!(dst, " \\\n    {}", p) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
-                    contents: p.display().to_string(),
+                    contents: p.to_string(),
                 });
             }
         }
@@ -226,10 +226,10 @@ impl LinkerWriter<'_> {
         }
 
         for p in &self.files_paths {
-            if let Err(e) = writeln!(dst, "{}:", p.display()) {
+            if let Err(e) = writeln!(dst, "{}:", p) {
                 return Err(SlinkyError::FailedWrite {
                     description: e.to_string(),
-                    contents: p.display().to_string(),
+                    contents: p.to_string(),
                 });
             }
         }
@@ -834,7 +834,7 @@ impl LinkerWriter<'_> {
                 path.push(file.path_escaped(self.rs)?);
 
                 self.buffer
-                    .writeln(&format!("{}({}{});", path.display(), section, wildcard));
+                    .writeln(&format!("{}({}{});", path, section, wildcard));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);
                 }
@@ -845,10 +845,7 @@ impl LinkerWriter<'_> {
 
                 self.buffer.writeln(&format!(
                     "{}:{}({}{});",
-                    path.display(),
-                    file.subfile,
-                    section,
-                    wildcard
+                    path, file.subfile, section, wildcard
                 ));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);

@@ -1,10 +1,13 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::path::{Path, PathBuf};
+use std::{
+    fmt::Display,
+    path::{Path, PathBuf},
+};
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
-pub struct EscapedPath(pub PathBuf);
+pub struct EscapedPath(pub(crate) PathBuf);
 
 impl AsRef<PathBuf> for EscapedPath {
     fn as_ref(&self) -> &PathBuf {
@@ -45,6 +48,21 @@ impl<'a> IntoIterator for &'a EscapedPath {
     }
 }
 
+impl Display for EscapedPath {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut is_first = true;
+
+        for x in self.0.components() {
+            if !is_first {
+                write!(f, "/")?;
+            }
+            is_first = false;
+            write!(f, "{}", x.as_os_str().to_string_lossy())?;
+        }
+        Ok(())
+    }
+}
+
 impl Default for EscapedPath {
     fn default() -> Self {
         Self::new()
@@ -56,15 +74,12 @@ impl EscapedPath {
         Self(PathBuf::new())
     }
 
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.0.as_os_str().is_empty()
     }
 
     pub fn push(&mut self, path: EscapedPath) {
         self.0.push(path.0)
-    }
-
-    pub fn display(&self) -> std::path::Display {
-        self.0.display()
     }
 }
