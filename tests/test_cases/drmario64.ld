@@ -8095,3 +8095,5 @@ SECTIONS
 }
 
 ENTRY(entrypoint);
+
+ASSERT((boot_ROM_END <= 0x101000), "Error: boot segment is larger than 1 MiB");

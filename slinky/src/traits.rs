@@ -2,14 +2,16 @@
 /* SPDX-License-Identifier: MIT */
 
 use crate::{
-    Document, EscapedPath, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment,
+    AssertEntry, Document, EscapedPath, RequiredSymbol, Segment, Settings, SlinkyError,
+    SymbolAssignment,
 };
 
 mod private {
     use crate::{
-        file_info::FileInfoSerial, gp_info::GpInfoSerial, required_symbol::RequiredSymbolSerial,
-        segment::SegmentSerial, symbol_assignment::SymbolAssignmentSerial,
-        vram_class::VramClassSerial, LinkerWriter, PartialLinkerWriter,
+        assert_entry::AssertEntrySerial, file_info::FileInfoSerial, gp_info::GpInfoSerial,
+        required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
+        symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, LinkerWriter,
+        PartialLinkerWriter,
     };
 
     pub trait Sealed {}
@@ -23,6 +25,7 @@ mod private {
     impl Sealed for VramClassSerial {}
     impl Sealed for SymbolAssignmentSerial {}
     impl Sealed for RequiredSymbolSerial {}
+    impl Sealed for AssertEntrySerial {}
 
     impl<T> Sealed for Vec<T> {}
     impl<T> Sealed for Option<T> {}
@@ -39,6 +42,7 @@ pub trait ScriptImporter: private::Sealed {
         &mut self,
         required_symbols: &[RequiredSymbol],
     ) -> Result<(), SlinkyError>;
+    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError>;
 
     fn add_whole_document(&mut self, document: &Document) -> Result<(), SlinkyError> {
         self.add_all_segments(&document.segments)?;
@@ -47,6 +51,7 @@ pub trait ScriptImporter: private::Sealed {
         }
         self.add_all_symbol_assignments(&document.symbol_assignments)?;
         self.add_all_required_symbols(&document.required_symbols)?;
+        self.add_all_asserts(&document.asserts)?;
 
         Ok(())
     }

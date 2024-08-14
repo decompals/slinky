@@ -90,6 +90,11 @@ extra shiftability features not present on other tools.
   - Support for both listing a library and letting the linker grab any used file
     or to specify which speicific files should be linked by the linker.
 - Support splat's "vram classes" for better memory layout management.
+- Support emitting custom symbols and requiring some symbols to be defined on
+  during linking.
+- Support for defining a shiftable `_gp` for small data support.
+- Support for defining the entrypoint of the executable.
+- Support for defining asserts to ensure the sanity of the build.
 
 ### Planned features
 

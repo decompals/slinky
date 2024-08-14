@@ -83,7 +83,7 @@ impl ScriptBuffer {
     }
 
     pub fn write_assert(&mut self, cond: &str, error_msg: &str) {
-        self.writeln(&format!("ASSERT({}, \"Error: {}\");", cond, error_msg));
+        self.writeln(&format!("ASSERT(({}), \"Error: {}\");", cond, error_msg));
     }
 
     pub fn write_required_symbol(&mut self, name: &str) {

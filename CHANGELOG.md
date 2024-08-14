@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Can't be combined with the global `hardcoded_gp_value`.
 - Add new top-level attribute for the file format: `entry`.
   - Specifies the entrypoint for the build.
+- Add new top-level attribute for the file format: `asserts`.
+  - Allows to define multiple assertions that should be satisfied for the link
+    to success.
 
 ### Changed
 

@@ -86,6 +86,6 @@ SECTIONS
 }
 
 EXTERN(guMtxCatL);
-ASSERT(DEFINED(guMtxCatL), "Error: Required symbol 'guMtxCatL' was not linked");
+ASSERT((DEFINED(guMtxCatL)), "Error: Required symbol 'guMtxCatL' was not linked");
 EXTERN(__osSetCause);
-ASSERT(DEFINED(__osSetCause), "Error: Required symbol '__osSetCause' was not linked");
+ASSERT((DEFINED(__osSetCause)), "Error: Required symbol '__osSetCause' was not linked");

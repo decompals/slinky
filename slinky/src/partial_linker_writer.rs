@@ -2,8 +2,8 @@
 /* SPDX-License-Identifier: MIT */
 
 use crate::{
-    Document, EscapedPath, FileInfo, LinkerWriter, RequiredSymbol, RuntimeSettings, ScriptExporter,
-    ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
+    AssertEntry, Document, EscapedPath, FileInfo, LinkerWriter, RequiredSymbol, RuntimeSettings,
+    ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
 };
 
 pub struct PartialLinkerWriter<'a> {
@@ -92,6 +92,10 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
         required_symbols: &[RequiredSymbol],
     ) -> Result<(), SlinkyError> {
         self.main_writer.add_all_required_symbols(required_symbols)
+    }
+
+    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError> {
+        self.main_writer.add_all_asserts(asserts)
     }
 }
 

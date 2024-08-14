@@ -783,3 +783,7 @@ segments:
       - { path: src/assets/tutorial/tutorial_kasa.o }
 
 entry: entrypoint
+
+asserts:
+  - check: boot_ROM_END <= 0x101000
+    error_message: boot segment is larger than 1 MiB

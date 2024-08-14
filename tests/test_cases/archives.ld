@@ -164,3 +164,5 @@ SECTIONS
         *(*);
     }
 }
+
+ASSERT((boot_VRAM_END <= 0x80800000), "Error: VRAM is larger than 8 MiB");

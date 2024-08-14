@@ -10,6 +10,7 @@ mod utils;
 mod linker_symbols_style;
 mod settings;
 
+mod assert_entry;
 mod file_info;
 mod file_kind;
 mod gp_info;
@@ -36,6 +37,7 @@ pub use escaped_path::EscapedPath;
 pub use linker_symbols_style::LinkerSymbolsStyle;
 pub use settings::Settings;
 
+pub use assert_entry::AssertEntry;
 pub use file_info::FileInfo;
 pub use file_kind::FileKind;
 pub use required_symbol::RequiredSymbol;

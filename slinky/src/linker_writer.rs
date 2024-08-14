@@ -4,9 +4,9 @@
 use std::io::Write;
 
 use crate::{
-    utils, version, Document, EscapedPath, FileInfo, FileKind, RequiredSymbol, RuntimeSettings,
-    ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
-    VramClass,
+    utils, version, AssertEntry, Document, EscapedPath, FileInfo, FileKind, RequiredSymbol,
+    RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError,
+    SymbolAssignment, VramClass,
 };
 
 use crate::script_buffer::ScriptBuffer;
@@ -134,6 +134,20 @@ impl ScriptImporter for LinkerWriter<'_> {
             self.add_required_symbol(required_symbol)?;
         }
         self.end_required_symbols()?;
+
+        Ok(())
+    }
+
+    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError> {
+        if asserts.is_empty() {
+            return Ok(());
+        }
+
+        self.begin_asserts()?;
+        for assert_entry in asserts {
+            self.add_assert(assert_entry)?;
+        }
+        self.end_asserts()?;
 
         Ok(())
     }
@@ -679,6 +693,34 @@ impl LinkerWriter<'_> {
         }
 
         self.buffer.write_required_symbol(&required_symbol.name);
+
+        Ok(())
+    }
+
+    pub(crate) fn begin_asserts(&mut self) -> Result<(), SlinkyError> {
+        if !self.buffer.is_empty() {
+            self.buffer.write_empty_line();
+        }
+
+        Ok(())
+    }
+
+    pub(crate) fn end_asserts(&mut self) -> Result<(), SlinkyError> {
+        Ok(())
+    }
+
+    pub(crate) fn add_assert(&mut self, assert_entry: &AssertEntry) -> Result<(), SlinkyError> {
+        if !self.rs.should_emit_entry(
+            &assert_entry.exclude_if_any,
+            &assert_entry.exclude_if_all,
+            &assert_entry.include_if_any,
+            &assert_entry.include_if_all,
+        ) {
+            return Ok(());
+        }
+
+        self.buffer
+            .write_assert(&assert_entry.check, &assert_entry.error_message);
 
         Ok(())
     }

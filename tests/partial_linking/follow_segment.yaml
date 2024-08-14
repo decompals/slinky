@@ -45,3 +45,7 @@ segments:
       - { path: asm/main/util.o }
 
 entry: ENTRYPOINT
+
+asserts:
+  - check: main_VRAM_END <= 0x80400000
+    error_message: VRAM is larger than 4 MiB

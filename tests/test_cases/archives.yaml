@@ -17,3 +17,10 @@ segments:
       - { path: lib/libmus.a, subfile: aud_thread.o }
       - { path: lib/libmus.a, subfile: lib_memory.o }
       - { path: lib/libmus.a, subfile: aud_samples.o }
+
+asserts:
+  - check: boot_VRAM_END <= 0x80400000
+    error_message: VRAM is larger than 4 MiB
+    include_if_any: [[ram_size, 4]]
+  - check: boot_VRAM_END <= 0x80800000
+    error_message: VRAM is larger than 8 MiB

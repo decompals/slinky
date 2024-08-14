@@ -6,10 +6,10 @@ use std::{fs, path::Path};
 use serde::Deserialize;
 
 use crate::{
-    absent_nullable::AbsentNullable, required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
-    settings::SettingsSerial, symbol_assignment::SymbolAssignmentSerial, traits::Serial,
-    vram_class::VramClassSerial, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment,
-    VramClass,
+    absent_nullable::AbsentNullable, assert_entry::AssertEntrySerial,
+    required_symbol::RequiredSymbolSerial, segment::SegmentSerial, settings::SettingsSerial,
+    symbol_assignment::SymbolAssignmentSerial, traits::Serial, vram_class::VramClassSerial,
+    AssertEntry, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment, VramClass,
 };
 
 #[derive(PartialEq, Debug)]
@@ -23,6 +23,7 @@ pub struct Document {
     pub entry: Option<String>,
     pub symbol_assignments: Vec<SymbolAssignment>,
     pub required_symbols: Vec<RequiredSymbol>,
+    pub asserts: Vec<AssertEntry>,
 }
 
 impl Document {
@@ -66,6 +67,8 @@ pub(crate) struct DocumentSerial {
     pub symbol_assignments: AbsentNullable<Vec<SymbolAssignmentSerial>>,
     #[serde(default)]
     pub required_symbols: AbsentNullable<Vec<RequiredSymbolSerial>>,
+    #[serde(default)]
+    pub asserts: AbsentNullable<Vec<AssertEntrySerial>>,
 }
 
 impl DocumentSerial {
@@ -100,6 +103,11 @@ impl DocumentSerial {
             .get_non_null("required_symbols", Vec::new)?
             .unserialize(&settings)?;
 
+        let asserts = self
+            .asserts
+            .get_non_null("asserts", Vec::new)?
+            .unserialize(&settings)?;
+
         Ok(Document {
             settings,
             vram_classes,
@@ -107,6 +115,7 @@ impl DocumentSerial {
             entry,
             symbol_assignments,
             required_symbols,
+            asserts,
         })
     }
 }

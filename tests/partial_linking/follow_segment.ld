@@ -348,3 +348,5 @@ SECTIONS
 }
 
 ENTRY(ENTRYPOINT);
+
+ASSERT((main_VRAM_END <= 0x80400000), "Error: VRAM is larger than 4 MiB");

@@ -18,6 +18,7 @@ The document is composed by the following top-level attributes:
   - A single optional string that specifies the entrypoint of the final build.
 - A list of [`symbol_assignments`](symbol_assignments.md).
 - A list of [`required_symbols`](required_symbols.md).
+- A list of [`asserts`](asserts.md)
 
 ## Example
 
