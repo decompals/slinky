@@ -40,58 +40,6 @@ jobs:
       - name: Run clippy
         run: cargo clippy --all-targets -- -D warnings
 
-  run_tests:
-    name: Run tests ${{ matrix.builder.target }}
-    runs-on: ${{ matrix.builder.runner }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        builder: [
-          {
-            name: windows,
-            target: x86_64-pc-windows-gnu,
-            runner: windows-2019
-          },
-          {
-            name: windows,
-            target: x86_64-pc-windows-msvc,
-            runner: windows-2019
-          },
-          {
-            name: mac,
-            target: x86_64-apple-darwin,
-            runner: macos-12
-          },
-          {
-            name: mac,
-            target: aarch64-apple-darwin,
-            runner: macos-14 # ARM
-          },
-          {
-            name: linux,
-            target: x86_64-unknown-linux-musl,
-            runner: ubuntu-20.04
-          },
-          {
-            name: linux,
-            target: x86_64-unknown-linux-gnu,
-            runner: ubuntu-20.04
-          }
-        ]
-
-    steps:
-      - name: Checkout reposistory
-        uses: actions/checkout@v4
-
-      - name: Setup Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.builder.target }}
-
-      - name: Run tests
-        run: cargo test --workspace --target ${{ matrix.builder.target }}
-
   msrv:
     runs-on: ubuntu-latest
     steps:
@@ -105,10 +53,9 @@ jobs:
         run: cargo hack check --rust-version --workspace --all-targets --ignore-private
 
 
-  release:
-    name: release artifact for ${{ matrix.builder.target }}
+  test_and_release:
+    name: Run tests and release artifact for ${{ matrix.builder.target }}
     runs-on: ${{ matrix.builder.runner }}
-    needs: [run_tests, msrv]
 
     strategy:
       fail-fast: false
@@ -155,8 +102,11 @@ jobs:
         with:
           targets: ${{ matrix.builder.target }}
 
+      - name: Run tests
+        run: cargo test --workspace --target ${{ matrix.builder.target }}
+
       - name: Build cli
-        run: cargo build --release --target ${{ matrix.builder.target }}
+        run: cargo build --release --bins --target ${{ matrix.builder.target }}
 
       - name: Move files for packaging (unix)
         if: matrix.builder.name == 'linux' || matrix.builder.name == 'mac'
@@ -195,7 +145,7 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
-    needs: [run_tests, msrv]
+    needs: [test_and_release, msrv]
 
     steps:
       - name: Checkout reposistory

@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Github Actions:
   - Change CI to run tests on all platforms we generate builds artifacts for.
   - Use the ARM Mac Github runner to build and test the ARM Mac builds.
+  - Merge `run_tests` and `release` jobs to try to improve CI times.
 
 ## [0.2.5] - 2024-07-17
 
