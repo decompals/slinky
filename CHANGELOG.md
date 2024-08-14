@@ -32,6 +32,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Produce an error if the user specifies an empty conditional
   inclusion/exclusion for any entry.
+- Tests now strip the `\r` character from the expected files before compaing
+  them.
+  - This is done to normalize the tests files accross all platforms, including
+    the ones where git may add `\r` characters when cloning the repository
+    (like Windows).
+- Github Actions:
+  - Change CI to run tests on all platforms we generate builds artifacts for.
+  - Use the ARM Mac Github runner to build and test the ARM Mac builds.
 
 ## [0.2.5] - 2024-07-17
 
