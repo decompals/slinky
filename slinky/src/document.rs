@@ -9,7 +9,8 @@ use crate::{
     absent_nullable::AbsentNullable, assert_entry::AssertEntrySerial,
     required_symbol::RequiredSymbolSerial, segment::SegmentSerial, settings::SettingsSerial,
     symbol_assignment::SymbolAssignmentSerial, traits::Serial, vram_class::VramClassSerial,
-    AssertEntry, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment, VramClass,
+    AssertEntry, KeepSections, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment,
+    VramClass,
 };
 
 #[derive(PartialEq, Debug)]
@@ -89,7 +90,7 @@ impl DocumentSerial {
             .get_non_null("vram_classes", Vec::new)?
             .unserialize(&settings)?;
 
-        let segments = self.segments.unserialize(&settings)?;
+        let mut segments = self.segments.unserialize(&settings)?;
 
         let entry = self.entry.get_non_null_no_default("entry")?;
 
@@ -107,6 +108,16 @@ impl DocumentSerial {
             .asserts
             .get_non_null("asserts", Vec::new)?
             .unserialize(&settings)?;
+
+        for segment in segments.iter_mut() {
+            if let Some(vram_class_name) = &segment.vram_class {
+                if let Some(vram_class) = vram_classes.iter().find(|x| x.name == *vram_class_name) {
+                    if vram_class.keep_sections != KeepSections::Absent {
+                        segment.pass_down_keep_sections(&vram_class.keep_sections);
+                    }
+                }
+            }
+        }
 
         Ok(Document {
             settings,

@@ -32,6 +32,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add new top-level attribute for the file format: `asserts`.
   - Allows to define multiple assertions that should be satisfied for the link
     to success.
+- New `keep_sections` attribute for `vram_classes`, `segments` and `files`.
+  - Allows to specify which sections of a files should be `KEEP` during link
+    time garbage collection, even of those are not referenced at al by anything
+    else.
+  - Allows to configure for everything referencing a given vram class or as
+    fine grained as a single file entry.
 
 ### Changed
 

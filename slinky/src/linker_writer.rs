@@ -4,9 +4,9 @@
 use std::io::Write;
 
 use crate::{
-    utils, version, AssertEntry, Document, EscapedPath, FileInfo, FileKind, RequiredSymbol,
-    RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError,
-    SymbolAssignment, VramClass,
+    utils, version, AssertEntry, Document, EscapedPath, FileInfo, FileKind, KeepSections,
+    RequiredSymbol, RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment,
+    SlinkyError, SymbolAssignment, VramClass,
 };
 
 use crate::script_buffer::ScriptBuffer;
@@ -879,14 +879,34 @@ impl LinkerWriter<'_> {
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
+        let (left_side, right_side) = match &file.keep_sections {
+            KeepSections::Absent => ("", ""),
+            KeepSections::All(all) => {
+                if *all {
+                    ("KEEP(", ")")
+                } else {
+                    ("", "")
+                }
+            }
+            KeepSections::WhichOnes(which_ones) => {
+                if which_ones.contains(section) {
+                    ("KEEP(", ")")
+                } else {
+                    ("", "")
+                }
+            }
+        };
+
         // TODO: figure out glob support
         match file.kind {
             FileKind::Object => {
                 let mut path = base_path.clone();
                 path.push(file.path_escaped(self.rs)?);
 
-                self.buffer
-                    .writeln(&format!("{}({}{});", path, section, wildcard));
+                self.buffer.writeln(&format!(
+                    "{}{}({}{}){};",
+                    left_side, path, section, wildcard, right_side
+                ));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);
                 }
@@ -896,8 +916,8 @@ impl LinkerWriter<'_> {
                 path.push(file.path_escaped(self.rs)?);
 
                 self.buffer.writeln(&format!(
-                    "{}:{}({}{});",
-                    path, file.subfile, section, wildcard
+                    "{}{}:{}({}{}){};",
+                    left_side, path, file.subfile, section, wildcard, right_side
                 ));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);

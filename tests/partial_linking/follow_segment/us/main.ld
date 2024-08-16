@@ -4,16 +4,16 @@ SECTIONS
     {
         FILL(0x00000000);
         build/us/src/main/main.o(.text*);
-        build/us/src/main/dmadata.o(.text*);
-        build/us/asm/main/util.o(.text*);
+        KEEP(build/us/src/main/dmadata.o(.text*));
+        KEEP(build/us/asm/main/util.o(.text*));
     }
 
     .data :
     {
         FILL(0x00000000);
         build/us/src/main/main.o(.data*);
-        build/us/src/main/dmadata.o(.data*);
-        build/us/asm/main/util.o(.data*);
+        KEEP(build/us/src/main/dmadata.o(.data*));
+        KEEP(build/us/asm/main/util.o(.data*));
     }
 
     .rodata :
@@ -21,7 +21,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(.rodata*);
         build/us/src/main/dmadata.o(.rodata*);
-        build/us/asm/main/util.o(.rodata*);
+        KEEP(build/us/asm/main/util.o(.rodata*));
     }
 
     .sdata :
@@ -29,7 +29,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(.sdata*);
         build/us/src/main/dmadata.o(.sdata*);
-        build/us/asm/main/util.o(.sdata*);
+        KEEP(build/us/asm/main/util.o(.sdata*));
     }
 
     .sbss (NOLOAD) :
@@ -37,7 +37,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(.sbss*);
         build/us/src/main/dmadata.o(.sbss*);
-        build/us/asm/main/util.o(.sbss*);
+        KEEP(build/us/asm/main/util.o(.sbss*));
     }
 
     .scommon (NOLOAD) :
@@ -45,7 +45,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(.scommon*);
         build/us/src/main/dmadata.o(.scommon*);
-        build/us/asm/main/util.o(.scommon*);
+        KEEP(build/us/asm/main/util.o(.scommon*));
     }
 
     .bss (NOLOAD) :
@@ -53,7 +53,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(.bss*);
         build/us/src/main/dmadata.o(.bss*);
-        build/us/asm/main/util.o(.bss*);
+        KEEP(build/us/asm/main/util.o(.bss*));
     }
 
     COMMON (NOLOAD) :
@@ -61,7 +61,7 @@ SECTIONS
         FILL(0x00000000);
         build/us/src/main/main.o(COMMON*);
         build/us/src/main/dmadata.o(COMMON*);
-        build/us/asm/main/util.o(COMMON*);
+        KEEP(build/us/asm/main/util.o(COMMON*));
     }
 
     .shstrtab 0 :

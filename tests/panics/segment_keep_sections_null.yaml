@@ -1,0 +1,5 @@
+segments:
+  - name: main
+    keep_sections: null
+    files:
+      - { path: src/main/file1.o }

@@ -168,6 +168,13 @@ build/rom.elf: \
     build/src/rsp/aspMain.o \
     build/src/rsp/f3dex2.o \
     build/src/rsp/s2dex.o \
+    build/src/stufsh/thingy1.o \
+    build/src/stufsh/thingy2.o \
+    build/src/stufsh/thonga3.o \
+    build/src/stufsh/capy4.o \
+    build/src/stufsh/placeholder5.o \
+    build/src/stufsh/idk6.o \
+    build/src/stufsh/another7.o \
     build/src/buffers/framebuffer.o
 
 build/src/rom_header/rom_header.o:
@@ -339,4 +346,11 @@ build/src/rsp/rspboot.o:
 build/src/rsp/aspMain.o:
 build/src/rsp/f3dex2.o:
 build/src/rsp/s2dex.o:
+build/src/stufsh/thingy1.o:
+build/src/stufsh/thingy2.o:
+build/src/stufsh/thonga3.o:
+build/src/stufsh/capy4.o:
+build/src/stufsh/placeholder5.o:
+build/src/stufsh/idk6.o:
+build/src/stufsh/another7.o:
 build/src/buffers/framebuffer.o:

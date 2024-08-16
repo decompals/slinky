@@ -87,7 +87,7 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_1_TEXT_START = .;
-        build/src/battle/area/omo2_1/actor/shy_squad.o(.text*);
+        KEEP(build/src/battle/area/omo2_1/actor/shy_squad.o(.text*));
         omo2_1_TEXT_END = .;
         omo2_1_TEXT_SIZE = ABSOLUTE(omo2_1_TEXT_END - omo2_1_TEXT_START);
 
@@ -155,7 +155,7 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_2_TEXT_START = .;
-        build/src/battle/area/omo2_2/actor/stilt_guy.o(.text*);
+        KEEP(build/src/battle/area/omo2_2/actor/stilt_guy.o(.text*));
         omo2_2_TEXT_END = .;
         omo2_2_TEXT_SIZE = ABSOLUTE(omo2_2_TEXT_END - omo2_2_TEXT_START);
 
@@ -223,7 +223,7 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_3_TEXT_START = .;
-        build/src/battle/area/omo2_3/actor/shy_stack.o(.text*);
+        KEEP(build/src/battle/area/omo2_3/actor/shy_stack.o(.text*));
         omo2_3_TEXT_END = .;
         omo2_3_TEXT_SIZE = ABSOLUTE(omo2_3_TEXT_END - omo2_3_TEXT_START);
 
@@ -510,10 +510,10 @@ SECTIONS
         battle_code_TEXT_SIZE = ABSOLUTE(battle_code_TEXT_END - battle_code_TEXT_START);
 
         battle_code_DATA_START = .;
-        build/src/battle_code/btl_states_actions.o(.data*);
-        build/src/battle_code/camera.o(.data*);
-        build/src/battle_code/actors.o(.data*);
-        build/src/battle_code/popup_messages.o(.data*);
+        KEEP(build/src/battle_code/btl_states_actions.o(.data*));
+        KEEP(build/src/battle_code/camera.o(.data*));
+        KEEP(build/src/battle_code/actors.o(.data*));
+        KEEP(build/src/battle_code/popup_messages.o(.data*));
         battle_code_DATA_END = .;
         battle_code_DATA_SIZE = ABSOLUTE(battle_code_DATA_END - battle_code_DATA_START);
 
@@ -837,26 +837,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets1_TEXT_START = .;
-        build/src/assets/assets1/texture.o(.text*);
-        build/src/assets/assets1/dlist.o(.text*);
+        KEEP(build/src/assets/assets1/texture.o(.text*));
+        KEEP(build/src/assets/assets1/dlist.o(.text*));
         assets1_TEXT_END = .;
         assets1_TEXT_SIZE = ABSOLUTE(assets1_TEXT_END - assets1_TEXT_START);
 
         assets1_DATA_START = .;
-        build/src/assets/assets1/texture.o(.data*);
-        build/src/assets/assets1/dlist.o(.data*);
+        KEEP(build/src/assets/assets1/texture.o(.data*));
+        KEEP(build/src/assets/assets1/dlist.o(.data*));
         assets1_DATA_END = .;
         assets1_DATA_SIZE = ABSOLUTE(assets1_DATA_END - assets1_DATA_START);
 
         assets1_RODATA_START = .;
-        build/src/assets/assets1/texture.o(.rodata*);
-        build/src/assets/assets1/dlist.o(.rodata*);
+        KEEP(build/src/assets/assets1/texture.o(.rodata*));
+        KEEP(build/src/assets/assets1/dlist.o(.rodata*));
         assets1_RODATA_END = .;
         assets1_RODATA_SIZE = ABSOLUTE(assets1_RODATA_END - assets1_RODATA_START);
 
         assets1_SDATA_START = .;
-        build/src/assets/assets1/texture.o(.sdata*);
-        build/src/assets/assets1/dlist.o(.sdata*);
+        KEEP(build/src/assets/assets1/texture.o(.sdata*));
+        KEEP(build/src/assets/assets1/dlist.o(.sdata*));
         assets1_SDATA_END = .;
         assets1_SDATA_SIZE = ABSOLUTE(assets1_SDATA_END - assets1_SDATA_START);
     }
@@ -870,26 +870,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets1_SBSS_START = .;
-        build/src/assets/assets1/texture.o(.sbss*);
-        build/src/assets/assets1/dlist.o(.sbss*);
+        KEEP(build/src/assets/assets1/texture.o(.sbss*));
+        KEEP(build/src/assets/assets1/dlist.o(.sbss*));
         assets1_SBSS_END = .;
         assets1_SBSS_SIZE = ABSOLUTE(assets1_SBSS_END - assets1_SBSS_START);
 
         assets1_SCOMMON_START = .;
-        build/src/assets/assets1/texture.o(.scommon*);
-        build/src/assets/assets1/dlist.o(.scommon*);
+        KEEP(build/src/assets/assets1/texture.o(.scommon*));
+        KEEP(build/src/assets/assets1/dlist.o(.scommon*));
         assets1_SCOMMON_END = .;
         assets1_SCOMMON_SIZE = ABSOLUTE(assets1_SCOMMON_END - assets1_SCOMMON_START);
 
         assets1_BSS_START = .;
-        build/src/assets/assets1/texture.o(.bss*);
-        build/src/assets/assets1/dlist.o(.bss*);
+        KEEP(build/src/assets/assets1/texture.o(.bss*));
+        KEEP(build/src/assets/assets1/dlist.o(.bss*));
         assets1_BSS_END = .;
         assets1_BSS_SIZE = ABSOLUTE(assets1_BSS_END - assets1_BSS_START);
 
         assets1COMMON_START = .;
-        build/src/assets/assets1/texture.o(COMMON*);
-        build/src/assets/assets1/dlist.o(COMMON*);
+        KEEP(build/src/assets/assets1/texture.o(COMMON*));
+        KEEP(build/src/assets/assets1/dlist.o(COMMON*));
         assets1COMMON_END = .;
         assets1COMMON_SIZE = ABSOLUTE(assets1COMMON_END - assets1COMMON_START);
     }
@@ -913,26 +913,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets2_TEXT_START = .;
-        build/src/assets/assets2/texture.o(.text*);
-        build/src/assets/assets2/dlist.o(.text*);
+        KEEP(build/src/assets/assets2/texture.o(.text*));
+        KEEP(build/src/assets/assets2/dlist.o(.text*));
         assets2_TEXT_END = .;
         assets2_TEXT_SIZE = ABSOLUTE(assets2_TEXT_END - assets2_TEXT_START);
 
         assets2_DATA_START = .;
-        build/src/assets/assets2/texture.o(.data*);
-        build/src/assets/assets2/dlist.o(.data*);
+        KEEP(build/src/assets/assets2/texture.o(.data*));
+        KEEP(build/src/assets/assets2/dlist.o(.data*));
         assets2_DATA_END = .;
         assets2_DATA_SIZE = ABSOLUTE(assets2_DATA_END - assets2_DATA_START);
 
         assets2_RODATA_START = .;
-        build/src/assets/assets2/texture.o(.rodata*);
-        build/src/assets/assets2/dlist.o(.rodata*);
+        KEEP(build/src/assets/assets2/texture.o(.rodata*));
+        KEEP(build/src/assets/assets2/dlist.o(.rodata*));
         assets2_RODATA_END = .;
         assets2_RODATA_SIZE = ABSOLUTE(assets2_RODATA_END - assets2_RODATA_START);
 
         assets2_SDATA_START = .;
-        build/src/assets/assets2/texture.o(.sdata*);
-        build/src/assets/assets2/dlist.o(.sdata*);
+        KEEP(build/src/assets/assets2/texture.o(.sdata*));
+        KEEP(build/src/assets/assets2/dlist.o(.sdata*));
         assets2_SDATA_END = .;
         assets2_SDATA_SIZE = ABSOLUTE(assets2_SDATA_END - assets2_SDATA_START);
     }
@@ -946,26 +946,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets2_SBSS_START = .;
-        build/src/assets/assets2/texture.o(.sbss*);
-        build/src/assets/assets2/dlist.o(.sbss*);
+        KEEP(build/src/assets/assets2/texture.o(.sbss*));
+        KEEP(build/src/assets/assets2/dlist.o(.sbss*));
         assets2_SBSS_END = .;
         assets2_SBSS_SIZE = ABSOLUTE(assets2_SBSS_END - assets2_SBSS_START);
 
         assets2_SCOMMON_START = .;
-        build/src/assets/assets2/texture.o(.scommon*);
-        build/src/assets/assets2/dlist.o(.scommon*);
+        KEEP(build/src/assets/assets2/texture.o(.scommon*));
+        KEEP(build/src/assets/assets2/dlist.o(.scommon*));
         assets2_SCOMMON_END = .;
         assets2_SCOMMON_SIZE = ABSOLUTE(assets2_SCOMMON_END - assets2_SCOMMON_START);
 
         assets2_BSS_START = .;
-        build/src/assets/assets2/texture.o(.bss*);
-        build/src/assets/assets2/dlist.o(.bss*);
+        KEEP(build/src/assets/assets2/texture.o(.bss*));
+        KEEP(build/src/assets/assets2/dlist.o(.bss*));
         assets2_BSS_END = .;
         assets2_BSS_SIZE = ABSOLUTE(assets2_BSS_END - assets2_BSS_START);
 
         assets2COMMON_START = .;
-        build/src/assets/assets2/texture.o(COMMON*);
-        build/src/assets/assets2/dlist.o(COMMON*);
+        KEEP(build/src/assets/assets2/texture.o(COMMON*));
+        KEEP(build/src/assets/assets2/dlist.o(COMMON*));
         assets2COMMON_END = .;
         assets2COMMON_SIZE = ABSOLUTE(assets2COMMON_END - assets2COMMON_START);
     }
@@ -989,26 +989,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets3_TEXT_START = .;
-        build/src/assets/assets3/texture.o(.text*);
-        build/src/assets/assets3/dlist.o(.text*);
+        KEEP(build/src/assets/assets3/texture.o(.text*));
+        KEEP(build/src/assets/assets3/dlist.o(.text*));
         assets3_TEXT_END = .;
         assets3_TEXT_SIZE = ABSOLUTE(assets3_TEXT_END - assets3_TEXT_START);
 
         assets3_DATA_START = .;
-        build/src/assets/assets3/texture.o(.data*);
-        build/src/assets/assets3/dlist.o(.data*);
+        KEEP(build/src/assets/assets3/texture.o(.data*));
+        KEEP(build/src/assets/assets3/dlist.o(.data*));
         assets3_DATA_END = .;
         assets3_DATA_SIZE = ABSOLUTE(assets3_DATA_END - assets3_DATA_START);
 
         assets3_RODATA_START = .;
-        build/src/assets/assets3/texture.o(.rodata*);
-        build/src/assets/assets3/dlist.o(.rodata*);
+        KEEP(build/src/assets/assets3/texture.o(.rodata*));
+        KEEP(build/src/assets/assets3/dlist.o(.rodata*));
         assets3_RODATA_END = .;
         assets3_RODATA_SIZE = ABSOLUTE(assets3_RODATA_END - assets3_RODATA_START);
 
         assets3_SDATA_START = .;
-        build/src/assets/assets3/texture.o(.sdata*);
-        build/src/assets/assets3/dlist.o(.sdata*);
+        KEEP(build/src/assets/assets3/texture.o(.sdata*));
+        KEEP(build/src/assets/assets3/dlist.o(.sdata*));
         assets3_SDATA_END = .;
         assets3_SDATA_SIZE = ABSOLUTE(assets3_SDATA_END - assets3_SDATA_START);
     }
@@ -1022,26 +1022,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets3_SBSS_START = .;
-        build/src/assets/assets3/texture.o(.sbss*);
-        build/src/assets/assets3/dlist.o(.sbss*);
+        KEEP(build/src/assets/assets3/texture.o(.sbss*));
+        KEEP(build/src/assets/assets3/dlist.o(.sbss*));
         assets3_SBSS_END = .;
         assets3_SBSS_SIZE = ABSOLUTE(assets3_SBSS_END - assets3_SBSS_START);
 
         assets3_SCOMMON_START = .;
-        build/src/assets/assets3/texture.o(.scommon*);
-        build/src/assets/assets3/dlist.o(.scommon*);
+        KEEP(build/src/assets/assets3/texture.o(.scommon*));
+        KEEP(build/src/assets/assets3/dlist.o(.scommon*));
         assets3_SCOMMON_END = .;
         assets3_SCOMMON_SIZE = ABSOLUTE(assets3_SCOMMON_END - assets3_SCOMMON_START);
 
         assets3_BSS_START = .;
-        build/src/assets/assets3/texture.o(.bss*);
-        build/src/assets/assets3/dlist.o(.bss*);
+        KEEP(build/src/assets/assets3/texture.o(.bss*));
+        KEEP(build/src/assets/assets3/dlist.o(.bss*));
         assets3_BSS_END = .;
         assets3_BSS_SIZE = ABSOLUTE(assets3_BSS_END - assets3_BSS_START);
 
         assets3COMMON_START = .;
-        build/src/assets/assets3/texture.o(COMMON*);
-        build/src/assets/assets3/dlist.o(COMMON*);
+        KEEP(build/src/assets/assets3/texture.o(COMMON*));
+        KEEP(build/src/assets/assets3/dlist.o(COMMON*));
         assets3COMMON_END = .;
         assets3COMMON_SIZE = ABSOLUTE(assets3COMMON_END - assets3COMMON_START);
     }
@@ -1068,26 +1068,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets4_TEXT_START = .;
-        build/src/assets/assets4/texture.o(.text*);
-        build/src/assets/assets4/dlist.o(.text*);
+        KEEP(build/src/assets/assets4/texture.o(.text*));
+        KEEP(build/src/assets/assets4/dlist.o(.text*));
         assets4_TEXT_END = .;
         assets4_TEXT_SIZE = ABSOLUTE(assets4_TEXT_END - assets4_TEXT_START);
 
         assets4_DATA_START = .;
-        build/src/assets/assets4/texture.o(.data*);
-        build/src/assets/assets4/dlist.o(.data*);
+        KEEP(build/src/assets/assets4/texture.o(.data*));
+        KEEP(build/src/assets/assets4/dlist.o(.data*));
         assets4_DATA_END = .;
         assets4_DATA_SIZE = ABSOLUTE(assets4_DATA_END - assets4_DATA_START);
 
         assets4_RODATA_START = .;
-        build/src/assets/assets4/texture.o(.rodata*);
-        build/src/assets/assets4/dlist.o(.rodata*);
+        KEEP(build/src/assets/assets4/texture.o(.rodata*));
+        KEEP(build/src/assets/assets4/dlist.o(.rodata*));
         assets4_RODATA_END = .;
         assets4_RODATA_SIZE = ABSOLUTE(assets4_RODATA_END - assets4_RODATA_START);
 
         assets4_SDATA_START = .;
-        build/src/assets/assets4/texture.o(.sdata*);
-        build/src/assets/assets4/dlist.o(.sdata*);
+        KEEP(build/src/assets/assets4/texture.o(.sdata*));
+        KEEP(build/src/assets/assets4/dlist.o(.sdata*));
         assets4_SDATA_END = .;
         assets4_SDATA_SIZE = ABSOLUTE(assets4_SDATA_END - assets4_SDATA_START);
     }
@@ -1101,26 +1101,26 @@ SECTIONS
     {
         FILL(0x00000000);
         assets4_SBSS_START = .;
-        build/src/assets/assets4/texture.o(.sbss*);
-        build/src/assets/assets4/dlist.o(.sbss*);
+        KEEP(build/src/assets/assets4/texture.o(.sbss*));
+        KEEP(build/src/assets/assets4/dlist.o(.sbss*));
         assets4_SBSS_END = .;
         assets4_SBSS_SIZE = ABSOLUTE(assets4_SBSS_END - assets4_SBSS_START);
 
         assets4_SCOMMON_START = .;
-        build/src/assets/assets4/texture.o(.scommon*);
-        build/src/assets/assets4/dlist.o(.scommon*);
+        KEEP(build/src/assets/assets4/texture.o(.scommon*));
+        KEEP(build/src/assets/assets4/dlist.o(.scommon*));
         assets4_SCOMMON_END = .;
         assets4_SCOMMON_SIZE = ABSOLUTE(assets4_SCOMMON_END - assets4_SCOMMON_START);
 
         assets4_BSS_START = .;
-        build/src/assets/assets4/texture.o(.bss*);
-        build/src/assets/assets4/dlist.o(.bss*);
+        KEEP(build/src/assets/assets4/texture.o(.bss*));
+        KEEP(build/src/assets/assets4/dlist.o(.bss*));
         assets4_BSS_END = .;
         assets4_BSS_SIZE = ABSOLUTE(assets4_BSS_END - assets4_BSS_START);
 
         assets4COMMON_START = .;
-        build/src/assets/assets4/texture.o(COMMON*);
-        build/src/assets/assets4/dlist.o(COMMON*);
+        KEEP(build/src/assets/assets4/texture.o(COMMON*));
+        KEEP(build/src/assets/assets4/dlist.o(COMMON*));
         assets4COMMON_END = .;
         assets4COMMON_SIZE = ABSOLUTE(assets4COMMON_END - assets4COMMON_START);
     }

@@ -10,7 +10,7 @@ use crate::{
     file_info::{FileInfo, FileInfoSerial},
     gp_info::{GpInfo, GpInfoSerial},
     traits::Serial,
-    EscapedPath, RuntimeSettings, Settings, SlinkyError,
+    EscapedPath, KeepSections, RuntimeSettings, Settings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -62,6 +62,9 @@ pub struct Segment {
     pub wildcard_sections: bool,
 
     pub fill_value: Option<u32>,
+
+    // The default value of the following members come from the corresponding VramClass
+    pub keep_sections: KeepSections,
 }
 
 impl Segment {
@@ -90,9 +93,26 @@ impl Segment {
             sections_end_alignment: self.sections_end_alignment.clone(),
             wildcard_sections: self.wildcard_sections,
             fill_value: self.fill_value,
+            keep_sections: self.keep_sections.clone(),
         }
     }
 
+    pub fn pass_down_keep_sections(&mut self, keep_sections: &KeepSections) {
+        if *keep_sections == KeepSections::Absent {
+            return;
+        }
+
+        if self.keep_sections == KeepSections::Absent {
+            self.keep_sections.clone_from(keep_sections);
+
+            self.files
+                .iter_mut()
+                .for_each(|f| f.pass_down_keep_sections(keep_sections));
+        }
+    }
+}
+
+impl Segment {
     pub fn dir_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
         rs.escape_path(&self.dir)
     }
@@ -157,6 +177,9 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub fill_value: AbsentNullable<u32>,
+
+    #[serde(default)]
+    pub keep_sections: KeepSections,
 }
 
 impl Serial for SegmentSerial {
@@ -176,7 +199,7 @@ impl Serial for SegmentSerial {
             });
         }
 
-        let files = self.files.unserialize(settings)?;
+        let mut files = self.files.unserialize(settings)?;
 
         let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
 
@@ -319,6 +342,15 @@ impl Serial for SegmentSerial {
             .fill_value
             .get_optional_nullable("fill_value", || settings.fill_value)?;
 
+        let keep_sections = self.keep_sections;
+
+        // Pass down the current `keep_sections` to files that may not have defined it
+        if keep_sections != KeepSections::Absent {
+            files
+                .iter_mut()
+                .for_each(|f| f.pass_down_keep_sections(&keep_sections));
+        }
+
         Ok(Self::Output {
             name,
             files,
@@ -343,6 +375,7 @@ impl Serial for SegmentSerial {
             sections_end_alignment,
             wildcard_sections,
             fill_value,
+            keep_sections,
         })
     }
 }

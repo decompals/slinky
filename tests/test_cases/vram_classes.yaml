@@ -4,18 +4,18 @@ settings:
   symbols_header_path: tests/test_cases/vram_classes.h
 
 vram_classes:
-  - { name: battle_area2, fixed_symbol: Vine1Base }
+  - { name: battle_area2, fixed_symbol: Vine1Base, keep_sections: [.text] }
 
   - { name: battle_partner, fixed_vram: 0x80238000 }
-  - { name: battle_code, follows_classes: [battle_partner] }
+  - { name: battle_code, follows_classes: [battle_partner], keep_sections: [.data] }
 
   - { name: heaps2, fixed_vram: 0x80267FF0 }
   - { name: world_script_api, follows_classes: [heaps2] }
 
   - { name: texture_memory, follows_classes: [battle_code, world_script_api] }
 
-  - { name: segment_05, fixed_vram: 0x05000000 }
-  - { name: segment_06, fixed_vram: 0x06000000 }
+  - { name: segment_05, fixed_vram: 0x05000000, keep_sections: True }
+  - { name: segment_06, fixed_vram: 0x06000000, keep_sections: True }
 
 segments:
   - name: boot

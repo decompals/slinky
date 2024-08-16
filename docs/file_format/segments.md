@@ -85,6 +85,10 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-18)
     - [Valid values](#valid-values-16)
     - [Default value](#default-value-15)
+  - [`keep_sections`](#keep_sections)
+    - [Example](#example-19)
+    - [Valid values](#valid-values-17)
+    - [Default](#default)
 
 ## `name`
 
@@ -603,3 +607,71 @@ Positive integers or `null`.
 ### Default value
 
 The value specified for [settings.md#fill_value](settings.md#fill_value)
+
+## `keep_sections`
+
+Wraps the file entries from this current segment with `KEEP` attributes.
+
+`KEEP` is only relevant when link time garbage collection is enabled (the
+[`--gc-sections`](https://sourceware.org/binutils/docs/ld/Options.html#index-garbage-collection)
+flag of GNU LD), since wrapping a section with a `KEEP` attribute tells the
+linker that this section should not be garbage collected, even if none of the
+symbols on that section is referenced by anything else that is actually used.
+
+If link time garbage collection is enabled then it is recommended to set the
+entrypoint of this program by setting the slinky top-level attribute `entry`.
+
+The `keep_sections` attribute allow specify if _all_ the input sections (say
+`.text`, `.data`, etc) of a given file entry should be wrapped by `KEEP` or not.
+Alternatively a list of strings may be provided instead to specify which
+specific sections should be wrapped with `KEEP`, allowing for a more fine
+grained customization of this behavior.
+
+Every file entry of the current segment will inherit its `keep_sections`
+attribute, propagating this setting to all those file entries and allowing the
+user to avoid unnecessary duplication. This setting may be overriden for
+specific file entries of this segment. See specifying a
+[`keep_sections` attribute on the `file` document](file.md#keep_sections)
+for more information.
+
+If no `keep_sections` is specified for the current segment, then the
+`keep_section` of the corresponding [`vram class`](#vram_class) referenced by
+this segment will be inherited automatically if any vram class was specified
+for this segment.
+
+GNU LD documentation for
+[`KEEP`](https://sourceware.org/binutils/docs/ld/Input-Section-Keep.html#index-KEEP).
+
+### Example
+
+```yaml
+segments:
+  - name: boot
+    keep_sections: [.data, .text]
+    files:
+      - { path: src/boot/boot_main.o }
+      - { path: src/boot/util.o, keep_sections: [.text, .rodata] }
+
+  - name: assets1
+    keep_sections: True
+    files:
+      - { path: src/assets/texture.o }
+      - { path: src/assets/dlist.o }
+```
+
+In the above example the `boot` segment says that the `.text` and `.data`
+sections of the files within itself should be wrapped in `KEEP`s, which will be
+true for the `boot_main.o` file. But for `util.o` the `.text` and `.rodata`
+sections will be `KEEP`'d, not the `.data` section, completely overriding the
+attribute set at the segment level.
+
+The `assets1` segment sets every section of every of its files to be `KEEP`'d.
+
+### Valid values
+
+Either a boolean or a list of sections (list of strings).
+
+### Default
+
+The [`keep_sections` attribute of the corresponding `vram class`](vram_classes.md#keep_sections)
+or `False` if this segment references no vram class.

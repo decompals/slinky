@@ -46,6 +46,10 @@ Every attribute listed is optional unless explicitly stated.
   - [`exclude_if_all`](#exclude_if_all)
     - [Example](#example-10)
     - [Valid values](#valid-values-10)
+  - [`keep_sections`](#keep_sections)
+    - [Example](#example-11)
+    - [Valid values](#valid-values-11)
+    - [Default](#default-1)
 
 ## `path`
 
@@ -428,3 +432,80 @@ segments:
 ### Valid values
 
 A non-empty list of two-tuples of strings.
+
+## `keep_sections`
+
+Wraps the sections of this file with `KEEP` attributes.
+
+`KEEP` is only relevant when link time garbage collection is enabled (the
+[`--gc-sections`](https://sourceware.org/binutils/docs/ld/Options.html#index-garbage-collection)
+flag of GNU LD), since wrapping a section with a `KEEP` attribute tells the
+linker that this section should not be garbage collected, even if none of the
+symbols on that section is referenced by anything else that is actually used.
+
+If link time garbage collection is enabled then it is recommended to set the
+entrypoint of this program by setting the slinky top-level attribute `entry`.
+
+The `keep_sections` attribute allow specify if _all_ the input sections (say
+`.text`, `.data`, etc) of a given file entry should be wrapped by `KEEP` or not.
+Alternatively a list of strings may be provided instead to specify which
+specific sections should be wrapped with `KEEP`, allowing for a more fine
+grained customization of this behavior.
+
+If this entry happen to be a [group `kind`](#kind) then all the files listed on
+this group that do not specify their own `keep_sections` will inherit it from
+this entry instead, propagating this setting to all those file entries and
+allowing the user to avoid unnecessary duplication.
+
+If no `keep_sections` is specified for the current file entry, then the entry
+will inherit it from `keep_section` of the [segment](segments.md) or
+[file group](#kind) which contains this entry.
+
+GNU LD documentation for
+[`KEEP`](https://sourceware.org/binutils/docs/ld/Input-Section-Keep.html#index-KEEP).
+
+### Example
+
+```yaml
+segments:
+  - name: main_segment
+    keep_sections: [.text]
+    files:
+      - kind: group
+        dir: src/rsp
+        keep_sections: True
+        files:
+          # Will `KEEP` every section
+          - { path: rspboot.o }
+          - { path: aspMain.o }
+          - { path: f3dex2.o }
+
+      - kind: group
+        dir: src/stufsh
+        keep_sections: [.data]
+        files:
+          - kind: group
+            files:
+              - { path: thingy1.o, keep_sections: [.text] } # Only `KEEP`s `.text`
+              - { path: thingy2.o } # Only `KEEP`s `.data`
+          - kind: group
+            keep_sections: [.rodata, .data]
+            files:
+              - kind: group
+                files:
+                  - { path: thonga3.o } # `KEEP`s `.data` and `.rodata`
+                  - { path: capy4.o } # `KEEP`s `.data` and `.rodata`
+                  - { path: placeholder5.o, keep_sections: [.bss] } # Only `KEEP`s `.bss`
+                  - { path: idk6.o, keep_sections: [.bss] } # Only `KEEP`s `.bss`
+          - { path: another7.o } # Only `KEEP`s `.data`
+```
+
+### Valid values
+
+Either a boolean or a list of sections (list of strings).
+
+### Default
+
+The [`keep_sections` of the `segment` holding this entry](segments.md#keep_sections)
+or the [`keep_sections` of the group `file` entry holding this entry](file.md#keep_sections)
+or `False` if no inheritable property is found.

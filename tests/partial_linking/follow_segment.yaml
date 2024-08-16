@@ -41,8 +41,8 @@ segments:
     section_end_align: 0x20
     files:
       - { path: src/main/main.o }
-      - { path: src/main/dmadata.o }
-      - { path: asm/main/util.o }
+      - { path: src/main/dmadata.o, keep_sections: [.text, .data] }
+      - { path: asm/main/util.o, keep_sections: True }
 
 entry: ENTRYPOINT
 

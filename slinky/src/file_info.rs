@@ -9,7 +9,7 @@ use std::{
 
 use crate::{
     absent_nullable::AbsentNullable, file_kind::FileKind, traits::Serial, EscapedPath,
-    RuntimeSettings, Settings, SlinkyError,
+    KeepSections, RuntimeSettings, Settings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -36,6 +36,10 @@ pub struct FileInfo {
     pub include_if_all: Vec<(String, String)>,
     pub exclude_if_any: Vec<(String, String)>,
     pub exclude_if_all: Vec<(String, String)>,
+
+    // The default value of the following members come from Segment
+    // (or the upper FileInfo if this file is part of a group)
+    pub keep_sections: KeepSections,
 }
 
 impl FileInfo {
@@ -54,6 +58,23 @@ impl FileInfo {
             include_if_all: Vec::new(),
             exclude_if_any: Vec::new(),
             exclude_if_all: Vec::new(),
+            keep_sections: KeepSections::default(),
+        }
+    }
+
+    pub fn pass_down_keep_sections(&mut self, keep_sections: &KeepSections) {
+        if *keep_sections == KeepSections::Absent {
+            return;
+        }
+
+        if self.keep_sections == KeepSections::Absent {
+            self.keep_sections.clone_from(keep_sections);
+
+            if self.kind == FileKind::Group {
+                self.files
+                    .iter_mut()
+                    .for_each(|f| f.pass_down_keep_sections(keep_sections));
+            }
         }
     }
 }
@@ -104,6 +125,9 @@ pub(crate) struct FileInfoSerial {
     pub exclude_if_any: AbsentNullable<Vec<(String, String)>>,
     #[serde(default)]
     pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
+
+    #[serde(default)]
+    pub keep_sections: KeepSections,
 }
 
 impl Serial for FileInfoSerial {
@@ -217,7 +241,7 @@ impl Serial for FileInfoSerial {
                 .get_non_null("section_order", HashMap::default)?,
         };
 
-        let files = match kind {
+        let mut files = match kind {
             FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
                 if self.files.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
@@ -256,6 +280,15 @@ impl Serial for FileInfoSerial {
             .exclude_if_all
             .get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
+        let keep_sections = self.keep_sections;
+
+        // Pass down the current `keep_sections` to any file of this group that may not have defined it
+        if kind == FileKind::Group && keep_sections != KeepSections::Absent {
+            files
+                .iter_mut()
+                .for_each(|f| f.pass_down_keep_sections(&keep_sections));
+        }
+
         Ok(Self::Output {
             path,
             kind,
@@ -270,6 +303,7 @@ impl Serial for FileInfoSerial {
             include_if_all,
             exclude_if_any,
             exclude_if_all,
+            keep_sections,
         })
     }
 }

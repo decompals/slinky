@@ -104,7 +104,10 @@ impl<T> AbsentNullable<T> {
             AbsentNullable::Value(v) => Ok(v),
         }
     }
+}
 
+impl<T> AbsentNullable<T> {
+    #[must_use]
     pub fn has_value(&self) -> bool {
         match self {
             AbsentNullable::Absent | AbsentNullable::Null => false,

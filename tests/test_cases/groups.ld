@@ -359,7 +359,7 @@ SECTIONS
         build/src/libkmc/rand.o(.text*);
         build/src/libkmc/strcpy.o(.text*);
         build/src/libkmc/mmuldi3.o(.text*);
-        build/src/libkmc/ctype.o(.text*);
+        KEEP(build/src/libkmc/ctype.o(.text*));
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
@@ -515,7 +515,7 @@ SECTIONS
         build/src/libkmc/rand.o(.data*);
         build/src/libkmc/strcpy.o(.data*);
         build/src/libkmc/mmuldi3.o(.data*);
-        build/src/libkmc/ctype.o(.data*);
+        KEEP(build/src/libkmc/ctype.o(.data*));
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -671,7 +671,7 @@ SECTIONS
         build/src/libkmc/rand.o(.rodata*);
         build/src/libkmc/strcpy.o(.rodata*);
         build/src/libkmc/mmuldi3.o(.rodata*);
-        build/src/libkmc/ctype.o(.rodata*);
+        KEEP(build/src/libkmc/ctype.o(.rodata*));
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
@@ -827,7 +827,7 @@ SECTIONS
         build/src/libkmc/rand.o(.sdata*);
         build/src/libkmc/strcpy.o(.sdata*);
         build/src/libkmc/mmuldi3.o(.sdata*);
-        build/src/libkmc/ctype.o(.sdata*);
+        KEEP(build/src/libkmc/ctype.o(.sdata*));
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -992,7 +992,7 @@ SECTIONS
         build/src/libkmc/rand.o(.sbss*);
         build/src/libkmc/strcpy.o(.sbss*);
         build/src/libkmc/mmuldi3.o(.sbss*);
-        build/src/libkmc/ctype.o(.sbss*);
+        KEEP(build/src/libkmc/ctype.o(.sbss*));
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
@@ -1148,14 +1148,14 @@ SECTIONS
         build/src/libkmc/rand.o(.scommon*);
         build/src/libkmc/strcpy.o(.scommon*);
         build/src/libkmc/mmuldi3.o(.scommon*);
-        build/src/libkmc/ctype.o(.scommon*);
+        KEEP(build/src/libkmc/ctype.o(.scommon*));
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         . = ALIGN(., 0x20);
         boot_BSS_START = .;
-        build/src/boot/boot_main.o(.bss*);
-        build/src/boot/util.o(.bss*);
+        KEEP(build/src/boot/boot_main.o(.bss*));
+        KEEP(build/src/boot/util.o(.bss*));
         build/src/libultra/io/conteepprobe.o(.bss*);
         build/src/libultra/io/conteeplongwrite.o(.bss*);
         build/src/libultra/io/conteeplongread.o(.bss*);
@@ -1297,14 +1297,14 @@ SECTIONS
         build/src/libultra/gu/libm_vals.o(.bss*);
         build/src/libultra/io/dp.o(.bss*);
         build/src/libultra/io/si.o(.bss*);
-        build/src/libkmc/fmod.o(.bss*);
-        build/src/libkmc/memmove.o(.bss*);
-        build/src/libkmc/memset.o(.bss*);
-        build/src/libkmc/modf.o(.bss*);
-        build/src/libkmc/rand.o(.bss*);
-        build/src/libkmc/strcpy.o(.bss*);
-        build/src/libkmc/mmuldi3.o(.bss*);
-        build/src/libkmc/ctype.o(.bss*);
+        KEEP(build/src/libkmc/fmod.o(.bss*));
+        KEEP(build/src/libkmc/memmove.o(.bss*));
+        KEEP(build/src/libkmc/memset.o(.bss*));
+        KEEP(build/src/libkmc/modf.o(.bss*));
+        KEEP(build/src/libkmc/rand.o(.bss*));
+        KEEP(build/src/libkmc/strcpy.o(.bss*));
+        KEEP(build/src/libkmc/mmuldi3.o(.bss*));
+        KEEP(build/src/libkmc/ctype.o(.bss*));
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
@@ -1460,7 +1460,7 @@ SECTIONS
         build/src/libkmc/rand.o(COMMON*);
         build/src/libkmc/strcpy.o(COMMON*);
         build/src/libkmc/mmuldi3.o(COMMON*);
-        build/src/libkmc/ctype.o(COMMON*);
+        KEEP(build/src/libkmc/ctype.o(COMMON*));
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -1558,10 +1558,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(.text*);
         build/src/libmus/lib_memory.o(.text*);
         build/src/libmus/aud_samples.o(.text*);
-        build/src/rsp/rspboot.o(.text*);
-        build/src/rsp/aspMain.o(.text*);
-        build/src/rsp/f3dex2.o(.text*);
-        build/src/rsp/s2dex.o(.text*);
+        KEEP(build/src/rsp/rspboot.o(.text*));
+        KEEP(build/src/rsp/aspMain.o(.text*));
+        KEEP(build/src/rsp/f3dex2.o(.text*));
+        KEEP(build/src/rsp/s2dex.o(.text*));
+        KEEP(build/src/stufsh/thingy1.o(.text*));
+        build/src/stufsh/thingy2.o(.text*);
+        build/src/stufsh/thonga3.o(.text*);
+        build/src/stufsh/capy4.o(.text*);
+        build/src/stufsh/placeholder5.o(.text*);
+        build/src/stufsh/idk6.o(.text*);
+        build/src/stufsh/another7.o(.text*);
         main_segment_TEXT_END = .;
         main_segment_TEXT_SIZE = ABSOLUTE(main_segment_TEXT_END - main_segment_TEXT_START);
 
@@ -1576,6 +1583,13 @@ SECTIONS
         build/src/libmus/aud_thread.o(.data*);
         build/src/libmus/lib_memory.o(.data*);
         build/src/libmus/aud_samples.o(.data*);
+        build/src/stufsh/thingy1.o(.data*);
+        KEEP(build/src/stufsh/thingy2.o(.data*));
+        KEEP(build/src/stufsh/thonga3.o(.data*));
+        KEEP(build/src/stufsh/capy4.o(.data*));
+        build/src/stufsh/placeholder5.o(.data*);
+        build/src/stufsh/idk6.o(.data*);
+        KEEP(build/src/stufsh/another7.o(.data*));
         main_segment_DATA_END = .;
         main_segment_DATA_SIZE = ABSOLUTE(main_segment_DATA_END - main_segment_DATA_START);
 
@@ -1590,14 +1604,21 @@ SECTIONS
         build/src/libmus/aud_thread.o(.rodata*);
         build/src/libmus/lib_memory.o(.rodata*);
         build/src/libmus/aud_samples.o(.rodata*);
-        build/src/rsp/rspboot.o(.data*);
-        build/src/rsp/rspboot.o(.rodata*);
-        build/src/rsp/aspMain.o(.data*);
-        build/src/rsp/aspMain.o(.rodata*);
-        build/src/rsp/f3dex2.o(.data*);
-        build/src/rsp/f3dex2.o(.rodata*);
-        build/src/rsp/s2dex.o(.data*);
-        build/src/rsp/s2dex.o(.rodata*);
+        KEEP(build/src/rsp/rspboot.o(.data*));
+        KEEP(build/src/rsp/rspboot.o(.rodata*));
+        KEEP(build/src/rsp/aspMain.o(.data*));
+        KEEP(build/src/rsp/aspMain.o(.rodata*));
+        KEEP(build/src/rsp/f3dex2.o(.data*));
+        KEEP(build/src/rsp/f3dex2.o(.rodata*));
+        KEEP(build/src/rsp/s2dex.o(.data*));
+        KEEP(build/src/rsp/s2dex.o(.rodata*));
+        build/src/stufsh/thingy1.o(.rodata*);
+        build/src/stufsh/thingy2.o(.rodata*);
+        KEEP(build/src/stufsh/thonga3.o(.rodata*));
+        KEEP(build/src/stufsh/capy4.o(.rodata*));
+        build/src/stufsh/placeholder5.o(.rodata*);
+        build/src/stufsh/idk6.o(.rodata*);
+        build/src/stufsh/another7.o(.rodata*);
         main_segment_RODATA_END = .;
         main_segment_RODATA_SIZE = ABSOLUTE(main_segment_RODATA_END - main_segment_RODATA_START);
 
@@ -1612,10 +1633,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(.sdata*);
         build/src/libmus/lib_memory.o(.sdata*);
         build/src/libmus/aud_samples.o(.sdata*);
-        build/src/rsp/rspboot.o(.sdata*);
-        build/src/rsp/aspMain.o(.sdata*);
-        build/src/rsp/f3dex2.o(.sdata*);
-        build/src/rsp/s2dex.o(.sdata*);
+        KEEP(build/src/rsp/rspboot.o(.sdata*));
+        KEEP(build/src/rsp/aspMain.o(.sdata*));
+        KEEP(build/src/rsp/f3dex2.o(.sdata*));
+        KEEP(build/src/rsp/s2dex.o(.sdata*));
+        build/src/stufsh/thingy1.o(.sdata*);
+        build/src/stufsh/thingy2.o(.sdata*);
+        build/src/stufsh/thonga3.o(.sdata*);
+        build/src/stufsh/capy4.o(.sdata*);
+        build/src/stufsh/placeholder5.o(.sdata*);
+        build/src/stufsh/idk6.o(.sdata*);
+        build/src/stufsh/another7.o(.sdata*);
         main_segment_SDATA_END = .;
         main_segment_SDATA_SIZE = ABSOLUTE(main_segment_SDATA_END - main_segment_SDATA_START);
     }
@@ -1639,10 +1667,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(.sbss*);
         build/src/libmus/lib_memory.o(.sbss*);
         build/src/libmus/aud_samples.o(.sbss*);
-        build/src/rsp/rspboot.o(.sbss*);
-        build/src/rsp/aspMain.o(.sbss*);
-        build/src/rsp/f3dex2.o(.sbss*);
-        build/src/rsp/s2dex.o(.sbss*);
+        KEEP(build/src/rsp/rspboot.o(.sbss*));
+        KEEP(build/src/rsp/aspMain.o(.sbss*));
+        KEEP(build/src/rsp/f3dex2.o(.sbss*));
+        KEEP(build/src/rsp/s2dex.o(.sbss*));
+        build/src/stufsh/thingy1.o(.sbss*);
+        build/src/stufsh/thingy2.o(.sbss*);
+        build/src/stufsh/thonga3.o(.sbss*);
+        build/src/stufsh/capy4.o(.sbss*);
+        build/src/stufsh/placeholder5.o(.sbss*);
+        build/src/stufsh/idk6.o(.sbss*);
+        build/src/stufsh/another7.o(.sbss*);
         main_segment_SBSS_END = .;
         main_segment_SBSS_SIZE = ABSOLUTE(main_segment_SBSS_END - main_segment_SBSS_START);
 
@@ -1657,10 +1692,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(.scommon*);
         build/src/libmus/lib_memory.o(.scommon*);
         build/src/libmus/aud_samples.o(.scommon*);
-        build/src/rsp/rspboot.o(.scommon*);
-        build/src/rsp/aspMain.o(.scommon*);
-        build/src/rsp/f3dex2.o(.scommon*);
-        build/src/rsp/s2dex.o(.scommon*);
+        KEEP(build/src/rsp/rspboot.o(.scommon*));
+        KEEP(build/src/rsp/aspMain.o(.scommon*));
+        KEEP(build/src/rsp/f3dex2.o(.scommon*));
+        KEEP(build/src/rsp/s2dex.o(.scommon*));
+        build/src/stufsh/thingy1.o(.scommon*);
+        build/src/stufsh/thingy2.o(.scommon*);
+        build/src/stufsh/thonga3.o(.scommon*);
+        build/src/stufsh/capy4.o(.scommon*);
+        build/src/stufsh/placeholder5.o(.scommon*);
+        build/src/stufsh/idk6.o(.scommon*);
+        build/src/stufsh/another7.o(.scommon*);
         main_segment_SCOMMON_END = .;
         main_segment_SCOMMON_SIZE = ABSOLUTE(main_segment_SCOMMON_END - main_segment_SCOMMON_START);
 
@@ -1675,10 +1717,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(.bss*);
         build/src/libmus/lib_memory.o(.bss*);
         build/src/libmus/aud_samples.o(.bss*);
-        build/src/rsp/rspboot.o(.bss*);
-        build/src/rsp/aspMain.o(.bss*);
-        build/src/rsp/f3dex2.o(.bss*);
-        build/src/rsp/s2dex.o(.bss*);
+        KEEP(build/src/rsp/rspboot.o(.bss*));
+        KEEP(build/src/rsp/aspMain.o(.bss*));
+        KEEP(build/src/rsp/f3dex2.o(.bss*));
+        KEEP(build/src/rsp/s2dex.o(.bss*));
+        build/src/stufsh/thingy1.o(.bss*);
+        build/src/stufsh/thingy2.o(.bss*);
+        build/src/stufsh/thonga3.o(.bss*);
+        build/src/stufsh/capy4.o(.bss*);
+        KEEP(build/src/stufsh/placeholder5.o(.bss*));
+        KEEP(build/src/stufsh/idk6.o(.bss*));
+        build/src/stufsh/another7.o(.bss*);
         main_segment_BSS_END = .;
         main_segment_BSS_SIZE = ABSOLUTE(main_segment_BSS_END - main_segment_BSS_START);
 
@@ -1693,10 +1742,17 @@ SECTIONS
         build/src/libmus/aud_thread.o(COMMON*);
         build/src/libmus/lib_memory.o(COMMON*);
         build/src/libmus/aud_samples.o(COMMON*);
-        build/src/rsp/rspboot.o(COMMON*);
-        build/src/rsp/aspMain.o(COMMON*);
-        build/src/rsp/f3dex2.o(COMMON*);
-        build/src/rsp/s2dex.o(COMMON*);
+        KEEP(build/src/rsp/rspboot.o(COMMON*));
+        KEEP(build/src/rsp/aspMain.o(COMMON*));
+        KEEP(build/src/rsp/f3dex2.o(COMMON*));
+        KEEP(build/src/rsp/s2dex.o(COMMON*));
+        build/src/stufsh/thingy1.o(COMMON*);
+        build/src/stufsh/thingy2.o(COMMON*);
+        build/src/stufsh/thonga3.o(COMMON*);
+        build/src/stufsh/capy4.o(COMMON*);
+        build/src/stufsh/placeholder5.o(COMMON*);
+        build/src/stufsh/idk6.o(COMMON*);
+        build/src/stufsh/another7.o(COMMON*);
         main_segmentCOMMON_END = .;
         main_segmentCOMMON_SIZE = ABSOLUTE(main_segmentCOMMON_END - main_segmentCOMMON_START);
     }
@@ -1718,22 +1774,22 @@ SECTIONS
     {
         FILL(0x00000000);
         framebuffer_TEXT_START = .;
-        build/src/buffers/framebuffer.o(.text*);
+        KEEP(build/src/buffers/framebuffer.o(.text*));
         framebuffer_TEXT_END = .;
         framebuffer_TEXT_SIZE = ABSOLUTE(framebuffer_TEXT_END - framebuffer_TEXT_START);
 
         framebuffer_DATA_START = .;
-        build/src/buffers/framebuffer.o(.data*);
+        KEEP(build/src/buffers/framebuffer.o(.data*));
         framebuffer_DATA_END = .;
         framebuffer_DATA_SIZE = ABSOLUTE(framebuffer_DATA_END - framebuffer_DATA_START);
 
         framebuffer_RODATA_START = .;
-        build/src/buffers/framebuffer.o(.rodata*);
+        KEEP(build/src/buffers/framebuffer.o(.rodata*));
         framebuffer_RODATA_END = .;
         framebuffer_RODATA_SIZE = ABSOLUTE(framebuffer_RODATA_END - framebuffer_RODATA_START);
 
         framebuffer_SDATA_START = .;
-        build/src/buffers/framebuffer.o(.sdata*);
+        KEEP(build/src/buffers/framebuffer.o(.sdata*));
         framebuffer_SDATA_END = .;
         framebuffer_SDATA_SIZE = ABSOLUTE(framebuffer_SDATA_END - framebuffer_SDATA_START);
     }
@@ -1747,22 +1803,22 @@ SECTIONS
     {
         FILL(0x00000000);
         framebuffer_SBSS_START = .;
-        build/src/buffers/framebuffer.o(.sbss*);
+        KEEP(build/src/buffers/framebuffer.o(.sbss*));
         framebuffer_SBSS_END = .;
         framebuffer_SBSS_SIZE = ABSOLUTE(framebuffer_SBSS_END - framebuffer_SBSS_START);
 
         framebuffer_SCOMMON_START = .;
-        build/src/buffers/framebuffer.o(.scommon*);
+        KEEP(build/src/buffers/framebuffer.o(.scommon*));
         framebuffer_SCOMMON_END = .;
         framebuffer_SCOMMON_SIZE = ABSOLUTE(framebuffer_SCOMMON_END - framebuffer_SCOMMON_START);
 
         framebuffer_BSS_START = .;
-        build/src/buffers/framebuffer.o(.bss*);
+        KEEP(build/src/buffers/framebuffer.o(.bss*));
         framebuffer_BSS_END = .;
         framebuffer_BSS_SIZE = ABSOLUTE(framebuffer_BSS_END - framebuffer_BSS_START);
 
         framebufferCOMMON_START = .;
-        build/src/buffers/framebuffer.o(COMMON*);
+        KEEP(build/src/buffers/framebuffer.o(COMMON*));
         framebufferCOMMON_END = .;
         framebufferCOMMON_SIZE = ABSOLUTE(framebufferCOMMON_END - framebufferCOMMON_START);
     }

@@ -3,7 +3,7 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
+use crate::{absent_nullable::AbsentNullable, traits::Serial, KeepSections, Settings, SlinkyError};
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct VramClass {
@@ -14,6 +14,8 @@ pub struct VramClass {
     pub fixed_symbol: Option<String>,
 
     pub follows_classes: Vec<String>,
+
+    pub keep_sections: KeepSections,
 
     // Settings from below do not come from the document.
     pub emitted: bool,
@@ -32,6 +34,9 @@ pub(crate) struct VramClassSerial {
 
     #[serde(default)]
     pub follows_classes: AbsentNullable<Vec<String>>,
+
+    #[serde(default)]
+    pub keep_sections: KeepSections,
 }
 
 impl Serial for VramClassSerial {
@@ -82,11 +87,14 @@ impl Serial for VramClassSerial {
             });
         }
 
+        let keep_sections = self.keep_sections;
+
         Ok(Self::Output {
             name,
             fixed_vram,
             fixed_symbol,
             follows_classes,
+            keep_sections,
 
             emitted: false,
         })

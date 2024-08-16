@@ -46,6 +46,10 @@ to how segments have linker symbols for their start, end and size. See
   - [`follow_classes`](#follow_classes)
     - [Example](#example-3)
     - [Valid values](#valid-values-3)
+  - [`keep_sections`](#keep_sections)
+    - [Example](#example-4)
+    - [Valid values](#valid-values-4)
+    - [Default](#default)
 
 ## `name`
 
@@ -220,3 +224,85 @@ TODO: Add images to explain this memory layout visually.
 ### Valid values
 
 A list of strings. The strings must be names of existing vram classes.
+
+## `keep_sections`
+
+Wraps the file entries from the segments that reference this vram class with
+`KEEP` attributes.
+
+`KEEP` is only relevant when link time garbage collection is enabled (the
+[`--gc-sections`](https://sourceware.org/binutils/docs/ld/Options.html#index-garbage-collection)
+flag of GNU LD), since wrapping a section with a `KEEP` attribute tells the
+linker that this section should not be garbage collected, even if none of the
+symbols on that section is referenced by anything else that is actually used.
+
+If link time garbage collection is enabled then it is recommended to set the
+entrypoint of this program by setting the slinky top-level attribute `entry`.
+
+The `keep_sections` attribute allow specify if _all_ the input sections (say
+`.text`, `.data`, etc) of a given file entry should be wrapped by `KEEP` or not.
+Alternatively a list of strings may be provided instead to specify which
+specific sections should be wrapped with `KEEP`, allowing for a more fine
+grained customization of this behavior.
+
+Every segment referencing a vram class will inherit its `keep_sections`
+attribute, propagating this setting to all those segments and allowing the user
+to avoid unnecessary duplication. This setting may be overriden for specific
+segments that still want to reference the given vram class. See specifying a
+[`keep_sections` attribute on the `segments` document](segments.md#keep_sections)
+for more information.
+
+GNU LD documentation for
+[`KEEP`](https://sourceware.org/binutils/docs/ld/Input-Section-Keep.html#index-KEEP).
+
+### Example
+
+```yaml
+vram_classes:
+  - { name: battle_partner, fixed_vram: 0x80238000, keep_sections: [.text] }
+  - { name: segment_05, fixed_vram: 0x05000000, keep_sections: True }
+
+segments:
+  - name: battle_partner_goompa
+    vram_class: battle_partner
+    files:
+      - { path: src/battle_partner/goompa.o }
+  - name: battle_partner_goombario
+    vram_class: battle_partner
+    keep_sections: False
+    files:
+      - { path: src/battle_partner/goombario.o }
+
+  - name: assets1
+    vram_class: segment_05
+    files:
+      - { path: src/assets/texture.o }
+      - { path: src/assets/dlist.o }
+```
+
+The above example defines two vram classes, `battle_partner` which defines
+`keep_sections` to keep only the `.text` section of the files of the segments
+that will reference thise vram class, and `segment_05` which will keep _every_
+section of every segment referencing it.
+
+The `battle_partner_goompa` segment references the `battle_partner` vram class
+and neither the segment itself or the files within the segment specify their own
+`keep_sections`, meaning all the `.text` sections of all the files of this
+segment will be wrapped with `KEEP`s.
+
+On the other hand, the `battle_partner_goombario` segment (which references the
+`battle_partner` vram class too) sets its `keep_sections` attribute to `False`,
+meaning that no file of this segment should be wrapped with `KEEP`s, overriding
+the configuration of the `battle_partner` vram class for this specific segment.
+
+Finally the `assets1` segment will emit `KEEP`s for all the sections of every
+file on the segment since the `segment_05` vram class did set `True` to the
+`keep_sections` attribute.
+
+### Valid values
+
+Either a boolean or a list of sections (list of strings).
+
+### Default
+
+`False`

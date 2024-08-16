@@ -95,6 +95,8 @@ extra shiftability features not present on other tools.
 - Support for defining a shiftable `_gp` for small data support.
 - Support for defining the entrypoint of the executable.
 - Support for defining asserts to ensure the sanity of the build.
+- Support emitting `KEEP`s attributes for file entries, allowing for a more
+  flexible link time garbage collection.
 
 ### Planned features
 
