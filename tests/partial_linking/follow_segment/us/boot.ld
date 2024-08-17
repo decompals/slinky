@@ -6,7 +6,15 @@ SECTIONS
     {
         FILL(0x00000000);
         build/us/src/boot/boot_main.o(.text*);
+        build/us/src/boot/boot_main.o(.init*);
+        build/us/src/boot/boot_main.o(.ctor*);
+        build/us/src/boot/boot_main.o(.fini*);
+        build/us/src/boot/boot_main.o(.dtor*);
         build/us/src/libultra.o(.text*);
+        build/us/src/libultra.o(.init*);
+        build/us/src/libultra.o(.ctor*);
+        build/us/src/libultra.o(.fini*);
+        build/us/src/libultra.o(.dtor*);
     }
 
     .data :
@@ -20,7 +28,9 @@ SECTIONS
     {
         FILL(0x00000000);
         build/us/src/boot/boot_main.o(.rodata*);
+        build/us/src/boot/boot_main.o(.rdata*);
         build/us/src/libultra.o(.rodata*);
+        build/us/src/libultra.o(.rdata*);
     }
 
     .sdata :

@@ -10,12 +10,40 @@ SECTIONS
     {
         FILL(0x00000000);
         build/us_2003_07_10/src/crt0/crt0.o(.text*);
+        build/us_2003_07_10/src/crt0/crt0.o(.init*);
+        build/us_2003_07_10/src/crt0/crt0.o(.ctor*);
+        build/us_2003_07_10/src/crt0/crt0.o(.fini*);
+        build/us_2003_07_10/src/crt0/crt0.o(.dtor*);
         build/us_2003_07_10/src/cod/main.o(.text*);
+        build/us_2003_07_10/src/cod/main.o(.init*);
+        build/us_2003_07_10/src/cod/main.o(.ctor*);
+        build/us_2003_07_10/src/cod/main.o(.fini*);
+        build/us_2003_07_10/src/cod/main.o(.dtor*);
         build/us_2003_07_10/src/cod/graphics.o(.text*);
+        build/us_2003_07_10/src/cod/graphics.o(.init*);
+        build/us_2003_07_10/src/cod/graphics.o(.ctor*);
+        build/us_2003_07_10/src/cod/graphics.o(.fini*);
+        build/us_2003_07_10/src/cod/graphics.o(.dtor*);
         build/us_2003_07_10/src/cod/sounds.o(.text*);
+        build/us_2003_07_10/src/cod/sounds.o(.init*);
+        build/us_2003_07_10/src/cod/sounds.o(.ctor*);
+        build/us_2003_07_10/src/cod/sounds.o(.fini*);
+        build/us_2003_07_10/src/cod/sounds.o(.dtor*);
         build/us_2003_07_10/src/cod/yada.o(.text*);
+        build/us_2003_07_10/src/cod/yada.o(.init*);
+        build/us_2003_07_10/src/cod/yada.o(.ctor*);
+        build/us_2003_07_10/src/cod/yada.o(.fini*);
+        build/us_2003_07_10/src/cod/yada.o(.dtor*);
         build/us_2003_07_10/src/cod/movies.o(.text*);
+        build/us_2003_07_10/src/cod/movies.o(.init*);
+        build/us_2003_07_10/src/cod/movies.o(.ctor*);
+        build/us_2003_07_10/src/cod/movies.o(.fini*);
+        build/us_2003_07_10/src/cod/movies.o(.dtor*);
         build/us_2003_07_10/src/cod/capybara.o(.text*);
+        build/us_2003_07_10/src/cod/capybara.o(.init*);
+        build/us_2003_07_10/src/cod/capybara.o(.ctor*);
+        build/us_2003_07_10/src/cod/capybara.o(.fini*);
+        build/us_2003_07_10/src/cod/capybara.o(.dtor*);
     }
     . = ALIGN(., 0x4);
     cod_TEXT_END = .;
@@ -75,12 +103,19 @@ SECTIONS
     {
         FILL(0x00000000);
         build/us_2003_07_10/src/crt0/crt0.o(.rodata*);
+        build/us_2003_07_10/src/crt0/crt0.o(.rdata*);
         build/us_2003_07_10/src/cod/main.o(.rodata*);
+        build/us_2003_07_10/src/cod/main.o(.rdata*);
         build/us_2003_07_10/src/cod/graphics.o(.rodata*);
+        build/us_2003_07_10/src/cod/graphics.o(.rdata*);
         build/us_2003_07_10/src/cod/sounds.o(.rodata*);
+        build/us_2003_07_10/src/cod/sounds.o(.rdata*);
         build/us_2003_07_10/src/cod/yada.o(.rodata*);
+        build/us_2003_07_10/src/cod/yada.o(.rdata*);
         build/us_2003_07_10/src/cod/movies.o(.rodata*);
+        build/us_2003_07_10/src/cod/movies.o(.rdata*);
         build/us_2003_07_10/src/cod/capybara.o(.rodata*);
+        build/us_2003_07_10/src/cod/capybara.o(.rdata*);
     }
     . = ALIGN(., 0x4);
     cod_RODATA_END = .;

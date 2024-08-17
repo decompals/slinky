@@ -16,6 +16,7 @@ SECTIONS
 
         header_DATA_START = .;
         build/asm/data/rom_header.o(.data*);
+        build/asm/data/rom_header.o(.tdata*);
         header_DATA_END = .;
         header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
@@ -50,6 +51,8 @@ SECTIONS
 
         header_BSS_START = .;
         build/asm/data/rom_header.o(.bss*);
+        build/asm/data/rom_header.o(.tbss*);
+        build/asm/data/rom_header.o(.tcommon*);
         header_BSS_END = .;
         header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
@@ -82,6 +85,7 @@ SECTIONS
 
         ipl3_DATA_START = .;
         build/asm/data/ipl3.o(.data*);
+        build/asm/data/ipl3.o(.tdata*);
         ipl3_DATA_END = .;
         ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
@@ -116,6 +120,8 @@ SECTIONS
 
         ipl3_BSS_START = .;
         build/asm/data/ipl3.o(.bss*);
+        build/asm/data/ipl3.o(.tbss*);
+        build/asm/data/ipl3.o(.tcommon*);
         ipl3_BSS_END = .;
         ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
@@ -153,6 +159,7 @@ SECTIONS
 
         entry_RODATA_START = .;
         build/asm/entry.o(.rodata*);
+        build/asm/entry.o(.rdata*);
         entry_RODATA_END = .;
         entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
@@ -204,7 +211,7 @@ SECTIONS
     boot_VRAM = ADDR(.boot);
     boot_alloc_VRAM = .;
 
-    .boot : AT(boot_ROM_START)
+    .boot : AT(boot_ROM_START) SUBALIGN(32)
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
@@ -216,8 +223,11 @@ SECTIONS
 
         boot_DATA_START = .;
         build/src/boot/boot_main.o(.data*);
+        build/src/boot/boot_main.o(.tdata*);
         build/src/boot/dmadata.o(.data*);
+        build/src/boot/dmadata.o(.tdata*);
         build/asm/util.o(.data*);
+        build/asm/util.o(.tdata*);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
@@ -241,7 +251,7 @@ SECTIONS
 
     boot_noload_VRAM = .;
 
-    .boot.noload (NOLOAD) :
+    .boot.noload (NOLOAD) : SUBALIGN(32)
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
@@ -260,8 +270,14 @@ SECTIONS
 
         boot_BSS_START = .;
         build/src/boot/boot_main.o(.bss*);
+        build/src/boot/boot_main.o(.tbss*);
+        build/src/boot/boot_main.o(.tcommon*);
         build/src/boot/dmadata.o(.bss*);
+        build/src/boot/dmadata.o(.tbss*);
+        build/src/boot/dmadata.o(.tcommon*);
         build/asm/util.o(.bss*);
+        build/asm/util.o(.tbss*);
+        build/asm/util.o(.tcommon*);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 

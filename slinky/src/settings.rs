@@ -48,6 +48,8 @@ pub struct Settings {
     pub wildcard_sections: bool,
 
     pub fill_value: Option<u32>,
+
+    pub sections_subgroups: HashMap<String, Vec<String>>,
 }
 
 fn settings_default_base_path() -> PathBuf {
@@ -171,6 +173,10 @@ const fn settings_default_fill_value() -> Option<u32> {
     Some(0)
 }
 
+fn settings_default_subsections_groups() -> HashMap<String, Vec<String>> {
+    HashMap::new()
+}
+
 impl Default for Settings {
     fn default() -> Self {
         Self {
@@ -210,6 +216,8 @@ impl Default for Settings {
             wildcard_sections: settings_default_wildcard_sections(),
 
             fill_value: settings_default_fill_value(),
+
+            sections_subgroups: settings_default_subsections_groups(),
         }
     }
 }
@@ -333,6 +341,9 @@ pub(crate) struct SettingsSerial {
 
     #[serde(default)]
     pub fill_value: AbsentNullable<u32>,
+
+    #[serde(default)]
+    pub sections_subgroups: AbsentNullable<HashMap<String, Vec<String>>>,
 }
 
 impl SettingsSerial {
@@ -448,6 +459,10 @@ impl SettingsSerial {
             .fill_value
             .get_optional_nullable("fill_value", settings_default_fill_value)?;
 
+        let sections_subgroups = self
+            .sections_subgroups
+            .get_non_null("sections_subgroups", settings_default_subsections_groups)?;
+
         Ok(Settings {
             base_path,
             linker_symbols_style,
@@ -481,6 +496,7 @@ impl SettingsSerial {
             sections_end_alignment,
             wildcard_sections,
             fill_value,
+            sections_subgroups,
         })
     }
 }

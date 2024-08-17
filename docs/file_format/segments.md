@@ -85,9 +85,13 @@ Every attribute listed is optional unless explicitly stated.
     - [Example](#example-18)
     - [Valid values](#valid-values-16)
     - [Default value](#default-value-15)
-  - [`keep_sections`](#keep_sections)
+  - [`sections_subgroups`](#sections_subgroups)
     - [Example](#example-19)
     - [Valid values](#valid-values-17)
+    - [Default value](#default-value-16)
+  - [`keep_sections`](#keep_sections)
+    - [Example](#example-20)
+    - [Valid values](#valid-values-18)
     - [Default](#default)
 
 ## `name`
@@ -607,6 +611,57 @@ Positive integers or `null`.
 ### Default value
 
 The value specified for [settings.md#fill_value](settings.md#fill_value)
+
+## `sections_subgroups`
+
+Allows to specify one or multiple sections that should be emitted alongside
+another section for each file, instead of getting their own "proper" section.
+
+This setting overrides the global option set on the `settings`. See the
+corresponding [`sections_subgroups`](settings.md#sections_subgroups)
+documentation for more information.
+
+### Example
+
+```yaml
+segments:
+  - name: boot
+    sections_subgroups: { .text: [.init, .fini] }
+    files:
+      - { path: boot_main.o }
+      - { path: utils.o }
+```
+
+The above example produces output like the following (stripped a bit for
+demostrative reasons):
+
+```ld
+        /* -- SNIP -- */
+
+        boot_TEXT_START = .;
+        boot_main.o(.text*);
+        boot_main.o(.init*);
+        boot_main.o(.fini*);
+        utils.o(.text*);
+        utils.o(.init*);
+        utils.o(.fini*);
+        boot_TEXT_END = .;
+        boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
+
+        /* -- SNIP -- */
+```
+
+Note how `.init` and `.fini` sections are emitted alongside the `.text` sections
+and they are emitted within the `TEXT` group.
+
+### Valid values
+
+A mapping of sections (strings) as keys and a list of sections (strings) as
+values.
+
+### Default value
+
+Empty mapping.
 
 ## `keep_sections`
 

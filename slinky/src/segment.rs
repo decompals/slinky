@@ -63,6 +63,8 @@ pub struct Segment {
 
     pub fill_value: Option<u32>,
 
+    pub sections_subgroups: HashMap<String, Vec<String>>,
+
     // The default value of the following members come from the corresponding VramClass
     pub keep_sections: KeepSections,
 }
@@ -93,6 +95,7 @@ impl Segment {
             sections_end_alignment: self.sections_end_alignment.clone(),
             wildcard_sections: self.wildcard_sections,
             fill_value: self.fill_value,
+            sections_subgroups: self.sections_subgroups.clone(),
             keep_sections: self.keep_sections.clone(),
         }
     }
@@ -177,6 +180,9 @@ pub(crate) struct SegmentSerial {
 
     #[serde(default)]
     pub fill_value: AbsentNullable<u32>,
+
+    #[serde(default)]
+    pub sections_subgroups: AbsentNullable<HashMap<String, Vec<String>>>,
 
     #[serde(default)]
     pub keep_sections: KeepSections,
@@ -344,6 +350,10 @@ impl Serial for SegmentSerial {
 
         let keep_sections = self.keep_sections;
 
+        let sections_subgroups = self
+            .sections_subgroups
+            .get_non_null("sections_subgroups", || settings.sections_subgroups.clone())?;
+
         // Pass down the current `keep_sections` to files that may not have defined it
         if keep_sections != KeepSections::Absent {
             files
@@ -375,6 +385,7 @@ impl Serial for SegmentSerial {
             sections_end_alignment,
             wildcard_sections,
             fill_value,
+            sections_subgroups,
             keep_sections,
         })
     }

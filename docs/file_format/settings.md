@@ -111,6 +111,10 @@ as well.
     - [Example](#example-25)
     - [Valid values](#valid-values-25)
     - [Default value](#default-value-20)
+  - [`sections_subgroups`](#sections_subgroups)
+    - [Example](#example-26)
+    - [Valid values](#valid-values-26)
+    - [Default value](#default-value-21)
 
 ## `base_path`
 
@@ -826,3 +830,67 @@ Positive integers or `null`.
 ### Default value
 
 `0`
+
+## `sections_subgroups`
+
+Allows to specify one or multiple sections that should be emitted alongside
+another section for each file, instead of getting their own "proper" section.
+
+This setting can be overriden per segment. See the
+[`sections_subgroups`](segments.md#sections_subgroups) on the `segments`
+document.
+
+### Example
+
+```yaml
+settings:
+  sections_subgroups: { .rodata: [.rdata], .text: [.ctor, .dtor] }
+
+segments:
+  - name: boot
+    files:
+      - { path: boot_main.o }
+      - { path: utils.o }
+```
+
+The above example produces output like the following (stripped a bit for
+demostrative reasons):
+
+```ld
+        /* -- SNIP -- */
+
+        boot_TEXT_START = .;
+        boot_main.o(.text*);
+        boot_main.o(.ctor*);
+        boot_main.o(.dtor*);
+        utils.o(.text*);
+        utils.o(.ctor*);
+        utils.o(.dtor*);
+        boot_TEXT_END = .;
+        boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
+
+        /* -- SNIP -- */
+
+        boot_RODATA_START = .;
+        boot_main.o(.rodata*);
+        boot_main.o(.rdata*);
+        utils.o(.rodata*);
+        utils.o(.rdata*);
+        boot_RODATA_END = .;
+        boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
+
+        /* -- SNIP -- */
+```
+
+Note how `.ctor` and `.dtor` sections are emitted alongside the `.text` sections
+and they are emitted within the `TEXT` group. Same for `.rdata` being emitted
+alongside `.rodata` sections.
+
+### Valid values
+
+A mapping of sections (strings) as keys and a list of sections (strings) as
+values.
+
+### Default value
+
+Empty mapping.

@@ -38,6 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     else.
   - Allows to configure for everything referencing a given vram class or as
     fine grained as a single file entry.
+- New `sections_subgroups` attribute for `settings` and `segments`.
+  - Allows to specify one or multiple sections that should be emitted alongside
+    another section for each file, instead of getting their own "proper"
+    section.
 
 ### Changed
 

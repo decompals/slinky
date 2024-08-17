@@ -941,7 +941,6 @@ impl LinkerWriter<'_> {
                 new_base_path.push(file.dir_escaped(self.rs)?);
 
                 for file_of_group in &file.files {
-                    //self.emit_file(file_of_group, segment, section, sections, &new_base_path)?;
                     self.emit_section_for_file(
                         file_of_group,
                         segment,
@@ -988,10 +987,26 @@ impl LinkerWriter<'_> {
 
             for k in sections_to_emit_here {
                 self.emit_file(file, segment, k, sections, base_path)?;
+
+                if !self.reference_partial_objects {
+                    if let Some(other_sections) = segment.sections_subgroups.get(k) {
+                        for other in other_sections {
+                            self.emit_section_for_file(file, segment, other, sections, base_path)?;
+                        }
+                    }
+                }
             }
         } else {
             // No need to mess with section ordering, just emit the file
             self.emit_file(file, segment, section, sections, base_path)?;
+
+            if !self.reference_partial_objects {
+                if let Some(other_sections) = segment.sections_subgroups.get(section) {
+                    for other in other_sections {
+                        self.emit_section_for_file(file, segment, other, sections, base_path)?;
+                    }
+                }
+            }
         }
 
         Ok(())

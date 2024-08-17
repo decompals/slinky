@@ -3,6 +3,8 @@ settings:
 
   symbols_header_path: tests/test_cases/undefined_syms.h
 
+  sections_subgroups: { .data: [.tdata], .bss: [.tbss, .tcommon] }
+
 segments:
   - name: header
     files:
@@ -14,11 +16,12 @@ segments:
 
   - name: entry
     fixed_vram: 0x80000400
+    sections_subgroups: { .rodata: [.rdata] }
     files:
       - { path: asm/entry.o }
 
   - name: boot
-    subalign: null
+    subalign: 0x20
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/boot/dmadata.o }

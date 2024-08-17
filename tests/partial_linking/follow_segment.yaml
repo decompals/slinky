@@ -16,6 +16,7 @@ settings:
 segments:
   - name: boot
     fixed_vram: 0x80000460
+    sections_subgroups: { .rodata: [.rdata], .text: [.init, .ctor, .fini, .dtor] }
     files:
       - { path: src/boot/boot_main.o }
       - { path: src/libultra.o } # yes a single file, deal with it

@@ -17,6 +17,7 @@ SECTIONS
         build/src/code/music.o(.text*);
         build/src/code/music.o(.data*);
         build/src/code/music.o(.rodata*);
+        build/src/code/music.o(.rdata*);
         build/src/code/music.o(.sdata*);
         code_TEXT_END = .;
         code_TEXT_SIZE = ABSOLUTE(code_TEXT_END - code_TEXT_START);
@@ -26,17 +27,21 @@ SECTIONS
         build/src/code/engine.o(.text*);
         build/src/code/background.o(.data*);
         build/src/code/background.o(.rodata*);
+        build/src/code/background.o(.rdata*);
         code_DATA_END = .;
         code_DATA_SIZE = ABSOLUTE(code_DATA_END - code_DATA_START);
 
         code_RODATA_START = .;
         build/src/code/main.o(.rodata*);
+        build/src/code/main.o(.rdata*);
         build/src/code/engine.o(.data*);
         build/src/code/entities.o(.data*);
         build/src/code/entities.o(.rodata*);
+        build/src/code/entities.o(.rdata*);
         build/src/code/sfx.o(.text*);
         build/src/code/sfx.o(.data*);
         build/src/code/sfx.o(.rodata*);
+        build/src/code/sfx.o(.rdata*);
         build/src/code/sfx.o(.sdata*);
         code_RODATA_END = .;
         code_RODATA_SIZE = ABSOLUTE(code_RODATA_END - code_RODATA_START);
@@ -44,6 +49,7 @@ SECTIONS
         code_SDATA_START = .;
         build/src/code/main.o(.sdata*);
         build/src/code/engine.o(.rodata*);
+        build/src/code/engine.o(.rdata*);
         build/src/code/entities.o(.sdata*);
         build/src/code/background.o(.sdata*);
         code_SDATA_END = .;

@@ -30,6 +30,7 @@ segments:
       offset: 0xC000 # sure
       hidden: True
       include_if_any: [[compiler, modern_gcc]]
+    sections_subgroups: { .rodata: [.rdata], .text: [.init, .ctor, .fini, .dtor] }
 
     files:
       - { path: src/crt0/crt0.o }
