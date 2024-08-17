@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-08-17
+
 ### Added
 
 - Add new top-level attribute for the file format: `symbol_assignments`.
@@ -99,8 +101,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[unreleased]: https://github.com/decompals/slinky/compare/0.2.5...main
+[unreleased]: https://github.com/decompals/slinky/compare/0.3.0...main
 
+[0.3.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.5...0.3.0
 [0.2.5]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.2...0.2.3
