@@ -1,6 +1,7 @@
 /* SPDX-FileCopyrightText: © 2024 decompals */
 /* SPDX-License-Identifier: MIT */
 
+use std::borrow::Cow;
 use std::io::Write;
 
 use crate::{
@@ -518,8 +519,15 @@ impl LinkerWriter<'_> {
         let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
 
         if let Some(vram_class_name) = &segment.vram_class {
-            // TODO: return Err if vram class is not present instead of unwrapping
-            let vram_class = self.vram_classes.get_mut(vram_class_name).unwrap();
+            let vram_class = match self.vram_classes.get_mut(vram_class_name) {
+                Some(vc) => vc,
+                None => {
+                    return Err(SlinkyError::MissingVramClassForSegment {
+                        segment: Cow::from(segment.name.clone()),
+                        vram_class: Cow::from(vram_class_name.clone()),
+                    })
+                }
+            };
 
             if !vram_class.emitted {
                 let vram_class_sym = style.vram_class_start(vram_class_name);

@@ -53,4 +53,10 @@ pub enum SlinkyError {
         section: Cow<'static, str>,
         segment: Cow<'static, str>,
     },
+
+    #[error("Segment '{segment}' references undefined vram class '{vram_class}'")]
+    MissingVramClassForSegment {
+        segment: Cow<'static, str>,
+        vram_class: Cow<'static, str>,
+    },
 }
