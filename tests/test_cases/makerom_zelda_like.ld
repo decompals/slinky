@@ -429,18 +429,9 @@ SECTIONS
     _gameplay_dangeon_keepSegmentRomEnd = __romPos;
     _gameplay_dangeon_keepSegmentRomSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRomEnd - _gameplay_dangeon_keepSegmentRomStart);
 
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
+    .symtab 0 : { *(.symtab); }
+    .strtab 0 : { *(.strtab); }
+    .shstrtab 0 : { *(.shstrtab); }
 
     /DISCARD/ :
     {

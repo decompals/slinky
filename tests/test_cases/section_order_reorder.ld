@@ -114,18 +114,9 @@ SECTIONS
     code_ROM_END = __romPos;
     code_ROM_SIZE = ABSOLUTE(code_ROM_END - code_ROM_START);
 
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
+    .symtab 0 : { *(.symtab); }
+    .strtab 0 : { *(.strtab); }
+    .shstrtab 0 : { *(.shstrtab); }
 
     /DISCARD/ :
     {

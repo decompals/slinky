@@ -435,15 +435,8 @@ impl LinkerWriter<'_> {
                 self.buffer.write_empty_line();
             }
 
-            let address = " 0";
-
             for sect in &self.d.settings.sections_allowlist {
-                self.buffer.writeln(&format!("{}{} :", sect, address));
-                self.buffer.begin_block();
-
-                self.buffer.writeln(&format!("*({});", sect));
-
-                self.buffer.end_block();
+                self.buffer.write_single_entry_section(sect, "0");
             }
 
             need_ln = true;
@@ -454,15 +447,8 @@ impl LinkerWriter<'_> {
                 self.buffer.write_empty_line();
             }
 
-            let address = " 0";
-
             for sect in &self.d.settings.sections_allowlist_extra {
-                self.buffer.writeln(&format!("{}{} :", sect, address));
-                self.buffer.begin_block();
-
-                self.buffer.writeln(&format!("*({});", sect));
-
-                self.buffer.end_block();
+                self.buffer.write_single_entry_section(sect, "0");
             }
 
             need_ln = true;

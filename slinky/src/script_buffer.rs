@@ -46,6 +46,10 @@ impl ScriptBuffer {
         self.writeln("}");
     }
 
+    pub fn write_single_entry_section(&mut self, section: &str, address: &str) {
+        self.writeln(&format!("{} {} : {{ *({}); }}", section, address, section));
+    }
+
     pub fn write_linker_symbol(&mut self, symbol: &str, value: &str) {
         // TODO: check `symbol` is a valid C identifier
 

@@ -1832,18 +1832,9 @@ SECTIONS
     framebuffer_ROM_END = __romPos;
     framebuffer_ROM_SIZE = ABSOLUTE(framebuffer_ROM_END - framebuffer_ROM_START);
 
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
+    .symtab 0 : { *(.symtab); }
+    .strtab 0 : { *(.strtab); }
+    .shstrtab 0 : { *(.shstrtab); }
 
     /DISCARD/ :
     {

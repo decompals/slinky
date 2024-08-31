@@ -48,18 +48,9 @@ SECTIONS
         build/asm/data/rom_header.o(COMMON*);
     }
 
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
+    .symtab 0 : { *(.symtab); }
+    .strtab 0 : { *(.strtab); }
+    .shstrtab 0 : { *(.shstrtab); }
 
     /DISCARD/ :
     {

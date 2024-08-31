@@ -1058,18 +1058,9 @@ SECTIONS
     segment_05_VRAM_CLASS_SIZE = segment_05_VRAM_CLASS_END - segment_05_VRAM_CLASS_START;
     segment_06_VRAM_CLASS_SIZE = segment_06_VRAM_CLASS_END - segment_06_VRAM_CLASS_START;
 
-    .symtab 0 :
-    {
-        *(.symtab);
-    }
-    .strtab 0 :
-    {
-        *(.strtab);
-    }
-    .shstrtab 0 :
-    {
-        *(.shstrtab);
-    }
+    .symtab 0 : { *(.symtab); }
+    .strtab 0 : { *(.strtab); }
+    .shstrtab 0 : { *(.shstrtab); }
 
     /DISCARD/ :
     {
