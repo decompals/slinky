@@ -377,10 +377,12 @@ This setting works the same as same as
 a default list of sections to be preserved that won't be overrided if the user
 wants to specify their own allow list by setting `sections_allowlist`.
 
-These defaults exists because some linkers (like clang's `lld`) complain if the
-`.shstrtab` is not listed explicitly if a wildcard was used on the `/DISCARD/`
-section (see [`discard_wildcard_section`](#discard_wildcard_section)), so to
-avoid issues when wanting to use other linkers we emit the section by default.
+These defaults exists because some linkers (like clang's `lld`) complain if some
+sections like `.shstrtab` are not listed explicitly and a wildcard was used on
+the `/DISCARD/` section (see
+[`discard_wildcard_section`](#discard_wildcard_section)), seemingly producing
+`lld` to discard those sections. So to avoid issues when wanting to use other
+linkers we emit the section by default.
 
 ### Example
 
@@ -398,7 +400,7 @@ List of strings.
 
 ### Default value
 
-`[.shstrtab]`
+`[.symtab, .strtab, .shstrtab]`
 
 ## `sections_denylist`
 

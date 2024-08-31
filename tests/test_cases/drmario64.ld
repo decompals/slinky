@@ -8077,6 +8077,14 @@ SECTIONS
         *(.comment);
     }
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);

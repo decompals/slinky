@@ -394,6 +394,14 @@ SECTIONS
     player_model_ROM_END = __romPos;
     player_model_ROM_SIZE = ABSOLUTE(player_model_ROM_END - player_model_ROM_START);
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);
@@ -407,6 +415,7 @@ SECTIONS
         *(.note.gnu.build-id);
         *(.interp);
         *(.eh_frame);
+        *(.got);
         *(*);
     }
 }

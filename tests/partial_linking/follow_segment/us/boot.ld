@@ -68,6 +68,14 @@ SECTIONS
         build/us/src/libultra.o(COMMON*);
     }
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);
@@ -81,6 +89,7 @@ SECTIONS
         *(.note.gnu.build-id);
         *(.interp);
         *(.eh_frame);
+        *(.got);
         *(*);
     }
 }

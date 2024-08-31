@@ -95,6 +95,14 @@ SECTIONS
     boot_ROM_END = __romPos;
     boot_ROM_SIZE = ABSOLUTE(boot_ROM_END - boot_ROM_START);
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);
@@ -108,6 +116,7 @@ SECTIONS
         *(.note.gnu.build-id);
         *(.interp);
         *(.eh_frame);
+        *(.got);
         *(*);
     }
 }

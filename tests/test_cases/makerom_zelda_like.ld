@@ -429,6 +429,14 @@ SECTIONS
     _gameplay_dangeon_keepSegmentRomEnd = __romPos;
     _gameplay_dangeon_keepSegmentRomSize = ABSOLUTE(_gameplay_dangeon_keepSegmentRomEnd - _gameplay_dangeon_keepSegmentRomStart);
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);
@@ -442,6 +450,7 @@ SECTIONS
         *(.note.gnu.build-id);
         *(.interp);
         *(.eh_frame);
+        *(.got);
         *(*);
     }
 }

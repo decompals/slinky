@@ -900,6 +900,14 @@ SECTIONS
     stage_3_ROM_END = __romPos;
     stage_3_ROM_SIZE = ABSOLUTE(stage_3_ROM_END - stage_3_ROM_START);
 
+    .symtab 0 :
+    {
+        *(.symtab);
+    }
+    .strtab 0 :
+    {
+        *(.strtab);
+    }
     .shstrtab 0 :
     {
         *(.shstrtab);
@@ -913,6 +921,7 @@ SECTIONS
         *(.note.gnu.build-id);
         *(.interp);
         *(.eh_frame);
+        *(.got);
         *(*);
     }
 }

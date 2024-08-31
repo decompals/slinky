@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Include `.symtab` and `.strtab` in default value of `sections_allowlist_extra`
+  from Settings.
+  - `lld` can segfault in certain conditions if those sections are not listed
+    explicitly on the linker script.
+- Add `.got` to the default list of discarded sections.
+
 ## [0.3.0] - 2024-08-17
 
 ### Added

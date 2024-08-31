@@ -424,7 +424,7 @@ dependencies = [
 
 [[package]]
 name = "slinky"
-version = "0.3.0"
+version = "0.3.1-dev0"
 dependencies = [
  "indexmap",
  "rstest",
@@ -435,7 +435,7 @@ dependencies = [
 
 [[package]]
 name = "slinky-cli"
-version = "0.3.0"
+version = "0.3.1-dev0"
 dependencies = [
  "clap",
  "regex",

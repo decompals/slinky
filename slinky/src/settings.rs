@@ -89,7 +89,7 @@ const fn settings_default_sections_allowlist() -> Vec<String> {
 }
 
 fn settings_default_sections_allowlist_extra() -> Vec<String> {
-    vec![".shstrtab".into()]
+    vec![".symtab".into(), ".strtab".into(), ".shstrtab".into()]
 }
 
 fn settings_default_sections_denylist() -> Vec<String> {
@@ -100,6 +100,7 @@ fn settings_default_sections_denylist() -> Vec<String> {
         ".note.gnu.build-id".into(),
         ".interp".into(),
         ".eh_frame".into(),
+        ".got".into(),
     ]
 }
 
