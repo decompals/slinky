@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2025 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use std::{borrow::Cow, collections::HashMap, path::PathBuf};
@@ -50,6 +50,7 @@ pub struct Segment {
     // The default value of the following members come from Settings
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
+    pub emit_noload_segment: bool,
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
@@ -86,6 +87,7 @@ impl Segment {
             exclude_if_all: self.exclude_if_all.clone(),
             alloc_sections: self.alloc_sections.clone(),
             noload_sections: self.noload_sections.clone(),
+            emit_noload_segment: self.emit_noload_segment,
             subalign: self.subalign,
             segment_start_align: self.segment_start_align,
             segment_end_align: self.segment_end_align,
@@ -159,6 +161,8 @@ pub(crate) struct SegmentSerial {
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub noload_sections: AbsentNullable<Vec<String>>,
+    #[serde(default)]
+    pub emit_noload_segment: AbsentNullable<bool>,
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
@@ -297,6 +301,9 @@ impl Serial for SegmentSerial {
         let noload_sections = self
             .noload_sections
             .get_non_null("noload_sections", || settings.noload_sections.clone())?;
+        let emit_noload_segment = self
+            .emit_noload_segment
+            .get_non_null("emit_noload_segment", || settings.emit_noload_segment)?;
 
         if let Some(gp) = &gp_info {
             if !alloc_sections.contains(&gp.section) && !noload_sections.contains(&gp.section) {
@@ -376,6 +383,7 @@ impl Serial for SegmentSerial {
             exclude_if_all,
             alloc_sections,
             noload_sections,
+            emit_noload_segment,
             subalign,
             segment_start_align,
             segment_end_align,

@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2025 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use std::borrow::Cow;
@@ -559,7 +559,9 @@ impl LinkerWriter<'_> {
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        self.write_segment(segment, &segment.noload_sections, true)?;
+        if segment.emit_noload_segment {
+            self.write_segment(segment, &segment.noload_sections, true)?;
+        }
 
         self.buffer.write_empty_line();
 
@@ -617,7 +619,9 @@ impl LinkerWriter<'_> {
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        self.write_single_segment(segment, &segment.noload_sections, true)?;
+        if segment.emit_noload_segment {
+            self.write_single_segment(segment, &segment.noload_sections, true)?;
+        }
 
         self.buffer.write_empty_line();
 

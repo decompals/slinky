@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add option to control emission of `noload` segment.
+
 ### Changed
 
 - Include `.symtab` and `.strtab` in default value of `sections_allowlist_extra`

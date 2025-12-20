@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2025 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use serde::Deserialize;
@@ -36,6 +36,7 @@ pub struct Settings {
     // Options passed down to each segment
     pub alloc_sections: Vec<String>,
     pub noload_sections: Vec<String>,
+    pub emit_noload_segment: bool,
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
@@ -138,6 +139,10 @@ fn settings_default_noload_sections() -> Vec<String> {
     ]
 }
 
+const fn settings_default_emit_noload_segment() -> bool {
+    true
+}
+
 const fn settings_default_subalign() -> Option<u32> {
     None
 }
@@ -205,6 +210,7 @@ impl Default for Settings {
 
             alloc_sections: settings_default_alloc_sections(),
             noload_sections: settings_default_noload_sections(),
+            emit_noload_segment: settings_default_emit_noload_segment(),
 
             subalign: settings_default_subalign(),
             segment_start_align: settings_default_segment_start_align(),
@@ -321,6 +327,8 @@ pub(crate) struct SettingsSerial {
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub noload_sections: AbsentNullable<Vec<String>>,
+    #[serde(default)]
+    pub emit_noload_segment: AbsentNullable<bool>,
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
@@ -421,6 +429,9 @@ impl SettingsSerial {
         let noload_sections = self
             .noload_sections
             .get_non_null("noload_sections", settings_default_noload_sections)?;
+        let emit_noload_segment = self
+            .emit_noload_segment
+            .get_non_null("emit_noload_segment", settings_default_emit_noload_segment)?;
 
         let subalign = self
             .subalign
@@ -488,6 +499,8 @@ impl SettingsSerial {
 
             alloc_sections,
             noload_sections,
+            emit_noload_segment,
+
             subalign,
             segment_start_align,
             segment_end_align,
