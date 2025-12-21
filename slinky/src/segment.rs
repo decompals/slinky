@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use std::{borrow::Cow, collections::HashMap, path::PathBuf};

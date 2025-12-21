@@ -100,8 +100,8 @@ extra shiftability features not present on other tools.
 
 ### Planned features
 
-All the planned features are added to the issue tracker. A full list can be seen
-[here](https://github.com/decompals/slinky/issues?q=is%3Aopen+is%3Aissue+label%3A%22planned+feature%22)
+All the planned features are added to the issue tracker.
+[Click here is the full list](https://github.com/decompals/slinky/issues?q=is%3Aopen+is%3Aissue+label%3A%22planned+feature%22).
 
 ## Installing
 

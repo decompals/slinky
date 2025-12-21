@@ -1,11 +1,11 @@
-# SPDX-FileCopyrightText: © 2024 decompals
+# SPDX-FileCopyrightText: © 2024-2026 decompals
 # SPDX-License-Identifier: MIT
 
 [package]
 name = "slinky-cli"
 version = "0.3.1-dev0"
 edition = "2021"
-rust-version = "1.74.1"
+rust-version = "1.74.0"
 authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
 license = "MIT"
 description = "Linker script generator for decompilation and modding projects"

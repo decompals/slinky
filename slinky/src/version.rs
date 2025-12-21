@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
 pub static VERSION_MAJOR: u32 = 0;

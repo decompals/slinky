@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout reposistory
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout reposistory
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout reposistory
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup MSRV checker
         uses: taiki-e/install-action@cargo-hack
@@ -95,7 +95,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -129,7 +129,7 @@ jobs:
           cd package && tar -czf ../slinky-cli-${{ matrix.builder.target }}.tar.gz *
 
       - name: Upload .tar.gz artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@main
         with:
           name: slinky-cli-${{ matrix.builder.target }}
           path: |
@@ -149,7 +149,7 @@ jobs:
 
     steps:
       - name: Checkout reposistory
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Setup Rust toolchain
         uses: actions-rs/toolchain@v1

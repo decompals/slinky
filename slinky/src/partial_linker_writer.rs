@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use crate::{
@@ -64,7 +64,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
             let mut p = partial_build_segments_folder.clone();
 
-            p.push(&format!("{}.o", segment.name));
+            p.push(format!("{}.o", segment.name));
 
             self.main_writer
                 .add_segment(&segment.clone_with_new_files(vec![FileInfo::new_object(p)]))?;
@@ -186,12 +186,12 @@ impl ScriptGenerator for PartialLinkerWriter<'_> {}
 // Getters / Setters
 impl PartialLinkerWriter<'_> {
     #[must_use]
-    pub fn get_main_writer(&self) -> &LinkerWriter {
+    pub fn get_main_writer(&self) -> &LinkerWriter<'_> {
         &self.main_writer
     }
 
     #[must_use]
-    pub fn get_partial_writers(&self) -> &Vec<(LinkerWriter, String)> {
+    pub fn get_partial_writers(&self) -> &Vec<(LinkerWriter<'_>, String)> {
         &self.partial_writers
     }
 }
