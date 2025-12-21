@@ -193,7 +193,7 @@ fn test_partial_linking_script_generation(
                 .expect("Not able to escape path")
                 .unwrap(),
         );
-        p.push(&format!("{}.ld", name));
+        p.push(format!("{}.ld", name));
 
         let expected_partial_ld_contents =
             fs::read_to_string(p).expect("unable to read expected ld file");
@@ -239,7 +239,7 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
                 .expect("Unable to escape path")
                 .unwrap(),
         );
-        p.push(&format!("{}.d", name));
+        p.push(format!("{}.d", name));
 
         let expected_partial_ld_contents =
             fs::read_to_string(p).expect("unable to read expected d file");
