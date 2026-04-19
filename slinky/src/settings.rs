@@ -34,9 +34,8 @@ pub struct Settings {
     pub partial_build_segments_folder: Option<PathBuf>,
 
     // Options passed down to each segment
-    pub alloc_sections: Vec<String>,
-    pub noload_sections: Vec<String>,
-    pub emit_noload_segment: bool,
+    pub alloc_sections: Option<Vec<String>>,
+    pub noload_sections: Option<Vec<String>>,
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
@@ -121,26 +120,22 @@ const fn settings_default_partial_build_segments_folder() -> Option<PathBuf> {
     None
 }
 
-fn settings_default_alloc_sections() -> Vec<String> {
-    vec![
+fn settings_default_alloc_sections() -> Option<Vec<String>> {
+    Some(vec![
         ".text".into(),
         ".data".into(),
         ".rodata".into(),
         ".sdata".into(),
-    ]
+    ])
 }
 
-fn settings_default_noload_sections() -> Vec<String> {
-    vec![
+fn settings_default_noload_sections() -> Option<Vec<String>> {
+    Some(vec![
         ".sbss".into(),
         ".scommon".into(),
         ".bss".into(),
         "COMMON".into(),
-    ]
-}
-
-const fn settings_default_emit_noload_segment() -> bool {
-    true
+    ])
 }
 
 const fn settings_default_subalign() -> Option<u32> {
@@ -210,7 +205,6 @@ impl Default for Settings {
 
             alloc_sections: settings_default_alloc_sections(),
             noload_sections: settings_default_noload_sections(),
-            emit_noload_segment: settings_default_emit_noload_segment(),
 
             subalign: settings_default_subalign(),
             segment_start_align: settings_default_segment_start_align(),
@@ -327,8 +321,6 @@ pub(crate) struct SettingsSerial {
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub noload_sections: AbsentNullable<Vec<String>>,
-    #[serde(default)]
-    pub emit_noload_segment: AbsentNullable<bool>,
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
@@ -425,13 +417,10 @@ impl SettingsSerial {
 
         let alloc_sections = self
             .alloc_sections
-            .get_non_null("alloc_sections", settings_default_alloc_sections)?;
+            .get_optional_nullable("alloc_sections", settings_default_alloc_sections)?;
         let noload_sections = self
             .noload_sections
-            .get_non_null("noload_sections", settings_default_noload_sections)?;
-        let emit_noload_segment = self
-            .emit_noload_segment
-            .get_non_null("emit_noload_segment", settings_default_emit_noload_segment)?;
+            .get_optional_nullable("noload_sections", settings_default_noload_sections)?;
 
         let subalign = self
             .subalign
@@ -499,7 +488,6 @@ impl SettingsSerial {
 
             alloc_sections,
             noload_sections,
-            emit_noload_segment,
 
             subalign,
             segment_start_align,

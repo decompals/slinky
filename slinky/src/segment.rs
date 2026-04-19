@@ -10,7 +10,7 @@ use crate::{
     file_info::{FileInfo, FileInfoSerial},
     gp_info::{GpInfo, GpInfoSerial},
     traits::Serial,
-    EscapedPath, KeepSections, RuntimeSettings, Settings, SlinkyError,
+    utils, EscapedPath, KeepSections, RuntimeSettings, Settings, SlinkyError,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -48,9 +48,8 @@ pub struct Segment {
     pub exclude_if_all: Vec<(String, String)>,
 
     // The default value of the following members come from Settings
-    pub alloc_sections: Vec<String>,
-    pub noload_sections: Vec<String>,
-    pub emit_noload_segment: bool,
+    pub alloc_sections: Option<Vec<String>>,
+    pub noload_sections: Option<Vec<String>>,
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
@@ -87,7 +86,6 @@ impl Segment {
             exclude_if_all: self.exclude_if_all.clone(),
             alloc_sections: self.alloc_sections.clone(),
             noload_sections: self.noload_sections.clone(),
-            emit_noload_segment: self.emit_noload_segment,
             subalign: self.subalign,
             segment_start_align: self.segment_start_align,
             segment_end_align: self.segment_end_align,
@@ -161,8 +159,6 @@ pub(crate) struct SegmentSerial {
     pub alloc_sections: AbsentNullable<Vec<String>>,
     #[serde(default)]
     pub noload_sections: AbsentNullable<Vec<String>>,
-    #[serde(default)]
-    pub emit_noload_segment: AbsentNullable<bool>,
 
     #[serde(default)]
     pub subalign: AbsentNullable<u32>,
@@ -297,16 +293,15 @@ impl Serial for SegmentSerial {
 
         let alloc_sections = self
             .alloc_sections
-            .get_non_null("alloc_sections", || settings.alloc_sections.clone())?;
+            .get_optional_nullable("alloc_sections", || settings.alloc_sections.clone())?;
         let noload_sections = self
             .noload_sections
-            .get_non_null("noload_sections", || settings.noload_sections.clone())?;
-        let emit_noload_segment = self
-            .emit_noload_segment
-            .get_non_null("emit_noload_segment", || settings.emit_noload_segment)?;
+            .get_optional_nullable("noload_sections", || settings.noload_sections.clone())?;
 
         if let Some(gp) = &gp_info {
-            if !alloc_sections.contains(&gp.section) && !noload_sections.contains(&gp.section) {
+            if utils::is_none_or(alloc_sections.as_ref(), |s| !s.contains(&gp.section))
+                && utils::is_none_or(noload_sections.as_ref(), |s| !s.contains(&gp.section))
+            {
                 return Err(SlinkyError::MissingSectionForSegment {
                     field_name: Cow::from("gp_info"),
                     section: Cow::from(gp_info.unwrap().section),
@@ -383,7 +378,6 @@ impl Serial for SegmentSerial {
             exclude_if_all,
             alloc_sections,
             noload_sections,
-            emit_noload_segment,
             subalign,
             segment_start_align,
             segment_end_align,

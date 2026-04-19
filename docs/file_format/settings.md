@@ -536,6 +536,10 @@ List of allocatable sections (the ones that take ROM space).
 The sections from this list will be emitted for each file in the specified
 order.
 
+A `null` value can be used to signal that no allocatable sections should be
+emitted. Setting to `null` will avoid emitting linker symbols for allocatable
+sections too.
+
 This option can be overriden per segment, see
 [segments.md#alloc_sections](segments.md#alloc_sections) for more info.
 
@@ -548,7 +552,7 @@ settings:
 
 ### Valid values
 
-List of strings.
+List of strings or `null`.
 
 ### Default value
 
@@ -560,6 +564,9 @@ List of noload sections (the ones that don't take ROM space).
 
 The sections from this list will be emitted for each file in the specified
 order.
+
+A `null` value can be used to signal that no noload sections should be emitted.
+Setting to `null` will avoid emitting linker symbols for noload sections too.
 
 This option can be overriden per segment, see
 [segments.md#noload_sections](segments.md#noload_sections) for more info.
@@ -573,7 +580,7 @@ settings:
 
 ### Valid values
 
-List of strings.
+List of strings or `null`.
 
 ### Default value
 

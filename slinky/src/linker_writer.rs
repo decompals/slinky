@@ -554,13 +554,15 @@ impl LinkerWriter<'_> {
             .write_linker_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
         // Emit alloc segment
-        self.write_segment(segment, &segment.alloc_sections, false)?;
+        if let Some(alloc_sections) = &segment.alloc_sections {
+            self.write_segment(segment, alloc_sections, false)?;
+        }
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        if segment.emit_noload_segment {
-            self.write_segment(segment, &segment.noload_sections, true)?;
+        if let Some(noload_sections) = &segment.noload_sections {
+            self.write_segment(segment, noload_sections, true)?;
         }
 
         self.buffer.write_empty_line();
@@ -614,13 +616,15 @@ impl LinkerWriter<'_> {
         }
 
         // Emit alloc segment
-        self.write_single_segment(segment, &segment.alloc_sections, false)?;
+        if let Some(alloc_sections) = &segment.alloc_sections {
+            self.write_single_segment(segment, alloc_sections, false)?;
+        }
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
-        if segment.emit_noload_segment {
-            self.write_single_segment(segment, &segment.noload_sections, true)?;
+        if let Some(noload_sections) = &segment.noload_sections {
+            self.write_single_segment(segment, noload_sections, true)?;
         }
 
         self.buffer.write_empty_line();

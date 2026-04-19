@@ -10,11 +10,9 @@ use serde::Deserialize;
 #[derive(Debug, Clone, PartialEq, Eq, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(untagged)]
-#[derive(Default)]
 pub enum KeepSections {
     #[default]
     #[serde(skip)]
-    #[default]
     Absent,
     All(bool),
     WhichOnes(HashSet<String>),

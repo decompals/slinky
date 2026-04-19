@@ -37,3 +37,13 @@ pub(crate) fn create_file_and_parents(path: &Path) -> Result<File, SlinkyError> 
         }),
     }
 }
+
+pub(crate) fn is_none_or<T, F>(val: Option<&T>, f: F) -> bool
+where
+    F: FnOnce(&T) -> bool,
+{
+    match val {
+        None => true,
+        Some(x) => f(x),
+    }
+}
