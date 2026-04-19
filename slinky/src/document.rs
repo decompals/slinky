@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: © 2024 decompals */
+/* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
 use std::{fs, path::Path};
@@ -13,7 +13,7 @@ use crate::{
     VramClass,
 };
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Document {
     pub settings: Settings,
 
@@ -51,7 +51,7 @@ impl Document {
     }
 }
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct DocumentSerial {
     #[serde(default)]
