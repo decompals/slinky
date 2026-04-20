@@ -295,6 +295,10 @@ segment.
 The sections from this list will be emitted for each file in the specified
 order.
 
+A `null` value can be used to signal that no allocatable sections should be
+emitted for this segment. Setting to `null` will avoid emitting linker symbols
+for allocatable sections too.
+
 This allows to override the global settings in case a specific segment has
 an order different than the global one. See
 [settings.md#alloc_sections](settings.md#alloc_sections) for more info.
@@ -308,7 +312,7 @@ settings:
 
 ### Valid values
 
-List of strings.
+List of strings or `null`.
 
 ### Default value
 
@@ -321,6 +325,9 @@ segment.
 
 The sections from this list will be emitted for each file in the specified
 order.
+
+A `null` value can be used to signal that no noload sections should be emitted.
+Setting to `null` will avoid emitting linker symbols for noload sections too.
 
 This allows to override the global settings in case a specific segment has
 an order different than the global one. See
@@ -335,7 +342,7 @@ settings:
 
 ### Valid values
 
-List of strings.
+List of strings or `null`.
 
 ### Default value
 

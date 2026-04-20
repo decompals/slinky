@@ -34,8 +34,8 @@ pub struct Settings {
     pub partial_build_segments_folder: Option<PathBuf>,
 
     // Options passed down to each segment
-    pub alloc_sections: Vec<String>,
-    pub noload_sections: Vec<String>,
+    pub alloc_sections: Option<Vec<String>>,
+    pub noload_sections: Option<Vec<String>>,
 
     pub subalign: Option<u32>,
     pub segment_start_align: Option<u32>,
@@ -120,22 +120,22 @@ const fn settings_default_partial_build_segments_folder() -> Option<PathBuf> {
     None
 }
 
-fn settings_default_alloc_sections() -> Vec<String> {
-    vec![
+fn settings_default_alloc_sections() -> Option<Vec<String>> {
+    Some(vec![
         ".text".into(),
         ".data".into(),
         ".rodata".into(),
         ".sdata".into(),
-    ]
+    ])
 }
 
-fn settings_default_noload_sections() -> Vec<String> {
-    vec![
+fn settings_default_noload_sections() -> Option<Vec<String>> {
+    Some(vec![
         ".sbss".into(),
         ".scommon".into(),
         ".bss".into(),
         "COMMON".into(),
-    ]
+    ])
 }
 
 const fn settings_default_subalign() -> Option<u32> {
@@ -417,10 +417,10 @@ impl SettingsSerial {
 
         let alloc_sections = self
             .alloc_sections
-            .get_non_null("alloc_sections", settings_default_alloc_sections)?;
+            .get_optional_nullable("alloc_sections", settings_default_alloc_sections)?;
         let noload_sections = self
             .noload_sections
-            .get_non_null("noload_sections", settings_default_noload_sections)?;
+            .get_optional_nullable("noload_sections", settings_default_noload_sections)?;
 
         let subalign = self
             .subalign
@@ -488,6 +488,7 @@ impl SettingsSerial {
 
             alloc_sections,
             noload_sections,
+
             subalign,
             segment_start_align,
             segment_end_align,

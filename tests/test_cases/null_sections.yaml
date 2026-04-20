@@ -1,0 +1,25 @@
+settings:
+  base_path: build
+  symbols_header_path: tests/test_cases/null_sections.h
+
+segments:
+
+  - name: boot
+    files:
+      - { path: src/boot_main.o }
+      - { path: src/dmadata.o }
+      - { path: asm/util.o }
+
+  - name: buffers
+    alloc_sections: null
+    files:
+      - { path: src/arenabuffer.o }
+      - { path: src/scratchpad.o }
+      - { path: src/framebuffer.o }
+
+  - name: assets
+    noload_sections: null
+    files:
+      - { path: src/font.o }
+      - { path: src/music.o }
+      - { path: src/videos.o }

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add option to control emission of `noload` segment.
+
 ### Changed
 
 - Include `.symtab` and `.strtab` in default value of `sections_allowlist_extra`
@@ -15,6 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     explicitly on the linker script.
 - Add `.got` to the default list of discarded sections.
 - Simplify the formatting used for extra sections.
+- `alloc_sections` and `noload_sections` sections now accept `null` values.
+  - This allows to avoid emitting those sections completely for a given segment
+    or globally.
+  - The main difference between using `null` and an empty list is `null` will
+    not produce linker symbol nor the section itself in the generated linker
+    script, while the empty list would generate the starting and ending linker
+    symbols and the section with no files.
 
 ## [0.3.0] - 2024-08-17
 
