@@ -177,6 +177,16 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
             }
         }
 
+        if self.d.settings.paths_list_path.is_some() {
+            for (partial, name) in &self.partial_writers {
+                let mut paths_list_path = partial_scripts_folder.clone();
+
+                paths_list_path.push(EscapedPath::from(format!("{}.list", name)));
+
+                partial.export_paths_list_to_file(&paths_list_path)?;
+            }
+        }
+
         Ok(())
     }
 }

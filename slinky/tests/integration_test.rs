@@ -132,6 +132,23 @@ fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) -> Result<(
     Ok(())
 }
 
+fn check_paths_list_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyError> {
+    let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
+    let rs = create_runtime_settings();
+
+    let mut writer = slinky::LinkerWriter::new(&document, &rs);
+    writer.add_whole_document(&document)?;
+
+    let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
+
+    compare_multiline_strings(
+        &expected_d_contents,
+        &writer.export_paths_list_to_string().unwrap(),
+    );
+
+    Ok(())
+}
+
 #[rstest]
 fn test_simple_linker_script_generation(#[files("../tests/test_cases/*.ld")] ld_path: PathBuf) {
     let yaml_path = ld_path.with_extension("yaml");
@@ -151,6 +168,15 @@ fn test_symbols_header_generation(#[files("../tests/test_cases/*.h")] h_path: Pa
     let yaml_path = h_path.with_extension("yaml");
 
     check_symbols_header_generation(&yaml_path, &h_path).expect("");
+}
+
+#[rstest]
+fn test_dependency_check_paths_list_generation(
+    #[files("../tests/test_cases/*.list")] list_path: PathBuf,
+) {
+    let yaml_path = list_path.with_extension("yaml");
+
+    check_paths_list_generation(&yaml_path, &list_path).expect("");
 }
 
 #[rstest]

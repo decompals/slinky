@@ -10,6 +10,8 @@ settings:
 
   symbols_header_path: tests/partial_linking/follow_segment.h
 
+  paths_list_path: tests/partial_linking/follow_segment.list
+
   partial_scripts_folder: tests/partial_linking/follow_segment/{version}
   partial_build_segments_folder: segments
 

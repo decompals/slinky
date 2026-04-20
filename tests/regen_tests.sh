@@ -12,6 +12,7 @@ set -o pipefail
 find tests/ -name '*.ld' -delete
 find tests/ -name '*.d' -delete
 find tests/ -name '*.h' -delete
+find tests/ -name '*.list' -delete
 
 for filepath in tests/test_cases/*.yaml; do
     filename=$(basename -- "$filepath")

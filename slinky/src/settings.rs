@@ -23,6 +23,8 @@ pub struct Settings {
     pub symbols_header_type: String,
     pub symbols_header_as_array: bool,
 
+    pub paths_list_path: Option<PathBuf>,
+
     pub sections_allowlist: Vec<String>,
     pub sections_allowlist_extra: Vec<String>,
     pub sections_denylist: Vec<String>,
@@ -78,6 +80,10 @@ fn settings_default_symbols_header_type() -> String {
 
 const fn settings_default_symbols_header_as_array() -> bool {
     true
+}
+
+const fn settings_default_paths_list_path() -> Option<PathBuf> {
+    None
 }
 
 const fn settings_default_hardcoded_gp_value() -> Option<u32> {
@@ -193,6 +199,8 @@ impl Default for Settings {
             symbols_header_type: settings_default_symbols_header_type(),
             symbols_header_as_array: settings_default_symbols_header_as_array(),
 
+            paths_list_path: settings_default_paths_list_path(),
+
             sections_allowlist: settings_default_sections_allowlist(),
             sections_allowlist_extra: settings_default_sections_allowlist_extra(),
             sections_denylist: settings_default_sections_denylist(),
@@ -255,6 +263,16 @@ impl Settings {
         }
     }
 
+    pub fn paths_list_path_escaped(
+        &self,
+        rs: &RuntimeSettings,
+    ) -> Result<Option<EscapedPath>, SlinkyError> {
+        self.paths_list_path
+            .as_ref()
+            .map(|p| rs.escape_path(p))
+            .transpose()
+    }
+
     pub fn partial_scripts_folder_escaped(
         &self,
         rs: &RuntimeSettings,
@@ -298,6 +316,9 @@ pub(crate) struct SettingsSerial {
     pub symbols_header_type: AbsentNullable<String>,
     #[serde(default)]
     pub symbols_header_as_array: AbsentNullable<bool>,
+
+    #[serde(default)]
+    paths_list_path: AbsentNullable<PathBuf>,
 
     #[serde(default)]
     pub sections_allowlist: AbsentNullable<Vec<String>>,
@@ -378,6 +399,10 @@ impl SettingsSerial {
             "symbols_header_as_array",
             settings_default_symbols_header_as_array,
         )?;
+
+        let paths_list_path = self
+            .paths_list_path
+            .get_optional_nullable("paths_list_path", settings_default_paths_list_path)?;
 
         let sections_allowlist = self
             .sections_allowlist
@@ -475,6 +500,8 @@ impl SettingsSerial {
             symbols_header_path,
             symbols_header_type,
             symbols_header_as_array,
+
+            paths_list_path,
 
             sections_allowlist,
             sections_allowlist_extra,

@@ -41,79 +41,82 @@ as well.
     - [Example](#example-7)
     - [Valid values](#valid-values-7)
     - [Default value](#default-value-4)
-  - [`sections_allowlist`](#sections_allowlist)
+  - [`paths_list_path`](#paths_list_path)
     - [Example](#example-8)
     - [Valid values](#valid-values-8)
-    - [Default value](#default-value-5)
-  - [`sections_allowlist_extra`](#sections_allowlist_extra)
+  - [`sections_allowlist`](#sections_allowlist)
     - [Example](#example-9)
     - [Valid values](#valid-values-9)
-    - [Default value](#default-value-6)
-  - [`sections_denylist`](#sections_denylist)
+    - [Default value](#default-value-5)
+  - [`sections_allowlist_extra`](#sections_allowlist_extra)
     - [Example](#example-10)
     - [Valid values](#valid-values-10)
-    - [Default value](#default-value-7)
-  - [`discard_wildcard_section`](#discard_wildcard_section)
+    - [Default value](#default-value-6)
+  - [`sections_denylist`](#sections_denylist)
     - [Example](#example-11)
     - [Valid values](#valid-values-11)
-    - [Default value](#default-value-8)
-  - [`single_segment_mode`](#single_segment_mode)
+    - [Default value](#default-value-7)
+  - [`discard_wildcard_section`](#discard_wildcard_section)
     - [Example](#example-12)
     - [Valid values](#valid-values-12)
-    - [Default value](#default-value-9)
-  - [`partial_scripts_folder`](#partial_scripts_folder)
+    - [Default value](#default-value-8)
+  - [`single_segment_mode`](#single_segment_mode)
     - [Example](#example-13)
     - [Valid values](#valid-values-13)
-  - [`partial_build_segments_folder`](#partial_build_segments_folder)
+    - [Default value](#default-value-9)
+  - [`partial_scripts_folder`](#partial_scripts_folder)
     - [Example](#example-14)
     - [Valid values](#valid-values-14)
-  - [`alloc_sections`](#alloc_sections)
+  - [`partial_build_segments_folder`](#partial_build_segments_folder)
     - [Example](#example-15)
     - [Valid values](#valid-values-15)
-    - [Default value](#default-value-10)
-  - [`noload_sections`](#noload_sections)
+  - [`alloc_sections`](#alloc_sections)
     - [Example](#example-16)
     - [Valid values](#valid-values-16)
-    - [Default value](#default-value-11)
-  - [`subalign`](#subalign)
+    - [Default value](#default-value-10)
+  - [`noload_sections`](#noload_sections)
     - [Example](#example-17)
     - [Valid values](#valid-values-17)
-    - [Default value](#default-value-12)
-  - [`segment_start_align`](#segment_start_align)
+    - [Default value](#default-value-11)
+  - [`subalign`](#subalign)
     - [Example](#example-18)
     - [Valid values](#valid-values-18)
-    - [Default value](#default-value-13)
-  - [`segment_end_align`](#segment_end_align)
+    - [Default value](#default-value-12)
+  - [`segment_start_align`](#segment_start_align)
     - [Example](#example-19)
     - [Valid values](#valid-values-19)
-    - [Default value](#default-value-14)
-  - [`section_start_align`](#section_start_align)
+    - [Default value](#default-value-13)
+  - [`segment_end_align`](#segment_end_align)
     - [Example](#example-20)
     - [Valid values](#valid-values-20)
-    - [Default value](#default-value-15)
-  - [`section_end_align`](#section_end_align)
+    - [Default value](#default-value-14)
+  - [`section_start_align`](#section_start_align)
     - [Example](#example-21)
     - [Valid values](#valid-values-21)
-    - [Default value](#default-value-16)
-  - [`sections_start_alignment`](#sections_start_alignment)
+    - [Default value](#default-value-15)
+  - [`section_end_align`](#section_end_align)
     - [Example](#example-22)
     - [Valid values](#valid-values-22)
-    - [Default value](#default-value-17)
-  - [`sections_end_alignment`](#sections_end_alignment)
+    - [Default value](#default-value-16)
+  - [`sections_start_alignment`](#sections_start_alignment)
     - [Example](#example-23)
     - [Valid values](#valid-values-23)
-    - [Default value](#default-value-18)
-  - [`wildcard_sections`](#wildcard_sections)
+    - [Default value](#default-value-17)
+  - [`sections_end_alignment`](#sections_end_alignment)
     - [Example](#example-24)
     - [Valid values](#valid-values-24)
-    - [Default value](#default-value-19)
-  - [`fill_value`](#fill_value)
+    - [Default value](#default-value-18)
+  - [`wildcard_sections`](#wildcard_sections)
     - [Example](#example-25)
     - [Valid values](#valid-values-25)
-    - [Default value](#default-value-20)
-  - [`sections_subgroups`](#sections_subgroups)
+    - [Default value](#default-value-19)
+  - [`fill_value`](#fill_value)
     - [Example](#example-26)
     - [Valid values](#valid-values-26)
+    - [Default value](#default-value-20)
+  - [`sections_subgroups`](#sections_subgroups)
+    - [Example](#example-27)
+    - [Valid values](#valid-values-27)
     - [Default value](#default-value-21)
 
 ## `base_path`
@@ -349,6 +352,24 @@ Boolean
 ### Default value
 
 `True`
+
+## `paths_list_path`
+
+Path to output a plain text file listing every path listed in the input file.
+
+This is useful for generating a list of files to pass to a linker with the
+`@path/to/file.list` syntax.
+
+### Example
+
+```yaml
+settings:
+  paths_list_path: include/linker_symbols.list
+```
+
+### Valid values
+
+Non-empty path.
 
 ## `sections_allowlist`
 

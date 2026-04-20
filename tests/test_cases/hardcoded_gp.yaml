@@ -13,6 +13,8 @@ settings:
   symbols_header_as_array: False
   symbols_header_type: Addr
 
+  paths_list_path: tests/test_cases/hardcoded_gp.list
+
 segments:
   - name: main
     fixed_vram: 0x80010200

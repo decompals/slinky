@@ -185,6 +185,10 @@ impl ScriptExporter for LinkerWriter<'_> {
             self.export_symbol_header_to_file(symbols_header_path)?;
         }
 
+        if let Some(paths_list_path) = &self.d.settings.paths_list_path_escaped(self.rs)? {
+            self.export_paths_list_to_file(paths_list_path)?;
+        }
+
         Ok(())
     }
 }
@@ -375,6 +379,35 @@ impl LinkerWriter<'_> {
             }),
             Ok(ret) => Ok(ret),
         }
+    }
+}
+
+impl LinkerWriter<'_> {
+    pub fn export_paths_list(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
+        for p in &self.files_paths {
+            writeln!(dst, "{}", p).map_err(|e| SlinkyError::FailedWrite {
+                description: e.to_string(),
+                contents: p.to_string(),
+            })?;
+        }
+
+        Ok(())
+    }
+
+    pub fn export_paths_list_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
+        let mut f = utils::create_file_and_parents(path.as_ref())?;
+
+        self.export_paths_list(&mut f)
+    }
+
+    pub fn export_paths_list_to_string(&self) -> Result<String, SlinkyError> {
+        let mut s = Vec::new();
+
+        self.export_paths_list(&mut s)?;
+
+        String::from_utf8(s).map_err(|e| SlinkyError::FailedStringConversion {
+            description: e.to_string(),
+        })
     }
 }
 

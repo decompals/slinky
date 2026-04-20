@@ -1,0 +1,9 @@
+build/src/boot_main.o
+build/src/dmadata.o
+build/asm/util.o
+build/src/arenabuffer.o
+build/src/scratchpad.o
+build/src/framebuffer.o
+build/src/font.o
+build/src/music.o
+build/src/videos.o

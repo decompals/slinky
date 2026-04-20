@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `paths_list_path` setting.
+  - A path to a plain text file to be generated, containing all the files listed
+    to build the target elf.
+  - Useful to pass a list of input files to the linker using the
+    `@path/to/file.list` syntax on linkers that do support it.
+
 ### Changed
 
 - Include `.symtab` and `.strtab` in default value of `sections_allowlist_extra`
