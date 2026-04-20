@@ -3,7 +3,7 @@
 
 [package]
 name = "slinky"
-version = "0.3.1-dev0"
+version = "0.4.0"
 edition = "2021"
 rust-version = "1.66.0"
 authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
