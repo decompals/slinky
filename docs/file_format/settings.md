@@ -232,6 +232,9 @@ given file. This kind of dependency files can be consumed by build systems like
 The generated `.d` file will list all the paths listed by every segment as
 required to build a given [`target_path`](#target_path).
 
+This file will also contain an `-include` directive for every path listed, but
+replacing their extensions with `.d`.
+
 This file is generated only if `d_path` is specified.
 
 This option requires [`target_path`](#target_path).

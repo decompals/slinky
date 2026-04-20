@@ -259,6 +259,19 @@ impl LinkerWriter<'_> {
             }
         }
 
+        writeln!(dst).map_err(|e| SlinkyError::FailedWrite {
+            description: e.to_string(),
+            contents: "".to_string(),
+        })?;
+
+        for p in &self.files_paths {
+            let p = p.clone().with_extension("d");
+            writeln!(dst, "-include {}", p).map_err(|e| SlinkyError::FailedWrite {
+                description: e.to_string(),
+                contents: p.to_string(),
+            })?;
+        }
+
         Ok(())
     }
 

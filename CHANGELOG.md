@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add option to control emission of `noload` segment.
-
 ### Changed
 
 - Include `.symtab` and `.strtab` in default value of `sections_allowlist_extra`
@@ -24,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     not produce linker symbol nor the section itself in the generated linker
     script, while the empty list would generate the starting and ending linker
     symbols and the section with no files.
+- The generated dependency file will now include an `-include` directive for
+  every path listed, but replacing their extensions with `.d` to allow tracking
+  the dependencies of those paths automatically.
 
 ## [0.3.0] - 2024-08-17
 

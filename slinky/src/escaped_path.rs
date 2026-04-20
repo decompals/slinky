@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 use std::{
+    ffi::OsStr,
     fmt::Display,
     path::{Path, PathBuf},
 };
@@ -81,5 +82,12 @@ impl EscapedPath {
 
     pub fn push(&mut self, path: EscapedPath) {
         self.0.push(path.0)
+    }
+
+    pub fn with_extension<S>(self, extension: S) -> Self
+    where
+        S: AsRef<OsStr>,
+    {
+        Self(self.0.with_extension(extension))
     }
 }
