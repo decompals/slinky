@@ -281,10 +281,8 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
         p.extend(&partial_scripts_folder);
         p.push(format!("{}.d", name));
 
-        let expected_partial_ld_contents = fs::read_to_string(&p).expect(&format!(
-            "unable to read expected d file at path {}",
-            p.display()
-        ));
+        let expected_partial_ld_contents = fs::read_to_string(&p)
+            .unwrap_or_else(|_| panic!("unable to read expected d file at path {}", p.display()));
 
         let mut partial_target = base_path.clone();
 
