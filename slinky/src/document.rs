@@ -14,6 +14,7 @@ use crate::{
 };
 
 #[derive(Debug, PartialEq)]
+#[non_exhaustive]
 pub struct Document {
     pub settings: Settings,
 

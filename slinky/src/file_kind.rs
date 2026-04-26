@@ -7,6 +7,7 @@ use serde::Deserialize;
 
 #[derive(Deserialize, PartialEq, Debug, Clone)]
 #[serde(rename_all = "snake_case")]
+#[non_exhaustive]
 pub enum FileKind {
     Object,
     Archive,

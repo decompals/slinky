@@ -14,6 +14,7 @@ use crate::{
 };
 
 #[derive(PartialEq, Debug, Clone)]
+#[non_exhaustive]
 pub struct Segment {
     /// Name of the segment
     pub name: String,

@@ -6,6 +6,7 @@ use serde::Deserialize;
 use crate::{absent_nullable::AbsentNullable, traits::Serial, KeepSections, Settings, SlinkyError};
 
 #[derive(PartialEq, Debug, Clone)]
+#[non_exhaustive]
 pub struct VramClass {
     pub name: String,
 

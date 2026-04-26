@@ -4,6 +4,7 @@
 use std::{borrow::Cow, path::PathBuf};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, thiserror::Error)]
+#[non_exhaustive]
 pub enum SlinkyError {
     #[error("Unable to open file '{path}', because '{description}'")]
     FailedFileOpen { path: PathBuf, description: String },

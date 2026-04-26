@@ -51,14 +51,16 @@ impl<'a> IntoIterator for &'a EscapedPath {
 
 impl Display for EscapedPath {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut is_first = true;
+        let mut components = self.0.components();
 
-        for x in self.0.components() {
-            if !is_first {
-                write!(f, "/")?;
-            }
-            is_first = false;
+        if let Some(x) = components.next() {
             write!(f, "{}", x.as_os_str().to_string_lossy())?;
+        } else {
+            return Ok(());
+        }
+
+        for x in components {
+            write!(f, "/{}", x.as_os_str().to_string_lossy())?;
         }
         Ok(())
     }

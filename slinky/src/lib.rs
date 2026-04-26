@@ -1,6 +1,9 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
+#![warn(clippy::exhaustive_enums)]
+#![warn(clippy::exhaustive_structs)]
+
 mod absent_nullable;
 mod error;
 mod escaped_path;

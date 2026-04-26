@@ -6,6 +6,7 @@ use serde::Deserialize;
 use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
+#[non_exhaustive]
 pub struct AssertEntry {
     pub check: String,
     pub error_message: String,

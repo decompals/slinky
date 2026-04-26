@@ -6,6 +6,7 @@ use serde::Deserialize;
 use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
 
 #[derive(PartialEq, Debug, Clone)]
+#[non_exhaustive]
 pub struct SymbolAssignment {
     /// Name of the symbol
     pub name: String,

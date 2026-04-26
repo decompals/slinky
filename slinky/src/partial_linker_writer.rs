@@ -16,15 +16,18 @@ pub struct PartialLinkerWriter<'a> {
 }
 
 impl<'a> PartialLinkerWriter<'a> {
-    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
-        Self {
-            main_writer: LinkerWriter::new_reference_partial_objects(d, rs),
+    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Result<Self, SlinkyError> {
+        let main_writer = LinkerWriter::new_reference_partial_objects(d, rs)?;
+        let partial_writers = Vec::new();
 
-            partial_writers: Vec::new(),
+        Ok(Self {
+            main_writer,
+
+            partial_writers,
 
             d,
             rs,
-        }
+        })
     }
 }
 
@@ -52,7 +55,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
                 continue;
             }
 
-            let mut partial_writer = LinkerWriter::new(self.d, self.rs);
+            let mut partial_writer = LinkerWriter::new(self.d, self.rs)?;
 
             partial_writer.set_emit_sections_kind_symbols(false);
             partial_writer.set_emit_section_symbols(false);

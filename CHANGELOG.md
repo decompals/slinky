@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add `#[non_exhaustive]` attributes to all relevant structures.
+- `LinkerWriter::new`, `LinkerWriter::new_reference_partial_objects` and
+  `PartialLinkerWriter::new` now return a `Result<Self, SlinkyError>`.
+
 ## [0.4.0] - 2026-04-20
 
 ### Added

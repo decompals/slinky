@@ -1,15 +1,17 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use serde::Deserialize;
 use std::{collections::HashMap, path::PathBuf};
+
+use serde::Deserialize;
 
 use crate::{
     absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle, EscapedPath,
     RuntimeSettings, SlinkyError,
 };
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug, PartialEq)]
+#[non_exhaustive]
 pub struct Settings {
     pub base_path: PathBuf,
     pub linker_symbols_style: LinkerSymbolsStyle,

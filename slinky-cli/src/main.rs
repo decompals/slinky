@@ -105,11 +105,13 @@ fn main() {
     let rs = create_runtime_settings(&cli);
 
     if cli.partial_linking {
-        let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
+        let mut writer = slinky::PartialLinkerWriter::new(&document, &rs)
+            .expect("Error creating the PartialLinkerWriter");
 
         write_script(&mut writer, &document, &rs, &cli.output);
     } else {
-        let mut writer = slinky::LinkerWriter::new(&document, &rs);
+        let mut writer =
+            slinky::LinkerWriter::new(&document, &rs).expect("Error creating the LinkerWriter");
 
         write_script(&mut writer, &document, &rs, &cli.output);
     }

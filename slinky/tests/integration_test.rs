@@ -81,7 +81,7 @@ fn check_ld_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErr
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document, &rs);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs)?;
     writer.add_whole_document(&document)?;
 
     let expected_ld_contents =
@@ -99,7 +99,7 @@ fn check_d_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), SlinkyErro
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document, &rs);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs)?;
     writer.add_whole_document(&document)?;
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
@@ -119,7 +119,7 @@ fn check_symbols_header_generation(yaml_path: &Path, ld_path: &Path) -> Result<(
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document, &rs);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs)?;
     writer.add_whole_document(&document)?;
 
     let expected_h_contents = fs::read_to_string(ld_path).expect("unable to read expected h file");
@@ -136,7 +136,7 @@ fn check_paths_list_generation(yaml_path: &Path, ld_path: &Path) -> Result<(), S
     let document = slinky::Document::read_file(yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::LinkerWriter::new(&document, &rs);
+    let mut writer = slinky::LinkerWriter::new(&document, &rs)?;
     writer.add_whole_document(&document)?;
 
     let expected_d_contents = fs::read_to_string(ld_path).expect("unable to read expected d file");
@@ -194,7 +194,8 @@ fn test_partial_linking_script_generation(
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs)
+        .expect("Error creating partial linker writer");
     writer.add_whole_document(&document).expect("");
 
     let expected_ld_contents =
@@ -208,17 +209,16 @@ fn test_partial_linking_script_generation(
             .unwrap(),
     );
 
+    let partial_scripts_folder = document
+        .settings
+        .partial_scripts_folder_escaped(&rs)
+        .expect("Not able to escape path")
+        .expect("Missing partial_scripts_folder");
     for (partial, name) in writer.get_partial_writers() {
         let mut p = PathBuf::new();
 
         p.push("..");
-        p.push(
-            document
-                .settings
-                .partial_scripts_folder_escaped(&rs)
-                .expect("Not able to escape path")
-                .unwrap(),
-        );
+        p.extend(&partial_scripts_folder);
         p.push(format!("{}.ld", name));
 
         let expected_partial_ld_contents =
@@ -240,7 +240,8 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs)
+        .expect("Error creating partial linker writer");
     writer.add_whole_document(&document).expect("");
 
     let expected_d_contents = fs::read_to_string(d_path).expect("unable to read expected d file");
@@ -254,35 +255,38 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
             .unwrap(),
     );
 
+    let base_path = document
+        .settings
+        .base_path_escaped(&rs)
+        .expect("Unable to escape path");
+    let partial_scripts_folder = document
+        .settings
+        .partial_scripts_folder_escaped(&rs)
+        .expect("Unable to escape path")
+        .expect("Missing partial_scripts_folder");
+    let partial_build_segments_folder = document
+        .settings
+        .partial_build_segments_folder_escaped(&rs)
+        .expect("Unable to escape path")
+        .expect("Missing partial_build_segments_folder");
+
     for (partial, name) in writer.get_partial_writers() {
         let mut p = PathBuf::new();
 
         p.push("..");
-        p.push(
-            document
-                .settings
-                .partial_scripts_folder_escaped(&rs)
-                .expect("Unable to escape path")
-                .unwrap(),
-        );
+        p.extend(&partial_scripts_folder);
         p.push(format!("{}.d", name));
 
-        let expected_partial_ld_contents =
-            fs::read_to_string(p).expect("unable to read expected d file");
+        let expected_partial_ld_contents = fs::read_to_string(&p).expect(&format!(
+            "unable to read expected d file at path {}",
+            p.display()
+        ));
 
-        let mut partial_target = document
-            .settings
-            .base_path_escaped(&rs)
-            .expect("Failed to escape path");
+        let mut partial_target = base_path.clone();
 
-        partial_target.push(
-            document
-                .settings
-                .partial_build_segments_folder_escaped(&rs)
-                .expect("Failed to escape path")
-                .unwrap(),
-        );
-        partial_target.push(EscapedPath::from(format!("{}.o", name)));
+        partial_target.extend(&partial_build_segments_folder);
+        let segment_filename = format!("{}.o", name);
+        partial_target.push(EscapedPath::from(segment_filename));
 
         compare_multiline_strings(
             &expected_partial_ld_contents,
@@ -301,7 +305,8 @@ fn test_partial_linking_symbols_header_generation(
     let document = slinky::Document::read_file(&yaml_path).expect("unable to read original file");
     let rs = create_runtime_settings();
 
-    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs);
+    let mut writer = slinky::PartialLinkerWriter::new(&document, &rs)
+        .expect("Error creating partial linker writer");
     writer.add_whole_document(&document).expect("");
 
     let expected_h_contents = fs::read_to_string(h_path).expect("unable to read expected h file");

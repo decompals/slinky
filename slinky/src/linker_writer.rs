@@ -32,7 +32,7 @@ pub struct LinkerWriter<'a> {
 }
 
 impl<'a> LinkerWriter<'a> {
-    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
+    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Result<Self, SlinkyError> {
         let mut vram_classes = indexmap::IndexMap::with_capacity(d.vram_classes.len());
         for vram_class in &d.vram_classes {
             vram_classes.insert(vram_class.name.clone(), vram_class.clone());
@@ -50,7 +50,7 @@ impl<'a> LinkerWriter<'a> {
             buffer.write_empty_line();
         }
 
-        Self {
+        Ok(Self {
             buffer,
 
             files_paths: indexmap::IndexSet::new(),
@@ -65,15 +65,19 @@ impl<'a> LinkerWriter<'a> {
 
             d,
             rs,
-        }
+        })
     }
 
-    pub fn new_reference_partial_objects(d: &'a Document, rs: &'a RuntimeSettings) -> Self {
-        let mut s = Self::new(d, rs);
+    pub fn new_reference_partial_objects(
+        d: &'a Document,
+        rs: &'a RuntimeSettings,
+    ) -> Result<Self, SlinkyError> {
+        let s = Self::new(d, rs)?;
 
-        s.reference_partial_objects = true;
-
-        s
+        Ok(Self {
+            reference_partial_objects: true,
+            ..s
+        })
     }
 }
 

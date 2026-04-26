@@ -13,6 +13,7 @@ use crate::{
 };
 
 #[derive(PartialEq, Debug, Clone)]
+#[non_exhaustive]
 pub struct FileInfo {
     pub path: PathBuf,
 
