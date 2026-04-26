@@ -3,8 +3,9 @@ settings:
 
   symbols_header_path: tests/partial_linking/vram_classes.h
 
-  partial_scripts_folder: tests/partial_linking/vram_classes
-  partial_build_segments_folder: segments
+  partial:
+    build_segments_folder: segments
+    scripts_folder: tests/partial_linking/vram_classes
 
 vram_classes:
   - { name: battle_area2, fixed_symbol: Vine1Base }

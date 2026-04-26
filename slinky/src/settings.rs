@@ -6,8 +6,8 @@ use std::{collections::HashMap, path::PathBuf};
 use serde::Deserialize;
 
 use crate::{
-    absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle, EscapedPath,
-    RuntimeSettings, SlinkyError,
+    absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle,
+    partial::PartialSerial, EscapedPath, Partial, RuntimeSettings, SlinkyError,
 };
 
 #[derive(Debug, PartialEq)]
@@ -34,8 +34,7 @@ pub struct Settings {
 
     pub single_segment_mode: bool,
 
-    pub partial_scripts_folder: Option<PathBuf>,
-    pub partial_build_segments_folder: Option<PathBuf>,
+    pub partial: Option<Partial>,
 
     // Options passed down to each segment
     pub alloc_sections: Option<Vec<String>>,
@@ -120,11 +119,7 @@ const fn settings_default_single_segment_mode() -> bool {
     false
 }
 
-const fn settings_default_partial_scripts_folder() -> Option<PathBuf> {
-    None
-}
-
-const fn settings_default_partial_build_segments_folder() -> Option<PathBuf> {
+const fn settings_default_partial() -> Option<Partial> {
     None
 }
 
@@ -210,8 +205,7 @@ impl Default for Settings {
 
             single_segment_mode: settings_default_single_segment_mode(),
 
-            partial_scripts_folder: settings_default_partial_scripts_folder(),
-            partial_build_segments_folder: settings_default_partial_build_segments_folder(),
+            partial: settings_default_partial(),
 
             alloc_sections: settings_default_alloc_sections(),
             noload_sections: settings_default_noload_sections(),
@@ -274,26 +268,6 @@ impl Settings {
             .map(|p| rs.escape_path(p))
             .transpose()
     }
-
-    pub fn partial_scripts_folder_escaped(
-        &self,
-        rs: &RuntimeSettings,
-    ) -> Result<Option<EscapedPath>, SlinkyError> {
-        match &self.partial_scripts_folder {
-            Some(p) => Ok(Some(rs.escape_path(p)?)),
-            None => Ok(None),
-        }
-    }
-
-    pub fn partial_build_segments_folder_escaped(
-        &self,
-        rs: &RuntimeSettings,
-    ) -> Result<Option<EscapedPath>, SlinkyError> {
-        match &self.partial_build_segments_folder {
-            Some(p) => Ok(Some(rs.escape_path(p)?)),
-            None => Ok(None),
-        }
-    }
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -335,9 +309,7 @@ pub(crate) struct SettingsSerial {
     pub single_segment_mode: AbsentNullable<bool>,
 
     #[serde(default)]
-    pub partial_scripts_folder: AbsentNullable<PathBuf>,
-    #[serde(default)]
-    pub partial_build_segments_folder: AbsentNullable<PathBuf>,
+    pub partial: AbsentNullable<PartialSerial>,
 
     // Options passed down to each Segment
     #[serde(default)]
@@ -425,15 +397,11 @@ impl SettingsSerial {
             .single_segment_mode
             .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
 
-        let partial_scripts_folder = self.partial_scripts_folder.get_optional_nullable(
-            "partial_scripts_folder",
-            settings_default_partial_scripts_folder,
-        )?;
-        let partial_build_segments_folder =
-            self.partial_build_segments_folder.get_optional_nullable(
-                "partial_build_segments_folder",
-                settings_default_partial_build_segments_folder,
-            )?;
+        let partial = self
+            .partial
+            .get_non_null_no_default("partial")?
+            .map(|x| x.unserialize())
+            .transpose()?;
 
         if d_path.is_some() && target_path.is_none() {
             return Err(SlinkyError::MissingRequiredFieldCombo {
@@ -512,8 +480,7 @@ impl SettingsSerial {
 
             single_segment_mode,
 
-            partial_scripts_folder,
-            partial_build_segments_folder,
+            partial,
 
             alloc_sections,
             noload_sections,

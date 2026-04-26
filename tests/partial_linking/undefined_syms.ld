@@ -10,22 +10,22 @@ SECTIONS
     {
         FILL(0x00000000);
         header_TEXT_START = .;
-        build/segments/header.o(.text*);
+        build/segments/header.some_non_standard_extension(.text*);
         header_TEXT_END = .;
         header_TEXT_SIZE = ABSOLUTE(header_TEXT_END - header_TEXT_START);
 
         header_DATA_START = .;
-        build/segments/header.o(.data*);
+        build/segments/header.some_non_standard_extension(.data*);
         header_DATA_END = .;
         header_DATA_SIZE = ABSOLUTE(header_DATA_END - header_DATA_START);
 
         header_RODATA_START = .;
-        build/segments/header.o(.rodata*);
+        build/segments/header.some_non_standard_extension(.rodata*);
         header_RODATA_END = .;
         header_RODATA_SIZE = ABSOLUTE(header_RODATA_END - header_RODATA_START);
 
         header_SDATA_START = .;
-        build/segments/header.o(.sdata*);
+        build/segments/header.some_non_standard_extension(.sdata*);
         header_SDATA_END = .;
         header_SDATA_SIZE = ABSOLUTE(header_SDATA_END - header_SDATA_START);
     }
@@ -39,22 +39,22 @@ SECTIONS
     {
         FILL(0x00000000);
         header_SBSS_START = .;
-        build/segments/header.o(.sbss*);
+        build/segments/header.some_non_standard_extension(.sbss*);
         header_SBSS_END = .;
         header_SBSS_SIZE = ABSOLUTE(header_SBSS_END - header_SBSS_START);
 
         header_SCOMMON_START = .;
-        build/segments/header.o(.scommon*);
+        build/segments/header.some_non_standard_extension(.scommon*);
         header_SCOMMON_END = .;
         header_SCOMMON_SIZE = ABSOLUTE(header_SCOMMON_END - header_SCOMMON_START);
 
         header_BSS_START = .;
-        build/segments/header.o(.bss*);
+        build/segments/header.some_non_standard_extension(.bss*);
         header_BSS_END = .;
         header_BSS_SIZE = ABSOLUTE(header_BSS_END - header_BSS_START);
 
         headerCOMMON_START = .;
-        build/segments/header.o(COMMON*);
+        build/segments/header.some_non_standard_extension(COMMON*);
         headerCOMMON_END = .;
         headerCOMMON_SIZE = ABSOLUTE(headerCOMMON_END - headerCOMMON_START);
     }
@@ -76,22 +76,22 @@ SECTIONS
     {
         FILL(0x00000000);
         ipl3_TEXT_START = .;
-        build/segments/ipl3.o(.text*);
+        build/segments/ipl3.some_non_standard_extension(.text*);
         ipl3_TEXT_END = .;
         ipl3_TEXT_SIZE = ABSOLUTE(ipl3_TEXT_END - ipl3_TEXT_START);
 
         ipl3_DATA_START = .;
-        build/segments/ipl3.o(.data*);
+        build/segments/ipl3.some_non_standard_extension(.data*);
         ipl3_DATA_END = .;
         ipl3_DATA_SIZE = ABSOLUTE(ipl3_DATA_END - ipl3_DATA_START);
 
         ipl3_RODATA_START = .;
-        build/segments/ipl3.o(.rodata*);
+        build/segments/ipl3.some_non_standard_extension(.rodata*);
         ipl3_RODATA_END = .;
         ipl3_RODATA_SIZE = ABSOLUTE(ipl3_RODATA_END - ipl3_RODATA_START);
 
         ipl3_SDATA_START = .;
-        build/segments/ipl3.o(.sdata*);
+        build/segments/ipl3.some_non_standard_extension(.sdata*);
         ipl3_SDATA_END = .;
         ipl3_SDATA_SIZE = ABSOLUTE(ipl3_SDATA_END - ipl3_SDATA_START);
     }
@@ -105,22 +105,22 @@ SECTIONS
     {
         FILL(0x00000000);
         ipl3_SBSS_START = .;
-        build/segments/ipl3.o(.sbss*);
+        build/segments/ipl3.some_non_standard_extension(.sbss*);
         ipl3_SBSS_END = .;
         ipl3_SBSS_SIZE = ABSOLUTE(ipl3_SBSS_END - ipl3_SBSS_START);
 
         ipl3_SCOMMON_START = .;
-        build/segments/ipl3.o(.scommon*);
+        build/segments/ipl3.some_non_standard_extension(.scommon*);
         ipl3_SCOMMON_END = .;
         ipl3_SCOMMON_SIZE = ABSOLUTE(ipl3_SCOMMON_END - ipl3_SCOMMON_START);
 
         ipl3_BSS_START = .;
-        build/segments/ipl3.o(.bss*);
+        build/segments/ipl3.some_non_standard_extension(.bss*);
         ipl3_BSS_END = .;
         ipl3_BSS_SIZE = ABSOLUTE(ipl3_BSS_END - ipl3_BSS_START);
 
         ipl3COMMON_START = .;
-        build/segments/ipl3.o(COMMON*);
+        build/segments/ipl3.some_non_standard_extension(COMMON*);
         ipl3COMMON_END = .;
         ipl3COMMON_SIZE = ABSOLUTE(ipl3COMMON_END - ipl3COMMON_START);
     }
@@ -142,22 +142,22 @@ SECTIONS
     {
         FILL(0x00000000);
         entry_TEXT_START = .;
-        build/segments/entry.o(.text*);
+        build/segments/entry.some_non_standard_extension(.text*);
         entry_TEXT_END = .;
         entry_TEXT_SIZE = ABSOLUTE(entry_TEXT_END - entry_TEXT_START);
 
         entry_DATA_START = .;
-        build/segments/entry.o(.data*);
+        build/segments/entry.some_non_standard_extension(.data*);
         entry_DATA_END = .;
         entry_DATA_SIZE = ABSOLUTE(entry_DATA_END - entry_DATA_START);
 
         entry_RODATA_START = .;
-        build/segments/entry.o(.rodata*);
+        build/segments/entry.some_non_standard_extension(.rodata*);
         entry_RODATA_END = .;
         entry_RODATA_SIZE = ABSOLUTE(entry_RODATA_END - entry_RODATA_START);
 
         entry_SDATA_START = .;
-        build/segments/entry.o(.sdata*);
+        build/segments/entry.some_non_standard_extension(.sdata*);
         entry_SDATA_END = .;
         entry_SDATA_SIZE = ABSOLUTE(entry_SDATA_END - entry_SDATA_START);
     }
@@ -171,22 +171,22 @@ SECTIONS
     {
         FILL(0x00000000);
         entry_SBSS_START = .;
-        build/segments/entry.o(.sbss*);
+        build/segments/entry.some_non_standard_extension(.sbss*);
         entry_SBSS_END = .;
         entry_SBSS_SIZE = ABSOLUTE(entry_SBSS_END - entry_SBSS_START);
 
         entry_SCOMMON_START = .;
-        build/segments/entry.o(.scommon*);
+        build/segments/entry.some_non_standard_extension(.scommon*);
         entry_SCOMMON_END = .;
         entry_SCOMMON_SIZE = ABSOLUTE(entry_SCOMMON_END - entry_SCOMMON_START);
 
         entry_BSS_START = .;
-        build/segments/entry.o(.bss*);
+        build/segments/entry.some_non_standard_extension(.bss*);
         entry_BSS_END = .;
         entry_BSS_SIZE = ABSOLUTE(entry_BSS_END - entry_BSS_START);
 
         entryCOMMON_START = .;
-        build/segments/entry.o(COMMON*);
+        build/segments/entry.some_non_standard_extension(COMMON*);
         entryCOMMON_END = .;
         entryCOMMON_SIZE = ABSOLUTE(entryCOMMON_END - entryCOMMON_START);
     }
@@ -208,22 +208,22 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
-        build/segments/boot.o(.text*);
+        build/segments/boot.some_non_standard_extension(.text*);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
         boot_DATA_START = .;
-        build/segments/boot.o(.data*);
+        build/segments/boot.some_non_standard_extension(.data*);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
         boot_RODATA_START = .;
-        build/segments/boot.o(.rodata*);
+        build/segments/boot.some_non_standard_extension(.rodata*);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
         boot_SDATA_START = .;
-        build/segments/boot.o(.sdata*);
+        build/segments/boot.some_non_standard_extension(.sdata*);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -237,22 +237,22 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
-        build/segments/boot.o(.sbss*);
+        build/segments/boot.some_non_standard_extension(.sbss*);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
         boot_SCOMMON_START = .;
-        build/segments/boot.o(.scommon*);
+        build/segments/boot.some_non_standard_extension(.scommon*);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         boot_BSS_START = .;
-        build/segments/boot.o(.bss*);
+        build/segments/boot.some_non_standard_extension(.bss*);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
-        build/segments/boot.o(COMMON*);
+        build/segments/boot.some_non_standard_extension(COMMON*);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }

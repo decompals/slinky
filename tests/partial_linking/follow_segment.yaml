@@ -12,8 +12,9 @@ settings:
 
   paths_list_path: tests/partial_linking/follow_segment.list
 
-  partial_scripts_folder: tests/partial_linking/follow_segment/{version}
-  partial_build_segments_folder: segments
+  partial:
+    build_segments_folder: segments
+    scripts_folder: tests/partial_linking/follow_segment/{version}
 
 segments:
   - name: boot

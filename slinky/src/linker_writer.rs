@@ -179,18 +179,18 @@ impl ScriptExporter for LinkerWriter<'_> {
     }
 
     fn save_other_files(&self) -> Result<(), SlinkyError> {
-        if let Some(d_path) = &self.d.settings.d_path_escaped(self.rs)? {
-            if let Some(target_path) = &self.d.settings.target_path_escaped(self.rs)? {
-                self.export_dependencies_file_to_file(d_path, target_path)?;
+        if let Some(d_path) = self.d.settings.d_path_escaped(self.rs)? {
+            if let Some(target_path) = self.d.settings.target_path_escaped(self.rs)? {
+                self.export_dependencies_file_to_file(&d_path, &target_path)?;
             }
         }
 
-        if let Some(symbols_header_path) = &self.d.settings.symbols_header_path_escaped(self.rs)? {
-            self.export_symbol_header_to_file(symbols_header_path)?;
+        if let Some(symbols_header_path) = self.d.settings.symbols_header_path_escaped(self.rs)? {
+            self.export_symbol_header_to_file(&symbols_header_path)?;
         }
 
-        if let Some(paths_list_path) = &self.d.settings.paths_list_path_escaped(self.rs)? {
-            self.export_paths_list_to_file(paths_list_path)?;
+        if let Some(paths_list_path) = self.d.settings.paths_list_path_escaped(self.rs)? {
+            self.export_paths_list_to_file(&paths_list_path)?;
         }
 
         Ok(())

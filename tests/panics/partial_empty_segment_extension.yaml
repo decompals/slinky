@@ -1,0 +1,6 @@
+settings:
+  base_path: build
+  partial:
+    build_segments_folder: segments
+    scripts_folder: scripts
+    segment_extension: ""

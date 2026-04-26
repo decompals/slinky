@@ -1,0 +1,5 @@
+settings:
+  base_path: build
+  partial:
+    build_segments_folder: segments
+    segment_extension: o

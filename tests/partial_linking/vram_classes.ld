@@ -10,23 +10,23 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
-        build/segments/boot.o(.text*);
+        build/segments/boot.plf(.text*);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
         boot_DATA_START = .;
-        build/segments/boot.o(.data*);
+        build/segments/boot.plf(.data*);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
         boot_RODATA_START = .;
-        build/segments/boot.o(.rodata*);
+        build/segments/boot.plf(.rodata*);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
         _gp = . + 0x7FF0;
         boot_SDATA_START = .;
-        build/segments/boot.o(.sdata*);
+        build/segments/boot.plf(.sdata*);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
     }
@@ -40,22 +40,22 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
-        build/segments/boot.o(.sbss*);
+        build/segments/boot.plf(.sbss*);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
         boot_SCOMMON_START = .;
-        build/segments/boot.o(.scommon*);
+        build/segments/boot.plf(.scommon*);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         boot_BSS_START = .;
-        build/segments/boot.o(.bss*);
+        build/segments/boot.plf(.bss*);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
-        build/segments/boot.o(COMMON*);
+        build/segments/boot.plf(COMMON*);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
     }
@@ -80,22 +80,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_1_TEXT_START = .;
-        build/segments/omo2_1.o(.text*);
+        build/segments/omo2_1.plf(.text*);
         omo2_1_TEXT_END = .;
         omo2_1_TEXT_SIZE = ABSOLUTE(omo2_1_TEXT_END - omo2_1_TEXT_START);
 
         omo2_1_DATA_START = .;
-        build/segments/omo2_1.o(.data*);
+        build/segments/omo2_1.plf(.data*);
         omo2_1_DATA_END = .;
         omo2_1_DATA_SIZE = ABSOLUTE(omo2_1_DATA_END - omo2_1_DATA_START);
 
         omo2_1_RODATA_START = .;
-        build/segments/omo2_1.o(.rodata*);
+        build/segments/omo2_1.plf(.rodata*);
         omo2_1_RODATA_END = .;
         omo2_1_RODATA_SIZE = ABSOLUTE(omo2_1_RODATA_END - omo2_1_RODATA_START);
 
         omo2_1_SDATA_START = .;
-        build/segments/omo2_1.o(.sdata*);
+        build/segments/omo2_1.plf(.sdata*);
         omo2_1_SDATA_END = .;
         omo2_1_SDATA_SIZE = ABSOLUTE(omo2_1_SDATA_END - omo2_1_SDATA_START);
     }
@@ -109,22 +109,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_1_SBSS_START = .;
-        build/segments/omo2_1.o(.sbss*);
+        build/segments/omo2_1.plf(.sbss*);
         omo2_1_SBSS_END = .;
         omo2_1_SBSS_SIZE = ABSOLUTE(omo2_1_SBSS_END - omo2_1_SBSS_START);
 
         omo2_1_SCOMMON_START = .;
-        build/segments/omo2_1.o(.scommon*);
+        build/segments/omo2_1.plf(.scommon*);
         omo2_1_SCOMMON_END = .;
         omo2_1_SCOMMON_SIZE = ABSOLUTE(omo2_1_SCOMMON_END - omo2_1_SCOMMON_START);
 
         omo2_1_BSS_START = .;
-        build/segments/omo2_1.o(.bss*);
+        build/segments/omo2_1.plf(.bss*);
         omo2_1_BSS_END = .;
         omo2_1_BSS_SIZE = ABSOLUTE(omo2_1_BSS_END - omo2_1_BSS_START);
 
         omo2_1COMMON_START = .;
-        build/segments/omo2_1.o(COMMON*);
+        build/segments/omo2_1.plf(COMMON*);
         omo2_1COMMON_END = .;
         omo2_1COMMON_SIZE = ABSOLUTE(omo2_1COMMON_END - omo2_1COMMON_START);
     }
@@ -148,22 +148,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_2_TEXT_START = .;
-        build/segments/omo2_2.o(.text*);
+        build/segments/omo2_2.plf(.text*);
         omo2_2_TEXT_END = .;
         omo2_2_TEXT_SIZE = ABSOLUTE(omo2_2_TEXT_END - omo2_2_TEXT_START);
 
         omo2_2_DATA_START = .;
-        build/segments/omo2_2.o(.data*);
+        build/segments/omo2_2.plf(.data*);
         omo2_2_DATA_END = .;
         omo2_2_DATA_SIZE = ABSOLUTE(omo2_2_DATA_END - omo2_2_DATA_START);
 
         omo2_2_RODATA_START = .;
-        build/segments/omo2_2.o(.rodata*);
+        build/segments/omo2_2.plf(.rodata*);
         omo2_2_RODATA_END = .;
         omo2_2_RODATA_SIZE = ABSOLUTE(omo2_2_RODATA_END - omo2_2_RODATA_START);
 
         omo2_2_SDATA_START = .;
-        build/segments/omo2_2.o(.sdata*);
+        build/segments/omo2_2.plf(.sdata*);
         omo2_2_SDATA_END = .;
         omo2_2_SDATA_SIZE = ABSOLUTE(omo2_2_SDATA_END - omo2_2_SDATA_START);
     }
@@ -177,22 +177,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_2_SBSS_START = .;
-        build/segments/omo2_2.o(.sbss*);
+        build/segments/omo2_2.plf(.sbss*);
         omo2_2_SBSS_END = .;
         omo2_2_SBSS_SIZE = ABSOLUTE(omo2_2_SBSS_END - omo2_2_SBSS_START);
 
         omo2_2_SCOMMON_START = .;
-        build/segments/omo2_2.o(.scommon*);
+        build/segments/omo2_2.plf(.scommon*);
         omo2_2_SCOMMON_END = .;
         omo2_2_SCOMMON_SIZE = ABSOLUTE(omo2_2_SCOMMON_END - omo2_2_SCOMMON_START);
 
         omo2_2_BSS_START = .;
-        build/segments/omo2_2.o(.bss*);
+        build/segments/omo2_2.plf(.bss*);
         omo2_2_BSS_END = .;
         omo2_2_BSS_SIZE = ABSOLUTE(omo2_2_BSS_END - omo2_2_BSS_START);
 
         omo2_2COMMON_START = .;
-        build/segments/omo2_2.o(COMMON*);
+        build/segments/omo2_2.plf(COMMON*);
         omo2_2COMMON_END = .;
         omo2_2COMMON_SIZE = ABSOLUTE(omo2_2COMMON_END - omo2_2COMMON_START);
     }
@@ -216,22 +216,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_3_TEXT_START = .;
-        build/segments/omo2_3.o(.text*);
+        build/segments/omo2_3.plf(.text*);
         omo2_3_TEXT_END = .;
         omo2_3_TEXT_SIZE = ABSOLUTE(omo2_3_TEXT_END - omo2_3_TEXT_START);
 
         omo2_3_DATA_START = .;
-        build/segments/omo2_3.o(.data*);
+        build/segments/omo2_3.plf(.data*);
         omo2_3_DATA_END = .;
         omo2_3_DATA_SIZE = ABSOLUTE(omo2_3_DATA_END - omo2_3_DATA_START);
 
         omo2_3_RODATA_START = .;
-        build/segments/omo2_3.o(.rodata*);
+        build/segments/omo2_3.plf(.rodata*);
         omo2_3_RODATA_END = .;
         omo2_3_RODATA_SIZE = ABSOLUTE(omo2_3_RODATA_END - omo2_3_RODATA_START);
 
         omo2_3_SDATA_START = .;
-        build/segments/omo2_3.o(.sdata*);
+        build/segments/omo2_3.plf(.sdata*);
         omo2_3_SDATA_END = .;
         omo2_3_SDATA_SIZE = ABSOLUTE(omo2_3_SDATA_END - omo2_3_SDATA_START);
     }
@@ -245,22 +245,22 @@ SECTIONS
     {
         FILL(0x00000000);
         omo2_3_SBSS_START = .;
-        build/segments/omo2_3.o(.sbss*);
+        build/segments/omo2_3.plf(.sbss*);
         omo2_3_SBSS_END = .;
         omo2_3_SBSS_SIZE = ABSOLUTE(omo2_3_SBSS_END - omo2_3_SBSS_START);
 
         omo2_3_SCOMMON_START = .;
-        build/segments/omo2_3.o(.scommon*);
+        build/segments/omo2_3.plf(.scommon*);
         omo2_3_SCOMMON_END = .;
         omo2_3_SCOMMON_SIZE = ABSOLUTE(omo2_3_SCOMMON_END - omo2_3_SCOMMON_START);
 
         omo2_3_BSS_START = .;
-        build/segments/omo2_3.o(.bss*);
+        build/segments/omo2_3.plf(.bss*);
         omo2_3_BSS_END = .;
         omo2_3_BSS_SIZE = ABSOLUTE(omo2_3_BSS_END - omo2_3_BSS_START);
 
         omo2_3COMMON_START = .;
-        build/segments/omo2_3.o(COMMON*);
+        build/segments/omo2_3.plf(COMMON*);
         omo2_3COMMON_END = .;
         omo2_3COMMON_SIZE = ABSOLUTE(omo2_3COMMON_END - omo2_3COMMON_START);
     }
@@ -287,22 +287,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_goompa_TEXT_START = .;
-        build/segments/battle_partner_goompa.o(.text*);
+        build/segments/battle_partner_goompa.plf(.text*);
         battle_partner_goompa_TEXT_END = .;
         battle_partner_goompa_TEXT_SIZE = ABSOLUTE(battle_partner_goompa_TEXT_END - battle_partner_goompa_TEXT_START);
 
         battle_partner_goompa_DATA_START = .;
-        build/segments/battle_partner_goompa.o(.data*);
+        build/segments/battle_partner_goompa.plf(.data*);
         battle_partner_goompa_DATA_END = .;
         battle_partner_goompa_DATA_SIZE = ABSOLUTE(battle_partner_goompa_DATA_END - battle_partner_goompa_DATA_START);
 
         battle_partner_goompa_RODATA_START = .;
-        build/segments/battle_partner_goompa.o(.rodata*);
+        build/segments/battle_partner_goompa.plf(.rodata*);
         battle_partner_goompa_RODATA_END = .;
         battle_partner_goompa_RODATA_SIZE = ABSOLUTE(battle_partner_goompa_RODATA_END - battle_partner_goompa_RODATA_START);
 
         battle_partner_goompa_SDATA_START = .;
-        build/segments/battle_partner_goompa.o(.sdata*);
+        build/segments/battle_partner_goompa.plf(.sdata*);
         battle_partner_goompa_SDATA_END = .;
         battle_partner_goompa_SDATA_SIZE = ABSOLUTE(battle_partner_goompa_SDATA_END - battle_partner_goompa_SDATA_START);
     }
@@ -316,22 +316,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_goompa_SBSS_START = .;
-        build/segments/battle_partner_goompa.o(.sbss*);
+        build/segments/battle_partner_goompa.plf(.sbss*);
         battle_partner_goompa_SBSS_END = .;
         battle_partner_goompa_SBSS_SIZE = ABSOLUTE(battle_partner_goompa_SBSS_END - battle_partner_goompa_SBSS_START);
 
         battle_partner_goompa_SCOMMON_START = .;
-        build/segments/battle_partner_goompa.o(.scommon*);
+        build/segments/battle_partner_goompa.plf(.scommon*);
         battle_partner_goompa_SCOMMON_END = .;
         battle_partner_goompa_SCOMMON_SIZE = ABSOLUTE(battle_partner_goompa_SCOMMON_END - battle_partner_goompa_SCOMMON_START);
 
         battle_partner_goompa_BSS_START = .;
-        build/segments/battle_partner_goompa.o(.bss*);
+        build/segments/battle_partner_goompa.plf(.bss*);
         battle_partner_goompa_BSS_END = .;
         battle_partner_goompa_BSS_SIZE = ABSOLUTE(battle_partner_goompa_BSS_END - battle_partner_goompa_BSS_START);
 
         battle_partner_goompaCOMMON_START = .;
-        build/segments/battle_partner_goompa.o(COMMON*);
+        build/segments/battle_partner_goompa.plf(COMMON*);
         battle_partner_goompaCOMMON_END = .;
         battle_partner_goompaCOMMON_SIZE = ABSOLUTE(battle_partner_goompaCOMMON_END - battle_partner_goompaCOMMON_START);
     }
@@ -355,22 +355,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_goombario_TEXT_START = .;
-        build/segments/battle_partner_goombario.o(.text*);
+        build/segments/battle_partner_goombario.plf(.text*);
         battle_partner_goombario_TEXT_END = .;
         battle_partner_goombario_TEXT_SIZE = ABSOLUTE(battle_partner_goombario_TEXT_END - battle_partner_goombario_TEXT_START);
 
         battle_partner_goombario_DATA_START = .;
-        build/segments/battle_partner_goombario.o(.data*);
+        build/segments/battle_partner_goombario.plf(.data*);
         battle_partner_goombario_DATA_END = .;
         battle_partner_goombario_DATA_SIZE = ABSOLUTE(battle_partner_goombario_DATA_END - battle_partner_goombario_DATA_START);
 
         battle_partner_goombario_RODATA_START = .;
-        build/segments/battle_partner_goombario.o(.rodata*);
+        build/segments/battle_partner_goombario.plf(.rodata*);
         battle_partner_goombario_RODATA_END = .;
         battle_partner_goombario_RODATA_SIZE = ABSOLUTE(battle_partner_goombario_RODATA_END - battle_partner_goombario_RODATA_START);
 
         battle_partner_goombario_SDATA_START = .;
-        build/segments/battle_partner_goombario.o(.sdata*);
+        build/segments/battle_partner_goombario.plf(.sdata*);
         battle_partner_goombario_SDATA_END = .;
         battle_partner_goombario_SDATA_SIZE = ABSOLUTE(battle_partner_goombario_SDATA_END - battle_partner_goombario_SDATA_START);
     }
@@ -384,22 +384,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_goombario_SBSS_START = .;
-        build/segments/battle_partner_goombario.o(.sbss*);
+        build/segments/battle_partner_goombario.plf(.sbss*);
         battle_partner_goombario_SBSS_END = .;
         battle_partner_goombario_SBSS_SIZE = ABSOLUTE(battle_partner_goombario_SBSS_END - battle_partner_goombario_SBSS_START);
 
         battle_partner_goombario_SCOMMON_START = .;
-        build/segments/battle_partner_goombario.o(.scommon*);
+        build/segments/battle_partner_goombario.plf(.scommon*);
         battle_partner_goombario_SCOMMON_END = .;
         battle_partner_goombario_SCOMMON_SIZE = ABSOLUTE(battle_partner_goombario_SCOMMON_END - battle_partner_goombario_SCOMMON_START);
 
         battle_partner_goombario_BSS_START = .;
-        build/segments/battle_partner_goombario.o(.bss*);
+        build/segments/battle_partner_goombario.plf(.bss*);
         battle_partner_goombario_BSS_END = .;
         battle_partner_goombario_BSS_SIZE = ABSOLUTE(battle_partner_goombario_BSS_END - battle_partner_goombario_BSS_START);
 
         battle_partner_goombarioCOMMON_START = .;
-        build/segments/battle_partner_goombario.o(COMMON*);
+        build/segments/battle_partner_goombario.plf(COMMON*);
         battle_partner_goombarioCOMMON_END = .;
         battle_partner_goombarioCOMMON_SIZE = ABSOLUTE(battle_partner_goombarioCOMMON_END - battle_partner_goombarioCOMMON_START);
     }
@@ -423,22 +423,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_kooper_TEXT_START = .;
-        build/segments/battle_partner_kooper.o(.text*);
+        build/segments/battle_partner_kooper.plf(.text*);
         battle_partner_kooper_TEXT_END = .;
         battle_partner_kooper_TEXT_SIZE = ABSOLUTE(battle_partner_kooper_TEXT_END - battle_partner_kooper_TEXT_START);
 
         battle_partner_kooper_DATA_START = .;
-        build/segments/battle_partner_kooper.o(.data*);
+        build/segments/battle_partner_kooper.plf(.data*);
         battle_partner_kooper_DATA_END = .;
         battle_partner_kooper_DATA_SIZE = ABSOLUTE(battle_partner_kooper_DATA_END - battle_partner_kooper_DATA_START);
 
         battle_partner_kooper_RODATA_START = .;
-        build/segments/battle_partner_kooper.o(.rodata*);
+        build/segments/battle_partner_kooper.plf(.rodata*);
         battle_partner_kooper_RODATA_END = .;
         battle_partner_kooper_RODATA_SIZE = ABSOLUTE(battle_partner_kooper_RODATA_END - battle_partner_kooper_RODATA_START);
 
         battle_partner_kooper_SDATA_START = .;
-        build/segments/battle_partner_kooper.o(.sdata*);
+        build/segments/battle_partner_kooper.plf(.sdata*);
         battle_partner_kooper_SDATA_END = .;
         battle_partner_kooper_SDATA_SIZE = ABSOLUTE(battle_partner_kooper_SDATA_END - battle_partner_kooper_SDATA_START);
     }
@@ -452,22 +452,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_partner_kooper_SBSS_START = .;
-        build/segments/battle_partner_kooper.o(.sbss*);
+        build/segments/battle_partner_kooper.plf(.sbss*);
         battle_partner_kooper_SBSS_END = .;
         battle_partner_kooper_SBSS_SIZE = ABSOLUTE(battle_partner_kooper_SBSS_END - battle_partner_kooper_SBSS_START);
 
         battle_partner_kooper_SCOMMON_START = .;
-        build/segments/battle_partner_kooper.o(.scommon*);
+        build/segments/battle_partner_kooper.plf(.scommon*);
         battle_partner_kooper_SCOMMON_END = .;
         battle_partner_kooper_SCOMMON_SIZE = ABSOLUTE(battle_partner_kooper_SCOMMON_END - battle_partner_kooper_SCOMMON_START);
 
         battle_partner_kooper_BSS_START = .;
-        build/segments/battle_partner_kooper.o(.bss*);
+        build/segments/battle_partner_kooper.plf(.bss*);
         battle_partner_kooper_BSS_END = .;
         battle_partner_kooper_BSS_SIZE = ABSOLUTE(battle_partner_kooper_BSS_END - battle_partner_kooper_BSS_START);
 
         battle_partner_kooperCOMMON_START = .;
-        build/segments/battle_partner_kooper.o(COMMON*);
+        build/segments/battle_partner_kooper.plf(COMMON*);
         battle_partner_kooperCOMMON_END = .;
         battle_partner_kooperCOMMON_SIZE = ABSOLUTE(battle_partner_kooperCOMMON_END - battle_partner_kooperCOMMON_START);
     }
@@ -495,22 +495,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_code_TEXT_START = .;
-        build/segments/battle_code.o(.text*);
+        build/segments/battle_code.plf(.text*);
         battle_code_TEXT_END = .;
         battle_code_TEXT_SIZE = ABSOLUTE(battle_code_TEXT_END - battle_code_TEXT_START);
 
         battle_code_DATA_START = .;
-        build/segments/battle_code.o(.data*);
+        build/segments/battle_code.plf(.data*);
         battle_code_DATA_END = .;
         battle_code_DATA_SIZE = ABSOLUTE(battle_code_DATA_END - battle_code_DATA_START);
 
         battle_code_RODATA_START = .;
-        build/segments/battle_code.o(.rodata*);
+        build/segments/battle_code.plf(.rodata*);
         battle_code_RODATA_END = .;
         battle_code_RODATA_SIZE = ABSOLUTE(battle_code_RODATA_END - battle_code_RODATA_START);
 
         battle_code_SDATA_START = .;
-        build/segments/battle_code.o(.sdata*);
+        build/segments/battle_code.plf(.sdata*);
         battle_code_SDATA_END = .;
         battle_code_SDATA_SIZE = ABSOLUTE(battle_code_SDATA_END - battle_code_SDATA_START);
     }
@@ -524,22 +524,22 @@ SECTIONS
     {
         FILL(0x00000000);
         battle_code_SBSS_START = .;
-        build/segments/battle_code.o(.sbss*);
+        build/segments/battle_code.plf(.sbss*);
         battle_code_SBSS_END = .;
         battle_code_SBSS_SIZE = ABSOLUTE(battle_code_SBSS_END - battle_code_SBSS_START);
 
         battle_code_SCOMMON_START = .;
-        build/segments/battle_code.o(.scommon*);
+        build/segments/battle_code.plf(.scommon*);
         battle_code_SCOMMON_END = .;
         battle_code_SCOMMON_SIZE = ABSOLUTE(battle_code_SCOMMON_END - battle_code_SCOMMON_START);
 
         battle_code_BSS_START = .;
-        build/segments/battle_code.o(.bss*);
+        build/segments/battle_code.plf(.bss*);
         battle_code_BSS_END = .;
         battle_code_BSS_SIZE = ABSOLUTE(battle_code_BSS_END - battle_code_BSS_START);
 
         battle_codeCOMMON_START = .;
-        build/segments/battle_code.o(COMMON*);
+        build/segments/battle_code.plf(COMMON*);
         battle_codeCOMMON_END = .;
         battle_codeCOMMON_SIZE = ABSOLUTE(battle_codeCOMMON_END - battle_codeCOMMON_START);
     }
@@ -566,22 +566,22 @@ SECTIONS
     {
         FILL(0x00000000);
         heaps2_TEXT_START = .;
-        build/segments/heaps2.o(.text*);
+        build/segments/heaps2.plf(.text*);
         heaps2_TEXT_END = .;
         heaps2_TEXT_SIZE = ABSOLUTE(heaps2_TEXT_END - heaps2_TEXT_START);
 
         heaps2_DATA_START = .;
-        build/segments/heaps2.o(.data*);
+        build/segments/heaps2.plf(.data*);
         heaps2_DATA_END = .;
         heaps2_DATA_SIZE = ABSOLUTE(heaps2_DATA_END - heaps2_DATA_START);
 
         heaps2_RODATA_START = .;
-        build/segments/heaps2.o(.rodata*);
+        build/segments/heaps2.plf(.rodata*);
         heaps2_RODATA_END = .;
         heaps2_RODATA_SIZE = ABSOLUTE(heaps2_RODATA_END - heaps2_RODATA_START);
 
         heaps2_SDATA_START = .;
-        build/segments/heaps2.o(.sdata*);
+        build/segments/heaps2.plf(.sdata*);
         heaps2_SDATA_END = .;
         heaps2_SDATA_SIZE = ABSOLUTE(heaps2_SDATA_END - heaps2_SDATA_START);
     }
@@ -595,22 +595,22 @@ SECTIONS
     {
         FILL(0x00000000);
         heaps2_SBSS_START = .;
-        build/segments/heaps2.o(.sbss*);
+        build/segments/heaps2.plf(.sbss*);
         heaps2_SBSS_END = .;
         heaps2_SBSS_SIZE = ABSOLUTE(heaps2_SBSS_END - heaps2_SBSS_START);
 
         heaps2_SCOMMON_START = .;
-        build/segments/heaps2.o(.scommon*);
+        build/segments/heaps2.plf(.scommon*);
         heaps2_SCOMMON_END = .;
         heaps2_SCOMMON_SIZE = ABSOLUTE(heaps2_SCOMMON_END - heaps2_SCOMMON_START);
 
         heaps2_BSS_START = .;
-        build/segments/heaps2.o(.bss*);
+        build/segments/heaps2.plf(.bss*);
         heaps2_BSS_END = .;
         heaps2_BSS_SIZE = ABSOLUTE(heaps2_BSS_END - heaps2_BSS_START);
 
         heaps2COMMON_START = .;
-        build/segments/heaps2.o(COMMON*);
+        build/segments/heaps2.plf(COMMON*);
         heaps2COMMON_END = .;
         heaps2COMMON_SIZE = ABSOLUTE(heaps2COMMON_END - heaps2COMMON_START);
     }
@@ -638,22 +638,22 @@ SECTIONS
     {
         FILL(0x00000000);
         world_script_api_TEXT_START = .;
-        build/segments/world_script_api.o(.text*);
+        build/segments/world_script_api.plf(.text*);
         world_script_api_TEXT_END = .;
         world_script_api_TEXT_SIZE = ABSOLUTE(world_script_api_TEXT_END - world_script_api_TEXT_START);
 
         world_script_api_DATA_START = .;
-        build/segments/world_script_api.o(.data*);
+        build/segments/world_script_api.plf(.data*);
         world_script_api_DATA_END = .;
         world_script_api_DATA_SIZE = ABSOLUTE(world_script_api_DATA_END - world_script_api_DATA_START);
 
         world_script_api_RODATA_START = .;
-        build/segments/world_script_api.o(.rodata*);
+        build/segments/world_script_api.plf(.rodata*);
         world_script_api_RODATA_END = .;
         world_script_api_RODATA_SIZE = ABSOLUTE(world_script_api_RODATA_END - world_script_api_RODATA_START);
 
         world_script_api_SDATA_START = .;
-        build/segments/world_script_api.o(.sdata*);
+        build/segments/world_script_api.plf(.sdata*);
         world_script_api_SDATA_END = .;
         world_script_api_SDATA_SIZE = ABSOLUTE(world_script_api_SDATA_END - world_script_api_SDATA_START);
     }
@@ -667,22 +667,22 @@ SECTIONS
     {
         FILL(0x00000000);
         world_script_api_SBSS_START = .;
-        build/segments/world_script_api.o(.sbss*);
+        build/segments/world_script_api.plf(.sbss*);
         world_script_api_SBSS_END = .;
         world_script_api_SBSS_SIZE = ABSOLUTE(world_script_api_SBSS_END - world_script_api_SBSS_START);
 
         world_script_api_SCOMMON_START = .;
-        build/segments/world_script_api.o(.scommon*);
+        build/segments/world_script_api.plf(.scommon*);
         world_script_api_SCOMMON_END = .;
         world_script_api_SCOMMON_SIZE = ABSOLUTE(world_script_api_SCOMMON_END - world_script_api_SCOMMON_START);
 
         world_script_api_BSS_START = .;
-        build/segments/world_script_api.o(.bss*);
+        build/segments/world_script_api.plf(.bss*);
         world_script_api_BSS_END = .;
         world_script_api_BSS_SIZE = ABSOLUTE(world_script_api_BSS_END - world_script_api_BSS_START);
 
         world_script_apiCOMMON_START = .;
-        build/segments/world_script_api.o(COMMON*);
+        build/segments/world_script_api.plf(COMMON*);
         world_script_apiCOMMON_END = .;
         world_script_apiCOMMON_SIZE = ABSOLUTE(world_script_apiCOMMON_END - world_script_apiCOMMON_START);
     }
@@ -711,22 +711,22 @@ SECTIONS
     {
         FILL(0x00000000);
         texture_memory_TEXT_START = .;
-        build/segments/texture_memory.o(.text*);
+        build/segments/texture_memory.plf(.text*);
         texture_memory_TEXT_END = .;
         texture_memory_TEXT_SIZE = ABSOLUTE(texture_memory_TEXT_END - texture_memory_TEXT_START);
 
         texture_memory_DATA_START = .;
-        build/segments/texture_memory.o(.data*);
+        build/segments/texture_memory.plf(.data*);
         texture_memory_DATA_END = .;
         texture_memory_DATA_SIZE = ABSOLUTE(texture_memory_DATA_END - texture_memory_DATA_START);
 
         texture_memory_RODATA_START = .;
-        build/segments/texture_memory.o(.rodata*);
+        build/segments/texture_memory.plf(.rodata*);
         texture_memory_RODATA_END = .;
         texture_memory_RODATA_SIZE = ABSOLUTE(texture_memory_RODATA_END - texture_memory_RODATA_START);
 
         texture_memory_SDATA_START = .;
-        build/segments/texture_memory.o(.sdata*);
+        build/segments/texture_memory.plf(.sdata*);
         texture_memory_SDATA_END = .;
         texture_memory_SDATA_SIZE = ABSOLUTE(texture_memory_SDATA_END - texture_memory_SDATA_START);
     }
@@ -740,22 +740,22 @@ SECTIONS
     {
         FILL(0x00000000);
         texture_memory_SBSS_START = .;
-        build/segments/texture_memory.o(.sbss*);
+        build/segments/texture_memory.plf(.sbss*);
         texture_memory_SBSS_END = .;
         texture_memory_SBSS_SIZE = ABSOLUTE(texture_memory_SBSS_END - texture_memory_SBSS_START);
 
         texture_memory_SCOMMON_START = .;
-        build/segments/texture_memory.o(.scommon*);
+        build/segments/texture_memory.plf(.scommon*);
         texture_memory_SCOMMON_END = .;
         texture_memory_SCOMMON_SIZE = ABSOLUTE(texture_memory_SCOMMON_END - texture_memory_SCOMMON_START);
 
         texture_memory_BSS_START = .;
-        build/segments/texture_memory.o(.bss*);
+        build/segments/texture_memory.plf(.bss*);
         texture_memory_BSS_END = .;
         texture_memory_BSS_SIZE = ABSOLUTE(texture_memory_BSS_END - texture_memory_BSS_START);
 
         texture_memoryCOMMON_START = .;
-        build/segments/texture_memory.o(COMMON*);
+        build/segments/texture_memory.plf(COMMON*);
         texture_memoryCOMMON_END = .;
         texture_memoryCOMMON_SIZE = ABSOLUTE(texture_memoryCOMMON_END - texture_memoryCOMMON_START);
     }
@@ -782,22 +782,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets1_TEXT_START = .;
-        build/segments/assets1.o(.text*);
+        build/segments/assets1.plf(.text*);
         assets1_TEXT_END = .;
         assets1_TEXT_SIZE = ABSOLUTE(assets1_TEXT_END - assets1_TEXT_START);
 
         assets1_DATA_START = .;
-        build/segments/assets1.o(.data*);
+        build/segments/assets1.plf(.data*);
         assets1_DATA_END = .;
         assets1_DATA_SIZE = ABSOLUTE(assets1_DATA_END - assets1_DATA_START);
 
         assets1_RODATA_START = .;
-        build/segments/assets1.o(.rodata*);
+        build/segments/assets1.plf(.rodata*);
         assets1_RODATA_END = .;
         assets1_RODATA_SIZE = ABSOLUTE(assets1_RODATA_END - assets1_RODATA_START);
 
         assets1_SDATA_START = .;
-        build/segments/assets1.o(.sdata*);
+        build/segments/assets1.plf(.sdata*);
         assets1_SDATA_END = .;
         assets1_SDATA_SIZE = ABSOLUTE(assets1_SDATA_END - assets1_SDATA_START);
     }
@@ -811,22 +811,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets1_SBSS_START = .;
-        build/segments/assets1.o(.sbss*);
+        build/segments/assets1.plf(.sbss*);
         assets1_SBSS_END = .;
         assets1_SBSS_SIZE = ABSOLUTE(assets1_SBSS_END - assets1_SBSS_START);
 
         assets1_SCOMMON_START = .;
-        build/segments/assets1.o(.scommon*);
+        build/segments/assets1.plf(.scommon*);
         assets1_SCOMMON_END = .;
         assets1_SCOMMON_SIZE = ABSOLUTE(assets1_SCOMMON_END - assets1_SCOMMON_START);
 
         assets1_BSS_START = .;
-        build/segments/assets1.o(.bss*);
+        build/segments/assets1.plf(.bss*);
         assets1_BSS_END = .;
         assets1_BSS_SIZE = ABSOLUTE(assets1_BSS_END - assets1_BSS_START);
 
         assets1COMMON_START = .;
-        build/segments/assets1.o(COMMON*);
+        build/segments/assets1.plf(COMMON*);
         assets1COMMON_END = .;
         assets1COMMON_SIZE = ABSOLUTE(assets1COMMON_END - assets1COMMON_START);
     }
@@ -850,22 +850,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets2_TEXT_START = .;
-        build/segments/assets2.o(.text*);
+        build/segments/assets2.plf(.text*);
         assets2_TEXT_END = .;
         assets2_TEXT_SIZE = ABSOLUTE(assets2_TEXT_END - assets2_TEXT_START);
 
         assets2_DATA_START = .;
-        build/segments/assets2.o(.data*);
+        build/segments/assets2.plf(.data*);
         assets2_DATA_END = .;
         assets2_DATA_SIZE = ABSOLUTE(assets2_DATA_END - assets2_DATA_START);
 
         assets2_RODATA_START = .;
-        build/segments/assets2.o(.rodata*);
+        build/segments/assets2.plf(.rodata*);
         assets2_RODATA_END = .;
         assets2_RODATA_SIZE = ABSOLUTE(assets2_RODATA_END - assets2_RODATA_START);
 
         assets2_SDATA_START = .;
-        build/segments/assets2.o(.sdata*);
+        build/segments/assets2.plf(.sdata*);
         assets2_SDATA_END = .;
         assets2_SDATA_SIZE = ABSOLUTE(assets2_SDATA_END - assets2_SDATA_START);
     }
@@ -879,22 +879,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets2_SBSS_START = .;
-        build/segments/assets2.o(.sbss*);
+        build/segments/assets2.plf(.sbss*);
         assets2_SBSS_END = .;
         assets2_SBSS_SIZE = ABSOLUTE(assets2_SBSS_END - assets2_SBSS_START);
 
         assets2_SCOMMON_START = .;
-        build/segments/assets2.o(.scommon*);
+        build/segments/assets2.plf(.scommon*);
         assets2_SCOMMON_END = .;
         assets2_SCOMMON_SIZE = ABSOLUTE(assets2_SCOMMON_END - assets2_SCOMMON_START);
 
         assets2_BSS_START = .;
-        build/segments/assets2.o(.bss*);
+        build/segments/assets2.plf(.bss*);
         assets2_BSS_END = .;
         assets2_BSS_SIZE = ABSOLUTE(assets2_BSS_END - assets2_BSS_START);
 
         assets2COMMON_START = .;
-        build/segments/assets2.o(COMMON*);
+        build/segments/assets2.plf(COMMON*);
         assets2COMMON_END = .;
         assets2COMMON_SIZE = ABSOLUTE(assets2COMMON_END - assets2COMMON_START);
     }
@@ -918,22 +918,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets3_TEXT_START = .;
-        build/segments/assets3.o(.text*);
+        build/segments/assets3.plf(.text*);
         assets3_TEXT_END = .;
         assets3_TEXT_SIZE = ABSOLUTE(assets3_TEXT_END - assets3_TEXT_START);
 
         assets3_DATA_START = .;
-        build/segments/assets3.o(.data*);
+        build/segments/assets3.plf(.data*);
         assets3_DATA_END = .;
         assets3_DATA_SIZE = ABSOLUTE(assets3_DATA_END - assets3_DATA_START);
 
         assets3_RODATA_START = .;
-        build/segments/assets3.o(.rodata*);
+        build/segments/assets3.plf(.rodata*);
         assets3_RODATA_END = .;
         assets3_RODATA_SIZE = ABSOLUTE(assets3_RODATA_END - assets3_RODATA_START);
 
         assets3_SDATA_START = .;
-        build/segments/assets3.o(.sdata*);
+        build/segments/assets3.plf(.sdata*);
         assets3_SDATA_END = .;
         assets3_SDATA_SIZE = ABSOLUTE(assets3_SDATA_END - assets3_SDATA_START);
     }
@@ -947,22 +947,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets3_SBSS_START = .;
-        build/segments/assets3.o(.sbss*);
+        build/segments/assets3.plf(.sbss*);
         assets3_SBSS_END = .;
         assets3_SBSS_SIZE = ABSOLUTE(assets3_SBSS_END - assets3_SBSS_START);
 
         assets3_SCOMMON_START = .;
-        build/segments/assets3.o(.scommon*);
+        build/segments/assets3.plf(.scommon*);
         assets3_SCOMMON_END = .;
         assets3_SCOMMON_SIZE = ABSOLUTE(assets3_SCOMMON_END - assets3_SCOMMON_START);
 
         assets3_BSS_START = .;
-        build/segments/assets3.o(.bss*);
+        build/segments/assets3.plf(.bss*);
         assets3_BSS_END = .;
         assets3_BSS_SIZE = ABSOLUTE(assets3_BSS_END - assets3_BSS_START);
 
         assets3COMMON_START = .;
-        build/segments/assets3.o(COMMON*);
+        build/segments/assets3.plf(COMMON*);
         assets3COMMON_END = .;
         assets3COMMON_SIZE = ABSOLUTE(assets3COMMON_END - assets3COMMON_START);
     }
@@ -989,22 +989,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets4_TEXT_START = .;
-        build/segments/assets4.o(.text*);
+        build/segments/assets4.plf(.text*);
         assets4_TEXT_END = .;
         assets4_TEXT_SIZE = ABSOLUTE(assets4_TEXT_END - assets4_TEXT_START);
 
         assets4_DATA_START = .;
-        build/segments/assets4.o(.data*);
+        build/segments/assets4.plf(.data*);
         assets4_DATA_END = .;
         assets4_DATA_SIZE = ABSOLUTE(assets4_DATA_END - assets4_DATA_START);
 
         assets4_RODATA_START = .;
-        build/segments/assets4.o(.rodata*);
+        build/segments/assets4.plf(.rodata*);
         assets4_RODATA_END = .;
         assets4_RODATA_SIZE = ABSOLUTE(assets4_RODATA_END - assets4_RODATA_START);
 
         assets4_SDATA_START = .;
-        build/segments/assets4.o(.sdata*);
+        build/segments/assets4.plf(.sdata*);
         assets4_SDATA_END = .;
         assets4_SDATA_SIZE = ABSOLUTE(assets4_SDATA_END - assets4_SDATA_START);
     }
@@ -1018,22 +1018,22 @@ SECTIONS
     {
         FILL(0x00000000);
         assets4_SBSS_START = .;
-        build/segments/assets4.o(.sbss*);
+        build/segments/assets4.plf(.sbss*);
         assets4_SBSS_END = .;
         assets4_SBSS_SIZE = ABSOLUTE(assets4_SBSS_END - assets4_SBSS_START);
 
         assets4_SCOMMON_START = .;
-        build/segments/assets4.o(.scommon*);
+        build/segments/assets4.plf(.scommon*);
         assets4_SCOMMON_END = .;
         assets4_SCOMMON_SIZE = ABSOLUTE(assets4_SCOMMON_END - assets4_SCOMMON_START);
 
         assets4_BSS_START = .;
-        build/segments/assets4.o(.bss*);
+        build/segments/assets4.plf(.bss*);
         assets4_BSS_END = .;
         assets4_BSS_SIZE = ABSOLUTE(assets4_BSS_END - assets4_BSS_START);
 
         assets4COMMON_START = .;
-        build/segments/assets4.o(COMMON*);
+        build/segments/assets4.plf(COMMON*);
         assets4COMMON_END = .;
         assets4COMMON_SIZE = ABSOLUTE(assets4COMMON_END - assets4COMMON_START);
     }

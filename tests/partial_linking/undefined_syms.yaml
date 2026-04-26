@@ -3,8 +3,10 @@ settings:
 
   symbols_header_path: tests/partial_linking/undefined_syms.h
 
-  partial_scripts_folder: tests/partial_linking/undefined_syms/{version}
-  partial_build_segments_folder: segments
+  partial:
+    build_segments_folder: segments
+    scripts_folder: tests/partial_linking/undefined_syms/{version}
+    segment_extension: some_non_standard_extension
 
 segments:
   - name: header

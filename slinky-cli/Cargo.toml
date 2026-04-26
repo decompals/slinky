@@ -3,9 +3,9 @@
 
 [package]
 name = "slinky-cli"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2021"
-rust-version = "1.74.0"
+rust-version = "1.74"
 authors = ["Anghelo Carvajal <angheloalf95@gmail.com>"]
 license = "MIT"
 description = "Linker script generator for decompilation and modding projects"
@@ -15,6 +15,6 @@ keywords = ["linker_script", "generator", "decompilation", "cli"]
 categories = ["development-tools::build-utils", "command-line-utilities"]
 
 [dependencies]
-clap = { version = "4.5.1", features = ["derive"] }
-regex = "1.10.5"
-slinky = { path = "../slinky", version = "0.4.0" }
+slinky = { path = "../slinky", version = "0.5.0" }
+clap = { version = "4.5", features = ["derive"] }
+regex = "1.10"

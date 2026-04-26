@@ -2,8 +2,9 @@
 /* SPDX-License-Identifier: MIT */
 
 use crate::{
-    AssertEntry, Document, EscapedPath, FileInfo, LinkerWriter, RequiredSymbol, RuntimeSettings,
-    ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError, SymbolAssignment,
+    AssertEntry, Document, EscapedPath, FileInfo, LinkerWriter, Partial, RequiredSymbol,
+    RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError,
+    SymbolAssignment,
 };
 
 pub struct PartialLinkerWriter<'a> {
@@ -13,12 +14,21 @@ pub struct PartialLinkerWriter<'a> {
 
     d: &'a Document,
     rs: &'a RuntimeSettings,
+
+    partial: &'a Partial,
 }
 
 impl<'a> PartialLinkerWriter<'a> {
     pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Result<Self, SlinkyError> {
         let main_writer = LinkerWriter::new_reference_partial_objects(d, rs)?;
         let partial_writers = Vec::new();
+        let partial =
+            d.settings
+                .partial
+                .as_ref()
+                .ok_or_else(|| SlinkyError::MissingRequiredField {
+                    name: "partial".to_string(),
+                })?;
 
         Ok(Self {
             main_writer,
@@ -27,20 +37,16 @@ impl<'a> PartialLinkerWriter<'a> {
 
             d,
             rs,
+
+            partial,
         })
     }
 }
 
 impl ScriptImporter for PartialLinkerWriter<'_> {
     fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
-        let partial_build_segments_folder = match &self.d.settings.partial_build_segments_folder {
-            Some(p) => p,
-            None => {
-                return Err(SlinkyError::MissingRequiredField {
-                    name: "partial_build_segments_folder".to_string(),
-                })
-            }
-        };
+        let partial_build_segments_folder = &self.partial.build_segments_folder;
+        let partial_segment_extension = &self.partial.segment_extension;
 
         self.main_writer.begin_sections()?;
 
@@ -67,7 +73,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
             let mut p = partial_build_segments_folder.clone();
 
-            p.push(format!("{}.o", segment.name));
+            p.push(format!("{}.{}", segment.name, partial_segment_extension));
 
             self.main_writer
                 .add_segment(&segment.clone_with_new_files(vec![FileInfo::new_object(p)]))?;
@@ -104,15 +110,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
 impl ScriptExporter for PartialLinkerWriter<'_> {
     fn export_linker_script_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
-        let partial_scripts_folder =
-            match self.d.settings.partial_scripts_folder_escaped(self.rs)? {
-                Some(p) => p,
-                None => {
-                    return Err(SlinkyError::MissingRequiredField {
-                        name: "partial_scripts_folder".to_string(),
-                    })
-                }
-            };
+        let partial_scripts_folder = self.partial.scripts_folder_escaped(self.rs)?;
 
         self.main_writer.export_linker_script_to_file(path)?;
 
@@ -141,27 +139,9 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
 
     fn save_other_files(&self) -> Result<(), SlinkyError> {
         let base_path = self.d.settings.base_path_escaped(self.rs)?;
-        let partial_build_segments_folder = match self
-            .d
-            .settings
-            .partial_build_segments_folder_escaped(self.rs)?
-        {
-            Some(p) => p,
-            None => {
-                return Err(SlinkyError::MissingRequiredField {
-                    name: "partial_build_segments_folder".to_string(),
-                })
-            }
-        };
-        let partial_scripts_folder =
-            match self.d.settings.partial_scripts_folder_escaped(self.rs)? {
-                Some(p) => p,
-                None => {
-                    return Err(SlinkyError::MissingRequiredField {
-                        name: "partial_scripts_folder".to_string(),
-                    })
-                }
-            };
+        let partial_build_segments_folder = self.partial.build_segments_folder_escaped(self.rs)?;
+        let partial_scripts_folder = self.partial.scripts_folder_escaped(self.rs)?;
+        let partial_segment_extension = &self.partial.segment_extension;
 
         self.main_writer.save_other_files()?;
 
@@ -170,7 +150,8 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
                 let mut target_path = base_path.clone();
 
                 target_path.extend(&partial_build_segments_folder);
-                target_path.push(EscapedPath::from(format!("{}.o", name)));
+                let segment_filename = format!("{name}.{partial_segment_extension}");
+                target_path.push(EscapedPath::from(segment_filename));
 
                 let mut d_path = partial_scripts_folder.clone();
 

@@ -3,8 +3,10 @@ settings:
 
   symbols_header_path: tests/partial_linking/required_syms.h
 
-  partial_scripts_folder: tests/partial_linking/required_syms
-  partial_build_segments_folder: segments
+  partial:
+    build_segments_folder: segments
+    scripts_folder: tests/partial_linking/required_syms
+    segment_extension: o
 
 segments:
   - name: boot

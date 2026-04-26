@@ -64,60 +64,58 @@ as well.
     - [Example](#example-13)
     - [Valid values](#valid-values-13)
     - [Default value](#default-value-9)
-  - [`partial_scripts_folder`](#partial_scripts_folder)
+  - [`partial`](#partial)
     - [Example](#example-14)
     - [Valid values](#valid-values-14)
-  - [`partial_build_segments_folder`](#partial_build_segments_folder)
+    - [Default value](#default-value-10)
+  - [`alloc_sections`](#alloc_sections)
     - [Example](#example-15)
     - [Valid values](#valid-values-15)
-  - [`alloc_sections`](#alloc_sections)
+    - [Default value](#default-value-11)
+  - [`noload_sections`](#noload_sections)
     - [Example](#example-16)
     - [Valid values](#valid-values-16)
-    - [Default value](#default-value-10)
-  - [`noload_sections`](#noload_sections)
+    - [Default value](#default-value-12)
+  - [`subalign`](#subalign)
     - [Example](#example-17)
     - [Valid values](#valid-values-17)
-    - [Default value](#default-value-11)
-  - [`subalign`](#subalign)
+    - [Default value](#default-value-13)
+  - [`segment_start_align`](#segment_start_align)
     - [Example](#example-18)
     - [Valid values](#valid-values-18)
-    - [Default value](#default-value-12)
-  - [`segment_start_align`](#segment_start_align)
+    - [Default value](#default-value-14)
+  - [`segment_end_align`](#segment_end_align)
     - [Example](#example-19)
     - [Valid values](#valid-values-19)
-    - [Default value](#default-value-13)
-  - [`segment_end_align`](#segment_end_align)
+    - [Default value](#default-value-15)
+  - [`section_start_align`](#section_start_align)
     - [Example](#example-20)
     - [Valid values](#valid-values-20)
-    - [Default value](#default-value-14)
-  - [`section_start_align`](#section_start_align)
+    - [Default value](#default-value-16)
+  - [`section_end_align`](#section_end_align)
     - [Example](#example-21)
     - [Valid values](#valid-values-21)
-    - [Default value](#default-value-15)
-  - [`section_end_align`](#section_end_align)
+    - [Default value](#default-value-17)
+  - [`sections_start_alignment`](#sections_start_alignment)
     - [Example](#example-22)
     - [Valid values](#valid-values-22)
-    - [Default value](#default-value-16)
-  - [`sections_start_alignment`](#sections_start_alignment)
+    - [Default value](#default-value-18)
+  - [`sections_end_alignment`](#sections_end_alignment)
     - [Example](#example-23)
     - [Valid values](#valid-values-23)
-    - [Default value](#default-value-17)
-  - [`sections_end_alignment`](#sections_end_alignment)
+    - [Default value](#default-value-19)
+  - [`wildcard_sections`](#wildcard_sections)
     - [Example](#example-24)
     - [Valid values](#valid-values-24)
-    - [Default value](#default-value-18)
-  - [`wildcard_sections`](#wildcard_sections)
+    - [Default value](#default-value-20)
+  - [`fill_value`](#fill_value)
     - [Example](#example-25)
     - [Valid values](#valid-values-25)
-    - [Default value](#default-value-19)
-  - [`fill_value`](#fill_value)
+    - [Default value](#default-value-21)
+  - [`sections_subgroups`](#sections_subgroups)
     - [Example](#example-26)
     - [Valid values](#valid-values-26)
-    - [Default value](#default-value-20)
-  - [`sections_subgroups`](#sections_subgroups)
-    - [Example](#example-27)
-    - [Valid values](#valid-values-27)
-    - [Default value](#default-value-21)
+    - [Default value](#default-value-22)
 
 ## `base_path`
 
@@ -364,7 +362,7 @@ This is useful for generating a list of files to pass to a linker with the
 
 ```yaml
 settings:
-  paths_list_path: include/linker_symbols.list
+  paths_list_path: build/game.us.o_files.list
 ```
 
 ### Valid values
@@ -502,56 +500,29 @@ Boolean.
 
 `False`
 
-## `partial_scripts_folder`
+## `partial`
 
-This setting is used when generating partial linker scripts for incremental
-linking, thus being ignored during normal linker script generation.
+Configuration for partial linking support.
 
-This field holds a path to a folder where the generated partial linker scripts
-will be written to.
-
-Each partial script will be named like the segment's name with a `.ld` file
-extension. If dependency generation is enabled then dependency files will be
-generated in this folder for each partial linker script, named like the
-segment's name and `.d` as the file extension.
+For more information about this field see the dedicated
+[`partial.md`](partial.md) document.
 
 ### Example
 
 ```yaml
 settings:
-  partial_scripts_folder: linker_scripts/partial/
+  partial:
+    build_segments_folder: segments/
+    scripts_folder: linker_scripts/partial/
 ```
 
 ### Valid values
 
-Non-empty path.
+See [`partial.md`](partial.md) to see the structure.
 
-## `partial_build_segments_folder`
+### Default value
 
-This setting is used when generating partial linker scripts for incremental
-linking, thus being ignored during normal linker script generation.
-
-This field holds a path to a folder where each built partial segment will be
-placed by the build system in use. Each built partial segment is expected to be
-named after the corresponding segment and use a `.o` file extension.
-
-This path will be prefixed by the [`base_path`](#base_path) field during
-generation the scripts generation.
-
-### Example
-
-```yaml
-settings:
-  base_path: build/us
-  partial_scripts_folder: segments/
-```
-
-The above example indicates the built partial segments will be in the
-`build/us/segments/`
-
-### Valid values
-
-Non-empty path.
+`null`
 
 ## `alloc_sections`
 

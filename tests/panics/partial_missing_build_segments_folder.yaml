@@ -1,0 +1,4 @@
+settings:
+  base_path: build
+  partial:
+    scripts_folder: scripts

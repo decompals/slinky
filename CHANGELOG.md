@@ -7,11 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-26
+
+### Added
+
+- `partial` setting. Groups every global setting related to partial linking.
+  - It now contains the old `partial_scripts_folder` and
+    `partial_build_segments_folder` settings, renamed to `scripts_folder` and
+    `build_segments_folder` respectively.
+- `partial.segment_extension`: Specify the extension used for partially linked
+  segments.
+
 ### Changed
 
 - Add `#[non_exhaustive]` attributes to all relevant structures.
 - `LinkerWriter::new`, `LinkerWriter::new_reference_partial_objects` and
   `PartialLinkerWriter::new` now return a `Result<Self, SlinkyError>`.
+- The extension for partial segments have been changed from `o` to `plf`.
+  - The extension used can be changed with the `partial.segment_extension`
+    setting.
+
+### Removed
+
+- Delete the old `partial_scripts_folder` and `partial_build_segments_folder`
+  settings in favor of the new `partial.scripts_folder` and
+  `partial.build_segments_folder` settings.
 
 ## [0.4.0] - 2026-04-20
 
@@ -136,8 +156,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[unreleased]: https://github.com/decompals/slinky/compare/0.4.0...main
+[unreleased]: https://github.com/decompals/slinky/compare/0.5.0...main
 
+[0.5.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.5...0.3.0
 [0.2.5]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.4...0.2.5

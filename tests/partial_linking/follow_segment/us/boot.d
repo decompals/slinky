@@ -1,4 +1,4 @@
-build/us/segments/boot.o: \
+build/us/segments/boot.plf: \
     build/us/src/boot/boot_main.o \
     build/us/src/libultra.o
 

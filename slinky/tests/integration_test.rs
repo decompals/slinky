@@ -211,9 +211,11 @@ fn test_partial_linking_script_generation(
 
     let partial_scripts_folder = document
         .settings
-        .partial_scripts_folder_escaped(&rs)
-        .expect("Not able to escape path")
-        .expect("Missing partial_scripts_folder");
+        .partial
+        .as_ref()
+        .expect("partial settings must exist for partial linker writer")
+        .scripts_folder_escaped(&rs)
+        .expect("Not able to escape path");
     for (partial, name) in writer.get_partial_writers() {
         let mut p = PathBuf::new();
 
@@ -255,20 +257,22 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
             .unwrap(),
     );
 
+    let partial_settings = document
+        .settings
+        .partial
+        .as_ref()
+        .expect("partial settings must exist for partial linker writer");
     let base_path = document
         .settings
         .base_path_escaped(&rs)
         .expect("Unable to escape path");
-    let partial_scripts_folder = document
-        .settings
-        .partial_scripts_folder_escaped(&rs)
-        .expect("Unable to escape path")
-        .expect("Missing partial_scripts_folder");
-    let partial_build_segments_folder = document
-        .settings
-        .partial_build_segments_folder_escaped(&rs)
-        .expect("Unable to escape path")
-        .expect("Missing partial_build_segments_folder");
+    let partial_segment_extension = &partial_settings.segment_extension;
+    let partial_scripts_folder = partial_settings
+        .scripts_folder_escaped(&rs)
+        .expect("Unable to escape path");
+    let partial_build_segments_folder = partial_settings
+        .build_segments_folder_escaped(&rs)
+        .expect("Unable to escape path");
 
     for (partial, name) in writer.get_partial_writers() {
         let mut p = PathBuf::new();
@@ -285,7 +289,7 @@ fn test_partial_linking_d_generation(#[files("../tests/partial_linking/*.d")] d_
         let mut partial_target = base_path.clone();
 
         partial_target.extend(&partial_build_segments_folder);
-        let segment_filename = format!("{}.o", name);
+        let segment_filename = format!("{name}.{partial_segment_extension}");
         partial_target.push(EscapedPath::from(segment_filename));
 
         compare_multiline_strings(

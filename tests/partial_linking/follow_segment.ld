@@ -12,26 +12,26 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_TEXT_START = .;
-        build/us/segments/boot.o(.text*);
+        build/us/segments/boot.plf(.text*);
         . = ALIGN(., 0x8);
         boot_TEXT_END = .;
         boot_TEXT_SIZE = ABSOLUTE(boot_TEXT_END - boot_TEXT_START);
 
         boot_DATA_START = .;
-        build/us/segments/boot.o(.data*);
+        build/us/segments/boot.plf(.data*);
         . = ALIGN(., 0x8);
         boot_DATA_END = .;
         boot_DATA_SIZE = ABSOLUTE(boot_DATA_END - boot_DATA_START);
 
         boot_RODATA_START = .;
-        build/us/segments/boot.o(.rodata*);
+        build/us/segments/boot.plf(.rodata*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x80);
         boot_RODATA_END = .;
         boot_RODATA_SIZE = ABSOLUTE(boot_RODATA_END - boot_RODATA_START);
 
         boot_SDATA_START = .;
-        build/us/segments/boot.o(.sdata*);
+        build/us/segments/boot.plf(.sdata*);
         . = ALIGN(., 0x8);
         boot_SDATA_END = .;
         boot_SDATA_SIZE = ABSOLUTE(boot_SDATA_END - boot_SDATA_START);
@@ -46,26 +46,26 @@ SECTIONS
     {
         FILL(0x00000000);
         boot_SBSS_START = .;
-        build/us/segments/boot.o(.sbss*);
+        build/us/segments/boot.plf(.sbss*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x20);
         boot_SBSS_END = .;
         boot_SBSS_SIZE = ABSOLUTE(boot_SBSS_END - boot_SBSS_START);
 
         boot_SCOMMON_START = .;
-        build/us/segments/boot.o(.scommon*);
+        build/us/segments/boot.plf(.scommon*);
         . = ALIGN(., 0x8);
         boot_SCOMMON_END = .;
         boot_SCOMMON_SIZE = ABSOLUTE(boot_SCOMMON_END - boot_SCOMMON_START);
 
         boot_BSS_START = .;
-        build/us/segments/boot.o(.bss*);
+        build/us/segments/boot.plf(.bss*);
         . = ALIGN(., 0x8);
         boot_BSS_END = .;
         boot_BSS_SIZE = ABSOLUTE(boot_BSS_END - boot_BSS_START);
 
         bootCOMMON_START = .;
-        build/us/segments/boot.o(COMMON*);
+        build/us/segments/boot.plf(COMMON*);
         . = ALIGN(., 0x8);
         bootCOMMON_END = .;
         bootCOMMON_SIZE = ABSOLUTE(bootCOMMON_END - bootCOMMON_START);
@@ -92,26 +92,26 @@ SECTIONS
     {
         FILL(0x00000000);
         kanji_TEXT_START = .;
-        build/us/segments/kanji.o(.text*);
+        build/us/segments/kanji.plf(.text*);
         . = ALIGN(., 0x8);
         kanji_TEXT_END = .;
         kanji_TEXT_SIZE = ABSOLUTE(kanji_TEXT_END - kanji_TEXT_START);
 
         kanji_DATA_START = .;
-        build/us/segments/kanji.o(.data*);
+        build/us/segments/kanji.plf(.data*);
         . = ALIGN(., 0x8);
         kanji_DATA_END = .;
         kanji_DATA_SIZE = ABSOLUTE(kanji_DATA_END - kanji_DATA_START);
 
         kanji_RODATA_START = .;
-        build/us/segments/kanji.o(.rodata*);
+        build/us/segments/kanji.plf(.rodata*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x80);
         kanji_RODATA_END = .;
         kanji_RODATA_SIZE = ABSOLUTE(kanji_RODATA_END - kanji_RODATA_START);
 
         kanji_SDATA_START = .;
-        build/us/segments/kanji.o(.sdata*);
+        build/us/segments/kanji.plf(.sdata*);
         . = ALIGN(., 0x8);
         kanji_SDATA_END = .;
         kanji_SDATA_SIZE = ABSOLUTE(kanji_SDATA_END - kanji_SDATA_START);
@@ -126,26 +126,26 @@ SECTIONS
     {
         FILL(0x00000000);
         kanji_SBSS_START = .;
-        build/us/segments/kanji.o(.sbss*);
+        build/us/segments/kanji.plf(.sbss*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x20);
         kanji_SBSS_END = .;
         kanji_SBSS_SIZE = ABSOLUTE(kanji_SBSS_END - kanji_SBSS_START);
 
         kanji_SCOMMON_START = .;
-        build/us/segments/kanji.o(.scommon*);
+        build/us/segments/kanji.plf(.scommon*);
         . = ALIGN(., 0x8);
         kanji_SCOMMON_END = .;
         kanji_SCOMMON_SIZE = ABSOLUTE(kanji_SCOMMON_END - kanji_SCOMMON_START);
 
         kanji_BSS_START = .;
-        build/us/segments/kanji.o(.bss*);
+        build/us/segments/kanji.plf(.bss*);
         . = ALIGN(., 0x8);
         kanji_BSS_END = .;
         kanji_BSS_SIZE = ABSOLUTE(kanji_BSS_END - kanji_BSS_START);
 
         kanjiCOMMON_START = .;
-        build/us/segments/kanji.o(COMMON*);
+        build/us/segments/kanji.plf(COMMON*);
         . = ALIGN(., 0x8);
         kanjiCOMMON_END = .;
         kanjiCOMMON_SIZE = ABSOLUTE(kanjiCOMMON_END - kanjiCOMMON_START);
@@ -172,26 +172,26 @@ SECTIONS
     {
         FILL(0x00000000);
         ascii_TEXT_START = .;
-        build/us/segments/ascii.o(.text*);
+        build/us/segments/ascii.plf(.text*);
         . = ALIGN(., 0x8);
         ascii_TEXT_END = .;
         ascii_TEXT_SIZE = ABSOLUTE(ascii_TEXT_END - ascii_TEXT_START);
 
         ascii_DATA_START = .;
-        build/us/segments/ascii.o(.data*);
+        build/us/segments/ascii.plf(.data*);
         . = ALIGN(., 0x8);
         ascii_DATA_END = .;
         ascii_DATA_SIZE = ABSOLUTE(ascii_DATA_END - ascii_DATA_START);
 
         ascii_RODATA_START = .;
-        build/us/segments/ascii.o(.rodata*);
+        build/us/segments/ascii.plf(.rodata*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x80);
         ascii_RODATA_END = .;
         ascii_RODATA_SIZE = ABSOLUTE(ascii_RODATA_END - ascii_RODATA_START);
 
         ascii_SDATA_START = .;
-        build/us/segments/ascii.o(.sdata*);
+        build/us/segments/ascii.plf(.sdata*);
         . = ALIGN(., 0x8);
         ascii_SDATA_END = .;
         ascii_SDATA_SIZE = ABSOLUTE(ascii_SDATA_END - ascii_SDATA_START);
@@ -206,26 +206,26 @@ SECTIONS
     {
         FILL(0x00000000);
         ascii_SBSS_START = .;
-        build/us/segments/ascii.o(.sbss*);
+        build/us/segments/ascii.plf(.sbss*);
         . = ALIGN(., 0x8);
         . = ALIGN(., 0x20);
         ascii_SBSS_END = .;
         ascii_SBSS_SIZE = ABSOLUTE(ascii_SBSS_END - ascii_SBSS_START);
 
         ascii_SCOMMON_START = .;
-        build/us/segments/ascii.o(.scommon*);
+        build/us/segments/ascii.plf(.scommon*);
         . = ALIGN(., 0x8);
         ascii_SCOMMON_END = .;
         ascii_SCOMMON_SIZE = ABSOLUTE(ascii_SCOMMON_END - ascii_SCOMMON_START);
 
         ascii_BSS_START = .;
-        build/us/segments/ascii.o(.bss*);
+        build/us/segments/ascii.plf(.bss*);
         . = ALIGN(., 0x8);
         ascii_BSS_END = .;
         ascii_BSS_SIZE = ABSOLUTE(ascii_BSS_END - ascii_BSS_START);
 
         asciiCOMMON_START = .;
-        build/us/segments/ascii.o(COMMON*);
+        build/us/segments/ascii.plf(COMMON*);
         . = ALIGN(., 0x8);
         asciiCOMMON_END = .;
         asciiCOMMON_SIZE = ABSOLUTE(asciiCOMMON_END - asciiCOMMON_START);
@@ -253,21 +253,21 @@ SECTIONS
         FILL(0x00000000);
         . = ALIGN(., 0x40);
         main_TEXT_START = .;
-        build/us/segments/main.o(.text*);
+        build/us/segments/main.plf(.text*);
         . = ALIGN(., 0x20);
         main_TEXT_END = .;
         main_TEXT_SIZE = ABSOLUTE(main_TEXT_END - main_TEXT_START);
 
         . = ALIGN(., 0x40);
         main_DATA_START = .;
-        build/us/segments/main.o(.data*);
+        build/us/segments/main.plf(.data*);
         . = ALIGN(., 0x20);
         main_DATA_END = .;
         main_DATA_SIZE = ABSOLUTE(main_DATA_END - main_DATA_START);
 
         . = ALIGN(., 0x40);
         main_RODATA_START = .;
-        build/us/segments/main.o(.rodata*);
+        build/us/segments/main.plf(.rodata*);
         . = ALIGN(., 0x20);
         . = ALIGN(., 0x80);
         main_RODATA_END = .;
@@ -275,7 +275,7 @@ SECTIONS
 
         . = ALIGN(., 0x40);
         main_SDATA_START = .;
-        build/us/segments/main.o(.sdata*);
+        build/us/segments/main.plf(.sdata*);
         . = ALIGN(., 0x20);
         main_SDATA_END = .;
         main_SDATA_SIZE = ABSOLUTE(main_SDATA_END - main_SDATA_START);
@@ -291,7 +291,7 @@ SECTIONS
         FILL(0x00000000);
         . = ALIGN(., 0x40);
         main_SBSS_START = .;
-        build/us/segments/main.o(.sbss*);
+        build/us/segments/main.plf(.sbss*);
         . = ALIGN(., 0x20);
         . = ALIGN(., 0x20);
         main_SBSS_END = .;
@@ -299,21 +299,21 @@ SECTIONS
 
         . = ALIGN(., 0x40);
         main_SCOMMON_START = .;
-        build/us/segments/main.o(.scommon*);
+        build/us/segments/main.plf(.scommon*);
         . = ALIGN(., 0x20);
         main_SCOMMON_END = .;
         main_SCOMMON_SIZE = ABSOLUTE(main_SCOMMON_END - main_SCOMMON_START);
 
         . = ALIGN(., 0x40);
         main_BSS_START = .;
-        build/us/segments/main.o(.bss*);
+        build/us/segments/main.plf(.bss*);
         . = ALIGN(., 0x20);
         main_BSS_END = .;
         main_BSS_SIZE = ABSOLUTE(main_BSS_END - main_BSS_START);
 
         . = ALIGN(., 0x40);
         mainCOMMON_START = .;
-        build/us/segments/main.o(COMMON*);
+        build/us/segments/main.plf(COMMON*);
         . = ALIGN(., 0x20);
         mainCOMMON_END = .;
         mainCOMMON_SIZE = ABSOLUTE(mainCOMMON_END - mainCOMMON_START);

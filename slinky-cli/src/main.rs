@@ -20,7 +20,7 @@ struct Cli {
     output: Option<PathBuf>,
 
     /// Generate linker script for partial linking multiple segments.
-    /// Requires both `partial_scripts_folder` and `partial_build_segments_folder` YAML settings to be set.
+    /// Requires the `partial` YAML setting to be set.
     #[arg(short, long, default_value_t = false)]
     partial_linking: bool,
 
