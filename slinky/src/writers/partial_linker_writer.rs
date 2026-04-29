@@ -1,11 +1,12 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use crate::{
-    AssertEntry, Document, EscapedPath, FileInfo, LinkerWriter, Partial, RequiredSymbol,
-    RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment, SlinkyError,
-    SymbolAssignment,
+use super::LinkerWriter;
+use crate::file_format::{
+    AssertEntry, Document, FileInfo, Partial, RequiredSymbol, Segment, SymbolAssignment,
 };
+use crate::utils::{EscapedPath, ScriptExporter, ScriptGenerator, ScriptImporter};
+use crate::{RuntimeSettings, SlinkyError};
 
 pub struct PartialLinkerWriter<'a> {
     main_writer: LinkerWriter<'a>,

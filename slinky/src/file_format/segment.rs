@@ -5,12 +5,11 @@ use std::{borrow::Cow, collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
-use crate::{
-    absent_nullable::AbsentNullable,
-    file_info::{FileInfo, FileInfoSerial},
-    gp_info::{GpInfo, GpInfoSerial},
-    traits::Serial,
-    utils, EscapedPath, KeepSections, RuntimeSettings, Settings, SlinkyError,
+use crate::utils::{self, traits::Serial, AbsentNullable, EscapedPath};
+use crate::{RuntimeSettings, SlinkyError};
+
+use super::{
+    file_info::FileInfoSerial, gp_info::GpInfoSerial, FileInfo, GpInfo, KeepSections, Settings,
 };
 
 #[derive(PartialEq, Debug, Clone)]

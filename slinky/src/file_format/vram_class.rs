@@ -3,7 +3,10 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, traits::Serial, KeepSections, Settings, SlinkyError};
+use crate::utils::{traits::Serial, AbsentNullable};
+use crate::SlinkyError;
+
+use super::{KeepSections, Settings};
 
 #[derive(PartialEq, Debug, Clone)]
 #[non_exhaustive]

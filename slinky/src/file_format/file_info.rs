@@ -1,16 +1,17 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use serde::Deserialize;
 use std::{
     collections::HashMap,
     path::{Path, PathBuf},
 };
 
-use crate::{
-    absent_nullable::AbsentNullable, file_kind::FileKind, traits::Serial, EscapedPath,
-    KeepSections, RuntimeSettings, Settings, SlinkyError,
-};
+use serde::Deserialize;
+
+use crate::utils::{traits::Serial, AbsentNullable, EscapedPath};
+use crate::{RuntimeSettings, SlinkyError};
+
+use super::{file_kind::FileKind, KeepSections, Settings};
 
 #[derive(PartialEq, Debug, Clone)]
 #[non_exhaustive]

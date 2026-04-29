@@ -1,18 +1,20 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use crate::{
-    AssertEntry, Document, EscapedPath, RequiredSymbol, Segment, Settings, SlinkyError,
-    SymbolAssignment,
+use crate::file_format::{
+    AssertEntry, Document, RequiredSymbol, Segment, Settings, SymbolAssignment,
 };
+use crate::utils::EscapedPath;
+use crate::SlinkyError;
 
 mod private {
-    use crate::{
+    use crate::file_format::{
         assert_entry::AssertEntrySerial, file_info::FileInfoSerial, gp_info::GpInfoSerial,
         required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
-        symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial, LinkerWriter,
-        PartialLinkerWriter,
+        symbol_assignment::SymbolAssignmentSerial, vram_class::VramClassSerial,
     };
+
+    use crate::writers::{LinkerWriter, PartialLinkerWriter};
 
     pub trait Sealed {}
 

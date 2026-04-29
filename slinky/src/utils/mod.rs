@@ -1,6 +1,14 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
+mod absent_nullable;
+mod escaped_path;
+pub(crate) mod traits;
+
+pub(crate) use absent_nullable::AbsentNullable;
+pub use escaped_path::EscapedPath;
+pub use traits::{ScriptExporter, ScriptGenerator, ScriptImporter};
+
 use std::{
     fs::{self, File},
     path::Path,

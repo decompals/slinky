@@ -3,13 +3,26 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
+use crate::utils::{traits::Serial, AbsentNullable};
+use crate::SlinkyError;
 
-#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
+use super::Settings;
+
+#[derive(PartialEq, Debug, Clone)]
 #[non_exhaustive]
-pub struct RequiredSymbol {
+pub struct SymbolAssignment {
     /// Name of the symbol
     pub name: String,
+
+    /// Value or expression to assign to this symbol
+    pub value: String,
+
+    /// Signals if this assignment should be wrapped in a `PROVIDE` statement.
+    /// Can be used with `hidden`.
+    pub provide: bool,
+    /// Signals if this assignment should be wrapped in a `HIDDEN` statement.
+    /// Can be used with `provide`.
+    pub hidden: bool,
 
     pub include_if_any: Vec<(String, String)>,
     pub include_if_all: Vec<(String, String)>,
@@ -19,8 +32,14 @@ pub struct RequiredSymbol {
 
 #[derive(Deserialize, PartialEq, Debug)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct RequiredSymbolSerial {
+pub(crate) struct SymbolAssignmentSerial {
     pub name: String,
+    pub value: String,
+
+    #[serde(default)]
+    pub provide: AbsentNullable<bool>,
+    #[serde(default)]
+    pub hidden: AbsentNullable<bool>,
 
     #[serde(default)]
     pub include_if_any: AbsentNullable<Vec<(String, String)>>,
@@ -32,8 +51,8 @@ pub(crate) struct RequiredSymbolSerial {
     pub exclude_if_all: AbsentNullable<Vec<(String, String)>>,
 }
 
-impl Serial for RequiredSymbolSerial {
-    type Output = RequiredSymbol;
+impl Serial for SymbolAssignmentSerial {
+    type Output = SymbolAssignment;
 
     fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
         if self.name.is_empty() {
@@ -42,6 +61,16 @@ impl Serial for RequiredSymbolSerial {
             });
         }
         let name = self.name;
+
+        if self.value.is_empty() {
+            return Err(SlinkyError::EmptyValue {
+                name: "value".to_string(),
+            });
+        }
+        let value = self.value;
+
+        let provide = self.provide.get_non_null("provide", || false)?;
+        let hidden = self.hidden.get_non_null("hidden", || false)?;
 
         let include_if_any = self
             .include_if_any
@@ -58,6 +87,9 @@ impl Serial for RequiredSymbolSerial {
 
         Ok(Self::Output {
             name,
+            value,
+            provide,
+            hidden,
             include_if_any,
             include_if_all,
             exclude_if_any,

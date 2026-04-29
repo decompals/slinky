@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Many files were moved into folders for better organization.
+- Moved many structs into `mod`s for better organization.
+
 ## [0.5.0] - 2026-04-26
 
 ### Added

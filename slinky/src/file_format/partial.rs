@@ -5,7 +5,8 @@ use std::path::PathBuf;
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, EscapedPath, RuntimeSettings, SlinkyError};
+use crate::utils::{AbsentNullable, EscapedPath};
+use crate::{RuntimeSettings, SlinkyError};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[non_exhaustive]

@@ -3,9 +3,13 @@
 
 use serde::Deserialize;
 
-use crate::{absent_nullable::AbsentNullable, traits::Serial, Settings, SlinkyError};
+use crate::utils::{traits::Serial, AbsentNullable};
+use crate::SlinkyError;
 
-#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
+use super::Settings;
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[non_exhaustive]
 pub struct GpInfo {
     // The relative section to emit the `_gp` symbol
     pub section: String,

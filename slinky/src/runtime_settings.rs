@@ -7,7 +7,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::{EscapedPath, SlinkyError};
+use crate::utils::EscapedPath;
+use crate::SlinkyError;
 
 #[derive(PartialEq, Debug)]
 pub struct RuntimeSettings {

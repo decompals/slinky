@@ -4,13 +4,13 @@
 use std::borrow::Cow;
 use std::io::Write;
 
-use crate::{
-    utils, version, AssertEntry, Document, EscapedPath, FileInfo, FileKind, KeepSections,
-    RequiredSymbol, RuntimeSettings, ScriptExporter, ScriptGenerator, ScriptImporter, Segment,
-    SlinkyError, SymbolAssignment, VramClass,
+use super::script_buffer::ScriptBuffer;
+use crate::file_format::{
+    AssertEntry, Document, FileInfo, FileKind, KeepSections, RequiredSymbol, Segment,
+    SymbolAssignment, VramClass,
 };
-
-use crate::script_buffer::ScriptBuffer;
+use crate::utils::{self, EscapedPath, ScriptExporter, ScriptGenerator, ScriptImporter};
+use crate::{version, RuntimeSettings, SlinkyError};
 
 pub struct LinkerWriter<'a> {
     buffer: ScriptBuffer,

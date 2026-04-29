@@ -7,7 +7,7 @@ use crate::SlinkyError;
 
 // https://stackoverflow.com/a/44332837/6292472
 
-#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 pub(crate) enum AbsentNullable<T> {
     #[default]
     Absent,

@@ -5,10 +5,10 @@ use std::{collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
-use crate::{
-    absent_nullable::AbsentNullable, linker_symbols_style::LinkerSymbolsStyle,
-    partial::PartialSerial, EscapedPath, Partial, RuntimeSettings, SlinkyError,
-};
+use crate::utils::{AbsentNullable, EscapedPath};
+use crate::{RuntimeSettings, SlinkyError};
+
+use super::{partial::PartialSerial, LinkerSymbolsStyle, Partial};
 
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]

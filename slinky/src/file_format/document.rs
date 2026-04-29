@@ -5,12 +5,14 @@ use std::{fs, path::Path};
 
 use serde::Deserialize;
 
-use crate::{
-    absent_nullable::AbsentNullable, assert_entry::AssertEntrySerial,
-    required_symbol::RequiredSymbolSerial, segment::SegmentSerial, settings::SettingsSerial,
-    symbol_assignment::SymbolAssignmentSerial, traits::Serial, vram_class::VramClassSerial,
-    AssertEntry, KeepSections, RequiredSymbol, Segment, Settings, SlinkyError, SymbolAssignment,
-    VramClass,
+use crate::utils::{traits::Serial, AbsentNullable};
+use crate::SlinkyError;
+
+use super::{
+    assert_entry::AssertEntrySerial, required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
+    settings::SettingsSerial, symbol_assignment::SymbolAssignmentSerial,
+    vram_class::VramClassSerial, AssertEntry, KeepSections, RequiredSymbol, Segment, Settings,
+    SymbolAssignment, VramClass,
 };
 
 #[derive(Debug, PartialEq)]
