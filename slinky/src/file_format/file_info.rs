@@ -13,7 +13,7 @@ use crate::{RuntimeSettings, SlinkyError};
 
 use super::{file_kind::FileKind, KeepSections, Settings};
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct FileInfo {
     pub path: PathBuf,
@@ -33,6 +33,10 @@ pub struct FileInfo {
     // Used for groups
     pub files: Vec<FileInfo>,
     pub dir: PathBuf,
+    pub group_name: Option<String>,
+
+    // Used for moved_groups
+    pub moved_sections: HashMap<String, String>,
 
     pub include_if_any: Vec<(String, String)>,
     pub include_if_all: Vec<(String, String)>,
@@ -56,6 +60,8 @@ impl FileInfo {
             section_order: HashMap::new(),
             files: Vec::new(),
             dir: PathBuf::new(),
+            group_name: None,
+            moved_sections: HashMap::new(),
             include_if_any: Vec::new(),
             include_if_all: Vec::new(),
             exclude_if_any: Vec::new(),
@@ -118,6 +124,11 @@ pub(crate) struct FileInfoSerial {
     pub files: AbsentNullable<Vec<FileInfoSerial>>,
     #[serde(default)]
     pub dir: AbsentNullable<PathBuf>,
+    #[serde(default)]
+    pub group_name: AbsentNullable<String>,
+
+    #[serde(default)]
+    pub moved_sections: AbsentNullable<HashMap<String, String>>,
 
     #[serde(default)]
     pub include_if_any: AbsentNullable<Vec<(String, String)>>,
@@ -150,7 +161,7 @@ impl Serial for FileInfoSerial {
 
                     (p, k)
                 }
-                FileKind::Pad | FileKind::LinkerOffset | FileKind::Group => {
+                FileKind::Pad | FileKind::LinkerOffset | FileKind::Group | FileKind::MovedGroup => {
                     // doesn't allow paths
                     if self.path.has_value() {
                         return Err(SlinkyError::InvalidFieldCombo {
@@ -177,7 +188,11 @@ impl Serial for FileInfoSerial {
         };
 
         let subfile = match kind {
-            FileKind::Object | FileKind::LinkerOffset | FileKind::Pad | FileKind::Group => {
+            FileKind::Object
+            | FileKind::LinkerOffset
+            | FileKind::Pad
+            | FileKind::Group
+            | FileKind::MovedGroup => {
                 if self.subfile.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "subfile".into(),
@@ -190,7 +205,11 @@ impl Serial for FileInfoSerial {
         };
 
         let pad_amount = match kind {
-            FileKind::Object | FileKind::LinkerOffset | FileKind::Archive | FileKind::Group => {
+            FileKind::Object
+            | FileKind::LinkerOffset
+            | FileKind::Archive
+            | FileKind::Group
+            | FileKind::MovedGroup => {
                 if self.pad_amount.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "pad_amount".into(),
@@ -203,7 +222,7 @@ impl Serial for FileInfoSerial {
         };
 
         let section = match kind {
-            FileKind::Object | FileKind::Archive | FileKind::Group => {
+            FileKind::Object | FileKind::Archive | FileKind::Group | FileKind::MovedGroup => {
                 if self.section.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section".into(),
@@ -216,7 +235,11 @@ impl Serial for FileInfoSerial {
         };
 
         let linker_offset_name = match kind {
-            FileKind::Object | FileKind::Pad | FileKind::Archive | FileKind::Group => {
+            FileKind::Object
+            | FileKind::Pad
+            | FileKind::Archive
+            | FileKind::Group
+            | FileKind::MovedGroup => {
                 if self.linker_offset_name.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "linker_offset_name".into(),
@@ -229,7 +252,7 @@ impl Serial for FileInfoSerial {
         };
 
         let section_order = match kind {
-            FileKind::Pad | FileKind::LinkerOffset | FileKind::Group => {
+            FileKind::Pad | FileKind::LinkerOffset | FileKind::Group | FileKind::MovedGroup => {
                 if self.section_order.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "section_order".into(),
@@ -244,7 +267,11 @@ impl Serial for FileInfoSerial {
         };
 
         let mut files = match kind {
-            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
+            FileKind::Object
+            | FileKind::Archive
+            | FileKind::Pad
+            | FileKind::LinkerOffset
+            | FileKind::MovedGroup => {
                 if self.files.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "files".into(),
@@ -257,7 +284,11 @@ impl Serial for FileInfoSerial {
         };
 
         let dir = match kind {
-            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
+            FileKind::Object
+            | FileKind::Archive
+            | FileKind::Pad
+            | FileKind::LinkerOffset
+            | FileKind::MovedGroup => {
                 if self.dir.has_value() {
                     return Err(SlinkyError::InvalidFieldCombo {
                         field1: "dir".into(),
@@ -267,6 +298,47 @@ impl Serial for FileInfoSerial {
                 PathBuf::default()
             }
             FileKind::Group => self.dir.get_non_null("dir", PathBuf::default)?,
+        };
+
+        let group_name = match kind {
+            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
+                if self.group_name.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "group_name".into(),
+                        field2: "non `kind: moved_group` or `kind: group`".into(),
+                    });
+                }
+                None
+            }
+            FileKind::Group => {
+                // Groups may or may not have a name.
+                // This is only required if we want to link this group to a
+                // moved group block.
+                self.group_name.get_non_null_no_default("group_name")?
+            }
+            FileKind::MovedGroup => {
+                // Moved groups require a name, otherwise we don't know what group they are refering to.
+                Some(self.group_name.get("group_name")?)
+            }
+        };
+
+        let moved_sections = match kind {
+            FileKind::Object
+            | FileKind::Archive
+            | FileKind::Pad
+            | FileKind::LinkerOffset
+            | FileKind::Group => {
+                if self.moved_sections.has_value() {
+                    return Err(SlinkyError::InvalidFieldCombo {
+                        field1: "moved_sections".into(),
+                        field2: "non `kind: moved_group`".into(),
+                    });
+                }
+                HashMap::default()
+            }
+            FileKind::MovedGroup => self
+                .moved_sections
+                .get_non_null("moved_sections", HashMap::default)?,
         };
 
         let include_if_any = self
@@ -301,6 +373,8 @@ impl Serial for FileInfoSerial {
             section_order,
             files,
             dir,
+            group_name,
+            moved_sections,
             include_if_any,
             include_if_all,
             exclude_if_any,

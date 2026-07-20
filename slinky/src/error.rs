@@ -60,4 +60,26 @@ pub enum SlinkyError {
         segment: Cow<'static, str>,
         vram_class: Cow<'static, str>,
     },
+
+    #[error("Segment '{segment}' has duplicated group name '{group_name}'")]
+    DuplicatedGroupName {
+        segment: Cow<'static, str>,
+        group_name: Cow<'static, str>,
+    },
+
+    #[error("Segment '{segment}' has duplicated moved group name '{group_name}'")]
+    DuplicatedMovedGroupName {
+        segment: Cow<'static, str>,
+        group_name: Cow<'static, str>,
+    },
+
+    #[error("Segment '{segment}' has moved group referencing non existing group '{group_name}'")]
+    NonExistingMovedGroup {
+        segment: Cow<'static, str>,
+        group_name: Cow<'static, str>,
+    },
+
+    // Theoretically this error should be impossible, i think...
+    #[error("Segment '{segment}' has a moved group without a name")]
+    MissingNameForMovedGroup { segment: Cow<'static, str> },
 }

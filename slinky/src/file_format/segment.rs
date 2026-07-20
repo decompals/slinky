@@ -1,10 +1,12 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
+use std::collections::HashSet;
 use std::{borrow::Cow, collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
+use crate::file_format::FileKind;
 use crate::utils::{self, traits::Serial, AbsentNullable, EscapedPath};
 use crate::{RuntimeSettings, SlinkyError};
 
@@ -206,6 +208,47 @@ impl Serial for SegmentSerial {
         }
 
         let mut files = self.files.unserialize(settings)?;
+        {
+            // Check for duplicated group names
+            let mut seen_group_names = HashSet::new();
+            let mut seen_moved_group_names = HashSet::new();
+            for file in &files {
+                if let Some(group_name) = &file.group_name {
+                    match file.kind {
+                        FileKind::Group => {
+                            if !seen_group_names.insert(group_name.as_str()) {
+                                return Err(SlinkyError::DuplicatedGroupName {
+                                    segment: Cow::from(name),
+                                    group_name: Cow::from(group_name.clone()),
+                                });
+                            }
+                        }
+                        FileKind::MovedGroup => {
+                            if !seen_moved_group_names.insert(group_name.as_str()) {
+                                return Err(SlinkyError::DuplicatedMovedGroupName {
+                                    segment: Cow::from(name),
+                                    group_name: Cow::from(group_name.clone()),
+                                });
+                            }
+                        }
+                        FileKind::Object
+                        | FileKind::Archive
+                        | FileKind::Pad
+                        | FileKind::LinkerOffset => { /* Should be impossible */ }
+                    }
+                }
+            }
+
+            // Check all moved_group reference the name of an existing group.
+            for group_name in seen_moved_group_names {
+                if !seen_group_names.contains(group_name) {
+                    return Err(SlinkyError::NonExistingMovedGroup {
+                        segment: Cow::from(name),
+                        group_name: Cow::from(group_name.to_string()),
+                    });
+                }
+            }
+        }
 
         let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
 

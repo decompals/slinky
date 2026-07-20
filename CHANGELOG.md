@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-19
+
+### Added
+
+- `moved_group` file kind.
+  - Allows to move the sections of a block of files to a different block of
+    sections, preserving the original block order.
+
 ### Changed
 
 - Many files were moved into folders for better organization.
@@ -161,8 +169,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[unreleased]: https://github.com/decompals/slinky/compare/0.5.0...main
+[unreleased]: https://github.com/decompals/slinky/compare/0.6.0...main
 
+[0.6.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/Decompollaborate/spimdisasm/compare/0.2.5...0.3.0

@@ -4,7 +4,7 @@
 use std::borrow::Cow;
 use std::io::Write;
 
-use super::script_buffer::ScriptBuffer;
+use super::{script_buffer::ScriptBuffer, segment_write_context::SegmentWriteContext};
 use crate::file_format::{
     AssertEntry, Document, FileInfo, FileKind, KeepSections, RequiredSymbol, Segment,
     SymbolAssignment, VramClass,
@@ -603,16 +603,18 @@ impl LinkerWriter<'_> {
         self.buffer
             .write_linker_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
+        let segment_write_context = SegmentWriteContext::new(segment);
+
         // Emit alloc segment
         if let Some(alloc_sections) = &segment.alloc_sections {
-            self.write_segment(segment, alloc_sections, false)?;
+            self.write_segment(segment, &segment_write_context, alloc_sections, false)?;
         }
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
         if let Some(noload_sections) = &segment.noload_sections {
-            self.write_segment(segment, noload_sections, true)?;
+            self.write_segment(segment, &segment_write_context, noload_sections, true)?;
         }
 
         self.buffer.write_empty_line();
@@ -665,16 +667,18 @@ impl LinkerWriter<'_> {
             self.buffer.write_empty_line();
         }
 
+        let segment_write_context = SegmentWriteContext::new(segment);
+
         // Emit alloc segment
         if let Some(alloc_sections) = &segment.alloc_sections {
-            self.write_single_segment(segment, alloc_sections, false)?;
+            self.write_single_segment(segment, &segment_write_context, alloc_sections, false)?;
         }
 
         self.buffer.write_empty_line();
 
         // Emit noload segment
         if let Some(noload_sections) = &segment.noload_sections {
-            self.write_single_segment(segment, noload_sections, true)?;
+            self.write_single_segment(segment, &segment_write_context, noload_sections, true)?;
         }
 
         self.buffer.write_empty_line();
@@ -914,6 +918,7 @@ impl LinkerWriter<'_> {
         &mut self,
         file: &FileInfo,
         segment: &Segment,
+        segment_write_context: &SegmentWriteContext,
         section: &str,
         sections: &[String],
         base_path: &EscapedPath,
@@ -988,6 +993,21 @@ impl LinkerWriter<'_> {
                 }
             }
             FileKind::Group => {
+                // Check if this group has a corresponding moved group, and if
+                // it is moving the current section. If that's the case then
+                // avoid emitting the section now and wait for the moved group
+                // to emit it instead.
+                if let Some(group_name) = &file.group_name {
+                    if segment_write_context
+                        .moved_groups_by_name
+                        .get(group_name.as_str())
+                        .map(|x| x.moved_sections.contains_key(section))
+                        == Some(true)
+                    {
+                        return Ok(());
+                    }
+                }
+
                 let mut new_base_path = base_path.clone();
 
                 new_base_path.push(file.dir_escaped(self.rs)?);
@@ -996,9 +1016,44 @@ impl LinkerWriter<'_> {
                     self.emit_section_for_file(
                         file_of_group,
                         segment,
+                        segment_write_context,
                         section,
                         sections,
                         &new_base_path,
+                    )?;
+                }
+            }
+            FileKind::MovedGroup => {
+                let Some(group_name) = &file.group_name else {
+                    return Err(SlinkyError::MissingNameForMovedGroup {
+                        segment: Cow::from(segment.name.clone()),
+                    });
+                };
+                let Some(group) = segment_write_context
+                    .groups_by_name
+                    .get(group_name.as_str())
+                else {
+                    return Err(SlinkyError::NonExistingMovedGroup {
+                        segment: Cow::from(segment.name.clone()),
+                        group_name: Cow::from(group_name.to_string()),
+                    });
+                };
+
+                // Remove this group from moved_groups_by_name to force the
+                // group to actually emit the sections this time.
+                let aux_segment_write_context = {
+                    let mut aux = segment_write_context.clone();
+                    aux.moved_groups_by_name.retain(|k, _v| *k != group_name);
+                    aux
+                };
+                for (k, _v) in file.moved_sections.iter().filter(|(_k, v)| *v == section) {
+                    self.emit_file(
+                        group,
+                        segment,
+                        &aux_segment_write_context,
+                        k,
+                        sections,
+                        base_path,
                     )?;
                 }
             }
@@ -1011,14 +1066,19 @@ impl LinkerWriter<'_> {
         &mut self,
         file: &FileInfo,
         segment: &Segment,
+        segment_write_context: &SegmentWriteContext,
         section: &str,
         sections: &[String],
         base_path: &EscapedPath,
     ) -> Result<(), SlinkyError> {
         if !file.section_order.is_empty() {
             // Keys specify the section and value specify where it will be put.
-            // For example: `section_order: { .data: .rodata }`, meaning the `.data` of the file should be put within its `.rodata`.
-            // It was done this way instead of the other way around (ie keys specifying the destination section) because the other way would not allow specifying multiple sections should be put in the same destination section.
+            // For example: `section_order: { .data: .rodata }`, meaning the
+            // `.data` of the file should be put within its `.rodata`.
+            // It was done this way instead of the other way around (ie keys
+            // specifying the destination section) because the other way would
+            // not allow that multiple sections should be put within the same
+            // destination section.
 
             let mut sections_to_emit_here = if file.section_order.contains_key(section) {
                 // This section should be placed somewhere else
@@ -1038,24 +1098,45 @@ impl LinkerWriter<'_> {
             sections_to_emit_here.sort_unstable_by_key(|&k| sections.iter().position(|s| s == k));
 
             for k in sections_to_emit_here {
-                self.emit_file(file, segment, k, sections, base_path)?;
+                self.emit_file(file, segment, segment_write_context, k, sections, base_path)?;
 
                 if !self.reference_partial_objects {
                     if let Some(other_sections) = segment.sections_subgroups.get(k) {
                         for other in other_sections {
-                            self.emit_section_for_file(file, segment, other, sections, base_path)?;
+                            self.emit_section_for_file(
+                                file,
+                                segment,
+                                segment_write_context,
+                                other,
+                                sections,
+                                base_path,
+                            )?;
                         }
                     }
                 }
             }
         } else {
             // No need to mess with section ordering, just emit the file
-            self.emit_file(file, segment, section, sections, base_path)?;
+            self.emit_file(
+                file,
+                segment,
+                segment_write_context,
+                section,
+                sections,
+                base_path,
+            )?;
 
             if !self.reference_partial_objects {
                 if let Some(other_sections) = segment.sections_subgroups.get(section) {
                     for other in other_sections {
-                        self.emit_section_for_file(file, segment, other, sections, base_path)?;
+                        self.emit_section_for_file(
+                            file,
+                            segment,
+                            segment_write_context,
+                            other,
+                            sections,
+                            base_path,
+                        )?;
                     }
                 }
             }
@@ -1067,6 +1148,7 @@ impl LinkerWriter<'_> {
     fn emit_section(
         &mut self,
         segment: &Segment,
+        segment_write_context: &SegmentWriteContext,
         section: &str,
         sections: &[String],
     ) -> Result<(), SlinkyError> {
@@ -1077,7 +1159,14 @@ impl LinkerWriter<'_> {
         }
 
         for file in &segment.files {
-            self.emit_section_for_file(file, segment, section, sections, &base_path)?;
+            self.emit_section_for_file(
+                file,
+                segment,
+                segment_write_context,
+                section,
+                sections,
+                &base_path,
+            )?;
         }
 
         Ok(())
@@ -1086,6 +1175,7 @@ impl LinkerWriter<'_> {
     fn write_segment(
         &mut self,
         segment: &Segment,
+        segment_write_context: &SegmentWriteContext,
         sections: &[String],
         noload: bool,
     ) -> Result<(), SlinkyError> {
@@ -1098,7 +1188,7 @@ impl LinkerWriter<'_> {
         for (i, section) in sections.iter().enumerate() {
             self.write_section_symbol_start(segment, section);
 
-            self.emit_section(segment, section, sections)?;
+            self.emit_section(segment, segment_write_context, section, sections)?;
 
             self.write_section_symbol_end(segment, section);
 
@@ -1115,6 +1205,7 @@ impl LinkerWriter<'_> {
     fn write_single_segment(
         &mut self,
         segment: &Segment,
+        segment_write_context: &SegmentWriteContext,
         sections: &[String],
         noload: bool,
     ) -> Result<(), SlinkyError> {
@@ -1138,7 +1229,7 @@ impl LinkerWriter<'_> {
                 self.buffer.writeln(&format!("FILL(0x{:08X});", fill_value));
             }
 
-            self.emit_section(segment, section, sections)?;
+            self.emit_section(segment, segment_write_context, section, sections)?;
 
             self.buffer.end_block();
             self.write_section_symbol_end(segment, section);

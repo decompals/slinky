@@ -5,7 +5,7 @@ use std::path::Path;
 
 use serde::Deserialize;
 
-#[derive(Deserialize, PartialEq, Debug, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
 #[serde(rename_all = "snake_case")]
 #[non_exhaustive]
 pub enum FileKind {
@@ -14,6 +14,7 @@ pub enum FileKind {
     Pad,
     LinkerOffset,
     Group,
+    MovedGroup,
 }
 
 impl FileKind {

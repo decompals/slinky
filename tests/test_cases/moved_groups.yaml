@@ -1,0 +1,57 @@
+settings:
+  base_path: build
+
+  d_path: tests/test_cases/moved_groups.d
+  target_path: build/rom.elf
+
+segments:
+  - name: main
+    fixed_vram: 0x80000400
+    files:
+      - kind: group
+        group_name: start_code
+        files:
+          - { path: src/main_segment/main.o }
+          - { path: src/main_segment/nnsched.o }
+          - { path: src/main_segment/joy.o }
+
+      - kind: group
+        dir: src/libmus
+        group_name: libmus
+        files:
+          - { path: player.o }
+          - { path: player_fx.o }
+          - { path: aud_dma.o }
+          - { path: aud_sched.o }
+          - { path: aud_thread.o }
+          - { path: lib_memory.o }
+          - { path: aud_samples.o }
+
+      # Put rodata within data and move the whole block the original libmus block.
+      - kind: moved_group
+        group_name: libmus
+        moved_sections: { .rodata: .data }
+
+      # Put rodata within data and move the whole block the second libmus block.
+      - kind: moved_group
+        group_name: start_code
+        moved_sections: { .rodata: .data }
+
+      - kind: group
+        dir: src/stufsh
+        keep_sections: [.data]
+        files:
+          - kind: group
+            files:
+              - { path: thingy1.o, keep_sections: [.text] }
+              - { path: thingy2.o }
+          - kind: group
+            keep_sections: [.rodata, .data]
+            files:
+              - kind: group
+                files:
+                  - { path: thonga3.o }
+                  - { path: capy4.o }
+                  - { path: placeholder5.o, keep_sections: [.bss] }
+                  - { path: idk6.o, keep_sections: [.bss] }
+          - { path: another7.o }

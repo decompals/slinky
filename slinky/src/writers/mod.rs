@@ -2,6 +2,7 @@
 /* SPDX-License-Identifier: MIT */
 
 mod script_buffer;
+mod segment_write_context;
 
 mod linker_writer;
 mod partial_linker_writer;
