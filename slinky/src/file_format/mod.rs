@@ -24,7 +24,10 @@ pub use settings::Settings;
 
 pub use assert_entry::AssertEntry;
 pub use file_info::FileInfo;
-pub use file_kind::FileKind;
+pub use file_kind::{
+    FileKind, FileKindArchive, FileKindGroup, FileKindLinkerOffset, FileKindMovedGroup,
+    FileKindObject, FileKindPad,
+};
 pub use gp_info::GpInfo;
 pub use keep_sections::KeepSections;
 pub use required_symbol::RequiredSymbol;

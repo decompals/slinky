@@ -1,99 +1,47 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use std::{
-    collections::HashMap,
-    path::{Path, PathBuf},
-};
+use std::{collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
-use crate::utils::{traits::Serial, AbsentNullable, EscapedPath};
-use crate::{RuntimeSettings, SlinkyError};
+use crate::utils::{traits::Serial, AbsentNullable};
+use crate::SlinkyError;
 
-use super::{file_kind::FileKind, KeepSections, Settings};
+use super::{file_kind::FileKindSerial, FileKind, FileKindObject, KeepSections, Settings};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct FileInfo {
-    pub path: PathBuf,
-
     pub kind: FileKind,
-
-    // Used for archives
-    pub subfile: String,
-
-    pub pad_amount: u32,
-    pub section: String,
-
-    pub linker_offset_name: String,
-
-    pub section_order: HashMap<String, String>,
-
-    // Used for groups
-    pub files: Vec<FileInfo>,
-    pub dir: PathBuf,
-    pub group_name: Option<String>,
-
-    // Used for moved_groups
-    pub moved_sections: HashMap<String, String>,
 
     pub include_if_any: Vec<(String, String)>,
     pub include_if_all: Vec<(String, String)>,
     pub exclude_if_any: Vec<(String, String)>,
     pub exclude_if_all: Vec<(String, String)>,
-
-    // The default value of the following members come from Segment
-    // (or the upper FileInfo if this file is part of a group)
-    pub keep_sections: KeepSections,
 }
 
 impl FileInfo {
-    pub fn new_object(p: PathBuf) -> Self {
+    pub(crate) fn new_object(p: PathBuf) -> Self {
         Self {
-            path: p,
-            kind: FileKind::Object,
-            subfile: "".into(),
-            pad_amount: 0,
-            section: "".into(),
-            linker_offset_name: "".into(),
-            section_order: HashMap::new(),
-            files: Vec::new(),
-            dir: PathBuf::new(),
-            group_name: None,
-            moved_sections: HashMap::new(),
+            kind: FileKind::Object(FileKindObject {
+                path: p,
+                section_order: HashMap::new(),
+                keep_sections: KeepSections::default(),
+            }),
             include_if_any: Vec::new(),
             include_if_all: Vec::new(),
             exclude_if_any: Vec::new(),
             exclude_if_all: Vec::new(),
-            keep_sections: KeepSections::default(),
         }
     }
 
-    pub fn pass_down_keep_sections(&mut self, keep_sections: &KeepSections) {
+    pub(crate) fn pass_down_keep_sections(&mut self, keep_sections: &KeepSections) {
         if *keep_sections == KeepSections::Absent {
             return;
         }
 
-        if self.keep_sections == KeepSections::Absent {
-            self.keep_sections.clone_from(keep_sections);
-
-            if self.kind == FileKind::Group {
-                self.files
-                    .iter_mut()
-                    .for_each(|f| f.pass_down_keep_sections(keep_sections));
-            }
-        }
-    }
-}
-
-impl FileInfo {
-    pub fn path_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
-        rs.escape_path(&self.path)
-    }
-
-    pub fn dir_escaped(&self, rs: &RuntimeSettings) -> Result<EscapedPath, SlinkyError> {
-        rs.escape_path(&self.dir)
+        self.kind.pass_down_keep_sections(keep_sections);
     }
 }
 
@@ -104,7 +52,7 @@ pub(crate) struct FileInfoSerial {
     pub path: AbsentNullable<PathBuf>,
 
     #[serde(default)]
-    pub kind: AbsentNullable<FileKind>,
+    pub kind: AbsentNullable<FileKindSerial>,
 
     #[serde(default)]
     pub subfile: AbsentNullable<String>,
@@ -147,223 +95,7 @@ impl Serial for FileInfoSerial {
     type Output = FileInfo;
 
     fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
-        // Since a `kind` can be deduced from a `path` (which requires a `path`) then we need to do both simultaneously
-        let (path, kind) = match self.kind.get_non_null_no_default("kind")? {
-            Some(k) => match k {
-                FileKind::Object | FileKind::Archive => {
-                    let p = self.path.get("path")?;
-
-                    if p == Path::new("") {
-                        return Err(SlinkyError::EmptyValue {
-                            name: "path".to_string(),
-                        });
-                    }
-
-                    (p, k)
-                }
-                FileKind::Pad | FileKind::LinkerOffset | FileKind::Group | FileKind::MovedGroup => {
-                    // doesn't allow paths
-                    if self.path.has_value() {
-                        return Err(SlinkyError::InvalidFieldCombo {
-                            field1: "`kind: pad`, `kind: linker_offset` or `kind: group`".into(),
-                            field2: "path".into(),
-                        });
-                    }
-
-                    (PathBuf::new(), k)
-                }
-            },
-            None => {
-                let p = self.path.get("path")?;
-
-                if p == Path::new("") {
-                    return Err(SlinkyError::EmptyValue {
-                        name: "path".to_string(),
-                    });
-                }
-
-                let k = FileKind::from_path(&p);
-                (p, k)
-            }
-        };
-
-        let subfile = match kind {
-            FileKind::Object
-            | FileKind::LinkerOffset
-            | FileKind::Pad
-            | FileKind::Group
-            | FileKind::MovedGroup => {
-                if self.subfile.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "subfile".into(),
-                        field2: "non `kind: archive`".into(),
-                    });
-                }
-                "*".to_string()
-            }
-            FileKind::Archive => self.subfile.get_non_null("subfile", || "*".to_string())?,
-        };
-
-        let pad_amount = match kind {
-            FileKind::Object
-            | FileKind::LinkerOffset
-            | FileKind::Archive
-            | FileKind::Group
-            | FileKind::MovedGroup => {
-                if self.pad_amount.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "pad_amount".into(),
-                        field2: "non `kind: pad`".into(),
-                    });
-                }
-                0
-            }
-            FileKind::Pad => self.pad_amount.get("pad_amount")?,
-        };
-
-        let section = match kind {
-            FileKind::Object | FileKind::Archive | FileKind::Group | FileKind::MovedGroup => {
-                if self.section.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "section".into(),
-                        field2: "non `kind: pad or kind: linker_offset`".into(),
-                    });
-                }
-                "".into()
-            }
-            FileKind::Pad | FileKind::LinkerOffset => self.section.get("section")?,
-        };
-
-        let linker_offset_name = match kind {
-            FileKind::Object
-            | FileKind::Pad
-            | FileKind::Archive
-            | FileKind::Group
-            | FileKind::MovedGroup => {
-                if self.linker_offset_name.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "linker_offset_name".into(),
-                        field2: "non `kind: linker_offset`".into(),
-                    });
-                }
-                "".into()
-            }
-            FileKind::LinkerOffset => self.linker_offset_name.get("linker_offset_name")?,
-        };
-
-        let section_order = match kind {
-            FileKind::Pad | FileKind::LinkerOffset | FileKind::Group | FileKind::MovedGroup => {
-                if self.section_order.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "section_order".into(),
-                        field2: "non `kind: object` or `kind: archive`".into(),
-                    });
-                }
-                HashMap::default()
-            }
-            FileKind::Object | FileKind::Archive => self
-                .section_order
-                .get_non_null("section_order", HashMap::default)?,
-        };
-
-        let mut files = match kind {
-            FileKind::Object
-            | FileKind::Archive
-            | FileKind::Pad
-            | FileKind::LinkerOffset
-            | FileKind::MovedGroup => {
-                if self.files.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "files".into(),
-                        field2: "non `kind: group`".into(),
-                    });
-                }
-                Vec::default()
-            }
-            FileKind::Group => self.files.get("files")?.unserialize(settings)?,
-        };
-
-        let dir = match kind {
-            FileKind::Object
-            | FileKind::Archive
-            | FileKind::Pad
-            | FileKind::LinkerOffset
-            | FileKind::MovedGroup => {
-                if self.dir.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "dir".into(),
-                        field2: "non `kind: group`".into(),
-                    });
-                }
-                PathBuf::default()
-            }
-            FileKind::Group => self.dir.get_non_null("dir", PathBuf::default)?,
-        };
-
-        let group_name = match kind {
-            FileKind::Object | FileKind::Archive | FileKind::Pad | FileKind::LinkerOffset => {
-                if self.group_name.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "group_name".into(),
-                        field2: "non `kind: moved_group` or `kind: group`".into(),
-                    });
-                }
-                None
-            }
-            FileKind::Group => {
-                // Groups may or may not have a name.
-                // This is only required if we want to link this group to a
-                // moved group block.
-                self.group_name.get_non_null_no_default("group_name")?
-            }
-            FileKind::MovedGroup => {
-                // Moved groups require a name, otherwise we don't know what group they are refering to.
-                Some(self.group_name.get("group_name")?)
-            }
-        };
-
-        let moved_sections = match kind {
-            FileKind::Object
-            | FileKind::Archive
-            | FileKind::Pad
-            | FileKind::LinkerOffset
-            | FileKind::Group => {
-                if self.moved_sections.has_value() {
-                    return Err(SlinkyError::InvalidFieldCombo {
-                        field1: "moved_sections".into(),
-                        field2: "non `kind: moved_group`".into(),
-                    });
-                }
-                HashMap::default()
-            }
-            FileKind::MovedGroup => self
-                .moved_sections
-                .get_non_null("moved_sections", HashMap::default)?,
-        };
-
-        let include_if_any = self
-            .include_if_any
-            .get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = self
-            .include_if_all
-            .get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = self
-            .exclude_if_any
-            .get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = self
-            .exclude_if_all
-            .get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        let keep_sections = self.keep_sections;
-
-        // Pass down the current `keep_sections` to any file of this group that may not have defined it
-        if kind == FileKind::Group && keep_sections != KeepSections::Absent {
-            files
-                .iter_mut()
-                .for_each(|f| f.pass_down_keep_sections(&keep_sections));
-        }
-
-        Ok(Self::Output {
+        let Self {
             path,
             kind,
             subfile,
@@ -380,6 +112,35 @@ impl Serial for FileInfoSerial {
             exclude_if_any,
             exclude_if_all,
             keep_sections,
+        } = self;
+
+        let kind = FileKindSerial::unserialize(
+            settings,
+            path,
+            kind,
+            subfile,
+            pad_amount,
+            section,
+            linker_offset_name,
+            section_order,
+            files,
+            dir,
+            group_name,
+            moved_sections,
+            keep_sections,
+        )?;
+
+        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
+        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
+        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
+        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
+
+        Ok(Self::Output {
+            kind,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
         })
     }
 }

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Rework the intenral representation for `FileKind` and `FileInfo`.
+
 ## [0.6.0] - 2026-07-19
 
 ### Added

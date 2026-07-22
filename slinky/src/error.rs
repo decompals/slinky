@@ -78,8 +78,4 @@ pub enum SlinkyError {
         segment: Cow<'static, str>,
         group_name: Cow<'static, str>,
     },
-
-    // Theoretically this error should be impossible, i think...
-    #[error("Segment '{segment}' has a moved group without a name")]
-    MissingNameForMovedGroup { segment: Cow<'static, str> },
 }

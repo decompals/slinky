@@ -6,8 +6,7 @@ use std::io::Write;
 
 use super::{script_buffer::ScriptBuffer, segment_write_context::SegmentWriteContext};
 use crate::file_format::{
-    AssertEntry, Document, FileInfo, FileKind, KeepSections, RequiredSymbol, Segment,
-    SymbolAssignment, VramClass,
+    AssertEntry, Document, FileInfo, FileKind, RequiredSymbol, Segment, SymbolAssignment, VramClass,
 };
 use crate::utils::{self, EscapedPath, ScriptExporter, ScriptGenerator, ScriptImporter};
 use crate::{version, RuntimeSettings, SlinkyError};
@@ -936,68 +935,55 @@ impl LinkerWriter<'_> {
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
 
-        let (left_side, right_side) = match &file.keep_sections {
-            KeepSections::Absent => ("", ""),
-            KeepSections::All(all) => {
-                if *all {
-                    ("KEEP(", ")")
-                } else {
-                    ("", "")
-                }
-            }
-            KeepSections::WhichOnes(which_ones) => {
-                if which_ones.contains(section) {
-                    ("KEEP(", ")")
-                } else {
-                    ("", "")
-                }
-            }
-        };
-
         // TODO: figure out glob support
-        match file.kind {
-            FileKind::Object => {
+        match &file.kind {
+            FileKind::Object(object) => {
                 let mut path = base_path.clone();
-                path.push(file.path_escaped(self.rs)?);
+                path.push(object.path_escaped(self.rs)?);
+
+                let (left_side, right_side) = object.keep_sections.keep_str(section);
 
                 self.buffer.writeln(&format!(
-                    "{}{}({}{}){};",
-                    left_side, path, section, wildcard, right_side
+                    "{left_side}{path}({section}{wildcard}){right_side};"
                 ));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);
                 }
             }
-            FileKind::Archive => {
+            FileKind::Archive(archive) => {
                 let mut path = base_path.clone();
-                path.push(file.path_escaped(self.rs)?);
+                path.push(archive.path_escaped(self.rs)?);
+
+                let (left_side, right_side) = archive.keep_sections.keep_str(section);
+                let subfile = &archive.subfile;
 
                 self.buffer.writeln(&format!(
-                    "{}{}:{}({}{}){};",
-                    left_side, path, file.subfile, section, wildcard, right_side
+                    "{left_side}{path}:{subfile}({section}{wildcard}){right_side};"
                 ));
                 if !self.files_paths.contains(&path) {
                     self.files_paths.insert(path);
                 }
             }
-            FileKind::Pad => {
-                if file.section == section {
+            FileKind::Pad(pad) => {
+                if pad.section == section {
                     self.buffer
-                        .writeln(&format!(". += 0x{:X};", file.pad_amount));
+                        .writeln(&format!(". += 0x{:X};", pad.pad_amount));
                 }
             }
-            FileKind::LinkerOffset => {
-                if file.section == section {
-                    self.buffer
-                        .write_linker_symbol(&style.linker_offset(&file.linker_offset_name), ".");
+            FileKind::LinkerOffset(linker_offset) => {
+                if linker_offset.section == section {
+                    self.buffer.write_linker_symbol(
+                        &style.linker_offset(&linker_offset.linker_offset_name),
+                        ".",
+                    );
                 }
             }
-            FileKind::Group => {
+            FileKind::Group(group) => {
                 // Check if this group has a corresponding moved group, and if
                 // it is moving the current section. If that's the case then
                 // avoid emitting the section now and wait for the moved group
                 // to emit it instead.
-                if let Some(group_name) = &file.group_name {
+                if let Some(group_name) = &group.group_name {
                     if segment_write_context
                         .moved_groups_by_name
                         .get(group_name.as_str())
@@ -1010,9 +996,9 @@ impl LinkerWriter<'_> {
 
                 let mut new_base_path = base_path.clone();
 
-                new_base_path.push(file.dir_escaped(self.rs)?);
+                new_base_path.push(group.dir_escaped(self.rs)?);
 
-                for file_of_group in &file.files {
+                for file_of_group in &group.files {
                     self.emit_section_for_file(
                         file_of_group,
                         segment,
@@ -1023,16 +1009,9 @@ impl LinkerWriter<'_> {
                     )?;
                 }
             }
-            FileKind::MovedGroup => {
-                let Some(group_name) = &file.group_name else {
-                    return Err(SlinkyError::MissingNameForMovedGroup {
-                        segment: Cow::from(segment.name.clone()),
-                    });
-                };
-                let Some(group) = segment_write_context
-                    .groups_by_name
-                    .get(group_name.as_str())
-                else {
+            FileKind::MovedGroup(moved_group) => {
+                let group_name = moved_group.group_name.as_str();
+                let Some(group) = segment_write_context.groups_by_name.get(group_name) else {
                     return Err(SlinkyError::NonExistingMovedGroup {
                         segment: Cow::from(segment.name.clone()),
                         group_name: Cow::from(group_name.to_string()),
@@ -1046,7 +1025,11 @@ impl LinkerWriter<'_> {
                     aux.moved_groups_by_name.retain(|k, _v| *k != group_name);
                     aux
                 };
-                for (k, _v) in file.moved_sections.iter().filter(|(_k, v)| *v == section) {
+                for (k, _v) in moved_group
+                    .moved_sections
+                    .iter()
+                    .filter(|(_k, v)| *v == section)
+                {
                     self.emit_file(
                         group,
                         segment,
@@ -1071,7 +1054,7 @@ impl LinkerWriter<'_> {
         sections: &[String],
         base_path: &EscapedPath,
     ) -> Result<(), SlinkyError> {
-        if !file.section_order.is_empty() {
+        if let Some(section_order) = file.kind.section_order() {
             // Keys specify the section and value specify where it will be put.
             // For example: `section_order: { .data: .rodata }`, meaning the
             // `.data` of the file should be put within its `.rodata`.
@@ -1080,7 +1063,7 @@ impl LinkerWriter<'_> {
             // not allow that multiple sections should be put within the same
             // destination section.
 
-            let mut sections_to_emit_here = if file.section_order.contains_key(section) {
+            let mut sections_to_emit_here = if section_order.contains_key(section) {
                 // This section should be placed somewhere else
                 vec![]
             } else {
@@ -1088,7 +1071,7 @@ impl LinkerWriter<'_> {
             };
 
             // Check if any other section should be placed be placed here
-            for (k, v) in &file.section_order {
+            for (k, v) in section_order {
                 if v == section {
                     sections_to_emit_here.push(k);
                 }

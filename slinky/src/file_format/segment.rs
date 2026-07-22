@@ -213,9 +213,13 @@ impl Serial for SegmentSerial {
             let mut seen_group_names = HashSet::new();
             let mut seen_moved_group_names = HashSet::new();
             for file in &files {
-                if let Some(group_name) = &file.group_name {
-                    match file.kind {
-                        FileKind::Group => {
+                match &file.kind {
+                    FileKind::Object(..) => {}
+                    FileKind::Archive(..) => {}
+                    FileKind::Pad(..) => {}
+                    FileKind::LinkerOffset(..) => {}
+                    FileKind::Group(group) => {
+                        if let Some(group_name) = &group.group_name {
                             if !seen_group_names.insert(group_name.as_str()) {
                                 return Err(SlinkyError::DuplicatedGroupName {
                                     segment: Cow::from(name),
@@ -223,18 +227,14 @@ impl Serial for SegmentSerial {
                                 });
                             }
                         }
-                        FileKind::MovedGroup => {
-                            if !seen_moved_group_names.insert(group_name.as_str()) {
-                                return Err(SlinkyError::DuplicatedMovedGroupName {
-                                    segment: Cow::from(name),
-                                    group_name: Cow::from(group_name.clone()),
-                                });
-                            }
+                    }
+                    FileKind::MovedGroup(moved_group) => {
+                        if !seen_moved_group_names.insert(moved_group.group_name.as_str()) {
+                            return Err(SlinkyError::DuplicatedMovedGroupName {
+                                segment: Cow::from(name),
+                                group_name: Cow::from(moved_group.group_name.clone()),
+                            });
                         }
-                        FileKind::Object
-                        | FileKind::Archive
-                        | FileKind::Pad
-                        | FileKind::LinkerOffset => { /* Should be impossible */ }
                     }
                 }
             }

@@ -196,6 +196,8 @@ other specific sections.
 Each key represents a section to be placed elsewhere and its key represent the
 section where it should be put on.
 
+This is accepted only by the `object` and `archive` [`kind`](#kind)s.
+
 ### Example
 
 ```yaml
