@@ -133,7 +133,7 @@ impl FileKindGroup {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
 #[serde(rename_all = "snake_case")]
 #[non_exhaustive]
-pub enum FileKindSerial {
+pub(crate) enum FileKindSerial {
     Object,
     Archive,
     Pad,
