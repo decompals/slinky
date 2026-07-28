@@ -1,6 +1,6 @@
 SECTIONS
 {
-    __romPos = 0x0;
+    HIDDEN(__romPos = 0x0);
 
     __romPos = ALIGN(__romPos, 0x8);
     . = ALIGN(., 0x8);

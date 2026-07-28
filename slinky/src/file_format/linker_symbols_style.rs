@@ -5,7 +5,7 @@ use serde::Deserialize;
 
 use crate::utils;
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
 #[serde(rename_all = "snake_case")]
 #[non_exhaustive]
 pub enum LinkerSymbolsStyle {

@@ -1,7 +1,7 @@
 SECTIONS
 {
-    __romPos = 0x0;
-    _gp = 0x800E4090;
+    HIDDEN(__romPos = 0x0);
+    _gp = 0x800E4090;;
 
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);

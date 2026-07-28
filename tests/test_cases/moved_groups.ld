@@ -1,6 +1,6 @@
 SECTIONS
 {
-    __romPos = 0x0;
+    HIDDEN(__romPos = 0x0);
 
     main_ROM_START = __romPos;
     main_VRAM = ADDR(.main);

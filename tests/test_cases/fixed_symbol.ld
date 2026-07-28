@@ -1,6 +1,6 @@
 SECTIONS
 {
-    __romPos = 0x0;
+    HIDDEN(__romPos = 0x0);
 
     boot_ROM_START = __romPos;
     boot_VRAM = ADDR(.boot);

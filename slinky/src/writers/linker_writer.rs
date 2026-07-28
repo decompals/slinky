@@ -446,11 +446,16 @@ impl LinkerWriter<'_> {
         self.buffer.writeln("SECTIONS");
         self.buffer.begin_block();
 
-        self.buffer.writeln("__romPos = 0x0;");
+        self.buffer
+            .write_symbol_assignment("__romPos", "0x0", false, true);
 
         if let Some(hardcoded_gp_value) = self.d.settings.hardcoded_gp_value {
-            self.buffer
-                .writeln(&format!("_gp = 0x{:08X};", hardcoded_gp_value));
+            self.buffer.write_symbol_assignment(
+                "_gp",
+                &format!("0x{:08X};", hardcoded_gp_value),
+                false,
+                false,
+            );
         }
 
         self.buffer.write_empty_line();

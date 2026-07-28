@@ -10,7 +10,7 @@ use crate::{RuntimeSettings, SlinkyError};
 
 use super::{partial::PartialSerial, LinkerSymbolsStyle, Partial};
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
     pub base_path: PathBuf,
@@ -270,7 +270,7 @@ impl Settings {
     }
 }
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct SettingsSerial {
     #[serde(default)]

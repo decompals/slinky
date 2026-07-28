@@ -34,7 +34,7 @@ impl Partial {
     }
 }
 
-#[derive(Deserialize, PartialEq, Debug)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[non_exhaustive]
 pub(crate) struct PartialSerial {
