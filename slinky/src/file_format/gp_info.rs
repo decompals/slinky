@@ -72,10 +72,19 @@ impl Serial for GpInfoSerial {
     type Output = GpInfo;
 
     fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+        let Self {
+            section,
+            offset,
+            provide,
+            hidden,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
+        } = self;
+
         let section = {
-            let s = self
-                .section
-                .get_non_null("section", gp_info_default_section)?;
+            let s = section.get_non_null("section", gp_info_default_section)?;
             if s.is_empty() {
                 return Err(SlinkyError::EmptyValue {
                     name: "section".to_string(),
@@ -84,25 +93,15 @@ impl Serial for GpInfoSerial {
             s
         };
 
-        let offset = self.offset.get_non_null("offset", gp_info_default_offset)?;
+        let offset = offset.get_non_null("offset", gp_info_default_offset)?;
 
-        let provide = self
-            .provide
-            .get_non_null("provide", gp_info_default_provide)?;
-        let hidden = self.hidden.get_non_null("hidden", gp_info_default_hidden)?;
+        let provide = provide.get_non_null("provide", gp_info_default_provide)?;
+        let hidden = hidden.get_non_null("hidden", gp_info_default_hidden)?;
 
-        let include_if_any = self
-            .include_if_any
-            .get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = self
-            .include_if_all
-            .get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = self
-            .exclude_if_any
-            .get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = self
-            .exclude_if_all
-            .get_non_null_not_empty("exclude_if_all", Vec::new)?;
+        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
+        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
+        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
+        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
         Ok(Self::Output {
             section,

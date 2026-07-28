@@ -194,20 +194,47 @@ impl Serial for SegmentSerial {
     type Output = Segment;
 
     fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
-        if self.name.is_empty() {
+        let Self {
+            name,
+            files,
+            fixed_vram,
+            fixed_symbol,
+            follows_segment,
+            vram_class,
+            dir,
+            gp_info,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
+            alloc_sections,
+            noload_sections,
+            subalign,
+            segment_start_align,
+            segment_end_align,
+            section_start_align,
+            section_end_align,
+            sections_start_alignment,
+            sections_end_alignment,
+            wildcard_sections,
+            fill_value,
+            sections_subgroups,
+            keep_sections,
+        } = self;
+
+        if name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
             });
         }
-        let name = self.name;
 
-        if self.files.is_empty() {
+        if files.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "files".to_string(),
             });
         }
 
-        let mut files = self.files.unserialize(settings)?;
+        let mut files = files.unserialize(settings)?;
         {
             // Check for duplicated group names
             let mut seen_group_names = HashSet::new();
@@ -250,15 +277,13 @@ impl Serial for SegmentSerial {
             }
         }
 
-        let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
+        let fixed_vram = fixed_vram.get_non_null_no_default("fixed_vram")?;
 
-        let fixed_symbol = self.fixed_symbol.get_non_null_no_default("fixed_symbol")?;
+        let fixed_symbol = fixed_symbol.get_non_null_no_default("fixed_symbol")?;
 
-        let follows_segment = self
-            .follows_segment
-            .get_non_null_no_default("follows_segment")?;
+        let follows_segment = follows_segment.get_non_null_no_default("follows_segment")?;
 
-        let vram_class = self.vram_class.get_non_null_no_default("vram_class")?;
+        let vram_class = vram_class.get_non_null_no_default("vram_class")?;
 
         // TODO: there must be a simpler way to check for all these combinations
 
@@ -308,10 +333,9 @@ impl Serial for SegmentSerial {
             });
         }
 
-        let dir = self.dir.get_non_null("dir", PathBuf::new)?;
+        let dir = dir.get_non_null("dir", PathBuf::new)?;
 
-        let gp_info = self
-            .gp_info
+        let gp_info = gp_info
             .get_non_null_no_default("gp_info")?
             .unserialize(settings)?;
         if gp_info.is_some() && settings.hardcoded_gp_value.is_some() {
@@ -321,24 +345,14 @@ impl Serial for SegmentSerial {
             });
         }
 
-        let include_if_any = self
-            .include_if_any
-            .get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = self
-            .include_if_all
-            .get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = self
-            .exclude_if_any
-            .get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = self
-            .exclude_if_all
-            .get_non_null_not_empty("exclude_if_all", Vec::new)?;
+        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
+        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
+        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
+        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
-        let alloc_sections = self
-            .alloc_sections
+        let alloc_sections = alloc_sections
             .get_optional_nullable("alloc_sections", || settings.alloc_sections.clone())?;
-        let noload_sections = self
-            .noload_sections
+        let noload_sections = noload_sections
             .get_optional_nullable("noload_sections", || settings.noload_sections.clone())?;
 
         if let Some(gp) = &gp_info {
@@ -353,50 +367,36 @@ impl Serial for SegmentSerial {
             }
         }
 
-        let subalign = self
-            .subalign
-            .get_optional_nullable("subalign", || settings.subalign)?;
+        let subalign = subalign.get_optional_nullable("subalign", || settings.subalign)?;
 
-        let segment_start_align = self
-            .segment_start_align
+        let segment_start_align = segment_start_align
             .get_optional_nullable("segment_start_align", || settings.segment_start_align)?;
 
-        let segment_end_align = self
-            .segment_end_align
+        let segment_end_align = segment_end_align
             .get_optional_nullable("segment_end_align", || settings.segment_end_align)?;
 
-        let section_start_align = self
-            .section_start_align
+        let section_start_align = section_start_align
             .get_optional_nullable("section_start_align", || settings.section_start_align)?;
 
-        let section_end_align = self
-            .section_end_align
+        let section_end_align = section_end_align
             .get_optional_nullable("section_end_align", || settings.section_end_align)?;
 
-        let sections_start_alignment = self
-            .sections_start_alignment
+        let sections_start_alignment = sections_start_alignment
             .get_non_null("sections_start_alignment", || {
                 settings.sections_start_alignment.clone()
             })?;
 
-        let sections_end_alignment = self
-            .sections_end_alignment
+        let sections_end_alignment = sections_end_alignment
             .get_non_null("sections_end_alignment", || {
                 settings.sections_end_alignment.clone()
             })?;
 
-        let wildcard_sections = self
-            .wildcard_sections
-            .get_non_null("wildcard_sections", || settings.wildcard_sections)?;
+        let wildcard_sections =
+            wildcard_sections.get_non_null("wildcard_sections", || settings.wildcard_sections)?;
 
-        let fill_value = self
-            .fill_value
-            .get_optional_nullable("fill_value", || settings.fill_value)?;
+        let fill_value = fill_value.get_optional_nullable("fill_value", || settings.fill_value)?;
 
-        let keep_sections = self.keep_sections;
-
-        let sections_subgroups = self
-            .sections_subgroups
+        let sections_subgroups = sections_subgroups
             .get_non_null("sections_subgroups", || settings.sections_subgroups.clone())?;
 
         // Pass down the current `keep_sections` to files that may not have defined it

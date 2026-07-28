@@ -344,61 +344,78 @@ pub(crate) struct SettingsSerial {
 
 impl SettingsSerial {
     pub fn unserialize(self) -> Result<Settings, SlinkyError> {
-        let base_path = self
-            .base_path
-            .get_non_null("base_path", settings_default_base_path)?;
-        let linker_symbols_style = self.linker_symbols_style.get_non_null(
+        let Self {
+            base_path,
+            linker_symbols_style,
+            hardcoded_gp_value,
+            d_path,
+            target_path,
+            symbols_header_path,
+            symbols_header_type,
+            symbols_header_as_array,
+            paths_list_path,
+            sections_allowlist,
+            sections_allowlist_extra,
+            sections_denylist,
+            discard_wildcard_section,
+            single_segment_mode,
+            partial,
+            alloc_sections,
+            noload_sections,
+            subalign,
+            segment_start_align,
+            segment_end_align,
+            section_start_align,
+            section_end_align,
+            sections_start_alignment,
+            sections_end_alignment,
+            wildcard_sections,
+            fill_value,
+            sections_subgroups,
+        } = self;
+
+        let base_path = base_path.get_non_null("base_path", settings_default_base_path)?;
+        let linker_symbols_style = linker_symbols_style.get_non_null(
             "linker_symbols_style",
             settings_default_linker_symbols_style,
         )?;
 
-        let hardcoded_gp_value = self
-            .hardcoded_gp_value
+        let hardcoded_gp_value = hardcoded_gp_value
             .get_optional_nullable("hardcoded_gp_value", settings_default_hardcoded_gp_value)?;
 
-        let d_path = self
-            .d_path
-            .get_optional_nullable("d_path", settings_default_d_path)?;
-        let target_path = self
-            .target_path
-            .get_optional_nullable("target_path", settings_default_target_path)?;
+        let d_path = d_path.get_optional_nullable("d_path", settings_default_d_path)?;
+        let target_path =
+            target_path.get_optional_nullable("target_path", settings_default_target_path)?;
 
-        let symbols_header_path = self
-            .symbols_header_path
+        let symbols_header_path = symbols_header_path
             .get_optional_nullable("symbols_header_path", settings_default_symbols_header_path)?;
-        let symbols_header_type = self
-            .symbols_header_type
+        let symbols_header_type = symbols_header_type
             .get_non_null("symbols_header_type", settings_default_symbols_header_type)?;
-        let symbols_header_as_array = self.symbols_header_as_array.get_non_null(
+        let symbols_header_as_array = symbols_header_as_array.get_non_null(
             "symbols_header_as_array",
             settings_default_symbols_header_as_array,
         )?;
 
-        let paths_list_path = self
-            .paths_list_path
+        let paths_list_path = paths_list_path
             .get_optional_nullable("paths_list_path", settings_default_paths_list_path)?;
 
-        let sections_allowlist = self
-            .sections_allowlist
+        let sections_allowlist = sections_allowlist
             .get_non_null("sections_allowlist", settings_default_sections_allowlist)?;
-        let sections_allowlist_extra = self.sections_allowlist_extra.get_non_null(
+        let sections_allowlist_extra = sections_allowlist_extra.get_non_null(
             "sections_allowlist_extra",
             settings_default_sections_allowlist_extra,
         )?;
-        let sections_denylist = self
-            .sections_denylist
+        let sections_denylist = sections_denylist
             .get_non_null("sections_denylist", settings_default_sections_denylist)?;
-        let discard_wildcard_section = self.discard_wildcard_section.get_non_null(
+        let discard_wildcard_section = discard_wildcard_section.get_non_null(
             "discard_wildcard_section",
             settings_default_discard_wildcard_section,
         )?;
 
-        let single_segment_mode = self
-            .single_segment_mode
+        let single_segment_mode = single_segment_mode
             .get_non_null("single_segment_mode", settings_default_single_segment_mode)?;
 
-        let partial = self
-            .partial
+        let partial = partial
             .get_non_null_no_default("partial")?
             .map(|x| x.unserialize())
             .transpose()?;
@@ -410,53 +427,42 @@ impl SettingsSerial {
             });
         }
 
-        let alloc_sections = self
-            .alloc_sections
+        let alloc_sections = alloc_sections
             .get_optional_nullable("alloc_sections", settings_default_alloc_sections)?;
-        let noload_sections = self
-            .noload_sections
+        let noload_sections = noload_sections
             .get_optional_nullable("noload_sections", settings_default_noload_sections)?;
 
-        let subalign = self
-            .subalign
-            .get_optional_nullable("subalign", settings_default_subalign)?;
+        let subalign = subalign.get_optional_nullable("subalign", settings_default_subalign)?;
 
-        let segment_start_align = self
-            .segment_start_align
+        let segment_start_align = segment_start_align
             .get_optional_nullable("segment_start_align", settings_default_segment_start_align)?;
 
-        let segment_end_align = self
-            .segment_end_align
+        let segment_end_align = segment_end_align
             .get_optional_nullable("segment_end_align", settings_default_segment_end_align)?;
 
-        let section_start_align = self
-            .section_start_align
+        let section_start_align = section_start_align
             .get_optional_nullable("section_start_align", settings_default_section_start_align)?;
 
-        let section_end_align = self
-            .section_end_align
+        let section_end_align = section_end_align
             .get_optional_nullable("section_end_align", settings_default_section_end_align)?;
 
-        let sections_start_alignment = self.sections_start_alignment.get_non_null(
+        let sections_start_alignment = sections_start_alignment.get_non_null(
             "sections_start_alignment",
             settings_default_sections_start_alignment,
         )?;
 
-        let sections_end_alignment = self.sections_end_alignment.get_non_null(
+        let sections_end_alignment = sections_end_alignment.get_non_null(
             "sections_end_alignment",
             settings_default_sections_end_alignment,
         )?;
 
-        let wildcard_sections = self
-            .wildcard_sections
+        let wildcard_sections = wildcard_sections
             .get_non_null("wildcard_sections", settings_default_wildcard_sections)?;
 
-        let fill_value = self
-            .fill_value
-            .get_optional_nullable("fill_value", settings_default_fill_value)?;
+        let fill_value =
+            fill_value.get_optional_nullable("fill_value", settings_default_fill_value)?;
 
-        let sections_subgroups = self
-            .sections_subgroups
+        let sections_subgroups = sections_subgroups
             .get_non_null("sections_subgroups", settings_default_subsections_groups)?;
 
         Ok(Settings {

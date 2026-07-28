@@ -39,25 +39,24 @@ impl Serial for RequiredSymbolSerial {
     type Output = RequiredSymbol;
 
     fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
-        if self.name.is_empty() {
+        let Self {
+            name,
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
+        } = self;
+
+        if name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
             });
         }
-        let name = self.name;
 
-        let include_if_any = self
-            .include_if_any
-            .get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = self
-            .include_if_all
-            .get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = self
-            .exclude_if_any
-            .get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = self
-            .exclude_if_all
-            .get_non_null_not_empty("exclude_if_all", Vec::new)?;
+        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
+        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
+        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
+        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
 
         Ok(Self::Output {
             name,

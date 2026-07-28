@@ -77,38 +77,44 @@ pub(crate) struct DocumentSerial {
 
 impl DocumentSerial {
     pub fn unserialize(self) -> Result<Document, SlinkyError> {
-        let settings = match self.settings.get_non_null_no_default("settings")? {
+        let Self {
+            settings,
+            vram_classes,
+            segments,
+            entry,
+            symbol_assignments,
+            required_symbols,
+            asserts,
+        } = self;
+
+        let settings = match settings.get_non_null_no_default("settings")? {
             None => Settings::default(),
             Some(v) => v.unserialize()?,
         };
 
-        if self.segments.is_empty() {
+        if segments.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "segments".to_string(),
             });
         }
 
-        let vram_classes = self
-            .vram_classes
+        let vram_classes = vram_classes
             .get_non_null("vram_classes", Vec::new)?
             .unserialize(&settings)?;
 
-        let mut segments = self.segments.unserialize(&settings)?;
+        let mut segments = segments.unserialize(&settings)?;
 
-        let entry = self.entry.get_non_null_no_default("entry")?;
+        let entry = entry.get_non_null_no_default("entry")?;
 
-        let symbol_assignments = self
-            .symbol_assignments
+        let symbol_assignments = symbol_assignments
             .get_non_null("symbol_assignments", Vec::new)?
             .unserialize(&settings)?;
 
-        let required_symbols = self
-            .required_symbols
+        let required_symbols = required_symbols
             .get_non_null("required_symbols", Vec::new)?
             .unserialize(&settings)?;
 
-        let asserts = self
-            .asserts
+        let asserts = asserts
             .get_non_null("asserts", Vec::new)?
             .unserialize(&settings)?;
 

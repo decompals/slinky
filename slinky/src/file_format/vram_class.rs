@@ -47,20 +47,25 @@ impl Serial for VramClassSerial {
     type Output = VramClass;
 
     fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
-        if self.name.is_empty() {
+        let Self {
+            name,
+            fixed_vram,
+            fixed_symbol,
+            follows_classes,
+            keep_sections,
+        } = self;
+
+        if name.is_empty() {
             return Err(SlinkyError::EmptyValue {
                 name: "name".to_string(),
             });
         }
-        let name = self.name;
 
-        let fixed_vram = self.fixed_vram.get_non_null_no_default("fixed_vram")?;
+        let fixed_vram = fixed_vram.get_non_null_no_default("fixed_vram")?;
 
-        let fixed_symbol = self.fixed_symbol.get_non_null_no_default("fixed_symbol")?;
+        let fixed_symbol = fixed_symbol.get_non_null_no_default("fixed_symbol")?;
 
-        let follows_classes = self
-            .follows_classes
-            .get_non_null("follows_classes", Vec::new)?;
+        let follows_classes = follows_classes.get_non_null("follows_classes", Vec::new)?;
 
         if fixed_vram.is_some() {
             if fixed_symbol.is_some() {
@@ -90,8 +95,6 @@ impl Serial for VramClassSerial {
                 fields: "'fixed_vram', 'fixed_symbol', 'follows_classes'".into(),
             });
         }
-
-        let keep_sections = self.keep_sections;
 
         Ok(Self::Output {
             name,
