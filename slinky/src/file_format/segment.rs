@@ -6,12 +6,16 @@ use std::{borrow::Cow, collections::HashMap, path::PathBuf};
 
 use serde::Deserialize;
 
-use crate::file_format::FileKind;
-use crate::utils::{self, traits::Serial, AbsentNullable, EscapedPath};
+use crate::utils::{
+    self,
+    traits::{Serial, SerialOpt, SerialVec},
+    AbsentNullable, EscapedPath,
+};
 use crate::{RuntimeSettings, SlinkyError};
 
 use super::{
-    file_info::FileInfoSerial, gp_info::GpInfoSerial, FileInfo, GpInfo, KeepSections, Settings,
+    file_info::FileInfoSerial, gp_info::GpInfoSerial, FileInfo, FileKind, GpInfo, KeepSections,
+    Predicate, PredicateSerial, Settings,
 };
 
 #[derive(PartialEq, Debug, Clone)]
@@ -21,7 +25,7 @@ pub struct Segment {
     pub name: String,
 
     /// List of files corresponding to this segment
-    pub files: Vec<FileInfo>,
+    pub files: Vec<Predicate<FileInfo>>,
 
     /// If not None then forces the segment to have a fixed vram address instead of following the previous segment.
     /// Not compatible with `fixed_symbol`, `follows_segment` or `vram_class`.
@@ -42,12 +46,7 @@ pub struct Segment {
     /// Used as a prefix for all the files emitted for this Segment.
     pub dir: PathBuf,
 
-    pub gp_info: Option<GpInfo>,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
+    pub gp_info: Option<Predicate<GpInfo>>,
 
     // The default value of the following members come from Settings
     pub alloc_sections: Option<Vec<String>>,
@@ -72,7 +71,7 @@ pub struct Segment {
 }
 
 impl Segment {
-    pub fn clone_with_new_files(&self, new_files: Vec<FileInfo>) -> Self {
+    pub fn clone_with_new_files(&self, new_files: Vec<Predicate<FileInfo>>) -> Self {
         Self {
             name: self.name.clone(),
             files: new_files,
@@ -82,10 +81,6 @@ impl Segment {
             vram_class: self.vram_class.clone(),
             dir: self.dir.clone(),
             gp_info: self.gp_info.clone(),
-            include_if_any: self.include_if_any.clone(),
-            include_if_all: self.include_if_all.clone(),
-            exclude_if_any: self.exclude_if_any.clone(),
-            exclude_if_all: self.exclude_if_all.clone(),
             alloc_sections: self.alloc_sections.clone(),
             noload_sections: self.noload_sections.clone(),
             subalign: self.subalign,
@@ -112,7 +107,7 @@ impl Segment {
 
             self.files
                 .iter_mut()
-                .for_each(|f| f.pass_down_keep_sections(keep_sections));
+                .for_each(|f| f.value.pass_down_keep_sections(keep_sections));
         }
     }
 }
@@ -193,7 +188,7 @@ pub(crate) struct SegmentSerial {
 impl Serial for SegmentSerial {
     type Output = Segment;
 
-    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             name,
             files,
@@ -240,7 +235,7 @@ impl Serial for SegmentSerial {
             let mut seen_group_names = HashSet::new();
             let mut seen_moved_group_names = HashSet::new();
             for file in &files {
-                match &file.kind {
+                match &file.value.kind {
                     FileKind::Object(..) => {}
                     FileKind::Archive(..) => {}
                     FileKind::Pad(..) => {}
@@ -345,23 +340,18 @@ impl Serial for SegmentSerial {
             });
         }
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
         let alloc_sections = alloc_sections
             .get_optional_nullable("alloc_sections", || settings.alloc_sections.clone())?;
         let noload_sections = noload_sections
             .get_optional_nullable("noload_sections", || settings.noload_sections.clone())?;
 
         if let Some(gp) = &gp_info {
-            if utils::is_none_or(alloc_sections.as_ref(), |s| !s.contains(&gp.section))
-                && utils::is_none_or(noload_sections.as_ref(), |s| !s.contains(&gp.section))
+            if utils::is_none_or(alloc_sections.as_ref(), |s| !s.contains(&gp.value.section))
+                && utils::is_none_or(noload_sections.as_ref(), |s| !s.contains(&gp.value.section))
             {
                 return Err(SlinkyError::MissingSectionForSegment {
                     field_name: Cow::from("gp_info"),
-                    section: Cow::from(gp_info.unwrap().section),
+                    section: Cow::from(gp_info.unwrap().value.section),
                     segment: Cow::from(name),
                 });
             }
@@ -403,10 +393,10 @@ impl Serial for SegmentSerial {
         if keep_sections != KeepSections::Absent {
             files
                 .iter_mut()
-                .for_each(|f| f.pass_down_keep_sections(&keep_sections));
+                .for_each(|f| f.value.pass_down_keep_sections(&keep_sections));
         }
 
-        Ok(Self::Output {
+        let out = Self::Output {
             name,
             files,
             fixed_vram,
@@ -415,10 +405,6 @@ impl Serial for SegmentSerial {
             vram_class,
             dir,
             gp_info,
-            include_if_any,
-            include_if_all,
-            exclude_if_any,
-            exclude_if_all,
             alloc_sections,
             noload_sections,
             subalign,
@@ -432,6 +418,15 @@ impl Serial for SegmentSerial {
             fill_value,
             sections_subgroups,
             keep_sections,
-        })
+        };
+        let predicate = PredicateSerial::new(
+            include_if_any,
+            include_if_all,
+            exclude_if_any,
+            exclude_if_all,
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

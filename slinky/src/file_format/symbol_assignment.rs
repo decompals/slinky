@@ -6,9 +6,9 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::Settings;
+use super::{Predicate, PredicateSerial, Settings};
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 #[non_exhaustive]
 pub struct SymbolAssignment {
     /// Name of the symbol
@@ -23,11 +23,6 @@ pub struct SymbolAssignment {
     /// Signals if this assignment should be wrapped in a `HIDDEN` statement.
     /// Can be used with `provide`.
     pub hidden: bool,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -54,7 +49,7 @@ pub(crate) struct SymbolAssignmentSerial {
 impl Serial for SymbolAssignmentSerial {
     type Output = SymbolAssignment;
 
-    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, _settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             name,
             value,
@@ -81,20 +76,20 @@ impl Serial for SymbolAssignmentSerial {
         let provide = provide.get_non_null("provide", || false)?;
         let hidden = hidden.get_non_null("hidden", || false)?;
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        Ok(Self::Output {
+        let out = Self::Output {
             name,
             value,
             provide,
             hidden,
+        };
+        let predicate = PredicateSerial::new(
             include_if_any,
             include_if_all,
             exclude_if_any,
             exclude_if_all,
-        })
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

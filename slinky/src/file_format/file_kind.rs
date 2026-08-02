@@ -8,12 +8,10 @@ use std::{
 
 use serde::Deserialize;
 
-use crate::{
-    utils::{traits::Serial, AbsentNullable},
-    EscapedPath, RuntimeSettings, SlinkyError,
-};
+use crate::utils::{traits::SerialVec, AbsentNullable};
+use crate::{EscapedPath, RuntimeSettings, SlinkyError};
 
-use super::{file_info::FileInfoSerial, FileInfo, KeepSections, Settings};
+use super::{file_info::FileInfoSerial, FileInfo, KeepSections, Predicate, Settings};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
@@ -44,7 +42,7 @@ impl FileKind {
             Self::Group(group) => group
                 .files
                 .iter_mut()
-                .for_each(|f| f.pass_down_keep_sections(keep_sections)),
+                .for_each(|f| f.value.pass_down_keep_sections(keep_sections)),
             Self::MovedGroup(_moved_group) => {}
         }
     }
@@ -104,7 +102,7 @@ pub struct FileKindLinkerOffset {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FileKindGroup {
-    pub(crate) files: Vec<FileInfo>,
+    pub(crate) files: Vec<Predicate<FileInfo>>,
     pub(crate) dir: PathBuf,
     pub(crate) group_name: Option<String>,
 }
@@ -365,7 +363,7 @@ impl FileKindSerial {
                 // Pass down the current `keep_sections` to any file of this group that may not have defined it
                 files
                     .iter_mut()
-                    .for_each(|f| f.pass_down_keep_sections(&keep_sections));
+                    .for_each(|f| f.value.pass_down_keep_sections(&keep_sections));
                 FileKind::Group(FileKindGroup {
                     files,
                     dir,

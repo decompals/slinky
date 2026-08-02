@@ -8,17 +8,15 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::{file_kind::FileKindSerial, FileKind, FileKindObject, KeepSections, Settings};
+use super::{
+    file_kind::FileKindSerial, FileKind, FileKindObject, KeepSections, Predicate, PredicateSerial,
+    Settings,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
 pub struct FileInfo {
     pub kind: FileKind,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
 }
 
 impl FileInfo {
@@ -29,10 +27,6 @@ impl FileInfo {
                 section_order: HashMap::new(),
                 keep_sections: KeepSections::default(),
             }),
-            include_if_any: Vec::new(),
-            include_if_all: Vec::new(),
-            exclude_if_any: Vec::new(),
-            exclude_if_all: Vec::new(),
         }
     }
 
@@ -94,7 +88,7 @@ pub(crate) struct FileInfoSerial {
 impl Serial for FileInfoSerial {
     type Output = FileInfo;
 
-    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             path,
             kind,
@@ -130,17 +124,15 @@ impl Serial for FileInfoSerial {
             keep_sections,
         )?;
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        Ok(Self::Output {
-            kind,
+        let out = Self::Output { kind };
+        let predicate = PredicateSerial::new(
             include_if_any,
             include_if_all,
             exclude_if_any,
             exclude_if_all,
-        })
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

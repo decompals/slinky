@@ -6,7 +6,7 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::{KeepSections, Settings};
+use super::{KeepSections, Predicate, Settings};
 
 #[derive(PartialEq, Debug, Clone)]
 #[non_exhaustive]
@@ -20,9 +20,6 @@ pub struct VramClass {
     pub follows_classes: Vec<String>,
 
     pub keep_sections: KeepSections,
-
-    // Settings from below do not come from the document.
-    pub emitted: bool,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -46,7 +43,7 @@ pub(crate) struct VramClassSerial {
 impl Serial for VramClassSerial {
     type Output = VramClass;
 
-    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, _settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             name,
             fixed_vram,
@@ -96,14 +93,15 @@ impl Serial for VramClassSerial {
             });
         }
 
-        Ok(Self::Output {
+        let out = Self::Output {
             name,
             fixed_vram,
             fixed_symbol,
             follows_classes,
             keep_sections,
+        };
+        let predicate = Predicate::new_no_conditions(out);
 
-            emitted: false,
-        })
+        Ok(predicate)
     }
 }

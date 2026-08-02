@@ -3,7 +3,10 @@
 
 use std::collections::HashMap;
 
-use crate::file_format::{FileInfo, FileKind, FileKindMovedGroup, Segment};
+use crate::{
+    file_format::{FileInfo, FileKind, FileKindMovedGroup, Segment},
+    RuntimeSettings,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) struct SegmentWriteContext<'seg> {
@@ -12,11 +15,14 @@ pub(crate) struct SegmentWriteContext<'seg> {
 }
 
 impl<'seg> SegmentWriteContext<'seg> {
-    pub fn new(segment: &'seg Segment) -> Self {
+    pub fn new(segment: &'seg Segment, rs: &RuntimeSettings) -> Self {
         let mut groups_by_name = HashMap::new();
         let mut moved_groups_by_name = HashMap::new();
 
         for file in &segment.files {
+            let Some(file) = file.get(rs) else {
+                continue;
+            };
             // Map to find groups by name
             match &file.kind {
                 FileKind::Group(group) => {

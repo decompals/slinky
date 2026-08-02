@@ -2,10 +2,11 @@
 /* SPDX-License-Identifier: MIT */
 
 use crate::file_format::{
-    AssertEntry, Document, RequiredSymbol, Segment, Settings, SymbolAssignment,
+    AssertEntry, Document, Predicate, RequiredSymbol, Segment, Settings, SymbolAssignment,
 };
-use crate::utils::EscapedPath;
 use crate::SlinkyError;
+
+use super::EscapedPath;
 
 mod private {
     use crate::file_format::{
@@ -18,8 +19,8 @@ mod private {
 
     pub trait Sealed {}
 
-    impl Sealed for LinkerWriter<'_> {}
-    impl Sealed for PartialLinkerWriter<'_> {}
+    impl Sealed for LinkerWriter<'_, '_> {}
+    impl Sealed for PartialLinkerWriter<'_, '_> {}
 
     impl Sealed for SegmentSerial {}
     impl Sealed for GpInfoSerial {}
@@ -29,22 +30,22 @@ mod private {
     impl Sealed for RequiredSymbolSerial {}
     impl Sealed for AssertEntrySerial {}
 
-    impl<T> Sealed for Vec<T> {}
-    impl<T> Sealed for Option<T> {}
+    impl<T> Sealed for Vec<T> where T: Sealed {}
+    impl<T> Sealed for Option<T> where T: Sealed {}
 }
 
 pub trait ScriptImporter: private::Sealed {
-    fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError>;
+    fn add_all_segments(&mut self, segments: &[Predicate<Segment>]) -> Result<(), SlinkyError>;
     fn add_entry(&mut self, entry: &str) -> Result<(), SlinkyError>;
     fn add_all_symbol_assignments(
         &mut self,
-        symbol_assignments: &[SymbolAssignment],
+        symbol_assignments: &[Predicate<SymbolAssignment>],
     ) -> Result<(), SlinkyError>;
     fn add_all_required_symbols(
         &mut self,
-        required_symbols: &[RequiredSymbol],
+        required_symbols: &[Predicate<RequiredSymbol>],
     ) -> Result<(), SlinkyError>;
-    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError>;
+    fn add_all_asserts(&mut self, asserts: &[Predicate<AssertEntry>]) -> Result<(), SlinkyError>;
 
     fn add_whole_document(&mut self, document: &Document) -> Result<(), SlinkyError> {
         self.add_all_segments(&document.segments)?;
@@ -71,27 +72,45 @@ pub trait ScriptGenerator: ScriptImporter + ScriptExporter {}
 pub(crate) trait Serial: private::Sealed {
     type Output;
 
-    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError>;
+    fn unserialize(self, settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError>;
 }
 
-impl<T> Serial for Vec<T>
+pub(crate) trait SerialVec: private::Sealed {
+    type Output;
+
+    fn unserialize(self, settings: &Settings) -> Result<Vec<Predicate<Self::Output>>, SlinkyError>;
+}
+
+pub(crate) trait SerialOpt: private::Sealed {
+    type Output;
+
+    fn unserialize(
+        self,
+        settings: &Settings,
+    ) -> Result<Option<Predicate<Self::Output>>, SlinkyError>;
+}
+
+impl<T> SerialVec for Vec<T>
 where
     T: Serial,
 {
-    type Output = Vec<T::Output>;
+    type Output = T::Output;
 
-    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, settings: &Settings) -> Result<Vec<Predicate<Self::Output>>, SlinkyError> {
         self.into_iter().map(|x| x.unserialize(settings)).collect()
     }
 }
 
-impl<T> Serial for Option<T>
+impl<T> SerialOpt for Option<T>
 where
     T: Serial,
 {
-    type Output = Option<T::Output>;
+    type Output = T::Output;
 
-    fn unserialize(self, settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(
+        self,
+        settings: &Settings,
+    ) -> Result<Option<Predicate<Self::Output>>, SlinkyError> {
         match self {
             Some(v) => v.unserialize(settings).map(Some),
             None => Ok(None),

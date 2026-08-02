@@ -5,14 +5,14 @@ use std::{fs, path::Path};
 
 use serde::Deserialize;
 
-use crate::utils::{traits::Serial, AbsentNullable};
+use crate::utils::{traits::SerialVec, AbsentNullable};
 use crate::SlinkyError;
 
 use super::{
     assert_entry::AssertEntrySerial, required_symbol::RequiredSymbolSerial, segment::SegmentSerial,
     settings::SettingsSerial, symbol_assignment::SymbolAssignmentSerial,
-    vram_class::VramClassSerial, AssertEntry, KeepSections, RequiredSymbol, Segment, Settings,
-    SymbolAssignment, VramClass,
+    vram_class::VramClassSerial, AssertEntry, KeepSections, Predicate, RequiredSymbol, Segment,
+    Settings, SymbolAssignment, VramClass,
 };
 
 #[derive(Debug, PartialEq)]
@@ -20,14 +20,14 @@ use super::{
 pub struct Document {
     pub settings: Settings,
 
-    pub vram_classes: Vec<VramClass>,
+    pub vram_classes: Vec<Predicate<VramClass>>,
 
-    pub segments: Vec<Segment>,
+    pub segments: Vec<Predicate<Segment>>,
 
     pub entry: Option<String>,
-    pub symbol_assignments: Vec<SymbolAssignment>,
-    pub required_symbols: Vec<RequiredSymbol>,
-    pub asserts: Vec<AssertEntry>,
+    pub symbol_assignments: Vec<Predicate<SymbolAssignment>>,
+    pub required_symbols: Vec<Predicate<RequiredSymbol>>,
+    pub asserts: Vec<Predicate<AssertEntry>>,
 }
 
 impl Document {
@@ -119,10 +119,15 @@ impl DocumentSerial {
             .unserialize(&settings)?;
 
         for segment in segments.iter_mut() {
-            if let Some(vram_class_name) = &segment.vram_class {
-                if let Some(vram_class) = vram_classes.iter().find(|x| x.name == *vram_class_name) {
-                    if vram_class.keep_sections != KeepSections::Absent {
-                        segment.pass_down_keep_sections(&vram_class.keep_sections);
+            if let Some(vram_class_name) = &segment.value.vram_class {
+                if let Some(vram_class) = vram_classes
+                    .iter()
+                    .find(|x| &x.value.name == vram_class_name)
+                {
+                    if vram_class.value.keep_sections != KeepSections::Absent {
+                        segment
+                            .value
+                            .pass_down_keep_sections(&vram_class.value.keep_sections);
                     }
                 }
             }

@@ -6,7 +6,7 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::Settings;
+use super::{Predicate, PredicateSerial, Settings};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[non_exhaustive]
@@ -22,11 +22,6 @@ pub struct GpInfo {
     /// Signals if the `_gp` symbol should be wrapped in a `HIDDEN` statement.
     /// Can be used with `provide`.
     pub hidden: bool,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
 }
 
 fn gp_info_default_section() -> String {
@@ -71,7 +66,7 @@ pub(crate) struct GpInfoSerial {
 impl Serial for GpInfoSerial {
     type Output = GpInfo;
 
-    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, _settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             section,
             offset,
@@ -98,20 +93,20 @@ impl Serial for GpInfoSerial {
         let provide = provide.get_non_null("provide", gp_info_default_provide)?;
         let hidden = hidden.get_non_null("hidden", gp_info_default_hidden)?;
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        Ok(Self::Output {
+        let out = Self::Output {
             section,
             offset,
             provide,
             hidden,
+        };
+        let predicate = PredicateSerial::new(
             include_if_any,
             include_if_all,
             exclude_if_any,
             exclude_if_all,
-        })
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

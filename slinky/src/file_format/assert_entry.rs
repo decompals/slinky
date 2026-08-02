@@ -6,18 +6,13 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::Settings;
+use super::{Predicate, PredicateSerial, Settings};
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 #[non_exhaustive]
 pub struct AssertEntry {
     pub check: String,
     pub error_message: String,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Deserialize)]
@@ -39,7 +34,7 @@ pub(crate) struct AssertEntrySerial {
 impl Serial for AssertEntrySerial {
     type Output = AssertEntry;
 
-    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, _settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             check,
             error_message,
@@ -61,18 +56,18 @@ impl Serial for AssertEntrySerial {
             });
         }
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        Ok(Self::Output {
+        let out = Self::Output {
             check,
             error_message,
+        };
+        let predicate = PredicateSerial::new(
             include_if_any,
             include_if_all,
             exclude_if_any,
             exclude_if_all,
-        })
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

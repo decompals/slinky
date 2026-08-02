@@ -4,20 +4,22 @@
 use std::borrow::Cow;
 use std::io::Write;
 
-use super::{script_buffer::ScriptBuffer, segment_write_context::SegmentWriteContext};
 use crate::file_format::{
-    AssertEntry, Document, FileInfo, FileKind, RequiredSymbol, Segment, SymbolAssignment, VramClass,
+    AssertEntry, Document, FileInfo, FileKind, Predicate, RequiredSymbol, Segment,
+    SymbolAssignment, VramClass,
 };
 use crate::utils::{self, EscapedPath, ScriptExporter, ScriptGenerator, ScriptImporter};
 use crate::{version, RuntimeSettings, SlinkyError};
 
-pub struct LinkerWriter<'a> {
+use super::{script_buffer::ScriptBuffer, segment_write_context::SegmentWriteContext};
+
+pub struct LinkerWriter<'d, 'rs> {
     buffer: ScriptBuffer,
 
     // Used for dependency generation
     files_paths: indexmap::IndexSet<EscapedPath>,
 
-    vram_classes: indexmap::IndexMap<String, VramClass>,
+    vram_classes: indexmap::IndexMap<&'d str, VramClassRef<'d>>,
 
     single_segment: bool,
     reference_partial_objects: bool,
@@ -26,15 +28,26 @@ pub struct LinkerWriter<'a> {
     emit_sections_kind_symbols: bool,
     emit_section_symbols: bool,
 
-    d: &'a Document,
-    rs: &'a RuntimeSettings,
+    d: &'d Document,
+    rs: &'rs RuntimeSettings,
 }
 
-impl<'a> LinkerWriter<'a> {
-    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Result<Self, SlinkyError> {
+struct VramClassRef<'d> {
+    vc: &'d VramClass,
+    emitted: bool,
+}
+
+impl<'d, 'rs> LinkerWriter<'d, 'rs> {
+    pub fn new(d: &'d Document, rs: &'rs RuntimeSettings) -> Result<Self, SlinkyError> {
         let mut vram_classes = indexmap::IndexMap::with_capacity(d.vram_classes.len());
         for vram_class in &d.vram_classes {
-            vram_classes.insert(vram_class.name.clone(), vram_class.clone());
+            if let Some(vram_class) = vram_class.get(rs) {
+                let value = VramClassRef {
+                    vc: vram_class,
+                    emitted: false,
+                };
+                vram_classes.insert(vram_class.name.as_str(), value);
+            }
         }
 
         let mut buffer = ScriptBuffer::new();
@@ -68,8 +81,8 @@ impl<'a> LinkerWriter<'a> {
     }
 
     pub fn new_reference_partial_objects(
-        d: &'a Document,
-        rs: &'a RuntimeSettings,
+        d: &'d Document,
+        rs: &'rs RuntimeSettings,
     ) -> Result<Self, SlinkyError> {
         let s = Self::new(d, rs)?;
 
@@ -80,17 +93,24 @@ impl<'a> LinkerWriter<'a> {
     }
 }
 
-impl ScriptImporter for LinkerWriter<'_> {
-    fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
+impl ScriptImporter for LinkerWriter<'_, '_> {
+    fn add_all_segments(&mut self, segments: &[Predicate<Segment>]) -> Result<(), SlinkyError> {
         if self.d.settings.single_segment_mode {
             // TODO: change assert to proper error
             assert!(segments.len() == 1);
 
-            self.add_single_segment(&segments[0])?;
+            let Some(segment) = segments[0].get(self.rs) else {
+                // TODO: what to do here? emit error?
+                return Ok(());
+            };
+
+            self.add_single_segment(segment)?;
         } else {
             self.begin_sections()?;
             for segment in segments {
-                self.add_segment(segment)?;
+                if let Some(segment) = segment.get(self.rs) {
+                    self.add_segment(segment)?;
+                }
             }
             self.end_sections()?;
         }
@@ -110,7 +130,7 @@ impl ScriptImporter for LinkerWriter<'_> {
 
     fn add_all_symbol_assignments(
         &mut self,
-        symbol_assignments: &[SymbolAssignment],
+        symbol_assignments: &[Predicate<SymbolAssignment>],
     ) -> Result<(), SlinkyError> {
         if symbol_assignments.is_empty() {
             return Ok(());
@@ -118,7 +138,9 @@ impl ScriptImporter for LinkerWriter<'_> {
 
         self.begin_symbol_assignments()?;
         for symbol_assignment in symbol_assignments {
-            self.add_symbol_assignment(symbol_assignment)?;
+            if let Some(symbol_assignment) = symbol_assignment.get(self.rs) {
+                self.add_symbol_assignment(symbol_assignment)?;
+            }
         }
         self.end_symbol_assignments()?;
 
@@ -127,7 +149,7 @@ impl ScriptImporter for LinkerWriter<'_> {
 
     fn add_all_required_symbols(
         &mut self,
-        required_symbols: &[RequiredSymbol],
+        required_symbols: &[Predicate<RequiredSymbol>],
     ) -> Result<(), SlinkyError> {
         if required_symbols.is_empty() {
             return Ok(());
@@ -135,21 +157,25 @@ impl ScriptImporter for LinkerWriter<'_> {
 
         self.begin_required_symbols()?;
         for required_symbol in required_symbols {
-            self.add_required_symbol(required_symbol)?;
+            if let Some(required_symbol) = required_symbol.get(self.rs) {
+                self.add_required_symbol(required_symbol)?;
+            }
         }
         self.end_required_symbols()?;
 
         Ok(())
     }
 
-    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError> {
+    fn add_all_asserts(&mut self, asserts: &[Predicate<AssertEntry>]) -> Result<(), SlinkyError> {
         if asserts.is_empty() {
             return Ok(());
         }
 
         self.begin_asserts()?;
         for assert_entry in asserts {
-            self.add_assert(assert_entry)?;
+            if let Some(assert_entry) = assert_entry.get(self.rs) {
+                self.add_assert(assert_entry)?;
+            }
         }
         self.end_asserts()?;
 
@@ -157,7 +183,7 @@ impl ScriptImporter for LinkerWriter<'_> {
     }
 }
 
-impl ScriptExporter for LinkerWriter<'_> {
+impl ScriptExporter for LinkerWriter<'_, '_> {
     fn export_linker_script_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
         let mut f = utils::create_file_and_parents(path.as_ref())?;
 
@@ -196,9 +222,9 @@ impl ScriptExporter for LinkerWriter<'_> {
     }
 }
 
-impl ScriptGenerator for LinkerWriter<'_> {}
+impl ScriptGenerator for LinkerWriter<'_, '_> {}
 
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     pub fn export_linker_script(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
         for line in self.buffer.get_buffer() {
             if let Err(e) = writeln!(dst, "{}", line) {
@@ -213,7 +239,7 @@ impl LinkerWriter<'_> {
     }
 }
 
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     pub fn export_dependencies_file(
         &self,
         dst: &mut impl Write,
@@ -309,7 +335,7 @@ impl LinkerWriter<'_> {
     }
 }
 
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     pub fn export_symbol_header(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
         if self.rs.emit_version_comment() {
             if let Err(e) = write!(
@@ -385,7 +411,7 @@ impl LinkerWriter<'_> {
     }
 }
 
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     pub fn export_paths_list(&self, dst: &mut impl Write) -> Result<(), SlinkyError> {
         for p in &self.files_paths {
             writeln!(dst, "{}", p).map_err(|e| SlinkyError::FailedWrite {
@@ -415,7 +441,7 @@ impl LinkerWriter<'_> {
 }
 
 // Getters / Setters
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     #[must_use]
     pub fn get_linker_symbols(&self) -> &indexmap::IndexSet<String> {
         self.buffer.get_linker_symbols()
@@ -441,7 +467,7 @@ impl LinkerWriter<'_> {
 }
 
 // semi internal functions
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     pub(crate) fn begin_sections(&mut self) -> Result<(), SlinkyError> {
         self.buffer.writeln("SECTIONS");
         self.buffer.begin_block();
@@ -535,15 +561,6 @@ impl LinkerWriter<'_> {
     }
 
     pub(crate) fn add_segment(&mut self, segment: &Segment) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &segment.exclude_if_any,
-            &segment.exclude_if_all,
-            &segment.include_if_any,
-            &segment.include_if_all,
-        ) {
-            return Ok(());
-        }
-
         assert!(!self.single_segment);
 
         let style = &self.d.settings.linker_symbols_style;
@@ -559,7 +576,7 @@ impl LinkerWriter<'_> {
         let main_seg_sym_size: String = style.segment_vram_size(&segment.name);
 
         if let Some(vram_class_name) = &segment.vram_class {
-            let vram_class = match self.vram_classes.get_mut(vram_class_name) {
+            let vc_ref = match self.vram_classes.get_mut(vram_class_name.as_str()) {
                 Some(vc) => vc,
                 None => {
                     return Err(SlinkyError::MissingVramClassForSegment {
@@ -569,19 +586,19 @@ impl LinkerWriter<'_> {
                 }
             };
 
-            if !vram_class.emitted {
+            if !vc_ref.emitted {
                 let vram_class_sym = style.vram_class_start(vram_class_name);
 
-                if let Some(fixed_vram) = vram_class.fixed_vram {
+                if let Some(fixed_vram) = vc_ref.vc.fixed_vram {
                     self.buffer
                         .write_linker_symbol(&vram_class_sym, &format!("0x{:08X}", fixed_vram));
-                } else if let Some(fixed_symbol) = &vram_class.fixed_symbol {
+                } else if let Some(fixed_symbol) = &vc_ref.vc.fixed_symbol {
                     self.buffer
                         .write_linker_symbol(&vram_class_sym, fixed_symbol);
                 } else {
                     self.buffer
                         .write_linker_symbol(&vram_class_sym, "0x00000000");
-                    for other_class_name in &vram_class.follows_classes {
+                    for other_class_name in &vc_ref.vc.follows_classes {
                         self.buffer.write_symbol_max_self(
                             &vram_class_sym,
                             &style.vram_class_end(other_class_name),
@@ -593,7 +610,7 @@ impl LinkerWriter<'_> {
 
                 self.buffer.write_empty_line();
 
-                vram_class.emitted = true;
+                vc_ref.emitted = true;
             }
         }
 
@@ -607,7 +624,7 @@ impl LinkerWriter<'_> {
         self.buffer
             .write_linker_symbol(&main_seg_sym_start, &format!("ADDR(.{})", segment.name));
 
-        let segment_write_context = SegmentWriteContext::new(segment);
+        let segment_write_context = SegmentWriteContext::new(segment, self.rs);
 
         // Emit alloc segment
         if let Some(alloc_sections) = &segment.alloc_sections {
@@ -671,7 +688,7 @@ impl LinkerWriter<'_> {
             self.buffer.write_empty_line();
         }
 
-        let segment_write_context = SegmentWriteContext::new(segment);
+        let segment_write_context = SegmentWriteContext::new(segment, self.rs);
 
         // Emit alloc segment
         if let Some(alloc_sections) = &segment.alloc_sections {
@@ -708,15 +725,6 @@ impl LinkerWriter<'_> {
         &mut self,
         symbol_assignment: &SymbolAssignment,
     ) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &symbol_assignment.exclude_if_any,
-            &symbol_assignment.exclude_if_all,
-            &symbol_assignment.include_if_any,
-            &symbol_assignment.include_if_all,
-        ) {
-            return Ok(());
-        }
-
         self.buffer.write_symbol_assignment(
             &symbol_assignment.name,
             &symbol_assignment.value,
@@ -743,15 +751,6 @@ impl LinkerWriter<'_> {
         &mut self,
         required_symbol: &RequiredSymbol,
     ) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &required_symbol.exclude_if_any,
-            &required_symbol.exclude_if_all,
-            &required_symbol.include_if_any,
-            &required_symbol.include_if_all,
-        ) {
-            return Ok(());
-        }
-
         self.buffer.write_required_symbol(&required_symbol.name);
 
         Ok(())
@@ -770,15 +769,6 @@ impl LinkerWriter<'_> {
     }
 
     pub(crate) fn add_assert(&mut self, assert_entry: &AssertEntry) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &assert_entry.exclude_if_any,
-            &assert_entry.exclude_if_all,
-            &assert_entry.include_if_any,
-            &assert_entry.include_if_all,
-        ) {
-            return Ok(());
-        }
-
         self.buffer
             .write_assert(&assert_entry.check, &assert_entry.error_message);
 
@@ -787,7 +777,7 @@ impl LinkerWriter<'_> {
 }
 
 // internal functions
-impl LinkerWriter<'_> {
+impl LinkerWriter<'_, '_> {
     fn write_sym_end_size(&mut self, start: &str, end: &str, size: &str, value: &str) {
         self.buffer.write_linker_symbol(end, value);
 
@@ -837,19 +827,15 @@ impl LinkerWriter<'_> {
             }
 
             if let Some(gp_info) = &segment.gp_info {
-                if self.rs.should_emit_entry(
-                    &gp_info.exclude_if_any,
-                    &gp_info.exclude_if_all,
-                    &gp_info.include_if_any,
-                    &gp_info.include_if_all,
-                ) && gp_info.section == *section
-                {
-                    self.buffer.write_symbol_assignment(
-                        "_gp",
-                        &format!(". + 0x{:X}", gp_info.offset),
-                        gp_info.provide,
-                        gp_info.hidden,
-                    );
+                if let Some(gp_info) = gp_info.get(self.rs) {
+                    if gp_info.section == *section {
+                        self.buffer.write_symbol_assignment(
+                            "_gp",
+                            &format!(". + 0x{:X}", gp_info.offset),
+                            gp_info.provide,
+                            gp_info.hidden,
+                        );
+                    }
                 }
             }
 
@@ -927,15 +913,6 @@ impl LinkerWriter<'_> {
         sections: &[String],
         base_path: &EscapedPath,
     ) -> Result<(), SlinkyError> {
-        if !self.rs.should_emit_entry(
-            &file.exclude_if_any,
-            &file.exclude_if_all,
-            &file.include_if_any,
-            &file.include_if_all,
-        ) {
-            return Ok(());
-        }
-
         let style = &self.d.settings.linker_symbols_style;
 
         let wildcard = if segment.wildcard_sections { "*" } else { "" };
@@ -1003,15 +980,17 @@ impl LinkerWriter<'_> {
 
                 new_base_path.push(group.dir_escaped(self.rs)?);
 
-                for file_of_group in &group.files {
-                    self.emit_section_for_file(
-                        file_of_group,
-                        segment,
-                        segment_write_context,
-                        section,
-                        sections,
-                        &new_base_path,
-                    )?;
+                for file_from_group in &group.files {
+                    if let Some(file_from_group) = file_from_group.get(self.rs) {
+                        self.emit_section_for_file(
+                            file_from_group,
+                            segment,
+                            segment_write_context,
+                            section,
+                            sections,
+                            &new_base_path,
+                        )?;
+                    }
                 }
             }
             FileKind::MovedGroup(moved_group) => {
@@ -1147,14 +1126,16 @@ impl LinkerWriter<'_> {
         }
 
         for file in &segment.files {
-            self.emit_section_for_file(
-                file,
-                segment,
-                segment_write_context,
-                section,
-                sections,
-                &base_path,
-            )?;
+            if let Some(file) = file.get(self.rs) {
+                self.emit_section_for_file(
+                    file,
+                    segment,
+                    segment_write_context,
+                    section,
+                    sections,
+                    &base_path,
+                )?;
+            }
         }
 
         Ok(())

@@ -6,18 +6,13 @@ use serde::Deserialize;
 use crate::utils::{traits::Serial, AbsentNullable};
 use crate::SlinkyError;
 
-use super::Settings;
+use super::{Predicate, PredicateSerial, Settings};
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 #[non_exhaustive]
 pub struct RequiredSymbol {
     /// Name of the symbol
     pub name: String,
-
-    pub include_if_any: Vec<(String, String)>,
-    pub include_if_all: Vec<(String, String)>,
-    pub exclude_if_any: Vec<(String, String)>,
-    pub exclude_if_all: Vec<(String, String)>,
 }
 
 #[derive(Deserialize, PartialEq, Debug)]
@@ -38,7 +33,7 @@ pub(crate) struct RequiredSymbolSerial {
 impl Serial for RequiredSymbolSerial {
     type Output = RequiredSymbol;
 
-    fn unserialize(self, _settings: &Settings) -> Result<Self::Output, SlinkyError> {
+    fn unserialize(self, _settings: &Settings) -> Result<Predicate<Self::Output>, SlinkyError> {
         let Self {
             name,
             include_if_any,
@@ -53,17 +48,15 @@ impl Serial for RequiredSymbolSerial {
             });
         }
 
-        let include_if_any = include_if_any.get_non_null_not_empty("include_if_any", Vec::new)?;
-        let include_if_all = include_if_all.get_non_null_not_empty("include_if_all", Vec::new)?;
-        let exclude_if_any = exclude_if_any.get_non_null_not_empty("exclude_if_any", Vec::new)?;
-        let exclude_if_all = exclude_if_all.get_non_null_not_empty("exclude_if_all", Vec::new)?;
-
-        Ok(Self::Output {
-            name,
+        let out = Self::Output { name };
+        let predicate = PredicateSerial::new(
             include_if_any,
             include_if_all,
             exclude_if_any,
             exclude_if_all,
-        })
+        )
+        .unserialize(out)?;
+
+        Ok(predicate)
     }
 }

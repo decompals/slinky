@@ -1,26 +1,27 @@
 /* SPDX-FileCopyrightText: © 2024-2026 decompals */
 /* SPDX-License-Identifier: MIT */
 
-use super::LinkerWriter;
 use crate::file_format::{
-    AssertEntry, Document, FileInfo, Partial, RequiredSymbol, Segment, SymbolAssignment,
+    AssertEntry, Document, FileInfo, Partial, Predicate, RequiredSymbol, Segment, SymbolAssignment,
 };
 use crate::utils::{EscapedPath, ScriptExporter, ScriptGenerator, ScriptImporter};
 use crate::{RuntimeSettings, SlinkyError};
 
-pub struct PartialLinkerWriter<'a> {
-    main_writer: LinkerWriter<'a>,
+use super::LinkerWriter;
 
-    partial_writers: Vec<(LinkerWriter<'a>, String)>,
+pub struct PartialLinkerWriter<'d, 'rs> {
+    main_writer: LinkerWriter<'d, 'rs>,
 
-    d: &'a Document,
-    rs: &'a RuntimeSettings,
+    partial_writers: Vec<(LinkerWriter<'d, 'rs>, String)>,
 
-    partial: &'a Partial,
+    d: &'d Document,
+    rs: &'rs RuntimeSettings,
+
+    partial: &'d Partial,
 }
 
-impl<'a> PartialLinkerWriter<'a> {
-    pub fn new(d: &'a Document, rs: &'a RuntimeSettings) -> Result<Self, SlinkyError> {
+impl<'d, 'rs> PartialLinkerWriter<'d, 'rs> {
+    pub fn new(d: &'d Document, rs: &'rs RuntimeSettings) -> Result<Self, SlinkyError> {
         let main_writer = LinkerWriter::new_reference_partial_objects(d, rs)?;
         let partial_writers = Vec::new();
         let partial =
@@ -44,8 +45,8 @@ impl<'a> PartialLinkerWriter<'a> {
     }
 }
 
-impl ScriptImporter for PartialLinkerWriter<'_> {
-    fn add_all_segments(&mut self, segments: &[Segment]) -> Result<(), SlinkyError> {
+impl ScriptImporter for PartialLinkerWriter<'_, '_> {
+    fn add_all_segments(&mut self, segments: &[Predicate<Segment>]) -> Result<(), SlinkyError> {
         let partial_build_segments_folder = &self.partial.build_segments_folder;
         let partial_segment_extension = &self.partial.segment_extension;
 
@@ -53,14 +54,9 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
         self.partial_writers.reserve(segments.len());
         for segment in segments {
-            if !self.rs.should_emit_entry(
-                &segment.exclude_if_any,
-                &segment.exclude_if_all,
-                &segment.include_if_any,
-                &segment.include_if_all,
-            ) {
+            let Some(segment) = segment.get(self.rs) else {
                 continue;
-            }
+            };
 
             let mut partial_writer = LinkerWriter::new(self.d, self.rs)?;
 
@@ -76,8 +72,11 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
             p.push(format!("{}.{}", segment.name, partial_segment_extension));
 
-            self.main_writer
-                .add_segment(&segment.clone_with_new_files(vec![FileInfo::new_object(p)]))?;
+            // we use no_conditions because we already checked them at the
+            // beginning of the loop
+            let new_files_vec = vec![Predicate::new_no_conditions(FileInfo::new_object(p))];
+            let generated_partial_segment = segment.clone_with_new_files(new_files_vec);
+            self.main_writer.add_segment(&generated_partial_segment)?;
         }
 
         self.main_writer.end_sections()?;
@@ -91,7 +90,7 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
     fn add_all_symbol_assignments(
         &mut self,
-        symbol_assignments: &[SymbolAssignment],
+        symbol_assignments: &[Predicate<SymbolAssignment>],
     ) -> Result<(), SlinkyError> {
         self.main_writer
             .add_all_symbol_assignments(symbol_assignments)
@@ -99,17 +98,17 @@ impl ScriptImporter for PartialLinkerWriter<'_> {
 
     fn add_all_required_symbols(
         &mut self,
-        required_symbols: &[RequiredSymbol],
+        required_symbols: &[Predicate<RequiredSymbol>],
     ) -> Result<(), SlinkyError> {
         self.main_writer.add_all_required_symbols(required_symbols)
     }
 
-    fn add_all_asserts(&mut self, asserts: &[AssertEntry]) -> Result<(), SlinkyError> {
+    fn add_all_asserts(&mut self, asserts: &[Predicate<AssertEntry>]) -> Result<(), SlinkyError> {
         self.main_writer.add_all_asserts(asserts)
     }
 }
 
-impl ScriptExporter for PartialLinkerWriter<'_> {
+impl ScriptExporter for PartialLinkerWriter<'_, '_> {
     fn export_linker_script_to_file(&self, path: &EscapedPath) -> Result<(), SlinkyError> {
         let partial_scripts_folder = self.partial.scripts_folder_escaped(self.rs)?;
 
@@ -176,17 +175,17 @@ impl ScriptExporter for PartialLinkerWriter<'_> {
     }
 }
 
-impl ScriptGenerator for PartialLinkerWriter<'_> {}
+impl ScriptGenerator for PartialLinkerWriter<'_, '_> {}
 
 // Getters / Setters
-impl PartialLinkerWriter<'_> {
+impl PartialLinkerWriter<'_, '_> {
     #[must_use]
-    pub fn get_main_writer(&self) -> &LinkerWriter<'_> {
+    pub fn get_main_writer(&self) -> &LinkerWriter<'_, '_> {
         &self.main_writer
     }
 
     #[must_use]
-    pub fn get_partial_writers(&self) -> &Vec<(LinkerWriter<'_>, String)> {
+    pub fn get_partial_writers(&self) -> &Vec<(LinkerWriter<'_, '_>, String)> {
         &self.partial_writers
     }
 }

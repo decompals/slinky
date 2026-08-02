@@ -3,6 +3,7 @@
 
 pub(crate) mod linker_symbols_style;
 pub(crate) mod partial;
+pub(crate) mod predicate;
 pub(crate) mod settings;
 
 pub(crate) mod assert_entry;
@@ -20,6 +21,8 @@ pub(crate) mod document;
 
 pub use linker_symbols_style::LinkerSymbolsStyle;
 pub use partial::Partial;
+pub use predicate::Predicate;
+pub(crate) use predicate::PredicateSerial;
 pub use settings::Settings;
 
 pub use assert_entry::AssertEntry;

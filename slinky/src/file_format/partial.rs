@@ -53,9 +53,6 @@ impl PartialSerial {
             segment_extension,
         } = self;
 
-        let scripts_folder = scripts_folder;
-        let build_segments_folder = build_segments_folder;
-
         let segment_extension = segment_extension
             .get_non_null("segment_extension", partial_default_segment_extension)?;
 
